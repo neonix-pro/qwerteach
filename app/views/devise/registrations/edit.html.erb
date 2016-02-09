@@ -11,10 +11,26 @@
       <%= f.text_field :firstname %>
     </div>
     <div class="field">
+      <%= f.label :birthdate %><br />
+      <%= f.date_select :birthdate %>
+    </div>
+    <div class="field">
       <%= f.label :email %><br/>
       <%= f.email_field :email, autofocus: true %>
     </div>
+    <div class="field">
+      <%= f.label :description %><br />
+      <%= f.text_field :description %>
+    </div>
 
+    <div class="field">
+      <%= f.label :gender %><br />
+      <%= f.select :gender,  User::GENDER_TYPES %>
+    </div>
+    <div class="field">
+      <%= f.label :phonenumber %><br />
+      <%= f.text_field :phonenumber %>
+    </div>
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>

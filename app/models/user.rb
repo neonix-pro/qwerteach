@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  GENDER_TYPES = ["Not telling","Male", "Female"]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
@@ -15,5 +16,14 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
+  has_one :student
+end
 
+class Student < User
+  belongs_to :user
+  has_one :teacher
+end
+
+class Teacher < Student
+  belongs_to :student
 end

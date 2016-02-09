@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
 
-/  protected
+  /  protected
 
   def update_resource(resource, params)
     resource.update_without_password(params)
@@ -9,7 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update
     @user = User.find(current_user.id)
-    params[:user].permit(:first_name, :last_name, :address)
+    params[:user].permit(:firstname, :lastname, :birthdate, :description, :gender, :phonenumber)
 
     successfully_updated = if needs_password?(@user, params)
                              @user.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))
