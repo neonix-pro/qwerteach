@@ -27,6 +27,8 @@ gem 'devise', '3.4.1'
 #bootstrap-sass is not relevant to the tutorial, but I like it for styling.
 gem 'bootstrap-sass'
 gem 'jquery-turbolinks'
+gem "cancan"
+gem 'minitest'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -46,7 +48,7 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem "cancan"
+
 end
 
 group :development do

@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   GENDER_TYPES = ["Not telling","Male", "Female"]
+  ACCOUNT_TYPES = ["Student", "Teacher"]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
