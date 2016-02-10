@@ -2,10 +2,33 @@
     <div class="jumbotron">
       <div class="container">
         <h1>Welcome!</h1>
-        <p>Register to get started.</p>
         <p>
-          <%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary btn-lg' %>
+          <% if user_signed_in? %>
+            <h2>Utilisateurs enregistrés</h2>
+            <table style="width:50%">
+              <thead>
+              <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Email</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% for user in User.all %>
+                  <tr>
+                    <td><%= user.id %></td>
+                    <td><%= user.type %></td>
+                    <td><%= user.email %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+        <% else %>
+            <p>Register to get started.</p>
+            <%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary btn-lg' %>
+        <% end %>
         </p>
+
       </div>
     </div>
 <% end %>
