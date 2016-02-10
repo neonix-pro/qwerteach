@@ -17,13 +17,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
   has_one :student
-end
-
-class Student < User
-  belongs_to :user
-  has_one :teacher
-end
-
-class Teacher < Student
-  belongs_to :student
+  def admin?
+    admin
+  end
+  def self.types
+    %w(Student Admin Teacher)
+  end
 end

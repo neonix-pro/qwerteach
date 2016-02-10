@@ -11,31 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209104454) do
-
-  create_table "admins", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "user_id"
-  end
+ActiveRecord::Schema.define(version: 20160209151824) do
 
   create_table "students", force: :cascade do |t|
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "user_id",                    null: false
-    t.integer  "level",      default: 1,     null: false
-    t.boolean  "is_prof",    default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id",    null: false
+  end
+
+  create_table "teachers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "login",                  default: ""
-    t.string   "firstname",              default: ""
-    t.string   "lastname",               default: ""
-    t.date     "birthdate"
-    t.text     "description",            default: ""
-    t.string   "gender",                 default: ""
-    t.string   "phonenumber",            default: ""
+    t.string   "login",                  default: "",        null: false
+    t.string   "firstname",              default: "",        null: false
+    t.string   "lastname",               default: "",        null: false
+    t.date     "birthdate",                                  null: false
+    t.text     "description",            default: "",        null: false
+    t.string   "gender",                 default: "",        null: false
+    t.string   "phonenumber",            default: "",        null: false
     t.string   "type",                   default: "Student", null: false
+    t.integer  "level",                  default: 1
+    t.boolean  "first_lesson_free",      default: false
+    t.string   "occupation",             default: "student"
     t.string   "email",                  default: "",        null: false
     t.string   "encrypted_password",     default: "",        null: false
     t.string   "reset_password_token"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160209104454) do
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin",                  default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
