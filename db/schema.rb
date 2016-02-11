@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209151824) do
+ActiveRecord::Schema.define(version: 20160211091344) do
+
+  create_table "level_translations", force: :cascade do |t|
+    t.integer  "level_id",   null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "value"
+  end
+
+  add_index "level_translations", ["level_id"], name: "index_level_translations_on_level_id"
+  add_index "level_translations", ["locale"], name: "index_level_translations_on_locale"
+
+  create_table "levels", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "level_code", default: 1,                null: false
+    t.string   "value",      default: "Primary school", null: false
+  end
 
   create_table "students", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -33,7 +51,7 @@ ActiveRecord::Schema.define(version: 20160209151824) do
     t.string   "gender",                 default: "",        null: false
     t.string   "phonenumber",            default: "",        null: false
     t.string   "type",                   default: "Student", null: false
-    t.integer  "level",                  default: 1
+    t.integer  "level_id",               default: 1
     t.boolean  "first_lesson_free",      default: false
     t.string   "occupation",             default: "student"
     t.string   "email",                  default: "",        null: false

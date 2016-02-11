@@ -9,7 +9,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :gender,             null: false, default: ""
       t.string :phonenumber,        null: false, default: ""
       t.string  :type,              null: false, default: "Student"
-      t.integer :level,             null: true, default: 1
+      t.integer :level_id,          null: true, default: 1
       t.boolean :first_lesson_free, null: true,  default:false
       t.string :occupation,         null: true, default:"student"
 

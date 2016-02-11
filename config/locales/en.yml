@@ -21,3 +21,25 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      article:
+        title: "Title"
+        body: "Body"
+  forms:
+    messages:
+      success: "Operation succeeded!"
+    buttons:
+      edit: "Edit"
+      submit: "Submit"
+      subscribe: "S'inscrire"
+
+  menu:
+    new_user: "Add an user"
+  users:
+    index:
+      title: "List of users"
+    edit:
+      title: "edit user"
+    new:
+      title: "New user"

@@ -29,6 +29,9 @@ gem 'bootstrap-sass'
 gem 'jquery-turbolinks'
 gem "cancan"
 gem 'minitest'
+gem 'paper_trail'
+gem 'globalize', '~> 5.0.0'
+gem 'rails-i18n'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

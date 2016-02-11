@@ -1,0 +1,24 @@
+
+fr:
+  hello: "Bonjour!!!"
+  activerecord:
+    attributes:
+      article:
+        title: "Titre"
+        body: "Body"
+  forms:
+    messages:
+      success: "Operation réussie!"
+    buttons:
+      edit: "Modifier"
+      submit: "Envoyer"
+      subscribe: "S'inscrire"
+  menu:
+    new_user: "Ajouter un utilisateur"
+  users:
+    index:
+      title: "Liste des utilisateurs"
+    edit:
+      title: "Modifier un utilisateur"
+    new:
+      title: "Ajouter un utilisateur"

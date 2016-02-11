@@ -19,10 +19,16 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
+  belongs_to :level
   def admin?
     admin
   end
   def self.types
     %w(Student Admin Teacher)
+  end
+  def self.build_admin(params)
+    user = User.new(params)
+    user.admin = true
+    user
   end
 end
