@@ -8,6 +8,7 @@
             <table style="width:50%">
               <thead>
               <tr>
+                <th>Photo</th>
                 <th>Id</th>
                 <th>Type</th>
                 <th>Email</th>
@@ -16,6 +17,7 @@
               <tbody>
               <% for user in User.all %>
                   <tr>
+                    <td><%= image_tag user.avatar.url(:medium) %></td>
                     <td><%= user.id %></td>
                     <td><%= user.type %></td>
                     <td><%= user.email %></td>
