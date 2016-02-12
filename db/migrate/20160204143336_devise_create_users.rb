@@ -12,6 +12,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.integer :level_id,          null: true, default: 1
       t.boolean :first_lesson_free, null: true,  default:false
       t.string :occupation,         null: true, default:"student"
+      t.boolean :postulance_accepted, null: false, default: false
+      t.string :teacher_status, null:true
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""

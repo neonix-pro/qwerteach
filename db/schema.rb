@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160211150205) do
+ActiveRecord::Schema.define(version: 20160212091824) do
+
+  create_table "galleries", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "cover"
+    t.string   "token"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "level_translations", force: :cascade do |t|
     t.integer  "level_id",   null: false
@@ -31,15 +41,17 @@ ActiveRecord::Schema.define(version: 20160211150205) do
     t.string   "value",      default: "Primary school", null: false
   end
 
-  create_table "students", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "user_id",    null: false
-  end
-
-  create_table "teachers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "pictures", force: :cascade do |t|
+    t.string   "description"
+    t.string   "image"
+    t.integer  "gallery_id"
+    t.string   "gallery_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,6 +66,8 @@ ActiveRecord::Schema.define(version: 20160211150205) do
     t.integer  "level_id",               default: 1
     t.boolean  "first_lesson_free",      default: false
     t.string   "occupation",             default: "student"
+    t.boolean  "postulance_accepted",    default: false,     null: false
+    t.string   "teacher_status"
     t.string   "email",                  default: "",        null: false
     t.string   "encrypted_password",     default: "",        null: false
     t.string   "reset_password_token"
