@@ -1,4 +1,5 @@
 class GalleriesController < ApplicationController
+  load_and_authorize_resource
   # GET /galleries
   # GET /galleries.json
   def index

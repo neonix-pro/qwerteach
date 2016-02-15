@@ -33,7 +33,6 @@ en:
       edit: "Edit"
       submit: "Submit"
       subscribe: "S'inscrire"
-
   menu:
     new_user: "Add an user"
   users:
@@ -43,3 +42,11 @@ en:
       title: "edit user"
     new:
       title: "New user"
+  unauthorized:
+      default: "Access denied."
+      manage:
+        all: "Not authorized to %{action} %{subject}."
+        user: "Not allowed to manage other user accounts."
+      update:
+        galleries: "Not allowed to update this gallery."
+        pictures: "Not allowed to update this picture."

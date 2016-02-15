@@ -8,42 +8,47 @@
     <%= @gallery.name %>
   </p>
 
-  <p>
-    <b>Description: </b>
-    <%= @gallery.description %>
-  </p>
+  <% if can? :read, @gallery %>
 
-  <div class="form-actions">
-    <%= link_to 'Back', galleries_path, :class => 'btn btn-mini'  %>
-    <%= link_to 'Edit gallery', edit_gallery_path(@gallery), :class => 'btn btn-mini' %>
-    <%= link_to 'Delete gallery', gallery_path(@gallery), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-mini' %>
-  </div>
+      <p>
+        <b>Description: </b>
+        <%= @gallery.description %>
+      </p>
 
-  <h2>Pictures</h2>
-</div>
+      <div class="form-actions">
+        <%= link_to 'Back', galleries_path, :class => 'btn btn-mini' %>
+        <%= link_to 'Edit gallery', edit_gallery_path(@gallery), :class => 'btn btn-mini' %>
+        <%= link_to 'Delete gallery', gallery_path(@gallery), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-mini' %>
+      </div>
 
-<div class="row">
-  <ul class="thumbnails files">
-    <% unless @pictures.empty? %>
-        <% @pictures.each do |pic| %>
-            <li class="span3" id="picture_<%= pic.id %>">
-              <div class="thumbnail">
-                <%= image_tag pic.image.url %>
-                <div class="caption">
-                  <p style="text-align: center;">
-                    <%= link_to "Edit picture", picture_path(pic) %>
+      <h2>Pictures</h2>
+      </div>
+      <div class="row">
+        <ul class="thumbnails files">
+          <% unless @pictures.empty? %>
+              <% @pictures.each do |pic| %>
+                  <li class="span3" id="picture_<%= pic.id %>">
+                    <div class="thumbnail">
+                      <%= image_tag pic.image.url %>
+                      <div class="caption">
+                        <p style="text-align: center;">
+                          <% if can? :update, @gallery %>
+                              <%= link_to "Edit picture", picture_path(pic) %>
+                          <% end %>
+                          <% if can? :destroy, @gallery %>
 
-                    <%=
-                      link_to "Delete picture", pic,
-                              :data => { :confirm => "Are you sure?" },
-                              :method => :delete
-                    %>
-
-                  </p>
-                </div>
-              </div>
-            </li>
-        <% end %>
-    <% end %>
-  </ul>
-</div>
+                        <%=
+                            link_to "Delete picture", pic,
+                                    :data => {:confirm => "Are you sure?"},
+                                    :method => :delete
+                          %>
+                          <% end %>
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+              <% end %>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>

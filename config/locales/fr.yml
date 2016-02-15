@@ -22,3 +22,11 @@ fr:
       title: "Modifier un utilisateur"
     new:
       title: "Ajouter un utilisateur"
+  unauthorized:
+      default: "Accès non-autorisé."
+      manage:
+        all: "Vous n'êtes pas autorisé à %{action} %{subject}."
+        user: "Vous n'êtes pas autorisé à modifier d'autres comptes."
+      update:
+        galleries: "Vous n'êtes pas autorisé à mettre à jour une gallerie de vous appartenant pas."
+        pictures: "Vous n'êtes pas autorisé à mettre à jour une photo de vous appartenant pas."
