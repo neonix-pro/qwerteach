@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
-  devise_for :students
   resources :galleries
   resources :pictures
   # The priority is based upon order of creation: first created -> highest priority.

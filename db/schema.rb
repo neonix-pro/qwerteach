@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212091824) do
+ActiveRecord::Schema.define(version: 20160215100213) do
 
   create_table "galleries", force: :cascade do |t|
     t.string   "name"

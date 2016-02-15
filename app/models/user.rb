@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  GENDER_TYPES = ["Not telling","Male", "Female"]
-  ACCOUNT_TYPES = ["Student", "Teacher"]
+  GENDER_TYPES = ["Not telling", "Male", "Female"]
+  ACCOUNT_TYPES = ["User", "Student", "Teacher"]
 
 
   # Include default devise modules. Others available are:
@@ -20,12 +20,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
 
-  has_attached_file :avatar, :styles => { :small => "100x100#", medium: "300x300>", :large => "500x500>" }, :processors => [:cropper], default_url: "/system/defaults/:style/missing.png"
+  has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"}, :processors => [:cropper], default_url: "/system/defaults/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   after_update :reprocess_avatar, :if => :cropping?
   has_one :gallery
+
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
@@ -41,16 +42,37 @@ class User < ActiveRecord::Base
     avatar.reprocess!
   end
 
+  public
+  def upgrade
+    self.type=ACCOUNT_TYPES[1]
+    / if self.type==ACCOUNT_TYPES[0]
+      self.type=ACCOUNT_TYPES[1]
+    else
+      self.type=ACCOUNT_TYPES[2]
+    end/
+    self.save
+  end
+
   belongs_to :level
+  public
   def admin?
     admin
   end
+
   def self.types
-    %w(Student Admin Teacher)
+    %w(User Student Teacher)
   end
-  def self.build_admin(params)
+
+  /  def self.build_admin(params)
     user = User.new(params)
     user.admin = true
     user
+  end/
+  public
+  def is_prof_postulant
+    false
+  end
+  public
+  def accept_postulance
   end
 end
