@@ -34,6 +34,8 @@ gem 'globalize', '~> 5.0.0'
 gem 'rails-i18n'
 # for avatars
 gem "paperclip", "~> 4.3"
+# for datum validations
+gem 'validates_timeliness', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

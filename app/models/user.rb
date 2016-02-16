@@ -23,10 +23,11 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"}, :processors => [:cropper], default_url: "/system/defaults/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
+  validates_date :birthdate, :on_or_before => lambda { Date.current }
+
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   after_update :reprocess_avatar, :if => :cropping?
   has_one :gallery
-
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
