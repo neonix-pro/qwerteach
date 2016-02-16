@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Qwerteach</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -15,7 +15,10 @@
     <div id="navbar">
       <ul class="nav navbar-nav">
         <li><%= link_to 'Home', root_path %></li>
-        <li><%= link_to 'Gallery', galleries_path %></li>
+        <% if user_signed_in? %>
+
+            <li><%= link_to 'Gallery', galleries_path %></li>
+        <% end %>
       </ul>
 
       <ul class="nav navbar-nav pull-right">

@@ -17,8 +17,12 @@
 
       <div class="form-actions">
         <%= link_to 'Back', galleries_path, :class => 'btn btn-mini' %>
-        <%= link_to 'Edit gallery', edit_gallery_path(@gallery), :class => 'btn btn-mini' %>
-        <%= link_to 'Delete gallery', gallery_path(@gallery), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-mini' %>
+        <% if can? :update, @gallery %>
+            <%= link_to 'Edit gallery', edit_gallery_path(@gallery), :class => 'btn btn-mini' %>
+        <% end %>
+        <% if can? :destroy, @gallery %>
+            <%= link_to 'Delete gallery', gallery_path(@gallery), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-mini' %>
+        <% end %>
       </div>
 
       <h2>Pictures</h2>
@@ -32,16 +36,16 @@
                       <%= image_tag pic.image.url %>
                       <div class="caption">
                         <p style="text-align: center;">
-                          <% if can? :update, @pictures %>
+                          <% if can? :update, pic %>
                               <%= link_to "Edit picture", picture_path(pic) %>
                           <% end %>
-                          <% if can? :destroy, @gallery %>
+                          <% if can? :destroy, pic %>
 
-                        <%=
-                            link_to "Delete picture", pic,
-                                    :data => {:confirm => "Are you sure?"},
-                                    :method => :delete
-                          %>
+                              <%=
+                                link_to "Delete picture", pic,
+                                        :data => {:confirm => "Are you sure?"},
+                                        :method => :delete
+                              %>
                           <% end %>
                         </p>
                       </div>
