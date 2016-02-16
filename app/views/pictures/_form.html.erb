@@ -1,5 +1,4 @@
 <%= form_for [@gallery, @picture], :html => {:class => 'form-horizontal'} do |f| %>
-    <p>Id param : <%= params %></p>
     <div class="control-group">
       <%= f.label :description, :class => 'control-label' %>
       <div class="controls">
@@ -14,8 +13,8 @@
     <% end %>
     <div class="form-actions">
       <%= f.submit nil, :class => 'btn btn-primary  btn-mini' %>
-      <%=/ link_to t('.cancel', :default => t("helpers.links.cancel")),
-                  gallery_path(@gallery), :class => 'btn btn-mini'/ %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  gallery_path(@gallery), :class => 'btn btn-mini' %>
       <%= link_to 'Default', '', :class => 'btn btn-mini btn-success', :id => 'make_default' %>
 
     </div>
@@ -26,7 +25,7 @@
     $('#make_default').click(function (event) {
       event.preventDefault();
       $.ajax({
-        url: '<%= make_default_gallery_pictures_path %>',
+        url: '/galleries/<%= @gallery.id %>/pictures/<%= @picture.id %>',
         type: 'POST',
         data: {id:<%= @picture.id %>, gallery_id:<%= @gallery.id %>}
       });

@@ -32,7 +32,7 @@
                       <%= image_tag pic.image.url %>
                       <div class="caption">
                         <p style="text-align: center;">
-                          <% if can? :update, @gallery %>
+                          <% if can? :update, @pictures %>
                               <%= link_to "Edit picture", picture_path(pic) %>
                           <% end %>
                           <% if can? :destroy, @gallery %>

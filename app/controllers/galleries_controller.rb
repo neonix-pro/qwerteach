@@ -27,7 +27,7 @@ class GalleriesController < ApplicationController
   # GET /galleries/new.json
   def new
     @gallery = Gallery.new
-    @gallery.user = current_user
+    /@gallery.user = current_user/
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @gallery }
@@ -68,8 +68,8 @@ class GalleriesController < ApplicationController
   # PUT /galleries/1.json
   def update
     @gallery = Gallery.find(params[:id])
-
     respond_to do |format|
+      params.permit!
       if @gallery.update_attributes(gallery_params)
         if params[:images]
           # The magic is here ;)
@@ -104,7 +104,7 @@ class GalleriesController < ApplicationController
     params.require(:gallery).permit(:description,
                                     :name,
                                     :pictures,
-                                    :user
+                                    :user_id
     )
   end
 end

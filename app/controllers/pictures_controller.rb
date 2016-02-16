@@ -70,8 +70,8 @@ class PicturesController < ApplicationController
 # PUT /pictures/1.json
   def update
 
-    @gallery = Gallery.find(params[:gallery_id])
 
+    @gallery = Gallery.find(params[:gallery_id])
     @picture = @gallery.pictures.find(params[:id])
 
     respond_to do |format|
@@ -94,7 +94,7 @@ class PicturesController < ApplicationController
     @picture.destroy
 
     respond_to do |format|
-      format.html { redirect_to root_path }
+      format.html { redirect_to root_path , notice: 'Picture was successfully deleted.'}
       format.js
     end
   end

@@ -33,11 +33,13 @@ class Ability
     if user.admin? # Admin user
       can :manage, :all
     else # Non-admin user
+      can :create, Gallery
       can :read, Gallery, :user_id => user.id
       can :update, Gallery, :user_id => user.id
       can :destroy, Gallery, :user_id => user.id      #can :read, :all
+      can :create, Picture
       can :read, Picture, :gallery => {:user_id => user.id}
-      can :update, Picture, :gallery => {:user_id => user.id}
+      cannot :update, Picture
       can :destroy, Picture, :gallery => {:user_id => user.id}
     end
   end
