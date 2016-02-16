@@ -58,7 +58,7 @@ class GalleriesController < ApplicationController
         format.html { redirect_to @gallery, notice: 'Gallery was successfully created.' }
         format.json { render json: @gallery, status: :created, location: @gallery }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to @gallery, notice: 'Gallery not created.'}
         format.json { render json: @gallery.errors, status: :unprocessable_entity }
       end
     end

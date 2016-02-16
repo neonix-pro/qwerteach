@@ -1,6 +1,8 @@
 <div class="row">
-  <h1>Galleries</h1>
-  <%= link_to 'New', new_gallery_path, :class => 'btn btn-mini' %>
+  <% if @galleries.blank? %>
+      <h1>Galleries</h1>
+      <%= link_to 'New', new_gallery_path, :class => 'btn btn-mini' %>
+  <% end %>
   <p></p>
   <ul class="thumbnails files">
     <% @galleries.each do |gallery| %>
