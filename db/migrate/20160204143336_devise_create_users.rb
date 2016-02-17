@@ -4,7 +4,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :login,              null: false, default: ""
       t.string :firstname,          null: false, default: ""
       t.string :lastname,           null: false, default: ""
-      t.date :birthdate,            null: false, default: ""
+      t.date :birthdate,            null: false, default: "2016-01-01"
       t.text :description,          null: false, default: ""
       t.string :gender,             null: false, default: ""
       t.string :phonenumber,        null: false, default: ""
