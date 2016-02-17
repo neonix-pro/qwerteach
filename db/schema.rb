@@ -37,8 +37,11 @@ ActiveRecord::Schema.define(version: 20160215100213) do
   create_table "levels", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "level_code", default: 1,                null: false
-    t.string   "value",      default: "Primary school", null: false
+    t.integer  "level",      default: 1, null: false
+    t.string   "code",                   null: false
+    t.string   "be",                     null: false
+    t.string   "fr",                     null: false
+    t.string   "ch",                     null: false
   end
 
   create_table "pictures", force: :cascade do |t|

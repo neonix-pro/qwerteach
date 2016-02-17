@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Qwerteach
   class Application < Rails::Application
     I18n.available_locales = [:en, :fr]
-    I18n.default_locale = :en
+    I18n.default_locale = :fr
     config.autoload_paths += %W(#{config.root}/lib)
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

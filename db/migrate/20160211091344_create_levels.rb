@@ -11,8 +11,11 @@ class CreateLevels < ActiveRecord::Migration
   def up
     create_table :levels do |t|
       t.timestamps
-      t.integer :level_code, null: false, :default => 1
-      t.string :value, null: false, :default => "Primary school"
+      t.integer :level, null: false, :default => 1
+      t.string :code, null: false
+      t.string :be, null: false
+      t.string :fr, null:false
+      t.string :ch, null: false
     end
     Level.create_translation_table! :value => :string
   end

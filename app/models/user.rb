@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   after_update :reprocess_avatar, :if => :cropping?
   has_one :gallery
+
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
@@ -73,7 +74,14 @@ class User < ActiveRecord::Base
   def is_prof_postulant
     false
   end
+
   public
   def accept_postulance
   end
+
+  public
+  def select_level
+
+  end
+
 end

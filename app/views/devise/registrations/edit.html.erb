@@ -30,8 +30,9 @@
           <%= f.select :type, User::ACCOUNT_TYPES %>
         </div>
         <div class="field">
+          <% levels = Level.select('distinct(be), id, be').where(:code=>"scolaire").group(:be).order(:id)%>
           <%= f.label :level_id %><br/>
-          <%= f.text_field :level_id %>
+          <%= f.select :level_id, levels.all.collect {|p| [ p.be, p.id ]}%>
         </div>
     <% end %>
     <!-- if teacher, cannot change account type anymore -->
