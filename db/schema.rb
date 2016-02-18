@@ -14,8 +14,6 @@
 ActiveRecord::Schema.define(version: 20160215100213) do
 
   create_table "galleries", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
     t.integer  "cover"
     t.string   "token"
     t.integer  "user_id"

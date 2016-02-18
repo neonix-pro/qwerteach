@@ -1,3 +1,5 @@
+<% params[:gallery]=@gallery %>
+
 <% @gallery.pictures.each do |picture| %>
     <% if can? :read, @gallery %>
 
@@ -7,18 +9,6 @@
     <% end %>
 <% end %>
     <%= form_for @gallery, :html => {:class => 'form-horizontal', multipart: true} do |f| %>
-        <div class="control-group">
-          <%= f.label :name, :class => 'control-label' %>
-          <div class="controls">
-            <%= f.text_field :name, :class => 'text_field' %>
-          </div>
-        </div>
-        <div class="control-group">
-          <%= f.label :description, :class => 'control-label' %>
-          <div class="controls">
-            <%= f.text_field :description, :class => 'text_field' %>
-          </div>
-        </div>
 
         <div class="control-group">
           <%= f.label :pictures, :class => 'control-label' %>

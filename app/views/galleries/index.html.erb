@@ -7,6 +7,8 @@
   <ul class="thumbnails files">
     <% @galleries.each do |gallery| %>
         <% if can? :read, gallery %>
+            <% params[:gallery]=@gallery %>
+
             <li class="span4" id="gallery_<%= gallery.id %>">
               <div class="thumbnail">
                 <% if gallery.pictures.first %>
@@ -16,7 +18,6 @@
                 <% end %>
                 <div class="caption">
                   <p style="text-align: center;">
-                    <%= gallery.name.truncate(14) %>
                     <%= link_to "Show", gallery_path(gallery) %>
                     <% if can? :update, gallery %>
 

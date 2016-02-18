@@ -29,6 +29,12 @@ class User < ActiveRecord::Base
   after_update :reprocess_avatar, :if => :cropping?
   has_one :gallery
 
+  after_create :create_gallery
+
+  def create_gallery
+    Gallery.create(:user_id=>self.id)
+  end
+
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
@@ -79,9 +85,5 @@ class User < ActiveRecord::Base
   def accept_postulance
   end
 
-  public
-  def select_level
-
-  end
 
 end

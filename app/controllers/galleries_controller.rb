@@ -4,10 +4,10 @@ class GalleriesController < ApplicationController
   # GET /galleries.json
   def index
     @galleries = Gallery.where(:user=>current_user)
-
+    @gallery = @galleries.last
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @galleries }
+      format.json { render json: @gallery }
     end
   end
 
@@ -27,7 +27,6 @@ class GalleriesController < ApplicationController
   # GET /galleries/new.json
   def new
     @gallery = Gallery.new
-    /@gallery.user = current_user/
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @gallery }
@@ -43,8 +42,6 @@ class GalleriesController < ApplicationController
   # POST /galleries.json
   def create
     @gallery = Gallery.new(gallery_params)
-    @gallery.user = current_user
-
     respond_to do |format|
       if @gallery.save
 
@@ -69,7 +66,7 @@ class GalleriesController < ApplicationController
   def update
     @gallery = Gallery.find(params[:id])
     respond_to do |format|
-      params.permit!
+
       if @gallery.update_attributes(gallery_params)
         if params[:images]
           # The magic is here ;)
@@ -99,12 +96,7 @@ class GalleriesController < ApplicationController
   end
 
   private
-
   def gallery_params
-    params.require(:gallery).permit(:description,
-                                    :name,
-                                    :pictures,
-                                    :user_id
-    )
+    params.permit(:pictures, :user_id).merge(user_id: current_user.id)
   end
 end
