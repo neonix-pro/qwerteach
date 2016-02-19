@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   GENDER_TYPES = ["Not telling", "Male", "Female"]
-  ACCOUNT_TYPES = ["User", "Student", "Teacher"]
+  ACCOUNT_TYPES = ["Student", "Teacher"]
 
 
   # Include default devise modules. Others available are:
@@ -20,17 +20,16 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
 
-  has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"}, :processors => [:cropper], default_url: "/system/defaults/:style/missing.png"
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
-
+  has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"},
+                    :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg"
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   validates_date :birthdate, :on_or_before => lambda { Date.current }
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   after_update :reprocess_avatar, :if => :cropping?
   has_one :gallery
 
   after_create :create_gallery
-
   def create_gallery
     Gallery.create(:user_id=>self.id)
   end
@@ -45,14 +44,14 @@ class User < ActiveRecord::Base
   end
 
   private
-
   def reprocess_avatar
-    avatar.reprocess!
+    avatar.assign(avatar)
+    avatar.save
   end
 
   public
   def upgrade
-    self.type=ACCOUNT_TYPES[1]
+    self.type=ACCOUNT_TYPES[0]
     / if self.type==ACCOUNT_TYPES[0]
       self.type=ACCOUNT_TYPES[1]
     else
@@ -70,7 +69,6 @@ class User < ActiveRecord::Base
   def self.types
     %w(User Student Teacher)
   end
-
   /  def self.build_admin(params)
     user = User.new(params)
     user.admin = true
@@ -84,6 +82,5 @@ class User < ActiveRecord::Base
   public
   def accept_postulance
   end
-
 
 end

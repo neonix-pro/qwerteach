@@ -8,8 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update
     @user = User.find(current_user.id)
-    params[:user].permit(:gallery, :level, :avatar, :occupation, :level_id, :type, :firstname, :lastname, :birthdate, :description, :gender, :phonenumber, :email, :password, :password_confirmation, :current_password)
-
+    params[:user].permit(:crop_x, :crop_y, :crop_w, :crop_h, :level, :avatar, :occupation, :level_id, :type, :firstname, :lastname, :birthdate, :description, :gender, :phonenumber, :email, :password, :password_confirmation, :current_password)
     successfully_updated = if needs_password?(@user, params)
                              @user.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))
                            else
@@ -18,18 +17,21 @@ class RegistrationsController < Devise::RegistrationsController
                              params[:user].delete(:current_password)
                              @user.update_without_password(devise_parameter_sanitizer.sanitize(:account_update))
                            end
-
     if successfully_updated
-      set_flash_message :notice, :updated
-      # Sign in the user bypassing validation in case their password changed
-      sign_in @user, :bypass => true
-      redirect_to after_update_path_for(@user)
+      if params[:user][:avatar].blank?
+
+        set_flash_message :notice, :updated
+        # Sign in the user bypassing validation in case their password changed
+        sign_in @user, :bypass => true
+        redirect_to after_update_path_for(@user)
+      else
+        render "crop"
+      end
     else
       render "edit"
     end
 
   end
-
 
   private
 
@@ -37,9 +39,7 @@ class RegistrationsController < Devise::RegistrationsController
   # ie if password or email was changed
   # extend this as needed
   def needs_password?(user, params)
-    user.email != params[:user][:email] ||
-        params[:user][:password].present? ||
-        params[:user][:password_confirmation].present?
+    false
   end
 
 

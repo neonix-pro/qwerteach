@@ -3,7 +3,7 @@ class Teacher  < Student
   scope :teacher, -> { where(type: 'Teacher') }
   public
   def upgrade
-    self.type=User::ACCOUNT_TYPES[2]
+    self.type=User::ACCOUNT_TYPES[1]
     self.save
   end
   public

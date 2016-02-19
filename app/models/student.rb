@@ -3,7 +3,7 @@ class Student < User
   scope :student, -> { where(type: 'Student') }
   public
   def upgrade
-    self.type=User::ACCOUNT_TYPES[2]
+    self.type=User::ACCOUNT_TYPES[1]
     self.save
   end
   public

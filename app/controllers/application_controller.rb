@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     end
     devise_parameter_sanitizer.for(:account_update) {
         |u| u.permit(
-         :level, :pictures, :gallery, :avatar, :occupation, :level_id, :type, :birthdate, :description, :gender, :phonenumber, :firstname, :lastname, :email, :password, :password_confirmation, :current_password
+          :crop_x, :crop_y, :crop_w, :crop_h,:level, :pictures, :gallery, :avatar, :occupation, :level_id, :type, :birthdate, :description, :gender, :phonenumber, :firstname, :lastname, :email, :password, :password_confirmation, :current_password
       ) }
 
   end
