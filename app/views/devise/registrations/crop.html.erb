@@ -1,7 +1,5 @@
 <h1>Crop Avatar</h1>
 <% content_for(:head) do %>
-    console.log("HELLLO");
-    <% logger.debug("HAAAAL") %>
     <%= stylesheet_link_tag 'jquery.Jcrop.min' %>
     <%= javascript_include_tag 'jquery.Jcrop.min' %>
     <script type="text/javascript" charset="utf-8">
@@ -38,8 +36,6 @@
 <div style="width:100px; height:100px; overflow:hidden">
   <%= image_tag @user.avatar.url(:large), :id => "preview" %>
 </div>
-<p><%= params.to_s %></p>
-<p>crop_x : <%= resource.crop_x %></p>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
     <%= f.hidden_field :crop_x, :id => :crop_x %>
     <%= f.hidden_field :crop_y, :id => :crop_y %>

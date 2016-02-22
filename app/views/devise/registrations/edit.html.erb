@@ -12,9 +12,8 @@
     </div>
     <div class="field">
       <%= f.label :birthdate %><br/>
-      <%= f.date_select :birthdate, start_year: 1920, end_year: Date.today.year %>
+      <%= f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd'}  %>
     </div>
-
     <div class="field">
       <%= f.label :description %><br/>
       <%= f.text_field :description %>
