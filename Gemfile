@@ -40,6 +40,8 @@ gem 'validates_timeliness', '~> 4.0'
 gem 'jcrop-rails-v2'
 
 gem 'bootstrap-datepicker-rails'
+
+gem "administrate", "~> 0.1.4"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

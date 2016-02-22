@@ -17,10 +17,8 @@ class CreateLevels < ActiveRecord::Migration
       t.string :fr, null:false
       t.string :ch, null: false
     end
-    Level.create_translation_table! :value => :string
   end
   def down
     drop_table :levels
-    Level.drop_translation_table!
   end
 end
