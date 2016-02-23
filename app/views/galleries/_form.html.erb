@@ -3,8 +3,6 @@
 <% @gallery.pictures.each do |picture| %>
     <% if can? :read, @gallery %>
 
-        <%= picture.image_file_name %>
-
         <%= image_tag picture.image.url(:thumb) %>
     <% end %>
 <% end %>

@@ -24,12 +24,12 @@
             <td><%= picture.gallery_id %></td>
             <td><%= l picture.created_at %></td>
             <td>
-              <% if can? :update, @picture %>
+              <% if can? :update, picture %>
 
                   <%= link_to t('.edit', :default => t("helpers.links.edit")),
                               edit_picture_path(picture), :class => 'btn btn-mini' %>
               <% end %>
-              <% if can? :destroy, @picture %>
+              <% if can? :destroy, picture %>
 
                   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                               picture_path(picture),

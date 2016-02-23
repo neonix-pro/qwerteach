@@ -26,9 +26,6 @@
                       <%= image_tag pic.image.url %>
                       <div class="caption">
                         <p style="text-align: center;">
-                          <% if can? :update, pic %>
-                              <%= link_to "Edit picture", picture_path(pic) %>
-                          <% end %>
                           <% if can? :destroy, pic %>
 
                               <%=
