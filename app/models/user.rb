@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   GENDER_TYPES = ["Not telling", "Male", "Female"]
   ACCOUNT_TYPES = ["Student", "Teacher"]
+  TEACHER_STATUS = ["Actif", "Suspendu"]
 
 
   # Include default devise modules. Others available are:
@@ -25,15 +26,17 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif']
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   validates_date :birthdate, :on_or_before => lambda { Date.current }
-
   after_update :reprocess_avatar, :if => :cropping?
   has_one :gallery
-
-  after_create :create_gallery
+  has_one :postulation
+  enum status: [ :actif, :suspendu ]
+  after_create :create_gallery, :create_postulation
   def create_gallery
     Gallery.create(:user_id=>self.id)
   end
-
+  def create_postulation
+    Postulation.create(:user_id=>self.id)
+  end
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end

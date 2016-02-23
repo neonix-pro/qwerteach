@@ -15,4 +15,5 @@ class Teacher  < Student
     self.postulance_accepted=true
     self.save
   end
+
 end

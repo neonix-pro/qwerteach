@@ -6,6 +6,7 @@ resources :levels
 resources :pictures
 resources :students
 resources :teachers
+    resources :postulations
 
     root to: "users#index"
   end
