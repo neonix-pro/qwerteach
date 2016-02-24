@@ -4,8 +4,212 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+one: 
+    level: 1
+    code: Level::LEVEL_CODE[0]
+    be: Primaire
+    fr: Primaire
+    ch: Primaire
+
+two:
+    level: 2
+    code: Level::LEVEL_CODE[0]
+    be: Primaire
+    fr: Primaire
+    ch: Primaire
+
+three:
+    level: 3
+    code: Level::LEVEL_CODE[0]
+    be: Primaire
+    fr: Primaire
+    ch: Primaire
+
+four:
+    level: 4
+    code: Level::LEVEL_CODE[0]
+    be: Primaire
+    fr: Primaire
+    ch: Primaire
+
+five:
+    level: 5
+    code: Level::LEVEL_CODE[0]
+    be: Primaire
+    fr: Primaire
+    ch: Primaire
+
+six:
+    level: 6
+    code: Level::LEVEL_CODE[0]
+    be: Primaire
+    fr: Collège
+    ch: Primaire
+
+seven:
+    level: 7
+    code: Level::LEVEL_CODE[0]
+    be: Secondaire inférieur
+    fr: Collège
+    ch: Secondaire I
+
+eight:
+    level: 8
+    code: Level::LEVEL_CODE[0]
+    be: Secondaire inférieur
+    fr: Collège
+    ch: Secondaire I
+
+nine:
+    level: 9
+    code: Level::LEVEL_CODE[0]
+    be: Secondaire inférieur
+    fr: Collège
+    ch: Secondaire I
+
+ten:
+    level: 10
+    code: Level::LEVEL_CODE[0]
+    be: Secondaire supérieur
+    fr: Lycée
+    ch: Secondaire II
+
+eleven:
+    level: 11
+    code: Level::LEVEL_CODE[0]
+    be: Secondaire supérieur
+    fr: Lycée
+    ch: Secondaire II
+
+twelve:
+    level: 12
+    code: Level::LEVEL_CODE[0]
+    be: Secondaire supérieur
+    fr: Lycée
+    ch: Secondaire II
+
+thirteen:
+    level: 13
+    code: Level::LEVEL_CODE[0]
+    be: Baccalauréat universitaire
+    fr: Baccalauréat universitaire
+    ch: Baccalauréat universitaire
+
+fourteen:
+    level: 14
+    code: Level::LEVEL_CODE[0]
+    be: Baccalauréat universitaire
+    fr: Baccalauréat universitaire
+    ch: Baccalauréat universitaire
+
+fifteen:
+    level: 15
+    code: Level::LEVEL_CODE[0]
+    be: Baccalauréat universitaire
+    fr: Baccalauréat universitaire
+    ch: Baccalauréat universitaire
+
+sixteen:
+    level: 16
+    code: Level::LEVEL_CODE[0]
+    be: Maîtrise universitaire
+    fr: Maîtrise universitaire
+    ch: Maîtrise universitaire
+
+seventeen:
+    level: 17
+    code: Level::LEVEL_CODE[0]
+    be: Maîtrise universitaire
+    fr: Maîtrise universitaire
+    ch: Maîtrise universitaire
+
+eighteen:
+    level: 18
+    code: Level::LEVEL_CODE[0]
+    be: Maîtrise universitaire
+    fr: Maîtrise universitaire
+    ch: Maîtrise universitaire
+
+nineteen:
+    level: 19
+    code: Level::LEVEL_CODE[0]
+    be: Doctorat
+    fr: Doctorat
+    ch: Doctorat
+
+twenty:
+    level: 20
+    code: Level::LEVEL_CODE[0]
+    be: Doctorat
+    fr: Doctorat
+    ch: Doctorat
+
+twentyone:
+    level: 21
+    code: Level::LEVEL_CODE[1]
+    be: Débutant
+    fr: Débutant
+    ch: Débutant
+
+twentytwo:
+    level: 22
+    code: Level::LEVEL_CODE[1]
+    be: Intermédiaire
+    fr: Intermédiaire
+    ch: Intermédiaire
+
+twentythree:
+    level: 23
+    code: Level::LEVEL_CODE[1]
+    be: Avancé
+    fr: Avancé
+    ch: Avancé
+
+twentyfour:
+    level: 24
+    code: Level::LEVEL_CODE[2]
+    be: A0 Débutant
+    fr: A0 Débutant
+    ch: A0 Débutant
+
+twentyfive:
+    level: 25
+    code: Level::LEVEL_CODE[2]
+    be: A1 Élémentaire
+    fr: A1 Élémentaire
+    ch: A1 Élémentaire
+
+twentysix:
+    level: 26
+    code: Level::LEVEL_CODE[2]
+    be: A2 Pré-intermédiaire
+    fr: A2 Pré-intermédiaire
+    ch: A2 Pré-intermédiaire
+
+twentyseven:
+    level: 27
+    code: Level::LEVEL_CODE[2]
+    be: B1 Intermédiaire
+    fr: B1 Intermédiaire
+    ch: B1 Intermédiaire
+
+twentyeight:
+    level: 28
+    code: Level::LEVEL_CODE[2]
+    be: B2 Intermédiaire supérieur
+    fr: B2 Intermédiaire supérieur
+    ch: B2 Intermédiaire supérieur
+
+twentynine:
+    level: 29
+    code: Level::LEVEL_CODE[2]
+    be: C1 Avancé
+    fr: C1 Avancé
+    ch: C1 Avancé
+
+twentynine:
+    level: 30
+    code: Level::LEVEL_CODE[2]
+    be: C2 Compétent/Courant
+    fr: C2 Compétent/Courant
+    ch: C2 Compétent/Courant
