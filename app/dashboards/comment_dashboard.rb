@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class LevelDashboard < Administrate::BaseDashboard
+class CommentDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,15 +8,14 @@ class LevelDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    users: Field::HasMany,
-    id: Field::Number,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-    level: Field::Number,
-    code: Field::String,
-    be: Field::String,
-    fr: Field::String,
-    ch: Field::String,
+      sender: Field::BelongsTo.with_options(class_name: "User"),
+      subject: Field::BelongsTo.with_options(class_name: "User"),
+      id: Field::Number,
+      sender_id: Field::Number,
+      subject_id: Field::Number,
+      created_at: Field::DateTime,
+      updated_at: Field::DateTime,
+      comment_text: Field::Text
   }
 
   # COLLECTION_ATTRIBUTES
@@ -25,43 +24,39 @@ class LevelDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :users,
-    :id,
-    :be,
-    :fr,
-    :ch,
+      :id,
+      :sender,
+      :subject,
+      :comment_text,
+      :sender_id,
   ]
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :users,
-    :id,
-    :created_at,
-    :updated_at,
-    :level,
-    :code,
-    :be,
-    :fr,
-    :ch,
+      :sender,
+      :subject,
+      :id,
+      :comment_text,
+      :sender_id,
+      :subject_id,
+      :created_at,
+      :updated_at,
   ]
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :users,
-    :level,
-    :code,
-    :be,
-    :fr,
-    :ch,
+      :sender,
+      :subject,
+      :comment_text,
   ]
 
-  # Overwrite this method to customize how levels are displayed
+  # Overwrite this method to customize how comments are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(level)
-  #   "Level ##{level.id}"
+  # def display_resource(comment)
+  #   "Comment ##{comment.id}"
   # end
 end
