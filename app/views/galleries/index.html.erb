@@ -20,15 +20,7 @@
                   <p style="text-align: center;">
                     <%= link_to "Show", gallery_path(gallery) %>
                     <% if can? :update, gallery %>
-
                         <%= link_to "Edit", edit_gallery_path(gallery) %>
-                    <% end %>
-                    <% if can? :destroy, gallery %>
-
-                        <%= link_to "Delete", gallery,
-                                    :data => {:confirm => "Are you sure?"},
-                                    :method => :delete
-                        %>
                     <% end %>
                   </p>
                 </div>

@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"},
                     :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg"
   # Vérifie que le type de l'avatar est bien une image
-  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :message => 'file type is not allowed (only jpeg/png/gif images)'
   # Attributs pour le crop de l'avatar
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   # Vérifie que la date de naissance est bien dans le passé
