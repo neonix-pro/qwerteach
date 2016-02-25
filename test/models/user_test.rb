@@ -1,14 +1,6 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
-
-  test "truth" do
-    assert true
-  end
-
   test "users_count" do
     assert_equal 1, User.count
   end
@@ -23,6 +15,10 @@ class UserTest < ActiveSupport::TestCase
 
   test "user_is_admin" do
     assert_not User.first.admin?
+  end
+  test "user_is_admin2" do
+    User.first.become_admin
+    assert User.first.admin?
   end
   test "type_change" do
     User.first.upgrade
@@ -42,21 +38,33 @@ class UserTest < ActiveSupport::TestCase
     assert User.first.is_a?(Teacher)
   end
   test "is_prof_accepted" do
-    assert_not User.first.is_prof_postulant
+    assert_not User.first.is_prof
   end
   test "is_prof_accepted2" do
     User.first.upgrade
-    assert_not User.first.is_prof_postulant
+    assert_not User.first.is_prof
   end
   test "is_prof_accepted3" do
     User.first.upgrade
     User.first.upgrade
-    assert User.first.is_prof_postulant
+    assert_not User.first.is_prof
   end
   test "is_prof_accepted4" do
     User.first.upgrade
     User.first.upgrade
     User.first.accept_postulance
+    assert User.first.is_prof
+  end
+  test "is_prof_postulant" do
+    assert_not User.first.is_prof_postulant
+  end
+  test "is_prof_postulant2" do
+    User.first.upgrade
+    assert_not User.first.is_prof_postulant
+  end
+  test "is_prof_postulant3" do
+    User.first.upgrade
+    User.first.upgrade
     assert User.first.is_prof_postulant
   end
 end

@@ -15,17 +15,38 @@ one:
   description: info
   gender: Female
   phonenumber: 029292929
-  type: default
-  level_id: default
-  first_lesson_free: default
-  occupation: default
-  postulance_accepted: default
-  teacher_status: ""
+  type: User
+  level_id: 1
+  first_lesson_free: false
+  occupation: student
+  postulance_accepted: false
+  teacher_status: actif
   sign_in_count: default
   failed_attempts: default
   admin: false
   type: User
+  confirmed_at: "2016-02-25 16:15:52"
 # column: value
 #
-#two: {}
-#  column: value
+two:
+  id: 2
+  birthdate: 2016-02-12
+  email: y@y.y
+  encrypted_password: $2a$10$m3dWRILJ3HB9gXiMNleJkOLiq40iNavOfUo4oMxTspxKRf3jpUFii
+  login: kal
+  firstname: kaltrine
+  lastname: kabashi
+  description: info
+  gender: Female
+  phonenumber: 029292929
+  type: User
+  level_id: 1
+  first_lesson_free: false
+  occupation: student
+  postulance_accepted: false
+  teacher_status: actif
+  sign_in_count: default
+  failed_attempts: default
+  admin: false
+  type: User
+  confirmed_at: "2016-02-25 16:15:52"
