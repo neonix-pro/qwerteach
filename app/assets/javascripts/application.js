@@ -11,9 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require users
 //= require private_pub
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
-//= require jquery.turbolinks
 //= require_tree .
 //= require jquery_ujs
+//= require jquery.turbolinks
