@@ -27,8 +27,11 @@ class User < ActiveRecord::Base
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   validates_date :birthdate, :on_or_before => lambda { Date.current }
   after_update :reprocess_avatar, :if => :cropping?
+
   has_one :gallery
   has_one :postulation
+  has_many :conversations, :foreign_key => :sender_id
+  
   enum status: [ :actif, :suspendu ]
   after_create :create_gallery, :create_postulation
   def create_gallery

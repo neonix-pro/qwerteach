@@ -42,6 +42,11 @@ gem 'jcrop-rails-v2'
 gem 'bootstrap-datepicker-rails'
 
 gem "administrate", "~> 0.1.4"
+
+#gems for async actions
+gem 'private_pub'
+gem 'thin'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

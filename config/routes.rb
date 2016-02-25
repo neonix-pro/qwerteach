@@ -1,19 +1,33 @@
 Rails.application.routes.draw do
   namespace :admin do
     resources :users
-resources :galleries
-resources :levels
-resources :pictures
-resources :students
-resources :teachers
+    resources :galleries
+    resources :levels
+    resources :pictures
+    resources :students
+    resources :teachers
     resources :postulations
 
     root to: "users#index"
   end
 
   devise_for :users, :controllers => {:registrations => "registrations"}
+
+  authenticated :user do
+    root 'pages#index'
+  end
+
+  unauthenticated :user do
+    devise_scope :user do
+      get "/" => "devise/sessions#new"
+    end
+  end
   resources :galleries
   resources :pictures
+  
+  resources :conversations do
+    resources :messages
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -70,5 +84,5 @@ resources :teachers
   #   end
 
 
-  root to: 'pages#index'
+  #root to: 'pages#index'
 end
