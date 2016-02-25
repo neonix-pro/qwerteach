@@ -14,7 +14,6 @@ var chatBoxes = new Array();
 var ready = function () {
 
     chatBox = {
-
         /**
          * creates an inline chatbox on the page by calling the
          * createChatBox function passing along the unique conversation_id
