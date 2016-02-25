@@ -51,7 +51,7 @@ class UserTest < ActiveSupport::TestCase
   test "is_prof_accepted3" do
     User.first.upgrade
     User.first.upgrade
-    assert_not User.first.is_prof_postulant
+    assert User.first.is_prof_postulant
   end
   test "is_prof_accepted4" do
     User.first.upgrade
