@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
-
-  test "truth" do
-    assert true
-  end
   
   test "invalid signup information" do
     get new_user_registration_path
