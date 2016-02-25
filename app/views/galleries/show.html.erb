@@ -10,9 +10,6 @@
         <% if can? :update, @gallery %>
             <%= link_to 'Edit gallery', edit_gallery_path(@gallery), :class => 'btn btn-mini' %>
         <% end %>
-        <% if can? :destroy, @gallery %>
-            <%= link_to 'Delete gallery', gallery_path(@gallery), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-mini' %>
-        <% end %>
       </div>
 
       <h2>Pictures</h2>

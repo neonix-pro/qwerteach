@@ -1,12 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  interview_ok: false
-  avatar_ok: false
-  gen_informations_ok: false
-  advert_ok: false
-
-two:
+  user_id: 1
   interview_ok: false
   avatar_ok: false
   gen_informations_ok: false

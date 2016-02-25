@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"},
                     :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg"
   # Vérifie que le type de l'avatar est bien une image
-  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :message => 'file type is not allowed (only jpeg/png/gif images)'
   # Attributs pour le crop de l'avatar
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   # Vérifie que la date de naissance est bien dans le passé
@@ -34,7 +34,6 @@ class User < ActiveRecord::Base
 
   # on crée une postulation et une gallery après avoir créé le user
   after_create :create_gallery, :create_postulation
-
 
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
@@ -97,5 +96,11 @@ class User < ActiveRecord::Base
   public
   def is_prof
     false
+  end
+  # Methode permettant de rendre un User admin
+  public
+  def become_admin
+    self.admin=true
+    self.save
   end
 end

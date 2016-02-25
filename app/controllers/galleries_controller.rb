@@ -66,6 +66,8 @@ class GalleriesController < ApplicationController
   # PUT /galleries/1.json
   def update
     @gallery = Gallery.find(params[:id])
+    @user = User.find(@gallery.user_id)
+    nb = @gallery.pictures.count
     respond_to do |format|
 
       if @gallery.update_attributes(gallery_params)
@@ -73,6 +75,13 @@ class GalleriesController < ApplicationController
           # The magic is here ;)
           params[:images].each { |image|
             @gallery.pictures.create(image: image)
+          /  @user.avatar = image
+            @user.save/
+            if ( @gallery.pictures.count == nb)
+              format.html { redirect_to @gallery, notice: 'Gallery not updated.'}
+              format.json { render json: @gallery.errors, status: :unprocessable_entity }
+            end
+            nb = @gallery.pictures.count
           }
         end
         format.html { redirect_to @gallery, notice: 'Gallery was successfully updated.' }

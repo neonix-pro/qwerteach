@@ -4,4 +4,5 @@ class Gallery < ActiveRecord::Base
   belongs_to :user
   # Une seule Gallery par User
   validates_uniqueness_of :user_id
+
 end
