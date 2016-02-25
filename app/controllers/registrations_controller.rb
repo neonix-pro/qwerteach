@@ -40,5 +40,4 @@ class RegistrationsController < Devise::RegistrationsController
     (params[:user].has_key?(:email) && user.email != params[:user][:email]) || !params[:user][:password].blank?
   end
 
-
 end

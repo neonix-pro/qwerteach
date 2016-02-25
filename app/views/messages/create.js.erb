@@ -1,3 +1,5 @@
+// Ajoute le nouveau message
+// Publie le message dans le channel de la conversation (sur lequel l'interlocuteur écoute)
 <% publish_to @path do %>
     var id = "<%= @conversation.id %>";
     var chatbox = $("#chatbox_" + id + " .chatboxcontent");
