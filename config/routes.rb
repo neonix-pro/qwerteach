@@ -12,7 +12,10 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
 
+  #custom controller qui permet d'éditer certaine sparties du user sans donner le password
   devise_for :users, :controllers => {:registrations => "registrations"}
+
+  resources :users, :only => [:show]
 
   authenticated :user do
     root 'pages#index'
@@ -29,6 +32,7 @@ Rails.application.routes.draw do
   resources :conversations do
     resources :messages
   end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

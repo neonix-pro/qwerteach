@@ -42,5 +42,4 @@ class RegistrationsController < Devise::RegistrationsController
     false
   end
 
-
 end
