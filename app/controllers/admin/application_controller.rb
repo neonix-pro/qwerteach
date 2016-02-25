@@ -9,6 +9,7 @@ module Admin
     before_filter :authenticate_admin
 
     def authenticate_admin
+
       # TODO Add authentication logic here.
       if (current_user.blank?)
         redirect_to '/', alert: 'Not authorized.'
@@ -16,8 +17,8 @@ module Admin
         if (!current_user.admin?)
           redirect_to '/', alert: 'Not authorized.'
         end
+      end
     end
-  end
 
     # Override this value to specify the number of elements to display at a time
     # on index pages. Defaults to 20.

@@ -8,8 +8,10 @@ class TeacherDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-      postulation: Field::HasOne,
       gallery: Field::HasOne,
+      postulation: Field::HasOne,
+      sent_comment: Field::HasMany.with_options(class_name: "Comment"),
+      received_comment: Field::HasMany.with_options(class_name: "Comment"),
       level: Field::BelongsTo,
       id: Field::Number,
       login: Field::String,
@@ -56,10 +58,11 @@ class TeacherDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-      :postulation,
-      :gallery,
-      :level,
       :id,
+      :gallery,
+      :postulation,
+      :sent_comment,
+      :received_comment,
       :login,
       :postulance_accepted,
       :teacher_status
@@ -68,8 +71,10 @@ class TeacherDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-      :postulation,
       :gallery,
+      :postulation,
+      :sent_comment,
+      :received_comment,
       :level,
       :id,
       :login,
@@ -114,8 +119,10 @@ class TeacherDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-      :postulation,
       :gallery,
+      :postulation,
+      :sent_comment,
+      :received_comment,
       :level,
       :login,
       :firstname,
