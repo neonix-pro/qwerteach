@@ -8,9 +8,6 @@
 
     <%= image_tag @picture.image.url(:large), :id => 'cropbox' %>
 
-    <% %w[x y w h].each do |attribute| %>
-        <%= f.hidden_field "crop_#{attribute}" %>
-    <% end %>
     <div class="form-actions">
       <%= f.submit nil, :class => 'btn btn-primary  btn-mini' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

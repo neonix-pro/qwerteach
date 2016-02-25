@@ -1,3 +1,4 @@
+# Source : https://github.com/hackhowtofaq/multiple_file_upload_paperclip_rails
 class GalleriesController < ApplicationController
   load_and_authorize_resource
   # GET /galleries

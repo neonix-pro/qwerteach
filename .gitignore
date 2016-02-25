@@ -39,3 +39,5 @@
 *.jpg
 
 *.png
+
+db/schema.rb

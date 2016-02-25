@@ -1,20 +1,28 @@
 class ApplicationController < ActionController::Base
+  # Rediriger en cas d'exception CanCan car pas le droit d'accès
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
   end
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
+  # Protéger le site en vérifiant les sources des requetes extérieures
+  # To protect against all other forged requests, we introduce a required
+  # security token that our site knows but other sites don't know. We include
+  # the security token in requests and verify it on the server.
   protect_from_forgery with: :exception
-
+  # loader les permitted params pour devise
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :configure_permitted_parameters, if: :devise_controller?
+
+  # Pour définir les permitted params dans les controllers en utilisant require
   protected
   before_filter do
     resource = controller_name.singularize.to_sym
     method = "#{resource}_params"
     params[resource] &&= send(method) if respond_to?(method, true)
   end
+  # Permitted params pour Devise pour l'inscription et la maj d'un compte existant
   def configure_permitted_parameters
 
     devise_parameter_sanitizer.for(:sign_up) do |u|

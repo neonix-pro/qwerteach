@@ -1,6 +1,7 @@
 class Picture < ActiveRecord::Base
   belongs_to :gallery
-
+  # Fichier attaché avec attributs possibles
+  # Accès : picture.image.url
   has_attached_file :image,
                     :path => ":rails_root/public/images/:id/:filename",
                     :url  => "/images/:id/:filename",
@@ -8,21 +9,8 @@ class Picture < ActiveRecord::Base
                     :processors => [:cropper], default_url: "/system/defaults/:style/missing.png"
 
   do_not_validate_attachment_file_type :image
-    attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-  after_update :reprocess_avatar, :if => :cropping?
-  belongs_to :gallery
+  # Crop non dispo pour les Pictures
   def cropping?
-    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
-  end
-
-  def avatar_geometry(style = :original)
-    @geometry ||= {}
-    @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
-  end
-
-  private
-
-  def reprocess_avatar
-    avatar.reprocess!
+    false
   end
 end

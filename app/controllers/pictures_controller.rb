@@ -1,3 +1,4 @@
+# Source : https://github.com/hackhowtofaq/multiple_file_upload_paperclip_rails/blob/master/app/controllers/pictures_controller.rb
 class PicturesController < ApplicationController
   load_and_authorize_resource
 # GET /pictures
