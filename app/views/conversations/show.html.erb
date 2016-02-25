@@ -15,6 +15,7 @@
   <% if @messages.any? %>
       <%= render @messages %>
   <% end %>
+  <span id="typing" hidden>Typing...</span>
 </div>
 <div class="chatboxinput">
   <%= form_for([@conversation, @message], :remote => true, :authenticity_token => true, :html => {id: "conversation_form_#{@conversation.id}"}) do |f| %>

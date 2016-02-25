@@ -10,6 +10,11 @@ class MessagesController < ApplicationController
     @path = conversation_path(@conversation)
   end
 
+  def typing
+     @conversation = Conversation.find(params[:conversation_id])
+     @path = conversation_path(@conversation)
+  end
+
   private
 
   def message_params

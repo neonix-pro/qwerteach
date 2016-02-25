@@ -182,6 +182,10 @@ var ready = function () {
                     $(chatboxtextarea).css('height', '44px');
                 }
             }
+            else
+            {
+                $.post("/typing", { conversation_id }, function (data) {});
+            }
 
             var adjustedHeight = chatboxtextarea.clientHeight;
             var maxHeight = 94;
