@@ -247,9 +247,6 @@ var ready = function () {
             }
 
         }
-
-
-
     }
 
 

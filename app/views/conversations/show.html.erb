@@ -2,7 +2,10 @@
   <div class="chatboxtitle">
     <i class="fa fa-comments"></i>
 
-    <h1><%= @reciever.firstname %> </h1>
+    <h1>
+      <%= @reciever.firstname %> 
+      <span class="typing" hidden><i>Écrit</i> <%= image_tag "typing.gif" %></span>
+    </h1>
   </div>
   <div class="chatboxoptions">
     <%= link_to "<i class='fa  fa-minus'></i> ".html_safe, "#", class: "toggleChatBox", "data-cid" => @conversation.id %>
@@ -15,7 +18,6 @@
   <% if @messages.any? %>
       <%= render @messages %>
   <% end %>
-  <span id="typing" hidden>Typing...</span>
 </div>
 <div class="chatboxinput">
   <%= form_for([@conversation, @message], :remote => true, :authenticity_token => true, :html => {id: "conversation_form_#{@conversation.id}"}) do |f| %>

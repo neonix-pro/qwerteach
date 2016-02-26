@@ -64,6 +64,21 @@
   <%= yield %>
 </div>
 
+<%= subscribe_to "/notifications"  %>
+<script>
+ PrivatePub.subscribe("/notifications", function(data, channel)
+  {
+ var current_user_id = '#{current_user.try(:id)}';
+  if (data.receiver_id == current_user_id)
+   {
+     chatBox.chatWith(data.conversation_id);
+    }
+    else {
+      chatBox.chatWith(data.conversation_id);
+    }
+   });
+ </script>
+
 
 </body>
 </html>

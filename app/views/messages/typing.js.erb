@@ -5,10 +5,10 @@
     var reciever_id = $('meta[name=user-id]').attr("content");
 
     if(sender_id != reciever_id){
-        $('#typing').show();
-        setTimeout(function() {   //calls click event after a certain time /> Hmm, no click event in here...
-           $('#typing').fadeOut();
-           }, 3000);
+        $('#chatbox_' + id).find('.typing').show();
+            setTimeout(function(){
+                $('#chatbox_' + id).find('.typing').fadeOut();
+            }, 3000);
         chatbox.scrollTop(chatbox[0].scrollHeight);
     }
 <% end %>
