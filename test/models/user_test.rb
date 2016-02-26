@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   test "users_count" do
-    assert_equal 1, User.count
+    assert_equal 2, User.count
   end
 
   test "user_type" do

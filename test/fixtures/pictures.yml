@@ -4,8 +4,16 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+one:
+  id: 1
+  gallery_id: 1
+  image_file_name: "ff139873-aa07-4854-8697-7097efd096f7-original.jpeg"
+  image_content_type: "image/jpeg"
+  image_file_size: 120665
+
+two:
+  id: 2
+  gallery_id: 2
+  image_file_name: "ff139873-aa07-4854-8697-7097efd096f7-original.jpeg"
+  image_content_type: "image/jpeg"
+  image_file_size: 120665

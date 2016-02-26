@@ -93,6 +93,7 @@ class GalleriesController < ApplicationController
     end
   end
 
+  # Not used
   # DELETE /galleries/1
   # DELETE /galleries/1.json
   def destroy

@@ -37,6 +37,7 @@ class PicturesController < ApplicationController
     end
   end
 
+# Not used
 # GET /pictures/1/edit
   def edit
     #@gallery = Gallery.find(params[:gallery_id])
@@ -88,13 +89,13 @@ class PicturesController < ApplicationController
 # DELETE /pictures/1
 # DELETE /pictures/1.json
   def destroy
-    #@gallery = Gallery.find(params[:gallery_id])
     #@picture = @gallery.pictures.find(params[:id])
     @picture = Picture.find(params[:id])
+    @gallery = Gallery.find(@picture.gallery_id)
     @picture.destroy
 
     respond_to do |format|
-      format.html { redirect_to root_path , notice: 'Picture was successfully deleted.'}
+      format.html { redirect_to gallery_path(@gallery) , notice: 'Picture was successfully deleted.'}
       format.js
     end
   end

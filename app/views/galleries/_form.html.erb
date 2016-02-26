@@ -6,6 +6,8 @@
         <%= image_tag picture.image.url(:thumb) %>
     <% end %>
 <% end %>
+<% if can? :update, @gallery %>
+
     <%= form_for @gallery, :html => {:class => 'form-horizontal', multipart: true} do |f| %>
 
         <div class="control-group">
@@ -27,3 +29,4 @@
                       galleries_path, :class => 'btn btn-mini' %>
         </div>
     <% end %>
+<% end %>

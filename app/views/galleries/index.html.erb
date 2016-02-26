@@ -1,4 +1,6 @@
-<div class="row">
+<% if can? :read, @gallery %>
+
+    <div class="row">
   <% if @galleries.blank? %>
       <h1>Galleries</h1>
       <%= link_to 'New', new_gallery_path, :class => 'btn btn-mini' %>
@@ -31,3 +33,4 @@
   </ul>
 
 </div>
+<% end %>
