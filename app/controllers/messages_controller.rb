@@ -7,7 +7,13 @@ class MessagesController < ApplicationController
     @message.user_id = current_user.id
     @message.save!
     
+    PrivatePub.publish_to "/notifications", :conversation_id => @conversation.id, :receiver_id => @conversation.recipient_id
     @path = conversation_path(@conversation)
+  end
+
+  def typing
+     @conversation = Conversation.find(params[:conversation_id])
+     @path = conversation_path(@conversation)
   end
 
   private
