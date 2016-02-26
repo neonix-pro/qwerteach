@@ -9,8 +9,6 @@ module Admin
     before_filter :authenticate_admin
 
     def authenticate_admin
-
-      # TODO Add authentication logic here.
       if (current_user.blank?)
         redirect_to '/', alert: 'Not authorized.'
       else
