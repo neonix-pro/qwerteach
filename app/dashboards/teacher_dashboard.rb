@@ -158,10 +158,6 @@ class TeacherDashboard < Administrate::BaseDashboard
       :unlock_token,
       :locked_at,
       :admin,
-      :avatar_file_name,
-      :avatar_content_type,
-      :avatar_file_size,
-      :avatar_updated_at,
   ]
 
   # Overwrite this method to customize how teachers are displayed
