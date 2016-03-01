@@ -14,7 +14,11 @@
       <% else %>
           <dd><%= @advert.topic.title %> </dd>
       <% end %>
+      <% prices = @advert.advert_prices %>
 
+      <% prices.each { |p| %>
+          <dd><%= p.level.fr %> : <%= p.price %></dd>
+      <%} %>
     </dl>
 <% end %>
 <div class="form-actions">

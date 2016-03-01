@@ -34,6 +34,17 @@ class AdvertsController < ApplicationController
     @advert = Advert.new(advert_params)
     respond_to do |format|
       if @advert.save
+        if params[:levels_chosen]
+          cpt = 0;
+          params[:levels_chosen].each { |level|
+            p = params[:prices][cpt.to_i]
+            while (p.nil?)
+              p = params[:prices][cpt.to_i]
+              cpt+=1
+            end
+            @advert.advert_prices.create(level_id: level, advert_id: @advert.id, price: p)
+          }
+        end
         format.html { redirect_to adverts_path, notice: 'Advert was successfully created.'}
         format.json { head :no_content }
       else

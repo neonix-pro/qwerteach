@@ -7,7 +7,11 @@
     <% else %>
         <p>Topic : <%= advert.topic.title %></p>
     <% end %>
+    <% prices = advert.advert_prices %>
 
+    <% prices.each { |p| %>
+        <dd><%= p.level.fr %> : <%= ActionController::Base.helpers.number_to_currency(p.price) %></dd>
+    <%} %>
 
     <%= link_to t('.edit', :default => t("helpers.links.edit")),
                 edit_advert_path(advert), :class => 'btn btn-mini' %>

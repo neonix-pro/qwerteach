@@ -3,18 +3,20 @@
       <%= f.label :topic %>
       <%= f.select :topic_id, Topic.all.collect { |p| [p.title, p.id] } %>
     </div>
-    <p>Prices</p>
-    <%= f.fields_for :advert_prices,  @advert.create_price do |ff| %>
-        <div class="field">
-          <%= ff.label :level_id %><br/>
-          <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id) %>
-          <%= ff.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] } %>
-        </div>
-        <div class="field">
-          <%= ff.label :price %><br/>
-          <%= ff.text_field :price%>
-        </div>
+    <div class="field">
+      <%= f.label :other_name %>
+      <%= f.text_field :other_name %>
+    </div>
+    <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => 'scolaire').group(I18n.locale[0..3]).order(:id) %>
+    <%= label_tag 'Niveaux' %>
+    <% levels.each do |c| %>
+        <%= label_tag c.fr %>
+        <%= check_box_tag 'levels_chosen[]', c.id %>
+        <%= label_tag "Price" %>
+        <%= number_field_tag 'prices[]', :id => c.id %>
+        <br>
     <% end %>
+
 
     <div class="form-actions">
       <%= f.submit nil, :class => 'btn btn-primary  btn-mini' %>
