@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   has_one :gallery
   has_one :postulation
   has_many :conversations, :foreign_key => :sender_id
-
+  has_many :adverts
   # on crée une postulation et une gallery après avoir créé le user
   after_create :create_gallery, :create_postulation
 

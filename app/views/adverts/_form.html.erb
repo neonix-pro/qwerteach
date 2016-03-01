@@ -1,0 +1,24 @@
+<%= form_for @advert, :html => {:class => 'form-horizontal'} do |f| %>
+    <div class="field">
+      <%= f.label :topic %>
+      <%= f.select :topic_id, Topic.all.collect { |p| [p.title, p.id] } %>
+    </div>
+    <p>Prices</p>
+    <%= f.fields_for :advert_prices,  @advert.create_price do |ff| %>
+        <div class="field">
+          <%= ff.label :level_id %><br/>
+          <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id) %>
+          <%= ff.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] } %>
+        </div>
+        <div class="field">
+          <%= ff.label :price %><br/>
+          <%= ff.text_field :price%>
+        </div>
+    <% end %>
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary  btn-mini' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  adverts_path(@adverts), :class => 'btn btn-mini' %>
+    </div>
+<% end %>

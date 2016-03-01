@@ -35,6 +35,10 @@ Rails.application.routes.draw do
     resources :messages
   end
 
+  resources :adverts do
+    resources :advert_prices
+  end
+
   post "/typing" => "messages#typing"
 
   # The priority is based upon order of creation: first created -> highest priority.
