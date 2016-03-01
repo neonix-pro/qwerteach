@@ -1,7 +1,7 @@
 class AdvertsController < ApplicationController
 
   def index
-    @adverts = Advert.where(:user=>current_user).group(:title)
+    @adverts = Advert.where(:user=>current_user)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -36,13 +36,16 @@ class AdvertsController < ApplicationController
       if @advert.save
         if params[:levels_chosen]
           cpt = 0;
+          p = params[:prices][cpt.to_i]
           params[:levels_chosen].each { |level|
-            p = params[:prices][cpt.to_i]
-            while (p.nil?)
-              p = params[:prices][cpt.to_i]
+            logger.debug("CPPPPTTT = " + cpt.to_s)
+            while (p.blank?)
               cpt+=1
+              p = params[:prices][cpt.to_i]
             end
             @advert.advert_prices.create(level_id: level, advert_id: @advert.id, price: p)
+            cpt+=1
+            p = params[:prices][cpt.to_i]
           }
         end
         format.html { redirect_to adverts_path, notice: 'Advert was successfully created.'}
@@ -58,8 +61,7 @@ class AdvertsController < ApplicationController
     @advert = Advert.find(params[:id])
     respond_to do |format|
       if @advert.update_attributes(advert_params)
-        @price = @advert.advert_prices.last
-        format.html { redirect_to edit_advert_advert_price_path(:id=> @price.id, :advert_id=>@advert.id), notice: 'Advert was successfully updated.'}
+        format.html { redirect_to adverts_path, notice: 'Advert was successfully updated.'}
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
