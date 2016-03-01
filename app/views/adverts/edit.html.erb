@@ -4,4 +4,34 @@
                                         :default => "Edit #{model_class.model_name.human}") %></h1>
     </div>
 
-<%= render :partial => 'form' %>
+<%= form_for @advert, :html => {:class => 'form-horizontal'} do |f| %>
+    <div class="field">
+      <%= f.label :topic %>
+      <%= f.select :topic_id, Topic.all.collect { |p| [p.title, p.id] } %>
+    </div>
+    <div class="field">
+      <%= f.label :other_name %>
+      <%= f.text_field :other_name %>
+    </div>
+    <h2>Prices</h2>
+    <%= f.fields_for :advert_prices do |ff| %>
+        <div>
+          <%= ff.label :level %>
+          <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id) %>
+          <%= ff.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] } %> </div>
+        <div>
+          <%= ff.hidden_field :advert_id, :value => @advert.id %>
+          <%= ff.label :price %>
+          <%= ff.text_field :price %>
+          <% if ff.object.persisted? %>
+              <%= ff.check_box :_destroy %>
+              <%= ff.label :_destroy, "Destroy" %>
+          <% end %>
+        </div>
+    <% end %>
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary  btn-mini' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  adverts_path(@adverts), :class => 'btn btn-mini' %>
+    </div>
+<% end %>

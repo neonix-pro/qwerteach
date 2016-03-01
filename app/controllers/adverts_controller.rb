@@ -82,6 +82,6 @@ class AdvertsController < ApplicationController
 
   private
   def advert_params
-    params.require(:advert).permit(:topic_id, :user_id, advert_prices_attributes: [:level_id, :price] ).merge(user_id: current_user.id)
+    params.require(:advert).permit(:topic_id, :user_id, advert_prices_attributes: [:id, :level_id, :price] ).merge(user_id: current_user.id)
   end
 end
