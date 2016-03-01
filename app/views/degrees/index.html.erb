@@ -6,21 +6,30 @@
             <table style="width:75%">
               <thead>
               <tr>
-                <th>id_user</th>
-                <th>title</th>
-                <th>institution</th>
-                <th>completion_year</th>
-                <th>level</th>
+                <th>Titre</th>
+                <th>Institution</th>
+                <th>Année d'obtention</th>
+                <th>Niveau</th>
+                <th>Actions</th>
               </tr>
               </thead>
               <tbody>
               <% for degree in @degrees %>
                   <tr>
-                    <td><%= degree.user_id %></td>
                     <td><%= degree.title %></td>
                     <td><%= degree.institution %></td>
                     <td><%= degree.completion_year %></td>
-                    <td><%= degree.level_id %></td>
+                    <td><%= degree.level[I18n.locale[0..3]] %></td>
+                    <td>
+                    	<%= 
+                    	button_to "Delete", { action: "destroy", id: degree.id },
+                                method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
+                    	%>
+                    	<%= 
+                    	button_to "Update", { action: "edit", id: degree.id },
+                                method: :get, class: "btn btn-info"
+                    	%>
+                    </td>
                   </tr>
               <% end %>
 

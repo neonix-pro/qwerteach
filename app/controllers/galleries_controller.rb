@@ -69,7 +69,6 @@ class GalleriesController < ApplicationController
     @user = User.find(@gallery.user_id)
     nb = @gallery.pictures.count
     respond_to do |format|
-
       if @gallery.update_attributes(gallery_params)
         if params[:images]
           # The magic is here ;)
