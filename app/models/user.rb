@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
 
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
+  has_many :degrees
 
   # Méthode permettant de créer une gallery
   def create_gallery

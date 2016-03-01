@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224141219) do
+ActiveRecord::Schema.define(version: 20160229153607) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "sender_id"
@@ -31,6 +31,19 @@ ActiveRecord::Schema.define(version: 20160224141219) do
   add_index "conversations", ["recipient_id"], name: "index_conversations_on_recipient_id"
   add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id"
 
+  create_table "degrees", force: :cascade do |t|
+    t.string   "title"
+    t.string   "institution"
+    t.integer  "completion_year"
+    t.integer  "user_id"
+    t.integer  "level_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "degrees", ["level_id"], name: "index_degrees_on_level_id"
+  add_index "degrees", ["user_id"], name: "index_degrees_on_user_id"
+
   create_table "galleries", force: :cascade do |t|
     t.integer  "cover"
     t.string   "token"
@@ -38,6 +51,17 @@ ActiveRecord::Schema.define(version: 20160224141219) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "level_translations", force: :cascade do |t|
+    t.integer  "level_id",   null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "value"
+  end
+
+  add_index "level_translations", ["level_id"], name: "index_level_translations_on_level_id"
+  add_index "level_translations", ["locale"], name: "index_level_translations_on_locale"
 
   create_table "levels", force: :cascade do |t|
     t.datetime "created_at"

@@ -1,0 +1,29 @@
+<% if @gdegrees.blank? %>
+      <h1>Diplômes</h1>
+      <%= link_to 'New', new_degree_path, :class => 'btn btn-mini' %>
+
+
+            <table style="width:75%">
+              <thead>
+              <tr>
+                <th>id_user</th>
+                <th>title</th>
+                <th>institution</th>
+                <th>completion_year</th>
+                <th>level</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% for degree in @degrees %>
+                  <tr>
+                    <td><%= degree.user_id %></td>
+                    <td><%= degree.title %></td>
+                    <td><%= degree.institution %></td>
+                    <td><%= degree.completion_year %></td>
+                    <td><%= degree.level_id %></td>
+                  </tr>
+              <% end %>
+
+              </tbody>
+            </table>
+  <% end %>
