@@ -1,3 +1,4 @@
+
 <%= form_for @degree, :html => {:class => 'form-horizontal'} do |f| %>
 	<div class="form-group">
 	  <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id) %>

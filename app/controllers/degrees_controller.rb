@@ -1,4 +1,6 @@
 class DegreesController < ApplicationController
+    load_and_authorize_resource
+
   before_filter :find_degree, only: [:edit, :update, :destroy]
   def index
     @degrees = Degree.where(:teacher=>current_user)
