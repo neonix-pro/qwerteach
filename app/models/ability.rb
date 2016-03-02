@@ -41,8 +41,19 @@ class Ability
       can :read, Picture, :gallery => {:user_id => user.id}
       cannot :update, Picture
       can :destroy, Picture, :gallery => {:user_id => user.id}
+
       can :manage, Degree, :user_id => user.id
       cannot :create, Degree if user.type != "Teacher"
+
+      can :create, Advert if user.is_a? Teacher
+      can :create, AdvertPrice if user.is_a? Teacher
+      can :read, Advert
+      can :read, AdvertPrice
+      can :destroy, Advert, :user_id => user.id
+      can :destroy, AdvertPrice, :advert => {:user_id => user.id}
+      can :update, Advert, :user_id => user.id
+      can :update, AdvertPrice, :advert => {:user_id => user.id}
     end
   end
 end
+

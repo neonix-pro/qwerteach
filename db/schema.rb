@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229153607) do
+ActiveRecord::Schema.define(version: 20160229111622) do
+
+  create_table "advert_prices", force: :cascade do |t|
+    t.integer  "advert_id"
+    t.integer  "level_id"
+    t.decimal  "price",      precision: 8, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  create_table "adverts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "topic_id"
+    t.string   "other_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer  "sender_id"
@@ -105,6 +121,19 @@ ActiveRecord::Schema.define(version: 20160229153607) do
     t.integer  "user_id"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+  end
+
+  create_table "topic_groups", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "topic_group_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "users", force: :cascade do |t|

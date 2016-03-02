@@ -41,4 +41,44 @@ Level.create(:code=>Level::LEVEL_CODE[2], :level=>5, :be=>"B2 Intermédiaire sup
 Level.create(:code=>Level::LEVEL_CODE[2], :level=>6, :be=>"C1 Avancé", :fr=>"C1 Avancé", :ch=>"C1 Avancé")
 Level.create(:code=>Level::LEVEL_CODE[2], :level=>7, :be=>"C2 Compétent/Courant", :fr=>"C2 Compétent/Courant", :ch=>"C2 Compétent/Courant")
 
+TopicGroup.create(:title => "Mathématiques")
+TopicGroup.create(:title => "Sciences")
+TopicGroup.create(:title => "Lettres")
+TopicGroup.create(:title => "Langues")
+TopicGroup.create(:title => "Economie")
+TopicGroup.create(:title => "Informatique")
+
+Topic.create(:topic_group_id => 1 ,:title => "Mathématiques")
+Topic.create(:topic_group_id => 1 ,:title => "Statistiques")
+Topic.create(:topic_group_id => 1 ,:title => "Other")
+
+Topic.create(:topic_group_id => 2 ,:title => "Physique")
+Topic.create(:topic_group_id => 2 ,:title => "Chimie")
+Topic.create(:topic_group_id => 2 ,:title => "Biologie")
+Topic.create(:topic_group_id => 2 ,:title => "Other")
+
+Topic.create(:topic_group_id => 3 ,:title => "Français")
+Topic.create(:topic_group_id => 3 ,:title => "Latin")
+Topic.create(:topic_group_id => 3 ,:title => "Grec")
+Topic.create(:topic_group_id => 3 ,:title => "Philosophie")
+Topic.create(:topic_group_id => 3 ,:title => "Other")
+
+Topic.create(:topic_group_id => 4 ,:title => "Français")
+Topic.create(:topic_group_id => 4 ,:title => "Néerlandais")
+Topic.create(:topic_group_id => 4 ,:title => "Anglais")
+Topic.create(:topic_group_id => 4 ,:title => "Espagnol")
+Topic.create(:topic_group_id => 4 ,:title => "Allemand")
+Topic.create(:topic_group_id => 4 ,:title => "Other")
+
+Topic.create(:topic_group_id => 5 ,:title => "Microéconomie")
+Topic.create(:topic_group_id => 5 ,:title => "Macroéconomie")
+Topic.create(:topic_group_id => 5 ,:title => "Finance")
+Topic.create(:topic_group_id => 5 ,:title => "Other")
+
+Topic.create(:topic_group_id => 6 ,:title => "Bureautique")
+Topic.create(:topic_group_id => 6 ,:title => "Programmation")
+Topic.create(:topic_group_id => 6 ,:title => "Réseaux")
+Topic.create(:topic_group_id => 6 ,:title => "Base de données")
+Topic.create(:topic_group_id => 6 ,:title => "Other")
+
 
