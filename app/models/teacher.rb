@@ -1,5 +1,9 @@
 class Teacher  < Student
   scope :teacher, -> { where(type: 'Teacher') }
+
+  has_one :postulation
+  has_many :degrees
+  
   # Methode override de User bloquant le type de User à Teacher au maximum
   public
   def upgrade

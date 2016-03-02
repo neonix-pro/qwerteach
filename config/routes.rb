@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   end
   resources :galleries
   resources :pictures
+  resources :degrees
   
   resources :conversations do
     resources :messages

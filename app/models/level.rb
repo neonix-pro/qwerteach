@@ -3,4 +3,5 @@ class Level < ActiveRecord::Base
   LEVEL_CODE = ["scolaire", "divers", "langue"]
   has_many :users
   has_many :advert_prices
+  has_one :degree
 end
