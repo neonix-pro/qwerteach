@@ -1,7 +1,7 @@
 class DegreesController < ApplicationController
   before_filter :find_degree, only: [:edit, :update, :destroy]
   def index
-    @degrees = Degree.where(:user=>current_user)
+    @degrees = Degree.where(:teacher=>current_user)
   end
 
   def new

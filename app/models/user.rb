@@ -29,7 +29,6 @@ class User < ActiveRecord::Base
   after_update :reprocess_avatar, :if => :cropping?
 
   has_one :gallery
-  has_one :postulation
   has_many :conversations, :foreign_key => :sender_id
 
   # on crée une postulation et une gallery après avoir créé le user
@@ -37,7 +36,6 @@ class User < ActiveRecord::Base
 
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
-  has_many :degrees
 
   # Méthode permettant de créer une gallery
   def create_gallery
