@@ -1,2 +1,7 @@
 <h2>Page de profil</h2>
 <%= @user.email %>
+<h3>Diplomes</h3>
+<% @degrees.each do |d| %>
+	<%= d.title %>
+	<br />
+<% end %>
