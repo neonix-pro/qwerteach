@@ -16,7 +16,7 @@ class DegreesController < ApplicationController
     @degree = Degree.new(degree_params)
     respond_to do |format|
       if @degree.save
-        format.html { redirect_to action: "index", notice: 'Degree successfully created.' }
+        format.html { redirect_to degrees_path, notice: "Degree successfully created" }
         format.json { render json: @degree, status: :created, location: @degree }
       else
         format.html { redirect_to @degree, notice: 'Degree not created.'}
@@ -30,16 +30,16 @@ class DegreesController < ApplicationController
 
   def update
     if @degree.update(degree_params)
-      redirect_to action: "index"
+      redirect_to degrees_path, notice: "Degree successfully modified"
     else
-      render 'edit'
+      render 'edit', alert: 'Oops! il y a eu un problème...'
     end
   end
 
   def destroy
     respond_to do |format|
       if @degree.delete
-        format.html { redirect_to action: "index", notice: 'Degree successfully deleted.' }
+        format.html { redirect_to degrees_path, notice: 'Degree successfully deleted.' }
         format.json { render json: @degree, status: :created, location: @degree }
       else
         format.html { redirect_to @degree, notice: 'Degree not deleted.'}
