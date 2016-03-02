@@ -10,6 +10,7 @@ class UserDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
       gallery: Field::HasOne,
       postulation: Field::HasOne,
+      conversations: Field::HasMany,
       sent_comment: Field::HasMany.with_options(class_name: "Comment"),
       received_comment: Field::HasMany.with_options(class_name: "Comment"),
       level: Field::BelongsTo,
@@ -60,7 +61,9 @@ class UserDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
       :id,
       :login,
+      :email,
       :gallery,
+      :conversations,
       :sent_comment,
       :received_comment,
   ]
@@ -70,6 +73,7 @@ class UserDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
       :gallery,
       :postulation,
+      :conversations,
       :sent_comment,
       :received_comment,
       :level,
@@ -118,6 +122,7 @@ class UserDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
       :gallery,
       :postulation,
+      :conversations,
       :sent_comment,
       :received_comment,
       :level,
@@ -151,10 +156,6 @@ class UserDashboard < Administrate::BaseDashboard
       :unlock_token,
       :locked_at,
       :admin,
-      :avatar_file_name,
-      :avatar_content_type,
-      :avatar_file_size,
-      :avatar_updated_at,
   ]
 
   # Overwrite this method to customize how users are displayed

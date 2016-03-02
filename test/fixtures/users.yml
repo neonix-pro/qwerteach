@@ -25,8 +25,6 @@ one:
   failed_attempts: default
   admin: false
   type: User
-  confirmed_at: "2016-02-25 16:15:52"
-# column: value
 #
 two:
   id: 2
@@ -49,4 +47,6 @@ two:
   failed_attempts: default
   admin: false
   type: User
+  confirmation_sent_at: "2016-02-25 16:15:52"
   confirmed_at: "2016-02-25 16:15:52"
+  confirmation_token: ace8cb0764a0e56e75cc0196dd2df6fa0b5005f7d31646c694f880d00b8206b

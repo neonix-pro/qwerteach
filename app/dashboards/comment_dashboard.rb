@@ -13,9 +13,9 @@ class CommentDashboard < Administrate::BaseDashboard
       id: Field::Number,
       sender_id: Field::Number,
       subject_id: Field::Number,
+      comment_text: Field::Text,
       created_at: Field::DateTime,
       updated_at: Field::DateTime,
-      comment_text: Field::Text
   }
 
   # COLLECTION_ATTRIBUTES
@@ -28,7 +28,6 @@ class CommentDashboard < Administrate::BaseDashboard
       :sender,
       :subject,
       :comment_text,
-      :sender_id,
   ]
 
   # SHOW_PAGE_ATTRIBUTES
@@ -37,9 +36,9 @@ class CommentDashboard < Administrate::BaseDashboard
       :sender,
       :subject,
       :id,
-      :comment_text,
       :sender_id,
       :subject_id,
+      :comment_text,
       :created_at,
       :updated_at,
   ]

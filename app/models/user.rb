@@ -18,7 +18,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
   # Avatar attaché au User
   has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"},
-                    :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg"
+                    :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg",
+                    url: "/system/avatars/:hash.:extension", hash_secret: "laVieEstBelllllee", :hash_data => "/:attachment/:id/:style"
   # Vérifie que le type de l'avatar est bien une image
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :message => 'file type is not allowed (only jpeg/png/gif images)'
   # Attributs pour le crop de l'avatar

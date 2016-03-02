@@ -10,6 +10,7 @@ class TeacherDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
       gallery: Field::HasOne,
       postulation: Field::HasOne,
+      conversations: Field::HasMany,
       sent_comment: Field::HasMany.with_options(class_name: "Comment"),
       received_comment: Field::HasMany.with_options(class_name: "Comment"),
       level: Field::BelongsTo,
@@ -61,6 +62,7 @@ class TeacherDashboard < Administrate::BaseDashboard
       :id,
       :gallery,
       :postulation,
+      :conversations,
       :sent_comment,
       :received_comment,
       :login,
@@ -73,6 +75,7 @@ class TeacherDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
       :gallery,
       :postulation,
+      :conversations,
       :sent_comment,
       :received_comment,
       :level,
@@ -121,6 +124,7 @@ class TeacherDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
       :gallery,
       :postulation,
+      :conversations,
       :sent_comment,
       :received_comment,
       :level,
@@ -154,10 +158,6 @@ class TeacherDashboard < Administrate::BaseDashboard
       :unlock_token,
       :locked_at,
       :admin,
-      :avatar_file_name,
-      :avatar_content_type,
-      :avatar_file_size,
-      :avatar_updated_at,
   ]
 
   # Overwrite this method to customize how teachers are displayed

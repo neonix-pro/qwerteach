@@ -36,7 +36,7 @@ class Ability
       can :create, Gallery
       can :read, Gallery, :user_id => user.id
       can :update, Gallery, :user_id => user.id
-      cannot :destroy, Gallery, :user_id => user.id
+      cannot :destroy, Gallery
       can :create, Picture
       can :read, Picture, :gallery => {:user_id => user.id}
       cannot :update, Picture

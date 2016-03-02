@@ -207,7 +207,7 @@ twentynine:
     fr: C1 Avancé
     ch: C1 Avancé
 
-twentynine:
+thirty:
     level: 30
     code: Level::LEVEL_CODE[2]
     be: C2 Compétent/Courant

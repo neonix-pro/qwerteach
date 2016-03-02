@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resources :teachers
     resources :postulations
     resources :comments
+    resources :conversations
+    resources :messages
 
     root to: "users#index"
   end
