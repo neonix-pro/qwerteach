@@ -24,7 +24,8 @@
         <% if user_signed_in? %>
             <% @gallery=Gallery.where(:user=>current_user).last %>
             <li><%= link_to 'Gallery',  gallery_path(@gallery)%></li>
-        <% end %>
+            <li><%= link_to 'Advert',  adverts_path%></li>
+      <% end %>
       </ul>
 
       <ul class="nav navbar-nav pull-right">

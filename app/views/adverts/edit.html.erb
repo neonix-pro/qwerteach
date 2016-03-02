@@ -1,8 +1,8 @@
 <%- model_class = @advert.class -%>
-    <div class="page-header">
-      <h1><%= t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
-                                        :default => "Edit #{model_class.model_name.human}") %></h1>
-    </div>
+<div class="page-header">
+  <h1><%= t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
+                                    :default => "Edit #{model_class.model_name.human}") %></h1>
+</div>
 
 <%= form_for @advert, :html => {:class => 'form-horizontal'} do |f| %>
     <div class="field">
@@ -14,20 +14,33 @@
       <%= f.text_field :other_name %>
     </div>
     <h2>Prices</h2>
+    <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id) %>
     <%= f.fields_for :advert_prices do |ff| %>
         <div>
           <%= ff.label :level %>
-          <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id) %>
+          <!-- Bloquer le select pour pas changer ça -->
           <%= ff.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] } %> </div>
+           <%= ff.hidden_field :level_id %>
         <div>
           <%= ff.hidden_field :advert_id, :value => @advert.id %>
           <%= ff.label :price %>
-          <%= ff.text_field :price %>
+          <%= ff.number_field :price %>
           <% if ff.object.persisted? %>
               <%= ff.check_box :_destroy %>
               <%= ff.label :_destroy, "Destroy" %>
           <% end %>
         </div>
+    <% end %>
+    <h3>Add prices</h3>
+    <!-- N'afficher que les levels qui sont pas déjà entrés -->
+    <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => 'scolaire').group(I18n.locale[0..3]).order(:id) %>
+    <%= label_tag 'Niveaux' %>
+    <% levels.each do |c| %>
+        <%= label_tag c.fr %>
+        <%= check_box_tag 'levels_chosen[]', c.id %>
+        <%= label_tag "Price" %>
+        <%= number_field_tag 'prices[]', :id => c.id %>
+        <br>
     <% end %>
     <div class="form-actions">
       <%= f.submit nil, :class => 'btn btn-primary  btn-mini' %>

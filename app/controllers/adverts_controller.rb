@@ -1,4 +1,5 @@
 class AdvertsController < ApplicationController
+  load_and_authorize_resource
 
   def index
     @adverts = Advert.where(:user=>current_user)
@@ -38,7 +39,6 @@ class AdvertsController < ApplicationController
           cpt = 0;
           p = params[:prices][cpt.to_i]
           params[:levels_chosen].each { |level|
-            logger.debug("CPPPPTTT = " + cpt.to_s)
             while (p.blank?)
               cpt+=1
               p = params[:prices][cpt.to_i]
@@ -59,8 +59,25 @@ class AdvertsController < ApplicationController
 
   def update
     @advert = Advert.find(params[:id])
+
     respond_to do |format|
+      logger.debug("ADVVVVVVVVVVVVV ****************")
       if @advert.update_attributes(advert_params)
+        if params[:levels_chosen]
+          cpt = 0;
+          p = params[:prices][cpt.to_i]
+          params[:levels_chosen].each { |level|
+            while (p.blank?)
+              cpt+=1
+              p = params[:prices][cpt.to_i]
+            end
+            if (@advert.advert_prices.where(:level_id=>level).blank?)
+              @advert.advert_prices.create(level_id: level, advert_id: @advert.id, price: p)
+            end
+            cpt+=1
+            p = params[:prices][cpt.to_i]
+          }
+        end
         format.html { redirect_to adverts_path, notice: 'Advert was successfully updated.'}
         format.json { head :no_content }
       else
@@ -82,6 +99,6 @@ class AdvertsController < ApplicationController
 
   private
   def advert_params
-    params.require(:advert).permit(:topic_id, :user_id, advert_prices_attributes: [:id, :level_id, :price] ).merge(user_id: current_user.id)
+    params.require(:advert).permit(:topic_id, :user_id, :other_name, advert_prices_attributes: [:id, :level_id, :price, :_destroy] ).merge(user_id: current_user.id)
   end
 end
