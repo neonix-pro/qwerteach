@@ -93,7 +93,8 @@ class AdvertsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to adverts_url }
-      format.json { head :no_content }
+      format.json { }
+      format.js {}
     end
   end
 

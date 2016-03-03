@@ -1,6 +1,5 @@
 <h1>Ajouter des Images</h1>
 
-
 <% @gallery.pictures.each do |picture| %>
     <% if can? :read, @gallery %>
         <%= image_tag picture.image.url(:thumb) %>

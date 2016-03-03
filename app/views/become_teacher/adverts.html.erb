@@ -1,0 +1,55 @@
+<%- model_class = @advert.class -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
+                                   :default => "New #{model_class.model_name.human}") %></h1>
+</div>
+
+<% @adverts.each do |advert| %>
+    <div class="advert">
+    <p><%= advert.topic.topic_group.title %></p>
+    <% if (advert.topic.title=="Other") %>
+        <p>Topic: <%= advert.other_name %></p>
+    <% else %>
+        <p>Topic : <%= advert.topic.title %></p>
+    <% end %>
+    <% prices = advert.advert_prices %>
+
+    <% prices.each { |p| %>
+        <dd><%= p.level.fr %> : <%= ActionController::Base.helpers.number_to_currency(p.price) %></dd>
+    <%} %>
+
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                advert_path(advert),
+                :method => :delete,
+                :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                :class => 'btn btn-mini btn-danger delete-advert',
+                :remote => true %>
+    <br>
+    </div>
+<% end %>
+<%= form_for @advert, :html => {:class => 'form-horizontal'} do |f| %>
+    <div class="field">
+      <%= f.label :topic %>
+      <%= f.select :topic_id, Topic.all.collect { |p| [p.title, p.id] } %>
+    </div>
+    <div class="field">
+      <%= f.label :other_name %>
+      <%= f.text_field :other_name %>
+    </div>
+    <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => 'scolaire').group(I18n.locale[0..3]).order(:id) %>
+    <%= label_tag 'Niveaux' %>
+    <% levels.each do |c| %>
+        <%= label_tag c.fr %>
+        <%= check_box_tag 'levels_chosen[]', c.id%>
+        <%= label_tag "Price" %>
+        <%= number_field_tag 'prices[]', :id => c.id %>
+        <br>
+    <% end %>
+
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary  btn-mini' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  adverts_path(@adverts), :class => 'btn btn-mini' %>
+    </div>
+<% end %>

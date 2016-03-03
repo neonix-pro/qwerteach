@@ -12,6 +12,9 @@ class BecomeTeacherController < ApplicationController
       if @user.avatar_file_name?
         jump_to(:pictures) 
       end
+    when :adverts
+      @advert = Advert.new
+      @adverts = Advert.where(:user=>current_user)
     end
     render_wizard
   end
