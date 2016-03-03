@@ -4,7 +4,8 @@
                                    :default => "New #{model_class.model_name.human}") %></h1>
 </div>
 
-<% @adverts.each do |advert| %>
+<div id="adverts"> 
+<% @adverts.each do |advert| %> 
     <div class="advert">
     <p><%= advert.topic.topic_group.title %></p>
     <% if (advert.topic.title=="Other") %>
@@ -27,7 +28,9 @@
     <br>
     </div>
 <% end %>
-<%= form_for @advert, :html => {:class => 'form-horizontal'} do |f| %>
+</div>
+
+<%= form_for @advert, remote: true, :html => {:class => 'form-horizontal'} do |f| %>
     <div class="field">
       <%= f.label :topic %>
       <%= f.select :topic_id, Topic.all.collect { |p| [p.title, p.id] } %>
@@ -49,7 +52,5 @@
 
     <div class="form-actions">
       <%= f.submit nil, :class => 'btn btn-primary  btn-mini' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                  adverts_path(@adverts), :class => 'btn btn-mini' %>
     </div>
 <% end %>
