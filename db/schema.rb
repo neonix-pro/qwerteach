@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229111622) do
+ActiveRecord::Schema.define(version: 20160229153607) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id"

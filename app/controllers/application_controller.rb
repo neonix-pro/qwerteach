@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
   # the security token in requests and verify it on the server.
   protect_from_forgery with: :exception
   # loader les permitted params pour devise
-  before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   # Pour définir les permitted params dans les controllers en utilisant require

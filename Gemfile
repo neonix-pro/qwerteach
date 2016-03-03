@@ -47,6 +47,9 @@ gem "administrate", "~> 0.1.4"
 gem 'private_pub'
 gem 'thin'
 
+# wizardify models
+gem 'wicked'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

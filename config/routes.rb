@@ -40,6 +40,10 @@ Rails.application.routes.draw do
     resources :advert_prices
   end
 
+  get "/pages/*page" => "pages#show"
+
+  resources :become_teacher
+  
   post "/typing" => "messages#typing"
 
   # The priority is based upon order of creation: first created -> highest priority.

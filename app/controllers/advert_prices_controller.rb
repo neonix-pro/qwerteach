@@ -5,11 +5,9 @@ class AdvertPricesController < ApplicationController
     @advertPrice = AdvertPrice.find(params[:id])
   end
   def update
-    logger.debug("HELLLLLOOOOOOO")
     @advertPrice = AdvertPrice.find(params[:id])
     respond_to do |format|
       if (@advertPrice.level_id != params[:level_id])
-        logger.debug("IFFFFFFFFFFFF")
         if (@advertPrice.advert.advert_prices.where(:level_id=>params[:level_id]).blank?)
           @advert.advert_prices.create(level_id: params[:level_id], advert_id: @advertPrice.advert.id, price: params[:price])
           format.html { render adverts_path, notice: 'Price was successfully created.'}
