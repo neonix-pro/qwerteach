@@ -14,12 +14,12 @@
         <% end %>
         <% h[x.user_id].push(x) %>
     <% end %>
-    <% @pagin = Kaminari.paginate_array(h.keys).page(params[:page]).per(15) %>
-    <% @pagin.each do |r| %>
+    <% @pagin = User.where(:id => h.keys, :postulance_accepted => true).page(params[:page]).per(15) %>
+    <% #@pagin = Kaminari.paginate_array(@table).page(params[:page]).per(1) %>
+    <% @pagin.each do |u| %>
         <li>
-          <% u = User.find(r)%>
           <p><%= image_tag(u.avatar.url(:small)) %><%= link_to u.email, user_path(u) %></p>
-          <% h[r].each do |a| %>
+          <% h[u.id].each do |a| %>
               <%= link_to a.topic.title, advert_path(a) %>
           <% end %>
         </li>
