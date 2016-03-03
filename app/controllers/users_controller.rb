@@ -13,7 +13,6 @@ class UsersController < ApplicationController
        # limit 100
         #group_field
       #end
-
     end
     #@users = @search.results
   end

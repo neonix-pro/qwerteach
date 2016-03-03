@@ -9,15 +9,16 @@
   <% h = Hash.new() %>
   <ul>
     <% @search.results.each do |x| %>
-        <% if h.assoc(x.user).nil? %>
-            <% h.store(x.user, Array.new) %>
+        <% if h.assoc(x.user_id).nil? %>
+            <% h.store(x.user_id, Array.new) %>
         <% end %>
-        <% h[x.user].push(x) %>
+        <% h[x.user_id].push(x) %>
     <% end %>
     <% @pagin = Kaminari.paginate_array(h.keys).page(params[:page]).per(15) %>
     <% @pagin.each do |r| %>
         <li>
-          <p><%= image_tag(r.avatar.url(:small)) %><%= link_to r.email, user_path(r) %></p>
+          <% u = User.find(r)%>
+          <p><%= image_tag(u.avatar.url(:small)) %><%= link_to u.email, user_path(u) %></p>
           <% h[r].each do |a| %>
               <%= link_to a.topic.title, advert_path(a) %>
           <% end %>
