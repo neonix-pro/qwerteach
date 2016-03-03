@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   GENDER_TYPES = ["Not telling", "Male", "Female"]
   ACCOUNT_TYPES = ["Student", "Teacher"]
   TEACHER_STATUS = ["Actif", "Suspendu"]
-
+  paginates_per 1
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -110,7 +110,7 @@ class User < ActiveRecord::Base
   end
 
   searchable do
-    text :email
+   / text :email
     text :firstname
 
     text :adverts do
@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
 
       #adverts.map { |adv| adv.other_name }
       #adverts.map{|e| e.advert_prices.map {|k| k.level(&:be)}}
-    end
+    end/
   end
 
   def user_levels

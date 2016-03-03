@@ -4,9 +4,11 @@ class UsersController < ApplicationController
 	end
 
 	def index
-    @search = Advert.search()  do
+    @search = Sunspot.search(Advert)  do
       fulltext params[:q]
       order_by(:topic_id, "desc")
+      #paginate :page => params[:page], :per_page => 5
+      #paginate(:page => params[:page] || 1, :per_page => 2)
       #group :user_email do
        # limit 100
         #group_field
