@@ -1,0 +1,28 @@
+<%= form_tag users_path, :method => :get do %>
+    <p>
+      <%= text_field_tag :q, params[:search] %>
+      <%= submit_tag "Search", :name => nil %>
+    </p>
+<% end %>
+
+<div id="facets">
+  <h3>Results</h3>
+  <ul>
+    <% h = Hash.new() %>
+    <% @search.results.each do |x| %>
+        <% if h.assoc(x.user).nil? %>
+            <% h.store(x.user, Array.new) %>
+        <% end %>
+        <% h[x.user].push(x) %>
+    <% end %>
+
+    <% h.keys.each do |r| %>
+        <p><%= image_tag(r.avatar.url(:small)) %><%= link_to r.email, user_path(r) %></p>
+        <% h[r].each do |a| %>
+            <%= link_to a.topic.title, advert_path(a)%>
+        <% end %>
+    <% end %>
+
+  </ul>
+</div>
+

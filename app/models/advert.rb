@@ -11,4 +11,18 @@ class Advert < ActiveRecord::Base
   def create_price
     AdvertPrice.create(:advert_id => self.id)
   end
+  searchable do
+    text :other_name
+    text :user do
+      user.email
+    end
+    text :topic do
+      topic.title
+    end
+    integer :topic_id, :references => Topic
+    string :user_email do
+      user.email
+    end
+
+  end
 end

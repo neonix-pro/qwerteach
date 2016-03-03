@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
   def create_gallery
     Gallery.create(:user_id => self.id)
   end
+
   # Méthode permettant de créer une postulation
   def create_postulation
     Postulation.create(:user_id => self.id)
@@ -51,6 +52,7 @@ class User < ActiveRecord::Base
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
+
   # Méthode liée au crop de l'avatar
   def avatar_geometry(style = :original)
     @geometry ||= {}
@@ -87,20 +89,52 @@ class User < ActiveRecord::Base
   def is_prof_postulant
     false
   end
+
   # Methode permettant d'accepter la postulation  d'un prof
 
   public
   def accept_postulance
   end
+
   # Methode permettant de savoir si la postulation a été acceptée par un admin
   public
   def is_prof
     false
   end
+
   # Methode permettant de rendre un User admin
   public
   def become_admin
     self.admin=true
     self.save
   end
+
+  searchable do
+    text :email
+    text :firstname
+
+    text :adverts do
+      # works
+      adverts.map { |adv| adv.other_name }
+
+
+      # Doesn't work
+      adverts.map { |adv| adv.topic(&:title) }
+      self.adverts.map { |e| e.advert_prices.map { |k| k.level_id } }.each do |s|
+        s.each do |t|
+          Level.find(t).be
+        end
+      end
+
+      #adverts.map { |adv| adv.other_name }
+      #adverts.map{|e| e.advert_prices.map {|k| k.level(&:be)}}
+    end
+  end
+
+  def user_levels
+    self.adverts.map { |e| e.advert_prices.map { |k| k.level_id } }.each do |s|
+
+    end
+  end
+
 end
