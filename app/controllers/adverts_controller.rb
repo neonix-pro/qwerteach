@@ -59,7 +59,6 @@ class AdvertsController < ApplicationController
 
   def update
     @advert = Advert.find(params[:id])
-
     respond_to do |format|
       if @advert.update_attributes(advert_params)
         if params[:levels_chosen]
