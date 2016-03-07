@@ -24,7 +24,7 @@
         <div>
           <%= ff.hidden_field :advert_id, :value => @advert.id %>
           <%= ff.label :price %>
-          <%= ff.number_field :price %>
+          <%= ff.number_field :price, :min => 0  %>
           <% if ff.object.persisted? %>
               <%= ff.check_box :_destroy %>
               <%= ff.label :_destroy, "Destroy" %>
@@ -39,7 +39,7 @@
         <%= label_tag c.fr %>
         <%= check_box_tag 'levels_chosen[]', c.id %>
         <%= label_tag "Price" %>
-        <%= number_field_tag 'prices[]', :id => c.id %>
+        <%= number_field_tag 'prices[]', :id => c.id, min: 0  %>
         <br>
     <% end %>
     <div class="form-actions">
