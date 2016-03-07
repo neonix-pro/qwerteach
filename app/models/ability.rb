@@ -50,7 +50,7 @@ class Ability
       can :destroy, AdvertPrice, :advert => {:user_id => user.id}
       can :update, Advert, :user_id => user.id
       can :update, AdvertPrice, :advert => {:user_id => user.id}
-      can :create, Degree, :teacher => {:type => 'Teacher'}
+      can :create, Degree if user.is_a? Teacher
       can :read, Degree, :user_id => user.id
       can :update, Degree, :user_id => user.id
       can :destroy, Degree, :user_id => user.id

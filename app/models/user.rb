@@ -28,7 +28,6 @@ class User < ActiveRecord::Base
   validates_date :birthdate, :on_or_before => lambda { Date.current }
   # Update de l'avatar pour le crop
   after_update :reprocess_avatar, :if => :cropping?
-
   has_one :gallery
   has_many :conversations, :foreign_key => :sender_id
   has_many :adverts
@@ -37,6 +36,16 @@ class User < ActiveRecord::Base
 
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
+
+  def level_max
+    if Degree.where(:user_id=>self).map{|t| t.level}.max.blank?
+      nil
+    else
+      Degree.where(:user_id=>self).map{|t| t.level}.max.id
+    end
+    #self.degrees.map{|t| t.level}.max.id
+
+  end
 
   # Méthode permettant de créer une gallery
   def create_gallery
@@ -107,34 +116,6 @@ class User < ActiveRecord::Base
   def become_admin
     self.admin=true
     self.save
-  end
-
-  searchable do
-   / text :email
-    text :firstname
-
-    text :adverts do
-      # works
-      adverts.map { |adv| adv.other_name }
-
-
-      # Doesn't work
-      adverts.map { |adv| adv.topic(&:title) }
-      self.adverts.map { |e| e.advert_prices.map { |k| k.level_id } }.each do |s|
-        s.each do |t|
-          Level.find(t).be
-        end
-      end
-
-      #adverts.map { |adv| adv.other_name }
-      #adverts.map{|e| e.advert_prices.map {|k| k.level(&:be)}}
-    end/
-  end
-
-  def user_levels
-    self.adverts.map { |e| e.advert_prices.map { |k| k.level_id } }.each do |s|
-
-    end
   end
 
 end

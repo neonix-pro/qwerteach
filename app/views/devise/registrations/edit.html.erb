@@ -16,7 +16,7 @@
     </div>
     <div class="field">
       <%= f.label :description %><br/>
-      <%= f.text_field :description %>
+      <%= f.text_area :description %>
     </div>
 
     <div class="field">
@@ -28,12 +28,12 @@
           <%= f.label :type %><br/>
           <%= f.select :type, User::ACCOUNT_TYPES %>
         </div>
-        <div class="field">
+    <% end %>
+    <div class="field">
           <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id) %>
           <%= f.label :level_id %><br/>
           <%= f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] } %>
         </div>
-    <% end %>
     <!-- if teacher, cannot change account type anymore -->
     <% if resource.type == "Teacher" %>
         <div class="field">

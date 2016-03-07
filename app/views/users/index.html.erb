@@ -1,6 +1,21 @@
 <%= form_tag users_path, :method => :get do %>
     <p>
-      <%= text_field_tag :q, params[:search] %>
+      <%= label_tag "Mot-clé" %>
+      <%= text_field_tag :q, params[:search] %><br>
+      <%= label_tag "Age : " %>
+      <%= label_tag "De" %>
+      <%= number_field_tag :age_min, params[:age_min] %>
+      <%= label_tag "A" %>
+      <%= number_field_tag :age_max, params[:age_max] %><br>
+      <%= label_tag "Diplome" %>
+      <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id) %>
+      <%= select_tag :degree_id, options_for_select(levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }), :include_blank => true %>
+      <br>
+      <%= label_tag "Prix : " %>
+      <%= label_tag "De" %>
+      <%= number_field_tag :min_price, params[:min_price] %>
+      <%= label_tag "A" %>
+      <%= number_field_tag :max_price, params[:max_price] %><br>
       <%= submit_tag "Search", :name => nil %>
     </p>
 <% end %>
@@ -14,8 +29,13 @@
         <% end %>
         <% h[x.user_id].push(x) %>
     <% end %>
-    <% @pagin = User.where(:id => h.keys, :postulance_accepted => true).page(params[:page]).per(15) %>
-    <% #@pagin = Kaminari.paginate_array(@table).page(params[:page]).per(1) %>
+    <% @pagin %>
+    <% if params[:degree_id].blank? %>
+        <% @pagin = User.where(:id => h.keys, :postulance_accepted => true).order(:level_id).page(params[:page]).per(15) %>
+    <% else %>
+        <% @pagin = User.where(:id => h.keys, :postulance_accepted => true).where('level_id >= ?', params[:degree_id]).order(:level_id).page(params[:page]).per(15) %>
+    <% end %>
+    <% #@pagin = Kaminari.paginate_array(@table).page(params[:page]).per(1)                %>
     <% @pagin.each do |u| %>
         <li>
           <p><%= image_tag(u.avatar.url(:small)) %><%= link_to u.email, user_path(u) %></p>

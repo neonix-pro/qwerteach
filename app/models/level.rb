@@ -4,8 +4,4 @@ class Level < ActiveRecord::Base
   has_many :users
   has_many :advert_prices
   has_one :degree
-  searchable do
-    text :be
-    text :fr
-  end
 end

@@ -8,9 +8,20 @@ class Advert < ActiveRecord::Base
                                 :reject_if     => :all_blank
   #after_create :create_price
 
+  def min_price
+  self.advert_prices.order('price DESC').map{|p| p.price}.last
+  end
+  def max_price
+    self.advert_prices.order('price DESC').map{|p| p.price}.first
+  end
+  def find_topic_group
+    self.topic.topic_group.title
+  end
   def create_price
     AdvertPrice.create(:advert_id => self.id)
   end
+
+  # Pour Sunspot, définition des champs sur lesquels les recherches sont faites et des champs sur lesquels les filtres sont réalisés
   searchable do
     text :other_name
     text :user do
@@ -19,9 +30,19 @@ class Advert < ActiveRecord::Base
     text :topic do
       topic.title
     end
+    text :topic_group do
+      self.find_topic_group
+    end
     integer :topic_id, :references => Topic
     string :user_email do
       user.email
+    end
+    string :user_age do
+      Time.now.year - user.birthdate.year
+    end
+
+    string :advert_prices_truc , :multiple => true do
+      advert_prices.map{|p| p.price}
     end
 
   end
