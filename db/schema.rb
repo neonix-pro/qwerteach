@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229111622) do
+ActiveRecord::Schema.define(version: 20160229153607) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id"
@@ -68,17 +68,6 @@ ActiveRecord::Schema.define(version: 20160229111622) do
     t.datetime "updated_at"
   end
 
-  create_table "level_translations", force: :cascade do |t|
-    t.integer  "level_id",   null: false
-    t.string   "locale",     null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "value"
-  end
-
-  add_index "level_translations", ["level_id"], name: "index_level_translations_on_level_id"
-  add_index "level_translations", ["locale"], name: "index_level_translations_on_locale"
-
   create_table "levels", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -125,6 +114,7 @@ ActiveRecord::Schema.define(version: 20160229111622) do
 
   create_table "topic_groups", force: :cascade do |t|
     t.string   "title"
+    t.string   "level_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

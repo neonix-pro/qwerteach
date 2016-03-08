@@ -47,6 +47,10 @@ gem "administrate", "~> 0.1.4"
 gem 'private_pub'
 gem 'thin'
 
+
+gem 'sunspot_rails'
+gem 'kaminari'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -62,6 +66,7 @@ group :development, :test do
   gem 'sqlite3',     '1.3.9'
   gem 'byebug',      '3.4.0'
 
+  gem 'sunspot_solr'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

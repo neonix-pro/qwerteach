@@ -1,0 +1,12 @@
+<%= label_tag 'Niveaux' %>
+<% if @levels.nil? %>
+    <p>NILLLL</p>
+<% else %>
+    <% @levels.each do |c| %>
+        <%= label_tag c[I18n.locale[0..3]] %>
+        <%= check_box_tag 'levels_chosen[]', c.id %>
+        <%= label_tag "Price" %>
+        <%= number_field_tag 'prices[]', :id => c.id, min: 0 %>
+        <br>
+    <% end %>
+<% end %>

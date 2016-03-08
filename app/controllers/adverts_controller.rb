@@ -1,8 +1,7 @@
 class AdvertsController < ApplicationController
   load_and_authorize_resource
-
   def index
-    @adverts = Advert.where(:user=>current_user)
+    @adverts = Advert.where(:user => current_user)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -35,6 +34,7 @@ class AdvertsController < ApplicationController
     @advert = Advert.new(advert_params)
     respond_to do |format|
       if @advert.save
+        @advert.topic = Topic.find(params[:topic_id])
         if params[:levels_chosen]
           cpt = 0;
           p = params[:prices][cpt.to_i]
@@ -48,10 +48,10 @@ class AdvertsController < ApplicationController
             p = params[:prices][cpt.to_i]
           }
         end
-        format.html { redirect_to adverts_path, notice: 'Advert was successfully created.'}
+        format.html { redirect_to adverts_path, notice: 'Advert was successfully created.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to @advert, notice: 'Advert not created.'}
+        format.html { redirect_to @advert, notice: 'Advert not created.' }
         format.json { render json: @advert.errors, status: :unprocessable_entity }
       end
     end
@@ -59,9 +59,8 @@ class AdvertsController < ApplicationController
 
   def update
     @advert = Advert.find(params[:id])
-
+    @advert.topic = Topic.find(params[:topic_id])
     respond_to do |format|
-      logger.debug("ADVVVVVVVVVVVVV ****************")
       if @advert.update_attributes(advert_params)
         if params[:levels_chosen]
           cpt = 0;
@@ -71,14 +70,14 @@ class AdvertsController < ApplicationController
               cpt+=1
               p = params[:prices][cpt.to_i]
             end
-            if (@advert.advert_prices.where(:level_id=>level).blank?)
+            if (@advert.advert_prices.where(:level_id => level).blank?)
               @advert.advert_prices.create(level_id: level, advert_id: @advert.id, price: p)
             end
             cpt+=1
             p = params[:prices][cpt.to_i]
           }
         end
-        format.html { redirect_to adverts_path, notice: 'Advert was successfully updated.'}
+        format.html { redirect_to adverts_path, notice: 'Advert was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -97,8 +96,25 @@ class AdvertsController < ApplicationController
     end
   end
 
+  def choice
+    topic = Topic.find(params[:topic_id])
+    level_choice = topic.topic_group.level_code
+    @levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => level_choice).group(I18n.locale[0..3]).order(:id)
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
+  def choice_group
+    group = TopicGroup.find(params[:group_id])
+    @topics = Topic.where(:topic_group => group)
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
   private
   def advert_params
-    params.require(:advert).permit(:topic_id, :user_id, :other_name, advert_prices_attributes: [:id, :level_id, :price, :_destroy] ).merge(user_id: current_user.id)
+    params.require(:advert).permit(:topic_id, :user_id, :other_name, :topic, advert_prices_attributes: [:id, :level_id, :price, :_destroy]).merge(user_id: current_user.id, topic: Topic.find(params[:topic_id]))
   end
 end

@@ -41,12 +41,12 @@ Level.create(:code=>Level::LEVEL_CODE[2], :level=>5, :be=>"B2 Intermédiaire sup
 Level.create(:code=>Level::LEVEL_CODE[2], :level=>6, :be=>"C1 Avancé", :fr=>"C1 Avancé", :ch=>"C1 Avancé")
 Level.create(:code=>Level::LEVEL_CODE[2], :level=>7, :be=>"C2 Compétent/Courant", :fr=>"C2 Compétent/Courant", :ch=>"C2 Compétent/Courant")
 
-TopicGroup.create(:title => "Mathématiques")
-TopicGroup.create(:title => "Sciences")
-TopicGroup.create(:title => "Lettres")
-TopicGroup.create(:title => "Langues")
-TopicGroup.create(:title => "Economie")
-TopicGroup.create(:title => "Informatique")
+TopicGroup.create(:title => "Mathématiques", :level_code => "scolaire")
+TopicGroup.create(:title => "Sciences", :level_code => "scolaire")
+TopicGroup.create(:title => "Lettres", :level_code => "scolaire")
+TopicGroup.create(:title => "Langues", :level_code => "langue")
+TopicGroup.create(:title => "Economie", :level_code => "scolaire")
+TopicGroup.create(:title => "Informatique", :level_code => "scolaire")
 
 Topic.create(:topic_group_id => 1 ,:title => "Mathématiques")
 Topic.create(:topic_group_id => 1 ,:title => "Statistiques")

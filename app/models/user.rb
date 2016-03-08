@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   GENDER_TYPES = ["Not telling", "Male", "Female"]
   ACCOUNT_TYPES = ["Student", "Teacher"]
   TEACHER_STATUS = ["Actif", "Suspendu"]
-
+  paginates_per 1
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -28,7 +28,6 @@ class User < ActiveRecord::Base
   validates_date :birthdate, :on_or_before => lambda { Date.current }
   # Update de l'avatar pour le crop
   after_update :reprocess_avatar, :if => :cropping?
-
   has_one :gallery
   has_many :conversations, :foreign_key => :sender_id
   has_many :adverts
@@ -38,10 +37,21 @@ class User < ActiveRecord::Base
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
 
+  def level_max
+    if Degree.where(:user_id=>self).map{|t| t.level}.max.blank?
+      nil
+    else
+      Degree.where(:user_id=>self).map{|t| t.level}.max.id
+    end
+    #self.degrees.map{|t| t.level}.max.id
+
+  end
+
   # Méthode permettant de créer une gallery
   def create_gallery
     Gallery.create(:user_id => self.id)
   end
+
   # Méthode permettant de créer une postulation
   def create_postulation
     Postulation.create(:user_id => self.id)
@@ -51,6 +61,7 @@ class User < ActiveRecord::Base
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
+
   # Méthode liée au crop de l'avatar
   def avatar_geometry(style = :original)
     @geometry ||= {}
@@ -87,20 +98,24 @@ class User < ActiveRecord::Base
   def is_prof_postulant
     false
   end
+
   # Methode permettant d'accepter la postulation  d'un prof
 
   public
   def accept_postulance
   end
+
   # Methode permettant de savoir si la postulation a été acceptée par un admin
   public
   def is_prof
     false
   end
+
   # Methode permettant de rendre un User admin
   public
   def become_admin
     self.admin=true
     self.save
   end
+
 end

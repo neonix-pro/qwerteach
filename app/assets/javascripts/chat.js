@@ -17,7 +17,7 @@ var ready = function () {
         /**
          * creates an inline chatbox on the page by calling the
          * createChatBox function passing along the unique conversation_id
-         * 
+         *
          * @param conversation_id
          */
 
@@ -29,7 +29,7 @@ var ready = function () {
 
         /**
          * closes the chatbox by essentially hiding it from the page
-         * 
+         *
          * @param conversation_id
          */
 
@@ -182,9 +182,9 @@ var ready = function () {
                     $(chatboxtextarea).css('height', '44px');
                 }
             }
-            else
-            {
-                $.post("/typing", { conversation_id }, function (data) {});
+            else {
+                $.post("/typing", {conversation_id: conversation_id}, function (data) {
+                });
             }
 
             var adjustedHeight = chatboxtextarea.clientHeight;
