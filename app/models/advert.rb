@@ -17,6 +17,9 @@ class Advert < ActiveRecord::Base
   def find_topic_group
     self.topic.topic_group.title
   end
+  def find_topic_title
+    self.topic.title
+  end
   def create_price
     AdvertPrice.create(:advert_id => self.id)
   end
@@ -28,7 +31,7 @@ class Advert < ActiveRecord::Base
       user.email
     end
     text :topic do
-      topic.title
+      self.find_topic_title
     end
     text :topic_group do
       self.find_topic_group
@@ -44,6 +47,5 @@ class Advert < ActiveRecord::Base
     string :advert_prices_truc , :multiple => true do
       advert_prices.map{|p| p.price}
     end
-
   end
 end

@@ -1,0 +1,7 @@
+<% @topics %>
+<% if @topics.nil? %>
+    <p>NIL!</p>
+<% else %>
+    <%= label_tag "Topic" %>
+    <%= select_tag :topic_id, options_for_select(@topics.all.collect { |p| [p.title, p.id] }) %>
+<% end %>
