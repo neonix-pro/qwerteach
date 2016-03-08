@@ -1,7 +1,7 @@
 class Teacher  < Student
   scope :teacher, -> { where(type: 'Teacher') }
 
-  has_one :postulation
+  has_one :postulation, foreign_key:  "user_id"
   has_many :degrees, foreign_key:  "user_id"
   
   # Methode override de User bloquant le type de User à Teacher au maximum

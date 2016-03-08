@@ -12,7 +12,7 @@
     </div>
     <div class="field">
       <%= f.label :birthdate %><br/>
-      <%= f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd'}  %>
+      <%= f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}  %>
     </div>
     <div class="field">
       <%= f.label :description %><br/>
