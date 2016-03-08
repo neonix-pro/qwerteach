@@ -50,6 +50,10 @@ gem 'thin'
 # wizardify models
 gem 'wicked'
 
+# mangopay!
+gem 'mangopay'
+gem 'countries'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

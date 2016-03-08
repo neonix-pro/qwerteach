@@ -1,8 +1,6 @@
 <%- model_class = @advert.class -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
-                                   :default => "New #{model_class.model_name.human}") %></h1>
-</div>
+
+<h1>Vos annonces</h1>
 
 <div id="adverts"> 
 <% @adverts.each do |advert| %> 
@@ -34,3 +32,7 @@
       <%= f.submit nil, :class => 'btn btn-primary  btn-mini' %>
     </div>
 <% end %>
+
+<nav>
+  <%= link_to 'Continuer', next_wizard_path %>
+</nav>

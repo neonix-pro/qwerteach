@@ -15,6 +15,28 @@ class BecomeTeacherController < ApplicationController
     when :adverts
       @advert = Advert.new
       @adverts = Advert.where(:user=>current_user)
+    when :banking_informations
+      list = ISO3166::Country.all
+      @list = []
+      list.each do |c|
+        t = [c.translations['fr'], c.alpha2]
+        @list.push(t)
+      end
+      if(@user.mango_id)
+        m = MangoPay::NaturalUser.fetch(@user.mango_id)
+        @user.address = m['Address']
+        @user.countryOfResidence = m['CountryOfResidence']
+        @user.nationality = m['Nationality']
+        @b = MangoPay::BankAccount.fetch(@user.mango_id)
+        if(@b.empty?)
+          @b = {}
+        else
+          @b = @b.first
+        end
+        puts @b
+      else
+        @user.address = {}
+      end
     end
     render_wizard
   end
@@ -23,7 +45,7 @@ class BecomeTeacherController < ApplicationController
     @user = current_user
     case step
     when :general_infos
-      @user.update_attributes(student_params)
+      @user.update_attributes(user_params)
     when :avatar
       @user.update_attributes(user_params)
     when :crop
@@ -40,16 +62,36 @@ class BecomeTeacherController < ApplicationController
       end
     when :adverts
     when :banking_informations
+      @user.upgrade
+      mangoInfos = @user.mango_infos(params)
+      begin
+        if(!@user.mango_id)
+          m = MangoPay::NaturalUser.create(mangoInfos)
+          @user.mango_id = m['Id']
+          @user.save
+        else
+          m = MangoPay::NaturalUser.update(@user.mango_id, mangoInfos)
+        end
+        if(!params[:bank_account][:IBAN].empty?)
+          params[:bank_account][:Type]='IBAN'
+          params[:bank_account][:OwnerName]=@user.firstname + ' '+@user.lastname
+          params[:bank_account][:OwnerAddress] = m["Address"]
+          MangoPay::BankAccount.create(@user.mango_id, params[:bank_account])
+        end
+        rescue MangoPay::ResponseError => ex
+          flash[:danger] = ex.details["Message"]
+          ex.details['errors'].each do |name, val|
+            flash[:danger] += " #{name}: #{val} \n\n"
+          end
+          jump_to(:banking_informations)
+      end
     end
     render_wizard @user
   end
 
   private
-  def student_params
-    params.require(:student).permit(:crop_x, :crop_y, :crop_w, :crop_h, :firstname, :lastname, :email, :birthdate, :description, :gender, :phonenumber, :avatar)
-  end
   def user_params
-    params.require(:user).permit(:crop_x, :crop_y, :crop_w, :crop_h, :firstname, :lastname, :email, :birthdate, :description, :gender, :phonenumber, :avatar)
+    params.require(:user).permit(:mango_id, :crop_x, :crop_y, :crop_w, :crop_h, :firstname, :lastname, :email, :birthdate, :description, :gender, :phonenumber, :avatar)
   end
   def gallery_params
     params.permit(:pictures, :user_id).merge(user_id: current_user.id)

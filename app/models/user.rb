@@ -24,6 +24,9 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :message => 'file type is not allowed (only jpeg/png/gif images)'
   # Attributs pour le crop de l'avatar
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+
+  # Attributs pour mangopay
+  attr_accessor :address, :nationality, :countryOfResidence
   # Vérifie que la date de naissance est bien dans le passé
   validates_date :birthdate, :on_or_before => lambda { Date.current }
   # Update de l'avatar pour le crop
@@ -45,6 +48,20 @@ class User < ActiveRecord::Base
   # Méthode permettant de créer une postulation
   def create_postulation
     Postulation.create(:user_id => self.id)
+  end
+
+  def mango_infos (params)
+    {
+      "FirstName": self.firstname,
+      "LastName": self.lastname,
+      "Address": params[:address],
+      "Birthday": self.birthdate.to_time.to_i, 
+      "Nationality": params[:user][:nationality],
+      "CountryOfResidence": params[:user][:countryOfResidence],
+      "PersonType": "NATURAL", 
+      "Email": self.email, 
+      "Tag": "user "+self.id.to_s()
+    }
   end
 
   # Méthode liée au crop de l'avatar, elle permet de savoir si une modification a été faite
