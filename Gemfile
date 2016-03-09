@@ -55,6 +55,13 @@ gem 'sunspot_rails'
 gem 'kaminari'
 #text editor
 gem 'ckeditor_rails'
+# wizardify models
+gem 'wicked'
+
+# mangopay!
+gem 'mangopay'
+gem 'countries'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

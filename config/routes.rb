@@ -40,6 +40,10 @@ Rails.application.routes.draw do
     resources :advert_prices
   end
 
+  get "/pages/*page" => "pages#show"
+
+  resources :become_teacher
+  
   post "/typing" => "messages#typing"
   get "/level_choice" => "adverts#choice"
   get "/topic_choice" => "adverts#choice_group"

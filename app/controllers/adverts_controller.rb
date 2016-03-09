@@ -48,8 +48,11 @@ class AdvertsController < ApplicationController
             p = params[:prices][cpt.to_i]
           }
         end
+
         format.html { redirect_to adverts_path, notice: 'Advert was successfully created.' }
         format.json { head :no_content }
+        format.js {}
+
       else
         format.html { redirect_to @advert, notice: 'Advert not created.' }
         format.json { render json: @advert.errors, status: :unprocessable_entity }
@@ -60,6 +63,7 @@ class AdvertsController < ApplicationController
   def update
     @advert = Advert.find(params[:id])
     @advert.topic = Topic.find(params[:topic_id])
+
     respond_to do |format|
       if @advert.update_attributes(advert_params)
         if params[:levels_chosen]
@@ -77,8 +81,10 @@ class AdvertsController < ApplicationController
             p = params[:prices][cpt.to_i]
           }
         end
+
         format.html { redirect_to adverts_path, notice: 'Advert was successfully updated.' }
         format.json { head :no_content }
+
       else
         format.html { render action: "edit" }
         format.json { render json: @advert.errors, status: :unprocessable_entity }
@@ -92,7 +98,8 @@ class AdvertsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to adverts_url }
-      format.json { head :no_content }
+      format.json { }
+      format.js {}
     end
   end
 

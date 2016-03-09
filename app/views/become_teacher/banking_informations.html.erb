@@ -1,0 +1,56 @@
+<h1>Mes informations bancaires</h1>
+<%= form_for @user, as: :user, url: wizard_path, method: :put do |f| %>
+    
+    <%= fields_for :address do |address_fields| %>
+      <div class="field">
+        <%= f.label :street %><br/>
+        <%= address_fields.text_field :AddressLine1, :value => @user.address['AddressLine1'] %>
+      </div>
+      <div class="field">
+        <%= f.label :number %><br/>
+        <%= address_fields.text_field :AddressLine2, :value => @user.address['AddressLine2'] %>
+      </div>
+      <div class="field">
+        <%= f.label :post_code %><br/>
+        <%= address_fields.text_field :PostalCode, :value => @user.address['PostalCode'] %>
+      </div>
+      <div class="field">
+        <%= f.label :city %><br/>
+        <%= address_fields.text_field :City, :value => @user.address['City'] %>
+      </div>
+      <div class="field">
+        <%= f.label :region %><br/>
+        <%= address_fields.text_field :Region, :value => @user.address['Region'] %>
+      </div>
+      <div class="field">
+        <%= f.label :Country %><br/>
+        <%= address_fields.select :Country, options_for_select(@list, :selected => @user.address['Country']) %>
+      </div>
+    <% end %>
+    <div class="field">
+      <%= f.label :country_of_residence %><br/>
+      <%= f.select :countryOfResidence, options_for_select(@list, :selected => @user.countryOfResidence) %>
+    </div>
+
+    <div class="field">
+      <%= f.label :Nationality %><br/>
+      <%= f.select :nationality, options_for_select(@list, selected: @user.nationality) %>
+    </div>
+    
+    <hr>
+
+      <%= fields_for :bank_account do |bank_account_fields| %>
+        <div class="field">
+          <%= bank_account_fields.label :IBAN %><br/>
+          <%= bank_account_fields.text_field :IBAN, :value => @b['IBAN'] %>
+        </div>
+        <div class="field">
+          <%= bank_account_fields.label :BIC %><br/>
+          <%= bank_account_fields.text_field :BIC, :value => @b['BIC'] %>
+        </div>
+      <% end %>
+
+    <div class="field">
+      <%= f.submit :terminer, :class => 'btn btn-primary btn-mini' %><br/>
+    </div>
+<% end %>
