@@ -66,6 +66,10 @@ var ready = function () {
     });
 
 
+    $('.ckeditor').ckeditor({
+        // optional config
+    });
+
 }
 
 $(document).ready(ready);

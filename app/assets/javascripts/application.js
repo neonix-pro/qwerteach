@@ -17,4 +17,5 @@
 //= require bootstrap-datepicker
 //= require_tree .
 //= require jquery_ujs
+//= require ckeditor-jquery
 //= require jquery.turbolinks

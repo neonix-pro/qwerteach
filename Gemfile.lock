@@ -69,6 +69,8 @@ GEM
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
     cancan (1.6.10)
+    ckeditor_rails (4.5.3)
+      railties (>= 3.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.8)
@@ -280,6 +282,7 @@ DEPENDENCIES
   bootstrap-sass
   byebug (= 3.4.0)
   cancan
+  ckeditor_rails
   coffee-rails (~> 4.1.0)
   devise (= 3.4.1)
   globalize (~> 5.0.0)

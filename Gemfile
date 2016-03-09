@@ -27,30 +27,34 @@ gem 'devise', '3.4.1'
 #bootstrap-sass is not relevant to the tutorial, but I like it for styling.
 gem 'bootstrap-sass'
 gem 'jquery-turbolinks'
+# droits d'accès
 gem "cancan"
 gem 'minitest'
 gem 'paper_trail'
+# traductions
 gem 'globalize', '~> 5.0.0'
 gem 'rails-i18n'
 # for avatars
 gem "paperclip", "~> 4.3"
 # for datum validations
 gem 'validates_timeliness', '~> 4.0'
-
+# crop image
 gem 'jcrop-rails-v2'
-
+# datepicker calendar
 gem 'bootstrap-datepicker-rails'
-
+#interface admin
 gem "administrate", "~> 0.1.4"
 
 #gems for async actions
 gem 'private_pub'
 gem 'thin'
 
-
+# recherches
 gem 'sunspot_rails'
+# pagination
 gem 'kaminari'
-
+#text editor
+gem 'ckeditor_rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
