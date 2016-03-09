@@ -33,7 +33,6 @@ class BecomeTeacherController < ApplicationController
         else
           @b = @b.first
         end
-        puts @b
       else
         @user.address = {}
       end
@@ -72,12 +71,13 @@ class BecomeTeacherController < ApplicationController
         else
           m = MangoPay::NaturalUser.update(@user.mango_id, mangoInfos)
         end
-        if(!params[:bank_account][:IBAN].empty?)
-          params[:bank_account][:Type]='IBAN'
-          params[:bank_account][:OwnerName]=@user.firstname + ' '+@user.lastname
-          params[:bank_account][:OwnerAddress] = m["Address"]
-          MangoPay::BankAccount.create(@user.mango_id, params[:bank_account])
-        end
+
+        params[:bank_account][:Type]='IBAN'
+        params[:bank_account][:OwnerName]=@user.firstname + ' '+@user.lastname
+        params[:bank_account][:OwnerAddress] = m["Address"]
+
+        MangoPay::BankAccount.create(@user.mango_id, params[:bank_account])
+
         rescue MangoPay::ResponseError => ex
           flash[:danger] = ex.details["Message"]
           ex.details['errors'].each do |name, val|
@@ -96,5 +96,4 @@ class BecomeTeacherController < ApplicationController
   def gallery_params
     params.permit(:pictures, :user_id).merge(user_id: current_user.id)
   end
-
 end
