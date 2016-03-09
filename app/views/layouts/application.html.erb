@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  
+
   <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
   <title>Qwerteach</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
-  
-  <%= yield(:head ) %>
+
+  <%= yield(:head) %>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -22,10 +22,14 @@
       <ul class="nav navbar-nav">
         <li><%= link_to 'Home', root_path %></li>
         <% if user_signed_in? %>
-            <% @gallery=Gallery.where(:user=>current_user).last %>
-            <li><%= link_to 'Gallery',  gallery_path(@gallery)%></li>
-            <li><%= link_to 'Advert',  adverts_path%></li>
+            <% @gallery=Gallery.where(:user => current_user).last %>
+            <li><%= link_to 'Gallery', gallery_path(@gallery) %></li>
+            <li><%= link_to 'Advert', adverts_path %></li>
+            <li><%= link_to 'Rechercher un prof', users_path %></li>
+            <% if current_user.admin? %>
+                <li><%= link_to 'Administration', admin_root_path %></li>
       <% end %>
+        <% end %>
       </ul>
 
       <ul class="nav navbar-nav pull-right">
@@ -65,20 +69,18 @@
   <%= yield %>
 </div>
 
-<%= subscribe_to "/notifications"  %>
+<%= subscribe_to "/notifications" %>
 <script>
- PrivatePub.subscribe("/notifications", function(data, channel)
-  {
- var current_user_id = '#{current_user.try(:id)}';
-  if (data.receiver_id == current_user_id)
-   {
-     chatBox.chatWith(data.conversation_id);
+  PrivatePub.subscribe("/notifications", function (data, channel) {
+    var current_user_id = '#{current_user.try(:id)}';
+    if (data.receiver_id == current_user_id) {
+      chatBox.chatWith(data.conversation_id);
     }
     else {
       chatBox.chatWith(data.conversation_id);
     }
-   });
- </script>
+  });
+</script>
 
 
 </body>
