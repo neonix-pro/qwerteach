@@ -23,12 +23,12 @@
         <li><%= link_to 'Home', root_path %></li>
         <% if user_signed_in? %>
             <% @gallery=Gallery.where(:user => current_user).last %>
-            <li><%= link_to 'Gallery', gallery_path(@gallery) %></li>
-            <li><%= link_to 'Advert', adverts_path %></li>
+            <li><%= link_to 'Ma gallerie', gallery_path(@gallery) %></li>
+            <li><%= link_to 'Mes annonces', adverts_path %></li>
             <li><%= link_to 'Rechercher un prof', users_path %></li>
             <% if current_user.admin? %>
                 <li><%= link_to 'Administration', admin_root_path %></li>
-      <% end %>
+            <% end %>
         <% end %>
       </ul>
 
@@ -41,10 +41,22 @@
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><%= link_to 'Profile', edit_user_registration_path %></li>
-                <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
+                <li><%= link_to 'Editer mon profil', edit_user_registration_path %></li>
+                <% @gallery=Gallery.where(:user => current_user).last %>
+                <li><%= link_to 'Ma gallerie', gallery_path(@gallery) %></li>
+                <li><%= link_to 'Mes annonces', adverts_path %></li>
+                <li><%= link_to 'Se déconnecter', destroy_user_session_path, method: :delete %></li>
               </ul>
             </li>
+            <li> <%= link_to edit_user_registration_path do %>
+                  <i class="fa fa-cog"></i>
+              <% end %>
+            </li>
+            <li> <%= link_to destroy_user_session_path, method: :delete do %>
+                  <i class="fa fa-sign-out"></i>
+              <% end %>
+            </li>
+
         <% else %>
             <li><%= link_to 'Log In', new_user_session_path %></li>
             <li><%= link_to 'Sign Up', new_user_registration_path %></li>
