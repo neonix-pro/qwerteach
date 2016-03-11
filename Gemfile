@@ -55,6 +55,8 @@ gem 'sunspot_rails'
 gem 'kaminari'
 #text editor
 gem 'ckeditor_rails'
+# read or not for messages
+gem 'unread'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

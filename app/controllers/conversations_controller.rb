@@ -20,6 +20,7 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.find(params[:id])
     @reciever = interlocutor(@conversation)
     @messages = @conversation.messages
+    @last_message = Message.find(@conversation.messages.last)
     @message = Message.new
   end
 

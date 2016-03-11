@@ -3,14 +3,9 @@ var id = "<%= @conversation.id %>";
 var chatbox = $("#chatbox_" + id + " .chatboxcontent");
 var sender_id = "<%= @current_user.id %>";
 var reciever_id = $('meta[name=user-id]').attr("content");
+if (sender_id != reciever_id){
 
-$('#chatbox_' + id).find('.seen').hide();
-if (sender_id != reciever_id) {
-  $('#chatbox_' + id).find('.typing').show();
-
-  setTimeout(function () {
-    $('#chatbox_' + id).find('.typing').fadeOut();
-  }, 3000);
+  $('#chatbox_' + id).find('.seen').show();
   chatbox.scrollTop(chatbox[0].scrollHeight);
 }
 <% end %>
