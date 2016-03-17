@@ -18,6 +18,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import 'bootstrap/theme';
+@import 'chosen';
 
 .alert-alert {
   @extend .alert-warning;
@@ -38,4 +39,11 @@
   overflow: hidden;
   text-align: center;
   img { width: 100% }
+}
+
+.messages {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 1em;
+  margin-top: 1em;
 }

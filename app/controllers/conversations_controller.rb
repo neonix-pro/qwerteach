@@ -1,35 +1,62 @@
 class ConversationsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
+  before_action :get_mailbox
+  before_action :get_conversation, except: [:index, :new, :show_min, :find]
 
-  # on ne veut pas que conversation hérite du layout application.html.erb
-  # puisqu'on inclut cet morceau dans application.html
-  layout false
-
-  def create
-    #Crée la converation si elle n'existe pas encore
-    if Conversation.between(params[:sender_id],params[:recipient_id]).present?
-      @conversation = Conversation.between(params[:sender_id],params[:recipient_id]).first
-    else
-      @conversation = Conversation.create!(conversation_params)
-    end
-    #renvoie un json contenant uniquement l'id de la conversation
-    render json: { conversation_id: @conversation.id }
-  end
-
-  def show
-    @conversation = Conversation.find(params[:id])
-    @reciever = interlocutor(@conversation)
-    @messages = @conversation.messages
-    @last_message = Message.find(@conversation.messages.last)
-    @message = Message.new
+  def index
+    @conversations = @mailbox.conversations.page(params[:page]).per(4)
   end
 
   private
-  def conversation_params
-    params.permit(:sender_id, :recipient_id)
+  def get_mailbox
+    @mailbox ||= current_user.mailbox
   end
 
-  #récupère l'interlocuteur
+  def show
+  end
+
+  private
+  def get_conversation
+    @conversation ||= @mailbox.conversations.find(params[:id])
+  end
+
+  public
+  def reply
+    conversation = current_user.reply_to_conversation(@conversation, params[:body]).conversation
+    flash[:success] = 'Reply sent'
+    redirect_to conversation_path(conversation)
+  end
+
+  def find
+    unless params[:conversation_id].blank?
+      @conversation = current_user.mailbox.conversations.where(:id => params[:conversation_id])
+      render json: {conversation_id: @conversation.id}
+      return
+    end
+    if @conversation.nil?
+      recipients = [User.find(params[:recipient_id])]
+      current_user.mailbox.conversations.each do |c|
+        if (c.participants - recipients - [current_user]).empty? && (recipients - c.participants).empty?
+          @conversation = c
+          render json: {conversation_id: @conversation.id}
+          return
+        end
+      end
+    end
+    @conversation = @mailbox.conversations.create(:subject => "chat")
+    render json: {conversation_id: @conversation.id}
+  end
+
+  def show_min
+    @conversation = Mailboxer::Conversation.find(params[:conversation_id])
+    @reciever = @conversation.participants - [current_user]
+    @messages = @conversation.messages
+    @last_message = @messages.last
+    @message = Mailboxer::Message.new
+    render :layout => false
+
+  end
+
   def interlocutor(conversation)
     current_user == conversation.recipient ? conversation.sender : conversation.recipient
   end

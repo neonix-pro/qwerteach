@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5.1'
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
+
+gem 'chosen-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -57,6 +59,9 @@ gem 'kaminari'
 gem 'ckeditor_rails'
 # read or not for messages
 gem 'unread'
+
+gem 'mailboxer'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

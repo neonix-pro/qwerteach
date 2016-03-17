@@ -31,19 +31,24 @@ Rails.application.routes.draw do
   resources :galleries
   resources :pictures
   resources :degrees
-  
-  resources :conversations do
-    resources :messages
-  end
 
   resources :adverts do
     resources :advert_prices
   end
 
+  resources :conversations, only: [:index, :show, :destroy] do
+    member do
+      post :reply
+    end
+  end
+  resources :messages, only: [:new, :create]
   post "/typing" => "messages#typing"
   post "/seen" => "messages#seen"
   get "/level_choice" => "adverts#choice"
   get "/topic_choice" => "adverts#choice_group"
+  post "conversation/show_min" => "conversations#find"
+  get "conversation/show_min/:conversation_id" => "conversations#show_min"
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

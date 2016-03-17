@@ -15,7 +15,9 @@
 //= require private_pub
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
+//= require messages
 //= require_tree .
 //= require jquery_ujs
 //= require ckeditor-jquery
 //= require jquery.turbolinks
+//= require chosen-jquery

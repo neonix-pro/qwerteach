@@ -29,7 +29,6 @@ class User < ActiveRecord::Base
   # Update de l'avatar pour le crop
   after_update :reprocess_avatar, :if => :cropping?
   has_one :gallery
-  has_many :conversations, :foreign_key => :sender_id
   has_many :adverts
 
   # on crée une postulation et une gallery après avoir créé le user
@@ -42,7 +41,7 @@ class User < ActiveRecord::Base
   def self.reader_scope
     where(:is_admin => true)
   end
-
+  acts_as_messageable
   def level_max
     if Degree.where(:user_id=>self).map{|t| t.level}.max.blank?
       nil
@@ -50,7 +49,6 @@ class User < ActiveRecord::Base
       Degree.where(:user_id=>self).map{|t| t.level}.max.id
     end
     #self.degrees.map{|t| t.level}.max.id
-
   end
 
   # Méthode permettant de créer une gallery
@@ -123,5 +121,8 @@ class User < ActiveRecord::Base
     self.admin=true
     self.save
   end
-
+  def mailboxer_email(object)
+    self.email
+    #return the model's email here
+  end
 end
