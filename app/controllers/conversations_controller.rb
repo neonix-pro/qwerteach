@@ -13,18 +13,31 @@ class ConversationsController < ApplicationController
   end
 
   def show
+    @conversation = Mailboxer::Conversation.find(params[:conversation_id])
+    @conversation.mark_as_read(current_user)
+    @reciever = @conversation.participants - [current_user]
+    @messages = @conversation.messages
+    @last_message = @messages.last
+    @message = Mailboxer::Message.new
   end
 
   private
   def get_conversation
     @conversation ||= @mailbox.conversations.find(params[:id])
+    @conversation.mark_as_read(current_user)
   end
 
   public
   def reply
     conversation = current_user.reply_to_conversation(@conversation, params[:body]).conversation
-    flash[:success] = 'Reply sent'
-    redirect_to conversation_path(conversation)
+    #flash[:success] = 'Reply sent'
+    @path = reply_conversation_path(conversation)
+    @message = conversation.messages.last
+    PrivatePub.publish_to "/notifications", :conversation_id => conversation.id, :receiver_id => (conversation.participants - [current_user]).first
+    respond_to do |format|
+      format.html {redirect_to conversation_path(conversation), notice: 'Reply sent'}
+      format.js
+    end
   end
 
   def find
@@ -49,15 +62,21 @@ class ConversationsController < ApplicationController
 
   def show_min
     @conversation = Mailboxer::Conversation.find(params[:conversation_id])
+    @conversation.mark_as_read(current_user)
     @reciever = @conversation.participants - [current_user]
     @messages = @conversation.messages
     @last_message = @messages.last
     @message = Mailboxer::Message.new
     render :layout => false
-
   end
 
   def interlocutor(conversation)
     current_user == conversation.recipient ? conversation.sender : conversation.recipient
+  end
+
+  def mark_as_read
+    @conversation.mark_as_read(current_user)
+    flash[:success] = 'The conversation was marked as read.'
+    redirect_to conversations_path
   end
 end

@@ -1,0 +1,12 @@
+<% publish_to @path do %>
+var id = "<%= @conversation.id %>";
+var chatbox = $("#chatbox_" + id + " .chatboxcontent");
+var sender_id = "<%= current_user.id %>";
+var reciever_id = $('meta[name=user-id]').attr("content");
+console.log("seeeeeeeeen");
+if (sender_id != reciever_id){
+
+  $('#chatbox_' + id).find('.seen').show();
+  chatbox.scrollTop(chatbox[0].scrollHeight);
+}
+<% end %>

@@ -19,5 +19,5 @@
 //= require_tree .
 //= require jquery_ujs
 //= require ckeditor-jquery
-//= require jquery.turbolinks
 //= require chosen-jquery
+//= require jquery.turbolinks

@@ -1,0 +1,20 @@
+// Ajoute le nouveau message
+// Publie le message dans le channel de la conversation (sur lequel l'interlocuteur écoute)
+
+<% publish_to @path do %>
+var id = "<%= @conversation.id %>";
+var chatbox = $("#chatbox_" + id + " .chatboxcontent");
+var sender_id = "<%= @message.sender.id %>";
+var reciever_id = "<%= current_user.id %>";
+
+chatbox.append("<%= j render 'messages/message', message: @message %>");
+$(".chatboxtextarea").val("");
+chatbox.scrollTop(chatbox[0].scrollHeight);
+$(".seen").hide();
+if (sender_id != reciever_id) {
+  chatBox.chatWith(id);
+  chatbox.children().last().removeClass("self").addClass("other");
+  chatbox.scrollTop(chatbox[0].scrollHeight);
+  chatBox.notify();
+}
+<% end %>
