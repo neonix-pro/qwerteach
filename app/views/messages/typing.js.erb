@@ -5,13 +5,12 @@ var chatbox = $("#chatbox_" + id + " .chatboxcontent");
 var sender_id = "<%= current_user.id %>";
 var reciever_id = $('meta[name=user-id]').attr("content");
 
-$('#chatbox_' + id).find('.seen').hide();
 if (sender_id != reciever_id) {
   $('#chatbox_' + id).find('.typing').show();
 
   setTimeout(function () {
     $('#chatbox_' + id).find('.typing').fadeOut();
   }, 3000);
-  chatbox.scrollTop(chatbox[0].scrollHeight);
+ // chatbox.scrollTop(chatbox[0].scrollHeight);
 }
 <% end %>

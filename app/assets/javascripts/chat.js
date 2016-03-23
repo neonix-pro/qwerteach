@@ -183,7 +183,6 @@ var ready = function () {
                 }
             }
             else {
-                console.log("IDDDD = " + conversation_id);
                 $.post("/typing", { conversation_id: conversation_id }, function (data) {
                 });
             }
