@@ -59,8 +59,10 @@ gem 'kaminari'
 gem 'ckeditor_rails'
 # read or not for messages
 gem 'unread'
-
+# conversations & messages
 gem 'mailboxer'
+# cron jobs
+gem 'whenever', :require => false
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
