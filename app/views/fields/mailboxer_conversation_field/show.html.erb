@@ -1,28 +1,88 @@
-<ul>
-  <p>Participants : </p>
+<% content_for(:title) do %>
+    <%= display_resource_name("Conversation") %>
+<% end %>
+<header class="header">
 
-  <% @conversation.participants.each do |participant| %>
-      <li>
-        <%= image_tag participant.avatar.url(:small), :class => "round-image-50" %><i>  <%= participant.email %></i>
-      </li>
-  <% end %>
-</ul>
+  <h1 class="header__heading" id="page-title"><%= content_for(:title) %></h1>
+</header>
 <table>
-
   <thead>
-  <td>Sujet :<%= @conversation.subject %></td>
-  </thead>
   <tr>
-    <% @conversation.messages.each do |message| %>
-        <td>
-          <div>
-            <p> <%= image_tag(message.sender.avatar.url(:small)) %> <i><%= message.sender.email %></i> :
-              <%= message.body %></p>
-            <time datetime="<%= message.created_at %>" title="<%= message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
-            </time>
-          </div>
-        </td>
-    <% end %>
-
+    <td>Sujet :<%= @conversation.subject %></td>
   </tr>
+  <tr>
+    <td>Participants :</td>
+  </tr>
+  </thead>
+  <% @conversation.participants.each do |participant| %>
+      <tr>
+        <td></td>
+        <td>
+          <%= image_tag(participant.avatar.url(:small), :style => "  background-color: white;
+  border: 1px solid #d9d9d9;
+  border-radius: 25px;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  text-align: center;
+  img { width: 100% }") %><br><i>  <%= participant.email %></i>
+        </td>
+      </tr>
+  <% end %>
+</table>
+<hr style="border-width: 6px;">
+<table style="width: 68%; table-layout: fixed;">
+  <% @conversation.messages.each do |message| %>
+      <% if message.sender.id == @first %>
+          <tr>
+            <td style="background-color: darkgray;">
+              <%= image_tag(message.sender.avatar.url(:small), :style => "  background-color: white;
+  border: 1px solid #d9d9d9;
+  border-radius: 25px;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  text-align: center;
+  img { width: 100% }") %><br> <i><%= message.sender.email %></i>
+            </td>
+            <td>
+            <p style="    padding: 0.5rem;
+                overflow: hidden;
+                display: flex;    word-break: break-all;white-space: pre-wrap;">
+              <%= message.body %>
+              <time datetime="<%= message.created_at %>" title="<%= message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
+              </time>
+            </p></td>
+            <td></td>
+          </tr>
+      <% else %>
+          <tr>
+            <td></td>
+            <td>
+              <p style="    padding: 0.5rem;
+                  overflow: hidden;
+                  display: flex;    word-break: break-all;white-space: pre-wrap;">
+                <%= message.body %>
+                <time datetime="<%= message.created_at %>" title="<%= message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
+                </time>
+              </p></td>
+            <td style="background-color: darkslategrey;">
+              <%= image_tag(message.sender.avatar.url(:small), :style => "  background-color: white;
+  border: 1px solid #d9d9d9;
+  border-radius: 25px;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  text-align: center;
+  img { width: 100% }") %><br> <i><%= message.sender.email %></i></td>
+          </tr>
+      <% end %>
+  <% end %>
+
 </table>
