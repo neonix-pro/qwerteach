@@ -57,10 +57,11 @@ gem 'kaminari'
 gem 'ckeditor_rails'
 # wizardify models
 gem 'wicked'
-
+gem 'unread'
 # mangopay!
 gem 'mangopay'
 gem 'countries'
+gem 'progress_bar'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
