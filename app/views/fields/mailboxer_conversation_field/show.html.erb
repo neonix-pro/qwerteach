@@ -1,0 +1,28 @@
+<ul>
+  <p>Participants : </p>
+
+  <% @conversation.participants.each do |participant| %>
+      <li>
+        <%= image_tag participant.avatar.url(:small), :class => "round-image-50" %><i>  <%= participant.email %></i>
+      </li>
+  <% end %>
+</ul>
+<table>
+
+  <thead>
+  <td>Sujet :<%= @conversation.subject %></td>
+  </thead>
+  <tr>
+    <% @conversation.messages.each do |message| %>
+        <td>
+          <div>
+            <p> <%= image_tag(message.sender.avatar.url(:small)) %> <i><%= message.sender.email %></i> :
+              <%= message.body %></p>
+            <time datetime="<%= message.created_at %>" title="<%= message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
+            </time>
+          </div>
+        </td>
+    <% end %>
+
+  </tr>
+</table>

@@ -1,0 +1,39 @@
+<% @conversations = (Mailboxer::Conversation.all.map { |t| t.participants.include?(data) ? t.id : nil }).compact %>
+<% @conversations = Kaminari.paginate_array(@conversations).page(params[:page_conv]).per(5) %>
+<tr>
+  <td>
+  <th class="cell-label cell-label-- ">Conversations</th>
+  </td>
+  <td>
+  <th class="cell-label cell-label-- ">Avec :</th>
+  </td>
+  <td>
+  <th class="cell-label cell-label-- ">Dernier message :</th>
+  </td>
+  <td>
+  <th class="cell-label cell-label-- ">Lu ?</th>
+  </td>
+</tr>
+<% @conversations.each do |t| %>
+    <% @conversation = Conversation.find(t) %>
+    <tr
+    >
+      <td></td>
+      <td>
+        <%= link_to "Voir", admin_show_conversation_path(@conversation) %>
+      </td>
+      <td></td>
+      <td><%= (@conversation.participants - [data]).first.email %></td>
+      <td></td>
+      <td><%= @conversation.messages.last.body %></td>
+      <td></td>
+      <td><%= @conversation.is_read? (data) %></td>
+    </tr>
+<% end %>
+
+<tr>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td> <%= paginate @conversations, :param_name => :page_conv %></td>
+</tr>

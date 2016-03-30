@@ -9,8 +9,8 @@ class UserDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
       gallery: Field::HasOne,
-      postulation: Field::HasOne,
-      conversations: Field::HasMany,
+      #conversations: Field::HasMany,
+      adverts: Field::HasMany,
       sent_comment: Field::HasMany.with_options(class_name: "Comment"),
       received_comment: Field::HasMany.with_options(class_name: "Comment"),
       level: Field::BelongsTo,
@@ -63,7 +63,8 @@ class UserDashboard < Administrate::BaseDashboard
       :login,
       :email,
       :gallery,
-      :conversations,
+      :adverts,
+      # :conversations,
       :sent_comment,
       :received_comment,
   ]
@@ -72,8 +73,8 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
       :gallery,
-      :postulation,
-      :conversations,
+      :adverts,
+      # :conversations,
       :sent_comment,
       :received_comment,
       :level,
@@ -121,8 +122,8 @@ class UserDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
       :gallery,
-      :postulation,
-      :conversations,
+      :adverts,
+      # :conversations,
       :sent_comment,
       :received_comment,
       :level,
@@ -156,6 +157,10 @@ class UserDashboard < Administrate::BaseDashboard
       :unlock_token,
       :locked_at,
       :admin,
+      :avatar_file_name,
+      :avatar_content_type,
+      :avatar_file_size,
+      :avatar_updated_at,
   ]
 
   # Overwrite this method to customize how users are displayed

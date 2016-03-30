@@ -8,8 +8,10 @@ Rails.application.routes.draw do
     resources :teachers
     resources :postulations
     resources :comments
-    resources :conversations
-    resources :messages
+    #resources :conversations
+    #resources :messages
+    #resources :receipts
+    get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
 
     root to: "users#index"
   end
