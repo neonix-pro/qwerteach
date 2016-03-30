@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   resources :become_teacher
   
   post "/typing" => "messages#typing"
+  post "/seen" => "messages#seen"
   get "/level_choice" => "adverts#choice"
   get "/topic_choice" => "adverts#choice_group"
 

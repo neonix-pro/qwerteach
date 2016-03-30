@@ -3,7 +3,10 @@ class Teacher  < Student
 
   has_one :postulation, foreign_key:  "user_id"
   has_many :degrees, foreign_key:  "user_id"
-  
+  acts_as_reader
+  def self.reader_scope
+    where(:is_admin => true)
+  end
   # Methode override de User bloquant le type de User à Teacher au maximum
   public
   def upgrade

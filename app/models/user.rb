@@ -34,11 +34,17 @@ class User < ActiveRecord::Base
   has_one :gallery
   has_many :conversations, :foreign_key => :sender_id
   has_many :adverts
+
   # on crée une postulation et une gallery après avoir créé le user
   after_create :create_gallery, :create_postulation
 
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
+  # for gem unread
+  acts_as_reader
+  def self.reader_scope
+    where(:is_admin => true)
+  end
 
   def level_max
     if Degree.where(:user_id=>self).map{|t| t.level}.max.blank?

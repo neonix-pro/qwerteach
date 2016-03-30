@@ -41,3 +41,5 @@
 *.png
 
 db/schema.rb
+
+solr/
