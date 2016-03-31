@@ -33,11 +33,11 @@
   <% end %>
 </table>
 <hr style="border-width: 6px;">
-<table style="width: 68%; table-layout: fixed;">
+<table style="width: auto; table-layout: fixed;">
   <% @conversation.messages.each do |message| %>
       <% if message.sender.id == @first %>
           <tr>
-            <td style="background-color: darkgray;">
+            <td style="background-color: darkgray;width: 25%;">
               <%= image_tag(message.sender.avatar.url(:small), :style => "  background-color: white;
   border: 1px solid #d9d9d9;
   border-radius: 25px;
@@ -47,30 +47,28 @@
   width: 50px;
   overflow: hidden;
   text-align: center;
-  img { width: 100% }") %><br> <i><%= message.sender.email %></i>
-            </td>
-            <td>
-            <p style="    padding: 0.5rem;
+  img { width: 100% }") %><small style="    padding: 0.5rem;
                 overflow: hidden;
-                display: flex;    word-break: break-all;white-space: pre-wrap;">
+                display: flex;    word-break: break-all;white-space: pre-wrap;"><%= message.sender.email %></small>
+            </td>
+            <td style=" width: 50%;
+                  word-break: break-all;white-space: inherit;">
               <%= message.body %>
               <time datetime="<%= message.created_at %>" title="<%= message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
               </time>
-            </p></td>
+           </td>
             <td></td>
           </tr>
       <% else %>
           <tr>
             <td></td>
-            <td>
-              <p style="    padding: 0.5rem;
-                  overflow: hidden;
-                  display: flex;    word-break: break-all;white-space: pre-wrap;">
+            <td style=" width: 50%;
+                word-break: break-all;white-space: inherit;">
                 <%= message.body %>
                 <time datetime="<%= message.created_at %>" title="<%= message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
                 </time>
-              </p></td>
-            <td style="background-color: darkslategrey;">
+             </td>
+            <td style="background-color: darkslategrey;width: 25%;">
               <%= image_tag(message.sender.avatar.url(:small), :style => "  background-color: white;
   border: 1px solid #d9d9d9;
   border-radius: 25px;
@@ -80,7 +78,9 @@
   width: 50px;
   overflow: hidden;
   text-align: center;
-  img { width: 100% }") %><br> <i><%= message.sender.email %></i></td>
+  img { width: 100% }") %><small style="    padding: 0.5rem;
+                overflow: hidden;
+                display: flex;    word-break: break-all;white-space: pre-wrap;"><%= message.sender.email %></small></td>
           </tr>
       <% end %>
   <% end %>

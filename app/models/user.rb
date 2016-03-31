@@ -31,8 +31,8 @@ class User < ActiveRecord::Base
   has_one :gallery
   has_many :adverts
 
-  # on crée une postulation et une gallery après avoir créé le user
-  after_create :create_gallery, :create_postulation
+  # on crée une gallery après avoir créé le user
+  after_create :create_gallery
 
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
@@ -54,11 +54,6 @@ class User < ActiveRecord::Base
   # Méthode permettant de créer une gallery
   def create_gallery
     Gallery.create(:user_id => self.id)
-  end
-
-  # Méthode permettant de créer une postulation
-  def create_postulation
-    Postulation.create(:user_id => self.id)
   end
 
   # Méthode liée au crop de l'avatar, elle permet de savoir si une modification a été faite

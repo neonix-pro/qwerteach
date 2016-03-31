@@ -9,7 +9,8 @@ class PostulationDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
       id: Field::Number,
-      teacher: Field::BelongsTo,
+      user: Field::BelongsTo.with_options(class_name: "Teacher"),
+      teacher: Field::BelongsTo.with_options(class_name: "Teacher"),
       interview_ok: Field::Boolean,
       avatar_ok: Field::Boolean,
       gen_informations_ok: Field::Boolean,
@@ -27,7 +28,6 @@ class PostulationDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
       :teacher,
       :id,
-      :user_id,
       :interview_ok,
       :avatar_ok,
       :gen_informations_ok,
@@ -37,13 +37,13 @@ class PostulationDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-      :teacher,
+      :user,
       :id,
+      :teacher,
       :interview_ok,
       :avatar_ok,
       :gen_informations_ok,
       :advert_ok,
-      :user_id,
       :created_at,
       :updated_at,
   ]
@@ -52,12 +52,11 @@ class PostulationDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-      :teacher,
+      :user,
       :interview_ok,
       :avatar_ok,
       :gen_informations_ok,
       :advert_ok,
-      :user_id,
   ]
 
   # Overwrite this method to customize how postulations are displayed

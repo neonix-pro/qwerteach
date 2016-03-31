@@ -4,6 +4,8 @@ class Teacher  < Student
   has_one :postulation, foreign_key:  "user_id"
   has_many :degrees, foreign_key:  "user_id"
   acts_as_reader
+  after_create :create_gallery, :create_postulation
+
   def self.reader_scope
     where(:is_admin => true)
   end
@@ -29,5 +31,8 @@ class Teacher  < Student
   def is_prof
     self.postulance_accepted?
   end
-
+  # Méthode permettant de créer une postulation
+  def create_postulation
+    Postulation.create(:user_id => self.id)
+  end
 end
