@@ -66,15 +66,15 @@ class User < ActiveRecord::Base
 
   def mango_infos (params)
     {
-      "FirstName" => self.firstname,
-      "LastName" => self.lastname,
-      "Address" => params[:address],
-      "Birthday" => self.birthdate.to_time.to_i,
-      "Nationality" => params[:user][:nationality],
-      "CountryOfResidence" => params[:user][:countryOfResidence],
-      "PersonType" => "NATURAL",
-      "Email" => self.email,
-      "Tag" => "user "+self.id.to_s()
+      :FirstName => self.firstname,
+      :LastName => self.lastname,
+      :Address => params[:address],
+      :Birthday => self.birthdate.to_time.to_i,
+      :Nationality => params[:user][:nationality],
+      :CountryOfResidence => params[:user][:countryOfResidence],
+      :PersonType => "NATURAL",
+      :Email => self.email,
+      :Tag => "user "+self.id.to_s()
     }
   end
 
