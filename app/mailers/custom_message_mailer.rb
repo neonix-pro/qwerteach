@@ -1,5 +1,7 @@
 class CustomMessageMailer < Mailboxer::MessageMailer
 
+  # On override le MessageMailer afin de pouvoir envoyer les emails pour les msg non lus
+
   def new_message_email(message, receiver)
     @message = message
     @receiver = receiver
@@ -20,7 +22,7 @@ class CustomMessageMailer < Mailboxer::MessageMailer
     end
   end
 
-  def email_sender_prout(kk,y)
+  def email_sender_send(kk, y)
     @kk = kk
     @number = y
     @subject = 'Vous avez ' + y + '  messages! Connectez-vous pour les lire!'

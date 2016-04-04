@@ -64,7 +64,7 @@ class ConversartionTest < ActionDispatch::IntegrationTest
     @message.save
     destroy_user_session_path
     assert_difference 'ActionMailer::Base.deliveries.size', +1 do
-      CustomMessageMailer.email_sender_prout(User.find(4), Mailboxer::Conversation.first.messages.count.to_s).deliver_now
+      CustomMessageMailer.email_sender_send(User.find(4), Mailboxer::Conversation.first.messages.count.to_s).deliver_now
       sleep 1
     end
   end
