@@ -1,6 +1,7 @@
 # Source : https://github.com/hackhowtofaq/multiple_file_upload_paperclip_rails
 class GalleriesController < ApplicationController
   load_and_authorize_resource
+  before_filter :authenticate_user!
   # GET /galleries
   # GET /galleries.json
   def index

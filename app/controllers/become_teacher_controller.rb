@@ -1,6 +1,7 @@
 class BecomeTeacherController < ApplicationController
 	include Wicked::Wizard
-
+  before_filter :authenticate_user!
+  
 	steps :general_infos, :avatar, :crop, :pictures, :adverts, :banking_informations
 
 	def show
@@ -22,11 +23,8 @@ class BecomeTeacherController < ApplicationController
         t = [c.translations['fr'], c.alpha2]
         @list.push(t)
       end
-      if(@user.mango_id)
-        m = MangoPay::NaturalUser.fetch(@user.mango_id)
-        @user.address = m['Address']
-        @user.countryOfResidence = m['CountryOfResidence']
-        @user.nationality = m['Nationality']
+      
+      @user.load_mango_infos
         @b = MangoPay::BankAccount.fetch(@user.mango_id)
         if(@b.empty?)
           @b = {}
@@ -34,9 +32,10 @@ class BecomeTeacherController < ApplicationController
           @b = @b.first
         end
       else
+        @b = {}
         @user.address = {}
       end
-    end
+
     render_wizard
   end
 
@@ -44,6 +43,7 @@ class BecomeTeacherController < ApplicationController
     @user = current_user
     case step
     when :general_infos
+      @user.upgrade
       @user.update_attributes(user_params)
     when :avatar
       @user.update_attributes(user_params)
@@ -61,7 +61,6 @@ class BecomeTeacherController < ApplicationController
       end
     when :adverts
     when :banking_informations
-      @user.upgrade
       mangoInfos = @user.mango_infos(params)
       begin
         if(!@user.mango_id)
