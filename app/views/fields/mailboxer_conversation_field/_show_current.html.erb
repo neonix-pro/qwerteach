@@ -8,10 +8,10 @@
   <th class="cell-label cell-label-- ">Avec :</th>
   </td>
   <td>
-  <th class="cell-label cell-label-- ">Dernier message :</th>
+  <th class="cell-label cell-label-- ">Lu ?</th>
   </td>
   <td>
-  <th class="cell-label cell-label-- ">Lu ?</th>
+  <th class="cell-label cell-label-- ">Dernier message :</th>
   </td>
 </tr>
 <% @conversations.each do |t| %>
@@ -25,9 +25,9 @@
       <td></td>
       <td><%= (@conversation.participants - [data]).first.email %></td>
       <td></td>
-      <td><%= @conversation.messages.last.body %></td>
-      <td></td>
       <td><%= @conversation.is_read? (data) %></td>
+      <td></td>
+      <td><%= @conversation.messages.last.body %></td>
     </tr>
 <% end %>
 

@@ -3,7 +3,7 @@ var id = "<%= @conversation.id %>";
 var chatbox = $("#chatbox_" + id + " .chatboxcontent");
 var sender_id = "<%= current_user.id %>";
 var reciever_id = $('meta[name=user-id]').attr("content");
-var last_id = "<%= @conversation.messages.last.sender.id %>";
+var last_id = "<%= @conversation.messages.last != nil ? @conversation.messages.last.sender.id : nil %>";
 console.log("seeeeeeeeen");
 chatbox.scrollTop(chatbox[0].scrollHeight);
 if (sender_id != reciever_id && sender_id != last_id){

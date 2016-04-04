@@ -50,3 +50,49 @@ two:
   confirmation_sent_at: "2016-02-25 16:15:52"
   confirmed_at: "2016-02-25 16:15:52"
   confirmation_token: ace8cb0764a0e56e75cc0196dd2df6fa0b5005f7d31646c694f880d00b8206b
+three:
+  id: 3
+  birthdate: 2016-02-12
+  email: m@m.m
+  encrypted_password: $2a$10$m3dWRILJ3HB9gXiMNleJkOLiq40iNavOfUo4oMxTspxKRf3jpUFii
+  login: kal
+  firstname: kaltrine
+  lastname: kabashi
+  description: info
+  gender: Female
+  phonenumber: 029292929
+  type: User
+  level_id: 1
+  first_lesson_free: false
+  occupation: student
+  postulance_accepted: false
+  teacher_status: actif
+  sign_in_count: default
+  failed_attempts: default
+  admin: false
+  type: User
+  confirmation_sent_at: "2016-02-25 16:15:52"
+  confirmed_at: "2016-02-25 16:15:52"
+four:
+    id: 4
+    birthdate: 2016-02-12
+    email: kaltrina.kabashi1@gmail.com
+    encrypted_password: $2a$10$m3dWRILJ3HB9gXiMNleJkOLiq40iNavOfUo4oMxTspxKRf3jpUFii
+    login: kal
+    firstname: kaltrine
+    lastname: kabashi
+    description: info
+    gender: Female
+    phonenumber: 029292929
+    type: User
+    level_id: 1
+    first_lesson_free: false
+    occupation: student
+    postulance_accepted: false
+    teacher_status: actif
+    sign_in_count: default
+    failed_attempts: default
+    admin: false
+    type: User
+    confirmation_sent_at: "2016-02-25 16:15:52"
+    confirmed_at: "2016-02-25 16:15:52"

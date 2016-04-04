@@ -3,7 +3,7 @@
     <%= image_tag(message.sender.avatar.url(:small)) %>
   </div>
   <div class="chatboxmessagecontent">
-    <p ><%= message.body %></p>
+    <p><%= message.body %></p>
     <time datetime="<%= message.created_at %>" title="<%= message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
     </time>
   </div>

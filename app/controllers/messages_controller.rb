@@ -22,12 +22,10 @@ class MessagesController < ApplicationController
     end
   end
   def typing
-    logger.debug("********************* TYPEEEE")
     @conversation =  Mailboxer::Conversation.find(params[:conversation_id])
     @path = reply_conversation_path(@conversation)
   end
   def seen
-    logger.debug("********************* VUUUUUUUUUU")
     @conversation =  Mailboxer::Conversation.find(params[:conversation_id])
     PrivatePub.publish_to reply_conversation_path(@conversation), :conversation_id => @conversation.id, :receiver_id => (@conversation.participants - [current_user]).first
     @path = reply_conversation_path(@conversation)
