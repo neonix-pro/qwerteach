@@ -57,7 +57,7 @@ class ConversationsController < ApplicationController
         end
       end
     end
-
+    # Envoi fake msg pour init conversation avec participants
     @conversation = current_user.send_message([current_user, (User.find(params[:recipient_id]))], "init_conv_via_chat", "chat").conversation
     render json: {conversation_id: @conversation.id}
   end
