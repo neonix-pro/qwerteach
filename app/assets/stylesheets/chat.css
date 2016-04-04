@@ -11,6 +11,13 @@
     display: none;
 }
 
+.chatbox_big {
+    position: fixed;
+    position: expression("absolute");
+    width: 700px;
+    display: inline-table
+}
+
 .chatboxhead {
     background: #666;
     color: white;
@@ -45,6 +52,10 @@
     background: #e5e5e5;
     line-height: 1.3em;
     list-style: none;
+}
+
+.chatboxcontent_big{
+    width: 668px;
 }
 
 .chatboxcontent li {
@@ -113,9 +124,9 @@
     font-size: 12px;
     margin: 0 0 0.2rem 0;
     -ms-word-break: break-all;
-
+    word-break: break-all;
     /* Non standard for webkit */
-    word-break: break-word;
+    /*word-break: break-word;*/
 
     -webkit-hyphens: auto;
     -moz-hyphens: auto;

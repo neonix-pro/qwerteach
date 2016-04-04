@@ -8,8 +8,10 @@ Rails.application.routes.draw do
     resources :teachers
     resources :postulations
     resources :comments
-    resources :conversations
-    resources :messages
+    #resources :conversations
+    #resources :messages
+    #resources :receipts
+    get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
 
     root to: "users#index"
   end
@@ -31,10 +33,6 @@ Rails.application.routes.draw do
   resources :galleries
   resources :pictures
   resources :degrees
-  
-  resources :conversations do
-    resources :messages
-  end
 
   resources :adverts do
     resources :advert_prices
@@ -43,11 +41,20 @@ Rails.application.routes.draw do
   get "/pages/*page" => "pages#show"
 
   resources :become_teacher
-  
+  resources :conversations, only: [:index, :show, :destroy] do
+    member do
+      post :reply
+      post :mark_as_read
+    end
+  end
+  resources :messages, only: [:new, :create]
   post "/typing" => "messages#typing"
   post "/seen" => "messages#seen"
   get "/level_choice" => "adverts#choice"
   get "/topic_choice" => "adverts#choice_group"
+  post "conversation/show_min" => "conversations#find"
+  get "conversation/show_min/:conversation_id" => "conversations#show_min"
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

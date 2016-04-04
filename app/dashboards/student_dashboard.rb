@@ -9,8 +9,8 @@ class StudentDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
       gallery: Field::HasOne,
-      postulation: Field::HasOne,
-      conversations: Field::HasMany,
+      adverts: Field::HasMany,
+      #conversations: Field::HasMany,
       sent_comment: Field::HasMany.with_options(class_name: "Comment"),
       received_comment: Field::HasMany.with_options(class_name: "Comment"),
       level: Field::BelongsTo,
@@ -63,16 +63,18 @@ class StudentDashboard < Administrate::BaseDashboard
       :level,
       :login,
       :gallery,
-      :conversations,
+      :adverts,
+      # :conversations,
       :sent_comment,
-      :received_comment
+      :received_comment,
   ]
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
       :gallery,
-      :conversations,
+      #   :conversations,
+      :adverts,
       :sent_comment,
       :received_comment,
       :level,
@@ -120,7 +122,8 @@ class StudentDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
       :gallery,
-      :conversations,
+      #   :conversations,
+      :adverts,
       :sent_comment,
       :received_comment,
       :level,

@@ -32,11 +32,10 @@ class User < ActiveRecord::Base
   # Update de l'avatar pour le crop
   after_update :reprocess_avatar, :if => :cropping?
   has_one :gallery
-  has_many :conversations, :foreign_key => :sender_id
   has_many :adverts
 
-  # on crée une postulation et une gallery après avoir créé le user
-  after_create :create_gallery, :create_postulation
+  # on crée une gallery après avoir créé le user
+  after_create :create_gallery
 
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
@@ -45,7 +44,7 @@ class User < ActiveRecord::Base
   def self.reader_scope
     where(:is_admin => true)
   end
-
+  acts_as_messageable
   def level_max
     if Degree.where(:user_id=>self).map{|t| t.level}.max.blank?
       nil
@@ -53,7 +52,6 @@ class User < ActiveRecord::Base
       Degree.where(:user_id=>self).map{|t| t.level}.max.id
     end
     #self.degrees.map{|t| t.level}.max.id
-
   end
 
   # Méthode permettant de créer une gallery
@@ -68,15 +66,15 @@ class User < ActiveRecord::Base
 
   def mango_infos (params)
     {
-      "FirstName": self.firstname,
-      "LastName": self.lastname,
-      "Address": params[:address],
-      "Birthday": self.birthdate.to_time.to_i, 
-      "Nationality": params[:user][:nationality],
-      "CountryOfResidence": params[:user][:countryOfResidence],
-      "PersonType": "NATURAL", 
-      "Email": self.email, 
-      "Tag": "user "+self.id.to_s()
+      "FirstName" => self.firstname,
+      "LastName" => self.lastname,
+      "Address" => params[:address],
+      "Birthday" => self.birthdate.to_time.to_i,
+      "Nationality" => params[:user][:nationality],
+      "CountryOfResidence" => params[:user][:countryOfResidence],
+      "PersonType" => "NATURAL",
+      "Email" => self.email,
+      "Tag" => "user "+self.id.to_s()
     }
   end
 
@@ -140,5 +138,8 @@ class User < ActiveRecord::Base
     self.admin=true
     self.save
   end
-
+  def mailboxer_email(object)
+    self.email
+    #return the model's email here
+  end
 end
