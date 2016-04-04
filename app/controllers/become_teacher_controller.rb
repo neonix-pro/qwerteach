@@ -23,19 +23,9 @@ class BecomeTeacherController < ApplicationController
         t = [c.translations['fr'], c.alpha2]
         @list.push(t)
       end
-      
       @user.load_mango_infos
-        @b = MangoPay::BankAccount.fetch(@user.mango_id)
-        if(@b.empty?)
-          @b = {}
-        else
-          @b = @b.first
-        end
-      else
-        @b = {}
-        @user.address = {}
-      end
-
+      @user.load_bank_accounts
+    end
     render_wizard
   end
 

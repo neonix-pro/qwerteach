@@ -1,0 +1,19 @@
+<%= fields_for :bank_accounts do |bank_account_fields| %>
+  <div class="field">
+    <%= bank_account_fields.label :BankName %><br/>
+    <%= bank_account_fields.text_field :BankName, :value => bank_account['BankName'] %>
+  </div>
+  <div class="field">
+    <%= bank_account_fields.label :InstitutionNumber %><br/>
+    <%= bank_account_fields.text_field :InstitutionNumber, :value => bank_account['InstitutionNumber'] %>
+  </div>
+  <div class="field">
+    <%= bank_account_fields.label :BranchCode %><br/>
+    <%= bank_account_fields.text_field :BranchCode, :value => bank_account['BranchCode'] %>
+  </div>
+  <div class="field">
+    <%= bank_account_fields.label :AccountNumber %><br/>
+    <%= bank_account_fields.text_field :AccountNumber, :value => bank_account['AccountNumber'] %>
+  </div>
+  <%= bank_account_fields.hidden_field :Type, :value => bank_account['Type'] %>
+<% end %>

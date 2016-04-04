@@ -1,0 +1,12 @@
+
+<%= fields_for :bank_accounts do |bank_account_fields| %>
+  <div class="field">
+    <%= bank_account_fields.label :IBAN %><br/>
+    <%= bank_account_fields.text_field :IBAN, :value => bank_account['IBAN'] %>
+  </div>
+  <div class="field">
+    <%= bank_account_fields.label :BIC %><br/>
+    <%= bank_account_fields.text_field :BIC, :value => bank_account['BIC'] %>
+  </div>
+  <%= bank_account_fields.hidden_field :Type, :value => bank_account['Type'] %>
+<% end %>

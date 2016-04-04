@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
   # Attributs pour mangopay
-  attr_accessor :address, :nationality, :countryOfResidence, :bank_account
+  attr_accessor :address, :nationality, :countryOfResidence, :bank_accounts
   # Vérifie que la date de naissance est bien dans le passé
   validates_date :birthdate, :on_or_before => lambda { Date.current }
   # Update de l'avatar pour le crop
@@ -84,6 +84,16 @@ class User < ActiveRecord::Base
       self.address = m['Address']
       self.countryOfResidence = m['CountryOfResidence']
       self.nationality = m['Nationality']
+    else
+      self.address = {}
+    end
+  end
+
+  def load_bank_accounts
+    if(self.mango_id)
+      self.bank_accounts = MangoPay::BankAccount.fetch(self.mango_id)
+    else
+      
     end
   end
 

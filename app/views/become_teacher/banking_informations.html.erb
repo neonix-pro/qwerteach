@@ -38,18 +38,25 @@
     </div>
     
     <hr>
-
-      <%= fields_for :bank_account do |bank_account_fields| %>
-        <div class="field">
-          <%= bank_account_fields.label :IBAN %><br/>
-          <%= bank_account_fields.text_field :IBAN, :value => @b['IBAN'] %>
-        </div>
-        <div class="field">
-          <%= bank_account_fields.label :BIC %><br/>
-          <%= bank_account_fields.text_field :BIC, :value => @b['BIC'] %>
-        </div>
-      <% end %>
-
+    <% if(@user.bank_accounts.empty?) %>
+      <%= render( :partial => '/mangopay/bank_accounts/new' ) %>
+    <% else %>
+      <% @user.bank_accounts.each do |bank_account|
+        case bank_account['Type']
+        when 'IBAN' %>
+          <%= render( :partial => '/mangopay/bank_accounts/iban', :locals=>{:bank_account => bank_account} ) %>
+        <% when 'GB' %>
+          <%= render( :partial => '/mangopay/bank_accounts/gb', :locals=>{:bank_account => bank_account} ) %>
+        <% when 'US' %>
+          <%= render( :partial => '/mangopay/bank_accounts/us', :locals=>{:bank_account => bank_account} ) %>
+        <% when 'CA' %>
+          <%= render( :partial => '/mangopay/bank_accounts/ca', :locals=>{:bank_account => bank_account} ) %>
+        <% when 'OTHER' %>
+          <%= render( :partial => '/mangopay/bank_accounts/other', :locals=>{:bank_account => bank_account} ) %>
+        <% end
+      end 
+    end %>
+    <hr>
     <div class="field">
       <%= f.submit :terminer, :class => 'btn btn-primary btn-mini' %><br/>
     </div>
