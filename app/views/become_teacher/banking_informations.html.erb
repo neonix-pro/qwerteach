@@ -38,7 +38,7 @@
     </div>
     
     <hr>
-    <% if(@user.bank_accounts.empty?) %>
+    <% if(!@user.bank_accounts || @user.bank_accounts.empty?) %>
       <%= render( :partial => '/mangopay/bank_accounts/new' ) %>
     <% else %>
       <% @user.bank_accounts.each do |bank_account|

@@ -1,1 +1,30 @@
 <%= fields_for :bank_accounts do |bank_account_fields| %>
+  <h4>Type de compte</h4>
+  <%= radio_button_tag(:type, "iban", false, class: "bank_account_type") %>
+  <%= label_tag(:type_iban, "IBAN") %>
+  <%= radio_button_tag(:type, "gb", false, class: "bank_account_type") %>
+  <%= label_tag(:type_gb, "Royaume Uni") %>
+  <%= radio_button_tag(:type, "us", false, class: "bank_account_type") %>
+  <%= label_tag(:type_us, "Etats Unis") %>
+  <%= radio_button_tag(:type, "ca", false, class: "bank_account_type") %>
+  <%= label_tag(:type_ca, "Canada") %>
+  <%= radio_button_tag(:type, "other", false, class: "bank_account_type") %>
+  <%= label_tag(:type_other, "Autre") %>
+  <div id="bank_account_fields">
+    <div id="account_iban" class="account_fields" hidden>
+      <%= render( :partial => '/mangopay/bank_accounts/iban', :locals=>{:bank_account => {}} ) %>
+    </div>
+    <div id="account_gb" class="account_fields" hidden>
+      <%= render( :partial => '/mangopay/bank_accounts/gb', :locals=>{:bank_account => {}} ) %>
+    </div>
+    <div id="account_us" class="account_fields" hidden>
+      <%= render( :partial => '/mangopay/bank_accounts/us', :locals=>{:bank_account => {}} ) %>
+    </div>
+    <div id="account_ca" class="account_fields" hidden>
+      <%= render( :partial => '/mangopay/bank_accounts/ca', :locals=>{:bank_account => {}} ) %>
+    </div>
+    <div id="account_other" class="account_fields" hidden>
+      <%= render( :partial => '/mangopay/bank_accounts/other', :locals=>{:bank_account => {}} ) %>
+    </div>
+  </div>
+<% end %>
