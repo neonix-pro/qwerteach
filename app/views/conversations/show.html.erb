@@ -1,40 +1,44 @@
-<div class="chatboxhead">
-  <div class="chatboxtitle">
-    <i class="fa fa-comments"></i>
+<div id="chatbox_<%= @conversation.id %>" class="chatbox chatbox_big list-group-item clearfix">
+  <div class="chatboxhead">
+    <div class="chatboxtitle">
 
-    <h1>
-      <%= @reciever.firstname %>
+      <% page_header "Conversation" %>
+
+      <p>Chatting with
+        <%= render 'conversations/participants', conversation: @conversation %>
+      </p>
       <span class="typing" hidden><i>Écrit</i> <%= image_tag "typing.gif" %></span>
-    </h1>
+    </div>
   </div>
-  <div class="chatboxoptions">
-    <%= link_to "<i class='fa  fa-minus'></i> ".html_safe, "#", class: "toggleChatBox", "data-cid" => @conversation.id %>
-    &nbsp;&nbsp;
-    <%= link_to "<i class='fa  fa-times'></i> ".html_safe, "#", class: "closeChat", "data-cid" => @conversation.id %>
-  </div>
-  <br clear="all"/>
-</div>
-<div class="chatboxcontent">
-  <% if @messages.any? %>
-      <%= render @messages %>
-  <% end %>
-</div>
 
+  <div class="chatboxcontent chatboxcontent_big">
+    <% @conversation.receipts_for(current_user).each do |receipt| %>
+        <% if receipt.message.body != "init_conv_via_chat" %>
+            <p><%= render 'messages/message', message: receipt.message %></p>
+        <% end %>
+    <% end %>
+  </div>
+
+  <div class="chatboxinput">
+    <span class="seen" hidden><i>Vu</i></span>
+
+    <%= form_tag reply_conversation_path(@conversation), :remote => true, method: :post do %>
+        <%= text_area_tag 'body', nil, cols: 3, class: 'form-control chatboxtextarea', placeholder: 'Type something...', required: true, "data-cid" => @conversation.id %>
+        <%= submit_tag "Send Message", class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+  <%= subscribe_to reply_conversation_path(@conversation) %>
+</div>
 <script>
-  $('.chatboxinput').click(function () {
-    alert("bouh");
+  $('#chatbox_<%= @conversation.id %> .chatboxinput').click(function () {
     $.ajax({
       url: "/seen",
-      data: {conversation_id: "<%=@conversation.id%>"},
+      data: {conversation_id: "<%= @conversation.id %>"},
       method: 'post'
     });
   });
 </script>
-<div class="chatboxinput">
-  <span class="seen" hidden><i>Vu</i></span>
-  <%= form_for([@conversation, @message], :remote => true, :authenticity_token => true, :html => {id: "conversation_form_#{@conversation.id}"}) do |f| %>
-      <%= f.text_area :body, class: "chatboxtextarea", "data-cid" => @conversation.id %>
-  <% end %>
-</div>
-
-<%= subscribe_to conversation_path(@conversation) %>
+<script>
+  var chatbox = $("#chatbox_<%= @conversation.id %> .chatboxcontent");
+  chatbox.scrollTop(chatbox[0].scrollHeight);
+</script>

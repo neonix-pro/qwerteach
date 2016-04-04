@@ -9,6 +9,8 @@ class LevelDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     users: Field::HasMany,
+    advert_prices: Field::HasMany,
+    degree: Field::HasOne,
     id: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -26,6 +28,8 @@ class LevelDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :users,
+    :advert_prices,
+    :degree,
     :id,
     :be,
     :fr,
@@ -36,6 +40,8 @@ class LevelDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :users,
+    :advert_prices,
+    :degree,
     :id,
     :created_at,
     :updated_at,
@@ -51,6 +57,8 @@ class LevelDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :users,
+    :advert_prices,
+    :degree,
     :level,
     :code,
     :be,

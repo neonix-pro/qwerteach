@@ -8,14 +8,14 @@ class CommentDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-      sender: Field::BelongsTo.with_options(class_name: "User"),
-      subject: Field::BelongsTo.with_options(class_name: "User"),
-      id: Field::Number,
-      sender_id: Field::Number,
-      subject_id: Field::Number,
-      comment_text: Field::Text,
-      created_at: Field::DateTime,
-      updated_at: Field::DateTime,
+    sender: Field::BelongsTo.with_options(class_name: "User"),
+    subject: Field::BelongsTo.with_options(class_name: "User"),
+    id: Field::Number,
+    sender_id: Field::Number,
+    subject_id: Field::Number,
+    comment_text: Field::Text,
+    created_at: Field::DateTime,
+    updated_at: Field::DateTime,
   }
 
   # COLLECTION_ATTRIBUTES
@@ -33,14 +33,14 @@ class CommentDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-      :sender,
-      :subject,
-      :id,
-      :sender_id,
-      :subject_id,
-      :comment_text,
-      :created_at,
-      :updated_at,
+    :sender,
+    :subject,
+    :id,
+    :sender_id,
+    :subject_id,
+    :comment_text,
+    :created_at,
+    :updated_at,
   ]
 
   # FORM_ATTRIBUTES

@@ -1,11 +1,10 @@
-<li class="<%=  self_or_other(message) %>">
+<li class="<%= message.sender == current_user ? "self" : "other" %>">
   <div class="avatar">
-  	<%= image_tag(message_interlocutor(message).avatar.url(:small)) %>
+    <%= image_tag(message.sender.avatar.url(:small)) %>
   </div>
   <div class="chatboxmessagecontent">
     <p><%= message.body %></p>
     <time datetime="<%= message.created_at %>" title="<%= message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
-      <%= message_interlocutor(message).firstname %> • <%= message.created_at.strftime("%H:%M %p") %>
     </time>
   </div>
 </li>
