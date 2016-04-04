@@ -182,15 +182,12 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-<<<<<<< HEAD
-    mangopay (3.0.20)
-      multi_json (>= 1.7.7)
-=======
     mailboxer (0.13.0)
       carrierwave (>= 0.5.8)
       foreigner (>= 0.9.1)
       rails (>= 3.2.0)
->>>>>>> ajout_mailboxer
+    mangopay (3.0.20)
+      multi_json (>= 1.7.7)
     mime-types (2.99)
     mimemagic (0.3.0)
     mini_portile2 (2.0.0)
@@ -327,13 +324,10 @@ GEM
     websocket-driver (0.6.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-<<<<<<< HEAD
-    wicked (1.2.1)
-      railties (>= 3.0.7)
-=======
     whenever (0.9.4)
       chronic (>= 0.6.3)
->>>>>>> ajout_mailboxer
+    wicked (1.2.1)
+      railties (>= 3.0.7)
 
 PLATFORMS
   ruby
@@ -355,8 +349,8 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   kaminari
-  mangopay
   mailboxer
+  mangopay
   minitest
   paper_trail
   paperclip (~> 4.3)
@@ -378,8 +372,8 @@ DEPENDENCIES
   unread
   validates_timeliness (~> 4.0)
   web-console (~> 2.0)
-  wicked
   whenever
+  wicked
 
 BUNDLED WITH
    1.11.2
