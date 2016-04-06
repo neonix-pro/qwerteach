@@ -51,17 +51,20 @@ class BecomeTeacherController < ApplicationController
       end
     when :adverts
     when :banking_informations
-      mangoInfos = @user.mango_infos(params)
+      #mangoInfos = @user.mango_infos(params)
       begin
-        if(!@user.mango_id)
-          m = MangoPay::NaturalUser.create(mangoInfos)
-          @user.mango_id = m['Id']
-          @user.save
-        else
-          m = MangoPay::NaturalUser.update(@user.mango_id, mangoInfos)
-        end
+        #m = {}
+        #if !@user.mango_id
+        #  m = MangoPay::NaturalUser.create(mangoInfos)
+        #  @user.mango_id = m['Id']
+        #  @user.save
+        #else
+        #  m = MangoPay::NaturalUser.update(@user.mango_id, mangoInfos)
+        #end
 
-        params[:bank_account][:Type]='IBAN'
+        m = @user.create_mango_user(params)
+
+        params[:bank_account][:Type]=m["Type"]
         params[:bank_account][:OwnerName]=@user.firstname + ' '+@user.lastname
         params[:bank_account][:OwnerAddress] = m["Address"]
 

@@ -1,0 +1,20 @@
+<h2>Infos générales</h2>
+
+<p><%= @user.lastname %> <%= @user.firstname %></p>
+<p>Adresse :
+  <% @user.address.keys.each do |k| %>
+      <%= @user.address.fetch(k) %>,
+  <% end %>
+</p>
+<p>Résidence : <%= ISO3166::Country[@user.countryOfResidence] %> </p>
+<p>Nationalité : <%= ISO3166::Country[@user.nationality] %> </p>
+
+
+<h2>Porte-feuille</h2>
+
+
+
+<p><%= ((@wallet["Balance"]["Amount"]).to_f/100).to_f %> <%= @wallet["Balance"]["Currency"] %> +
+  <%= ((@bonus["Balance"]["Amount"]).to_f/100).to_f %> <%= @bonus["Balance"]["Currency"] %> de crédit bonus </p>
+<p>En cours de transfert : <%= @transactions_on_way %></p>
+<p>Date de création : <%= Time.at(@wallet['CreationDate']).to_date %></p>
