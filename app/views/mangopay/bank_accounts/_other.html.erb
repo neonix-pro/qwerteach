@@ -1,4 +1,4 @@
-<%= fields_for :bank_accounts do |bank_account_fields| %>
+<%= fields_for :other_account do |bank_account_fields| %>
   <div class="field">
     <%= bank_account_fields.label :Country %><br/>
     <%= bank_account_fields.text_field :Country, :value => bank_account['Country'] %>

@@ -41,21 +41,23 @@
     <% if(!@user.bank_accounts || @user.bank_accounts.empty?) %>
       <%= render( :partial => '/mangopay/bank_accounts/new' ) %>
     <% else %>
-      <% @user.bank_accounts.each do |bank_account|
-        case bank_account['Type']
-        when 'IBAN' %>
-          <%= render( :partial => '/mangopay/bank_accounts/iban', :locals=>{:bank_account => bank_account} ) %>
-        <% when 'GB' %>
-          <%= render( :partial => '/mangopay/bank_accounts/gb', :locals=>{:bank_account => bank_account} ) %>
-        <% when 'US' %>
-          <%= render( :partial => '/mangopay/bank_accounts/us', :locals=>{:bank_account => bank_account} ) %>
-        <% when 'CA' %>
-          <%= render( :partial => '/mangopay/bank_accounts/ca', :locals=>{:bank_account => bank_account} ) %>
-        <% when 'OTHER' %>
-          <%= render( :partial => '/mangopay/bank_accounts/other', :locals=>{:bank_account => bank_account} ) %>
-        <% end
-      end 
-    end %>
+      <h4> Vos comptes en banque: </h4>
+      <% @user.bank_accounts.each do |bank_account| %>
+        <% if bank_account['Type'] == 'IBAN' %>
+          <b>Type: </b>IBAN<br />
+          <b>Numéro: </b> <%= bank_account['IBAN'] %><br />
+        <% else %>
+          <b>Type: </b><%= bank_account['Type'] %><br />
+          <b>Numéro: </b><%= bank_account['AccountNumber'] %><br />    
+        <% end %>
+        <b>Owner: </b><%= bank_account['OwnerName'] %>
+        <br /><br />
+      <% end %>
+      <br /><button id="addBankAcountButton" class="btn btn-default" type="button">Ajouter un compte en banque</button>
+      <div id="addBankAccount" hidden>
+        <%= render( :partial => '/mangopay/bank_accounts/new' ) %>
+      </div>
+    <% end %>
     <hr>
     <div class="field">
       <%= f.submit :terminer, :class => 'btn btn-primary btn-mini' %><br/>

@@ -60,12 +60,24 @@ class BecomeTeacherController < ApplicationController
         else
           m = MangoPay::NaturalUser.update(@user.mango_id, mangoInfos)
         end
+        if(!params[:bank_account].nil?)
+          case params[:bank_account]['Type']
+            when 'iban'
+              params[:bank_account] = params[:iban_account]
+            when 'gb'
+              params[:bank_account] = params[:gb_account]
+            when 'us'
+              params[:bank_account] = params[:us_account]
+            when 'ca'
+              params[:bank_account] = params[:ca_account]
+            when 'other'
+              params[:bank_account] = params[:other_account]
+          end
+          params[:bank_account][:OwnerName]=@user.firstname + ' '+@user.lastname
+          params[:bank_account][:OwnerAddress] = m["Address"]
 
-        params[:bank_account][:Type]='IBAN'
-        params[:bank_account][:OwnerName]=@user.firstname + ' '+@user.lastname
-        params[:bank_account][:OwnerAddress] = m["Address"]
-
-        MangoPay::BankAccount.create(@user.mango_id, params[:bank_account])
+          MangoPay::BankAccount.create(@user.mango_id, params[:bank_account])
+        end
 
         rescue MangoPay::ResponseError => ex
           flash[:danger] = ex.details["Message"]
@@ -73,7 +85,7 @@ class BecomeTeacherController < ApplicationController
             flash[:danger] += " #{name}: #{val} \n\n"
           end
           jump_to(:banking_informations)
-      end
+        end
     end
     render_wizard @user
   end

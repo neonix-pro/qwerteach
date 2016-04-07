@@ -5,5 +5,9 @@ $(document).ready(function(){
     $('#account_'+type).slideDown();
     
   });
+
+  $('#addBankAcountButton').click(function(){
+    $('#addBankAccount').slideDown();
+  })
 });
 
