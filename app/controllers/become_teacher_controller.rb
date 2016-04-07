@@ -2,7 +2,7 @@ class BecomeTeacherController < ApplicationController
 	include Wicked::Wizard
   before_filter :authenticate_user!
   
-	steps :general_infos, :avatar, :crop, :pictures, :adverts, :banking_informations
+	steps :general_infos, :avatar, :crop, :pictures, :adverts, :banking_informations, :finish_postulation
 
 	def show
     @user = current_user
@@ -33,7 +33,6 @@ class BecomeTeacherController < ApplicationController
     @user = current_user
     case step
     when :general_infos
-      @user.upgrade
       @user.update_attributes(user_params)
     when :avatar
       @user.update_attributes(user_params)
@@ -50,6 +49,7 @@ class BecomeTeacherController < ApplicationController
         }
       end
     when :adverts
+      @user.upgrade
     when :banking_informations
       mangoInfos = @user.mango_infos(params)
       begin
