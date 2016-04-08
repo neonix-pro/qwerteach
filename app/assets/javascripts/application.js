@@ -20,4 +20,10 @@
 //= require jquery_ujs
 //= require ckeditor-jquery
 //= require chosen-jquery
+//= require jquery.form-validator
 //= require jquery.turbolinks
+
+
+$.validate({
+    modules : 'security'
+});

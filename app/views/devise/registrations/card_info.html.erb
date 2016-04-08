@@ -7,7 +7,10 @@
 
     <div class="field form-group">
       <%= label_tag "Numero" %>
-      <%= number_field_tag "account", nil, class: 'form-control', :required => true %>
+      <%= number_field_tag "account", nil, class: 'form-control', :required => true, data: {
+          :validation => "required creditcard", 'validation-allowing' => "visa, mastercard",
+          "validation-error-msg" => "This card number is invalid."
+      } %>
     </div>
     <div class="field form-group">
       <%= label_tag "Date d'expiration" %>
@@ -25,3 +28,11 @@
       <%= f.submit "Envoyer" %>
     </div>
 <% end %>
+<script>
+  $('.form-control').on('change', function () {
+    $.validate({
+      modules: 'security'
+    });
+  });
+</script>
+
