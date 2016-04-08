@@ -48,7 +48,7 @@ class RegistrationsController < Devise::RegistrationsController
     @path = user_mangopay_index_wallet_path
     @wallet = MangoPay::User.wallets(@user.mango_id).first
     @bonus = MangoPay::User.wallets(@user.mango_id).second
-    @transactions = MangoPay::User.transactions(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 1000})
+    @transactions = MangoPay::User.transactions(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 100})
     @transactions_on_way = 0
     @transactions.each do |t|
       if t["Status"] == "CREATED"
@@ -145,7 +145,6 @@ class RegistrationsController < Devise::RegistrationsController
                                                      :CardType => @type,
                                                      :SecureMode => "FORCE"
                                                  })
-        logger.debug(resp["RedirectURL"])
         redirect_to resp["RedirectURL"]
       when 'CB_VISA_MASTERCARD'
         if @card.blank?
@@ -173,7 +172,13 @@ class RegistrationsController < Devise::RegistrationsController
                                                            :SecureMode => "FORCE",
                                                            :CardId => @card
                                                        })
-          redirect_to @resp["SecureModeRedirectURL"]
+          if @resp["SecureModeRedirectURL"].nil?
+            flash[:danger] ='Il y a eu un problème lors de la transaction. Veuillez correctement compléter les champs'
+            redirect_to controller: 'registrations',
+                        action: 'index_mangopay_wallet'
+          else
+            redirect_to @resp["SecureModeRedirectURL"]
+          end
         end
 
     end
@@ -267,12 +272,18 @@ class RegistrationsController < Devise::RegistrationsController
                                                      :SecureMode => "FORCE",
                                                      :CardId => @repl["CardId"]
                                                  })
-    redirect_to @resp["SecureModeRedirectURL"]
+    if @resp["SecureModeRedirectURL"].nil?
+      flash[:danger] ='Il y a eu un problème lors de la transaction. Veuillez correctement compléter les champs'
+      redirect_to controller: 'registrations',
+                  action: 'index_mangopay_wallet'
+    else
+      redirect_to @resp["SecureModeRedirectURL"]
+    end
   rescue MangoPay::ResponseError => ex
     redirect_to controller: 'registrations', action: 'send_direct_debit_mangopay_wallet'
     flash[:danger] = 'Il y a eu un problème lors de la transaction. Veuillez réessayer. Code erreur : '+ ex.details["Message"]
-   # ex.details['errors'].each do |name, val|
-   # end
+    # ex.details['errors'].each do |name, val|
+    # end
 
     #ex.details['errors'].each do |name, val|
     # end
@@ -323,8 +334,9 @@ class RegistrationsController < Devise::RegistrationsController
                                   :DebitedWalletID => @wallet["Id"],
                                   :CreditedWalletID => @other_wallet["Id"]
                               })
-    redirect_to url_for(controller: 'registrations',
-                        action: 'index_mangopay_wallet', notice: 'Transfert was successfully done.')
+    flash[:notice] ='Transfert was successfully done.'
+        redirect_to url_for(controller: 'registrations',
+                        action: 'index_mangopay_wallet')
 
   rescue MangoPay::ResponseError => ex
     flash[:danger] = ex.details["Message"] + amount
