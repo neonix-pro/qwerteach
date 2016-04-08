@@ -318,26 +318,88 @@ class RegistrationsController < Devise::RegistrationsController
     amount = params[:amount].to_f * 100
     fees = 0 * amount
     @wallet = MangoPay::User.wallets(current_user.mango_id).first
+    walletcredit = @wallet['Balance']['Amount']
+    @bonus_wallet = MangoPay::User.wallets(current_user.mango_id).second
+    bonuscredit = @bonus_wallet['Balance']['Amount']
     @other = User.find(params[:other_part])
     @other_wallet = MangoPay::User.wallets(@other.mango_id).first
 
-    MangoPay::Transfer.create({
-                                  :AuthorId => current_user.mango_id,
-                                  :DebitedFunds => {
-                                      :Currency => "EUR",
-                                      :Amount => amount
-                                  },
-                                  :Fees => {
-                                      :Currency => "EUR",
-                                      :Amount => fees
-                                  },
-                                  :DebitedWalletID => @wallet["Id"],
-                                  :CreditedWalletID => @other_wallet["Id"]
-                              })
-    flash[:notice] ='Transfert was successfully done.'
-        redirect_to url_for(controller: 'registrations',
-                        action: 'index_mangopay_wallet')
+    if amount > (walletcredit + bonuscredit)
+      flash[:danger]='Votre solde est insuffisant. Rechargez en premier lieu votre portefeuille.'
 
+      redirect_to url_for(controller: 'registrations',
+                          action: 'index_mangopay_wallet') and return
+    end
+
+    if bonuscredit == 0
+      repl = MangoPay::Transfer.create({
+                                           :AuthorId => current_user.mango_id,
+                                           :DebitedFunds => {
+                                               :Currency => "EUR",
+                                               :Amount => amount
+                                           },
+                                           :Fees => {
+                                               :Currency => "EUR",
+                                               :Amount => fees
+                                           },
+                                           :DebitedWalletID => @wallet["Id"],
+                                           :CreditedWalletID => @other_wallet["Id"]
+                                       })
+      if repl["ResultCode"]=="000000"
+        flash[:notice] ='Le transfert a correctement été effectué.'
+      else
+        flash[:danger]='Veuillez réessayer'
+      end
+      redirect_to url_for(controller: 'registrations',
+                          action: 'index_mangopay_wallet') and return
+    else
+      rest = amount - bonuscredit
+      if rest > 0
+        amount = bonuscredit
+      end
+      repl = MangoPay::Transfer.create({
+                                           :AuthorId => current_user.mango_id,
+                                           :DebitedFunds => {
+                                               :Currency => "EUR",
+                                               :Amount => amount
+                                           },
+                                           :Fees => {
+                                               :Currency => "EUR",
+                                               :Amount => fees
+                                           },
+                                           :DebitedWalletID => @bonus_wallet["Id"],
+                                           :CreditedWalletID => @other_wallet["Id"]
+                                       })
+      if repl["ResultCode"]=="000000"
+        flash[:notice] ='Le transfert a correctement été effectué. Montant déduit : '+ amount.to_s
+      else
+        flash[:danger]='Veuillez réessayer, il y a eu un problème.Montant déduit = ' + amount.to_s
+        redirect_to url_for(controller: 'registrations',
+                            action: 'index_mangopay_wallet') and return
+      end
+      if rest > 0
+        repl2 = MangoPay::Transfer.create({
+                                              :AuthorId => current_user.mango_id,
+                                              :DebitedFunds => {
+                                                  :Currency => "EUR",
+                                                  :Amount => rest
+                                              },
+                                              :Fees => {
+                                                  :Currency => "EUR",
+                                                  :Amount => fees
+                                              },
+                                              :DebitedWalletID => @wallet["Id"],
+                                              :CreditedWalletID => @other_wallet["Id"]
+                                          })
+        if repl2["ResultCode"]=="000000"
+          flash[:notice] ='Le transfert a correctement été effectué. Montant diff = ' + rest.to_s
+        else
+          flash[:danger]='Veuillez réessayer, il y a eu un problème. Montant diff = ' + rest.to_s
+        end
+      end
+      redirect_to url_for(controller: 'registrations',
+                          action: 'index_mangopay_wallet')
+    end
   rescue MangoPay::ResponseError => ex
     flash[:danger] = ex.details["Message"] + amount
     ex.details['errors'].each do |name, val|
