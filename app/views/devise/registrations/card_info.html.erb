@@ -21,8 +21,11 @@
 
     </div>
     <div class="field form-group">
-      <%= label_tag "CSC" %>
-      <%= number_field_tag "csc", nil, class: 'form-control', :required => true %>
+      <%= label_tag "Code de sécurité" %>
+      <%= number_field_tag "csc", nil, class: 'form-control', :required => true , data: {
+          :validation => "required cvv",
+          "validation-error-msg" => "This code number is invalid."
+      }%>
     </div>
     <div class="actions">
       <%= f.submit "Envoyer" %>
