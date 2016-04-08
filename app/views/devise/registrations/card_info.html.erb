@@ -1,0 +1,27 @@
+<%= form_for @user, as: :user, url: user_mangopay_send_card_info_path, method: :put do |f| %>
+    <%= hidden_field_tag "key", @reply["AccessKey"] %>
+    <%= hidden_field_tag "pre_data", @reply["PreregistrationData"] %>
+    <%= hidden_field_tag "link", @reply["CardRegistrationURL"] %>
+    <%= hidden_field_tag "card_regis_id", @reply["Id"] %>
+    <%= hidden_field_tag "amount", @amount %>
+
+    <div class="field form-group">
+      <%= label_tag "Numero" %>
+      <%= number_field_tag "account", nil, :required => true %>
+    </div>
+    <div class="field form-group">
+      <%= label_tag "Date d'expiration" %>
+
+      <%= text_field_tag "month", nil, :data => {:provide => "datepicker", 'date-format' => 'mm', 'date-view-mode' => 'months', 'date-min-view-mode' => 'months', 'date-autoclose' => true, 'date-start-date' => (Date.new)}, :required => true %>
+
+      <%= text_field_tag "year", nil, :data => {:provide => "datepicker", 'date-format' => 'yy', 'date-view-mode' => 'years', 'date-min-view-mode' => 'years', 'date-autoclose' => true, 'date-start-date' => (Date.new)}, :required => true %>
+
+    </div>
+    <div class="field form-group">
+      <%= label_tag "CSC" %>
+      <%= number_field_tag "csc", nil, :required => true %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Envoyer" %>
+    </div>
+<% end %>

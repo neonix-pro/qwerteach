@@ -1,4 +1,6 @@
 # Controller pour Users (gérés par Devise)
+require "uri"
+require "net/http"
 class RegistrationsController < Devise::RegistrationsController
 
   def update
@@ -54,6 +56,11 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
     @transactions_on_way
+
+    if params[:transactionId]
+      @transaction = MangoPay::PayIn.fetch(params[:transactionId])
+    end
+
   end
 
   public
@@ -101,10 +108,84 @@ class RegistrationsController < Devise::RegistrationsController
     @user = current_user
     @user.load_mango_infos
     @wallet = MangoPay::User.wallets(@user.mango_id).first
+    cards = MangoPay::User.cards(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 100})
+    @cards = []
+    cards.each do |c|
+      if c["Validity"]=="VALID" && c["Active"]
+        @cards.push(c)
+      end
+    end
   end
 
   def send_direct_debit_mangopay_wallet
-    amount = params[:amount].to_f * 100
+    @user = current_user
+    @amount = params[:amount]
+    amount = (params[:amount]).to_f * 100
+    @card = params[:card]
+    @type = params[:card_type]
+    fees = 0 * amount
+    wallet = MangoPay::User.wallets(current_user.mango_id).first["Id"]
+
+    case @type
+      when 'BCMC'
+        resp = MangoPay::PayIn::Card::Web.create({
+                                                     :AuthorId => current_user.mango_id,
+                                                     :DebitedFunds => {
+                                                         :Currency => "EUR",
+                                                         :Amount => amount
+                                                     },
+                                                     :Fees => {
+                                                         :Currency => "EUR",
+                                                         :Amount => fees
+                                                     },
+                                                     :CreditedWalletId => wallet,
+                                                     :ReturnURL => url_for(controller: 'registrations',
+                                                                           action: 'index_mangopay_wallet'),
+                                                     :Culture => "FR",
+                                                     :CardType => @type,
+                                                     :SecureMode => "FORCE"
+                                                 })
+        logger.debug(resp["RedirectURL"])
+        redirect_to resp["RedirectURL"]
+      when 'CB_VISA_MASTERCARD'
+        if @card.blank?
+          @reply = MangoPay::CardRegistration.create({
+                                                         :UserId => @user.mango_id,
+                                                         :Currency => "EUR",
+                                                         :CardType => @type
+                                                     })
+          render :controller => 'registrations', :action => 'card_info'
+        else
+          @resp = MangoPay::PayIn::Card::Direct.create({
+                                                           :AuthorId => current_user.mango_id,
+                                                           :CreditedUserId => current_user.mango_id,
+                                                           :DebitedFunds => {
+                                                               :Currency => "EUR",
+                                                               :Amount => amount
+                                                           },
+                                                           :Fees => {
+                                                               :Currency => "EUR",
+                                                               :Amount => fees
+                                                           },
+                                                           :CreditedWalletId => wallet,
+                                                           :SecureModeReturnURL => url_for(controller: 'registrations',
+                                                                                           action: 'index_mangopay_wallet'),
+                                                           :SecureMode => "FORCE",
+                                                           :CardId => @card
+                                                       })
+          redirect_to @resp["SecureModeRedirectURL"]
+        end
+
+    end
+      #redirect_to :controller=> 'registrations', :action => 'card_info', :data => {:accessKey => reply["AccessKey"],:preregistrationData => reply["PreregistrationData"] }
+  rescue MangoPay::ResponseError => ex
+    flash[:danger] = ex.details["Message"] + amount
+    ex.details['errors'].each do |name, val|
+      flash[:danger] += " #{name}: #{val} \n\n"
+    end
+
+
+    /amount = params[:amount].to_f * 100
     fees = 0 * amount
     card_type = params[:card_type]
     wallet = MangoPay::User.wallets(current_user.mango_id).first["Id"]
@@ -133,7 +214,81 @@ class RegistrationsController < Devise::RegistrationsController
     ex.details['errors'].each do |name, val|
       flash[:danger] += " #{name}: #{val} \n\n"
     end
-    flash[:danger] = resp["RedirectURL"]
+    flash[:danger] = resp["RedirectURL"]/
+  end
+
+  def card_info
+    @key = params[:data][:accessKey]
+    @pre = params[:data][:preregistrationData]
+  end
+
+  def send_card_info
+    card = params[:account]
+    expiration_month = params[:month]
+    expiration_year = params[:year]
+    csc = params[:csc]
+    key = params[:key]
+    data = params[:pre_data]
+    link = params["link"]
+    card_registration_id = params[:card_regis_id]
+    amount = (params[:amount]).to_f * 100
+
+    param = {
+        :accessKeyRef => key,
+        :preregistrationData => data,
+        :cardNumber => card,
+        :cardExpirationDate => expiration_month + '' + expiration_year,
+        :cardCvx => csc,
+        :data => data
+    }
+    @xox = Net::HTTP.post_form(URI.parse(link), param)
+
+
+    @repl = MangoPay::CardRegistration.update(card_registration_id, {
+        :RegistrationData => "data=#{@xox.body}"
+    })
+
+    fees = 0 * amount
+    wallet = MangoPay::User.wallets(current_user.mango_id).first["Id"]
+    @resp = MangoPay::PayIn::Card::Direct.create({
+                                                     :AuthorId => current_user.mango_id,
+                                                     :CreditedUserId => current_user.mango_id,
+                                                     :DebitedFunds => {
+                                                         :Currency => "EUR",
+                                                         :Amount => amount
+                                                     },
+                                                     :Fees => {
+                                                         :Currency => "EUR",
+                                                         :Amount => fees
+                                                     },
+                                                     :CreditedWalletId => wallet,
+                                                     :SecureModeReturnURL => url_for(controller: 'registrations',
+                                                                                     action: 'index_mangopay_wallet'),
+                                                     :SecureMode => "FORCE",
+                                                     :CardId => @repl["CardId"]
+                                                 })
+    redirect_to @resp["SecureModeRedirectURL"]
+  rescue MangoPay::ResponseError => ex
+    redirect_to controller: 'registrations', action: 'send_direct_debit_mangopay_wallet'
+    flash[:danger] = 'Il y a eu un problème lors de la transaction. Veuillez réessayer. Code erreur : '+ ex.details["Message"]
+   # ex.details['errors'].each do |name, val|
+   # end
+
+    #ex.details['errors'].each do |name, val|
+    # end
+    / regis = MangoPay.request(:post, link[8, 53], {
+        :AccesKeyRef => key,
+        :PreregistrationData => data,
+        :CardNumber => card,
+        :CardExpirationDate => expiration_month + '' + expiration_year,
+        :CardCvx => csc,
+        :Data => data
+    })
+  rescue MangoPay::ResponseError => ex
+    flash[:danger] = ex.details["Message"] + amount
+    ex.details['errors'].each do |name, val|
+    end
+    flash[:danger] = resp["RedirectURL"]/
   end
 
   def transactions_mangopay_wallet
@@ -145,6 +300,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def make_transfert
     @user = current_user
+
   end
 
   def send_make_transfert
@@ -155,18 +311,18 @@ class RegistrationsController < Devise::RegistrationsController
     @other_wallet = MangoPay::User.wallets(@other.mango_id).first
 
     MangoPay::Transfer.create({
-                                   :AuthorId => current_user.mango_id,
-                                   :DebitedFunds => {
-                                       :Currency => "EUR",
-                                       :Amount => amount
-                                   },
-                                   :Fees => {
-                                       :Currency => "EUR",
-                                       :Amount => fees
-                                   },
-                                   :DebitedWalletID => @wallet["Id"],
-                                   :CreditedWalletID => @other_wallet["Id"]
-                               })
+                                  :AuthorId => current_user.mango_id,
+                                  :DebitedFunds => {
+                                      :Currency => "EUR",
+                                      :Amount => amount
+                                  },
+                                  :Fees => {
+                                      :Currency => "EUR",
+                                      :Amount => fees
+                                  },
+                                  :DebitedWalletID => @wallet["Id"],
+                                  :CreditedWalletID => @other_wallet["Id"]
+                              })
     redirect_to url_for(controller: 'registrations',
                         action: 'index_mangopay_wallet', notice: 'Transfert was successfully done.')
 

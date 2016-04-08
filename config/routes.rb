@@ -26,6 +26,9 @@ Rails.application.routes.draw do
     get "/user/mangopay/transactions" => "registrations#transactions_mangopay_wallet"
     get "/user/mangopay/make_transfert" => "registrations#make_transfert"
     put "/user/mangopay/make_transfert" => "registrations#send_make_transfert"
+    get "/user/mangopay/card_info" => "registrations#card_info"
+    put "/user/mangopay/send_card_info" => "registrations#send_card_info"
+
   end
   devise_for :users, :controllers => {:registrations => "registrations"}
 

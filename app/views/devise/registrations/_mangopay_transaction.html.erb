@@ -1,4 +1,4 @@
-<% if transaction["Status"] != 'FAILED' %>
+<% if transaction["Status"] != 'FAILED' && transaction["Type"] != 'PAYIN' %>
     <tr>
 
       <td><%= Time.at(transaction["CreationDate"]).to_datetime %></td>

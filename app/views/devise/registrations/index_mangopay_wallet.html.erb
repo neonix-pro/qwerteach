@@ -1,3 +1,10 @@
+<% if @transaction %>
+    <% if @transaction["ResultCode"] == "000000" %>
+        <div class="alert alert-notice">La transaction s'est correctement déroulée</div>
+    <% else %>
+        <div class="alert alert-danger">Il y a eu un problème avec la transaction. Veuillez réessayer. Erreur : <%= @transaction['ResultMessage']%> </div>
+    <% end %>
+<% end %>
 <h2>Infos générales</h2>
 
 <p><%= @user.lastname %> <%= @user.firstname %></p>
