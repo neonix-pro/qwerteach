@@ -1,4 +1,4 @@
-<%= fields_for :bank_accounts do |bank_account_fields| %>
+<%= fields_for :ca_account do |bank_account_fields| %>
   <div class="field">
     <%= bank_account_fields.label :BankName %><br/>
     <%= bank_account_fields.text_field :BankName, :value => bank_account['BankName'] %>
