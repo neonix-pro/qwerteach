@@ -48,7 +48,7 @@ class RegistrationsController < Devise::RegistrationsController
     @path = user_mangopay_index_wallet_path
     @wallet = MangoPay::User.wallets(@user.mango_id).first
     @bonus = MangoPay::User.wallets(@user.mango_id).second
-    @transactions = MangoPay::User.transactions(@user.mango_id)
+    @transactions = MangoPay::User.transactions(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 1000})
     @transactions_on_way = 0
     @transactions.each do |t|
       if t["Status"] == "CREATED"
@@ -294,8 +294,8 @@ class RegistrationsController < Devise::RegistrationsController
   def transactions_mangopay_wallet
     @wallet = MangoPay::User.wallets(current_user.mango_id).first
     @bonus = MangoPay::User.wallets(current_user.mango_id).second
-    @transactions = MangoPay::Wallet.transactions(@wallet['Id'])
-    @transactions += MangoPay::Wallet.transactions(@bonus['Id'])
+    @transactions = MangoPay::Wallet.transactions(@wallet['Id'], {'sort' => 'CreationDate:desc', 'per_page' => 100})
+    @transactions += MangoPay::Wallet.transactions(@bonus['Id'], {'sort' => 'CreationDate:desc', 'per_page' => 100})
   end
 
   def make_transfert
