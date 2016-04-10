@@ -30,10 +30,11 @@ fr:
       update:
         galleries: "Vous n'êtes pas autorisé à mettre à jour une gallerie de vous appartenant pas."
         pictures: "Vous n'êtes pas autorisé à mettre à jour une photo de vous appartenant pas."
-  general_infos: "Informations générales"
-  avatar: "Photo de profil"
-  crop: "Recadrer"
-  pictures: "Images et documents"
-  adverts: "Annonces de cours"
-  banking_informations: "Informations bancaires"
-  finish_postulation: "c'est fini!!!"
+  become_teacher: 
+    general_infos: "Informations générales"
+    avatar: "Photo de profil"
+    crop: "Recadrer"
+    pictures: "Images et documents"
+    adverts: "Annonces de cours"
+    banking_informations: "Informations bancaires"
+    finish_postulation: "c'est fini!!!"
