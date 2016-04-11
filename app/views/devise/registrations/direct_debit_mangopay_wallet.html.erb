@@ -1,0 +1,31 @@
+<h2>Charger mon portefeuille</h2>
+
+
+<%= form_for @user, as: :user, url: user_mangopay_direct_debit_path, method: :put do |f| %>
+    <div class="field ">
+      <%= f.label "Montant" %>
+      <%= number_field_tag "amount", '50', :min => 0 , :step => 0.1 , :required => true%>
+    </div>
+    <div class="field type_choice">
+      <%= f.label "Type de carte" %>
+      <%= select_tag "card_type", options_for_select(["BCMC","CB_VISA_MASTERCARD"], "CB_VISA_MASTERCARD") %>
+    </div>
+    <div class="field credit_card_choice">
+      <%= f.label "Carte existante" %>
+      <%= select_tag "card", options_for_select(@cards.map{|f| [f["Alias"], f["Id"]]}), {:include_blank => 'Nouvelle'} %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "ok" %>
+    </div>
+<% end %>
+<script>
+  $('.type_choice').on('change', function () {
+    var choice = $('.credit_card_choice');
+    if ($('.type_choice option:selected').text() == "CB_VISA_MASTERCARD"){
+      choice.show();
+    }else if ($('.type_choice option:selected').text() == "BCMC"){
+      choice.hide();
+    }
+  });
+</script>

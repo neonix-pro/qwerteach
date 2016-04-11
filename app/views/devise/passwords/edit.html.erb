@@ -6,12 +6,15 @@
 
   <div class="field">
     <%= f.label :password, "New password" %><br />
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+    <%= f.password_field :password, autofocus: true, autocomplete: "off" , class: 'form-control', :required => true, data: {
+        :validation => "length", 'validation-length' => "min8",
+        "validation-error-msg" => "Too short." } %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off" , class: 'form-control', :required => true, data: {
+        :validation => "confirmation",'validation-confirm'=> 'password', "validation-error-msg" => "Not the same." }  %>
   </div>
 
   <div class="actions">

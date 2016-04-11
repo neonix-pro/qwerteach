@@ -16,5 +16,4 @@ class UsersController < ApplicationController
     end
     #@users = @search.results
   end
-
 end

@@ -51,7 +51,7 @@ class BecomeTeacherController < ApplicationController
       end
     when :adverts
     when :banking_informations
-      mangoInfos = @user.mango_infos(params)
+      #mangoInfos = @user.mango_infos(params)
       begin
         if(!@user.mango_id)
           m = MangoPay::NaturalUser.create(mangoInfos)
@@ -78,6 +78,22 @@ class BecomeTeacherController < ApplicationController
 
           MangoPay::BankAccount.create(@user.mango_id, params[:bank_account])
         end
+        #m = {}
+        #if !@user.mango_id
+        #  m = MangoPay::NaturalUser.create(mangoInfos)
+        #  @user.mango_id = m['Id']
+        #  @user.save
+        #else
+        #  m = MangoPay::NaturalUser.update(@user.mango_id, mangoInfos)
+        #end
+
+        m = @user.create_mango_user(params)
+
+        params[:bank_account][:Type]=m["Type"]
+        params[:bank_account][:OwnerName]=@user.firstname + ' '+@user.lastname
+        params[:bank_account][:OwnerAddress] = m["Address"]
+
+        MangoPay::BankAccount.create(@user.mango_id, params[:bank_account])
 
         rescue MangoPay::ResponseError => ex
           flash[:danger] = ex.details["Message"]

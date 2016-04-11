@@ -68,7 +68,8 @@ gem 'progress_bar'
 gem 'mailboxer'
 # cron jobs
 gem 'whenever', :require => false
-
+# validate card number
+gem 'jquery-form-validator-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
