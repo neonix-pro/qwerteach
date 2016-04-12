@@ -115,6 +115,12 @@ class User < ActiveRecord::Base
                                   :Currency => "EUR",
                                   :Tag => "Bonus"
                               })
+      MangoPay::Wallet.create({
+                                  :Owners => [self.mango_id],
+                                  :Description => "wallet transfert user " + self.id.to_s,
+                                  :Currency => "EUR",
+                                  :Tag => "Transfert"
+                              })
     else
       m = MangoPay::NaturalUser.update(self.mango_id, mango_infos(params))
     end
