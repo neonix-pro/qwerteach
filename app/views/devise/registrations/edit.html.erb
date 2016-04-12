@@ -4,11 +4,13 @@
     <%= devise_error_messages! %>
     <div class="field">
       <%= f.label :lastname %><br/>
-      <%= f.text_field :lastname %>
+      <%= f.text_field :lastname, class: 'form-control', data: {
+          :validation => "letternumeric", "validation-error-msg" => "Not a name." } %>
     </div>
     <div class="field">
       <%= f.label :firstname %><br/>
-      <%= f.text_field :firstname %>
+      <%= f.text_field :firstname, class: 'form-control', data: {
+          :validation => "letternumeric", "validation-error-msg" => "Not a name." }  %>
     </div>
     <div class="field">
       <%= f.label :birthdate %><br/>
@@ -41,6 +43,10 @@
           <%= f.label :occupation %><br/>
           <%= f.text_field :occupation %>
         </div>
+        <div class="field">
+          <%= f.label :accepts_post_payments %><br/>
+          <%= f.check_box :accepts_post_payments %>
+        </div>
     <% end %>
 
     <div class="field">
@@ -57,12 +63,15 @@
 
     <div class="field">
       <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br/>
-      <%= f.password_field :password, autocomplete: "off" %>
+      <%= f.password_field :password, autocomplete: "off" , class: 'form-control', data: {
+          :validation => "length", 'validation-length' => "min8",
+          "validation-error-msg" => "Too short." } %>
     </div>
 
     <div class="field">
       <%= f.label :password_confirmation %><br/>
-      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', data: {
+          :validation => "confirmation",'validation-confirm'=> 'user[password]', "validation-error-msg" => "Not the same." }  %>
     </div>
 
     <div class="field">
@@ -93,3 +102,11 @@
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete %></p>
 
 <%= link_to "Back", :back %>
+<script>
+  $('.form-control').on('change', function () {
+    $.validate();
+    $.validate({
+      modules: 'security'
+    });
+  });
+</script>

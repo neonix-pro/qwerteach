@@ -41,15 +41,18 @@ class User < ActiveRecord::Base
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
   # for gem unread
   acts_as_reader
+
   def self.reader_scope
     where(:is_admin => true)
   end
+
   acts_as_messageable
+
   def level_max
-    if Degree.where(:user_id=>self).map{|t| t.level}.max.blank?
+    if Degree.where(:user_id => self).map { |t| t.level }.max.blank?
       nil
     else
-      Degree.where(:user_id=>self).map{|t| t.level}.max.id
+      Degree.where(:user_id => self).map { |t| t.level }.max.id
     end
     #self.degrees.map{|t| t.level}.max.id
   end
@@ -66,20 +69,20 @@ class User < ActiveRecord::Base
 
   def mango_infos (params)
     {
-      :FirstName => self.firstname,
-      :LastName => self.lastname,
-      :Address => params[:address],
-      :Birthday => self.birthdate.to_time.to_i,
-      :Nationality => params[:user][:nationality],
-      :CountryOfResidence => params[:user][:countryOfResidence],
-      :PersonType => "NATURAL",
-      :Email => self.email,
-      :Tag => "user "+self.id.to_s()
+        :FirstName => self.firstname,
+        :LastName => self.lastname,
+        :Address => params[:address],
+        :Birthday => self.birthdate.to_time.to_i,
+        :Nationality => params[:user][:nationality],
+        :CountryOfResidence => params[:user][:countryOfResidence],
+        :PersonType => "NATURAL",
+        :Email => self.email,
+        :Tag => "user "+self.id.to_s()
     }
   end
 
   def load_mango_infos
-    if(self.mango_id)
+    if self.mango_id?
       m = MangoPay::NaturalUser.fetch(self.mango_id)
       self.address = m['Address']
       self.countryOfResidence = m['CountryOfResidence']
@@ -90,11 +93,32 @@ class User < ActiveRecord::Base
   end
 
   def load_bank_accounts
-    if(self.mango_id)
+    if self.mango_id?
       self.bank_accounts = MangoPay::BankAccount.fetch(self.mango_id)
-    else
-      
     end
+  end
+
+  def create_mango_user (params)
+    m = {}
+    if !(self.mango_id?)
+      m = MangoPay::NaturalUser.create(mango_infos(params))
+      self.mango_id = m['Id']
+      self.save
+      MangoPay::Wallet.create({
+                                  :Owners => [self.mango_id],
+                                  :Description => "wallet user " + self.id.to_s,
+                                  :Currency => "EUR"
+                              })
+      MangoPay::Wallet.create({
+                                  :Owners => [self.mango_id],
+                                  :Description => "wallet bonus user " + self.id.to_s,
+                                  :Currency => "EUR",
+                                  :Tag => "Bonus"
+                              })
+    else
+      m = MangoPay::NaturalUser.update(self.mango_id, mangoInfos)
+    end
+    m
   end
 
   # Méthode liée au crop de l'avatar, elle permet de savoir si une modification a été faite
@@ -157,6 +181,7 @@ class User < ActiveRecord::Base
     self.admin=true
     self.save
   end
+
   def mailboxer_email(object)
     self.email
     #return the model's email here

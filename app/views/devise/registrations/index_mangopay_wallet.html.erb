@@ -1,0 +1,30 @@
+<% if @transaction %>
+    <% if @transaction["ResultCode"] == "000000" %>
+        <div class="alert alert-notice">La transaction s'est correctement déroulée</div>
+    <% else %>
+        <div class="alert alert-danger">Il y a eu un problème avec la transaction. Veuillez réessayer. Erreur : <%= @transaction['ResultMessage']%> </div>
+    <% end %>
+<% end %>
+<% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+<h2>Infos générales</h2>
+
+<p><%= @user.lastname %> <%= @user.firstname %></p>
+<p>Adresse :
+  <% @user.address.keys.each do |k| %>
+      <%= @user.address.fetch(k) %>,
+  <% end %>
+</p>
+<p>Résidence : <%= ISO3166::Country[@user.countryOfResidence] %> </p>
+<p>Nationalité : <%= ISO3166::Country[@user.nationality] %> </p>
+
+
+<h2>Porte-feuille</h2>
+
+
+
+<p><%= ((@wallet["Balance"]["Amount"]).to_f/100).to_f %> <%= @wallet["Balance"]["Currency"] %> +
+  <%= ((@bonus["Balance"]["Amount"]).to_f/100).to_f %> <%= @bonus["Balance"]["Currency"] %> de crédit bonus </p>
+<p>En cours de transfert : <%= @transactions_on_way %></p>
+<p>Date de création : <%= Time.at(@wallet['CreationDate']).to_date %></p>
