@@ -116,7 +116,7 @@ class User < ActiveRecord::Base
                                   :Tag => "Bonus"
                               })
     else
-      m = MangoPay::NaturalUser.update(self.mango_id, mangoInfos)
+      m = MangoPay::NaturalUser.update(self.mango_id, mango_infos(params))
     end
     m
   end

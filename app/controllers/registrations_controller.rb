@@ -155,6 +155,11 @@ class RegistrationsController < Devise::RegistrationsController
                                                      })
           render :controller => 'registrations', :action => 'card_info'
         else
+          secureMode = 'FORCE';
+          card = MangoPay::Card::fetch(@card)
+          if(card['Validity'] == 'VALID')
+            secureMode = 'DEFAULT';
+          end
           @resp = MangoPay::PayIn::Card::Direct.create({
                                                            :AuthorId => current_user.mango_id,
                                                            :CreditedUserId => current_user.mango_id,
@@ -169,15 +174,20 @@ class RegistrationsController < Devise::RegistrationsController
                                                            :CreditedWalletId => wallet,
                                                            :SecureModeReturnURL => url_for(controller: 'registrations',
                                                                                            action: 'index_mangopay_wallet'),
-                                                           :SecureMode => "FORCE",
+                                                           :SecureMode => secureMode,
                                                            :CardId => @card
                                                        })
-          if @resp["SecureModeRedirectURL"].nil?
-            flash[:danger] ='Il y a eu un problème lors de la transaction. Veuillez correctement compléter les champs'
-            redirect_to controller: 'registrations',
-                        action: 'index_mangopay_wallet'
+          if @secureMode == 'FORCE'
+            if resp["SecureModeRedirectURL"].nil?
+              flash[:danger] ='Il y a eu un problème lors de la transaction. Veuillez correctement compléter les champs'
+              redirect_to controller: 'registrations',
+                          action: 'index_mangopay_wallet'
+            else
+              redirect_to @resp["SecureModeRedirectURL"]
+            end
           else
-            redirect_to @resp["SecureModeRedirectURL"]
+            flash[:success] = 'Votre transaction s\'est correctement déroulée.'
+            redirect_to url_for(controller: 'registrations', action: 'index_mangopay_wallet')
           end
         end
 
