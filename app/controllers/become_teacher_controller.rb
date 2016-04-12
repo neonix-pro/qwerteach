@@ -2,7 +2,7 @@ class BecomeTeacherController < ApplicationController
 	include Wicked::Wizard
   before_filter :authenticate_user!
   
-	steps :general_infos, :avatar, :crop, :pictures, :adverts, :banking_informations
+	steps :general_infos, :avatar, :crop, :pictures, :adverts, :banking_informations, :finish_postulation
 
 	def show
     @user = current_user
@@ -33,7 +33,6 @@ class BecomeTeacherController < ApplicationController
     @user = current_user
     case step
     when :general_infos
-      @user.upgrade
       @user.update_attributes(user_params)
     when :avatar
       @user.update_attributes(user_params)
@@ -50,13 +49,12 @@ class BecomeTeacherController < ApplicationController
         }
       end
     when :adverts
+      @user.upgrade
     when :banking_informations
-      #mangoInfos = @user.mango_infos(params)
+      mangoInfos = @user.mango_infos(params)
       begin
         if(!@user.mango_id)
-          m = MangoPay::NaturalUser.create(mangoInfos)
-          @user.mango_id = m['Id']
-          @user.save
+          m = @user.create_mango_user(params)
         else
           m = MangoPay::NaturalUser.update(@user.mango_id, mangoInfos)
         end
@@ -78,22 +76,6 @@ class BecomeTeacherController < ApplicationController
 
           MangoPay::BankAccount.create(@user.mango_id, params[:bank_account])
         end
-        #m = {}
-        #if !@user.mango_id
-        #  m = MangoPay::NaturalUser.create(mangoInfos)
-        #  @user.mango_id = m['Id']
-        #  @user.save
-        #else
-        #  m = MangoPay::NaturalUser.update(@user.mango_id, mangoInfos)
-        #end
-
-        m = @user.create_mango_user(params)
-
-        params[:bank_account][:Type]=m["Type"]
-        params[:bank_account][:OwnerName]=@user.firstname + ' '+@user.lastname
-        params[:bank_account][:OwnerAddress] = m["Address"]
-
-        MangoPay::BankAccount.create(@user.mango_id, params[:bank_account])
 
         rescue MangoPay::ResponseError => ex
           flash[:danger] = ex.details["Message"]

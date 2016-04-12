@@ -127,6 +127,11 @@ class PaiementsController < ApplicationController
         redirect_to resp["RedirectURL"]
       when 'CB_VISA_MASTERCARD'
         if @card.blank?
+          secureMode = 'FORCE';
+          card = MangoPay::Card::fetch(@card)
+          if(card['Validity'] == 'VALID')
+            secureMode = 'DEFAULT';
+          end
           @reply = MangoPay::CardRegistration.create({
                                                          :UserId => @user.mango_id,
                                                          :Currency => "EUR",
@@ -148,7 +153,7 @@ class PaiementsController < ApplicationController
                                                            :CreditedWalletId => wallet,
                                                            :SecureModeReturnURL => url_for(controller: 'registrations',
                                                                                            action: 'index_mangopay_wallet'),
-                                                           :SecureMode => "FORCE",
+                                                           :SecureMode => secureMode,
                                                            :CardId => @card
                                                        })
           if @resp["SecureModeRedirectURL"].nil?
