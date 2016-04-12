@@ -1,0 +1,27 @@
+
+
+<%= form_for @lesson, :html => {:class => 'form-horizontal', multipart: true} do |f| %>
+    <div class="form-group">
+      <%= f.label :time_start, :class => 'control-label' %>
+      <%= f.datetime_select :time_start, :class => 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= label_tag 'Durée' %>
+      <%= time_select 'duree', :class => 'form-control' %>
+    </div>
+    <div class="field">
+      <%= f.label :topic_group %>
+      <%= f.select :topic_group_id, options_for_select(TopicGroup.all.collect { |p| [p.title, p.id] }) %>
+    </div>
+    <div class="field">
+      <%= f.label :topic %>
+      <%= f.select :topic_id, options_for_select(Topic.all.collect { |p| [p.title, p.id] }) %>
+    </div>
+    <div class="field">
+      <%= f.label :level %>
+      <%= f.select :level_id, options_for_select(Level.all.collect { |p| [p.fr, p.id] }) %>
+    </div>
+    <div class="form-actions">
+      <%= f.submit :enregistrer, :class => 'btn btn-primary btn-mini' %>
+    </div>
+<% end %>

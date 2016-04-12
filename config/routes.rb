@@ -60,6 +60,13 @@ Rails.application.routes.draw do
       post :mark_as_read
     end
   end
+
+  post "lessons/:teacher_id/require_lesson", to: "lessons#require_lesson", as: 'require_lesson'
+  resources :lessons do
+    resources :payments
+  end
+
+
   resources :messages, only: [:new, :create]
   post "/typing" => "messages#typing"
   post "/seen" => "messages#seen"

@@ -4,4 +4,6 @@ class Level < ActiveRecord::Base
   has_many :users
   has_many :advert_prices
   has_one :degree
+  has_many :lessons
+
 end
