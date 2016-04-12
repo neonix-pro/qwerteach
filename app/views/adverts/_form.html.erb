@@ -1,4 +1,4 @@
-<%= form_for @advert, :html => {:class => 'form-horizontal'} do |f| %>
+<%= form_for advert, :html => {:class => 'form-horizontal'}, :remote => remote do |f| %>
     <div class="field group_choice">
       <%= label_tag "Topic Group" %>
       <%= select_tag "topic_group", options_for_select(TopicGroup.all.collect { |p| [p.title, p.id] }) %>
@@ -8,27 +8,6 @@
 
     </div>
     <div class="field level_choice_levels"></div>
-    <script>
-      $('.topic_choice').on('change', function () {
-        $.ajax({
-          url: "/level_choice",
-          data: {topic_id: $('.topic_choice option:selected').val()}
-        });
-        if ($('.topic_choice option:selected').text() == "Other"){
-          var choice = $('.other_name');
-          choice.empty();
-          choice.append("<%= j render :partial => 'other_name', locals: {f:f} %>");
-        }
-      });
-    </script>
-    <script>
-      $('.group_choice').on('change', function () {
-        $.ajax({
-          url: "/topic_choice",
-          data: {group_id: $('.group_choice option:selected').val()}
-        })
-      });
-    </script>
     <div class="form-actions">
       <%= f.submit nil, :class => 'btn btn-primary  btn-mini' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
