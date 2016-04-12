@@ -1,0 +1,46 @@
+<h1>Mes informations bancaires</h1>
+<% @user = current_user %>
+<%= form_tag  user_mangopay_edit_wallet_path, method: :put do |f| %>
+
+    <%= fields_for 'Address' do |address_fields| %>
+        <div class="field">
+          <%= label_tag 'street' %><br/>
+          <%= address_fields.text_field 'AddressLine1', :value => @user.address['AddressLine1']%>
+        </div>
+        <div class="field">
+          <%= label_tag 'number' %><br/>
+          <%= address_fields.text_field 'AddressLine2', :value => @user.address['AddressLine2'] %>
+        </div>
+        <div class="field">
+          <%= label_tag 'post_code' %><br/>
+          <%= address_fields.text_field 'PostalCode' , :value => @user.address['PostalCode']%>
+        </div>
+        <div class="field">
+          <%= label_tag 'city' %><br/>
+          <%= address_fields.text_field 'City', :value => @user.address['City']%>
+        </div>
+        <div class="field">
+          <%= label_tag 'region' %><br/>
+          <%= address_fields.text_field 'Region' , :value => @user.address['Region']%>
+        </div>
+        <div class="field">
+          <%= label_tag 'Country' %><br/>
+          <%= address_fields.select 'Country', options_for_select(@list, :selected => @user.address['Country']) %>
+        </div>
+    <% end %>
+    <div class="field">
+      <%= label_tag 'Country_of_residence' %><br/>
+      <%= select_tag 'CountryOfResidence', options_for_select(@list, :selected => @user.countryOfResidence) %>
+    </div>
+
+    <div class="field">
+      <%= label_tag 'Nationality' %><br/>
+      <%= select_tag 'Nationality', options_for_select(@list, :selected => @user.nationality) %>
+    </div>
+
+
+
+    <div class="field">
+      <%= submit_tag 'terminer', :class => 'btn btn-primary btn-mini' %><br/>
+    </div>
+<% end %>

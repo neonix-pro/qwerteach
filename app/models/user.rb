@@ -71,10 +71,10 @@ class User < ActiveRecord::Base
     {
         :FirstName => self.firstname,
         :LastName => self.lastname,
-        :Address => params[:address],
+        :Address => params[:Address],
         :Birthday => self.birthdate.to_time.to_i,
-        :Nationality => params[:user][:nationality],
-        :CountryOfResidence => params[:user][:countryOfResidence],
+        :Nationality => params[:Nationality],
+        :CountryOfResidence => params[:CountryOfResidence],
         :PersonType => "NATURAL",
         :Email => self.email,
         :Tag => "user "+self.id.to_s()
