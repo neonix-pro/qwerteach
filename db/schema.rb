@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160316093135) do
+ActiveRecord::Schema.define(version: 20160412135519) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id"
@@ -56,6 +56,20 @@ ActiveRecord::Schema.define(version: 20160316093135) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.integer  "student_id",                                                 null: false
+    t.integer  "teacher_id",                                                 null: false
+    t.string   "status",                                 default: "Created", null: false
+    t.datetime "time_start",                                                 null: false
+    t.datetime "time_end",                                                   null: false
+    t.integer  "topic_id"
+    t.integer  "topic_group_id",                                             null: false
+    t.integer  "level_id",                                                   null: false
+    t.decimal  "price",          precision: 8, scale: 2,                     null: false
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
   end
 
   create_table "levels", force: :cascade do |t|
@@ -120,6 +134,17 @@ ActiveRecord::Schema.define(version: 20160316093135) do
 
   add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
+
+  create_table "payments", force: :cascade do |t|
+    t.string   "status",            default: "Pending",     null: false
+    t.string   "type",              default: "Pre-payment", null: false
+    t.datetime "transfert_date"
+    t.integer  "lesson_id",                                 null: false
+    t.integer  "mangopay_payin_id"
+    t.datetime "execution_date"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+  end
 
   create_table "pictures", force: :cascade do |t|
     t.string   "description"
