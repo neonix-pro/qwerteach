@@ -33,7 +33,7 @@ class ConversationsController < ApplicationController
     #flash[:success] = 'Reply sent'
     @path = reply_conversation_path(conversation)
     @message = conversation.messages.last
-    PrivatePub.publish_to "/notifications", :conversation_id => conversation.id, :receiver_id => (conversation.participants - [current_user]).first
+    PrivatePub.publish_to "/chat", :conversation_id => conversation.id, :receiver_id => (conversation.participants - [current_user]).first
     @conversation_id = conversation.id
     respond_to do |format|
       format.html {redirect_to conversation_path(conversation), notice: 'Reply sent'}
