@@ -63,23 +63,16 @@
                 <li><%= link_to 'Se déconnecter', destroy_user_session_path, method: :delete %></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <li class="dropdown" id="notifications-dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  <i class="fa fa-bell"></i>
+                  <i class="fa fa-bell"></i> (<%= current_user.mailbox.notifications.unread.count %>)
               </a>
               <ul class="dropdown-menu notifications" role="menu">
                 <div class="notification-heading"><h4 class="menu-title">Notifications</h4><h4 class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
                 </div>
                 <li class="divider"></li>
-                <div class="notifications-wrapper">
-                  <!-- 1 notification -->
-                  <a class="content" href="#">
-                    <div class="notification-item">
-                      <h4 class="item-title">Evaluation Deadline 1 · day ago</h4>
-                      <p class="item-info">Marketing 101, Video Assignment</p>
-                    </div>
-                  </a>
-                  <!-- /1 notif -->
+                <div class="notifications-wrapper" id="notifications-wrapper">
+                  
                 </div>
                 <li class="divider"></li>
                 <div class="notification-footer"><h4 class="menu-title">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4></div>
@@ -119,7 +112,7 @@
 </div>
 
 <%= subscribe_to "/chat" %>
-<%= subscribe_to "/notifications/"+current_user.id.to_s %>
+<%= subscribe_to "/notifications" %>
 <script>
   PrivatePub.subscribe("/chat", function (data, channel) {
     var current_user_id = '#{current_user.try(:id)}';
@@ -133,7 +126,7 @@
 </script>
 
 <script>
-PrivatePub.subscribe("/notifications/<%= current_user.id.to_s %>", function(data, channel) {
+PrivatePub.subscribe("/notifications", function(data, channel) {
   console.log(data.notification);
 });
 </script>

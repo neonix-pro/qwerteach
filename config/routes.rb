@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   resources :galleries
   resources :pictures
   resources :degrees
+  resources :notifications
 
   resources :adverts do
     resources :advert_prices
