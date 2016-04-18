@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   resources :pictures
   resources :degrees
   resources :notifications
+  get "/notifications/unread/" => "notifications#number_of_unread"
 
   resources :adverts do
     resources :advert_prices

@@ -6,7 +6,7 @@ class NotificationsController < ApplicationController
     render :layout => false
   end
 
-  def number_of_unread
+  def show
     render :json => current_user.mailbox.notifications.unread.count
   end
 end

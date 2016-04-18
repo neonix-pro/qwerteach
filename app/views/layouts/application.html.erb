@@ -65,7 +65,7 @@
             </li>
             <li class="dropdown" id="notifications-dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  <i class="fa fa-bell"></i> (<%= current_user.mailbox.notifications.unread.count %>)
+                  <i class="fa fa-bell"></i> (<span id="unread-notifications"><%= current_user.mailbox.notifications.unread.count %></span>)
               </a>
               <ul class="dropdown-menu notifications" role="menu">
                 <div class="notification-heading"><h4 class="menu-title">Notifications</h4><h4 class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
@@ -127,7 +127,7 @@
 
 <script>
 PrivatePub.subscribe("/notifications", function(data, channel) {
-  console.log(data.notification);
+  Notifications.numberOfUnreadNotifications();
 });
 </script>
 
