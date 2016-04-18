@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   unauthenticated :user do
     devise_scope :user do
-      get "/" => "devise/sessions#new"
+      get "/" => "pages#index"
     end
   end
   resources :galleries

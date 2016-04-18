@@ -1,8 +1,8 @@
-<h1>My adverts</h1>
-<%= link_to 'New', new_advert_path, :class => 'btn btn-mini' %>
+<h1>Mes annonces</h1>
+<%= link_to 'Créer une annonce ', new_advert_path, :class => 'btn btn-mini' %>
 <% @adverts.each do |advert| %>
     <p><%= advert.topic.topic_group.title %></p>
-    <% if (advert.topic.title=="Other") %>
+    <% if (advert.topic.title=="Autre") %>
         <p>Topic: <%= advert.other_name %></p>
     <% else %>
         <p>Topic : <%= advert.topic.title %></p>

@@ -52,7 +52,9 @@ gem 'private_pub'
 gem 'thin'
 
 # recherches
-gem 'sunspot_rails'
+gem 'sunspot_rails', github: "betam4x/sunspot" # , '2.1.1'
+gem 'sunspot_solr', github: "betam4x/sunspot" # '2.1.1'
+
 # pagination
 gem 'kaminari'
 #text editor
@@ -69,6 +71,8 @@ gem 'mailboxer'
 # cron jobs
 gem 'whenever', :require => false
 
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw
+]
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -81,10 +85,12 @@ gem 'whenever', :require => false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   #gem 'byebug'
-  gem 'sqlite3',     '1.3.9'
+  gem 'sqlite3', '1.3.11'
   gem 'byebug',      '3.4.0'
 
-  gem 'sunspot_solr'
+  #gem 'sunspot_solr'
+  #gem 'sunspot_rails', github: "betam4x/sunspot" # , '2.1.1'
+  #gem 'sunspot_solr', github: "betam4x/sunspot" # '2.1.1'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
