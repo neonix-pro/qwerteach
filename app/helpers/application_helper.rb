@@ -23,6 +23,10 @@ module ApplicationHelper
   def avatar_for(user, size = 30, title = user.email)
     image_tag user.avatar.url(size), title: title, class: 'img-rounded'
   end
+  
+  def resource_class
+  devise_mapping.to
+  end
 end
 
 

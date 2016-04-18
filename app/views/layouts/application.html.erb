@@ -6,31 +6,25 @@
   <title>Qwerteach</title>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css' %>
+ <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+ <%= stylesheet_link_tag 'flat-ui' %>
+
   <%= csrf_meta_tags %>
 
 
   <%= yield(:head) %>
 </head>
 <body>
+
 <nav class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
       <%= link_to 'qwerteach', root_path, class: 'navbar-brand' %>
     </div>
     <div id="navbar">
-      <ul class="nav navbar-nav">
-        <li><%= link_to 'Home', root_path %></li>
-        <% if user_signed_in? %>
-            <% @gallery=Gallery.where(:user => current_user).last %>
-            <li><%= link_to 'Ma gallerie', gallery_path(@gallery) %></li>
-            <li><%= link_to 'Mes annonces', adverts_path %></li>
-            <li><%= link_to 'Your Conversations', conversations_path %></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                Compte
-                <span class="caret"></span>
-              </a>
+
+         <!--
               <ul class="dropdown-menu" role="menu">
                 <li><%= link_to 'Voir compte', user_mangopay_index_wallet_path %></li>
                 <li><%= link_to 'Editer compte', user_mangopay_edit_wallet_path %></li>
@@ -40,54 +34,122 @@
               </ul>
             </li>
 
-            <li><%= link_to 'Rechercher un prof', users_path %></li>
-            <% if current_user.admin? %>
-                <li><%= link_to 'Administration', admin_root_path %></li>
-            <% end %>
-        <% end %>
-      </ul>
+          -->
+      <div class="row demo-row">
+        <div class="col-xs-12">
+          <nav class="">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                </button>
+                <a class="navbar-brand" href="#">Qwerteach</a>
+              </div>
 
-      <ul class="nav navbar-nav pull-right">
-        <% if user_signed_in? %>
-            <li class="round-image-50"><%= image_tag(current_user.avatar.url(:small)) %></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <%= current_user.email %>
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" role="menu">
-                <li><%= link_to 'Editer mon profil', edit_user_registration_path %></li>
-                <% @gallery=Gallery.where(:user => current_user).last %>
-                <li><%= link_to 'Ma gallerie', gallery_path(@gallery) %></li>
-                <li><%= link_to 'Mes annonces', adverts_path %></li>
-                <li><%= link_to 'Se déconnecter', destroy_user_session_path, method: :delete %></li>
-              </ul>
-            </li>
-            <li> <%= link_to edit_user_registration_path do %>
-                  <i class="fa fa-cog"></i>
-              <% end %>
-            </li>
-            <li> <%= link_to destroy_user_session_path, method: :delete do %>
-                  <i class="fa fa-sign-out"></i>
-              <% end %>
-            </li>
 
-        <% else %>
-            <li><%= link_to 'Log In', new_user_session_path %></li>
-            <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-</nav>
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
 
-<div class="container">
+                  <% if user_signed_in? %>
+                      <% @gallery=Gallery.where(:user => current_user).last %>
+                      <li><%= link_to 'Ma gallerie', gallery_path(@gallery) %></li>
+                      <li><%= link_to 'Mes annonces', adverts_path %></li>
+                      <li><%= link_to 'Messagerie', conversations_path %></li>
+                      <li><%= link_to 'Rechercher un prof', users_path %></li>
+                      <% if current_user.admin? %>
+                          <li><%= link_to 'Administration', admin_root_path %></li>
+                      <% end %>
+                  <% end %>
+                </ul>
+
+                 <ul class="nav navbar-nav pull-right">
+                  <% if user_signed_in? %>
+                      <li class="round-image-50"><%= image_tag(current_user.avatar.url(:small)) %></li>
+                      <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                          <%= current_user.email %>
+                          <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><%= link_to 'Editer mon profil', edit_user_registration_path %></li>
+                          <% @gallery=Gallery.where(:user => current_user).last %>
+                          <li><%= link_to 'Ma gallerie', gallery_path(@gallery) %></li>
+                          <li><%= link_to 'Mes annonces', adverts_path %></li>
+                          <li><%= link_to 'Se déconnecter', destroy_user_session_path, method: :delete %></li>
+                        </ul>
+                      </li>
+                      <li> <%= link_to edit_user_registration_path do %>
+                            <i class="fa fa-cog"></i>
+                        <% end %>
+                      </li>
+                      <li> <%= link_to destroy_user_session_path, method: :delete do %>
+                            <i class="fa fa-sign-out"></i>
+                        <% end %>
+                      </li>
+
+                  <% else %> <!-- Trigger the modal with a button -->
+                      <li><a data-toggle="modal" data-target="#myModCo">Devenir Prof</a> </li>
+                      <li><a data-toggle="modal" data-target="#myModCo">Aide</a> </li>
+
+                   <li>
+                      <a data-toggle="modal" data-target="#myModIns">S'inscrire</a> <!-- 
+                      <!-- Modal -->
+                      <div id="myModIns" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">S'inscrire (C'est gratuit!)</h4>
+                            </div>
+                            <div class="modal-body">
+                              <!-- Renvoi au formulaire d'inscription-->
+                              <p><%= render "users/registrations/new.html.erb" %></p>
+                            </div>
+                            <div class="modal-footer">
+                               <div class="pasDeCompte" data-toggle="modal" data-dismiss="modal" data-target="#myModCo"><a href="#myModCo">Déjà inscrit? <br/> </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+
+                      <li><a data-toggle="modal" data-target="#myModCo">Connexion</a>
+                            <div id="myModCo" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Connexion</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <!-- Renvoi au formulaire de connexion-->
+                                    <p><%= render "users/sessions/new.html.erb" %></p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <div class="pasDeCompte" data-toggle="modal" data-dismiss="modal" data-target="#myModIns"><a href="#myModIns">Pas encore membre? <br/> 
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                      </li> <!--FinConnexion-->
+                  <% end %> 
+                </ul> 
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
+        </div>
+      </div> <!-- /row -->
+
+
+<!--<div class="container">
   <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>">
         <%= value %>
       </div>
   <% end %>
-</div>
+</div> Message contenant "Vous êtes Co"/Déconnecté / Mail-->
 
 <%= yield :top_content %>
 
@@ -108,7 +170,5 @@
     }
   });
 </script>
-
-
 </body>
 </html>
