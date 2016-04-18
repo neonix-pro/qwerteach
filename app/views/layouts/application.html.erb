@@ -112,7 +112,7 @@
 </div>
 
 <%= subscribe_to "/chat" %>
-<%= subscribe_to "/notifications" %>
+<%= subscribe_to "/notifications/"+current_user.id.to_s %>
 <script>
   PrivatePub.subscribe("/chat", function (data, channel) {
     var current_user_id = '#{current_user.try(:id)}';
@@ -126,8 +126,9 @@
 </script>
 
 <script>
-PrivatePub.subscribe("/notifications", function(data, channel) {
+PrivatePub.subscribe("/notifications/<%= current_user.id.to_s %>", function(data, channel) {
   Notifications.numberOfUnreadNotifications();
+  Notifications.sound.play();
 });
 </script>
 

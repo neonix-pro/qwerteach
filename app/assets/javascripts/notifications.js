@@ -17,9 +17,21 @@ var NotificationsManager = function() {
     numberOfUnreadNotifications: function(){
       $.get('/notifications/unread/', function(answer){
         $('#unread-notifications').html(answer);
+        if(answer != 0)
+        {
+          document.title = '('+answer+') Qwerteach' ;
+        }
+        else
+        {
+          document.title = Notifications.originalTitle;
+        }
       });
+    },
+
+    sound: new Audio('/assets/blop.mp3'),
+
+    originalTitle: document.title
     }
-  }
 
    $('#notifications-dropdown').on('click', function (){
     if(!$(this).hasClass('open'))

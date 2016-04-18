@@ -42,6 +42,12 @@ class User < ActiveRecord::Base
   # for gem unread
   acts_as_reader
 
+
+  def send_notification (subject, body, sender)
+    notification = self.notify(subject, body, nil, true, 100, false, sender)
+    PrivatePub.publish_to '/notifications/'+self.id.to_s, :notification => notification
+  end
+
   def self.reader_scope
     where(:is_admin => true)
   end
