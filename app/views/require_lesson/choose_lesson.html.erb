@@ -1,0 +1,23 @@
+<%= form_tag wizard_path, method: :put do |f| %>
+    <%= hidden_field_tag :teacher_id, @teacher %>
+    <div id="price"></div>
+    <div class="form-group">
+      <%= label_tag :time_start %>
+      <%= text_field_tag :time_start %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :time_end %>
+      <%= text_field_tag :time_end %>
+    </div>
+    <div class="form-group">
+      <%= label_tag 'Durée' %>
+      <%= select_hour 1, :start_hour => 0, :end_hour => 5 %>
+      <%= select_minute 30, :minute_step => 15 %>
+    </div>
+    <div id="choices_lessons_topic_group"></div>
+    <div id="choices_lessons_topic"></div>
+    <div id="choices_lessons_level"></div>
+    <div class="form-actions">
+      <%= submit_tag :enregistrer, :class => 'btn btn-primary btn-mini' %>
+    </div>
+<% end %>

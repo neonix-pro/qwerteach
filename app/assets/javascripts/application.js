@@ -15,6 +15,8 @@
 //= require private_pub
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
+//= require moment
+//= require bootstrap-datetimepicker
 //= require messages
 //= require_tree .
 //= require jquery_ujs

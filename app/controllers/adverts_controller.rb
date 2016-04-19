@@ -1,6 +1,6 @@
 class AdvertsController < ApplicationController
   before_filter :authenticate_user!
-  
+
   load_and_authorize_resource
 
   def index
@@ -13,7 +13,7 @@ class AdvertsController < ApplicationController
   end
 
   def show
-    @advert = Advert.find(params[:id])
+    @advert = Advert.where(:id => params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -30,7 +30,7 @@ class AdvertsController < ApplicationController
   end
 
   def edit
-    @advert = Advert.find(params[:id])
+    @advert = Advert.where(:id => params[:id])
   end
 
   def create
@@ -96,12 +96,12 @@ class AdvertsController < ApplicationController
   end
 
   def destroy
-    @advert = Advert.find(params[:id])
-    @advert.destroy
+    @advert = Advert.where(:id => params[:id])
+    Advert.destroy(@advert.id)
 
     respond_to do |format|
       format.html { redirect_to adverts_url }
-      format.json { }
+      format.json {}
       format.js {}
     end
   end
@@ -121,6 +121,10 @@ class AdvertsController < ApplicationController
     respond_to do |format|
       format.js {}
     end
+  end
+
+  def get_all_adverts
+    render json: User.where(:id => params[:user_id]).first.adverts.as_json(:include => {:topic => {:include => :topic_group}, :advert_prices => {:include => :level}}).to_json
   end
 
   private

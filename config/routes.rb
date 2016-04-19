@@ -32,8 +32,9 @@ Rails.application.routes.draw do
   end
   devise_for :users, :controllers => {:registrations => "registrations"}
 
-  resources :users, :only => [:show, :index]
-
+  resources :users, :only => [:show, :index] do
+    resources :require_lesson
+  end
   authenticated :user do
     root 'pages#index'
   end
@@ -51,6 +52,8 @@ Rails.application.routes.draw do
     resources :advert_prices
   end
 
+  get '/adverts_user/:user_id', to: 'adverts#get_all_adverts', as: 'get_all_adverts'
+
   get "/pages/*page" => "pages#show"
 
   resources :become_teacher
@@ -61,7 +64,7 @@ Rails.application.routes.draw do
     end
   end
 
-  post "lessons/:teacher_id/require_lesson", to: "lessons#require_lesson", as: 'require_lesson'
+  #post "lessons/:teacher_id/require_lesson", to: "lessons#require_lesson", as: 'require_lesson'
   resources :lessons do
     resources :payments
   end

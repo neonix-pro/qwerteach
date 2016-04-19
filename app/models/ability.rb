@@ -50,6 +50,7 @@ class Ability
       can :read, Advert
       can :choice, Advert
       can :choice_group, Advert
+      can :get_all_adverts, Advert
 
       can :read, AdvertPrice
       can :destroy, Advert, :user_id => user.id
