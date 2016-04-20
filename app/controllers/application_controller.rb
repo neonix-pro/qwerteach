@@ -33,6 +33,17 @@ class ApplicationController < ActionController::Base
       ) }
 
   end
+
+  def bigbluebutton_role(room)
+    if room.private or bigbluebutton_user.nil?
+      logger.debug('machin')
+      :key # ask for a key
+    else
+      logger.debug('truc')
+      :moderator
+    end
+  end
+
 #  rescue_from ActiveRecord::RecordNotFound do
 #    flash[:warning] = 'Resource not found.'
 #    redirect_back_or root_path
