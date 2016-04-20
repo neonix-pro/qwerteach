@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
     where(:is_admin => true)
   end
 
+  def name
+    self.firstname+' '+self.lastname
+  end
+
   acts_as_messageable
 
   def level_max
