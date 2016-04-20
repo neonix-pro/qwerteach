@@ -1,0 +1,14 @@
+<p>Transfert</p>
+<%= form_for @user, as: :user, url: user_mangopay_make_transfert_path, method: :put do |f| %>
+    <div class="field">
+      <%= f.label "Montant" %>
+      <%= number_field_tag "amount", session[:lesson]['price'] %>
+    </div>
+    <div class="field">
+      <%= f.label "Bénéficiaire" %>
+      <%= text_field_tag "other_part", session[:lesson]['teacher_id'] %>
+    </div>
+    <div class="actions">
+      <%= f.submit "ok" %>
+    </div>
+<% end %>

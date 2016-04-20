@@ -1,7 +1,7 @@
 $(document).ready(function () {
     console.log('prout');
     $.ajax({
-        url: '/adverts_user/' + $('#teacher_id').val()
+        url: '/adverts_user/' + $('#lesson_teacher_id').val()
     }).done(function (e) {
         console.log('pipi');
         var topic_group = '<div class="field">';
@@ -68,8 +68,8 @@ $(document).ready(function () {
             console.log('level changed');
             var price = $('#lesson_level_id option:selected').attr('data-price');
             console.log(price);
-            var hours = $('#date_hour option:selected').val();
-            var minutes = $('#date_minute option:selected').val();
+            var hours = $('#date_lesson_hour option:selected').val();
+            var minutes = $('#date_lesson_minute option:selected').val();
             $('#lesson_price').val(price * hours + (price * (minutes / 60)));
         });
         /* $('#lesson_topic_group_id').change(function () {

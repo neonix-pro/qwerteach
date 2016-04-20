@@ -2,7 +2,7 @@ class RequireLessonController < ApplicationController
   include Wicked::Wizard
   before_filter :authenticate_user!
 
-  steps :choose_lesson, :payment
+  steps :choose_lesson, :payment, :transfert, :bancontact, :cd
 
   def show
     @teacher = params[:user_id]
@@ -12,23 +12,32 @@ class RequireLessonController < ApplicationController
         @kal = 'grosse'
         @lesson = Lesson.new
       when :payment
+      when :transfert
+      when :bancontact
+      when :cd
+
     end
     render_wizard
   end
 
   def update
     @lesson = Lesson.new
-    session[:lesson] = nil
     case step
       when :choose_lesson
         session[:lesson] = {}
         session[:lesson] = params[:lesson]
         jump_to(:payment)
       when :payment
+        mode = params[:mode]
+        jump_to(mode)
+      when :transfert
+      when :bancontact
+      when :cd
       else
         @lesson.update(session[:lesson])
         if @lesson.save
         end
+        session.delete(:lesson)
 
     end
     logger.debug('SESSION = '+ session[:lesson].to_s)
