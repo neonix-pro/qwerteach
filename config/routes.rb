@@ -24,8 +24,8 @@ Rails.application.routes.draw do
     get "/user/mangopay/direct_debit" => "paiements#direct_debit_mangopay_wallet"
     put "/user/mangopay/direct_debit" => "paiements#send_direct_debit_mangopay_wallet"
     get "/user/mangopay/transactions" => "paiements#transactions_mangopay_wallet"
-    get "/user/mangopay/make_transfert" => "paiements#make_transfert"
-    put "/user/mangopay/make_transfert" => "paiements#send_make_transfert"
+    get "/user/mangopay/make_transfert" => "payments#make_transfert"
+    put "/user/mangopay/make_transfert" => "payments#send_make_transfert"
     get "/user/mangopay/card_info" => "paiements#card_info"
     put "/user/mangopay/send_card_info" => "paiements#send_card_info"
 

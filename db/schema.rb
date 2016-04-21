@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 20160412135519) do
 
   create_table "payments", force: :cascade do |t|
     t.string   "status",            default: "Pending",     null: false
-    t.string   "type",              default: "Pre-payment", null: false
+    t.string   "payment_type",      default: "Pre-payment", null: false
     t.datetime "transfert_date"
     t.integer  "lesson_id",                                 null: false
     t.integer  "mangopay_payin_id"

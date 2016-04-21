@@ -2,7 +2,7 @@
 <%= form_tag wizard_path, :method => :put do |f| %>
     <div class="form-group">
       <%= label_tag 'Mode de paiement' %>
-      <%= select_tag 'mode', options_for_select(['transfert', 'bancontact', 'CD']) %>
+      <%= select_tag 'mode', options_for_select(['transfert', 'bancontact', 'cd']) %>
     </div>
     <div class="actions">
       <%= submit_tag "ok" %>
