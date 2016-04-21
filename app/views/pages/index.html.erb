@@ -22,8 +22,11 @@
                     <td><%= user.type %></td>
                     <td><%= user.email %></td>
                     <td>
-                    <%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
-                    "data-sid" => current_user.id, "data-rip" => user.id %></td>
+                      <%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
+                                  "data-sid" => current_user.id, "data-rip" => user.id %></td>
+                    <% if user.is_a?(Teacher) %>
+                        <td><%= link_to 'Demander un cours', user_require_lesson_index_path(user.id)%></td>
+                    <% end %>
                   </tr>
               <% end %>
               </tbody>

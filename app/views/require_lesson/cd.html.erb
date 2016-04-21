@@ -1,0 +1,27 @@
+<p>CD</p>
+<%= session[:lesson] %>
+<%= form_for @user, as: :user, url: wizard_path, method: :put do |f| %>
+    <div class="field credit_card_choice">
+      <%= f.label "Carte existante" %>
+      <%= select_tag "card", options_for_select(@cards.map{|f| [f["Alias"], f["Id"]]}), {:include_blank => 'Nouvelle'} %>
+    </div>
+    <div class="field form-group">
+      <%= label_tag "Numero" %>
+      <%= number_field_tag "account", nil, class: 'form-control' %>
+    </div>
+    <div class="field form-group">
+      <%= label_tag "Date d'expiration" %>
+
+      <%= text_field_tag "month", nil, :data => {:provide => "datepicker", 'date-format' => 'mm', 'date-view-mode' => 'months', 'date-min-view-mode' => 'months', 'date-autoclose' => true, 'date-start-date' => (Date.new)}, class: 'form-control' %>
+
+      <%= text_field_tag "year", nil, :data => {:provide => "datepicker", 'date-format' => 'yy', 'date-view-mode' => 'years', 'date-min-view-mode' => 'years', 'date-autoclose' => true, 'date-start-date' => (Date.new)}, class: 'form-control'%>
+
+    </div>
+    <div class="field form-group">
+      <%= label_tag "Code de sécurité" %>
+      <%= number_field_tag "csc", nil, class: 'form-control'%>
+    </div>
+    <div class="actions">
+      <%= f.submit "Envoyer" %>
+    </div>
+<% end %>

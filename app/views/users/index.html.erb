@@ -29,7 +29,6 @@
         <% end %>
         <% h[x.user_id].push(x) %>
     <% end %>
-    <% @pagin %>
     <% if params[:degree_id].blank? %>
         <% @pagin = User.where(:id => h.keys, :postulance_accepted => true).order(:level_id).page(params[:page]).per(15) %>
     <% else %>

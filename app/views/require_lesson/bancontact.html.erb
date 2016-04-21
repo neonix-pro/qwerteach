@@ -1,0 +1,17 @@
+<p>Bancontact</p>
+<%= session[:lesson] %>
+<%= form_for @user, as: :user, url: wizard_path, method: :put do |f| %>
+    <div class="field">
+      <%= f.label "Montant" %>
+      <%= hidden_field_tag "amount", session[:lesson]['price'] %>
+      <%= session[:lesson]['price'] %>
+    </div>
+    <div class="field">
+      <%= f.label "Bénéficiaire" %>
+      <%= hidden_field_tag "other_part", session[:lesson]['teacher_id'] %>
+      <%= User.find(session[:lesson]['teacher_id']).email %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Confirmer" %>
+    </div>
+<% end %>

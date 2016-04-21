@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
 
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
+  has_many :lessons_given, :class_name => 'Lesson', :foreign_key => 'teacher_id'
+  has_many :lessons_received, :class_name => 'Lesson', :foreign_key => 'student_id'
   # for gem unread
   acts_as_reader
 

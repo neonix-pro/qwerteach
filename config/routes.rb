@@ -24,16 +24,17 @@ Rails.application.routes.draw do
     get "/user/mangopay/direct_debit" => "paiements#direct_debit_mangopay_wallet"
     put "/user/mangopay/direct_debit" => "paiements#send_direct_debit_mangopay_wallet"
     get "/user/mangopay/transactions" => "paiements#transactions_mangopay_wallet"
-    get "/user/mangopay/make_transfert" => "paiements#make_transfert"
-    put "/user/mangopay/make_transfert" => "paiements#send_make_transfert"
+    get "/user/mangopay/make_transfert" => "payments#make_transfert"
+    put "/user/mangopay/make_transfert" => "payments#send_make_transfert"
     get "/user/mangopay/card_info" => "paiements#card_info"
     put "/user/mangopay/send_card_info" => "paiements#send_card_info"
 
   end
   devise_for :users, :controllers => {:registrations => "registrations"}
 
-  resources :users, :only => [:show, :index]
-
+  resources :users, :only => [:show, :index] do
+    resources :require_lesson
+  end
   authenticated :user do
     root 'pages#index'
   end
@@ -53,6 +54,8 @@ Rails.application.routes.draw do
     resources :advert_prices
   end
 
+  get '/adverts_user/:user_id', to: 'adverts#get_all_adverts', as: 'get_all_adverts'
+
   get "/pages/*page" => "pages#show"
 
   resources :become_teacher
@@ -62,6 +65,13 @@ Rails.application.routes.draw do
       post :mark_as_read
     end
   end
+
+  #post "lessons/:teacher_id/require_lesson", to: "lessons#require_lesson", as: 'require_lesson'
+  resources :lessons do
+    resources :payments
+  end
+
+
   resources :messages, only: [:new, :create]
   post "/typing" => "messages#typing"
   post "/seen" => "messages#seen"
