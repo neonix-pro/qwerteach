@@ -1,0 +1,48 @@
+
+<h1><%= BigbluebuttonServer.model_name.human %>:</h1>
+
+<p>
+  <b><%= BigbluebuttonServer.human_attribute_name(:id) %>:</b>
+  <%= @server.id %>
+</p>
+
+<p>
+  <b><%= BigbluebuttonServer.human_attribute_name(:name) %>:</b>
+  <%= @server.name %>
+</p>
+
+<p>
+  <b><%= BigbluebuttonServer.human_attribute_name(:url) %>:</b>
+  <%= @server.url %>
+</p>
+
+<p>
+  <b><%= BigbluebuttonServer.human_attribute_name(:salt) %>:</b>
+  <%= @server.salt %>
+</p>
+
+<p>
+  <b><%= BigbluebuttonServer.human_attribute_name(:version) %>:</b>
+  <%= @server.version %>
+</p>
+
+<p>
+  <b><%= BigbluebuttonServer.human_attribute_name(:param) %>:</b>
+  <%= @server.param %>
+</p>
+
+<p>
+  <b><%= BigbluebuttonServerConfig.human_attribute_name(:available_layouts) %></b>
+  <%= @server.config.available_layouts %>
+</p>
+
+<p>
+  <span>Access:</span>
+  <%= link_to 'Edit', admin_edit_bbb_server_path(@server) %> |
+  <%= link_to 'View recordings', admin_list_recordings_bbb_server_path(@server) %> |
+  <%= link_to 'Activity monitor', admin_monitor_bbb_server_path(@server) %> |
+  <%= link_to 'Destroy', admin_destroy_bbb_server_path(@server), :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to 'Back', admin_bigbluebutton_servers_path %>
+</p>
+
+
