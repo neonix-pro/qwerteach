@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
 	def show
 		@user = User.find(params[:id])
-		@degrees = Degree.where(:teacher=>@user.id)
+		@degrees = @user.degrees
+    @adverts = @user.adverts
+    @prices = @adverts.map{|d| d.advert_prices.map{|l| l.price}}
+
 	end
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
