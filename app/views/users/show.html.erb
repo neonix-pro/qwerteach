@@ -4,27 +4,29 @@
 <%= @user.lastname %> <%= @user.firstname %>
 <p>Age : <%= Time.now.year - @user.birthdate.year %></p>
 <p><%= @user.level.fr %></p>
-<% if @user.postulance_accepted? %>
-    <i>Prof certifié</i>
-<% end %>
-<% if @user.is_a?(Teacher) %>
-    <p>Prix minimum : <%= ActionController::Base.helpers.number_to_currency(@prices.min.first) %></p>
-    <p><%= link_to 'Demander un cours', user_require_lesson_index_path(@user.id) %></p>
-<% end %>
 <p><%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
                "data-sid" => current_user.id, "data-rip" => @user.id %></p>
+<% if @user.is_a?(Teacher) %>
 
-<h3>Description</h3>
-<p><%= raw(@user.description) %></p>
+    <% if @user.postulance_accepted? %>
+        <i>Prof certifié</i>
+    <% end %>
+    <p>Prix minimum : <%= ActionController::Base.helpers.number_to_currency(@prices.min.first) %></p>
+    <p><%= link_to 'Demander un cours', user_require_lesson_index_path(@user.id) %></p>
 
-<% @adverts.each do |a| %>
-    <% max = a.advert_prices.map{|ap| ap.level}.max.fr %>
-  <h5><%= a.topic.topic_group.title %> <i>jusqu'au niveau <%= max %></i></h5>
 
-<% end %>
+    <h3>Description</h3>
+    <p><%= raw(@user.description) %></p>
 
-<h3>Diplomes</h3>
-<% @degrees.each do |d| %>
-    <%= d.title %>
-    <br/>
+    <% @adverts.each do |a| %>
+        <% max = a.advert_prices.map { |ap| ap.level }.max.fr %>
+        <h5><%= a.topic.topic_group.title %> <i>jusqu'au niveau <%= max %></i></h5>
+
+    <% end %>
+
+    <h3>Diplomes</h3>
+    <% @degrees.each do |d| %>
+        <%= d.title %>
+        <br/>
+    <% end %>
 <% end %>

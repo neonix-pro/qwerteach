@@ -56,11 +56,8 @@ $(document).ready(function () {
             var hours = $('#date_lesson_hour option:selected').val();
             var minutes = $('#date_lesson_minute option:selected').val();
             var after = moment(formated_end).add(hours, 'hours');
-            console.log(after);
             after = after.add(minutes, 'minutes').format('L LT');
-            console.log(after);
             end.val(after);
-            console.log('hahah ' + end.val());
         };
 
         $('#price').append('<input id="lesson_price" name="lesson[price]" type="hidden" value="0"/>');

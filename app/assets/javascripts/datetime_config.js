@@ -1,10 +1,5 @@
 $(document).ready(function () {
-    /* $('#datetimepicker1').datetimepicker({
-     locale: 'fr'
-     });*/
-    console.log('test');
     $('body').on('change', '.form-control', function () {
-        console.log('test - test - test');
         $.validate({
             modules: 'security'
         });
