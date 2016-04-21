@@ -1,5 +1,5 @@
 <h1>Edit <%= BigbluebuttonServer.model_name.human %>:</h1>
-<%= form_for @server, :url => admin_update_bbb_server_path(@server) do |f| %>
+<%= form_for @server, :url => admin_bigbluebutton_server_path(@server) do |f| %>
   <% if @server.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@server.errors.count, "error") %>:</h2>
@@ -40,6 +40,6 @@
   </div>
 <% end %>
 
-<%= link_to 'Show', admin_show_bbb_server_path(@server) %> |
+<%= link_to 'Show', admin_bigbluebutton_server_path(@server) %> |
 <%= link_to 'Back', admin_bigbluebutton_servers_path %>
 

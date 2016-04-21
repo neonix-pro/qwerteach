@@ -12,19 +12,9 @@ Rails.application.routes.draw do
     #resources :messages
     #resources :receipts
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
-    
-    #custom admin BBB servers
-    get '/bigbluebutton_servers/', to: 'bigbluebutton_servers#index'
-    get '/bigbluebutton_servers/new', to: 'bigbluebutton_servers#new', as: 'new_bbb_server'
-    get '/bigbluebutton_servers/:id/show(.:format)', to: 'bigbluebutton_servers#show', as: 'show_bbb_server'
-    get '/bigbluebutton_servers/:id/edit(.:format)', to: 'bigbluebutton_servers#edit', as: 'edit_bbb_server'
-    get '/bigbluebutton_servers/:id/activity(.:format)', to: 'bigbluebutton_servers#activity', as: 'monitor_bbb_server'
-    get '/bigbluebutton_servers/:id/recordings(.:format)', to: 'bigbluebutton_servers#recordings', as: 'list_recordings_bbb_server'
 
-    post '/bigbluebutton_servers(.:format)', to: 'bigbluebutton_servers#create', as: 'create_bbb_server'
-    patch '/bigbluebutton_servers/:id(.:format)', to: 'bigbluebutton_servers#update', as: 'update_bbb_server'
-    put '/bigbluebutton_servers/:id(.:format)', to: 'bigbluebutton_servers#update'
-    delete '/bigbluebutton_servers/:id(.:format)', to: 'bigbluebutton_servers#destroy', as: 'destroy_bbb_server'
+    # Gestion des serveurs BBB depuis l'admin
+    resources :bigbluebutton_servers
 
     root to: "users#index"
   end

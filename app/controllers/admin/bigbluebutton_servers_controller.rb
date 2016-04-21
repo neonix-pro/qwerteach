@@ -46,11 +46,11 @@ module Admin
       if @server.save
         format.html {
           message = t('bigbluebutton_rails.servers.notice.create.success')
-          redirect_to_using_params admin_show_bbb_server_path(@server), :notice => message
+          redirect_to_using_params admin_bigbluebutton_server_path(@server), :notice => message
         }
         format.json { render :json => @server, :status => :created }
       else
-        format.html { redirect_to_using_params admin_new_bbb_server_path, :notice =>@server.errors.full_messages }
+        format.html { redirect_to_using_params new_admin_bigbluebutton_server_path, :notice =>@server.errors.full_messages }
         format.json { render :json => @server.errors.full_messages, :status => :unprocessable_entity }
       end
     end
@@ -61,11 +61,11 @@ module Admin
         if @server.update_attributes(server_params)
           format.html {
             message = t('bigbluebutton_rails.servers.notice.update.success')
-            redirect_to_using_params admin_show_bbb_server_path(@server), :notice => message
+            redirect_to_using_params admin_bigbluebutton_server_path(@server), :notice => message
           }
           format.json { render :json => true, :status => :ok }
         else
-          format.html { redirect_to_params_or_render :edit }
+          format.html { redirect_to_using_params edit_admin_bigbluebutton_server(@server), :notice => @server.errors.full_messages }
           format.json { render :json => @server.errors.full_messages, :status => :unprocessable_entity }
         end
       end
