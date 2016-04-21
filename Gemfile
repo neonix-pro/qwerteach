@@ -72,7 +72,7 @@ gem 'whenever', :require => false
 gem 'jquery-form-validator-rails'
 
 # datetimepicker
-gem 'momentjs-rails', '>= 2.9.0'
+gem 'momentjs-rails', '~> 2.10.6'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 
 # Use ActiveModel has_secure_password

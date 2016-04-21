@@ -3,16 +3,20 @@
     <div id="price"></div>
     <div class="form-group">
       <%= label_tag :time_start %>
-      <%= text_field_tag 'lesson[time_start]' %>
+      <div class='input-group date' id='datetimepicker2'>
+        <%= text_field_tag 'lesson[time_start]', nil, class: 'form-control', :required => true %>
+        <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+      </div>
     </div>
     <div class="form-group">
-      <%= label_tag :time_end %>
-      <%= text_field_tag 'lesson[time_end]' %>
+      <%= hidden_field_tag 'lesson[time_end]' %>
     </div>
     <div class="form-group">
       <%= label_tag 'Durée' %>
-      <%= select_hour 1,:field_name => 'lesson[hour]', :start_hour => 0, :end_hour => 5 %>
-      <%= select_minute 30,:field_name => 'lesson[minute]', :minute_step => 15 %>
+      <%= select_hour 1, :field_name => 'lesson[hour]', :start_hour => 0, :end_hour => 5, class: 'form-control', :required => true %>
+      <%= select_minute 30, :field_name => 'lesson[minute]', :minute_step => 15, class: 'form-control', :required => true %>
     </div>
     <div id="choices_lessons_topic_group"></div>
     <div id="choices_lessons_topic"></div>

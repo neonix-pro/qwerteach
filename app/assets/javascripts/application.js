@@ -11,14 +11,14 @@
 // about supported directives.
 //
 //= require jquery
+//= require moment
 //= require users
 //= require private_pub
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
-//= require moment
-//= require bootstrap-datetimepicker
 //= require messages
 //= require_tree .
+//= require bootstrap-datetimepicker
 //= require jquery_ujs
 //= require ckeditor-jquery
 //= require chosen-jquery
