@@ -1,7 +1,7 @@
 class ConversationsController < ApplicationController
   before_action :authenticate_user!
   before_action :get_mailbox
-  before_action :get_conversation, except: [:index, :new, :show_min, :find]
+  before_action :get_conversation, except: [:index, :show_min, :find]
 
   def index
     @conversations = @mailbox.conversations.page(params[:page]).per(4)

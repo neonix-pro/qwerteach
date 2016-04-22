@@ -1,5 +1,3 @@
-<% conversation.participants.each do |participant| %>
-    <% unless participant == current_user %>
-        <p><%= image_tag participant.avatar.url(:small), :class => "round-image-50"%><i>  <%= participant.email%></i> </p>
-    <% end %>
+<% (conversation.participants - [current_user]).uniq.each do |participant| %>
+    <p><%= image_tag participant.avatar.url(:small), :class => "round-image-50" %><i>  <%= participant.email %></i></p>
 <% end %>

@@ -17,10 +17,14 @@
   <br clear="all"/>
 </div>
 <div class="chatboxcontent">
-  <% @conversation.messages.each do |m| %>
-      <% if m.body != "init_conv_via_chat" %>
-          <p><%= render 'messages/message', message: m %></p>
-      <% end %>
+  <% all_receipts = @conversation.messages %>
+  <% first_receipt = all_receipts.first %>
+  <% if first_receipt.body != "init_conv_via_chat" %>
+      <p><%= render 'messages/message', message: first_receipt %></p>
+  <% end %>
+  <% allbutfirstreceipts = all_receipts.all[1..-1] %>
+  <% allbutfirstreceipts.each do |receipt| %>
+      <p><%= render 'messages/message', message: receipt %></p>
   <% end %>
 </div>
 
