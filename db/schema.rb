@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412135519) do
+ActiveRecord::Schema.define(version: 20160422133000) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id"
@@ -178,6 +178,15 @@ ActiveRecord::Schema.define(version: 20160412135519) do
   end
 
   add_index "read_marks", ["reader_id", "reader_type", "readable_type", "readable_id"], name: "read_marks_reader_readable_index"
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "subject_id"
+    t.text     "review_text"
+    t.integer  "note"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "topic_groups", force: :cascade do |t|
     t.string   "title"
