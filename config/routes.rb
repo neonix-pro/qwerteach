@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
   resources :users, :only => [:show, :index] do
     resources :require_lesson
+    resources :reviews
   end
   authenticated :user do
     root 'pages#index'
@@ -70,7 +71,6 @@ Rails.application.routes.draw do
   resources :lessons do
     resources :payments
   end
-
 
   resources :messages, only: [:new, :create]
   post "/typing" => "messages#typing"
