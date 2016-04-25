@@ -36,11 +36,23 @@ class ApplicationController < ActionController::Base
 
   def bigbluebutton_role(room)
     if room.private or bigbluebutton_user.nil?
-      logger.debug('machin')
       :key # ask for a key
     else
-      logger.debug('truc')
       :moderator
+    end
+  end
+
+  def bigbluebutton_can_create?(room, role)
+    unless bigbluebutton_user.nil?           # there's a logged user
+      if room.owner_type == "User"           # the room belongs to a user
+        if room.owner.id == current_user.id  # the current_user owns this room
+          true                               # allow him to create a meeting!
+        else                                 # the current user is not the owner
+          false                              # can't create
+        end
+      end
+    else                                     # no user logged = anonymous access
+      false                                  # can't create
     end
   end
 

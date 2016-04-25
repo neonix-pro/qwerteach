@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412135519) do
-
+ActiveRecord::Schema.define(version: 20160425093519) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id"
@@ -131,6 +130,7 @@ ActiveRecord::Schema.define(version: 20160412135519) do
     t.boolean  "allow_start_stop_recording",                default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "lesson_id"
   end
 
   add_index "bigbluebutton_rooms", ["meetingid"], name: "index_bigbluebutton_rooms_on_meetingid", unique: true

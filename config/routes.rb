@@ -82,6 +82,10 @@ Rails.application.routes.draw do
   get "/topic_choice" => "adverts#choice_group"
   post "conversation/show_min" => "conversations#find"
   get "conversation/show_min/:conversation_id" => "conversations#show_min"
+
+  # BBB rooms et recordings
+  bigbluebutton_routes :default, :only => 'rooms', :controllers => {:rooms => 'bbb_rooms'}
+  bigbluebutton_routes :default, :only => 'recordings', :controllers => {:rooms => 'bbb_recordings'}
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

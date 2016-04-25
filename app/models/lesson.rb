@@ -12,4 +12,6 @@ class Lesson < ActiveRecord::Base
 
   has_many :payments
 
+  has_one :bbb_room
+
 end

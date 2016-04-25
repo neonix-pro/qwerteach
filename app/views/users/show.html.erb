@@ -30,3 +30,11 @@
         <br/>
     <% end %>
 <% end %>
+
+<% if current_user.admin? %>
+  <%= button_to 'Inviter dans la classe', {:controller => "bbb_rooms", :action => "create",
+   :name => 'Interview user '+@user.id, :private => false, :owner_id => current_user.id, :owner_type => 'User',
+   :record_meeting => true, :auto_start_video => true, :auto_start_audio => true, :auto_start_recording => true,
+   :allow_start_stop_recording => false, :lesson_id => 0},
+   :method=>:post  %>
+<% end %>

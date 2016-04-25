@@ -81,4 +81,5 @@ Topic.create(:topic_group_id => 6 ,:title => "Réseaux")
 Topic.create(:topic_group_id => 6 ,:title => "Base de données")
 Topic.create(:topic_group_id => 6 ,:title => "Other")
 
+Bigbluebutton::BigbluebuttonServer.creat(name: "BBB_prod", url: "http://classevirtuelle.qwerteach.com/bigbluebutton/api", salt: "f3b1e2b44deea958cb3503c032310d3c", version: "0.9", param: "bbb_prod")
 
