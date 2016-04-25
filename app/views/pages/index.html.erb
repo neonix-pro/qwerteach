@@ -2,8 +2,14 @@
       <div class="row featurette section-recherche" id="entete">
         <h2><b> Le bon prof au bon moment </b></h2>
         <H4> Passez au soutien scolaire à la demande. </H4>
-       <%= text_field_tag :q, params[:search] %><br>
-       <%= submit_tag "Search", :name => nil %>
+
+<%= form_tag users_path, :method => :get do %>
+    <p>
+      <%= text_field_tag :q, params[:search], class:'rech' %><br>
+      <%= submit_tag "Search", :name => nil %>
+    </p>
+<% end %>
+
         <p>
             <a data-toggle="modal" data-target="#myModCo">Mode d'emploi</a>
         </p>
@@ -26,7 +32,7 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
               <div class="item active">
-                <%= image_tag("test.jpg", :class => "image_carrousel img-responsive") %>
+                <%= image_tag("yolo.png", :class => "image_carrousel img-responsive") %>
   
               </div>
 

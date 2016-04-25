@@ -51,9 +51,8 @@ gem "administrate", "~> 0.1.4"
 gem 'private_pub'
 gem 'thin'
 
-# recherches
-gem 'sunspot_rails', github: "betam4x/sunspot" # , '2.1.1'
-gem 'sunspot_solr', github: "betam4x/sunspot" # '2.1.1'
+gem 'sunspot_solr'
+gem 'sunspot_rails'
 
 # pagination
 gem 'kaminari'
@@ -75,7 +74,7 @@ gem 'whenever', :require => false
 gem 'jquery-form-validator-rails'
 
 # magouille bdd david
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -92,7 +91,7 @@ group :development, :test do
   gem 'sqlite3', '1.3.11'
   gem 'byebug',      '3.4.0'
 
-  #gem 'sunspot_solr'
+  gem 'sunspot_solr'
   #gem 'sunspot_rails', github: "betam4x/sunspot" # , '2.1.1'
   #gem 'sunspot_solr', github: "betam4x/sunspot" # '2.1.1'
 

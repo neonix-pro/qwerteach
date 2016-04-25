@@ -2,14 +2,18 @@
 <html>
 <head>
 
+
   <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
   <title>Qwerteach</title>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' %>
-  <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css' %>
- <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
- <%= stylesheet_link_tag 'flat-ui' %>
 
+  <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' %>
+  <%= stylesheet_link_tag 'flat-ui' %>
+   
+  
+ 
+  <%= favicon_link_tag 'logo.ico' %>
   <%= csrf_meta_tags %>
 
 
@@ -17,14 +21,14 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
+
+         <!--<nav class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
-      <%= link_to 'qwerteach', root_path, class: 'navbar-brand' %>
+      
     </div>
     <div id="navbar">
 
-         <!--
               <ul class="dropdown-menu" role="menu">
                 <li><%= link_to 'Voir compte', user_mangopay_index_wallet_path %></li>
                 <li><%= link_to 'Editer compte', user_mangopay_edit_wallet_path %></li>
@@ -35,15 +39,15 @@
             </li>
 
           -->
-      <div class="row demo-row">
+      <div class="row header">
         <div class="col-xs-12">
-          <nav class="">
+          <div class="color">
             <div class="container-fluid">
               <!-- Brand and toggle get grouped for better mobile display -->
               <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 </button>
-                <a class="navbar-brand" href="#">Qwerteach</a>
+                <%= link_to 'Qwerteach', root_path, class: 'navbar-brand' %>
               </div>
 
 
@@ -53,22 +57,41 @@
 
                   <% if user_signed_in? %>
                       <% @gallery=Gallery.where(:user => current_user).last %>
-                      <li><%= link_to 'Ma gallerie', gallery_path(@gallery) %></li>
+                      <!--<li><%= link_to 'Ma gallerie', gallery_path(@gallery) %></li> Pas d'utilité-->
                       <li><%= link_to 'Mes annonces', adverts_path %></li>
                       <li><%= link_to 'Messagerie', conversations_path %></li>
-                      <li><%= link_to 'Rechercher un prof', users_path %></li>
+                      <!-- <li><%= link_to 'Rechercher un prof', users_path %></li> Pas d'utilité-->
+
+                      <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                          <%= image_tag("mango.png", :class => "mangopay") %>
+                          <span class="caret"></span>
+                        </a>  
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><%= link_to 'Voir compte', user_mangopay_index_wallet_path %></li>
+                            <li><%= link_to 'Editer compte', user_mangopay_edit_wallet_path %></li>
+                            <li><%= link_to 'Charger mon portefeuille', user_mangopay_direct_debit_path %></li>
+                            <li><%= link_to 'Voir mes transactions', user_mangopay_transactions_path %></li>
+                            <li><%= link_to 'Effectuer un transfert', user_mangopay_make_transfert_path %></li>
+                        </ul>
+                      </li>
+                  </ul>
                       <% if current_user.admin? %>
                           <li><%= link_to 'Administration', admin_root_path %></li>
                       <% end %>
                   <% end %>
                 </ul>
 
+          
+              
+
                  <ul class="nav navbar-nav pull-right">
                   <% if user_signed_in? %>
                       <li class="round-image-50"><%= image_tag(current_user.avatar.url(:small)) %></li>
                       <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                          <%= current_user.email %>
+                          <h9>Salut <%= current_user.lastname %> !</h9>
                           <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
@@ -93,7 +116,7 @@
                       <li><a data-toggle="modal" data-target="#myModCo">Aide</a> </li>
 
                    <li>
-                      <a data-toggle="modal" data-target="#myModIns">S'inscrire</a> <!-- 
+                      <a data-toggle="modal" data-target="#myModIns">S'inscrire</a> 
                       <!-- Modal -->
                       <div id="myModIns" class="modal fade" role="dialog">
                         <div class="modal-dialog">
@@ -138,37 +161,50 @@
                 </ul> 
               </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
-          </nav>
+          </div>
         </div>
       </div> <!-- /row -->
 
-
-<!--<div class="container">
+<div class="container" id="test">
   <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>">
         <%= value %>
       </div>
   <% end %>
-</div> Message contenant "Vous êtes Co"/Déconnecté / Mail-->
+</div>
+
+
 
 <%= yield :top_content %>
 
-<div class="container">
+<div class=""> <!-- Saut de page après la NavBar -->
   <h1><%= yield :header %></h1>
   <%= yield %>
 </div>
 
-<%= subscribe_to "/notifications" %>
-<script>
-  PrivatePub.subscribe("/notifications", function (data, channel) {
-    var current_user_id = '#{current_user.try(:id)}';
-    if (data.receiver_id == current_user_id) {
-      chatBox.chatWith(data.conversation_id);
-    }
-    else {
-      chatBox.chatWith(data.conversation_id);
-    }
+<% if(current_user) %>
+  <%= subscribe_to "/chat" %>
+  <%= subscribe_to "/notifications/"+current_user.id.to_s %>
+  <script>
+    PrivatePub.subscribe("/chat", function (data, channel) {
+      var current_user_id = '#{current_user.try(:id)}';
+      if (data.receiver_id == current_user_id) {
+        chatBox.chatWith(data.conversation_id);
+      }
+      else {
+        chatBox.chatWith(data.conversation_id);
+      }
+    });
+  </script>
+
+  <script>
+  PrivatePub.subscribe("/notifications/<%= current_user.id.to_s %>", function(data, channel) {
+    Notifications.numberOfUnreadNotifications();
+    Notifications.sound.play();
   });
-</script>
+  </script>
+<% end %>
+
+
 </body>
 </html>

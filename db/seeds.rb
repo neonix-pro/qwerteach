@@ -82,3 +82,7 @@ Topic.create(:topic_group_id => 6 ,:title => "Base de données")
 Topic.create(:topic_group_id => 6 ,:title => "Other")
 
 
+
+User.create({:name => 'username', :email => 'user@name.fr', :password=>'arrow', :password_confirmation =>'arrow'})
+u.avartar = File.open('/public/system/defaults/small/missing.png')
+u.save!
