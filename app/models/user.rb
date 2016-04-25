@@ -56,7 +56,11 @@ class User < ActiveRecord::Base
 
   #required for BBB
   def name
-    self.firstname+' '+self.lastname
+    name = self.firstname+' '+self.lastname
+    if(name.nil?)
+      name = self.email
+    end 
+    return name   
   end
   def username
     self.name

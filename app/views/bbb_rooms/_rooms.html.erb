@@ -1,5 +1,4 @@
 <div id="bbbrails_rooms_links">
-  <%= link_to('View server list', bigbluebutton_servers_path) %><br/>
   <%= link_to('View recording list', bigbluebutton_recordings_path) %><br/>
   <%= link_to('New room', new_bigbluebutton_room_path) %>
 </div>
@@ -10,7 +9,6 @@
       <div class="field"><label><%= BigbluebuttonRoom.human_attribute_name(:id) %></label> <%= room.id %></div>
       <div class="field">
         <label><%= BigbluebuttonRoom.human_attribute_name(:server_id) %></label> <%= room.server_id %>
-        <%= link_to('(view server)', bigbluebutton_server_path(room.server)) unless room.server.nil? %>
       </div>
       <div class="field"><label><%= BigbluebuttonRoom.human_attribute_name(:name) %></label> <%= room.name %></div>
       <div class="field"><label><%= BigbluebuttonRoom.human_attribute_name(:meetingid) %></label> <%= room.meetingid %></div>

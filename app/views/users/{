@@ -1,0 +1,57 @@
+{
+  "authenticity_token"=>"JnUvC5U4W/WlXJxkRe0EFjIPn4UBVxTVch5YAPklEMUgCJ1XOH2nK3+9M64lQaUVvn30dqFlGcudoNCjmVEkxg==", "bigbluebutton_room"=>
+  {
+    "allow_start_stop_recording"=>"0", 
+    "auto_start_audio"=>"1", 
+    "auto_start_recording"=>"1", 
+    "auto_start_video"=>"1", 
+    "lesson_id"=>"0", 
+    "name"=>"Interview 2", 
+    "owner_id"=>"1", 
+    "owner_type"=>"User", 
+    "param"=>"truc", 
+    "private"=>"0", 
+    "record_meeting"=>"1", 
+    "server_id"=>"1"
+  }
+}
+
+{
+  "utf8"=>"✓", 
+  "authenticity_token"=>"nENqC59gZNxzD+6ON8dqxUDBUSJNhY4+LdV60ornjriaPthXMiWYAqnuQURXa8vGzLM60e23gyDCa/Jx6pO6uw==", "bigbluebutton_room"=>
+  {
+    "server_id"=>"1", 
+    "name"=>"Interview 2", 
+    "meetingid"=>"Interview 2", 
+    "private"=>"0", 
+    "attendee_key"=>"", 
+    "moderator_key"=>"", 
+    "welcome_msg"=>"", 
+    "logout_url"=>"", 
+    "dial_number"=>"", 
+    "voice_bridge"=>"", 
+    "max_participants"=>"", 
+    "external"=>"0", 
+    "param"=>"truc", 
+    "record_meeting"=>"1", 
+    "duration"=>"0", 
+    "moderator_only_message"=>"", 
+    "auto_start_recording"=>"1", 
+    "allow_start_stop_recording"=>"0", 
+    "metadata_attributes"=>
+    {
+      "0"=>{"name"=>"", "content"=>"", "_destroy"=>"0"}, 
+      "1"=>{"name"=>"", "content"=>"", "_destroy"=>"0"}, 
+      "2"=>{"name"=>"", "content"=>"", "_destroy"=>"0"}, 
+      "3"=>{"name"=>"", "content"=>"", "_destroy"=>"0"}, 
+      "4"=>{"name"=>"", "content"=>"", "_destroy"=>"0"}, 
+      "5"=>{"name"=>"", "content"=>"", "_destroy"=>"0"}, 
+      "6"=>{"name"=>"", "content"=>"", "_destroy"=>"0"}, 
+      "7"=>{"name"=>"", "content"=>"", "_destroy"=>"0"}, 
+      "8"=>{"name"=>"", "content"=>"", "_destroy"=>"0"}, 
+      "9"=>{"name"=>"", "content"=>"", "_destroy"=>"0"}, 
+      "10"=>{"name"=>"", "content"=>"", "_destroy"=>"0"}
+    }
+  }, 
+  "commit"=>"Créer un(e) Bigbluebutton room"
+}

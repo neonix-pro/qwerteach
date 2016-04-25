@@ -33,8 +33,18 @@
 
 <% if current_user.admin? %>
   <%= button_to 'Inviter dans la classe', {:controller => "bbb_rooms", :action => "create",
-   :name => 'Interview user '+@user.id, :private => false, :owner_id => current_user.id, :owner_type => 'User',
-   :record_meeting => true, :auto_start_video => true, :auto_start_audio => true, :auto_start_recording => true,
-   :allow_start_stop_recording => false, :lesson_id => 0},
-   :method=>:post  %>
+    :bigbluebutton_room => 
+    {
+        :lesson_id => 0,
+        :owner_type => 'User',
+        :owner_id => current_user.id.to_s,
+        :server_id=>1, 
+        :name=>"Interview "+Date.new().to_time.to_s, 
+        :param=>'test', 
+        :record_meeting=>1, 
+        :duration=>0, 
+        :auto_start_recording=>1, 
+        :allow_start_stop_recording=>0, 
+    }},
+    :method=>:post  %>
 <% end %>
