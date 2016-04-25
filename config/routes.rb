@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     #resources :receipts
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
 
+    # Gestion des serveurs BBB depuis l'admin
+    resources :bigbluebutton_servers
+
     root to: "users#index"
   end
 
@@ -79,8 +82,7 @@ Rails.application.routes.draw do
   get "/topic_choice" => "adverts#choice_group"
   post "conversation/show_min" => "conversations#find"
   get "conversation/show_min/:conversation_id" => "conversations#show_min"
-
-
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

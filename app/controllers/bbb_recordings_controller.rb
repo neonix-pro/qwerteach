@@ -1,0 +1,2 @@
+class BbbRecordingsController < Bigbluebutton::RecordingsController
+end

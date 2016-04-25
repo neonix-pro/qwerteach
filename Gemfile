@@ -78,6 +78,9 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+gem 'bigbluebutton_rails', github: 'mconf/bigbluebutton_rails'
+
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

@@ -54,6 +54,14 @@ class User < ActiveRecord::Base
     where(:is_admin => true)
   end
 
+  #required for BBB
+  def name
+    self.firstname+' '+self.lastname
+  end
+  def username
+    self.name
+  end
+
   acts_as_messageable
 
   def level_max
