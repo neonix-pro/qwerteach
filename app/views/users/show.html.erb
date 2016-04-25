@@ -1,5 +1,5 @@
 <h2>Page de profil</h2>
-<%= image_tag(current_user.avatar.url(:medium)) %>
+<%= image_tag(@user.avatar.url(:medium)) %>
 <%= @user.email %>
 <%= @user.lastname %> <%= @user.firstname %>
 <p>Age : <%= Time.now.year - @user.birthdate.year %></p>
@@ -7,13 +7,28 @@
 <p><%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
                "data-sid" => current_user.id, "data-rip" => @user.id %></p>
 <% if @user.is_a?(Teacher) %>
-
+    <p>Moyenne des notations = <%= @avg %></p>
+    <%= link_to 'Notations', user_reviews_path(@user) %>
+    <%= form_tag user_reviews_path(@user) ,method: :post do %>
+        <div class="field">
+          <%= label_tag :note %><br/>
+          <%= number_field_tag :note, 3, min: 0, max: 5, :required => true %>
+        </div>
+        <div class="field">
+          <%= label_tag :review_text %><br/>
+          <%= text_area_tag :review_text,nil,  :required => true %>
+        </div>
+        <div class="field">
+          <%= submit_tag 'Noter', :class => 'btn btn-primary btn-mini' %><br/>
+        </div>
+    <% end %>
     <% if @user.postulance_accepted? %>
         <i>Prof certifié</i>
     <% end %>
-    <p>Prix minimum : <%= ActionController::Base.helpers.number_to_currency(@prices.min.first) %></p>
-    <p><%= link_to 'Demander un cours', user_require_lesson_index_path(@user.id) %></p>
-
+    <% if !@prices.empty? %>
+        <p>Prix minimum : <%= ActionController::Base.helpers.number_to_currency(@prices.min.first) %></p>
+        <p><%= link_to 'Demander un cours', user_require_lesson_index_path(@user.id) %></p>
+    <% end %>
 
     <h3>Description</h3>
     <p><%= raw(@user.description) %></p>
@@ -30,6 +45,7 @@
         <br/>
     <% end %>
 <% end %>
+
 
 <% if current_user.admin? %>
   <%= button_to 'Inviter dans la classe', {:controller => "bbb_rooms", :action => "create",

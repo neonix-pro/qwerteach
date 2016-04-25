@@ -34,9 +34,12 @@ Rails.application.routes.draw do
 
   end
   devise_for :users, :controllers => {:registrations => "registrations"}
-
+  as :user do
+    get 'users/edit_pwd' => 'registrations#pwd_edit', :as => 'edit_pwd_user_registration'
+  end
   resources :users, :only => [:show, :index] do
     resources :require_lesson
+    resources :reviews
   end
   authenticated :user do
     root 'pages#index'
@@ -73,7 +76,6 @@ Rails.application.routes.draw do
   resources :lessons do
     resources :payments
   end
-
 
   resources :messages, only: [:new, :create]
   post "/typing" => "messages#typing"

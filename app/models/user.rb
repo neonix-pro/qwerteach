@@ -41,6 +41,9 @@ class User < ActiveRecord::Base
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
   has_many :lessons_given, :class_name => 'Lesson', :foreign_key => 'teacher_id'
   has_many :lessons_received, :class_name => 'Lesson', :foreign_key => 'student_id'
+
+  has_many :reviews_sent, :class_name => 'Review', :foreign_key => 'sender_id'
+  has_many :reviews_received, :class_name => 'Review', :foreign_key => 'subject_id'
   # for gem unread
   acts_as_reader
 
