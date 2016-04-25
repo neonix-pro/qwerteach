@@ -1,5 +1,8 @@
+
 <h2>Page de profil</h2>
-<%= image_tag(@user.avatar.url(:medium)) %>
+
+<%= image_tag(current_user.avatar.url(:medium)) %>
+
 <%= @user.email %>
 <%= @user.lastname %> <%= @user.firstname %>
 <p>Age : <%= Time.now.year - @user.birthdate.year %></p>
@@ -7,6 +10,7 @@
 <p><%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
                "data-sid" => current_user.id, "data-rip" => @user.id %></p>
 <% if @user.is_a?(Teacher) %>
+
     <p>Moyenne des notations = <%= @avg %></p>
     <%= link_to 'Notations', user_reviews_path(@user) %>
     <%= form_tag user_reviews_path(@user) ,method: :post do %>

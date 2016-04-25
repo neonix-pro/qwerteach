@@ -1,3 +1,177 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+html, body{
+	margin:0;
+	padding : 0;
+	max-width : auto;
+	    margin-right: -15px;
+    margin-left: -15px;
+	}
+
+
+.color {
+	background-color : #222222;
+}
+body {
+	text-align : center;
+	height : 100%;
+	margin-right: -15px;
+    margin-left: -15px;
+}
+
+
+.section-recherche { 
+	  margin:0;
+	  padding:0;
+	  background: url(background.jpg) no-repeat center; 
+	  -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+	  color : white;
+	  height : 800px;
+  }
+
+ 
+ @media screen and (max-width: 800px) {
+  .section-recherche {
+  		height : 300px;
+  }
+}
+
+#q {
+
+    border: 0.2px;
+}
+
+.section-vert {
+	background-color : #21DE80;
+	color : white;
+	height : 60%;
+	}
+
+.section-choix {
+	background-color : #F8E71D; 
+	color : #593165;
+	height : 60%;
+}
+
+.section-commentmarche {
+	background-color : #222222;
+	color : white;
+	height : 60%;
+}
+
+.section-commentaire {
+	background-color : #501DD4;
+	color : white;
+	height : 60%;
+}
+
+.colonne1 {
+	background-color : #21DE80;
+	height : 800px;
+}
+ @media screen and (max-width: 800px) {
+  .colonne1 {
+  		height : 700px;
+  }
+}
+
+.colonne2 {
+	background-color : #D92D9B;
+	height : 800px;
+}
+ @media screen and (max-width: 800px) {
+  .colonne2 {
+  		height : 700px;
+  }
+}
+
+.colonne3 {
+	background-color : #F8E71D;
+	height : 800px;
+
+}
+
+ @media screen and (max-width: 800px) {
+ .colonne3 {
+  		height : 700px;
+  }
+}
+
+.section-presse {
+	background-color : #F6F6F6;
+}
+
+
+.case4 {
+	background-color : #501DD4;
+	
+}
+
+.backgroundEdit {
+	background-color : #222222;
+}
+
+.hautPageResult {
+	background-color : #F1F3F2;
+	width : 100%;
+}
+
+.section-resultat-header {
+  margin:0;
+  padding:0;
+  background: url(background2.jpg) center; 
+  -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+  height : 300px;;
+  color : white;
+ }
+
+
+
+.voirProfil {
+	background-color : #313131 ;
+	position : bottom;
+	}
+
+
+.commentaireProf {
+	background-color : #1FDD83
+}
+
+.specialite {
+	color : #A85988;
+}
+
+.bodyProfil {
+	
+
+}
+
+.headerProfil {
+	background: url(background2.jpg) center; 
+	height : 150px;
+}
+
+.nomPrenomResult {
+	text-align : left;
+	margin-left : 10px;
+}	
+
+.notation{
+	text-align : left;
+	margin-left : 10px;
+}	
+.mangopay {
+	height : 20px;
+	width : 20px;
+}
+
+.rech {
+	  background-color : transparent;
+}
+
+.result {
+  height : 800px;	
+	 
+}

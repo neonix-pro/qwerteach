@@ -87,6 +87,7 @@ u = User.create(:email => "a@a.a",:firstname => "Macaque", :lastname => "Selfieu
 u.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello.jpg")
 u.save!
 
+
 # student admin
 u2 = User.create(:email => "b@b.b",:firstname => "Chimpanzé", :lastname => "Souriant", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "51d7292b4823498d5d8795ec30bd7e92d014d89fd0fe685ae006fa2adc08479b", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
                 :avatar_file_name=> "hello2.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :admin => true)
