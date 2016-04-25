@@ -40,6 +40,11 @@ class RegistrationsController < Devise::RegistrationsController
   def needs_password?(user, params)
     (params[:user].has_key?(:email) && user.email != params[:user][:email]) || !params[:user][:password].blank?
   end
+  public
+  def pwd_edit
+    send(:"authenticate_#{resource_name}!", force: true)
+    self.resource = send(:"current_#{resource_name}")
 
+  end
 
 end
