@@ -37,12 +37,15 @@ class ApplicationController < ActionController::Base
 
 public
   def bigbluebutton_role(room)
-    logger.debug('****** PASSE ***** ' + room.as_json.to_s)
       :moderator
   end
 
   def bigbluebutton_can_create?(room, role)
     true
+  end
+
+  def current_timestamp
+    Time.now.to_i
   end
 
 #  rescue_from ActiveRecord::RecordNotFound do
