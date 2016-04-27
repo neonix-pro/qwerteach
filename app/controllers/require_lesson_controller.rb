@@ -26,6 +26,17 @@ class RequireLessonController < ApplicationController
           render 'paiements/_mangopay_form' and return
         end
       when :bancontact
+        if !@user.mango_id
+          list = ISO3166::Country.all
+          @list = []
+          list.each do |c|
+            t = [c.translations['fr'], c.alpha2]
+            @list.push(t)
+          end
+          @user.load_mango_infos
+          @user.load_bank_accounts
+          render 'paiements/_mangopay_form' and return
+        end
       when :cd
         @user = current_user
         if !@user.mango_id

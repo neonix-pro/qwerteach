@@ -87,8 +87,13 @@ Rails.application.routes.draw do
 
   # BBB rooms et recordings
   bigbluebutton_routes :default, :only => 'rooms', :controllers => {:rooms => 'bbb_rooms'}
+  resource :bbb_rooms do
+    get "/room_invite/:user_id" => "bbb_rooms#room_invite", as: 'room_invite'
+  end
   bigbluebutton_routes :default, :only => 'recordings', :controllers => {:rooms => 'bbb_recordings'}
-  
+
+  mount Resque::Server, :at => "/resque"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

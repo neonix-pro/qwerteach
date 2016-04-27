@@ -4,8 +4,35 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+
+one:
+  student_id: 1
+  teacher: 3
+  status: "Created"
+  time_start: DateTime.now + 11.minutes
+  time_end: DateTime.now + 2.hours
+  topic_id: 5
+  topic_group_id: 2
+  level_id: 5
+  price: 25.0
+
+two:
+  student_id: 2
+  teacher: 3
+  status: "Created"
+  time_start: DateTime.now + 10.minutes
+  time_end: DateTime.now + 2.hours
+  topic_id: 5
+  topic_group_id: 2
+  level_id: 5
+  price: 25.0
+three:
+  student_id: 3
+  teacher: 3
+  status: "Created"
+  time_start: DateTime.now + 9.minutes
+  time_end: DateTime.now + 2.hours
+  topic_id: 5
+  topic_group_id: 2
+  level_id: 5
+  price: 25.0

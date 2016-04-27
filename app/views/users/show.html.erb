@@ -48,5 +48,5 @@
 
 
 <% if current_user.admin? %>
-  <%= button_to 'Inviter dans la classe', {:controller => "bbb_rooms", :action => "create", params_interview(@profil) }, :method=>:post  %>
+  <%= button_to 'Inviter dans la classe', room_invite_bbb_rooms_path(@user), :method => :get %>
 <% end %>
