@@ -58,7 +58,7 @@ class BecomeTeacherController < ApplicationController
         else
           m = MangoPay::NaturalUser.update(@user.mango_id, mangoInfos)
         end
-        if(!params[:bank_account].nil?)
+        if params[:bank_account]
           case params[:bank_account]['Type']
             when 'iban'
               params[:bank_account] = params[:iban_account]
