@@ -43,3 +43,7 @@
 db/schema.rb
 
 solr/
+config/database.yml
+
+
+
