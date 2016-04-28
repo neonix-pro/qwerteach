@@ -6,9 +6,11 @@
   <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
   <title>Qwerteach</title>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag '//code.jquery.com/jquery-1.8.3.min.js' %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-
+  <!--<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>-->
   <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' %>
+
   <%= stylesheet_link_tag 'flat-ui' %>
    
   
@@ -37,58 +39,8 @@
                 <li><%= link_to 'Effectuer un transfert', user_mangopay_make_transfert_path %></li>
               </ul>
             </li>
-
-<<<<<<< HEAD
-            <li><%= link_to 'Rechercher un prof', users_path %></li>
-            <% if current_user.admin? %>
-                <li><%= link_to 'Administration', admin_root_path %></li>
-            <% end %>
-        <% end %>
-      </ul>
-
-      <ul class="nav navbar-nav pull-right">
-        <% if user_signed_in? %>
-            <li class="round-image-50"><%= image_tag(current_user.avatar.url(:small)) %></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <%= current_user.email %>
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" role="menu">
-                <li><%= link_to 'Editer mon profil', edit_user_registration_path %></li>
-                <% @gallery=Gallery.where(:user => current_user).last %>
-                <li><%= link_to 'Ma gallerie', gallery_path(@gallery) %></li>
-                <li><%= link_to 'Mes annonces', adverts_path %></li>
-                <li><%= link_to 'Se déconnecter', destroy_user_session_path, method: :delete %></li>
-              </ul>
-            </li>
-            <li class="dropdown" id="notifications-dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  <i class="fa fa-bell"></i> (<span id="unread-notifications"><%= current_user.mailbox.notifications.unread.count %></span>)
-              </a>
-              <ul class="dropdown-menu notifications" role="menu">
-                <div class="notification-heading"><h4 class="menu-title">Notifications</h4><h4 class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
-                </div>
-                <li class="divider"></li>
-                <div class="notifications-wrapper" id="notifications-wrapper">
-                  
-                </div>
-                <li class="divider"></li>
-                <div class="notification-footer"><h4 class="menu-title"><a class="see-more-notifications">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></a></h4></div>
-              </ul>
-            </li>
-            <li> <%= link_to edit_user_registration_path do %>
-                  <i class="fa fa-cog"></i>
-              <% end %>
-            </li>
-            <li> <%= link_to destroy_user_session_path, method: :delete do %>
-                  <i class="fa fa-sign-out"></i>
-              <% end %>
-            </li>
-=======
           -->
-      <div class="row header">
-        <div class="col-xs-12">
+      <nav class="">
           <div class="color">
             <div class="container-fluid">
               <!-- Brand and toggle get grouped for better mobile display -->
@@ -97,7 +49,6 @@
                 </button>
                 <%= link_to 'Qwerteach', root_path, class: 'navbar-brand' %>
               </div>
->>>>>>> refs/heads/testmerge
 
 
               <!-- Collect the nav links, forms, and other content for toggling -->
@@ -107,8 +58,11 @@
                   <% if user_signed_in? %>
                       <% @gallery=Gallery.where(:user => current_user).last %>
                       <!--<li><%= link_to 'Ma gallerie', gallery_path(@gallery) %></li> Pas d'utilité-->
+                      <!-- <li><%= link_to 'Messagerie', conversations_path %></li> Anciennce version --> 
                       <li><%= link_to 'Mes annonces', adverts_path %></li>
-                      <li><%= link_to 'Messagerie', conversations_path %></li>
+                      <li><%= link_to 'Message', conversations_path %></li>
+
+                      <li> </li>
                       <!-- <li><%= link_to 'Rechercher un prof', users_path %></li> Pas d'utilité-->
 
                       <li class="dropdown">
@@ -116,7 +70,6 @@
                           <%= image_tag("mango.png", :class => "mangopay") %>
                           <span class="caret"></span>
                         </a>  
-
                         <ul class="dropdown-menu" role="menu">
                             <li><%= link_to 'Voir compte', user_mangopay_index_wallet_path %></li>
                             <li><%= link_to 'Editer compte', user_mangopay_edit_wallet_path %></li>
@@ -124,7 +77,22 @@
                             <li><%= link_to 'Voir mes transactions', user_mangopay_transactions_path %></li>
                             <li><%= link_to 'Effectuer un transfert', user_mangopay_make_transfert_path %></li>
                         </ul>
-                      </li>
+                      </li>   
+                      <li class="dropdown" id="notifications-dropdown">
+                          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                              <i class="fa fa-bell"></i> (<span id="unread-notifications"><%= current_user.mailbox.notifications.unread.count %></span>)
+                          </a>
+                          <ul class="dropdown-menu notifications" role="menu">
+                            <div class="notification-heading"><h4 class="menu-title">Notifications</h4><h4 class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
+                            </div>
+                            <li class="divider"></li>
+                            <div class="notifications-wrapper" id="notifications-wrapper">
+                              
+                            </div>
+                            <li class="divider"></li>
+                            <div class="notification-footer"><h4 class="menu-title"><a class="see-more-notifications">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></a></h4></div>
+                          </ul>
+                        </li>
                   </ul>
                       <% if current_user.admin? %>
                           <li><%= link_to 'Administration', admin_root_path %></li>
@@ -150,15 +118,15 @@
                           <li><%= link_to 'Mes annonces', adverts_path %></li>
                           <li><%= link_to 'Se déconnecter', destroy_user_session_path, method: :delete %></li>
                         </ul>
-                      </li>
+                     <!-- </li>
                       <li> <%= link_to edit_user_registration_path do %>
                             <i class="fa fa-cog"></i>
                         <% end %>
                       </li>
-                      <li> <%= link_to destroy_user_session_path, method: :delete do %>
+                      <li> <%= link_to  destroy_user_session_path, method: :delete do %>
                             <i class="fa fa-sign-out"></i>
                         <% end %>
-                      </li>
+                      </li>-->
 
                   <% else %> <!-- Trigger the modal with a button -->
                       <li><a data-toggle="modal" data-target="#myModCo">Devenir Prof</a> </li>
@@ -210,13 +178,13 @@
                 </ul> 
               </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
-          </div>
         </div>
-      </div> <!-- /row -->
+      </nav> <!-- /row -->
 
-<div class="container" id="test">
+<div class="container">
   <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>">
+        <h1>test</h1>
         <%= value %>
       </div>
   <% end %>
@@ -226,8 +194,7 @@
 
 <%= yield :top_content %>
 
-<div class=""> <!-- Saut de page après la NavBar -->
-  <h1><%= yield :header %></h1>
+<div class="" id="body"> <!-- Saut de page après la NavBar -->
   <%= yield %>
 </div>
 

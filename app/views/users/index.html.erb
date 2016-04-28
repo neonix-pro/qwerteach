@@ -64,12 +64,14 @@
     <% #@pagin = Kaminari.paginate_array(@table).page(params[:page]).per(1)%>
 
 <!--Permet l'affichage des résultats -->
-      <div class="row resultat">
+      <div class="resultat">
           <% @pagin.each do |u| %>
             <div class="col-xs-6 col-md-3 result"> 
               <div class="thumbnail result ">
                 <div class="caption result">
                   <p><%= image_tag(u.avatar.url(:medium)) %> </p>
+   
+  
                     <div class="nomPrenomResult" > <h5> <%= u.lastname %> <%= u.firstname %> </h5> </div>
                     <div class="notation">Etoile Avis</div>
 
@@ -80,10 +82,10 @@
                       <% end %>
                     </div>
 
-                    <br><H9><%= (u.description)%> </H9> <br>
+                    <br><H9><%= raw(u.description)%> </H9> <br>
                     
                     
-                    <div class="commentaireProf">Coucouc'est vraiment trop bien</div>
+                    <div class="commentaireProf">Wahouu Troop biiiien</div>
                     <div class="voirProfil"><%= link_to "Voir le profil", user_path(u) %></div>
                   </div>
              </div>
@@ -94,9 +96,7 @@
           <%= paginate @pagin %>
         </ul>
         </div>
-      </div> 
   </div> 
-
   <div class="row featurette section-commentmarche">
         <div class="col-md-7">
       <%= image_tag("test3.png", :class => "img_love img-responsive") %>

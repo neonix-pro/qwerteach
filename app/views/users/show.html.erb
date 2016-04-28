@@ -1,53 +1,52 @@
+<div class="headerIcone"></div>
+   <div class="mail"id="wrapper">
 
-<h2>Page de profil</h2>
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+             <ul class="sidebar-nav"><div class="photoProfil"> <%= image_tag(@user.avatar.url(:medium), size: "250x250") %> </div></ul>
 
-<%= image_tag(current_user.avatar.url(:medium)) %>
-
-<%= @user.email %>
-<%= @user.lastname %> <%= @user.firstname %>
-<p>Age : <%= Time.now.year - @user.birthdate.year %></p>
-<p><%= @user.level.fr %></p>
-<p><%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
-               "data-sid" => current_user.id, "data-rip" => @user.id %></p>
-<% if @user.is_a?(Teacher) %>
-
-    <p>Moyenne des notations = <%= @avg %></p>
-    <%= link_to 'Notations', user_reviews_path(@user) %>
-    <%= form_tag user_reviews_path(@user) ,method: :post do %>
-        <div class="field">
-          <%= label_tag :note %><br/>
-          <%= number_field_tag :note, 3, min: 0, max: 5, :required => true %>
+            </ul>
         </div>
-        <div class="field">
-          <%= label_tag :review_text %><br/>
-          <%= text_area_tag :review_text,nil,  :required => true %>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row ">
+                    <div class="col-md-4 "><h3 class="nomPrenomProfil col-md-4"><b><%= @user.lastname %> <%= @user.firstname %></b></h3><% if @user.postulance_accepted? %>
+                  <i>Prof certifié <%= image_tag("check.png") %></i>
+              <% end %>
+              </div>
+                    <div class="col-md-4 ">
+                 
+              <p><%= link_to 'Réserver un cours', user_require_lesson_index_path(@user.id) %></p>
+              <p><%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
+                             "data-sid" => @user.id, "data-rip" => @user.id %></p>
+                        </div>
+
+                         <div> 
+                          <% @adverts.each do |a| %>
+                        <h9 class="matiereProfil"><%= a.topic.topic_group.title %></h9>
+                      <% end %></p>
+                        <p><%= Time.now.year - @user.birthdate.year %> ans</p>
+                        <p><%= @user.occupation %></p>
+                      </div>
+                    
+                </div>
+
+            </div>
         </div>
-        <div class="field">
-          <%= submit_tag 'Noter', :class => 'btn btn-primary btn-mini' %><br/>
+
+        <!-- /#page2-content-wrapper -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row ">
+                    <p><%= raw(@user.description) %></p>
+                </div>
+
+            </div>
+            
         </div>
-    <% end %>
-    <% if @user.postulance_accepted? %>
-        <i>Prof certifié</i>
-    <% end %>
-    <% if !@prices.empty? %>
-        <p>Prix minimum : <%= ActionController::Base.helpers.number_to_currency(@prices.min.first) %></p>
-        <p><%= link_to 'Demander un cours', user_require_lesson_index_path(@user.id) %></p>
-    <% end %>
-
-    <h3>Description</h3>
-    <p><%= raw(@user.description) %></p>
-
-    <% @adverts.each do |a| %>
-        <% max = a.advert_prices.map { |ap| ap.level }.max.fr %>
-        <h5><%= a.topic.topic_group.title %> <i>jusqu'au niveau <%= max %></i></h5>
-
-    <% end %>
-
-    <h3>Diplomes</h3>
-    <% @degrees.each do |d| %>
-        <%= d.title %>
-        <br/>
-    <% end %>
-<% end %>
-
-
+    </div>
+    <!-- /#wrapper -->

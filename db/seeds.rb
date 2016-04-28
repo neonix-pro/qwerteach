@@ -82,26 +82,26 @@ Topic.create(:topic_group_id => 6 ,:title => "Base de données")
 Topic.create(:topic_group_id => 6 ,:title => "Other")
 
 # student
-u = User.create(:email => "a@a.a",:firstname => "Macaque", :lastname => "Selfieur",  :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "51d7292b4823498d5d8795ec30bd7e92d014d89fd0fe685ae006fa2adc08479a", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
+u = User.create(:email => "a@a.fr",:firstname => "Macaque", :lastname => "Selfieur",  :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "2016-04-25 08:38:01.794476", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
             :avatar_file_name=> "hello.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55")
 u.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello.jpg")
 u.save!
 
 
 # student admin
-u2 = User.create(:email => "b@b.b",:firstname => "Chimpanzé", :lastname => "Souriant", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "51d7292b4823498d5d8795ec30bd7e92d014d89fd0fe685ae006fa2adc08479b", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
+u2 = User.create(:email => "b@b.fr",:firstname => "Chimpanzé", :lastname => "Souriant", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "2016-04-25 08:38:01.794476", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
                 :avatar_file_name=> "hello2.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :admin => true)
 u2.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello2.jpg")
 u2.save!
 
 # teacher
-u3 = User.create(:email => "c@c.c",:firstname => "Bonobo", :lastname => "Chauve", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "51d7292b4823498d5d8795ec30bd7e92d014d89fd0fe685ae006fa2adc08479c", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
+u3 = User.create(:email => "c@c.fr",:firstname => "Bonobo", :lastname => "Chauve", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "2016-04-25 08:38:01.794476", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
                  :avatar_file_name=> "hello3.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :type => 'Teacher')
 u3.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello3.jpg")
 u3.save!
 
 # teacher admin
-u4 = User.create(:email => "d@d.d",:firstname => "Grosse", :lastname => "Tete", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "51d7292b4823498d5d8795ec30bd7e92d014d89fd0fe685ae006fa2adc08479d", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
+u4 = User.create(:email => "d@d.fr",:firstname => "Grosse", :lastname => "Tete", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "2016-04-25 08:38:01.794476", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
                  :avatar_file_name=> "hello4.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :type => 'Teacher', :admin => true)
 u4.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello4.jpg")
 u4.save!
