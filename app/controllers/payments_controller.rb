@@ -10,7 +10,7 @@ class PaymentsController < ApplicationController
       end
       @user.load_mango_infos
       @user.load_bank_accounts
-      render 'paiements/_mangopay_form' and return
+      render 'wallets/_mangopay_form' and return
     end
   end
 
@@ -26,7 +26,7 @@ class PaymentsController < ApplicationController
 
     if amount > (walletcredit + bonuscredit)
       flash[:danger]='Votre solde est insuffisant. Rechargez en premier lieu votre portefeuille.'
-       # redirect_to url_for(controller: 'paiements',
+       # redirect_to url_for(controller: 'wallets',
         #    action: 'index_mangopay_wallet') and return
       return
     end
@@ -51,7 +51,7 @@ class PaymentsController < ApplicationController
       else
         flash[:danger]='Veuillez réessayer'
       end
-      # redirect_to url_for(controller: 'paiements',
+      # redirect_to url_for(controller: 'wallets',
        # action: 'index_mangopay_wallet') and return
       return
     else
@@ -77,7 +77,7 @@ class PaymentsController < ApplicationController
         session[:lesson][:transaction_id] = repl['Id']
       else
         flash[:danger]='Veuillez réessayer, il y a eu un problème.Montant déduit = ' + amount.to_s
-       #       redirect_to url_for(controller: 'paiements',
+       #       redirect_to url_for(controller: 'wallets',
         # action: 'index_mangopay_wallet') and return
         return
       end
@@ -102,7 +102,7 @@ class PaymentsController < ApplicationController
           flash[:danger]='Veuillez réessayer, il y a eu un problème. Montant diff = ' + rest.to_s
         end
       end
-     # redirect_to url_for(controller: 'paiements',
+     # redirect_to url_for(controller: 'wallets',
       #                    action: 'index_mangopay_wallet')
     end
   rescue MangoPay::ResponseError => ex

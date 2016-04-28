@@ -23,7 +23,7 @@ class RequireLessonController < ApplicationController
           end
           @user.load_mango_infos
           @user.load_bank_accounts
-          render 'paiements/_mangopay_form' and return
+          render 'wallets/_mangopay_form' and return
         end
       when :bancontact
         if !@user.mango_id
@@ -35,7 +35,7 @@ class RequireLessonController < ApplicationController
           end
           @user.load_mango_infos
           @user.load_bank_accounts
-          render 'paiements/_mangopay_form' and return
+          render 'wallets/_mangopay_form' and return
         end
       when :cd
         @user = current_user
@@ -48,7 +48,7 @@ class RequireLessonController < ApplicationController
           end
           @user.load_mango_infos
           @user.load_bank_accounts
-          render 'paiements/_mangopay_form' and return
+          render 'wallets/_mangopay_form' and return
         end
         @user.load_mango_infos
         @wallet = MangoPay::User.wallets(@user.mango_id).first
@@ -98,7 +98,7 @@ class RequireLessonController < ApplicationController
         @other_wallet = MangoPay::User.wallets(current_user.mango_id).third
         if amount > (walletcredit + bonuscredit)
           flash[:danger]='Votre solde est insuffisant. Rechargez en premier lieu votre portefeuille ou choisissez un autre mode de paiement.'
-          # redirect_to url_for(controller: 'paiements',
+          # redirect_to url_for(controller: 'wallets',
           #    action: 'index_mangopay_wallet') and return
           redirect_to wizard_path(:payment) and return
           #jump_to(:payment) and return
@@ -127,7 +127,7 @@ class RequireLessonController < ApplicationController
             flash[:danger]='Veuillez réessayer'
             redirect_to wizard_path(:payment) and return
           end
-          # redirect_to url_for(controller: 'paiements',
+          # redirect_to url_for(controller: 'wallets',
           # action: 'index_mangopay_wallet') and return
           # return
         else
@@ -154,7 +154,7 @@ class RequireLessonController < ApplicationController
             redirect_to wizard_path(:finish) and return
           else
             flash[:danger]='Veuillez réessayer, il y a eu un problème.Montant déduit = ' + amount.to_s
-            #       redirect_to url_for(controller: 'paiements',
+            #       redirect_to url_for(controller: 'wallets',
             # action: 'index_mangopay_wallet') and return
             redirect_to wizard_path(:payment) and return
             #return
@@ -182,7 +182,7 @@ class RequireLessonController < ApplicationController
               redirect_to wizard_path(:payment) and return
             end
           end
-          # redirect_to url_for(controller: 'paiements',
+          # redirect_to url_for(controller: 'wallets',
           #                    action: 'index_mangopay_wallet')
         end
         jump_to(:finish)

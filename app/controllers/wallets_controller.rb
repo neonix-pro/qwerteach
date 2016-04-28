@@ -1,10 +1,10 @@
-class PaiementsController < ApplicationController
+class WalletsController < ApplicationController
 
   public
   def index_mangopay_wallet
     @user = current_user
     @user.load_mango_infos
-    @path = user_mangopay_index_wallet_path
+    @path = index_wallet_path
     if !@user.mango_id
       list = ISO3166::Country.all
       @list = []
@@ -14,7 +14,7 @@ class PaiementsController < ApplicationController
       end
       @user.load_mango_infos
       @user.load_bank_accounts
-      render 'paiements/_mangopay_form' and return
+      render 'wallets/_mangopay_form' and return
     end
     @wallet = MangoPay::User.wallets(@user.mango_id).first
     @bonus = MangoPay::User.wallets(@user.mango_id).second
@@ -36,7 +36,7 @@ class PaiementsController < ApplicationController
   public
   def edit_mangopay_wallet
     @user = current_user
-    @path = user_mangopay_edit_wallet_path
+    @path = edit_wallet_path
     list = ISO3166::Country.all
     @list = []
     list.each do |c|
@@ -69,7 +69,7 @@ class PaiementsController < ApplicationController
         flash[:danger] += " #{name}: #{val} \n\n"
       end
     end
-    redirect_to user_mangopay_index_wallet_path
+    redirect_to index_wallet_path
   end
 
   def direct_debit_mangopay_wallet
@@ -83,7 +83,7 @@ class PaiementsController < ApplicationController
       end
       @user.load_mango_infos
       @user.load_bank_accounts
-      render 'paiements/_mangopay_form' and return
+      render 'wallets/_mangopay_form' and return
     end
     @user.load_mango_infos
     @wallet = MangoPay::User.wallets(@user.mango_id).first
@@ -118,7 +118,7 @@ class PaiementsController < ApplicationController
                                                          :Amount => fees
                                                      },
                                                      :CreditedWalletId => wallet,
-                                                     :ReturnURL => url_for(controller: 'paiements',
+                                                     :ReturnURL => url_for(controller: 'wallets',
                                                                            action: 'index_mangopay_wallet'),
                                                      :Culture => "FR",
                                                      :CardType => @type,
@@ -132,7 +132,7 @@ class PaiementsController < ApplicationController
                                                          :Currency => "EUR",
                                                          :CardType => @type
                                                      })
-          render :controller => 'paiements', :action => 'card_info'
+          render :controller => 'wallets', :action => 'card_info'
         else
           secureMode = 'FORCE'
           cardMango = MangoPay::Card::fetch(@card)
@@ -151,14 +151,14 @@ class PaiementsController < ApplicationController
                                                                :Amount => fees
                                                            },
                                                            :CreditedWalletId => wallet,
-                                                           :SecureModeReturnURL => url_for(controller: 'paiements',
+                                                           :SecureModeReturnURL => url_for(controller: 'wallets',
                                                                                            action: 'index_mangopay_wallet'),
                                                            :SecureMode => secureMode,
                                                            :CardId => @card
                                                        })
           if @resp["SecureModeRedirectURL"].nil?
             flash[:danger] ='Il y a eu un problème lors de la transaction. Veuillez correctement compléter les champs'
-            redirect_to controller: 'paiements',
+            redirect_to controller: 'wallets',
                         action: 'index_mangopay_wallet'
           else
             redirect_to @resp["SecureModeRedirectURL"]
@@ -187,7 +187,7 @@ class PaiementsController < ApplicationController
       end
       @user.load_mango_infos
       @user.load_bank_accounts
-      render 'paiements/_mangopay_form' and return
+      render 'wallets/_mangopay_form' and return
     end
     @key = params[:data][:accessKey]
     @pre = params[:data][:preregistrationData]
@@ -233,20 +233,20 @@ class PaiementsController < ApplicationController
                                                          :Amount => fees
                                                      },
                                                      :CreditedWalletId => wallet,
-                                                     :SecureModeReturnURL => url_for(controller: 'paiements',
+                                                     :SecureModeReturnURL => url_for(controller: 'wallets',
                                                                                      action: 'index_mangopay_wallet'),
                                                      :SecureMode => "FORCE",
                                                      :CardId => @repl["CardId"]
                                                  })
     if @resp["SecureModeRedirectURL"].nil?
       flash[:danger] ='Il y a eu un problème lors de la transaction. Veuillez correctement compléter les champs'
-      redirect_to controller: 'paiements',
+      redirect_to controller: 'wallets',
                   action: 'index_mangopay_wallet'
     else
       redirect_to @resp["SecureModeRedirectURL"]
     end
   rescue MangoPay::ResponseError => ex
-    redirect_to controller: 'paiements', action: 'send_direct_debit_mangopay_wallet'
+    redirect_to controller: 'wallets', action: 'send_direct_debit_mangopay_wallet'
     flash[:danger] = 'Il y a eu un problème lors de la transaction. Veuillez réessayer. Code erreur : '+ ex.details["Message"]
     # ex.details['errors'].each do |name, val|
     # end
@@ -279,7 +279,7 @@ class PaiementsController < ApplicationController
       end
       @user.load_mango_infos
       @user.load_bank_accounts
-      render 'paiements/_mangopay_form' and return
+      render 'wallets/_mangopay_form' and return
     end
     @wallet = MangoPay::User.wallets(current_user.mango_id).first
     @bonus = MangoPay::User.wallets(current_user.mango_id).second

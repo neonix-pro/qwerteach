@@ -19,20 +19,23 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
 
-  #custom controller qui permet d'éditer certaine sparties du user sans donner le password
-  devise_scope :user do
-    get "/user/mangopay/edit_wallet" => "paiements#edit_mangopay_wallet"
-    put "/user/mangopay/edit_wallet" => "paiements#update_mangopay_wallet"
-    get "/user/mangopay/index_wallet" => "paiements#index_mangopay_wallet"
-    get "/user/mangopay/direct_debit" => "paiements#direct_debit_mangopay_wallet"
-    put "/user/mangopay/direct_debit" => "paiements#send_direct_debit_mangopay_wallet"
-    get "/user/mangopay/transactions" => "paiements#transactions_mangopay_wallet"
-    get "/user/mangopay/make_transfert" => "payments#make_transfert"
-    put "/user/mangopay/make_transfert" => "payments#send_make_transfert"
-    get "/user/mangopay/card_info" => "paiements#card_info"
-    put "/user/mangopay/send_card_info" => "paiements#send_card_info"
 
+  scope '/user/mangopay', controller: :payments do
+    get "make_transfert" => :make_transfert
+    put "make_transfert" => :send_make_transfert
   end
+
+  scope '/user/mangopay', controller: :wallets do
+    get "edit_wallet" => :edit_mangopay_wallet
+    put "edit_wallet" => :update_mangopay_wallet
+    get "index_wallet" => :index_mangopay_wallet
+    get "direct_debit" => :direct_debit_mangopay_wallet
+    put "direct_debit" => :send_direct_debit_mangopay_wallet
+    get "transactions" => :transactions_mangopay_wallet
+    get "card_info" => :card_info
+    put "send_card_info" => :send_card_info
+  end
+
   devise_for :users, :controllers => {:registrations => "registrations"}
   as :user do
     get 'users/edit_pwd' => 'registrations#pwd_edit', :as => 'edit_pwd_user_registration'
