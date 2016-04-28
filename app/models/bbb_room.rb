@@ -1,4 +1,4 @@
-class BbbRoom < Bigbluebutton::BigbluebuttonRoom
+class BbbRoom < BigbluebuttonRoom
 
   belongs_to :lesson
 
