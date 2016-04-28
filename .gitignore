@@ -16,6 +16,9 @@
 !/log/.keep
 /tmp
 
+# Ignore dumps redis
+*.rdb
+
 .idea/.generators
 
 .idea/.name
