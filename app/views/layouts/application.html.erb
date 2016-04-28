@@ -111,16 +111,14 @@
   <h1><%= yield :header %></h1>
   <%= yield %>
 </div>
+
 <% if(current_user) %>
   <%= subscribe_to "/chat" %>
   <%= subscribe_to "/notifications/"+current_user.id.to_s %>
   <script>
     PrivatePub.subscribe("/chat", function (data, channel) {
-      var current_user_id = '#{current_user.try(:id)}';
-      if (data.receiver_id == current_user_id) {
-        chatBox.chatWith(data.conversation_id);
-      }
-      else {
+      var current_user_id = '<%= current_user.try(:id) %>';
+      if (data.receiver_id.id == current_user_id) {
         chatBox.chatWith(data.conversation_id);
       }
     });
