@@ -15,7 +15,7 @@
 //= require users
 //= require private_pub
 //= require bootstrap-sprockets
-//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
 //= require messages
 //= require_tree .
 //= require bootstrap-datetimepicker

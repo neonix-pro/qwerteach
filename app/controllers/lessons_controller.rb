@@ -28,12 +28,7 @@ class LessonsController < ApplicationController
     price_is_correct = false
     prices.each do |p|
       p.each do |n|
-        logger.debug('********************** ' + (calculatedTime).to_s)
-        logger.debug('********************** ' + (n*calculatedTime).to_s)
-        logger.debug('****************** ' + price.to_s)
-
         if (n*calculatedTime) == BigDecimal.new(price, 8)
-          logger.debug('CORRECT')
           price_is_correct = true
         end
       end

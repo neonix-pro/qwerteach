@@ -85,6 +85,7 @@
             "validation-error-msg" => "Too short." } %>
       </div>
 
+
       <div class="field">
         <%= f.label :Confirmation_Mot_de_Passe %><br/>
         <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', data: {
@@ -95,6 +96,7 @@
         <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br/>
         <%= f.password_field :current_password, autocomplete: "off" %>
       </div>
+
       <div class="field" id="avatar_select">
         <% resource.crop_x=0 %>
         <%= f.label :avatar %>

@@ -81,6 +81,8 @@ Topic.create(:topic_group_id => 6 ,:title => "Réseaux")
 Topic.create(:topic_group_id => 6 ,:title => "Base de données")
 Topic.create(:topic_group_id => 6 ,:title => "Other")
 
+Bigbluebutton::BigbluebuttonServer.create(name: "BBB_prod", url: "http://classevirtuelle.qwerteach.com/bigbluebutton/api", salt: "f3b1e2b44deea958cb3503c032310d3c", version: "0.9", param: "bbb_prod")
+
 # student
 u = User.create(:email => "a@a.fr",:firstname => "Macaque", :lastname => "Selfieur",  :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "2016-04-25 08:38:01.794476", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
             :avatar_file_name=> "hello.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55")

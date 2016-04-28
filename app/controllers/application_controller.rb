@@ -33,6 +33,21 @@ class ApplicationController < ActionController::Base
       ) }
 
   end
+  #definir bigbluebutton_user
+
+public
+  def bigbluebutton_role(room)
+      :moderator
+  end
+
+  def bigbluebutton_can_create?(room, role)
+    true
+  end
+
+  def current_timestamp
+    Time.now.to_i
+  end
+
 #  rescue_from ActiveRecord::RecordNotFound do
 #    flash[:warning] = 'Resource not found.'
 #    redirect_back_or root_path

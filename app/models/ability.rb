@@ -61,6 +61,11 @@ class Ability
       can :read, Degree, :user_id => user.id
       can :update, Degree, :user_id => user.id
       can :destroy, Degree, :user_id => user.id
+
+      can [:show_min, :show, :reply, :find, :mark_as_read], Conversation do |conversation|
+        conversation.is_participant?(user)
+      end
+
     end
   end
 end

@@ -7,13 +7,7 @@ class ConversationsController < ApplicationController
     @conversations = @mailbox.conversations.page(params[:page]).per(4)
   end
 
-  private
-  def get_mailbox
-    @mailbox ||= current_user.mailbox
-  end
-
   def show
-    @conversation = Mailboxer::Conversation.find(params[:conversation_id])
     @conversation.mark_as_read(current_user)
     @reciever = @conversation.participants - [current_user]
     @messages = @conversation.messages
@@ -21,19 +15,14 @@ class ConversationsController < ApplicationController
     @message = Mailboxer::Message.new
   end
 
-  private
-  def get_conversation
-    @conversation ||= @mailbox.conversations.find(params[:id])
-    @conversation.mark_as_read(current_user)
-  end
-
-  public
   def reply
     conversation = current_user.reply_to_conversation(@conversation, params[:body]).conversation
-    #flash[:success] = 'Reply sent'
+    receiver = (conversation.participants - [current_user]).first
     @path = reply_conversation_path(conversation)
     @message = conversation.messages.last
-    PrivatePub.publish_to "/chat", :conversation_id => conversation.id, :receiver_id => (conversation.participants - [current_user]).first
+    # notifie le gars qu'il a une conversation ==> permet d'ouvrir le chat automatiquement
+    # Une fois qu'il a ouvert le chat, il subscribe au channel de la conversation
+    PrivatePub.publish_to "/chat", :conversation_id => conversation.id, :receiver_id => receiver
     @conversation_id = conversation.id
     respond_to do |format|
       format.html {redirect_to conversation_path(conversation), notice: 'Reply sent'}
@@ -80,5 +69,14 @@ class ConversationsController < ApplicationController
     @conversation.mark_as_read(current_user)
     flash[:success] = 'The conversation was marked as read.'
     redirect_to conversations_path
+  end
+
+  private
+  def get_conversation
+    @conversation ||= @mailbox.conversations.find(params[:id])
+    @conversation.mark_as_read(current_user)
+  end
+  def get_mailbox
+    @mailbox ||= current_user.mailbox
   end
 end

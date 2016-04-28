@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     #resources :receipts
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
 
+    # Gestion des serveurs BBB depuis l'admin
+    resources :bigbluebutton_servers
+
     root to: "users#index"
   end
 
@@ -31,7 +34,9 @@ Rails.application.routes.draw do
 
   end
   devise_for :users, :controllers => {:registrations => "registrations"}
-
+  as :user do
+    get 'users/edit_pwd' => 'registrations#pwd_edit', :as => 'edit_pwd_user_registration'
+  end
   resources :users, :only => [:show, :index] do
     resources :require_lesson
     resources :reviews
@@ -80,7 +85,10 @@ Rails.application.routes.draw do
   post "conversation/show_min" => "conversations#find"
   get "conversation/show_min/:conversation_id" => "conversations#show_min"
 
-
+  # BBB rooms et recordings
+  bigbluebutton_routes :default, :only => 'rooms', :controllers => {:rooms => 'bbb_rooms'}
+  bigbluebutton_routes :default, :only => 'recordings', :controllers => {:rooms => 'bbb_recordings'}
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
