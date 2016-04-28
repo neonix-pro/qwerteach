@@ -13,7 +13,7 @@ class AdvertsController < ApplicationController
   end
 
   def show
-    @advert = Advert.where(:id => params[:id])
+    @advert = Advert.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -30,7 +30,7 @@ class AdvertsController < ApplicationController
   end
 
   def edit
-    @advert = Advert.where(:id => params[:id])
+    @advert = Advert.find(params[:id])
   end
 
   def create
@@ -68,7 +68,7 @@ class AdvertsController < ApplicationController
     @advert.topic = Topic.find(params[:topic_id])
 
     respond_to do |format|
-      if @advert.update_attributes(advert_params)
+      if @advert.update_attributes!(advert_params)
         if params[:levels_chosen]
           cpt = 0;
           p = params[:prices][cpt.to_i]
@@ -96,7 +96,7 @@ class AdvertsController < ApplicationController
   end
 
   def destroy
-    @advert = Advert.where(:id => params[:id])
+    @advert = Advert.find(params[:id])
     Advert.destroy(@advert.id)
 
     respond_to do |format|
@@ -127,8 +127,15 @@ class AdvertsController < ApplicationController
     render json: User.where(:id => params[:user_id]).first.adverts.as_json(:include => {:topic => {:include => :topic_group}, :advert_prices => {:include => :level}}).to_json
   end
 
+
   private
   def advert_params
-    params.permit(:topic_id, :user_id, :other_name, :topic, advert_prices_attributes: [:id, :level_id, :price, :_destroy]).merge(user_id: current_user.id, topic: Topic.find(params[:topic_id]))
+    params.require(:advert).permit(:advert, :prices, :topic_group_id, :levels_chosen, :topic_id, :user_id, :other_name, :topic, advert_prices_attributes: [:id, :level_id, :price, :_destroy]).merge(user_id: current_user.id, topic: Topic.find(params[:topic_id]))
   end
+
+  private
+  def advert_create_params
+    params.permit(:advert, :prices, :levels_chosen, :topic_id, :user_id, :other_name, :topic, advert_prices_attributes: [:id, :level_id, :price, :_destroy]).merge(user_id: current_user.id, topic: Topic.find(params[:topic_id]))
+  end
+
 end

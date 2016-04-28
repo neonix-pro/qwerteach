@@ -3,8 +3,7 @@ class BbbRoom < Bigbluebutton::BigbluebuttonRoom
   belongs_to :lesson
 
   def params_interview(interviewee)
-    :bigbluebutton_room => 
-    {
+    bigbluebutton_room = {
         :lesson_id => 0,
         :owner_type => 'Admin',
         :owner_id => current_user.id.to_s,

@@ -8,6 +8,7 @@ class AdvertPricesController < ApplicationController
   def update
     @advertPrice = AdvertPrice.find(params[:id])
     respond_to do |format|
+      logger.debug('************** APPPP')
       if (@advertPrice.level_id != params[:level_id])
         if (@advertPrice.advert.advert_prices.where(:level_id=>params[:level_id]).blank?)
           @advert.advert_prices.create(level_id: params[:level_id], advert_id: @advertPrice.advert.id, price: params[:price])
