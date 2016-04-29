@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
 
   # Méthode permettant de créer une gallery
   def create_gallery
-    Gallery.create(:user_id => self.id)
+    gallery.create
   end
 
   # Méthode permettant de créer une postulation

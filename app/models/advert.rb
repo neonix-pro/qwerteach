@@ -9,10 +9,10 @@ class Advert < ActiveRecord::Base
   #after_create :create_price
 
   def min_price
-  self.advert_prices.order('price DESC').map{|p| p.price}.last
+    @min_price ||= advert_prices.order('price DESC').last.price
   end
   def max_price
-    self.advert_prices.order('price DESC').map{|p| p.price}.first
+    @max_price ||= advert_prices.order('price DESC').first.price
   end
   def find_topic_group
     self.topic.topic_group.title
@@ -21,7 +21,7 @@ class Advert < ActiveRecord::Base
     self.topic.title
   end
   def create_price
-    AdvertPrice.create(:advert_id => self.id)
+    advert_prices.create
   end
 
   # Pour Sunspot, définition des champs sur lesquels les recherches sont faites et des champs sur lesquels les filtres sont réalisés

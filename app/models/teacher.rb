@@ -33,6 +33,6 @@ class Teacher  < Student
   end
   # Méthode permettant de créer une postulation
   def create_postulation
-    Postulation.create(:user_id => self.id)
+    postulation.create
   end
 end

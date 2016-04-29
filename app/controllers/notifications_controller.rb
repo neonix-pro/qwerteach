@@ -9,4 +9,5 @@ class NotificationsController < ApplicationController
   def show
     render :json => current_user.mailbox.notifications.unread.count
   end
+
 end

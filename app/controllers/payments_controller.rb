@@ -13,104 +13,90 @@ class PaymentsController < ApplicationController
       render 'paiements/_mangopay_form' and return
     end
   end
+  
 
+  def transaction_infos
+    @amount = params[:amount].to_f * 100
+    @fees = 0 * @amount
+    @wallets ||= MangoPay::User.wallets(current_user.mango_id)
+    @beneficiary ||= User.find(params[:other_part])
+    @beneficiary_wallet ||= MangoPay::User.wallets(@beneficiary.mango_id).first
+  end
+  
+  def total_wallets
+    @wallets.first['Balance']['Amount'] + @wallets.second['Balance']['Amount']
+  end
+  
+  def is_solvable
+    @amount < total_wallets
+  end
+  
   def send_make_transfert
-    amount = params[:amount].to_f * 100
-    fees = 0 * amount
-    @wallet = MangoPay::User.wallets(current_user.mango_id).first
-    walletcredit = @wallet['Balance']['Amount']
-    @bonus_wallet = MangoPay::User.wallets(current_user.mango_id).second
-    bonuscredit = @bonus_wallet['Balance']['Amount']
-    @other = User.find(params[:other_part])
-    @other_wallet = MangoPay::User.wallets(@other.mango_id).first
-
-    if amount > (walletcredit + bonuscredit)
-      flash[:danger]='Votre solde est insuffisant. Rechargez en premier lieu votre portefeuille.'
-       # redirect_to url_for(controller: 'paiements',
-        #    action: 'index_mangopay_wallet') and return
-      return
-    end
-
-    if bonuscredit == 0
-      repl = MangoPay::Transfer.create({
-                                           :AuthorId => current_user.mango_id,
-                                           :DebitedFunds => {
-                                               :Currency => "EUR",
-                                               :Amount => amount
-                                           },
-                                           :Fees => {
-                                               :Currency => "EUR",
-                                               :Amount => fees
-                                           },
-                                           :DebitedWalletID => @wallet["Id"],
-                                           :CreditedWalletID => @other_wallet["Id"]
-                                       })
-      if repl["ResultCode"]=="000000"
-        flash[:notice] ='Le transfert a correctement été effectué.'
-        session[:lesson][:transaction_id] = repl['Id']
+    begin
+      transaction_infos
+      if(is_solvable)
+        bonus_transfer
+        normal_transfer
+        flash[:success]='Le transfer de '+@amount/100+' EUR a bien été effectué.'     
       else
-        flash[:danger]='Veuillez réessayer'
-      end
-      # redirect_to url_for(controller: 'paiements',
-       # action: 'index_mangopay_wallet') and return
-      return
-    else
-      rest = amount - bonuscredit
-      if rest > 0
-        amount = bonuscredit
-      end
-      repl = MangoPay::Transfer.create({
-                                           :AuthorId => current_user.mango_id,
-                                           :DebitedFunds => {
-                                               :Currency => "EUR",
-                                               :Amount => amount
-                                           },
-                                           :Fees => {
-                                               :Currency => "EUR",
-                                               :Amount => fees
-                                           },
-                                           :DebitedWalletID => @bonus_wallet["Id"],
-                                           :CreditedWalletID => @other_wallet["Id"]
-                                       })
-      if repl["ResultCode"]=="000000"
-        flash[:notice] ='Le transfert a correctement été effectué. Montant déduit : '+ amount.to_s
-        session[:lesson][:transaction_id] = repl['Id']
-      else
-        flash[:danger]='Veuillez réessayer, il y a eu un problème.Montant déduit = ' + amount.to_s
-       #       redirect_to url_for(controller: 'paiements',
-        # action: 'index_mangopay_wallet') and return
+        flash[:danger]='Votre solde est insuffisant. Rechargez en premier lieu votre portefeuille.'
         return
       end
-      if rest > 0
-        repl2 = MangoPay::Transfer.create({
+    rescue MangoPay::ResponseError => ex
+      flash[:danger] = ex.details["Message"]
+      #redirect_to url_for(controller: 'wallets', action: 'index_mangopay_wallet')
+    end
+  end
+
+  def amount_bonus_transfer
+    @amount_bonus_transfer ||= [@amount, @wallets.second['Balance']['Amount'] ].min
+  end
+  def bonus_transfer
+    if(amount_bonus_transfer > 0)
+      bonus_transfer = MangoPay::Transfer.create({
+                                           :AuthorId => current_user.mango_id,
+                                           :DebitedFunds => {
+                                               :Currency => "EUR",
+                                               :Amount => @amount_bonus_transfer
+                                           },
+                                           :Fees => {
+                                               :Currency => "EUR",
+                                               :Amount => @fees
+                                           },
+                                           :DebitedWalletID => @wallets.second["Id"],
+                                           :CreditedWalletID => @beneficiary_wallet["Id"]
+                                       })
+      valid_transfer(bonus_transfer)
+    end
+  end
+
+  def amount_normal_transfer
+    @amount_normal = @amount - @amount_bonus_transfer
+  end
+  
+  def normal_transfer
+    if(@amount_normal > 0)
+      normal_transfer = MangoPay::Transfer.create({
                                               :AuthorId => current_user.mango_id,
                                               :DebitedFunds => {
                                                   :Currency => "EUR",
-                                                  :Amount => rest
+                                                  :Amount => @amount_normal_transfer
                                               },
                                               :Fees => {
                                                   :Currency => "EUR",
-                                                  :Amount => fees
+                                                  :Amount => @fees
                                               },
-                                              :DebitedWalletID => @wallet["Id"],
-                                              :CreditedWalletID => @other_wallet["Id"]
+                                              :DebitedWalletID => @wallets.first["Id"],
+                                              :CreditedWalletID => @beneficiary_wallet["Id"]
                                           })
-        if repl2["ResultCode"]=="000000"
-          flash[:notice] ='Le transfert a correctement été effectué. Montant diff = ' + rest.to_s
-          session[:lesson][:transaction_id] = repl['Id']
-        else
-          flash[:danger]='Veuillez réessayer, il y a eu un problème. Montant diff = ' + rest.to_s
-        end
-      end
-     # redirect_to url_for(controller: 'paiements',
-      #                    action: 'index_mangopay_wallet')
+      valid_transfer(normal_transfer)
     end
-  rescue MangoPay::ResponseError => ex
-    flash[:danger] = ex.details["Message"] + amount.to_s
-    #ex.details['errors'].each do |name, val|
-    # flash[:danger] += " #{name}: #{val} \n\n"
-    #end
-    #flash[:danger] = repl2["RedirectURL"]
   end
 
+  def valid_transfer(transfer)
+    if(transfer['ResultCode']!='000000')
+      flash[:danger]='Il y a eu un problème lors du transfer. Veuillez ré-essayer.'
+      redirect_to url_for(controller: 'wallets', action: 'index_mangopay_wallet')
+    end
+  end
 end
