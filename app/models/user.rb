@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   has_many :adverts
 
   # on crée une gallery après avoir créé le user
-  after_create :create_gallery
+  after_create :create_gallery_user
 
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
 
   #required for BBB
   def name
-    “#{firstname} #{lastname}”.presence || email
+    "#{firstname} #{lastname}”.presence || email"
   end
   
   def username
@@ -93,14 +93,8 @@ class User < ActiveRecord::Base
     #self.degrees.map{|t| t.level}.max.id
   end
 
-  # Méthode permettant de créer une gallery
-  def create_gallery
-    gallery.create
-  end
-
-  # Méthode permettant de créer une postulation
-  def create_postulation
-    Postulation.create(:user_id => self.id)
+  def create_gallery_user
+    create_gallery
   end
 
   def mango_infos (params)

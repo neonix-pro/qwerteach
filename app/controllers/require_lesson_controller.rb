@@ -63,7 +63,7 @@ class RequireLessonController < ApplicationController
         @transaction = session[:payment] || session[:payment]
         @lesson = Lesson.create(session[:lesson])
         if @lesson.save
-          @payment = Payment.create(:payment_type => Payment::TYPE[0], :status => Payment::STATUS_TYPE[3], :lesson_id => @lesson.id,
+          @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
                                     :mangopay_payin_id => @transaction, :transfert_date => DateTime.now)
           @payment.save
         end
@@ -213,7 +213,8 @@ class RequireLessonController < ApplicationController
           redirect_to wizard_path(:payment) and return
         else
           transaction_mangopay = MangoPay::PayIn.fetch(resp['Id'])
-          if transaction_mangopay['ResultCode'] != '000000'
+          logger.debug('******************* ' + transaction_mangopay.to_s)
+          if transaction_mangopay["Status"] != "CREATED"
             flash[:danger] = 'Il y a eu un problème lors de la transaction.'
             redirect_to wizard_path(:payment) and return
           else

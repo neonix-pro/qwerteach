@@ -1,7 +1,9 @@
 class Payment < ActiveRecord::Base
-  #TYPE = ["Pre-payment", "Post-payment"] 
-  enum type: [:PrePayment, :PostPayment]
-  STATUS_TYPE = ["Pending", "Paid", "Canceled", "Blocked"]
+  # 2 types de paiements : reservation et facture
+  enum payment_type: [:prepayment, :postpayment]
+  # meme nom que dans DB sinon KO.
+  # cf schéma etats de Payment
+  enum status: [:pending, :paid, :canceled, :blocked]
   belongs_to :lesson
 
 end

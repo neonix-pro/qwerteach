@@ -24,9 +24,10 @@ ActiveRecord::Schema.define(version: 20160428120501) do
   create_table "adverts", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "topic_id"
+    t.integer  "topic_group_id"
     t.string   "other_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
@@ -183,17 +184,17 @@ ActiveRecord::Schema.define(version: 20160428120501) do
   end
 
   create_table "lessons", force: :cascade do |t|
-    t.integer  "student_id",                                                 null: false
-    t.integer  "teacher_id",                                                 null: false
-    t.string   "status",                                 default: "Created", null: false
-    t.datetime "time_start",                                                 null: false
-    t.datetime "time_end",                                                   null: false
+    t.integer  "student_id",                                         null: false
+    t.integer  "teacher_id",                                         null: false
+    t.integer  "status",                                 default: 0, null: false
+    t.datetime "time_start",                                         null: false
+    t.datetime "time_end",                                           null: false
     t.integer  "topic_id"
-    t.integer  "topic_group_id",                                             null: false
-    t.integer  "level_id",                                                   null: false
-    t.decimal  "price",          precision: 8, scale: 2,                     null: false
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+    t.integer  "topic_group_id",                                     null: false
+    t.integer  "level_id",                                           null: false
+    t.decimal  "price",          precision: 8, scale: 2,             null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
   end
 
   create_table "levels", force: :cascade do |t|
@@ -260,14 +261,14 @@ ActiveRecord::Schema.define(version: 20160428120501) do
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
 
   create_table "payments", force: :cascade do |t|
-    t.string   "status",            default: "Pending",     null: false
-    t.string   "payment_type",      default: "Pre-payment", null: false
+    t.integer  "status",            default: 0, null: false
+    t.integer  "payment_type",      default: 0, null: false
     t.datetime "transfert_date"
-    t.integer  "lesson_id",                                 null: false
+    t.integer  "lesson_id",                     null: false
     t.integer  "mangopay_payin_id"
     t.datetime "execution_date"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -332,7 +333,7 @@ ActiveRecord::Schema.define(version: 20160428120501) do
     t.string   "lastname",               default: "",           null: false
     t.date     "birthdate",              default: '2016-01-01', null: false
     t.text     "description",            default: "",           null: false
-    t.string   "gender",                 default: "",           null: false
+    t.integer  "gender",                 default: 0,            null: false
     t.string   "phonenumber",            default: "",           null: false
     t.string   "type",                   default: "Student",    null: false
     t.integer  "level_id",               default: 1
@@ -340,7 +341,7 @@ ActiveRecord::Schema.define(version: 20160428120501) do
     t.boolean  "accepts_post_payments",  default: false
     t.string   "occupation",             default: "student"
     t.boolean  "postulance_accepted",    default: false,        null: false
-    t.string   "teacher_status",         default: "Actif"
+    t.integer  "teacher_status",         default: 0
     t.string   "email",                  default: "",           null: false
     t.string   "encrypted_password",     default: "",           null: false
     t.string   "reset_password_token"

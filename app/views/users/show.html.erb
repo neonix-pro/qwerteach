@@ -1,85 +1,87 @@
 <div class="headerIcone"></div>
-   <div class="mail"id="wrapper">
+<div class="mail" id="wrapper">
 
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-             <ul class="sidebar-nav"><div class="photoProfil"> <%= image_tag(@user.avatar.url(:medium), size: "250x250") %> </div></ul>
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <ul class="sidebar-nav">
+        <div class="photoProfil"> <%= image_tag(@user.avatar.url(:medium), size: "250x250") %> </div>
+      </ul>
 
-            </ul>
+    </ul>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row ">
+        <div class="col-md-4 ">
+          <h3 class="nomPrenomProfil col-md-4"><b><%= @user.lastname %> <%= @user.firstname %></b></h3>
+          <% if @user.postulance_accepted? %>
+              <i>Prof certifié <%= image_tag("check.png") %></i>
+          <% end %>
         </div>
-        <!-- /#sidebar-wrapper -->
+        <div class="col-md-4 ">
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row ">
-                    <div class="col-md-4 "><h3 class="nomPrenomProfil col-md-4"><b><%= @user.lastname %> <%= @user.firstname %></b></h3><% if @user.postulance_accepted? %>
-                  <i>Prof certifié <%= image_tag("check.png") %></i>
-              <% end %>
-              </div>
-                    <div class="col-md-4 ">
-                 
-              <p><%= link_to 'Réserver un cours', user_require_lesson_index_path(@user.id) %></p>
-              <p><%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
-                             "data-sid" => @user.id, "data-rip" => @user.id %></p>
-                        </div>
-
-                         <div> 
-                          <% @adverts.each do |a| %>
-                        <h9 class="matiereProfil"><%= a.topic.topic_group.title %></h9>
-                      <% end %></p>
-                        <p><%= Time.now.year - @user.birthdate.year %> ans</p>
-                        <p><%= @user.occupation %></p>
-                      </div>
-                    
-                </div>
-
-            </div>
+          <p><%= link_to 'Réserver un cours', user_require_lesson_index_path(@user.id) %></p>
+          <p><%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
+                         "data-sid" => @user.id, "data-rip" => @user.id %></p>
         </div>
 
-        <!-- /#page2-content-wrapper -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row ">
-                    <p><%= raw(@user.description) %></p>
-                </div>
-
-
-            </div>
-            
+        <div>
+          <% @adverts.each do |a| %>
+              <h9 class="matiereProfil"><%= a.topic.topic_group.title %></h9>
+          <% end %>
+          <p><%= Time.now.year - @user.birthdate.year %> ans</p>
+          <p><%= @user.occupation %></p>
         </div>
 
-    <% end %>
-    <% if @user.postulance_accepted? %>
-        <i>Prof certifié</i>
-    <% end %>
-    <% if !@prices.empty? %>
-        <p>Prix minimum : <%= ActionController::Base.helpers.number_to_currency(@prices.min.first) %></p>
-        <p><%= link_to 'Demander un cours', user_require_lesson_index_path(@user.id) %></p>
-    <% end %>
+      </div>
 
-    <h3>Description</h3>
-    <p><%= raw(@user.description) %></p>
-
-    <% @adverts.each do |a| %>
-        <% max = a.advert_prices.map { |ap| ap.level }.max.fr %>
-        <h5><%= a.topic.topic_group.title %> <i>jusqu'au niveau <%= max %></i></h5>
-
-    <% end %>
-
-    <h3>Diplomes</h3>
-    <% @degrees.each do |d| %>
-        <%= d.title %>
-        <br/>
-    <% end %>
-<% end %>
-
-
-<% if current_user.admin? %>
-  <%= button_to 'Inviter dans la classe', room_invite_bbb_rooms_path(@user), :method => :get %>
-<% end %>
     </div>
-    <!-- /#wrapper -->
+  </div>
+
+  <!-- /#page2-content-wrapper -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row ">
+        <p><%= raw(@user.description) %></p>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <% if @user.postulance_accepted? %>
+      <i>Prof certifié</i>
+  <% end %>
+  <% if !@prices.empty? %>
+      <p>Prix minimum : <%= ActionController::Base.helpers.number_to_currency(@prices.min.first) %></p>
+      <p><%= link_to 'Demander un cours', user_require_lesson_index_path(@user.id) %></p>
+  <% end %>
+
+  <h3>Description</h3>
+  <p><%= raw(@user.description) %></p>
+
+  <% @adverts.each do |a| %>
+      <% max = a.advert_prices.map { |ap| ap.level }.max.fr %>
+      <h5><%= a.topic.topic_group.title %> <i>jusqu'au niveau <%= max %></i></h5>
+
+  <% end %>
+
+  <h3>Diplomes</h3>
+  <% @degrees.each do |d| %>
+      <%= d.title %>
+      <br/>
+  <% end %>
+
+
+  <% if current_user.admin? %>
+      <%= button_to 'Inviter dans la classe', room_invite_bbb_rooms_path(@user), :method => :get %>
+  <% end %>
+</div>
+<!-- /#wrapper -->
 
 

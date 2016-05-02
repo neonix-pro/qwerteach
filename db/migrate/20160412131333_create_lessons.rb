@@ -3,7 +3,7 @@ class CreateLessons < ActiveRecord::Migration
     create_table :lessons do |t|
       t.references :student, null: false
       t.references :teacher, null: false
-      t.string :status, null: false, default: Lesson::STATUS_TYPE[0]
+      t.integer :status, null: false, default: 0
       t.datetime :time_start, null: false
       t.datetime :time_end, null: false
       t.integer :topic_id
