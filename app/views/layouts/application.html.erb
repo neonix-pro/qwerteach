@@ -6,15 +6,12 @@
   <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
   <title>Qwerteach</title>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag '//code.jquery.com/jquery-1.8.3.min.js' %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-  <!--<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>-->
   <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' %>
 
   <%= stylesheet_link_tag 'flat-ui' %>
-   
+
   
- 
   <%= favicon_link_tag 'logo.ico' %>
   <%= csrf_meta_tags %>
 
@@ -61,7 +58,11 @@
                       <!-- <li><%= link_to 'Messagerie', conversations_path %></li> Anciennce version --> 
                       <li><%= link_to 'Mes annonces', adverts_path %></li>
                       <li><%= link_to 'Message', conversations_path %></li>
-
+                      
+                      <% if current_user.admin? %>
+                          <li><%= link_to 'Administration', admin_root_path %></li>
+                      <% end %>
+                      
                       <li> </li>
                       <!-- <li><%= link_to 'Rechercher un prof', users_path %></li> Pas d'utilité-->
 
@@ -94,9 +95,7 @@
                           </ul>
                         </li>
                   </ul>
-                      <% if current_user.admin? %>
-                          <li><%= link_to 'Administration', admin_root_path %></li>
-                      <% end %>
+                      
                   <% end %>
                 </ul>
 

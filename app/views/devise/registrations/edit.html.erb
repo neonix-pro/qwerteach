@@ -27,7 +27,7 @@
 
       <div class="field">
         <%= f.label :Sexe %><br/>
-        <%= f.select :gender, User::GENDER_TYPES %>
+        <%= f.select :gender, User.genders %>
       </div>
       <h3>Mes photos</h3>
       <% @gallery=Gallery.where(:user => current_user).last %>

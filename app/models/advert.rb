@@ -9,10 +9,10 @@ class Advert < ActiveRecord::Base
   #after_create :create_price
 
   def min_price
-  self.advert_prices.order('price DESC').map{|p| p.price}.last
+  advert_prices.order('price DESC').map{|p| p.price}.last.map(&:price)
   end
   def max_price
-    self.advert_prices.order('price DESC').map{|p| p.price}.first
+    self.advert_prices.order('price DESC').map{|p| p.price}.first.map(&:price)
   end
   def find_topic_group
     self.topic.topic_group.title
@@ -45,7 +45,7 @@ class Advert < ActiveRecord::Base
     end
 
     string :advert_prices_truc , :multiple => true do
-      advert_prices.map{|p| p.price}
+      advert_prices.map{|p| p.price}.map(&:price)
     end
   end
 end
