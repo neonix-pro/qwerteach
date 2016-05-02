@@ -57,6 +57,17 @@ class User < ActiveRecord::Base
     where(:is_admin => true)
   end
 
+  def wallets
+    MangoPay::User.wallets(mango_id)
+  end
+
+  def total_wallets
+    wallets.first['Balance']['Amount'] + wallets.second['Balance']['Amount']
+  end
+  def is_solvable?(amount)
+    amount < total_wallets
+  end
+
   #required for BBB
   def name
     name = self.firstname+' '+self.lastname
@@ -82,7 +93,7 @@ class User < ActiveRecord::Base
 
   # Méthode permettant de créer une gallery
   def create_gallery
-    Gallery.create(:user_id => self.id)
+    gallery.create
   end
 
   # Méthode permettant de créer une postulation
@@ -106,10 +117,14 @@ class User < ActiveRecord::Base
 
   def load_mango_infos
     if self.mango_id?
-      m = MangoPay::NaturalUser.fetch(self.mango_id)
-      self.address = m['Address']
-      self.countryOfResidence = m['CountryOfResidence']
-      self.nationality = m['Nationality']
+      begin
+        m = MangoPay::NaturalUser.fetch(mango_id)
+        self.address = m['Address']
+        self.countryOfResidence = m['CountryOfResidence']
+        self.nationality = m['Nationality']
+      rescue MangoPay::ResponseError => ex
+        flash[:danger] = ex.details["Message"]
+      end
     else
       self.address = {}
     end

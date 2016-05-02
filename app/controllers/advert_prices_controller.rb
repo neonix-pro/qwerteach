@@ -8,16 +8,15 @@ class AdvertPricesController < ApplicationController
   def update
     @advertPrice = AdvertPrice.find(params[:id])
     respond_to do |format|
-      logger.debug('************** APPPP')
       if (@advertPrice.level_id != params[:level_id])
         if (@advertPrice.advert.advert_prices.where(:level_id=>params[:level_id]).blank?)
           @advert.advert_prices.create(level_id: params[:level_id], advert_id: @advertPrice.advert.id, price: params[:price])
-          format.html { render adverts_path, notice: 'Price was successfully created.'}
+          format.html { redirect_to adverts_path, notice: 'Price was successfully created.'}
           format.json { head :no_content }
         end
       end
       if @advertPrice.update_attributes(advertPrice_params)
-        format.html { render adverts_path, notice: 'Price was successfully updated.'}
+        format.html { redirect_to adverts_path, notice: 'Price was successfully updated.'}
         format.json { head :no_content }
       else
         format.html { render action: edit_advert_advert_price_path }
@@ -31,7 +30,7 @@ class AdvertPricesController < ApplicationController
     respond_to do |format|
 
       if @advertPrice.save
-        format.html { render adverts_path, notice: 'Price was successfully created.'}
+        format.html { redirect_to adverts_path, notice: 'Price was successfully created.'}
         format.json { head :no_content }
       else
         format.html { render action: edit_advert_advert_price_path }

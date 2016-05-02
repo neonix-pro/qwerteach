@@ -16,6 +16,12 @@
 !/log/.keep
 /tmp
 
+# Ignore dumps redis
+*.rdb
+
+# Ignore creds mangopay
+/config/initializers/mangopay.rb
+
 .idea/.generators
 
 .idea/.name
