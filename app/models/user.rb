@@ -1,7 +1,12 @@
 class User < ActiveRecord::Base
-  GENDER_TYPES = ["Not telling", "Male", "Female"]
-  ACCOUNT_TYPES = ["Student", "Teacher"]
-  TEACHER_STATUS = ["Actif", "Suspendu"]
+  #GENDER_TYPES = ["Not telling", "Male", "Female"]
+  #ACCOUNT_TYPES = ["Student", "Teacher"]
+  #TEACHER_STATUS = ["Actif", "Suspendu"]
+  
+  enum gender: [:NotTelling, :Male, :Female]
+  enum account_type: [:Student, :Teacher]
+  enum teacher_status: [:Actif, :Suspendu]
+
   paginates_per 1
 
   # Include default devise modules. Others available are:
@@ -54,7 +59,7 @@ class User < ActiveRecord::Base
   end
 
   def self.reader_scope
-    where(:is_admin => true)
+    where(:admin => true)
   end
 
   def wallets
@@ -70,14 +75,11 @@ class User < ActiveRecord::Base
 
   #required for BBB
   def name
-    name = self.firstname+' '+self.lastname
-    if(name.nil?)
-      name = self.email
-    end 
-    return name   
+    “#{firstname} #{lastname}”.presence || email
   end
+  
   def username
-    self.name
+    return name
   end
 
   acts_as_messageable
@@ -111,7 +113,7 @@ class User < ActiveRecord::Base
         :CountryOfResidence => params[:CountryOfResidence],
         :PersonType => "NATURAL",
         :Email => self.email,
-        :Tag => "user "+self.id.to_s()
+        :Tag => "user "+ '#{id}'
     }
   end
 
@@ -141,21 +143,21 @@ class User < ActiveRecord::Base
     if !(self.mango_id?)
       m = MangoPay::NaturalUser.create(mango_infos(params))
       self.mango_id = m['Id']
-      self.save
+      self.save!
       MangoPay::Wallet.create({
                                   :Owners => [self.mango_id],
-                                  :Description => "wallet user " + self.id.to_s,
+                                  :Description => "wallet user " + '#{id}',
                                   :Currency => "EUR"
                               })
       MangoPay::Wallet.create({
                                   :Owners => [self.mango_id],
-                                  :Description => "wallet bonus user " + self.id.to_s,
+                                  :Description => "wallet bonus user " + '#{id}',
                                   :Currency => "EUR",
                                   :Tag => "Bonus"
                               })
       MangoPay::Wallet.create({
                                   :Owners => [self.mango_id],
-                                  :Description => "wallet transfert user " + self.id.to_s,
+                                  :Description => "wallet transfert user " + '#{id}',
                                   :Currency => "EUR",
                                   :Tag => "Transfert"
                               })
@@ -167,7 +169,8 @@ class User < ActiveRecord::Base
 
   # Méthode liée au crop de l'avatar, elle permet de savoir si une modification a été faite
   def cropping?
-    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
+    #!crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
+    [crop_x, crop_y, crop_w, crop_h].all?(&:present?)
   end
 
   # Méthode liée au crop de l'avatar
@@ -176,25 +179,16 @@ class User < ActiveRecord::Base
     @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
   end
 
-  private
-  def reprocess_avatar
-    avatar.assign(avatar)
-    avatar.save
-  end
 
   # Methode permettant de faire passer un User à Student
   public
   def upgrade
-    self.type=ACCOUNT_TYPES[0]
-    self.save
+    User.account_type = "Student"
   end
 
   belongs_to :level
   # Méthode permettant de savoir si le User est admin
   public
-  def admin?
-    admin
-  end
 
   # Types de User possibles
   def self.types
@@ -229,5 +223,11 @@ class User < ActiveRecord::Base
   def mailboxer_email(object)
     self.email
     #return the model's email here
+  end
+  
+    private
+  def reprocess_avatar
+    avatar.assign(avatar)
+    avatar.save
   end
 end

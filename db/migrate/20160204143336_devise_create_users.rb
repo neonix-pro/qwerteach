@@ -6,7 +6,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :lastname,           null: false, default: ""
       t.date :birthdate,            null: false, default: "2016-01-01"
       t.text :description,          null: false, default: ""
-      t.string :gender,             null: false, default: ""
+      t.integer :gender,       null: false, default: "0"
       t.string :phonenumber,        null: false, default: ""
       t.string  :type,              null: false, default: "Student"
       t.integer :level_id,          null: true, default: 1
@@ -14,7 +14,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.boolean :accepts_post_payments, null: true,  default:false
       t.string :occupation,         null: true, default:"student"
       t.boolean :postulance_accepted, null: false, default: false
-      t.string :teacher_status, null:true, default:"Actif"
+      t.integer :teacher_status, null:true, default:"0"
 
 
       ## Database authenticatable

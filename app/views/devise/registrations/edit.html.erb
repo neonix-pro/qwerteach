@@ -1,80 +1,126 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="backgroundEdit"> 
+  <h2>Modifier votre compte <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
-    <%= devise_error_messages! %>
-    <div class="field">
-      <%= f.label :lastname %><br/>
-      <%= f.text_field :lastname, class: 'form-control', data: {
-          :validation => "letternumeric", "validation-error-msg" => "Not a name." } %>
-    </div>
-    <div class="field">
-      <%= f.label :firstname %><br/>
-      <%= f.text_field :firstname, class: 'form-control', data: {
-          :validation => "letternumeric", "validation-error-msg" => "Not a name." }  %>
-    </div>
-    <div class="field">
-      <%= f.label :birthdate %><br/>
-      <%= f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}  %>
-    </div>
-    <div class="field">
-      <%= f.label :description %><br/>
-      <%= f.text_area :description, :class => 'ckeditor' %>
-    </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
+      <%= devise_error_messages! %>
+  <div class="containter backgroundEdit">
+      <div class="col-md-6 colonne1">
+      <h4>Informations personnelles</h4>
+      <div class="field">
+        <%= f.label :Nom %><br/>
+        <%= f.text_field :lastname, class: 'form-control', data: {
+            :validation => "letternumeric", "validation-error-msg" => "Not a name." } %>
+      </div>
+      <div class="field">
+        <%= f.label :Prénom %><br/>
+        <%= f.text_field :firstname, class: 'form-control', data: {
+            :validation => "letternumeric", "validation-error-msg" => "Not a name." }  %>
+      </div>
+      <div class="field">
+        <%= f.label :Date_de_Naissance %><br/>
+        <%= f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}  %>
+      </div>
+      <div class="field">
+        <%= f.label :Prénsentation %><br/>
+        <%= f.text_area :description, :class => 'ckeditor' %>
+      </div>
 
-    <div class="field">
-      <%= f.label :gender %><br/>
-      <%= f.select :gender, User::GENDER_TYPES %>
-    </div>
-    <% if resource.type == "Student" %>
-        <div class="field" id="type">
-          <%= f.label :type %><br/>
-          <%= f.select :type, User::ACCOUNT_TYPES %>
-        </div>
-    <% end %>
-    <div class="field">
-      <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id) %>
-      <%= f.label :level_id %><br/>
-      <%= f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] } %>
-    </div>
+      <div class="field">
+        <%= f.label :Sexe %><br/>
+        <%= f.select :gender, User.genders %>
+      </div>
+      <h3>Mes photos</h3>
+      <% @gallery=Gallery.where(:user => current_user).last %>
+      <%= link_to "photos", gallery_path(@gallery) %>
+  </div>
+  <div class="col-md-6 colonne2">
+      <h4>Informations Scolaire</h4>
+      <% if resource.type == "Student" %>
+          <div class="field" id="type">
+            <%= f.label :type %><br/>
+            <%= f.select :type, User::ACCOUNT_TYPES %>
+          </div>
+      <% end %>
+      <div class="field">
+            <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id) %>
+            <%= f.label :level_id %><br/>
+            <%= f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] } %>
+          </div>
 
-    <!-- if teacher, cannot change account type anymore -->
-    <% if resource.type == "Teacher" %>
-        <div class="field">
-          <%= f.label :occupation %><br/>
-          <%= f.text_field :occupation %>
-        </div>
-        <div class="field">
-          <%= f.label :accepts_post_payments %><br/>
-          <%= f.check_box :accepts_post_payments %>
-        </div>
-    <% end %>
+      <!-- if teacher, cannot change account type anymore -->
+      <% if resource.type == "Teacher" %>
+          <div class="field">
+            <%= f.label :occupation %><br/>
+            <%= f.text_field :occupation %>
+          </div>
+          <div class="field">
+            <%= f.label :accepts_post_payments %><br/>
+            <%= f.check_box :accepts_post_payments %>
+          </div>
+      <% end %>
 
-    <div class="field">
-      <%= f.label :phonenumber %><br/>
-      <%= f.text_field :phonenumber %>
-    </div>
-    <div class="field" id="avatar_select">
-      <% resource.crop_x=0 %>
-      <%= f.label :avatar %>
-      <%= f.file_field :avatar %>
-    </div>
-    <div class="actions">
-      <%= f.submit "Update" %>
-    </div>
-<% end %>
+      <h4>Mes diplomes</h4>
+  <%= link_to "diplomes", degrees_path %>
 
-<h3>Mes diplomes</h3>
-<%= link_to "diplomes", degrees_path %>
-<h3>Mes annonces</h3>
-<%= link_to "annonces", adverts_path %>
-<h3>Mes photos</h3>
-<% @gallery=Gallery.where(:user => current_user).last %>
-<%= link_to "photos", gallery_path(@gallery) %>
+      <div class="field">
+        <%= f.label :Téléphone %><br/>
+        <%= f.text_field :phonenumber %>
+      </div>
+  </div>
+
+  <div class="col-md-6 colonne3">
+      <h4> Informations du compte</h4>
+      <div class="field">
+        <%= f.label :Mail %><br/>
+        <%= f.email_field :email, autofocus: true %>
+      </div>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :Mot_De_Passe %> <i>(leave blank if you don't want to change it)</i><br/>
+        <%= f.password_field :password, autocomplete: "off" , class: 'form-control', data: {
+            :validation => "length", 'validation-length' => "min8",
+            "validation-error-msg" => "Too short." } %>
+      </div>
 
 
+      <div class="field">
+        <%= f.label :Confirmation_Mot_de_Passe %><br/>
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', data: {
+            :validation => "confirmation",'validation-confirm'=> 'user[password]', "validation-error-msg" => "Not the same." }  %>
+      </div>
+
+      <div class="field">
+        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br/>
+        <%= f.password_field :current_password, autocomplete: "off" %>
+      </div>
+
+      <div class="field" id="avatar_select">
+        <% resource.crop_x=0 %>
+        <%= f.label :avatar %>
+        <%= f.file_field :avatar %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Update" %>
+      </div>
+  <% end %>
+  </div>
+
+  <div class="col-md-6 case4">
+  <h3>Mes annonces</h3>
+  <%= link_to "annonces", adverts_path %>
+  </div>
+
+
+
+  </div>
+</div>
+<!-- Utilité ?
 <h3>Cancel my account</h3>
-
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete %></p>
+-->
 
 <%= link_to "Back", :back %>
 <script>

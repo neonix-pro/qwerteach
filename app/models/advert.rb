@@ -38,14 +38,14 @@ class Advert < ActiveRecord::Base
     end
     integer :topic_id, :references => Topic
     string :user_email do
-      user.email
+      self.user.email
     end
     string :user_age do
-      Time.now.year - user.birthdate.year
+      Time.now.year - self.user.birthdate.year
     end
 
     string :advert_prices_truc , :multiple => true do
-      advert_prices.map{|p| p.price}
+      advert_prices.map{|p| p.price}.map(&:price)
     end
   end
 end
