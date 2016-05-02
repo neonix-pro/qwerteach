@@ -17,7 +17,7 @@
               <tbody>
               <% for user in User.all %>
                   <tr>
-                    <td><%= image_tag(user.avatar.url(:small)) %></td>
+                    <td><%= link_to image_tag(user.avatar.url(:small)), user_path(user) %></td>
                     <td><%= user.id %></td>
                     <td><%= user.type %></td>
                     <td><%= user.email %></td>

@@ -1,6 +1,6 @@
 <h1>Mes informations bancaires</h1>
 <% @user = current_user %>
-<%= form_tag  user_mangopay_edit_wallet_path, method: :put do |f| %>
+<%= form_tag  edit_wallet_path, method: :put do |f| %>
 
     <%= fields_for 'Address' do |address_fields| %>
         <div class="field">

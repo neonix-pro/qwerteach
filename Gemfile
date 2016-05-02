@@ -81,6 +81,10 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 gem 'bigbluebutton_rails', github: 'mconf/bigbluebutton_rails'
 
 
+
+gem 'resque', :require => "resque/server"
+
+gem 'devise_lastseenable'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

@@ -14,11 +14,11 @@ class Advert < ActiveRecord::Base
   def max_price
     self.advert_prices.order('price DESC').map{|p| p.price}.first
   end
-  def find_topic_group
-    self.topic.topic_group.title
+  def topic_group_title
+    topic.topic_group.title
   end
-  def find_topic_title
-    self.topic.title
+  def topic_title
+    topic.title
   end
   def create_price
     AdvertPrice.create(:advert_id => self.id)
@@ -31,10 +31,10 @@ class Advert < ActiveRecord::Base
       user.email
     end
     text :topic do
-      self.find_topic_title
+      self.topic_title
     end
     text :topic_group do
-      self.find_topic_group
+      self.topic_group_title
     end
     integer :topic_id, :references => Topic
     string :user_email do

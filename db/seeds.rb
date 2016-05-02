@@ -103,6 +103,28 @@ u3.save!
 
 # teacher admin
 u4 = User.create(:email => "d@d.d",:firstname => "Grosse", :lastname => "Tete", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "51d7292b4823498d5d8795ec30bd7e92d014d89fd0fe685ae006fa2adc08479d", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
-                 :avatar_file_name=> "hello4.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :type => 'Teacher', :admin => true)
+                 :avatar_file_name=> "hello4.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :type => 'Teacher', :admin => true, :postulance_accepted => true)
 u4.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello4.jpg")
 u4.save!
+
+# Third user's adverts
+a1 = Advert.create(:user => u3, :topic_id => 5, :topic_group_id => 2)
+ap1 = AdvertPrice.create(:advert => a1, :level_id => 5, :price => 15.0)
+ap2 = AdvertPrice.create(:advert => a1, :level_id => 9, :price => 20.0)
+ap3 = AdvertPrice.create(:advert => a1, :level_id => 12, :price => 25.0)
+
+a2 = Advert.create(:user => u3, :topic_id => 15,  :topic_group_id => 4)
+ap1 = AdvertPrice.create(:advert => a2, :level_id => 27, :price => 16.0)
+ap2 = AdvertPrice.create(:advert => a2, :level_id => 28, :price => 21.0)
+ap3 = AdvertPrice.create(:advert => a2, :level_id => 29, :price => 24.0)
+
+# Fourth user's adverts
+a3 = Advert.create(:user => u4, :topic_id => 24, :topic_group_id => 6)
+ap1 = AdvertPrice.create(:advert => a3, :level_id => 9, :price => 14.0)
+ap2 = AdvertPrice.create(:advert => a3, :level_id => 12, :price => 16.0)
+ap3 = AdvertPrice.create(:advert => a3, :level_id => 15, :price => 18.0)
+
+a4 = Advert.create(:user => u4, :topic_id => 21, :topic_group_id => 5)
+ap2 = AdvertPrice.create(:advert => a4, :level_id => 18, :price => 24.0)
+ap3 = AdvertPrice.create(:advert => a4, :level_id => 20, :price => 28.0)
+

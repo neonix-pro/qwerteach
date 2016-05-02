@@ -13,5 +13,7 @@ class Lesson < ActiveRecord::Base
   has_many :payments
 
   has_one :bbb_room
-
+  def self.async_send_notifications
+    Resque.enqueue(LessonsNotifierWorker)
+  end
 end
