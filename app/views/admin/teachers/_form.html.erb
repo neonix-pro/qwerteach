@@ -37,7 +37,7 @@ and renders all form fields for a resource's editable attributes.
                 <%= f.label :teacher_status  %>
               </div>
               <div class="field-unit__field">
-                <%= f.select :teacher_status, options_for_select(User::TEACHER_STATUS, :selected => f.object.teacher_status) %>
+                <%= f.select :teacher_status, options_for_select(Teacher::TEACHER_STATUS, :selected => f.object.teacher_status) %>
               </div>
             </div>
         <% else %>

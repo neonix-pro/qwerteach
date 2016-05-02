@@ -21,13 +21,12 @@
         <%= f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}  %>
       </div>
       <div class="field">
-        <%= f.label :Prénsentation %><br/>
+        <%= f.label :Présentation %><br/>
         <%= f.text_area :description, :class => 'ckeditor' %>
       </div>
-
       <div class="field">
         <%= f.label :Sexe %><br/>
-        <%= f.select :gender, User.genders %>
+        <%= f.select :gender, User::GENDER_TYPES %>
       </div>
       <h3>Mes photos</h3>
       <% @gallery=Gallery.where(:user => current_user).last %>

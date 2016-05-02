@@ -1,7 +1,14 @@
 <h1>Mes informations bancaires</h1>
 <% @user = current_user %>
 <%= form_tag  edit_wallet_path, method: :put do |f| %>
-
+    <div class="field">
+      <%= label_tag 'FirstName' %><br/>
+      <%= text_field_tag 'FirstName', @user.firstname %>
+    </div>
+    <div class="field">
+      <%= label_tag 'LastName' %><br/>
+      <%= text_field_tag 'LastName', @user.lastname %>
+    </div>
     <%= fields_for 'Address' do |address_fields| %>
         <div class="field">
           <%= label_tag 'street' %><br/>

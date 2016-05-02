@@ -328,26 +328,26 @@ ActiveRecord::Schema.define(version: 20160428120501) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "login",                  default: "",           null: false
-    t.string   "firstname",              default: "",           null: false
-    t.string   "lastname",               default: "",           null: false
-    t.date     "birthdate",              default: '2016-01-01', null: false
-    t.text     "description",            default: "",           null: false
-    t.integer  "gender",                 default: 0,            null: false
-    t.string   "phonenumber",            default: "",           null: false
-    t.string   "type",                   default: "Student",    null: false
+    t.string   "login",                  default: "",            null: false
+    t.string   "firstname",              default: "",            null: false
+    t.string   "lastname",               default: "",            null: false
+    t.date     "birthdate",              default: '2016-01-01',  null: false
+    t.text     "description",            default: "",            null: false
+    t.string   "gender",                 default: "Not telling", null: false
+    t.string   "phonenumber",            default: "",            null: false
+    t.string   "type",                   default: "Student",     null: false
     t.integer  "level_id",               default: 1
     t.boolean  "first_lesson_free",      default: false
     t.boolean  "accepts_post_payments",  default: false
     t.string   "occupation",             default: "student"
-    t.boolean  "postulance_accepted",    default: false,        null: false
-    t.integer  "teacher_status",         default: 0
-    t.string   "email",                  default: "",           null: false
-    t.string   "encrypted_password",     default: "",           null: false
+    t.boolean  "postulance_accepted",    default: false,         null: false
+    t.string   "teacher_status",         default: "Actif"
+    t.string   "email",                  default: "",            null: false
+    t.string   "encrypted_password",     default: "",            null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,            null: false
+    t.integer  "sign_in_count",          default: 0,             null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -356,7 +356,7 @@ ActiveRecord::Schema.define(version: 20160428120501) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        default: 0,            null: false
+    t.integer  "failed_attempts",        default: 0,             null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "created_at"

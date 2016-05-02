@@ -1,11 +1,6 @@
 class User < ActiveRecord::Base
-  #GENDER_TYPES = ["Not telling", "Male", "Female"]
-  #ACCOUNT_TYPES = ["Student", "Teacher"]
-  #TEACHER_STATUS = ["Actif", "Suspendu"]
-  
-  enum gender: [:NotTelling, :Male, :Female]
-  enum account_type: [:Student, :Teacher]
-  enum teacher_status: [:Actif, :Suspendu]
+  GENDER_TYPES = ["Not telling", "Male", "Female"]
+  ACCOUNT_TYPES = ["Student", "Teacher"]
 
   paginates_per 1
 
