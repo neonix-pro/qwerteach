@@ -57,6 +57,17 @@ class User < ActiveRecord::Base
     where(:is_admin => true)
   end
 
+  def wallets
+    MangoPay::User.wallets(mango_id)
+  end
+
+  def total_wallets
+    wallets.first['Balance']['Amount'] + wallets.second['Balance']['Amount']
+  end
+  def is_solvable?(amount)
+    amount < total_wallets
+  end
+
   #required for BBB
   def name
     name = self.firstname+' '+self.lastname

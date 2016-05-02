@@ -10,31 +10,15 @@ class PaymentsController < ApplicationController
       end
       @user.load_mango_infos
       @user.load_bank_accounts
+      #TODO: change path
       render 'paiements/_mangopay_form' and return
     end
-  end
-  
-
-  def transaction_infos
-    @amount = params[:amount].to_f * 100
-    @fees = 0 * @amount
-    @wallets ||= MangoPay::User.wallets(current_user.mango_id)
-    @beneficiary ||= User.find(params[:other_part])
-    @beneficiary_wallet ||= MangoPay::User.wallets(@beneficiary.mango_id).first
-  end
-  
-  def total_wallets
-    @wallets.first['Balance']['Amount'] + @wallets.second['Balance']['Amount']
-  end
-  
-  def is_solvable
-    @amount < total_wallets
   end
   
   def send_make_transfert
     begin
       transaction_infos
-      if(is_solvable)
+      if(@user.is_solvable?(@amount))
         bonus_transfer
         normal_transfer
         flash[:success]='Le transfer de '+@amount/100+' EUR a bien été effectué.'     
@@ -44,13 +28,19 @@ class PaymentsController < ApplicationController
       end
     rescue MangoPay::ResponseError => ex
       flash[:danger] = ex.details["Message"]
-      #redirect_to url_for(controller: 'wallets', action: 'index_mangopay_wallet')
     end
   end
 
-  def amount_bonus_transfer
-    @amount_bonus_transfer ||= [@amount, @wallets.second['Balance']['Amount'] ].min
+  def transaction_infos
+    @user = current_user
+    @amount = params[:amount].to_f * 100
+    @fees = 0 * @amount
+    @beneficiary = User.find(params[:other_part])
+    valid_users_infos
+    @wallets ||= @user.wallets
+    @beneficiary_wallet = @beneficiary.wallets.first
   end
+
   def bonus_transfer
     if(amount_bonus_transfer > 0)
       bonus_transfer = MangoPay::Transfer.create({
@@ -68,10 +58,6 @@ class PaymentsController < ApplicationController
                                        })
       valid_transfer(bonus_transfer)
     end
-  end
-
-  def amount_normal_transfer
-    @amount_normal = @amount - @amount_bonus_transfer
   end
   
   def normal_transfer
@@ -93,10 +79,31 @@ class PaymentsController < ApplicationController
     end
   end
 
-  def valid_transfer(transfer)
-    if(transfer['ResultCode']!='000000')
-      flash[:danger]='Il y a eu un problème lors du transfer. Veuillez ré-essayer.'
-      redirect_to url_for(controller: 'wallets', action: 'index_mangopay_wallet')
+  private
+    def valid_transfer(transfer)
+      if(transfer['ResultCode']!='000000')
+        flash[:danger]='Il y a eu un problème lors du transfer. Veuillez ré-essayer.'
+        redirect_to url_for(controller: 'wallets', action: 'index_mangopay_wallet')
+      end
     end
-  end
+
+    def amount_bonus_transfer
+      @amount_bonus_transfer = [@amount, @wallets.second['Balance']['Amount'] ].min
+    end
+
+    def amount_normal_transfer
+      @amount_normal = @amount - @amount_bonus_transfer
+    end
+
+    def valid_users_infos
+      unless(@user.mango_id)
+        flash[:danger]="Vous devez d'abord créer un portefeuille virtuel."
+        redirect_to url_for(controller: 'wallets', action: 'index_mangopay_wallet')
+      end
+      unless(@beneficiary.mango_id)
+        flash[:danger]="le bénéficiaire n'a pas de portefeuille virtuel sur Qwerteach. Il doit en créer un avant de pouvoir recevoir des fonds!"
+        redirect_to url_for(controller: 'wallets', action: 'index_mangopay_wallet')
+      end
+    end
+
 end
