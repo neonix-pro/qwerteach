@@ -3,6 +3,7 @@ class Teacher  < Student
 
   has_one :postulation, foreign_key:  "user_id"
   has_many :degrees, foreign_key:  "user_id"
+
   acts_as_reader
   after_create :create_postulation_user
 

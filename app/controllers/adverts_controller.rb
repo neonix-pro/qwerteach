@@ -113,6 +113,7 @@ class AdvertsController < ApplicationController
     topic = Topic.find(params[:topic_id])
     level_choice = topic.topic_group.level_code
     @levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => level_choice).group(I18n.locale[0..3]).order(:id)
+    #@levels = @levels.where.not(:id => Advert.get_levels(current_user, topic))
     respond_to do |format|
       format.js {}
     end

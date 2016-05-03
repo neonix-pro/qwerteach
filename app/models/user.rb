@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
 
   has_many :reviews_sent, :class_name => 'Review', :foreign_key => 'sender_id'
   has_many :reviews_received, :class_name => 'Review', :foreign_key => 'subject_id'
+  has_many :levels, through: :degrees
+
   # for gem unread
   acts_as_reader
 
