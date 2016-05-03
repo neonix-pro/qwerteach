@@ -13,10 +13,10 @@ $(document).ready(function () {
         }
     });
 
-    $('.group_choice').on('change', function () {
+    $('#advert_topic_group_id').on('change', function () {
         $.ajax({
             url: "/topic_choice",
-            data: {group_id: $('.group_choice option:selected').val()}
+            data: {group_id: $('#advert_topic_group_id option:selected').val()}
         })
     });
 });

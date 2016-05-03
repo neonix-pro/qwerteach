@@ -1,0 +1,10 @@
+<h1> Historique Cours </h1>
+
+<% @lesson.each do |lesson| %>
+
+ <%= render( :partial => 'lesson', :locals=>{:lesson => lesson} ) %>
+
+<% end %>
+
+
+

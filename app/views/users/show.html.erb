@@ -51,7 +51,6 @@
 
 
     </div>
-
   </div>
 
   <% if @user.postulance_accepted? %>
@@ -61,6 +60,12 @@
       <p>Prix minimum : <%= ActionController::Base.helpers.number_to_currency(@prices.min.first) %></p>
       <p><%= link_to 'Demander un cours', user_require_lesson_index_path(@user.id) %></p>
   <% end %>
+
+    <h3>Diplomes</h3>
+    <% @degrees.each do |d| %>
+        <%= d.title %>
+        <br/>
+    <% end %>
 
   <h3>Description</h3>
   <p><%= raw(@user.description) %></p>
@@ -83,5 +88,4 @@
   <% end %>
 </div>
 <!-- /#wrapper -->
-
 

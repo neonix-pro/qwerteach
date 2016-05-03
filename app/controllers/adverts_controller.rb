@@ -34,6 +34,9 @@ class AdvertsController < ApplicationController
   end
 
   def create
+    if current_user.adverts.map(&:topic_id).include?(params[:topic_id].to_i)
+      redirect_to adverts_path, notice: 'Une annonce pour cette catégorie existe déjà.' and return
+    end
     @advert = Advert.new(advert_params)
     respond_to do |format|
       if @advert.save
@@ -110,6 +113,7 @@ class AdvertsController < ApplicationController
     topic = Topic.find(params[:topic_id])
     level_choice = topic.topic_group.level_code
     @levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => level_choice).group(I18n.locale[0..3]).order(:id)
+    #@levels = @levels.where.not(:id => Advert.get_levels(current_user, topic))
     respond_to do |format|
       format.js {}
     end
@@ -117,7 +121,7 @@ class AdvertsController < ApplicationController
 
   def choice_group
     group = TopicGroup.find(params[:group_id])
-    @topics = Topic.where(:topic_group => group)
+    @topics = Topic.where(:topic_group_id => group.id) - current_user.adverts.map(&:topic)
     respond_to do |format|
       format.js {}
     end
