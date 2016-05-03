@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
 
   #required for BBB
   def name
-    “#{firstname} #{lastname}”.presence || email
+    "#{firstname} #{lastname}"."presence || email"
   end
   
   def username
@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
         :CountryOfResidence => params[:CountryOfResidence],
         :PersonType => "NATURAL",
         :Email => self.email,
-        :Tag => "user "+ '#{id}'
+        :Tag => "user "+ self.id.to_s,
     }
   end
 
@@ -146,18 +146,18 @@ class User < ActiveRecord::Base
       self.save!
       MangoPay::Wallet.create({
                                   :Owners => [self.mango_id],
-                                  :Description => "wallet user " + '#{id}',
+                                  :Description => "wallet user " + self.id.to_s,
                                   :Currency => "EUR"
                               })
       MangoPay::Wallet.create({
                                   :Owners => [self.mango_id],
-                                  :Description => "wallet bonus user " + '#{id}',
+                                  :Description => "wallet bonus user " + self.id.to_s,
                                   :Currency => "EUR",
                                   :Tag => "Bonus"
                               })
       MangoPay::Wallet.create({
                                   :Owners => [self.mango_id],
-                                  :Description => "wallet transfert user " + '#{id}',
+                                  :Description => "wallet transfert user " + self.id.to_s,
                                   :Currency => "EUR",
                                   :Tag => "Transfert"
                               })

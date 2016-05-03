@@ -24,9 +24,10 @@ ActiveRecord::Schema.define(version: 20160428120501) do
   create_table "adverts", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "topic_id"
+    t.integer  "topic_group_id"
     t.string   "other_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
