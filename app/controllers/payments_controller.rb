@@ -2,9 +2,7 @@ class PaymentsController < ApplicationController
   before_filter :authenticate_user!
   
   def create_postpayment
-    defaults = {:payment_type=>1, :status=>0}
-    params = defaults.merge(params)
-    @payment = Payment.new(payment_params)
+    @payment = Payment.new(:payment_type => 1, :status => 0, :lesson_id => params[:lesson_id])
     if @payment.save
       flash[:success] = "la facture a bien été créée"     
     else
@@ -130,9 +128,7 @@ class PaymentsController < ApplicationController
         return false
       end
     end
-    # assure qu'un payment est toujours associé à une lesson
-    def payment_params
-      params.require(:lesson)
-    end
+
+    #TODO: associer une facture à une lesson, TOUJOURS ==> require params?
 
 end
