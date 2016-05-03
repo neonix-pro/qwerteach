@@ -1,8 +1,10 @@
 class Teacher  < Student
+  TEACHER_STATUS = ["Actif", "Suspendu"]
+
   has_one :postulation, foreign_key:  "user_id"
   has_many :degrees, foreign_key:  "user_id"
   acts_as_reader
-  after_create :create_postulation
+  after_create :create_postulation_user
 
   def self.reader_scope
     where(:is_admin => true)
@@ -10,10 +12,10 @@ class Teacher  < Student
   # Methode override de User bloquant le type de User à Teacher au maximum
   public
   def upgrade
-    #self.type=User::ACCOUNT_TYPES[1]
-    #self.save
+    self.type=User::ACCOUNT_TYPES[1]
+    self.save
     #Teacher.update_attribute(:type => "Teacher")
-    User.account_type = "Teacher"
+    #User.account_type = "Teacher"
   end
   # Methode permettant de savoir si le User est un prof postulant
   public
@@ -33,7 +35,7 @@ class Teacher  < Student
     self.postulance_accepted?
   end
   # Méthode permettant de créer une postulation
-  def create_postulation
-    postulation.create
+  def create_postulation_user
+    create_postulation
   end
 end
