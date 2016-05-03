@@ -7,7 +7,14 @@ class Advert < ActiveRecord::Base
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
   #after_create :create_price
-
+# Méthode permettant de récupérer le prix d'une annonce pour un topic, un level et un user donné
+  def self.get_price(user, topic, level)
+    Advert.where(:user => user, :topic => topic).first.advert_prices.where(:level => level).first.price
+  end
+  # Méthode permettant de récupérer le prix d'une annonce pour un topic, un level et un user donné
+  def self.get_levels(user, topic)
+    Advert.where(:user => user, :topic_id => topic).first.advert_prices.map(&:level_id)
+  end
   def min_price
     @min_price ||= advert_prices.order('price DESC').last.price
   end
@@ -45,7 +52,7 @@ class Advert < ActiveRecord::Base
     end
 
     string :advert_prices_truc , :multiple => true do
-      advert_prices.map{|p| p.price}
+    advert_prices.map(&:price)
     end
   end
 end

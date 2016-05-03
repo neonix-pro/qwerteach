@@ -1,6 +1,6 @@
 class WalletsController < ApplicationController
+  before_filter :authenticate_user!
 
-  public
   def index_mangopay_wallet
     @user = current_user
     @user.load_mango_infos
@@ -33,7 +33,6 @@ class WalletsController < ApplicationController
 
   end
 
-  public
   def edit_mangopay_wallet
     @user = current_user
     @path = edit_wallet_path
