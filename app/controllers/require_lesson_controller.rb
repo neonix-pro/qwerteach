@@ -9,7 +9,6 @@ class RequireLessonController < ApplicationController
     @user = current_user
     case step
       when :choose_lesson
-        @kal = 'grosse'
         @lesson = Lesson.new
       when :payment
       when :transfert
@@ -60,13 +59,32 @@ class RequireLessonController < ApplicationController
           end
         end
       when :finish
-        @transaction = session[:payment]
-        @lesson = Lesson.create(session[:lesson])
-        if @lesson.save
-          @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
-                                    :mangopay_payin_id => @transaction, :transfert_date => DateTime.now)
-          @payment.save
+
+        @transaction_mango = params[:transactionId].to_i
+        if params[:transactionId]
+          status = MangoPay::PayIn.fetch(@transaction_mango)['Status']
+          if status == "SUCCEEDED"
+            @lesson = Lesson.create(session[:lesson])
+            if @lesson.save
+              @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
+                                        :mangopay_payin_id => @transaction_mango, :transfert_date => DateTime.now)
+              @payment.save
+              flash[:notice] = 'La transaction a correctement été effectuée'
+            end
+          else
+            flash[:notice] = 'Il y a eu un problème lors de la transaction, veuillez réessayer.'
+          end
+        else
+          @lesson = Lesson.create(session[:lesson])
+          if @lesson.save
+            @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
+                                      :mangopay_payin_id => session[:payment], :transfert_date => DateTime.now)
+            @payment.save
+            flash[:notice] = 'La transaction a correctement été effectuée'
+          end
         end
+        #@transaction = session[:payment] || session[:payment]
+
         session.delete(:lesson)
         session.delete(:payment)
       else
@@ -96,6 +114,10 @@ class RequireLessonController < ApplicationController
         bonuscredit = @bonus_wallet['Balance']['Amount']
         @other = User.find(session[:lesson]['teacher_id'])
         @other_wallet = MangoPay::User.wallets(current_user.mango_id).third
+        if @other.mango_id.nil?
+          flash[:danger] = 'Le prof doit configurer son compte avant de recevoir un paiement'
+          redirect_to root_path and return
+        end
         if amount > (walletcredit + bonuscredit)
           flash[:danger]='Votre solde est insuffisant. Rechargez en premier lieu votre portefeuille ou choisissez un autre mode de paiement.'
           # redirect_to url_for(controller: 'wallets',
@@ -213,7 +235,6 @@ class RequireLessonController < ApplicationController
           redirect_to wizard_path(:payment) and return
         else
           transaction_mangopay = MangoPay::PayIn.fetch(resp['Id'])
-          logger.debug('******************* ' + transaction_mangopay.to_s)
           if transaction_mangopay["Status"] != "CREATED"
             flash[:danger] = 'Il y a eu un problème lors de la transaction.'
             redirect_to wizard_path(:payment) and return
@@ -279,13 +300,13 @@ class RequireLessonController < ApplicationController
                                                            :SecureMode => "FORCE",
                                                            :CardId => @repl["CardId"]
                                                        })
-          if @resp["SecureModeRedirectURL"].nil?
+          if @resp["SecureModeRedirectURL"].blank?
             flash[:danger] ='Il y a eu un problème lors de la transaction. Veuillez correctement compléter les champs.  ' + @resp.to_s
             redirect_to wizard_path(:payment) and return
           else
             session[:payment] = @resp['Id']
             transaction_mangopay = MangoPay::PayIn.fetch(@resp['Id'])
-            if transaction_mangopay['ResultCode'] != '000000'
+            if transaction_mangopay['Status'] != 'CREATED'
               flash[:danger] = 'Il y a eu un problème lors de la transaction.'
               redirect_to wizard_path(:payment) and return
             else
@@ -316,11 +337,12 @@ class RequireLessonController < ApplicationController
                                                            :SecureMode => secureMode,
                                                            :CardId => @card
                                                        })
-          if @resp["ResultCode"] != "000000"
+          if @resp["SecureModeRedirectURL"]
+            redirect_to @resp["SecureModeRedirectURL"] and return
+          elsif @resp["ResultCode"] != "000000"
             flash[:danger] ='Il y a eu un problème lors de la transaction. Veuillez correctement compléter les champs .  ' + @resp.to_s
             redirect_to wizard_path(:payment) and return
           else
-
             transaction_mangopay = MangoPay::PayIn.fetch(@resp['Id'])
             if transaction_mangopay['ResultCode'] != '000000'
               flash[:danger] = 'Il y a eu un problème lors de la transaction.'
@@ -341,7 +363,6 @@ class RequireLessonController < ApplicationController
 
       else
     end
-    logger.debug('SESSION = '+ session[:lesson].to_s)
     render_wizard
   end
 
