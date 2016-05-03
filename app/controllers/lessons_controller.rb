@@ -1,6 +1,25 @@
 class LessonsController < ApplicationController
   before_action :authenticate_user!
+  
+  def index
+    #Cours reçu par le Prof
+    @lesson = Lesson.where(:student => current_user)
+    #Cours donné par le Prof
+    @lesson += Lesson.where(:teacher => current_user)
 
+    
+    respond_to do |format|
+    format.html # index.html.erb
+    
+    end
+  end
+  
+  def show
+  @lesson = Lesson.find(params[:lesson_id])
+  end
+
+  
+  
   def new
     @student_id = current_user.id
     @lesson = Lesson.new
