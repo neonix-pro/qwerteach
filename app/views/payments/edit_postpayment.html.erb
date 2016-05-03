@@ -1,0 +1,10 @@
+<%= @payment.as_json %>
+
+
+<%= form_for @payment, :url => url_for(controller: 'payments', action: 'send_edit_postpayment'), :html => {:class => 'form-horizontal form-group'} do |f| %>
+
+    <div class="form-group">
+      <%= f.label :price, :class => 'control-label' %>
+      <%= f.text_field :price, :class => 'form-control' %>
+    </div>
+<% end %>
