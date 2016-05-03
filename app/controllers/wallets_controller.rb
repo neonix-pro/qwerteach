@@ -51,7 +51,6 @@ class WalletsController < ApplicationController
     mangoInfos = @user.mango_infos(params)
     begin
       if !@user.mango_id
-        logger.debug('****************************************' + mangoInfos.to_s)
         @user.create_mango_user(@user.mango_infos(params))
       else
         m = MangoPay::NaturalUser.update(@user.mango_id, mangoInfos)
