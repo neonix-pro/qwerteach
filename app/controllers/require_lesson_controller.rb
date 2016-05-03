@@ -60,7 +60,7 @@ class RequireLessonController < ApplicationController
           end
         end
       when :finish
-        @transaction = session[:payment] || session[:payment]
+        @transaction = session[:payment]
         @lesson = Lesson.create(session[:lesson])
         if @lesson.save
           @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,

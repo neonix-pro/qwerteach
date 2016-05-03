@@ -1,6 +1,18 @@
 class PaymentsController < ApplicationController
   before_filter :authenticate_user!
   
+  def create_postpayment
+    defaults = {:payment_type=>1, :status=>0}
+    params = defaults.merge(params)
+    @payment = Payment.new(payment_params)
+    if @payment.save
+      flash[:success] = "la facture a bien été créée"     
+    else
+      flash[:danger] = 'Il y a eu un problème!'
+    end
+    redirect_to lessons_path
+  end
+
   def make_transfert
     @user = current_user
     if !@user.mango_id
@@ -16,8 +28,7 @@ class PaymentsController < ApplicationController
     end
   end
   
-  def send_make_transfert
-    
+  def send_make_transfert  
     unless transaction_infos
       return redirect_to url_for(controller: 'wallets', action: 'index_mangopay_wallet')
     end
@@ -118,6 +129,10 @@ class PaymentsController < ApplicationController
         flash[:danger]="le bénéficiaire n'a pas de portefeuille virtuel sur Qwerteach. Il doit en créer un avant de pouvoir recevoir des fonds!"
         return false
       end
+    end
+    # assure qu'un payment est toujours associé à une lesson
+    def payment_params
+      params.require(:lesson)
     end
 
 end

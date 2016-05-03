@@ -78,6 +78,7 @@ Rails.application.routes.draw do
   #post "lessons/:teacher_id/require_lesson", to: "lessons#require_lesson", as: 'require_lesson'
   resources :lessons do
     resources :payments
+    post "create_postpayment" => "payments#create_postpayment"
   end
 
   resources :messages, only: [:new, :create]

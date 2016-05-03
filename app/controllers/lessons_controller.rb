@@ -19,8 +19,7 @@ class LessonsController < ApplicationController
                        params[:lesson]['time_end(3i)'].to_i,
                        params[:lesson]['time_end(4i)'].to_i,
                        params[:lesson]['time_end(5i)'].to_i)
-    logger.debug('debut : ' + debut.to_s)
-    logger.debug('fin : ' + fin.to_s)
+
     calculatedTime = (fin - debut)*24
     @teacher = User.find(params[:lesson][:teacher_id])
     advert_prices = @teacher.adverts.where(:topic_id => params[:lesson][:topic_id]).map { |a| a.advert_prices.where(:level_id => params[:lesson][:level_id]) }
