@@ -7,7 +7,7 @@
 		<p><%= lesson.status.to_s %></p>
     <% # TODO: un seul payement par lesson %>
     <% if lesson.teacher == current_user %>
-      <%= button_to 'Créer facture', lesson_create_postpayment_path(lesson) %>
+      <%= button_to 'Créer facture', lesson_create_postpayment_path(:lesson=>lesson, :lesson_id=>lesson.id) %>
     <% end %>
 <hr>
 </div>

@@ -2,11 +2,17 @@ class PaymentsController < ApplicationController
   before_filter :authenticate_user!
   
   def create_postpayment
-    @payment = Payment.new(:payment_type => 1, :status => 0, :lesson_id => params[:lesson_id])
-    if @payment.save
-      flash[:success] = "la facture a bien été créée"     
+    payment = Payment.find_by(:lesson_id=> params[:lesson_id])
+    if(payment.nil?)
+      postpayment_params = {:lesson_id=>params[:lesson_id], :payment_type=>1, :status=>0}
+      @payment = Payment.new(postpayment_params)
+      if @payment.save
+        flash[:success] = "la facture a bien été créée"     
+      else
+        flash[:danger] = 'Il y a eu un problème!'
+      end
     else
-      flash[:danger] = 'Il y a eu un problème!'
+      flash[:danger] = 'Il y a déjà une facture pour ce cours.'
     end
     redirect_to lessons_path
   end
@@ -128,7 +134,4 @@ class PaymentsController < ApplicationController
         return false
       end
     end
-
-    #TODO: associer une facture à une lesson, TOUJOURS ==> require params?
-
 end
