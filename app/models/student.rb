@@ -12,19 +12,4 @@ class Student < User
     self.save
   end
 
-  # Methode permettant de savoir si le User est un prof postulant
-  public
-  def is_prof_postulant
-    false
-  end
-
-  # Methode permettant d'accepter la postulation  d'un prof
-  public
-  def accept_postulance
-  end
-  # Methode permettant de savoir si la postulation a été acceptée par un admin
-  public
-  def is_prof
-    false
-  end
 end
