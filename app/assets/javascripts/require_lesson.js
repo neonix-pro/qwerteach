@@ -65,6 +65,7 @@ $(document).ready(function () {
 
         topic_choice();
         level_choice();
+        hour_choice();
         $(document.body).on('change', '#lesson_topic_group_id', function () {
             $('#lesson_topic_id_field').remove();
             topic_choice();

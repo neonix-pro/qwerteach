@@ -1,3 +1,364 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@font-face {
+    font-family: Futura;
+    src: url('futura-icg-demi.tff');
+}
+
+
+
+html, body{
+	margin:0;
+	padding : 0;
+	width : auto;
+	text-align : center;
+	}
+
+
+.color {
+	background-color : #222222;
+}
+body {
+	
+	height : auto;
+	margin-right: 0px;
+    margin-left: 0px;
+    width : auto;
+}
+
+
+.section-recherche { 
+	  margin:0;
+	  padding:0;
+	  background: url(background.jpg) no-repeat center; 
+	  -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+	  width : auto;
+	  color : white;
+	  height : 800px;
+  }
+
+ 
+ @media screen and (max-width: 800px) {
+  .section-recherche {
+  		height : 300px;
+  }
+}
+
+#q {
+
+    border: 0.2px;
+}
+
+.section-vert {
+	background-color : #21DE80;
+	color : white;
+	height : 60%;
+	width : auto;
+	}
+
+.section-choix {
+	background-color : #F8E71D; 
+	color : #593165;
+	height : 60%;
+	width : auto;
+}
+
+.section-commentmarche {
+	background-color : #222222;
+	color : white;
+	height : 60%;
+	width : auto;
+}
+
+.section-commentaire {
+	background-color : #501DD4;
+	color : white;
+	height : 60%;
+	width : auto;
+}
+
+.colonne1 {
+	background-color : #21DE80;
+	height : 800px;
+	width : 33.3333%;
+}
+ @media screen and (max-width: 800px) {
+  .colonne1 {
+  		height : 700px;
+  }
+}
+
+.colonne2 {
+	background-color : #D92D9B;
+	height : 800px;
+	width : 33.3333%;
+}
+ @media screen and (max-width: 800px) {
+  .colonne2 {
+  		height : 700px;
+  }
+}
+
+.colonne3 {
+	background-color : #F8E71D;
+	height : 800px;
+	width : 33.3333%;
+
+}
+
+ @media screen and (max-width: 800px) {
+ .colonne3 {
+  		height : 700px;
+  }
+}
+
+.section-presse {
+	background-color : #F6F6F6;
+	width : auto;
+}
+
+.mangopay {
+	height : 20px;
+	width : 20px;
+}
+
+
+.case4 {
+	background-color : #501DD4;
+	
+}
+
+.backgroundEdit {
+	background-color : #222222;
+}
+
+.hautPageResult {
+	background-color : #F1F3F2;
+	width : auto;
+}
+
+/*Page de résultat de recherche*/
+.section-resultat-header {
+  margin:0;
+  padding:0;
+  background: url(background2.jpg) center; 
+  -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+  height : 300px;;
+  color : white;
+ }
+
+
+
+.voirProfil {
+	background-color : #313131 ;
+	position : bottom;
+	}
+
+
+.commentaireProf {
+	background-color : #1FDD83
+}
+
+.specialite {
+	color : #A85988;
+}
+
+.bodyProfil {
+	
+
+}
+
+.headerProfil {
+	background: url(background2.jpg) center; 
+	height : 150px;
+}
+
+.nomPrenomResult {
+	text-align : left;
+	margin-left : 10px;
+}	
+
+.notation{
+	text-align : left;
+	margin-left : 10px;
+}	
+
+.rech {
+	  background-color : transparent;
+}
+
+.result {
+  height : 800px;	
+	 
+}
+
+
+
+/* Profil*/
+
+.mail {
+	height : 250px;
+	background-color : #222222;
+}
+
+.headerIcone{
+	background-color : #21DE80;
+	text-align : center;
+	width : auto;	
+	height : 150px;
+}
+
+.infoProf {
+	text-align : left;
+ 	background-color : #222222;
+ 	max-height : 250px;
+}
+
+
+.photoProfil {
+	text-align : left;		
+}
+
+.matiereProfil {
+	color : #21DE80;
+}
+
+.nomPrenomProfil {
+	color : white;
+}
+
+
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #F2F2F2;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
+.tailleMax {
+	max-height : 250px;
+
+}
+
+.fixed {
+position:fixed;
+}
+
+
+.descriptionPlusResteProfil {
+	margin-top : 400px;
+	}

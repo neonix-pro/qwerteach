@@ -1,5 +1,4 @@
 class Student < User
-  scope :student, -> { where(type: 'Student') }
   acts_as_reader
   def self.reader_scope
     where(:is_admin => true)
@@ -8,8 +7,7 @@ class Student < User
 
   public
   def upgrade
-    self.type=User::ACCOUNT_TYPES[1]
-    self.save
+    User.account_type = "Student"
   end
 
 end

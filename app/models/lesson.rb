@@ -1,5 +1,7 @@
 class Lesson < ActiveRecord::Base
-  STATUS_TYPE = ["Created", "Pending_teacher", "Pending_student", "Canceled", "Refused"]
+  # meme nom que dans DB sinon KO.
+  # cf schéma etats de Lesson
+  enum status: [:pending_teacher, :pending_student, :created, :canceled, :refused]
 
   # User qui recoit le cours
   belongs_to :student, :class_name => 'User', :foreign_key  => "student_id"

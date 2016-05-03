@@ -20,7 +20,7 @@
 
   <div class="field">
     <%= f.label :gender %><br/>
-    <%= f.select :gender, User::GENDER_TYPES %>
+    <%= f.select :gender, User.genders %>
   </div>
 
   <div class="field">
