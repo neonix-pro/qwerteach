@@ -45,7 +45,7 @@ class Advert < ActiveRecord::Base
     end
 
     string :advert_prices_truc , :multiple => true do
-      advert_prices.map{|p| p.price}.map(&:price)
+      advert_prices.map(&:price)
     end
   end
 end

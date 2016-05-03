@@ -34,6 +34,9 @@ class AdvertsController < ApplicationController
   end
 
   def create
+    if current_user.adverts.map(&:topic_id).include?(params[:topic_id].to_i)
+      redirect_to adverts_path, notice: 'Une annonce pour cette catégorie existe déjà.' and return
+    end
     @advert = Advert.new(advert_params)
     respond_to do |format|
       if @advert.save
@@ -117,7 +120,7 @@ class AdvertsController < ApplicationController
 
   def choice_group
     group = TopicGroup.find(params[:group_id])
-    @topics = Topic.where(:topic_group => group)
+    @topics = Topic.where(:topic_group_id => group.id) - current_user.adverts.map(&:topic)
     respond_to do |format|
       format.js {}
     end
