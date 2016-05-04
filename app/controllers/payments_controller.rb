@@ -16,6 +16,18 @@ class PaymentsController < ApplicationController
     redirect_to lessons_path  
   end
 
+  def edit_postpayment
+    @payment = Payment.find(params[:payment_id])
+  end
+
+  def send_edit_postpayment
+
+  end
+
+  def show
+
+  end
+
   def make_transfert
     @user = current_user
     if !@user.mango_id

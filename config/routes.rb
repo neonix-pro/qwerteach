@@ -79,6 +79,8 @@ Rails.application.routes.draw do
   resources :lessons do
     resources :payments
     post "create_postpayment" => "payments#create_postpayment"
+    get "edit_postpayment/:payment_id" => "payments#edit_postpayment"
+    post "edit_postpayment/:payment_id" => "payments#send_edit_postpayment"
   end
 
   resources :messages, only: [:new, :create]
