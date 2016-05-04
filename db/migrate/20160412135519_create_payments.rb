@@ -4,6 +4,7 @@ class CreatePayments < ActiveRecord::Migration
       t.integer :status, null: false, default: 0
       t.integer :payment_type, null: false, default: 0
       t.datetime :transfert_date
+      t.decimal :price, :precision => 8, :scale => 2, null: false
       t.integer :lesson_id, null: false
       t.integer :mangopay_payin_id
       t.datetime :execution_date
