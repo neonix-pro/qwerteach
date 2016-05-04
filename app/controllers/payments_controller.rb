@@ -2,19 +2,18 @@ class PaymentsController < ApplicationController
   before_filter :authenticate_user!
   
   def create_postpayment
-    payment = Payment.find_by(:lesson_id=> params[:lesson_id])
-    if(payment.nil?)
+    if(postpayment_lesson.present?)
+      flash[:danger] = 'Il y a déjà une facture pour ce cours.'
+    else
       postpayment_params = {:lesson_id=>params[:lesson_id], :payment_type=>1, :status=>0}
       @payment = Payment.new(postpayment_params)
       if @payment.save
-        flash[:success] = "la facture a bien été créée"     
+        flash[:success] = "la facture a bien été créée"      
       else
         flash[:danger] = 'Il y a eu un problème!'
       end
-    else
-      flash[:danger] = 'Il y a déjà une facture pour ce cours.'
     end
-    redirect_to lessons_path
+    redirect_to lessons_path  
   end
 
   def make_transfert
@@ -133,5 +132,12 @@ class PaymentsController < ApplicationController
         flash[:danger]="le bénéficiaire n'a pas de portefeuille virtuel sur Qwerteach. Il doit en créer un avant de pouvoir recevoir des fonds!"
         return false
       end
+    end
+
+    def postpayment_lesson
+      payment = Payment.find_by(:lesson_id=> params[:lesson_id], :payment_type => 1)
+    end
+    def prepayment_lesson
+      payment = Payment.find_by(:lesson_id=> params[:lesson_id], :payment_type => 0)
     end
 end
