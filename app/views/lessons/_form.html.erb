@@ -1,6 +1,7 @@
 <%= form_for @lesson, :html => {:class => 'form-horizontal form-group', multipart: true} do |f| %>
     <%= f.hidden_field :teacher_id, value: teacher %>
     <div id="price"></div>
+    
     <div class="form-group">
       <%= f.label :time_start, :class => 'control-label' %>
       <%= f.datetime_select :time_start, :class => 'form-control' %>
