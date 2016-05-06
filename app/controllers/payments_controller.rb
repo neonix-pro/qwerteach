@@ -1,5 +1,36 @@
 class PaymentsController < ApplicationController
   before_filter :authenticate_user!
+    
+  def index 
+    @lessons_given = current_user.lessons_given
+    @lessons_received = current_user.lessons_received
+    
+    @factures_given = []
+    @factures_received = []
+    
+    @lessons_given.each do |lg|
+      lg.payments.each{|l| @factures_given.push(l)}
+    end
+    
+    @lessons_received.each do |lg|
+      lg.payments.each{|l| @factures_received.push(l)}
+    end
+  end
+  
+  def bloquerpayment
+    payments = Payment.where(:lesson_id=> params[:lesson_id])
+    
+    payments.each do |payment|
+      if payment.blocked?|| payment.canceled?
+        flash[:danger] = "Paiement déjà bloquer"
+      else
+        payment.update_attributes(:status => 3)
+        flash[:success] = "Votre paiement est désormais bloqué"
+      end 
+    end
+
+    redirect_to lessons_path
+  end
   
   def create_postpayment
     payment = Payment.find_by(:lesson_id=> params[:lesson_id])

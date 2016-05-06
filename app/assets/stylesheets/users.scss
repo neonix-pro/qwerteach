@@ -227,6 +227,7 @@ body {
 
 .nomPrenomProfil {
 	color : white;
+	display : inline;
 }
 
 
@@ -358,7 +359,9 @@ body {
 position:fixed;
 }
 
-
+.tailleHeader {
+    height : 250px;
+}
 .descriptionPlusResteProfil {
 	margin-top : 400px;
 	}

@@ -1,0 +1,13 @@
+<h3> Paiement reçu de la part de <%= coursRecu.lesson.student.firstname %><%= coursRecu.lesson.student.lastname%></h3>
+
+<div class="facture" >
+    <p> Nom  <%= coursRecu.lesson.teacher.lastname %></p>
+    <p> Prenom Student <%= coursRecu.lesson.student.lastname %></p>
+    <p> Debut <%= coursRecu.lesson.time_start %></p>
+    <p> Fin <%= coursRecu.lesson.time_end %></p>
+    <p> Statut du Cours <%= coursRecu.lesson.status %></p>
+    <p> Paiement de <%= coursRecu.lesson.price %>€</p>
+    <hr>
+</div>
+
+

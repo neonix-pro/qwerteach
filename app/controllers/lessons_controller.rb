@@ -17,8 +17,6 @@ class LessonsController < ApplicationController
   def show
   @lesson = Lesson.find(params[:lesson_id])
   end
-
-  
   
   def new
     @student_id = current_user.id
