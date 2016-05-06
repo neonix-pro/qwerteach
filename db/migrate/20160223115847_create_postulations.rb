@@ -5,7 +5,7 @@ class CreatePostulations < ActiveRecord::Migration
       t.boolean :avatar_ok, :default => false
       t.boolean :gen_informations_ok, :default => false
       t.boolean :advert_ok, :default => false
-      t.integer :user_id
+      t.integer :user_id, null: false
 
       t.timestamps null: false
     end

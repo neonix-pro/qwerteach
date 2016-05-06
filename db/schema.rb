@@ -14,17 +14,17 @@
 ActiveRecord::Schema.define(version: 20160428120501) do
 
   create_table "advert_prices", force: :cascade do |t|
-    t.integer  "advert_id"
-    t.integer  "level_id"
-    t.decimal  "price",      precision: 8, scale: 2
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.integer  "advert_id",                                        null: false
+    t.integer  "level_id",                                         null: false
+    t.decimal  "price",      precision: 8, scale: 2, default: 0.0, null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
   end
 
   create_table "adverts", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "topic_id"
-    t.integer  "topic_group_id"
+    t.integer  "user_id",        null: false
+    t.integer  "topic_id",       null: false
+    t.integer  "topic_group_id", null: false
     t.string   "other_name"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
@@ -155,19 +155,19 @@ ActiveRecord::Schema.define(version: 20160428120501) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer  "sender_id"
-    t.integer  "subject_id"
-    t.text     "comment_text"
+    t.integer  "sender_id",    null: false
+    t.integer  "subject_id",   null: false
+    t.text     "comment_text", null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
 
   create_table "degrees", force: :cascade do |t|
-    t.string   "title"
-    t.string   "institution"
+    t.string   "title",           null: false
+    t.string   "institution",     null: false
     t.integer  "completion_year"
-    t.integer  "user_id"
-    t.integer  "level_id"
+    t.integer  "user_id",         null: false
+    t.integer  "level_id",        null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -178,7 +178,7 @@ ActiveRecord::Schema.define(version: 20160428120501) do
   create_table "galleries", force: :cascade do |t|
     t.integer  "cover"
     t.string   "token"
-    t.integer  "user_id"
+    t.integer  "user_id",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -275,7 +275,7 @@ ActiveRecord::Schema.define(version: 20160428120501) do
   create_table "pictures", force: :cascade do |t|
     t.string   "description"
     t.string   "image"
-    t.integer  "gallery_id"
+    t.integer  "gallery_id",         null: false
     t.string   "gallery_token"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -290,7 +290,7 @@ ActiveRecord::Schema.define(version: 20160428120501) do
     t.boolean  "avatar_ok",           default: false
     t.boolean  "gen_informations_ok", default: false
     t.boolean  "advert_ok",           default: false
-    t.integer  "user_id"
+    t.integer  "user_id",                             null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
@@ -315,15 +315,15 @@ ActiveRecord::Schema.define(version: 20160428120501) do
   end
 
   create_table "topic_groups", force: :cascade do |t|
-    t.string   "title"
-    t.string   "level_code"
+    t.string   "title",      null: false
+    t.string   "level_code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "topics", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "topic_group_id"
+    t.string   "title",          null: false
+    t.integer  "topic_group_id", null: false
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
