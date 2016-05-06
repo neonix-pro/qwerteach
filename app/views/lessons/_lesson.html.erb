@@ -1,13 +1,16 @@
 <div class="lesson">
-		<p><%= lesson.teacher.firstname %><%= lesson.teacher.lastname %></p>
-		<p><%= lesson.student.firstname %><%= lesson.student.lastname %></p>
-		<p><%= lesson.topic_group_id %></p>
-		<p><%= lesson.time_start %></p>
-		<p><%= lesson.time_end %></p>
-		<p><%= lesson.status.to_s %></p>
+		<p>Nom Prof: <%= lesson.teacher.firstname %><%= lesson.teacher.lastname %></p>
+		<p>Nom Student: <%= lesson.student.firstname %><%= lesson.student.lastname %></p>
+		<p> Topic: <%= lesson.topic_group_id %></p>
+		<p>Date debut: <%= lesson.time_start %></p>
+		<p> Date fin: <%= lesson.time_end %></p>
+		<p>Statut du cours: <%= lesson.status.to_s %></p>
     <% # TODO: un seul payement par lesson %>
     <% if lesson.teacher == current_user %>
       <%= button_to 'Créer facture', lesson_create_postpayment_path(:lesson=>lesson, :lesson_id=>lesson.id) %>
+    <% end %>
+    <% if lesson.student == current_user %>
+      <%= button_to 'Litige', lesson_bloquerpayment_path(:lesson=>lesson, :lesson_id=>lesson.id) %>
     <% end %>
 <hr>
 </div>

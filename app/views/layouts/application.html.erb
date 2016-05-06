@@ -57,7 +57,9 @@
               <% @gallery=Gallery.where(:user => current_user).last %>
               <!--<li><%= link_to 'Ma gallerie', gallery_path(@gallery) %></li> Pas d'utilité-->
               <!-- <li><%= link_to 'Messagerie', conversations_path %></li> Anciennce version -->
+          <% if current_user.postulance_accepted == true %>    
               <li><%= link_to 'Mes annonces', adverts_path %></li>
+          <% end %>
               <li><%= link_to 'Message', conversations_path %></li>
 
               <% if current_user.admin? %>
@@ -79,6 +81,7 @@
                   <li><%= link_to 'Voir mes transactions', transactions_path %></li>
                   <li><%= link_to 'Effectuer un transfert', make_transfert_path %></li>
                 </ul>
+                <li><%= link_to 'Dashboard', conversations_path %></li>
               </li>
               <li class="dropdown" id="notifications-dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -118,7 +121,6 @@
                     <li><%= link_to 'Editer mon profil', edit_user_registration_path %></li>
                     <% @gallery=Gallery.where(:user => current_user).last %>
                     <li><%= link_to 'Ma gallerie', gallery_path(@gallery) %></li>
-                    <li><%= link_to 'Mes annonces', adverts_path %></li>
                     <li><%= link_to 'Se déconnecter', destroy_user_session_path, method: :delete %></li>
                   </ul>
                   <!-- </li>
