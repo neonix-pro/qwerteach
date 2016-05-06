@@ -66,6 +66,20 @@ class Ability
         payment.lesson.teacher_id == user.id
       end
 
+      # seul le prof peut modifier les factures
+      can :edit_postpayment, Payment do |payment|
+        payment.lesson.teacher_id == user.id
+      end
+      # seuls les participants peuvent voir un payement
+      can :show, Payment do |payment|
+        payment.lesson.teacher_id == user.id || payment.lesson.student_id == user.id
+      end
+
+      # TO DO: seul l'élève peut payer
+      can :pay_postpayment, Payment do |payment|
+        payment.lesson.student_id == user.id
+      end
+
       can [:show_min, :show, :reply, :find, :mark_as_read], Conversation do |conversation|
         conversation.is_participant?(user)
       end
