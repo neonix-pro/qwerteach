@@ -3,7 +3,7 @@ class CreatePictures < ActiveRecord::Migration
     create_table :pictures do |t|
       t.string :description
       t.string :image
-      t.integer :gallery_id
+      t.integer :gallery_id, null: false
       t.string :gallery_token
 
       t.timestamps

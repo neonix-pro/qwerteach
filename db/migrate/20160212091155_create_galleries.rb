@@ -3,7 +3,7 @@ class CreateGalleries < ActiveRecord::Migration
     create_table :galleries do |t|
       t.integer :cover
       t.string :token
-      t.integer :user_id
+      t.integer :user_id, null: false
 
       t.timestamps
     end

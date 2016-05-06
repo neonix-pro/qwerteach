@@ -61,6 +61,7 @@ class Ability
       can :read, Degree, :user_id => user.id
       can :update, Degree, :user_id => user.id
       can :destroy, Degree, :user_id => user.id
+      can :index, Payment
 
       can :create_postpayment, Payment do |payment|
         payment.lesson.teacher_id == user.id
@@ -68,7 +69,11 @@ class Ability
 
       # seul le prof peut modifier les factures
       can :edit_postpayment, Payment do |payment|
-        payment.lesson.teacher_id == user.id
+        payment.postpayment? && payment.lesson.teacher_id == user.id
+      end
+
+      can :send_edit_postpayment, Payment do |payment|
+        payment.postpayment? && payment.lesson.teacher_id == user.id
       end
       # seuls les participants peuvent voir un payement
       can :show, Payment do |payment|
