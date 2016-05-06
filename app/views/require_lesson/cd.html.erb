@@ -1,5 +1,4 @@
 <p>CD</p>
-<%= session[:lesson] %>
 <%= form_for @user, as: :user, url: wizard_path, method: :put do |f| %>
     <div class="field credit_card_choice">
       <%= f.label "Carte existante" %>

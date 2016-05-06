@@ -210,11 +210,11 @@ class WalletsController < ApplicationController
         :cardCvx => csc,
         :data => data
     }
-    @xox = Net::HTTP.post_form(URI.parse(link), param)
+    @mango_response = Net::HTTP.post_form(URI.parse(link), param)
 
 
     @repl = MangoPay::CardRegistration.update(card_registration_id, {
-        :RegistrationData => "data=#{@xox.body}"
+        :RegistrationData => "data=#{@mango_response.body}"
     })
 
     fees = 0 * amount

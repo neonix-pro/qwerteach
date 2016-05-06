@@ -49,6 +49,7 @@ class RequireLessonController < ApplicationController
           @user.load_bank_accounts
           render 'wallets/_mangopay_form' and return
         end
+        logger.debug('CDDDD')
         @user.load_mango_infos
         @wallet = MangoPay::User.wallets(@user.mango_id).first
         cards = MangoPay::User.cards(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 100})
@@ -67,7 +68,7 @@ class RequireLessonController < ApplicationController
             @lesson = Lesson.create(session[:lesson])
             if @lesson.save
               @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
-                                        :mangopay_payin_id => @transaction_mango, :transfert_date => DateTime.now)
+                                        :mangopay_payin_id => @transaction_mango, :transfert_date => DateTime.now, :price => @lesson.price)
               @payment.save
               flash[:notice] = 'La transaction a correctement été effectuée'
             end
@@ -78,7 +79,7 @@ class RequireLessonController < ApplicationController
           @lesson = Lesson.create(session[:lesson])
           if @lesson.save
             @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
-                                      :mangopay_payin_id => session[:payment], :transfert_date => DateTime.now)
+                                      :mangopay_payin_id => session[:payment], :transfert_date => DateTime.now, :price => @lesson.price)
             @payment.save
             flash[:notice] = 'La transaction a correctement été effectuée'
           end
@@ -106,110 +107,74 @@ class RequireLessonController < ApplicationController
         mode = params[:mode]
         jump_to(mode)
       when :transfert
-        amount = session[:lesson]['price'].to_f * 100
-        fees = 0 * amount
-        @wallet = MangoPay::User.wallets(current_user.mango_id).first
-        walletcredit = @wallet['Balance']['Amount']
-        @bonus_wallet = MangoPay::User.wallets(current_user.mango_id).second
-        bonuscredit = @bonus_wallet['Balance']['Amount']
+        @amount = session[:lesson]['price'].to_f
         @other = User.find(session[:lesson]['teacher_id'])
-        @other_wallet = MangoPay::User.wallets(current_user.mango_id).third
-        if @other.mango_id.nil?
-          flash[:danger] = 'Le prof doit configurer son compte avant de recevoir un paiement'
-          redirect_to root_path and return
-        end
-        if amount > (walletcredit + bonuscredit)
-          flash[:danger]='Votre solde est insuffisant. Rechargez en premier lieu votre portefeuille ou choisissez un autre mode de paiement.'
-          # redirect_to url_for(controller: 'wallets',
-          #    action: 'index_mangopay_wallet') and return
-          redirect_to wizard_path(:payment) and return
-          #jump_to(:payment) and return
-          #return
+        payment_service = MangopayService.new(:user => current_user)
+        payment_service.set_session(session)
+        case payment_service.send_make_prepayment_transfert(
+            {:amount => @amount, :other_part => @other})
+          when 0
+            logger.debug('*****************************' + session[:payment].to_s)
+            flash[:notice] = "Le transfert s'est correctement effectué. Votre réservation de cours est donc correctement enregistrée."
+            redirect_to wizard_path(:finish) and return
+          when 1
+            flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+            redirect_to wizard_path(:payment) and return
+          when 2
+            flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+            list = ISO3166::Country.all
+            @list = []
+            list.each do |c|
+              t = [c.translations['fr'], c.alpha2]
+              @list.push(t)
+            end
+            @user.load_mango_infos
+            @user.load_bank_accounts
+            render 'wallets/_mangopay_form' and return
+          when 3
+            flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
+            redirect_to root_path and return
+          when 4
+            flash[:alert] = "Votre solde est insuffisant. Il faut d'abord recharger votre compte."
+            redirect_to direct_debit_path and return
+          else
+            flash[:alert] = "Erreur inconnue."
+            redirect_to root_path and return
         end
 
-        if bonuscredit == 0
-          repl = MangoPay::Transfer.create({
-                                               :AuthorId => current_user.mango_id,
-                                               :DebitedFunds => {
-                                                   :Currency => "EUR",
-                                                   :Amount => amount
-                                               },
-                                               :Fees => {
-                                                   :Currency => "EUR",
-                                                   :Amount => fees
-                                               },
-                                               :DebitedWalletID => @wallet["Id"],
-                                               :CreditedWalletID => @other_wallet["Id"]
-                                           })
-          if repl["ResultCode"]=="000000"
-            flash[:notice] ='Le transfert a correctement été effectué.'
-            session[:payment] = repl['Id']
-            redirect_to wizard_path(:finish) and return
-          else
-            flash[:danger]='Veuillez réessayer'
-            redirect_to wizard_path(:payment) and return
-          end
-          # redirect_to url_for(controller: 'wallets',
-          # action: 'index_mangopay_wallet') and return
-          # return
-        else
-          rest = amount - bonuscredit
-          if rest > 0
-            amount = bonuscredit
-          end
-          repl = MangoPay::Transfer.create({
-                                               :AuthorId => current_user.mango_id,
-                                               :DebitedFunds => {
-                                                   :Currency => "EUR",
-                                                   :Amount => amount
-                                               },
-                                               :Fees => {
-                                                   :Currency => "EUR",
-                                                   :Amount => fees
-                                               },
-                                               :DebitedWalletID => @bonus_wallet["Id"],
-                                               :CreditedWalletID => @other_wallet["Id"]
-                                           })
-          if repl["ResultCode"]=="000000"
-            flash[:notice] ='Le transfert a correctement été effectué. Montant déduit : '+ amount.to_s
-            session[:payment] = repl['Id']
-            redirect_to wizard_path(:finish) and return
-          else
-            flash[:danger]='Veuillez réessayer, il y a eu un problème.Montant déduit = ' + amount.to_s
-            #       redirect_to url_for(controller: 'wallets',
-            # action: 'index_mangopay_wallet') and return
-            redirect_to wizard_path(:payment) and return
-            #return
-          end
-          if rest > 0
-            repl2 = MangoPay::Transfer.create({
-                                                  :AuthorId => current_user.mango_id,
-                                                  :DebitedFunds => {
-                                                      :Currency => "EUR",
-                                                      :Amount => rest
-                                                  },
-                                                  :Fees => {
-                                                      :Currency => "EUR",
-                                                      :Amount => fees
-                                                  },
-                                                  :DebitedWalletID => @wallet["Id"],
-                                                  :CreditedWalletID => @other_wallet["Id"]
-                                              })
-            if repl2["ResultCode"]=="000000"
-              flash[:notice] ='Le transfert a correctement été effectué. Montant diff = ' + rest.to_s
-              session[:payment] = repl['Id']
-              redirect_to wizard_path(:finish) and return
-            else
-              flash[:danger]='Veuillez réessayer, il y a eu un problème. Montant diff = ' + rest.to_s
-              redirect_to wizard_path(:payment) and return
-            end
-          end
-          # redirect_to url_for(controller: 'wallets',
-          #                    action: 'index_mangopay_wallet')
-        end
         jump_to(:finish)
       when :bancontact
-        amount = session[:lesson]['price'].to_f * 100
+        @amount = session[:lesson]['price'].to_f
+        @other = User.find(session[:lesson]['teacher_id'])
+        @return_path = request.base_url + wizard_path(:finish)
+        payment_service = MangopayService.new(:user => current_user)
+        payment_service.set_session(session)
+        redirect_url = payment_service.send_make_prepayment_bancontact(
+            {:amount => @amount, :other_part => @other, :return_url => @return_path})
+        case redirect_url
+          when 1
+            flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+            redirect_to wizard_path(:payment) and return
+          when 2
+            flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+            list = ISO3166::Country.all
+            @list = []
+            list.each do |c|
+              t = [c.translations['fr'], c.alpha2]
+              @list.push(t)
+            end
+            @user.load_mango_infos
+            @user.load_bank_accounts
+            render 'wallets/_mangopay_form' and return
+          when 3
+            flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
+            redirect_to root_path and return
+          else
+            # 3DS
+            redirect_to redirect_url and return
+        end
+
+        /    amount = session[:lesson]['price'].to_f * 100
         fees = 0 * amount
         teacher = User.find(session[:lesson]['teacher_id'])
         wallet = MangoPay::User.wallets(current_user.mango_id).third
@@ -243,20 +208,68 @@ class RequireLessonController < ApplicationController
             session[:payment] = resp['Id']
           end
           redirect_to resp["RedirectURL"] and return
-        end
+        end /
         jump_to(:finish)
       when :cd
-        amount = session[:lesson]['price'].to_f * 100
-        fees = 0 * amount
-        teacher = User.find(session[:lesson]['teacher_id'])
-        wallet = MangoPay::User.wallets(current_user.mango_id).third
+        @amount = session[:lesson]['price'].to_f
+        @other = User.find(session[:lesson]['teacher_id'])
+        @return_path = request.base_url + wizard_path(:finish)
         @card = params[:card]
-        @user = current_user
-        @type = params[:card_type]
 
-        return_path = request.base_url + wizard_path(:finish)
+        payment_service = MangopayService.new(:user => current_user)
+        payment_service.set_session(session)
+
         if @card.blank?
-          @reply = MangoPay::CardRegistration.create({
+          # creation de la carte
+          @expiration_month = params[:month]
+          @expiration_year = params[:year]
+          @card_number = params[:account]
+          @csc = params[:csc]
+          @type = params[:card_type]
+          card_id = payment_service.send_make_card_registration({
+                                                                    :card_type => @type, :card_number => @card_number, :expiration_month => @expiration_month, :expiration_year => @expiration_year, :card_csc => @csc
+                                                                })
+          case card_id
+            when 1
+              flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+              redirect_to wizard_path(:payment) and return
+            else
+              # Card created
+              @card = card_id
+          end
+        end
+        # paiement
+        payin_direct = payment_service.send_make_prepayment_payin_direct({
+                                                                             :amount => @amount, :other_part => @other, :card_id => @card, :return_url => @return_path
+                                                                         })
+        logger.debug('PROUT = ' + payin_direct.to_s)
+        case payin_direct
+          when 0
+            redirect_to wizard_path(:finish) and return
+          when 1
+            flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+            redirect_to wizard_path(:payment) and return
+          when 2
+            flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+            list = ISO3166::Country.all
+            @list = []
+            list.each do |c|
+              t = [c.translations['fr'], c.alpha2]
+              @list.push(t)
+            end
+            @user.load_mango_infos
+            @user.load_bank_accounts
+            render 'wallets/_mangopay_form' and return
+          when 3
+            flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
+            redirect_to root_path and return
+          else
+            # 3DS
+            redirect_to payin_direct and return
+        end
+
+
+        /     @reply = MangoPay::CardRegistration.create({
                                                          :UserId => @user.mango_id,
                                                          :Currency => "EUR",
                                                          :CardType => @type
@@ -278,91 +291,93 @@ class RequireLessonController < ApplicationController
               :cardCvx => csc,
               :data => data
           }
-          @xox = Net::HTTP.post_form(URI.parse(link), param)
+          @mango_response = Net::HTTP.post_form(URI.parse(link), param)
 
           @repl = MangoPay::CardRegistration.update(card_registration_id, {
-              :RegistrationData => "data=#{@xox.body}"
+              :RegistrationData => "data=#{@mango_response.body}"
           })
 
-          @resp = MangoPay::PayIn::Card::Direct.create({
-                                                           :AuthorId => current_user.mango_id,
-                                                           :CreditedUserId => current_user.mango_id,
-                                                           :DebitedFunds => {
-                                                               :Currency => "EUR",
-                                                               :Amount => amount
-                                                           },
-                                                           :Fees => {
-                                                               :Currency => "EUR",
-                                                               :Amount => fees
-                                                           },
-                                                           :CreditedWalletId => wallet['Id'],
-                                                           :SecureModeReturnURL => return_path,
-                                                           :SecureMode => "FORCE",
-                                                           :CardId => @repl["CardId"]
-                                                       })
-          if @resp["SecureModeRedirectURL"].blank?
-            flash[:danger] ='Il y a eu un problème lors de la transaction. Veuillez correctement compléter les champs.  ' + @resp.to_s
-            redirect_to wizard_path(:payment) and return
-          else
-            session[:payment] = @resp['Id']
-            transaction_mangopay = MangoPay::PayIn.fetch(@resp['Id'])
-            if transaction_mangopay['Status'] != 'CREATED'
-              flash[:danger] = 'Il y a eu un problème lors de la transaction.'
-              redirect_to wizard_path(:payment) and return
-            else
-              flash[:notice] ='Le paiement a correctement été effectué.'
-              session[:payment] = @resp['Id']
-            end
-            redirect_to @resp["SecureModeRedirectURL"] and return
-          end
+        @resp = MangoPay::PayIn::Card::Direct.create({
+                                                         :AuthorId => current_user.mango_id,
+                                                         :CreditedUserId => current_user.mango_id,
+                                                         :DebitedFunds => {
+                                                             :Currency => "EUR",
+                                                             :Amount => amount
+                                                         },
+                                                         :Fees => {
+                                                             :Currency => "EUR",
+                                                             :Amount => fees
+                                                         },
+                                                         :CreditedWalletId => wallet['Id'],
+                                                         :SecureModeReturnURL => return_path,
+                                                         :SecureMode => "FORCE",
+                                                         :CardId => @repl["CardId"]
+                                                     })
+        if @resp["SecureModeRedirectURL"].blank?
+          flash[:danger] ='Il y a eu un problème lors de la transaction. Veuillez correctement compléter les champs.  ' + @resp.to_s
+          redirect_to wizard_path(:payment) and return
         else
-          secureMode = 'FORCE'
-          cardMango = MangoPay::Card::fetch(@card)
-          if cardMango['Validity'] == 'VALID'
-            secureMode = 'DEFAULT'
-          end
-          @resp = MangoPay::PayIn::Card::Direct.create({
-                                                           :AuthorId => @user.mango_id,
-                                                           :CreditedUserId => teacher.mango_id,
-                                                           :DebitedFunds => {
-                                                               :Currency => "EUR",
-                                                               :Amount => amount
-                                                           },
-                                                           :Fees => {
-                                                               :Currency => "EUR",
-                                                               :Amount => fees
-                                                           },
-                                                           :CreditedWalletId => wallet['Id'],
-                                                           :SecureModeReturnURL => return_path,
-                                                           :SecureMode => secureMode,
-                                                           :CardId => @card
-                                                       })
-          if @resp["SecureModeRedirectURL"]
-            redirect_to @resp["SecureModeRedirectURL"] and return
-          elsif @resp["ResultCode"] != "000000"
-            flash[:danger] ='Il y a eu un problème lors de la transaction. Veuillez correctement compléter les champs .  ' + @resp.to_s
+          session[:payment] = @resp['Id']
+          transaction_mangopay = MangoPay::PayIn.fetch(@resp['Id'])
+          if transaction_mangopay['Status'] != 'CREATED'
+            flash[:danger] = 'Il y a eu un problème lors de la transaction.'
             redirect_to wizard_path(:payment) and return
           else
-            transaction_mangopay = MangoPay::PayIn.fetch(@resp['Id'])
-            if transaction_mangopay['ResultCode'] != '000000'
-              flash[:danger] = 'Il y a eu un problème lors de la transaction.'
-              redirect_to wizard_path(:payment) and return
-            else
-              flash[:notice] ='Le paiement a correctement été effectué.'
-              session[:payment] = @resp['Id']
-            end
-            if @resp["SecureModeRedirectURL"].nil?
-              redirect_to wizard_path(:finish) and return
-            else
-              redirect_to @resp["SecureModeRedirectURL"]
-            end
+            flash[:notice] ='Le paiement a correctement été effectué.'
+            session[:payment] = @resp['Id']
+          end
+          redirect_to @resp["SecureModeRedirectURL"] and return
+        end
+      else
+        secureMode = 'FORCE'
+        cardMango = MangoPay::Card::fetch(@card)
+        if cardMango['Validity'] == 'VALID'
+          secureMode = 'DEFAULT'
+        end
+        @resp = MangoPay::PayIn::Card::Direct.create({
+                                                         :AuthorId => @user.mango_id,
+                                                         :CreditedUserId => teacher.mango_id,
+                                                         :DebitedFunds => {
+                                                             :Currency => "EUR",
+                                                             :Amount => amount
+                                                         },
+                                                         :Fees => {
+                                                             :Currency => "EUR",
+                                                             :Amount => fees
+                                                         },
+                                                         :CreditedWalletId => wallet['Id'],
+                                                         :SecureModeReturnURL => return_path,
+                                                         :SecureMode => secureMode,
+                                                         :CardId => @card
+                                                     })
+        if @resp["SecureModeRedirectURL"]
+          redirect_to @resp["SecureModeRedirectURL"] and return
+        elsif @resp["ResultCode"] != "000000"
+          flash[:danger] ='Il y a eu un problème lors de la transaction. Veuillez correctement compléter les champs .  ' + @resp.to_s
+          redirect_to wizard_path(:payment) and return
+        else
+          transaction_mangopay = MangoPay::PayIn.fetch(@resp['Id'])
+          if transaction_mangopay['ResultCode'] != '000000'
+            flash[:danger] = 'Il y a eu un problème lors de la transaction.'
+            redirect_to wizard_path(:payment) and return
+          else
+            flash[:notice] ='Le paiement a correctement été effectué.'
+            session[:payment] = @resp['Id']
+          end
+          if @resp["SecureModeRedirectURL"].nil?
+            redirect_to wizard_path(:finish) and return
+          else
+            redirect_to @resp["SecureModeRedirectURL"]
           end
         end
+    end
+/
         jump_to(:finish)
       when :finish
 
       else
     end
+
     render_wizard
   end
 
