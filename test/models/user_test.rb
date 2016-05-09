@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+<<<<<<< HEAD
   test "users_count" do
     assert_equal 4, User.count
+=======
+  test "User.count" do
+    assert_equal 2, User.count
+>>>>>>> test_fixture2
   end
 
   test "user_type" do
@@ -50,3 +55,4 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 end
+end 
