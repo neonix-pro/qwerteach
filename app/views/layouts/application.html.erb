@@ -54,19 +54,15 @@
         <ul class="nav navbar-nav">
 
           <% if user_signed_in? %>
+             <% if current_user.admin? %>
+                  <li><%= link_to 'Administration', admin_root_path %></li>
+             <% end %>
+            <% if current_user.postulance_accepted == true %>    
+              <li><%= link_to 'Mes annonces', adverts_path %></li>
+            <% end %>
+             <li><%= link_to 'Message', conversations_path %></li>
               <% @gallery=Gallery.where(:user => current_user).last %>
               <!--<li><%= link_to 'Ma gallerie', gallery_path(@gallery) %></li> Pas d'utilité-->
-              <!-- <li><%= link_to 'Messagerie', conversations_path %></li> Anciennce version -->
-          <% if current_user.postulance_accepted == true %>    
-              <li><%= link_to 'Mes annonces', adverts_path %></li>
-          <% end %>
-              <li><%= link_to 'Message', conversations_path %></li>
-
-              <% if current_user.admin? %>
-                  <li><%= link_to 'Administration', admin_root_path %></li>
-              <% end %>
-
-              <li></li>
               <!-- <li><%= link_to 'Rechercher un prof', users_path %></li> Pas d'utilité-->
 
               <li class="dropdown">

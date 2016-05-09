@@ -45,9 +45,10 @@ class Ability
       can :manage, Degree, :user_id => user.id
       cannot :create, Degree if user.type != "Teacher"
 
-      can :create, Advert
+    
+      can :create, Advert 
       can :create, AdvertPrice
-      can :read, Advert
+      can :read, Advert 
       can :choice, Advert
       can :choice_group, Advert
       can :get_all_adverts, Advert
@@ -61,7 +62,7 @@ class Ability
       can :read, Degree, :user_id => user.id
       can :update, Degree, :user_id => user.id
       can :destroy, Degree, :user_id => user.id
-      can :index, Payment
+      can :index, Payment, :user_id => user.id
 
       can :create_postpayment, Payment do |payment|
         payment.lesson.teacher_id == user.id
@@ -88,7 +89,11 @@ class Ability
       can [:show_min, :show, :reply, :find, :mark_as_read], Conversation do |conversation|
         conversation.is_participant?(user)
       end
-
+      
+      #Seul le Student peut bloquer le paimentdu cours
+      can :bloquerpayment, Payment do |payment|
+        payment.lesson.student_id == user_id
+      end
     end
   end
 end

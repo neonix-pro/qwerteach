@@ -78,6 +78,25 @@
       <h5><%= a.topic.topic_group.title %> <i>jusqu'au niveau <%= max %></i></h5>
 
   <% end %>
+  
+<% if @user.is_a?(Teacher) %>
+
+    <p>Moyenne des notations = <%= @avg %></p>
+    <%= link_to 'Notations', user_reviews_path(@user) %>
+    <%= form_tag user_reviews_path(@user) ,method: :post do %>
+        <div class="field">
+          <%= label_tag :note %><br/>
+          <%= number_field_tag :note, 3, min: 0, max: 5, :required => true %>
+        </div>
+        <div class="field">
+          <%= label_tag :review_text %><br/>
+          <%= text_area_tag :review_text,nil,  :required => true %>
+        </div>
+        <div class="field">
+          <%= submit_tag 'Noter', :class => 'btn btn-primary btn-mini' %><br/>
+        </div>
+    <% end %>
+<% end %>
 
   <h3>Diplomes</h3>
   <% @degrees.each do |d| %>
@@ -86,9 +105,6 @@
   <% end %>
 
 
-  <% if current_user.admin? %>
-      <%= button_to 'Inviter dans la classe', room_invite_bbb_rooms_path(@user), :method => :get %>
-  <% end %>
 </div>
 <!-- /#wrapper -->
 

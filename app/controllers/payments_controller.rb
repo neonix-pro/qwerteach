@@ -22,6 +22,7 @@ class PaymentsController < ApplicationController
     payments = Payment.where(:lesson_id => params[:lesson_id])
 
     payments.each do |payment|
+      #On vérifie si le payment est déjà Blocked ou Canceled
       if payment.blocked?|| payment.canceled?
         flash[:danger] = "Paiement déjà bloquer"
       else
