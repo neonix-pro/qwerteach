@@ -7,4 +7,5 @@ class Review < ActiveRecord::Base
   validates :sender_id, presence: true
   validates :subject_id, presence: true
   validates_uniqueness_of :subject, :scope => :sender
+  validates :note, presence: true
 end

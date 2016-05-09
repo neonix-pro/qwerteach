@@ -14,7 +14,7 @@ class CreateLevels < ActiveRecord::Migration
       t.integer :level, null: false, :default => 1
       t.string :code, null: false
       t.string :be, null: false
-      t.string :fr, null:false
+      t.string :fr, null: false
       t.string :ch, null: false
     end
   end

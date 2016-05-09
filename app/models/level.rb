@@ -5,5 +5,13 @@ class Level < ActiveRecord::Base
   has_many :advert_prices
   has_one :degree
   has_many :lessons
+  
+  validates :level, presence: true
+  validates :code, presence: true
+  validates :be, presence: true
+  validates :fr, presence: true
+  validates :ch, presence: true
+  
+  
 
 end
