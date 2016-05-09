@@ -1,1 +1,82 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+one:
+  topic_group_id: 1
+  title: "Mathématiques"
+two:
+  topic_group_id: 1
+  title: "Statistiques"
+three:
+  topic_group_id: 1
+  title: "Other"
+four:
+  topic_group_id: 2
+  title: "Physique"
+five:
+  topic_group_id: 2
+  title: "Chimie"
+six:
+  topic_group_id: 2
+  title: "Biologie"
+seven:
+  topic_group_id: 2
+  title: "Other"
+eight:
+  topic_group_id: 3
+  title: "Français"
+nine:
+  topic_group_id: 3
+  title: "Latin"
+ten:
+  topic_group_id: 3
+  title: "Grec"
+eleven:
+  topic_group_id: 3
+  title: "Philosophie"
+twelve:
+  topic_group_id: 3
+  title: "Other"
+thirteen:
+  topic_group_id: 4
+  title: "Français"
+fourteen:
+  topic_group_id: 4
+  title: "Néerlandais"
+fifteen:
+  topic_group_id: 4
+  title: "Anglais"
+sixteen:
+  topic_group_id: 4
+  title: "Espagnol"
+seveteen:
+  topic_group_id: 4
+  title: "Allemand"
+eighteen:
+  topic_group_id: 4
+  title: "Other"
+nineteen:
+  topic_group_id: 5 
+  title: "Microéconomie"
+twenty:
+  topic_group_id: 5
+  title: "Macroéconomie"
+twenty-one:
+  topic_group_id: 5
+  title: "Finance"
+twenty-two:
+  topic_group_id: 5
+  title: "Other"
+twenty-three:
+  topic_group_id: 6
+  title: "Bureautique"
+twenty-four:
+  topic_group_id: 6
+  title: "Programmation"
+twenty-five:
+  topic_group_id: 6
+  title: "Réseaux"
+twenty-six:
+  topic_group_id: 6
+  title: "Base de données"
+twenty-seven:
+  topic_group_id: 6
+  title: "Other"
