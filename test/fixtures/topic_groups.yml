@@ -1,7 +1,20 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-
+  title: "Mathématiques"
+  level_code: "scolaire"
 two:
-  title: MyString
+  title: "Sciences"
+  level_code: "scolaire"
+three:
+  title: "Lettres"
+  level_code: "scolaire"
+four:
+  title: "Langues"
+  level_code: "langue"
+five:
+  title:  "Economie"
+  level_code: "scolaire"
+six:
+  title: "Informatique"
+  level_code: "scolaire"

@@ -3,13 +3,13 @@
 one:
   title: MyString
   institution: MyString
-  completion_year: 
-  user_id: 
-  level_id: 
+  completion_year: 2013
+  user_id: 1
+  level_id: 5
 
 two:
   title: MyString
   institution: MyString
-  completion_year: 
-  user_id: 
-  level_id: 
+  completion_year: 2015
+  user_id: 1
+  level_id: 9
