@@ -6,4 +6,8 @@ class Payment < ActiveRecord::Base
   enum status: [:pending, :paid, :canceled, :blocked]
   belongs_to :lesson
 
+  validates :price, presence: true
+  validates :price, :numericality => { :greater_than_or_equal_to => 0 }
+  validates :lesson_id, presence: true
+
 end

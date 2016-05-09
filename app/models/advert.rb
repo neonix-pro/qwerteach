@@ -6,6 +6,10 @@ class Advert < ActiveRecord::Base
   accepts_nested_attributes_for :advert_prices,
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
+  validates :user_id, presence: true
+  validates :topic_group_id, presence: true
+  validates_uniqueness_of :user_id, scope: :topic_id
+
   #after_create :create_price
 # Méthode permettant de récupérer le prix d'une annonce pour un topic, un level et un user donné
   def self.get_price(user, topic, level)

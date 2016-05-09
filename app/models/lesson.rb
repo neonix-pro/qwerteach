@@ -15,6 +15,19 @@ class Lesson < ActiveRecord::Base
   has_many :payments
 
   has_one :bbb_room
+
+  validates :student_id, presence: true
+  validates :teacher_id, presence: true
+ # validates :status, presence: true
+  validates :time_start, presence: true
+  #validates_date :time_start, :on_or_after => lambda { Date.current }
+  validates :time_end, presence: true
+  #validates_date :time_end, :on_or_after => :time_start
+  validates :topic_group_id, presence: true
+  validates :level_id, presence: true
+  validates :price, presence: true
+  validates :price, :numericality => { :greater_than_or_equal_to => 0 }
+
   def self.async_send_notifications
     Resque.enqueue(LessonsNotifierWorker)
   end

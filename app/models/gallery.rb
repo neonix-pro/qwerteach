@@ -5,5 +5,6 @@ class Gallery < ActiveRecord::Base
 
   # Une seule Gallery par User
   validates_uniqueness_of :user_id
+  validates :user_id, presence: true
 
 end
