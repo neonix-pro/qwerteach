@@ -11,7 +11,7 @@ class LessonsNotifierWorker
 
       @interviewee = bl.teacher
       bigbluebutton_room = {
-          :lesson_id => 0,
+          :lesson_id => bl.id,
           :owner_type => 'Admin',
           :owner_id => bl.teacher.id.to_s,
           :server_id => 1,
