@@ -23,6 +23,10 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new
   end
 
+  def edit
+    @Lesson = Lesson.find(params[:id])
+  end
+
   def create
     @student_id = current_user.id
     price = params[:lesson][:price]
