@@ -1,9 +1,9 @@
 require 'test_helper'
 
 class GalleryTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+   test "the truth" do
+     assert_equal 2, Gallery.count
+   end
 
   test "one gallery" do
     g = Gallery.create(:user_id => 1)
@@ -24,5 +24,9 @@ class GalleryTest < ActiveSupport::TestCase
     assert_raises ActiveRecord::RecordNotFound do
       Gallery.find(:user_id => 45)
     end
+  end
+  test "no user_id" do
+    gallery = Gallery.first.update(:user => nil)
+    assert_not gallery
   end
 end

@@ -8,7 +8,7 @@
 one:
   student_id: 1
   teacher: 3
-  status: "Created"
+  status: 0
   time_start: DateTime.now + 11.minutes
   time_end: DateTime.now + 2.hours
   topic_id: 5
@@ -19,7 +19,7 @@ one:
 two:
   student_id: 2
   teacher: 3
-  status: "Created"
+  status: 0
   time_start: DateTime.now + 10.minutes
   time_end: DateTime.now + 2.hours
   topic_id: 5
@@ -29,7 +29,7 @@ two:
 three:
   student_id: 3
   teacher: 3
-  status: "Created"
+  status: 0
   time_start: DateTime.now + 9.minutes
   time_end: DateTime.now + 2.hours
   topic_id: 5

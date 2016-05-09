@@ -1,15 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  institution: MyString
-  completion_year: 2013
+  title: Baccalauréat
+  institution: "Paul Lambin"
+  completion_year: 2016
   user_id: 1
-  level_id: 5
+  level_id: 15
 
 two:
-  title: MyString
-  institution: MyString
-  completion_year: 2015
+  title: Secondaire
+  institution: "Saint-Louis"
+  completion_year: 2012
   user_id: 1
-  level_id: 9
+  level_id: 12

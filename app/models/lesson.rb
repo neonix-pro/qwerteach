@@ -18,11 +18,11 @@ class Lesson < ActiveRecord::Base
 
   validates :student_id, presence: true
   validates :teacher_id, presence: true
- # validates :status, presence: true
+  validates :status, presence: true
   validates :time_start, presence: true
-  #validates_date :time_start, :on_or_after => lambda { Date.current }
+  validates_datetime :time_start, :on_or_after => lambda { DateTime.current }
   validates :time_end, presence: true
-  #validates_date :time_end, :on_or_after => :time_start
+  validates_datetime :time_end, :after => :time_start, :after_message => "pipi"
   validates :topic_group_id, presence: true
   validates :level_id, presence: true
   validates :price, presence: true

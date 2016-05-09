@@ -261,15 +261,15 @@ ActiveRecord::Schema.define(version: 20160428120501) do
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
 
   create_table "payments", force: :cascade do |t|
-    t.integer  "status",                                    default: 0, null: false
-    t.integer  "payment_type",                              default: 0, null: false
-    t.datetime "transfert_date"
-    t.decimal  "price",             precision: 8, scale: 2,             null: false
-    t.integer  "lesson_id",                                             null: false
+    t.integer  "status",                                    default: 0,                     null: false
+    t.integer  "payment_type",                              default: 0,                     null: false
+    t.datetime "transfert_date",                            default: '2016-05-09 14:16:02', null: false
+    t.decimal  "price",             precision: 8, scale: 2,                                 null: false
+    t.integer  "lesson_id",                                                                 null: false
     t.integer  "mangopay_payin_id"
     t.datetime "execution_date"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                                                                null: false
+    t.datetime "updated_at",                                                                null: false
   end
 
   create_table "pictures", force: :cascade do |t|
