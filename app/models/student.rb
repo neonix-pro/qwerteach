@@ -7,7 +7,8 @@ class Student < User
 
   public
   def upgrade
-    User.account_type = "Student"
+    self.type = User::ACCOUNT_TYPES[1]
+    self.save!
   end
 
 end

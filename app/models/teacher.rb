@@ -12,8 +12,8 @@ class Teacher  < Student
   end
   # Methode override de User bloquant le type de User à Teacher au maximum
   def upgrade
-    self.type=User::ACCOUNT_TYPES[1]
-    self.save
+    self.type = User::ACCOUNT_TYPES[1]
+    self.save!
     #Teacher.update_attribute(:type => "Teacher")
     #User.account_type = "Teacher"
   end

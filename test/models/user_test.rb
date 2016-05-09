@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   test "users_count" do
-    assert_equal 2, User.count
+    assert_equal 4, User.count
   end
 
   test "user_type" do
@@ -37,34 +37,11 @@ class UserTest < ActiveSupport::TestCase
     User.first.upgrade
     assert User.first.is_a?(Teacher)
   end
-  test "is_prof_accepted" do
-    assert_not User.first.is_prof
+  test "create account already existing" do
+    assert_no_difference 'User.count' do
+      User.create(:email => "c@c.c", :firstname => "Bonobo", :lastname => "Chauve", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "2016-04-25 08:38:01.794478", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
+                  :avatar_file_name => "hello3.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :type => 'Teacher')
+    end
   end
-  test "is_prof_accepted2" do
-    User.first.upgrade
-    assert_not User.first.is_prof
-  end
-  test "is_prof_accepted3" do
-    User.first.upgrade
-    User.first.upgrade
-    assert_not User.first.is_prof
-  end
-  test "is_prof_accepted4" do
-    User.first.upgrade
-    User.first.upgrade
-    User.first.accept_postulance
-    assert User.first.is_prof
-  end
-  test "is_prof_postulant" do
-    assert_not User.first.is_prof_postulant
-  end
-  test "is_prof_postulant2" do
-    User.first.upgrade
-    assert_not User.first.is_prof_postulant
-  end
-  test "is_prof_postulant3" do
-    User.first.upgrade
-    User.first.upgrade
-    assert User.first.is_prof_postulant
-  end
+
 end

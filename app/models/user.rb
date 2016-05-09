@@ -174,7 +174,8 @@ class User < ActiveRecord::Base
   # Methode permettant de faire passer un User à Student
   public
   def upgrade
-    User.account_type = "Student"
+    self.type = User::ACCOUNT_TYPES[0]
+    self.save!
   end
 
   belongs_to :level
