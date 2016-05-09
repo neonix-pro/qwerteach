@@ -4,3 +4,23 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+
+one:
+    user: 3
+    topic_id: 5
+    topic_group_id: 2
+    
+two:
+    user: 3
+    topic_id: 15
+    topic_group_id: 4
+
+three:
+    user: 4
+    topic_id: 24
+    topic_group_id: 6
+
+four:
+    user: 4
+    topic_id: 21
+    topic_group_id: 5

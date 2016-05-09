@@ -5,82 +5,13 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  id: 1
-  birthdate: 2016-02-12
-  email: k@k.k
-  encrypted_password: $2a$10$m3dWRILJ3HB9gXiMNleJkOLiq40iNavOfUo4oMxTspxKRf3jpUFii
-  login: kal
-  firstname: kaltrine
-  lastname: kabashi
-  description: info
-  gender: Female
-  phonenumber: 029292929
-  type: User
-  level_id: 1
-  first_lesson_free: false
-  occupation: student
-  postulance_accepted: false
-  teacher_status: actif
-  sign_in_count: default
-  failed_attempts: default
-  admin: false
-  type: User
-#
-two:
-  id: 2
-  birthdate: 2016-02-12
-  email: y@y.y
-  encrypted_password: $2a$10$m3dWRILJ3HB9gXiMNleJkOLiq40iNavOfUo4oMxTspxKRf3jpUFii
-  login: kal
-  firstname: kaltrine
-  lastname: kabashi
-  description: info
-  gender: Female
-  phonenumber: 029292929
-  type: User
-  level_id: 1
-  first_lesson_free: false
-  occupation: student
-  postulance_accepted: false
-  teacher_status: actif
-  sign_in_count: default
-  failed_attempts: default
-  admin: false
-  type: User
-  confirmation_sent_at: "2016-02-25 16:15:52"
-  confirmed_at: "2016-02-25 16:15:52"
-  confirmation_token: ace8cb0764a0e56e75cc0196dd2df6fa0b5005f7d31646c694f880d00b8206b
-three:
-  id: 3
-  birthdate: 2016-02-12
-  email: m@m.m
-  encrypted_password: $2a$10$m3dWRILJ3HB9gXiMNleJkOLiq40iNavOfUo4oMxTspxKRf3jpUFii
-  login: kal
-  firstname: kaltrine
-  lastname: kabashi
-  description: info
-  gender: Female
-  phonenumber: 029292929
-  type: User
-  level_id: 1
-  first_lesson_free: false
-  occupation: student
-  postulance_accepted: false
-  teacher_status: actif
-  sign_in_count: default
-  failed_attempts: default
-  admin: false
-  type: User
-  confirmation_sent_at: "2016-02-25 16:15:52"
-  confirmed_at: "2016-02-25 16:15:52"
-four:
-    id: 4
+    id: 1
     birthdate: 2016-02-12
-    email: kaltrina.kabashi1@gmail.com
-    encrypted_password: $2a$10$m3dWRILJ3HB9gXiMNleJkOLiq40iNavOfUo4oMxTspxKRf3jpUFii
-    login: kal
-    firstname: kaltrine
-    lastname: kabashi
+    email: a@a.a
+    encrypted_password: "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu"
+    login: Chimpanzé
+    firstname: Macaque
+    lastname: Selfieur
     description: info
     gender: Female
     phonenumber: 029292929
@@ -94,5 +25,79 @@ four:
     failed_attempts: default
     admin: false
     type: User
-    confirmation_sent_at: "2016-02-25 16:15:52"
-    confirmed_at: "2016-02-25 16:15:52"
+    confirmation_sent_at: "2016-04-25 08:38:01.794477"
+    confirmed_at: "2016-04-25 08:38:01.794477"
+
+two:
+    id: 2
+    birthdate: 2016-02-12
+    email: b@b.b
+    encrypted_password: "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu"
+    login: Chimpanzé
+    firstname: Chimpanzé
+    lastname: Souriant
+    description: info
+    gender: Female
+    phonenumber: 029292929
+    type: User
+    level_id: 1
+    first_lesson_free: false
+    occupation: student
+    postulance_accepted: false
+    teacher_status: actif
+    sign_in_count: default
+    failed_attempts: default
+    admin: true
+    type: User
+    confirmation_sent_at: "2016-04-25 08:38:01.794477"
+    confirmed_at: "2016-04-25 08:38:01.794477"
+    
+
+three:
+    id: 3
+    birthdate: 2016-02-12
+    email: c@c.c
+    encrypted_password: "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu"
+    login: Chimpanzé
+    firstname: Bonobo
+    lastname: Chauve
+    description: info
+    gender: Female
+    phonenumber: 029292929
+    type: User
+    level_id: 1
+    first_lesson_free: false
+    occupation: student
+    postulance_accepted: false
+    teacher_status: actif
+    sign_in_count: default
+    failed_attempts: default
+    admin: false
+    type: Teacher
+    confirmation_sent_at: "2016-04-25 08:38:01.794477"
+    confirmed_at: "2016-04-25 08:38:01.794477"
+
+four:
+    id: 4
+    birthdate: 2016-02-12
+    email: d@d.d
+    encrypted_password: "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu"
+    login: Chimpanzé
+    firstname: Grosse
+    lastname: Tete
+    description: info
+    gender: Female
+    phonenumber: 029292929
+    type: User
+    level_id: 1
+    first_lesson_free: false
+    occupation: student
+    postulance_accepted: false
+    teacher_status: actif
+    sign_in_count: default
+    failed_attempts: default
+    admin: true
+    type: Teacher
+    confirmation_sent_at: "2016-04-25 08:38:01.794477"
+    confirmed_at: "2016-04-25 08:38:01.794477"
+   

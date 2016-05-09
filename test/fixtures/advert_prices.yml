@@ -3,3 +3,58 @@
 # This model initially had no columns defined.  If you add columns to the
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
+
+one:
+    advert: one
+    level_id: 5
+    price: 15.0
+
+two:
+    advert: one
+    level_id: 9
+    price: 20.0
+
+three: 
+    advert: one
+    level_id: 12
+    price: 25.0
+
+four:
+    advert: two
+    level_id: 27
+    price: 16.0
+
+five:
+    advert: two
+    level_id: 28
+    price: 21.0
+
+six:
+    advert: two
+    level_id: 29
+    price: 24.0
+
+seven: 
+    advert: three
+    level_id: 9
+    price: 14.0
+
+eight:
+    advert: three
+    level_id: 12.0
+    price: 16.0
+    
+nine:
+    advert: three
+    level_id: 15
+    price: 18.0
+    
+ten:
+    advert: four
+    level_id: 18
+    price: 24.0
+
+eleven: 
+    advert: four
+    level_id: 20
+    price: 28.0
