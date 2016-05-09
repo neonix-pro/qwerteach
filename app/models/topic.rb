@@ -4,4 +4,7 @@ class Topic < ActiveRecord::Base
   has_many :adverts
   has_many :lessons
 
+  validates :topic_group_id, presence: true
+  validates :title, presence: true
+
 end

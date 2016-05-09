@@ -121,41 +121,55 @@ class PaymentsController < ApplicationController
   end
 
   def bonus_transfer
-    if (amount_bonus_transfer > 0)
-      bonus_transfer = MangoPay::Transfer.create({
-                                                     :AuthorId => current_user.mango_id,
-                                                     :DebitedFunds => {
-                                                         :Currency => "EUR",
-                                                         :Amount => @amount_bonus_transfer
-                                                     },
-                                                     :Fees => {
-                                                         :Currency => "EUR",
-                                                         :Amount => @fees
-                                                     },
-                                                     :DebitedWalletID => @wallets.second["Id"],
-                                                     :CreditedWalletID => @beneficiary_wallet["Id"]
-                                                 })
-      valid_transfer(bonus_transfer)
+    begin
+      if (amount_bonus_transfer > 0)
+        bonus_transfer = MangoPay::Transfer.create({
+                                                       :AuthorId => current_user.mango_id,
+                                                       :DebitedFunds => {
+                                                           :Currency => "EUR",
+                                                           :Amount => @amount_bonus_transfer
+                                                       },
+                                                       :Fees => {
+                                                           :Currency => "EUR",
+                                                           :Amount => @fees
+                                                       },
+                                                       :DebitedWalletID => @wallets.second["Id"],
+                                                       :CreditedWalletID => @beneficiary_wallet["Id"]
+                                                   })
+        valid_transfer(bonus_transfer)
+      end
+    rescue MangoPay::ResponseError => ex
+      flash[:danger] = ex.details["Message"]
+      ex.details['errors'].each do |name, val|
+        flash[:danger] += " #{name}: #{val} \n\n"
+      end
     end
   end
 
   def normal_transfer
-    if (@amount_normal > 0)
-      normal_transfer = MangoPay::Transfer.create({
-                                                      :AuthorId => current_user.mango_id,
-                                                      :DebitedFunds => {
-                                                          :Currency => "EUR",
-                                                          :Amount => @amount_normal_transfer
-                                                      },
-                                                      :Fees => {
-                                                          :Currency => "EUR",
-                                                          :Amount => @fees
-                                                      },
-                                                      :DebitedWalletID => @wallets.first["Id"],
-                                                      :CreditedWalletID => @beneficiary_wallet["Id"]
-                                                  })
+    begin
+      if (@amount_normal > 0)
+        normal_transfer = MangoPay::Transfer.create({
+                                                        :AuthorId => current_user.mango_id,
+                                                        :DebitedFunds => {
+                                                            :Currency => "EUR",
+                                                            :Amount => @amount_normal_transfer
+                                                        },
+                                                        :Fees => {
+                                                            :Currency => "EUR",
+                                                            :Amount => @fees
+                                                        },
+                                                        :DebitedWalletID => @wallets.first["Id"],
+                                                        :CreditedWalletID => @beneficiary_wallet["Id"]
+                                                    })
 
-      valid_transfer(normal_transfer)
+        valid_transfer(normal_transfer)
+      end
+    rescue MangoPay::ResponseError => ex
+      flash[:danger] = ex.details["Message"]
+      ex.details['errors'].each do |name, val|
+        flash[:danger] += " #{name}: #{val} \n\n"
+      end
     end
   end
 

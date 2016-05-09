@@ -99,6 +99,12 @@ class RequireLessonController < ApplicationController
     @lesson = Lesson.new
     case step
       when :choose_lesson
+        right_time = ((DateTime.parse(params[:lesson][:time_end]).beginning_of_minute()  - DateTime.parse(params[:lesson][:time_start]).beginning_of_minute() ) * 24).to_f
+        right_price = Advert.get_price(User.find(params[:lesson][:teacher_id]), Topic.find(params[:lesson][:topic_id]), Level.find(params[:lesson][:level_id])) * right_time
+        if right_price != params[:lesson][:price].to_f
+          flash[:danger] = 'Ne modifiez pas le prix comme ça!!!'
+          redirect_to wizard_path(:choose_lesson) and return
+        end
         session[:lesson] = {}
         session[:lesson] = params[:lesson]
         session[:lesson][:student_id] = current_user.id

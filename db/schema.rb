@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20160428120501) do
 
   create_table "adverts", force: :cascade do |t|
     t.integer  "user_id",        null: false
-    t.integer  "topic_id",       null: false
+    t.integer  "topic_id"
     t.integer  "topic_group_id", null: false
     t.string   "other_name"
     t.datetime "created_at",     null: false
