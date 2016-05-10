@@ -1,12 +1,27 @@
 <%= label_tag 'Niveaux' %>
 <% if @levels.nil? %>
-    <p>NILLLL</p>
+    <p>Aucun niveau disponible pour cette catégorie</p>
 <% else %>
     <% @levels.each do |c| %>
         <%= label_tag c[I18n.locale[0..3]] %>
-        <%= check_box_tag 'levels_chosen[]', c.id %>
+        <%= check_box_tag 'levels_chosen[]', c.id, nil, class: 'price_box' %>
         <%= label_tag "Price" %>
-        <%= number_field_tag 'prices[]', :id => c.id, min: 0 %>
+        <%= number_field_tag 'prices[]', nil, :id => c.id, min: 0, disabled: true %>
         <br>
     <% end %>
 <% end %>
+
+
+<script>
+  $('.price_box').on('click', function () {
+    var a = $(this).val();
+    if ($('#'+a+'').attr('disabled')) {
+      $('#'+a+'').removeAttr('disabled');
+    }
+    else {
+      $('#'+a+'').attr({
+        'disabled': 'disabled'
+      });
+    }
+  });
+</script>
