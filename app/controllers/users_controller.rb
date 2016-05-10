@@ -9,7 +9,6 @@ class UsersController < ApplicationController
       @notes = @reviews.map { |r| r.note }
       @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size
     end
-
   end
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination

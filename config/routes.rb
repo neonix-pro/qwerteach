@@ -53,8 +53,8 @@ Rails.application.routes.draw do
       get "/" => "pages#index"
     end
   end
-  resources :galleries
-  resources :pictures
+  resources :galleries, only: [:update, :edit, :show]
+  resources :pictures, only: [:new, :destroy, :show]
   resources :degrees
   resources :notifications
   get "/notifications/unread/" => "notifications#number_of_unread"

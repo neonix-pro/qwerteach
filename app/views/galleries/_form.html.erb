@@ -26,7 +26,7 @@
         <div class="form-actions">
           <%= f.submit nil, :class => 'btn btn-primary' %>
           <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                      galleries_path, :class => 'btn btn-mini' %>
+                      gallery_path(@gallery), :class => 'btn btn-mini' %>
         </div>
     <% end %>
 <% end %>
