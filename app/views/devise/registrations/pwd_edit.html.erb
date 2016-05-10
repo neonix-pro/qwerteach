@@ -15,14 +15,14 @@
       <%= f.label :Mot_De_Passe %> <i>(leave blank if you don't want to change it)</i><br/>
       <%= f.password_field :password, autocomplete: "off" , class: 'form-control', data: {
           :validation => "length", 'validation-length' => "min8",
-          "validation-error-msg" => "Too short." } %>
+          "validation-error-msg" => "Trop court." } %>
     </div>
 
 
     <div class="field">
       <%= f.label :Confirmation_Mot_de_Passe %><br/>
       <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', data: {
-          :validation => "confirmation",'validation-confirm'=> 'user[password]', "validation-error-msg" => "Not the same." }  %>
+          :validation => "confirmation",'validation-confirm'=> 'user[password]', "validation-error-msg" => "Pas les mêmes." }  %>
     </div>
 
     <div class="field">
