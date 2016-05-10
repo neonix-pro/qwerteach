@@ -34,7 +34,7 @@ class Ability
       can :manage, :all
     else # Non-admin user
       can :create, Gallery
-      can :read, Gallery, :user_id => user.id
+      can :read, Gallery
       can :update, Gallery, :user_id => user.id
       cannot :destroy, Gallery
       can :create, Picture
