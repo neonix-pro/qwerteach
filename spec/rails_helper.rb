@@ -9,6 +9,7 @@ require 'rspec/rails'
 # note: require 'devise' after require 'rspec/rails'
 require 'devise'
 require 'support/controller_macros'
+require "cancan/matchers"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
