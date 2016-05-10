@@ -4,7 +4,7 @@
     <%= devise_error_messages! %>
 
     <div class="field">
-      <%= f.label :email %><br/>
+      <%= f.label :Mail %><br/>
       <%= f.email_field :email, autofocus: true %>
     </div>
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -12,14 +12,15 @@
     <% end %>
 
     <div class="field">
-      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br/>
+      <%= f.label :Mot_De_Passe %> <i>(leave blank if you don't want to change it)</i><br/>
       <%= f.password_field :password, autocomplete: "off" , class: 'form-control', data: {
           :validation => "length", 'validation-length' => "min8",
           "validation-error-msg" => "Too short." } %>
     </div>
 
+
     <div class="field">
-      <%= f.label :password_confirmation %><br/>
+      <%= f.label :Confirmation_Mot_de_Passe %><br/>
       <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', data: {
           :validation => "confirmation",'validation-confirm'=> 'user[password]', "validation-error-msg" => "Not the same." }  %>
     </div>
