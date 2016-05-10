@@ -8,4 +8,9 @@ class Review < ActiveRecord::Base
   validates :subject_id, presence: true
   validates_uniqueness_of :subject, :scope => :sender
   validates :note, presence: true
+  validate :check_sender_and_subject
+
+  def check_sender_and_subject
+    errors.add(:subject, "can't be the same as sender") if sender.id == subject.id
+  end
 end

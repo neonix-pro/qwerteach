@@ -42,7 +42,7 @@ Rails.application.routes.draw do
   end
   resources :users, :only => [:show, :index] do
     resources :require_lesson
-    resources :reviews
+    resources :reviews, only: [:index, :create, :new]
   end
   authenticated :user do
     root 'pages#index'

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe GalleriesController, type: :controller do
-  login_admin
+  login_user
   describe GalleriesController do
 
     before :each do
@@ -30,6 +30,14 @@ RSpec.describe GalleriesController, type: :controller do
     it "should put edit : his gallery" do
       put 'edit', :id => subject.current_user.gallery.id, :images => []
       expect(response).to be_success
+    end
+    it "shouldn't get edit : other gallery" do
+      get 'edit', :id => Gallery.first.id
+      expect(response).to redirect_to root_path
+    end
+    it "shouldn't get edit : other gallery" do
+      put 'edit', :id => Gallery.first.id, :images => []
+      expect(response).to redirect_to root_path
     end
   end
 end
