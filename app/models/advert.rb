@@ -5,32 +5,43 @@ class Advert < ActiveRecord::Base
   has_many :advert_prices
   accepts_nested_attributes_for :advert_prices,
                                 :allow_destroy => true,
-                                :reject_if     => :all_blank
+                                :reject_if => :all_blank
   validates :user_id, presence: true
   validates :topic_group_id, presence: true
   validates_uniqueness_of :user_id, scope: :topic_id
 
   #after_create :create_price
-# Méthode permettant de récupérer le prix d'une annonce pour un topic, un level et un user donné
+  # Méthode permettant de récupérer le prix d'une annonce pour un topic, un level et un user donné
   def self.get_price(user, topic, level)
     Advert.where(:user => user, :topic => topic).first.advert_prices.where(:level => level).first.price
   end
+
   # Méthode permettant de récupérer le prix d'une annonce pour un topic, un level et un user donné
   def self.get_levels(user, topic)
-    Advert.where(:user => user, :topic_id => topic).first.advert_prices.map(&:level_id)
+    advert_topic = Advert.where(:user => user, :topic_id => topic).first
+    unless advert_topic.nil?
+      return advert_topic.advert_prices.map(&:level_id)
+    else
+      return nil
+    end
   end
+
   def min_price
     @min_price ||= advert_prices.order('price DESC').last.price
   end
+
   def max_price
     @max_price ||= advert_prices.order('price DESC').first.price
   end
+
   def topic_group_title
     topic.topic_group.title
   end
+
   def topic_title
     topic.title
   end
+
   def create_price
     advert_prices.create
   end
@@ -55,8 +66,8 @@ class Advert < ActiveRecord::Base
       Time.now.year - self.user.birthdate.year
     end
 
-    string :advert_prices_truc , :multiple => true do
-    advert_prices.map(&:price)
+    string :advert_prices_truc, :multiple => true do
+      advert_prices.map(&:price)
     end
   end
 end
