@@ -16,7 +16,7 @@ class LessonsNotifierWorker
           :name => "Interview "+@interviewee.id.to_s+'_'+DateTime.now.to_time.to_i.to_s,
           :param => @interviewee.id.to_s+'_'+DateTime.now.to_time.to_i.to_s,
           :record_meeting => 1,
-          :logout_url => 'http://localhost:3000/',
+          :logout_url => 'http://localhost:3000/bbb_rooms/end_room/'+@interviewee.id.to_s+'_'+DateTime.now.to_time.to_i.to_s,
           :duration => 0,
           :auto_start_recording => 1,
           :allow_start_stop_recording => 0
@@ -34,7 +34,7 @@ class LessonsNotifierWorker
         PrivatePub.publish_to "/lessons/#{bl.student_id}", :lesson => bl
       end
     end
-    # Toutes les 10mins
+    # Toutes les 10 mins
     sleep 600
   end
 end

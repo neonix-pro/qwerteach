@@ -1,0 +1,20 @@
+<% if current_user != @teacher %>
+    <h3>Comment le cours s'est-il passé? Donnez une note à votre prof!</h3>
+    <%= form_tag user_reviews_path(@teacher), method: :post do %>
+        <div class="field">
+          <%= label_tag :note %><br/>
+          <%= number_field_tag :note, 3, min: 0, max: 5, :required => true %>
+        </div>
+        <div class="field">
+          <%= label_tag :review_text %><br/>
+          <%= text_area_tag :review_text, nil %>
+        </div>
+        <div class="field">
+          <%= submit_tag 'Noter', :class => 'btn btn-primary btn-mini' %><br/>
+        </div>
+    <% end %>
+<% else %>
+    <h3>Merci pour votre cours! Le paiement sera effectué dès que nous aurons l'approbation de l'élève.</h3>
+<% end %>
+
+

@@ -60,6 +60,11 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     end
   end
 
+  def end_room
+    @room = BbbRoom.where(:param => params[:room_id]).first
+    @teacher = @room.lesson.teacher
+  end
+
   private
   def room_allowed_params
     [:name, :server_id, :meetingid, :attendee_key, :moderator_key, :welcome_msg,

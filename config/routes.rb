@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   scope '/user/mangopay', controller: :wallets do
     get "edit_wallet" => :edit_mangopay_wallet
     put "edit_wallet" => :update_mangopay_wallet
-    get "index_wallet" => :index_mangopay_wallet  
+    get "index_wallet" => :index_mangopay_wallet
     get "direct_debit" => :direct_debit_mangopay_wallet
     put "direct_debit" => :send_direct_debit_mangopay_wallet
     get "transactions" => :transactions_mangopay_wallet
@@ -75,9 +75,9 @@ Rails.application.routes.draw do
       post :mark_as_read
     end
   end
-  
+
   #Permet affichage facture
-    get "/payments/index" => "payments#index"
+  get "/payments/index" => "payments#index"
 
 
   #post "lessons/:teacher_id/require_lesson", to: "lessons#require_lesson", as: 'require_lesson'
@@ -103,6 +103,7 @@ Rails.application.routes.draw do
   bigbluebutton_routes :default, :only => 'rooms', :controllers => {:rooms => 'bbb_rooms'}
   resource :bbb_rooms do
     get "/room_invite/:user_id" => "bbb_rooms#room_invite", as: 'room_invite'
+    get "/end_room/:room_id" => "bbb_rooms#end_room", as: 'end_room'
   end
   bigbluebutton_routes :default, :only => 'recordings', :controllers => {:rooms => 'bbb_recordings'}
 
