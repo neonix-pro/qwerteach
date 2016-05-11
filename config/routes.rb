@@ -40,6 +40,8 @@ Rails.application.routes.draw do
   as :user do
     get 'users/edit_pwd' => 'registrations#pwd_edit', :as => 'edit_pwd_user_registration'
   end
+  get 'dashboard' => 'dashboards#index', :as => 'dashboard'
+
   resources :users, :only => [:show, :index] do
     resources :require_lesson
     resources :reviews, only: [:index, :create, :new]

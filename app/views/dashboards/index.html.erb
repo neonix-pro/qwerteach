@@ -1,0 +1,36 @@
+<h3>Cours prévus</h3>
+<% if @future_lessons.empty? %>
+    <p>Aucun cours de prévu</p>
+<% else %>
+    <% @future_lessons.each do |lesson| %>
+        <%= render partial: 'dashboards/lesson', :locals => {:lesson => lesson} %>
+    <% end %>
+<% end %>
+
+<h3>Cours en attente</h3>
+<% if @pending_lessons.empty? %>
+    <p>Aucun cours en attente</p>
+<% else %>
+    <% @pending_lessons.each do |lesson| %>
+        <%= render partial: 'dashboards/lesson', :locals => {:lesson => lesson} %>
+    <% end %>
+<% end %>
+
+<h3>Factures en attente</h3>
+<% if @pending_postpayments.empty? %>
+    <p>Aucune facture en attente</p>
+<% else %>
+    <% @pending_postpayments.each do |payment| %>
+        <%= render partial: 'dashboards/payment', :locals => {:payment => payment} %>
+    <% end %>
+<% end %>
+
+
+<h3>Paiements en attente</h3>
+<% if @pending_prepayments.empty? %>
+    <p>Aucun paiement en attente</p>
+<% else %>
+    <% @pending_prepayments.each do |payment| %>
+        <%= render partial: 'dashboards/payment', :locals => {:payment => payment} %>
+    <% end %>
+<% end %>

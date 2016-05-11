@@ -1,0 +1,8 @@
+<div class="lesson">
+		<p>Nom Prof: <%= lesson.teacher.firstname %><%= lesson.teacher.lastname %></p>
+		<p>Nom Student: <%= lesson.student.firstname %><%= lesson.student.lastname %></p>
+		<p> Topic: <%= lesson.topic_group_id %></p>
+		<p>Date debut: <%= lesson.time_start %></p>
+		<p> Date fin: <%= lesson.time_end %></p>
+		<p>Statut du cours: <%= lesson.status.to_s %></p>
+</div>
