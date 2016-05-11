@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     resources :require_lesson
     resources :reviews, only: [:index, :create, :new]
   end
+  get '/both_users_online' => 'users#both_users_online', :as => 'both_users_online'
   authenticated :user do
     root 'pages#index'
   end
