@@ -45,7 +45,7 @@ Rails.application.routes.draw do
     resources :reviews, only: [:index, :create, :new]
   end
   authenticated :user do
-    root 'pages#index'
+    root 'pages#dashboard'
   end
 
   unauthenticated :user do
