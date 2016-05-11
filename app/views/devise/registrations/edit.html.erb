@@ -8,13 +8,11 @@
       <h4>Informations personnelles</h4>
       <div class="field">
         <%= f.label :Nom %><br/>
-        <%= f.text_field :lastname, class: 'form-control', data: {
-            :validation => "letternumeric", "validation-error-msg" => "Not a name." } %>
+        <%= f.text_field :lastname, class: 'form-control' %>
       </div>
       <div class="field">
         <%= f.label :Prénom %><br/>
-        <%= f.text_field :firstname, class: 'form-control', data: {
-            :validation => "letternumeric", "validation-error-msg" => "Not a name." }  %>
+        <%= f.text_field :firstname, class: 'form-control' %>
       </div>
       <div class="field">
         <%= f.label :Date_de_Naissance %><br/>
