@@ -2,7 +2,7 @@
     <div class="field group_choice">
 
       <%= f.label :topic_group %>
-      <%= f.select :topic_group_id, options_for_select(TopicGroup.all.collect { |p| [p.title, p.id] }), { include_blank: "Choisissez une catégorie" }%>
+      <%= f.select :topic_group_id, options_for_select(TopicGroup.all.collect { |p| [p.title, p.id] }), { include_blank: "Choisissez une catégorie" } %>
 
     </div>
     <div class="field topic_choice group_choice_topic"></div>
@@ -16,3 +16,10 @@
                   adverts_path(@adverts), :class => 'btn btn-mini' %>
     </div>
 <% end %>
+
+
+<script> 
+document.getElementById('test').onchange = function() {
+    document.getElementById('yourText').disabled = !this.checked;
+};
+</script>
