@@ -57,7 +57,7 @@
   }
   
   .notifications-wrapper {
-     overflow:auto;
+    
       max-height:250px;
     }
     
@@ -78,7 +78,8 @@
       
         
 .dropdown-menu.divider {
-  margin:5px 0;          
+  height : 20px;
+  width : 420px;
   }
 
 .item-title {

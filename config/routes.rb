@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   end
   get '/both_users_online' => 'users#both_users_online', :as => 'both_users_online'
   authenticated :user do
-    root 'pages#index'
+    root 'pages#dashboard'
   end
 
   unauthenticated :user do
