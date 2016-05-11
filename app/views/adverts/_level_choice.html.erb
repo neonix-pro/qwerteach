@@ -17,11 +17,15 @@
     var a = $(this).val();
     if ($('#'+a+'').attr('disabled')) {
       $('#'+a+'').removeAttr('disabled');
+      $('#'+a+'').attr({
+        'required': 'required'
+      });
     }
     else {
       $('#'+a+'').attr({
         'disabled': 'disabled'
       });
+      $('#'+a+'').removeAttr('required');
     }
   });
 </script>

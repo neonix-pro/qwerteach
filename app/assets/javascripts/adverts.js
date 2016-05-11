@@ -8,7 +8,7 @@ $(document).ready(function () {
         choice.empty();
         if ($('.topic_choice option:selected').text() == "Other") {
             var l = '<label for="other_name">Autre matière</label>';
-            var f = '<input type="text" name="other_name" id="other_name" class="form-control"/>';
+            var f = '<input type="text" name="advert[other_name]" id="advert[other_name]" class="form-control" required="required"/>';
             choice.append(l + f);
         }
     });

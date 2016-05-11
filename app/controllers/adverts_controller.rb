@@ -37,11 +37,11 @@ class AdvertsController < ApplicationController
     if current_user.adverts.map(&:topic_id).include?(params[:topic_id].to_i)
       redirect_to adverts_path, notice: 'Une annonce pour cette catégorie existe déjà.' and return
     end
-    @advert = Advert.new(advert_params)
-    respond_to do |format|
-      if @advert.save
-        @advert.topic = Topic.find(params[:topic_id])
-        if params[:levels_chosen]
+    if params[:levels_chosen]
+      @advert = Advert.new(advert_params)
+      respond_to do |format|
+        if @advert.save
+          @advert.topic = Topic.find(params[:topic_id])
           cpt = 0;
           p = params[:prices][cpt.to_i]
           params[:levels_chosen].each { |level|
@@ -53,16 +53,17 @@ class AdvertsController < ApplicationController
             cpt+=1
             p = params[:prices][cpt.to_i]
           }
+          format.html { redirect_to adverts_path, notice: 'Advert was successfully created.' }
+          format.json { head :no_content }
+          format.js {}
+        else
+          format.html { redirect_to @advert, notice: 'Advert not created.' }
+          format.json { render json: @advert.errors, status: :unprocessable_entity }
         end
-
-        format.html { redirect_to adverts_path, notice: 'Advert was successfully created.' }
-        format.json { head :no_content }
-        format.js {}
-
-      else
-        format.html { redirect_to @advert, notice: 'Advert not created.' }
-        format.json { render json: @advert.errors, status: :unprocessable_entity }
       end
+    else
+      flash[:danger] = 'Vous devez donner au moins un tarif pour créer une annonce.'
+      redirect_to adverts_path and return
     end
   end
 

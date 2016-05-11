@@ -7,22 +7,27 @@
 <%= form_for @advert, :html => {:class => 'form-horizontal'} do |f| %>
     <div class="field topic_choice">
       <%= f.label :topic %>
-      <%= f.select :topic_id, Topic.all.collect { |p| [p.title, p.id] }, {}, {:disabled => true} %>
+      <%= f.select :topic_id, Topic.where(:id => @advert.topic).all.collect { |p| [p.title, p.id] }, {}, {:disabled => true, :required => true} %>
       <%= hidden_field_tag :topic_id, @advert.topic.id %>
     </div>
-    <div class="field other_name"></div>
+    <% unless @advert.other_name.nil? %>
+        <div class="field other_name">
+          <%= f.label :other_name %>
+          <%= f.text_field :other_name, :required => true %>
+        </div>
+    <% end %>
     <h2>Prices</h2>
     <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').group(I18n.locale[0..3]).order(:id) %>
     <%= f.fields_for :advert_prices do |ff| %>
         <div>
           <%= ff.label :level %>
           <!-- Bloquer le select pour pas changer ça -->
-          <%= ff.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }, {}, {:disabled => true} %> </div>
-        <%= ff.hidden_field :level_id %>
+          <%= ff.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }, {}, {:disabled => true, :required => true} %> </div>
+        <%= ff.hidden_field :level_id, :required => true %>
         <div>
-          <%= ff.hidden_field :advert_id, :value => @advert.id %>
+          <%= ff.hidden_field :advert_id, :value => @advert.id, :required => true %>
           <%= ff.label :price %>
-          <%= ff.number_field :price, :min => 0 %>
+          <%= ff.number_field :price, :min => 0, :required => true %>
           <% if ff.object.persisted? %>
               <%= ff.check_box :_destroy %>
               <%= ff.label :_destroy, "Destroy" %>
@@ -40,11 +45,6 @@
           data: {topic_id: $('.topic_choice option:selected').val()}
         })
       });
-      if ($('.topic_choice option:selected').text() == "Other") {
-        var choice = $('.other_name');
-        choice.empty();
-        choice.append("<%= j render :partial => 'other_name', locals: {f:f} %>");
-      }
     </script>
 
     <div class="form-actions">
