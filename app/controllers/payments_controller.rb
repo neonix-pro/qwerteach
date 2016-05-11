@@ -38,7 +38,8 @@ class PaymentsController < ApplicationController
     if (postpayment_lesson.present?)
       flash[:danger] = 'Il y a déjà une facture pour ce cours.'
     else
-      postpayment_params = {:lesson_id => params[:lesson_id], :payment_type => 1, :status => 0}
+      price = Lesson.find(params[:lesson_id]).price
+      postpayment_params = {:lesson_id => params[:lesson_id], :payment_type => 1, :status => 0, :price => price}
       @payment = Payment.new(postpayment_params)
       if @payment.save
         flash[:success] = "la facture a bien été créée"
@@ -70,6 +71,7 @@ class PaymentsController < ApplicationController
 
   def make_transfert
     @user = current_user
+    @other_users = User.all - [@user]
     if !@user.mango_id
       list = ISO3166::Country.all
       @list = []
