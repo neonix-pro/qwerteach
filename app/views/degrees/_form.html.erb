@@ -3,19 +3,19 @@
 	<div class="form-group">
 	  <% levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id) %>
       <%= f.label :level_id %><br/>
-      <%= f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] } %>
+      <%= f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] } ,required: true %>
 	</div>
 	<div class="form-group">
     <%= f.label :intitulé, :class => 'control-label' %>
-	  <%= f.text_field :title, :class => 'form-control' %>
+	  <%= f.text_field :title, :class => 'form-control', required: true  %>
   </div>
   <div class="form-group">
     <%= f.label :institution, :class => 'control-label' %>
-    <%= f.text_field :institution, :class => 'form-control' %>
+    <%= f.text_field :institution, :class => 'form-control', required: true  %>
   </div>
   <div class="form-group">
     <%= f.label :completion_year, :class => 'control-label' %>
-    <%= f.text_field :completion_year, :data => {:provide => "datepicker", 'date-format' => 'yyyy', 'date-view-mode'=>'years', 'date-min-view-mode'=>'years', 'date-autoclose' => true, 'date-end-date' => (Date.new)}, :class => 'form-control'  %>
+    <%= f.text_field :completion_year, :data => {:provide => "datepicker", 'date-format' => 'yyyy', 'date-view-mode'=>'years', 'date-min-view-mode'=>'years', 'date-autoclose' => true, 'date-end-date' => (Date.new)}, :class => 'form-control',  required: true   %>
   </div>
   <div class="form-actions">
     <%= f.submit :enregistrer, :class => 'btn btn-primary btn-mini' %>
