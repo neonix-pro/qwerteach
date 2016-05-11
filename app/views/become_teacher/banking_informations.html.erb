@@ -5,37 +5,37 @@
     <%= fields_for :address do |address_fields| %>
       <div class="field">
         <%= f.label :street %><br/>
-        <%= address_fields.text_field :AddressLine1, :value => @user.address['AddressLine1'] %>
+        <%= address_fields.text_field :AddressLine1, :value => @user.address['AddressLine1'], :required => true %>
       </div>
       <div class="field">
         <%= f.label :number %><br/>
-        <%= address_fields.text_field :AddressLine2, :value => @user.address['AddressLine2'] %>
+        <%= number_field :AddressLine2, :value => @user.address['AddressLine2'], :required => true %>
       </div>
       <div class="field">
         <%= f.label :post_code %><br/>
-        <%= address_fields.text_field :PostalCode, :value => @user.address['PostalCode'] %>
+        <%= number_field :PostalCode, :value => @user.address['PostalCode'], :required => true %>
       </div>
       <div class="field">
         <%= f.label :city %><br/>
-        <%= address_fields.text_field :City, :value => @user.address['City'] %>
+        <%= address_fields.text_field :City, :value => @user.address['City'], :required => true %>
       </div>
       <div class="field">
         <%= f.label :region %><br/>
-        <%= address_fields.text_field :Region, :value => @user.address['Region'] %>
+        <%= address_fields.text_field :Region, :value => @user.address['Region'], :required => true %>
       </div>
       <div class="field">
         <%= f.label :Country %><br/>
-        <%= address_fields.select :Country, options_for_select(@list, :selected => @user.address['Country']) %>
+        <%= address_fields.select :Country, options_for_select(@list, :selected => @user.address['Country']),:required => true %>
       </div>
     <% end %>
     <div class="field">
       <%= f.label :country_of_residence %><br/>
-      <%= f.select :countryOfResidence, options_for_select(@list, :selected => @user.countryOfResidence) %>
+      <%= f.select :countryOfResidence, options_for_select(@list, :selected => @user.countryOfResidence),:required => true %>
     </div>
 
     <div class="field">
       <%= f.label :Nationality %><br/>
-      <%= f.select :nationality, options_for_select(@list, selected: @user.nationality) %>
+      <%= f.select :nationality, options_for_select(@list, selected: @user.nationality),:required => true %>
     </div>
     
     <hr>

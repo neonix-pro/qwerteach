@@ -1,19 +1,19 @@
 <%= fields_for :ca_account do |bank_account_fields| %>
   <div class="field">
     <%= bank_account_fields.label :BankName %><br/>
-    <%= bank_account_fields.text_field :BankName, :value => bank_account['BankName'] %>
+    <%= bank_account_fields.text_field :BankName, :value => bank_account['BankName'],:require => true %>
   </div>
   <div class="field">
     <%= bank_account_fields.label :InstitutionNumber %><br/>
-    <%= bank_account_fields.text_field :InstitutionNumber, :value => bank_account['InstitutionNumber'] %>
+    <%= bank_account_fields.text_field :InstitutionNumber, :value => bank_account['InstitutionNumber'],:require => true %>
   </div>
   <div class="field">
     <%= bank_account_fields.label :BranchCode %><br/>
-    <%= bank_account_fields.text_field :BranchCode, :value => bank_account['BranchCode'] %>
+    <%= bank_account_fields.text_field :BranchCode, :value => bank_account['BranchCode'],:require => true %>
   </div>
   <div class="field">
     <%= bank_account_fields.label :AccountNumber %><br/>
-    <%= bank_account_fields.text_field :AccountNumber, :value => bank_account['AccountNumber'] %>
+    <%= bank_account_fields.number_field :AccountNumber, :value => bank_account['AccountNumber'],:require => true%>
   </div>
   <%= bank_account_fields.hidden_field :Type, :value => bank_account['Type'] %>
 <% end %>
