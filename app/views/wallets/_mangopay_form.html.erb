@@ -3,49 +3,47 @@
 <%= form_tag  edit_wallet_path, method: :put do |f| %>
     <div class="field">
       <%= label_tag 'FirstName' %><br/>
-      <%= text_field_tag 'FirstName', @user.firstname %>
+      <%= text_field_tag 'FirstName', @user.firstname, :required => true  %>
     </div>
     <div class="field">
       <%= label_tag 'LastName' %><br/>
-      <%= text_field_tag 'LastName', @user.lastname %>
+      <%= text_field_tag 'LastName', @user.lastname, :required => true  %>
     </div>
     <%= fields_for 'Address' do |address_fields| %>
         <div class="field">
           <%= label_tag 'street' %><br/>
-          <%= address_fields.text_field 'AddressLine1', :value => @user.address['AddressLine1']%>
+          <%= address_fields.text_field 'AddressLine1', :value => @user.address['AddressLine1'], :required => true %>
         </div>
         <div class="field">
           <%= label_tag 'number' %><br/>
-          <%= address_fields.text_field 'AddressLine2', :value => @user.address['AddressLine2'] %>
+          <%= address_fields.text_field 'AddressLine2', :value => @user.address['AddressLine2'] , :required => true %>
         </div>
         <div class="field">
           <%= label_tag 'post_code' %><br/>
-          <%= address_fields.text_field 'PostalCode' , :value => @user.address['PostalCode']%>
+          <%= address_fields.number_field 'PostalCode' , :value => @user.address['PostalCode'], :required => true %>
         </div>
         <div class="field">
           <%= label_tag 'city' %><br/>
-          <%= address_fields.text_field 'City', :value => @user.address['City']%>
+          <%= address_fields.text_field 'City', :value => @user.address['City'], :required => true %>
         </div>
         <div class="field">
           <%= label_tag 'region' %><br/>
-          <%= address_fields.text_field 'Region' , :value => @user.address['Region']%>
+          <%= address_fields.text_field 'Region' , :value => @user.address['Region'], :required => true %>
         </div>
         <div class="field">
           <%= label_tag 'Country' %><br/>
-          <%= address_fields.select 'Country', options_for_select(@list, :selected => @user.address['Country']) %>
+          <%= address_fields.select 'Country', options_for_select(@list, :selected => @user.address['Country']) , :required => true %>
         </div>
     <% end %>
     <div class="field">
       <%= label_tag 'Country_of_residence' %><br/>
-      <%= select_tag 'CountryOfResidence', options_for_select(@list, :selected => @user.countryOfResidence) %>
+      <%= select_tag 'CountryOfResidence', options_for_select(@list, :selected => @user.countryOfResidence), :required => true  %>
     </div>
 
     <div class="field">
       <%= label_tag 'Nationality' %><br/>
-      <%= select_tag 'Nationality', options_for_select(@list, :selected => @user.nationality) %>
+      <%= select_tag 'Nationality', options_for_select(@list, :selected => @user.nationality), :required => true  %>
     </div>
-
-
 
     <div class="field">
       <%= submit_tag 'terminer', :class => 'btn btn-primary btn-mini' %><br/>

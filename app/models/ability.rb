@@ -82,6 +82,10 @@ class Ability
         payment.lesson.teacher_id == user.id || payment.lesson.student_id == user.id
       end
 
+      can :make_transfert, Payment
+
+      can :send_make_transfert, Payment
+
       # TO DO: seul l'élève peut payer
       can :pay_postpayment, Payment do |payment|
         payment.lesson.student_id == user.id

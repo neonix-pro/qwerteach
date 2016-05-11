@@ -8,7 +8,7 @@
     </div>
     <div class="field type_choice">
       <%= f.label "Type de carte" %>
-      <%= select_tag "card_type", options_for_select(["BCMC","CB_VISA_MASTERCARD"], "CB_VISA_MASTERCARD") %>
+      <%= select_tag "card_type", options_for_select(["BCMC","CB_VISA_MASTERCARD"], "CB_VISA_MASTERCARD"), :required => true %>
     </div>
     <div class="field credit_card_choice">
       <%= f.label "Carte existante" %>
