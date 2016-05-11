@@ -1,11 +1,11 @@
 <%= fields_for :iban_account do |bank_account_fields| %>
   <div class="field">
     <%= bank_account_fields.label :IBAN %><br/>
-    <%= bank_account_fields.text_field :IBAN, :value => bank_account['IBAN'] %>
+    <%= bank_account_fields.text_field :IBAN, :value => bank_account['IBAN'], :require => true %>
   </div>
   <div class="field">
     <%= bank_account_fields.label :BIC %><br/>
-    <%= bank_account_fields.text_field :BIC, :value => bank_account['BIC'] %>
+    <%= bank_account_fields.text_field :BIC, :value => bank_account['BIC'],:require => true %>
   </div>
   <%= bank_account_fields.hidden_field :Type, :value => bank_account['Type'] %>
 <% end %>

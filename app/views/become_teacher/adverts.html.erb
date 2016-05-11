@@ -5,7 +5,7 @@
 
 <div id="adverts"> 
 <% @adverts.each do |advert| %> 
-    <%= render( :partial => '/become_teacher/advert', :locals=>{:advert => advert} ) %>
+    <%= render( :partial => '/become_teacher/advert', :locals=>{:advert => advert}, :required => true ) %>
 <% end %>
 </div>
 

@@ -5,7 +5,7 @@
   <div class="field" id="avatar_select">
     <% resource.crop_x=0 %>
     <%= f.label :avatar %>
-    <%= f.file_field :avatar %>
+    <%= f.file_field :avatar, :required => true %>
   </div>
   <div class="actions">
     <%= f.submit "Update" %>
