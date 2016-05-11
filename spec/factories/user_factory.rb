@@ -12,4 +12,11 @@ FactoryGirl.define do
     admin true
     confirmed_at Date.today
   end
+  factory :prof, class: User do
+    email "g@g.g"
+    password "password"
+    password_confirmation "password"
+    postulance_accepted true
+    confirmed_at Date.today
+  end
 end

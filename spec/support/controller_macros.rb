@@ -14,4 +14,13 @@ module ControllerMacros
       sign_in user
     end
   end
+  
+  def login_prof
+    before(:each) do
+      @request.env["devise.mapping"] = Devise.mappings[:prof]
+      prof = FactoryGirl.create(:prof)
+      prof.confirm!
+      sign_in prof
+    end
+  end
 end
