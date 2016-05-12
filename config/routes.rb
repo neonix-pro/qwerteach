@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   end
   get '/both_users_online' => 'users#both_users_online', :as => 'both_users_online'
   authenticated :user do
-    root 'dashboards#index'
+    root 'pages#index'
   end
 
 
@@ -92,7 +92,7 @@ Rails.application.routes.draw do
     post "edit_postpayment/:payment_id" => "payments#send_edit_postpayment", as: 'send_edit_postpayment'
 
     post "bloquerpayment" => "payments#bloquerpayment"
-    post "payerfacture" => "payments#payerfacture"
+    post "payerfacture/:payment_id" => "payments#payerfacture", as: 'payerfacture'
 
   end
 
