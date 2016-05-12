@@ -1,0 +1,2 @@
+module PayPostpaymentsHelper
+end

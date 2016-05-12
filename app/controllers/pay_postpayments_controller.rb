@@ -1,16 +1,22 @@
-class RequireLessonController < ApplicationController
+class PayPostpaymentsController < ApplicationController
   include Wicked::Wizard
-  before_filter :authenticate_user!
 
-  steps :choose_lesson, :payment, :transfert, :bancontact, :cd, :finish
-
+  steps :payment_choice, :transfert, :bancontact, :cd, :finish_payment
+  #load_and_authorize_resource
   def show
-    @teacher = params[:user_id]
+    #params[:id] = 'payment'
+    @payment = Payment.find(params[:payment_id])
+    params.merge(:payment_id => @payment.id)
+    logger.debug('******************* merde'+@payment.id.to_s)
+    logger.debug('********** ' + params[:id].to_s)
     @user = current_user
     case step
-      when :choose_lesson
-        @lesson = Lesson.new
-      when :payment
+      when :payment_choice
+        if @payment.paid?
+          flash[:warning] = "Paiement déjà effectué."
+          redirect_to payments_index_path and return
+        end
+        #params.merge(:payment_id => @payment.id)
       when :transfert
         @user = current_user
         if !@user.mango_id
@@ -59,73 +65,64 @@ class RequireLessonController < ApplicationController
             @cards.push(c)
           end
         end
-      when :finish
-
+      when :finish_payment
         @transaction_mango = params[:transactionId].to_i
         if params[:transactionId]
           status = MangoPay::PayIn.fetch(@transaction_mango)['Status']
           if status == "SUCCEEDED"
-            @lesson = Lesson.create(session[:lesson])
-            if @lesson.save
-              @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
-                                        :mangopay_payin_id => @transaction_mango, :transfert_date => DateTime.now, :price => @lesson.price)
+            #@lesson = Lesson.create(session[:lesson])
+            #if @lesson.save
+              @payment.update_attributes(:status => 1, :mangopay_payin_id => @transaction_mango)
               @payment.save
+              #@payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
+              # :mangopay_payin_id => @transaction_mango, :transfert_date => DateTime.now, :price => @lesson.price)
+              #@payment.save
               flash[:notice] = 'La transaction a correctement été effectuée'
-            end
+            #end
           else
             flash[:notice] = 'Il y a eu un problème lors de la transaction, veuillez réessayer.'
           end
+        elsif session[:payment]
+          @payment.update_attributes(:status => 1, :mangopay_payin_id => session[:payment])
+          @payment.save
+          flash[:notice] = 'La transaction a correctement été effectuée'
         else
-          @lesson = Lesson.create(session[:lesson])
-          if @lesson.save
-            @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
-                                      :mangopay_payin_id => session[:payment], :transfert_date => DateTime.now, :price => @lesson.price)
-            @payment.save
-            flash[:notice] = 'La transaction a correctement été effectuée'
-          end
+          flash[:danger] = 'Il y a eu un soucis lors du paiement. Veuillez réessayer.'
+          redirect_to wizard_path(:finish_payment) and return
         end
         #@transaction = session[:payment] || session[:payment]
-
         session.delete(:lesson)
         session.delete(:payment)
       else
-
-
+        flash[:danger] = "PROBLEME = " + step.to_s
+        raise Exception
     end
     render_wizard
   end
 
   def update
-    @lesson = Lesson.new
+    @payment = Payment.find(params[:payment_id])
+    params.merge(:payment_id => @payment.id)
+    @user = current_user
+    @lesson = @payment.lesson
+    session[:lesson] = @lesson
     case step
-      when :choose_lesson
-        right_time = ((DateTime.parse(params[:lesson][:time_end]).beginning_of_minute()  - DateTime.parse(params[:lesson][:time_start]).beginning_of_minute() ) * 24).to_f
-        right_price = Advert.get_price(User.find(params[:lesson][:teacher_id]), Topic.find(params[:lesson][:topic_id]), Level.find(params[:lesson][:level_id])) * right_time
-        if right_price != params[:lesson][:price].to_f
-          flash[:danger] = 'Ne modifiez pas le prix comme ça!!!'
-          redirect_to wizard_path(:choose_lesson) and return
-        end
-        session[:lesson] = {}
-        session[:lesson] = params[:lesson]
-        session[:lesson][:student_id] = current_user.id
-        jump_to(:payment)
-      when :payment
+      when :payment_choice
         mode = params[:mode]
         jump_to(mode)
       when :transfert
-        @amount = session[:lesson]['price'].to_f
-        @other = User.find(session[:lesson]['teacher_id'])
+        @amount = @payment.price.to_f
+        @other = @lesson.teacher
         payment_service = MangopayService.new(:user => current_user)
         payment_service.set_session(session)
-        case payment_service.send_make_prepayment_transfert(
+        case payment_service.send_make_transfert(
             {:amount => @amount, :other_part => @other})
           when 0
-            logger.debug('*****************************' + session[:payment].to_s)
             flash[:notice] = "Le transfert s'est correctement effectué. Votre réservation de cours est donc correctement enregistrée."
-            redirect_to wizard_path(:finish) and return
+            redirect_to wizard_path(:finish_payment) and return
           when 1
             flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
-            redirect_to wizard_path(:payment) and return
+            redirect_to wizard_path(:payment_choice) and return
           when 2
             flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
             list = ISO3166::Country.all
@@ -150,17 +147,17 @@ class RequireLessonController < ApplicationController
 
         jump_to(:finish)
       when :bancontact
-        @amount = session[:lesson]['price'].to_f
-        @other = User.find(session[:lesson]['teacher_id'])
-        @return_path = request.base_url + wizard_path(:finish)
+        @amount = @payment.price.to_f
+        @other = @lesson.teacher
+        @return_path = request.base_url + wizard_path(:finish_payment)
         payment_service = MangopayService.new(:user => current_user)
         payment_service.set_session(session)
-        redirect_url = payment_service.send_make_prepayment_bancontact(
+        redirect_url = payment_service.send_make_bancontact(
             {:amount => @amount, :other_part => @other, :return_url => @return_path})
         case redirect_url
           when 1
             flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
-            redirect_to wizard_path(:payment) and return
+            redirect_to wizard_path(:payment_choice) and return
           when 2
             flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
             list = ISO3166::Country.all
@@ -179,13 +176,12 @@ class RequireLessonController < ApplicationController
             # 3DS
             redirect_to redirect_url and return
         end
-        jump_to(:finish)
+        jump_to(:finish_payment)
       when :cd
-        @amount = session[:lesson]['price'].to_f
-        @other = User.find(session[:lesson]['teacher_id'])
-        @return_path = request.base_url + wizard_path(:finish)
+        @amount = @payment.price.to_f
+        @other = @lesson.teacher
+        @return_path = request.base_url + wizard_path(:finish_payment)
         @card = params[:card]
-
         payment_service = MangopayService.new(:user => current_user)
         payment_service.set_session(session)
 
@@ -202,23 +198,22 @@ class RequireLessonController < ApplicationController
           case card_id
             when 1
               flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
-              redirect_to wizard_path(:payment) and return
+              redirect_to wizard_path(:payment_choice) and return
             else
               # Card created
               @card = card_id
           end
         end
         # paiement
-        payin_direct = payment_service.send_make_prepayment_payin_direct({
-                                                                             :amount => @amount, :other_part => @other, :card_id => @card, :return_url => @return_path
-                                                                         })
-        logger.debug('PROUT = ' + payin_direct.to_s)
+        payin_direct = payment_service.send_make_payin_direct({
+                                                                  :amount => @amount, :other_part => @other, :card_id => @card, :return_url => @return_path
+                                                              })
         case payin_direct
           when 0
-            redirect_to wizard_path(:finish) and return
+            redirect_to wizard_path(:finish_payment) and return
           when 1
             flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
-            redirect_to wizard_path(:payment) and return
+            redirect_to wizard_path(:payment_choice) and return
           when 2
             flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
             list = ISO3166::Country.all
@@ -237,18 +232,11 @@ class RequireLessonController < ApplicationController
             # 3DS
             redirect_to payin_direct and return
         end
-        jump_to(:finish)
-      when :finish
+        jump_to(:finish_payment)
+      when :finish_payment
 
       else
     end
-
     render_wizard
   end
-
-  private
-  def lesson_params
-    params.require(:lesson).permit(:student_id, :date, :teacher_id, :price, :level_id, :topic_id, :topic_group_id, :time_start, :time_end).merge(:student_id => current_user.id)
-  end
-
 end

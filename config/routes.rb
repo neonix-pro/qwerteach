@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     root 'pages#index'
   end
 
+
   unauthenticated :user do
     devise_scope :user do
       get "/" => "pages#index"
@@ -81,10 +82,11 @@ Rails.application.routes.draw do
   #Permet affichage facture
   get "/payments/index" => "payments#index"
 
-
   #post "lessons/:teacher_id/require_lesson", to: "lessons#require_lesson", as: 'require_lesson'
   resources :lessons do
-    resources :payments
+    resources :payments do
+      resources :pay_postpayments
+    end
     post "create_postpayment" => "payments#create_postpayment"
     get "edit_postpayment/:payment_id" => "payments#edit_postpayment", as: 'edit_postpayment'
     post "edit_postpayment/:payment_id" => "payments#send_edit_postpayment", as: 'send_edit_postpayment'

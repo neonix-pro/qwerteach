@@ -28,7 +28,7 @@ class MangopayService
   end
 
   def send_make_transfert(params)
-    if (test=transaction_infos_test(params)) > 0
+    if (test=transaction_infos(params)) > 0
       return test
     end
     begin
@@ -81,7 +81,18 @@ class MangopayService
       return 1
     end
   end
-
+  def send_make_bancontact(params)
+    if (test=transaction_infos(params)) > 0
+      return test
+    end
+    begin
+      if (payin = bancontact_payin(params[:return_url]))
+        return payin
+      end
+    rescue MangoPay::ResponseError => ex
+      return 1
+    end
+  end
   def send_make_card_registration(params)
     @card_number = params[:card_number]
     @expiration_month = params[:expiration_month]
@@ -100,7 +111,15 @@ class MangopayService
     define_secure_mode
     return make_prepayment_payin_direct
   end
-
+  def send_make_payin_direct(params)
+    @card_id = params[:card_id]
+    @return_path = params[:return_url]
+    if (test=transaction_infos(params)) > 0
+      return test
+    end
+    define_secure_mode
+    return make_prepayment_payin_direct
+  end
   private
 
   def define_secure_mode

@@ -1,6 +1,5 @@
 class PaymentsController < ApplicationController
   before_filter :authenticate_user!
-  load_and_authorize_resource
 
   def index
     @lessons_given = current_user.lessons_given
@@ -17,6 +16,7 @@ class PaymentsController < ApplicationController
       lg.payments.each { |l| @factures_received.push(l) }
     end
   end
+
 
   def bloquerpayment
     payments = Payment.where(:lesson_id => params[:lesson_id])
@@ -213,4 +213,9 @@ class PaymentsController < ApplicationController
   def edit_params
     params.require(:payment).permit(:price)
   end
+
+  def finish_wizard_path
+    payments_index_path
+  end
+
 end
