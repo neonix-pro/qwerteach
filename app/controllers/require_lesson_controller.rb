@@ -65,7 +65,9 @@ class RequireLessonController < ApplicationController
         if params[:transactionId]
           status = MangoPay::PayIn.fetch(@transaction_mango)['Status']
           if status == "SUCCEEDED"
-            @lesson = Lesson.create(session[:lesson])
+            #@lesson = Lesson.create(session[:lesson])
+            @lesson = Lesson.create(:student_id => session[:lesson]['student_id'], :teacher_id => session[:lesson]['teacher_id'], :status => 0, :time_start => session[:lesson]['time_start'], :time_end => session[:lesson]['time_end'], :topic_id => session[:lesson]['topic_id'], :topic_group_id => session[:lesson]['topic_group_id'], :level_id => session[:lesson]['level_id'], :price => session[:lesson]['price'])
+
             if @lesson.save
               @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
                                         :mangopay_payin_id => @transaction_mango, :transfert_date => DateTime.now, :price => @lesson.price)
@@ -76,7 +78,13 @@ class RequireLessonController < ApplicationController
             flash[:notice] = 'Il y a eu un problème lors de la transaction, veuillez réessayer.'
           end
         else
-          @lesson = Lesson.create(session[:lesson])
+          #@lesson = Lesson.create(session[:lesson])
+          @lesson = Lesson.create(:student_id => session[:lesson]['student_id'], :teacher_id => session[:lesson]['teacher_id'], :status => 0, :time_start => session[:lesson]['time_start'], :time_end => session[:lesson]['time_end'], :topic_id => session[:lesson]['topic_id'], :topic_group_id => session[:lesson]['topic_group_id'], :level_id => session[:lesson]['level_id'], :price => session[:lesson]['price'])
+
+          logger.debug('PRIIIIIIIXx = ' + @lesson.price.to_s)
+
+          logger.debug('PRIIIIIIIXx = ' + session[:lesson]['price'].to_s)
+          logger.debug('LESOSOOOOOON ' + session[:lesson].to_s)
           if @lesson.save
             @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
                                       :mangopay_payin_id => session[:payment], :transfert_date => DateTime.now, :price => @lesson.price)
@@ -108,6 +116,7 @@ class RequireLessonController < ApplicationController
         session[:lesson] = {}
         session[:lesson] = params[:lesson]
         session[:lesson][:student_id] = current_user.id
+        session[:lesson][:status] = 0
         jump_to(:payment)
       when :payment
         mode = params[:mode]
@@ -121,7 +130,7 @@ class RequireLessonController < ApplicationController
             {:amount => @amount, :other_part => @other})
           when 0
             logger.debug('*****************************' + session[:payment].to_s)
-            flash[:notice] = "Le transfert s'est correctement effectué. Votre réservation de cours est donc correctement enregistrée."
+            #flash[:notice] = "Le transfert s'est correctement effectué. Votre réservation de cours est donc correctement enregistrée."
             redirect_to wizard_path(:finish) and return
           when 1
             flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."

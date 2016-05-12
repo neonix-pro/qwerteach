@@ -18,14 +18,45 @@ class PaymentsController < ApplicationController
   end
 
   def payerfacture
-    payment = Payment.find( params[:payment_id])
-    
-      if payment.paid? || payment.canceled? || payment.blocked?
-        flash[:danger] = "Paiement impossible"
-      else
-      payment.update_attributes(:status => 1)
-      flash[:success] = "Paiement effectué"
-      end 
+    @payment = Payment.find(params[:payment_id])
+    if @payment.paid? || @payment.canceled? || @payment.blocked?
+      flash[:danger] = "Paiement impossible"
+    else
+      @amount = @payment.price.to_f
+      @other = @payment.lesson.teacher
+      payment_service = MangopayService.new(:user => current_user)
+      payment_service.set_session(session)
+      case payment_service.send_make_postpayment_transfert(
+          {:amount => @amount, :other_part => @other})
+        when 0
+          @payment.update_attributes(:status => 1)
+          flash[:notice] = "Le transfert s'est correctement effectué."
+          redirect_to lessons_path and return
+        when 1
+          flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+          redirect_to lessons_path and return
+        when 2
+          flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+          list = ISO3166::Country.all
+          @list = []
+          list.each do |c|
+            t = [c.translations['fr'], c.alpha2]
+            @list.push(t)
+          end
+          @user.load_mango_infos
+          @user.load_bank_accounts
+          render 'wallets/_mangopay_form' and return
+        when 3
+          flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
+          redirect_to root_path and return
+        when 4
+          flash[:alert] = "Votre solde est insuffisant. Il faut d'abord recharger votre compte."
+          redirect_to direct_debit_path and return
+        else
+          flash[:alert] = "Erreur inconnue."
+          redirect_to root_path and return
+      end
+    end
     redirect_to lessons_path
   end
 

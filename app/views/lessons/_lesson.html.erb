@@ -14,10 +14,10 @@
     <% if lesson.student == current_user  %>
       <%= button_to 'Litige', lesson_bloquerpayment_path(:lesson=>lesson, :lesson_id=>lesson.id) %>
         <% lesson.payments.each do |p| %> 
-            <% if p.postpayment? && ( p.status.pending? || p.status.blocked? )  %>
+            <% if p.postpayment? && ( p.pending? || p.blocked? )  %>
                 <%= button_to 'Payer Facture',lesson_payment_pay_postpayments_path(:lesson_id=>lesson.id, :payment_id=>p.id) %>
             <% end %>
-            <% if p.prepayment? && p.status.pending? %>
+            <% if p.prepayment? && p.pending? %>
                  <%= button_to 'Paiement Direct', lesson_payerfacture_path(:lesson_id=>lesson.id, :payment_id=>p.id) %>
             <% end %>
             

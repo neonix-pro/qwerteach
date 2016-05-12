@@ -17,16 +17,18 @@ class WalletsController < ApplicationController
         @user.load_bank_accounts
         render 'wallets/_mangopay_form' and return
       end
-      @wallet = MangoPay::User.wallets(@user.mango_id).first
-      @bonus = MangoPay::User.wallets(@user.mango_id).second
-      @transactions = MangoPay::User.transactions(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 100})
-      @transactions_on_way = 0
-      @transactions.each do |t|
-        if t["Status"] == "CREATED"
-          @transactions_on_way += (t["DebitedFunds"]["Amount"]).to_f/100
-        end
-      end
-      @transactions_on_way
+      @wallets = MangoPay::User.wallets(@user.mango_id)
+      @wallet = @wallets.first
+      @bonus = @wallets.second
+      @transactions_on_way = @wallets.third
+      #@transactions = MangoPay::User.transactions(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 100})
+      #@transactions_on_way = 0
+      #@transactions.each do |t|
+      #  if t["Status"] == "CREATED"
+      #    @transactions_on_way += (t["DebitedFunds"]["Amount"]).to_f/100
+      #  end
+      #end
+      #@transactions_on_way
 
       if params[:transactionId]
         @transaction = MangoPay::PayIn.fetch(params[:transactionId])

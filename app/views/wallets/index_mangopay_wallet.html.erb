@@ -26,5 +26,5 @@
 
 <p><%= ((@wallet["Balance"]["Amount"]).to_f/100).to_f %> <%= @wallet["Balance"]["Currency"] %> +
   <%= ((@bonus["Balance"]["Amount"]).to_f/100).to_f %> <%= @bonus["Balance"]["Currency"] %> de crédit bonus </p>
-<p>En cours de transfert : <%= @transactions_on_way %></p>
+<p>En cours de transfert : <%= @transactions_on_way["Balance"]["Amount"]%></p>
 <p>Date de création : <%= Time.at(@wallet['CreationDate']).to_date %></p>

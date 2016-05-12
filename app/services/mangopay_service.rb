@@ -48,6 +48,27 @@ class MangopayService
     end
   end
 
+  def send_make_postpayment_transfert(params)
+    if (test=transaction_postpayment_infos(params)) > 0
+      return test
+    end
+    begin
+      if is_solvable_postwallet?
+        unless bonus_transfer
+          return 1
+        end
+        unless normal_transfer
+          return 1
+        end
+        return 0
+      else
+        return 4
+      end
+    rescue MangoPay::ResponseError => ex
+      return 1
+    end
+  end
+
   def send_make_prepayment_transfert(params)
     if (test=transaction_prepayment_infos(params)) > 0
       return test
@@ -202,7 +223,13 @@ class MangopayService
   end
 
   def is_solvable?
-    @amount < total_wallets
+    @amount <= total_wallets
+  end
+
+  def is_solvable_postwallet?
+    Rails.logger.debug('************ amount = ' + @amount.to_s)
+    Rails.logger.debug('************ third = ' + wallets.third['Balance']['Amount'].to_s)
+    return @amount <= wallets.third['Balance']['Amount']
   end
 
   def mangopay_transfer(author_id, amount, fees, debited_wallet, credited_wallet)
@@ -266,7 +293,7 @@ class MangopayService
   def bonus_transfer
     amount_bonus_transfer
     if @amount_bonus_transfer > 0
-      bonus_transfer = mangopay_transfer(@user.mango_id, @amount_bonus_transfer, @fees_bonus_transfert, @wallets.second["Id"], @beneficiary_wallet["Id"])
+      bonus_transfer = mangopay_transfer(@user.mango_id, @amount_bonus_transfer, @fees_bonus_transfert, @sender_wallet["Id"], @beneficiary_wallet["Id"])
       if bonus_transfer.nil?
         return false
       else
@@ -280,7 +307,7 @@ class MangopayService
   def normal_transfer
     amount_normal_transfer
     if @amount_normal > 0
-      normal_transfer = mangopay_transfer(@user.mango_id, @amount_normal, @fees_normal, @wallets.first["Id"], @beneficiary_wallet["Id"])
+      normal_transfer = mangopay_transfer(@user.mango_id, @amount_normal, @fees_normal, @sender_wallet["Id"], @beneficiary_wallet["Id"])
       if normal_transfer.nil?
         return false
       else
@@ -305,12 +332,36 @@ class MangopayService
 
     begin
       @wallets ||= wallets
+      @sender_wallet = @wallets.first
       @beneficiary_wallet = other_wallets.first
       return 0
     rescue MangoPay::ResponseError
       return 1
     end
   end
+
+  def transaction_postpayment_infos(params)
+    @amount = params[:amount].to_f * 100
+    @fees = 0 * @amount
+    @beneficiary = User.find(params[:other_part])
+
+    unless valid_users_infos
+      return 2
+    end
+    unless valid_benef_infos
+      return 3
+    end
+
+    begin
+      @wallets ||= wallets
+      @sender_wallet = @wallets.third
+      @beneficiary_wallet = other_wallets.first
+      return 0
+    rescue MangoPay::ResponseError
+      return 1
+    end
+  end
+
 
   def transaction_prepayment_infos(params)
     @amount = params[:amount].to_f * 100
@@ -326,6 +377,7 @@ class MangopayService
 
     begin
       @wallets ||= wallets
+      @sender_wallet = @wallets.first
       @beneficiary_wallet = @wallets.third
       return 0
     rescue MangoPay::ResponseError
