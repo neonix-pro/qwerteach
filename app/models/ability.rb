@@ -90,6 +90,10 @@ class Ability
       can :pay_postpayment, Payment do |payment|
         payment.lesson.student_id == user.id
       end
+      
+      can :payerfacture, Payment do |payement|
+        payement.lesson.student_id == user.id
+      end
 
       can [:show_min, :show, :reply, :find, :mark_as_read], Conversation do |conversation|
         conversation.is_participant?(user)

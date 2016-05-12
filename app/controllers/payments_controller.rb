@@ -18,6 +18,20 @@ class PaymentsController < ApplicationController
     end
   end
 
+  def payerfacture
+    payments = Payment.where(:lesson_id => params[:lesson_id])
+    
+    payments.each do |payment|
+      if payment.paid? || payment.canceled? || payment.blocked?
+        flash[:danger] = "Paiement impossible"
+      else
+      payment.update_attributes(:status => 1)
+      flash[:success] = "Paiement effectué"
+      end 
+    end
+    redirect_to lesson_path
+  end
+  
   def bloquerpayment
     payments = Payment.where(:lesson_id => params[:lesson_id])
 

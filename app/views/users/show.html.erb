@@ -73,7 +73,7 @@
       <p><%= raw(@user.description) %></p>
 
       <% @adverts.each do |a| %>
-          <% max = a.advert_prices.map { |ap| ap.level }.max.fr %>
+          <% max = a.advert_prices.map { |ap| ap.level }.max.fr%>
           <h5><%= a.topic.topic_group.title %> <i>jusqu'au niveau <%= max %></i></h5>
 
       <% end %>
