@@ -97,6 +97,8 @@ gem 'resque', :require => "resque/server"
 gem 'devise_lastseenable'
 
 gem "factory_girl_rails", "~> 4.0"
+
+gem 'capybara' #Pour les test
 # Use Unicorn as the app server
 # gem 'unicorn'
 
