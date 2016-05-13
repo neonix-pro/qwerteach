@@ -96,8 +96,8 @@ class User < ActiveRecord::Base
 
   def mango_infos (params)
     {
-        :FirstName => self.firstname,
-        :LastName => self.lastname,
+        :FirstName => params[:FirstName] || self.firstname,
+        :LastName => params[:LastName] || self.lastname,
         :Address => params[:Address],
         :Birthday => self.birthdate.to_time.to_i,
         :Nationality => params[:Nationality],

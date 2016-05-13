@@ -21,6 +21,8 @@ class WalletsController < ApplicationController
       @wallet = @wallets.first
       @bonus = @wallets.second
       @transactions_on_way = @wallets.third
+      @mango_user = MangoPay::NaturalUser.fetch(@user.mango_id)
+
       #@transactions = MangoPay::User.transactions(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 100})
       #@transactions_on_way = 0
       #@transactions.each do |t|
@@ -52,6 +54,7 @@ class WalletsController < ApplicationController
     end
     @user.load_mango_infos
     @user.load_bank_accounts
+    @mango_user = MangoPay::NaturalUser.fetch(@user.mango_id)
   end
 
   def update_mangopay_wallet

@@ -10,7 +10,7 @@
 <% end %>
 <h2>Infos générales</h2>
 
-<p><%= @user.lastname %> <%= @user.firstname %></p>
+<p><%= @mango_user['LastName'] %> <%= @mango_user['FirstName'] %></p>
 <p>Adresse :
   <% @user.address.keys.each do |k| %>
       <%= @user.address.fetch(k) %>,
