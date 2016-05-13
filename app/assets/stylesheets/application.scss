@@ -15,7 +15,6 @@
  *= require bootstrap-datepicker
  *= require bootstrap-datetimepicker
  */
-
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import 'bootstrap/theme';
@@ -39,7 +38,9 @@
   width: 50px;
   overflow: hidden;
   text-align: center;
-  img { width: 100% }
+  img {
+    width: 100%
+  }
 }
 
 .messages {
@@ -52,53 +53,51 @@
 /* CSS used here will be applied after bootstrap.css */
 
 .notifications {
-   min-width:420px; 
-   left:-300px;
-  }
-  
-  .notifications-wrapper {
-    
-      max-height:250px;
-    }
-    
- .menu-title {
-     color:#ff7788;
-     font-size:1.5rem;
-     display:inline-block;
-      }
- 
+  min-width: 420px;
+  left: -300px;
+}
+
+.notifications-wrapper {
+
+  max-height: 250px;
+}
+
+.menu-title {
+  color: #ff7788;
+  font-size: 1.5rem;
+  display: inline-block;
+}
+
 .glyphicon-circle-arrow-right {
-      margin-left:10px;     
-   }
-  
-   
- .notification-heading, .notification-footer  {
-  padding:2px 10px;
-       }
-      
-        
+  margin-left: 10px;
+}
+
+.notification-heading, .notification-footer {
+  padding: 2px 10px;
+}
+
 .dropdown-menu.divider {
-  height : 20px;
-  width : 420px;
-  }
+  height: 20px;
+  width: 420px;
+}
 
 .item-title {
-  
- font-size:1.3rem;
- color:#000;
-    
+
+  font-size: 1.3rem;
+  color: #000;
+
 }
 
 .notifications a.content {
-   text-decoration:none;
-   background:#ccc;
+  text-decoration: none;
+  background: #ccc;
 
- }
-    
+}
+
 .notification-item {
-   padding:10px;
-   margin:5px;
-   background:#ccc;
-   border-radius:4px;
- }
+  padding: 10px;
+  margin: 5px;
+  background: #ccc;
+  border-radius: 4px;
+}
 
