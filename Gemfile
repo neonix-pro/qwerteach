@@ -99,6 +99,8 @@ gem 'devise_lastseenable'
 gem "factory_girl_rails", "~> 4.0"
 
 gem 'capybara' #Pour les test
+
+gem "rails-erd"
 # Use Unicorn as the app server
 # gem 'unicorn'
 
