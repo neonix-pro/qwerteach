@@ -24,7 +24,7 @@ class LessonsNotifierWorker
       @room = BigbluebuttonRoom.new(bigbluebutton_room)
       @room.meetingid = @room.name
       if @room.save
-        subject = "Votre classe est disponible."
+        subject = "Votre classe est disponible. Cliquez ici pour la rejoindre."
        # body = " /bigbluebutton/rooms/#{@room.param}/join"
         body = "/bigbluebutton/rooms/#{@room.param}/invite"
         # notifs

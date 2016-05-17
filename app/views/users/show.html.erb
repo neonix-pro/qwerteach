@@ -27,6 +27,11 @@
                     <p><%= link_to 'Demander un cours', user_require_lesson_index_path(@user.id) %></p>
                 <% end %>
               </div>
+          <% elsif @user.is_a? Teacher %>
+              <% if current_user.admin? %>
+                  <%= button_to 'Inviter à une interview', room_invite_bbb_rooms_path(@user) , method: :get%>
+              <% end %>
+
           <% end %>
         </div>
         <div class="col-md-4 ">
@@ -73,7 +78,7 @@
       <p><%= raw(@user.description) %></p>
 
       <% @adverts.each do |a| %>
-          <% max = a.advert_prices.map { |ap| ap.level }.max.fr%>
+          <% max = a.advert_prices.map { |ap| ap.level }.max.fr %>
           <h5><%= a.topic.topic_group.title %> <i>jusqu'au niveau <%= max %></i></h5>
 
       <% end %>
@@ -89,7 +94,7 @@
               </div>
               <div class="field">
                 <%= label_tag :review_text %><br/>
-                <%= text_area_tag :review_text, nil%>
+                <%= text_area_tag :review_text, nil %>
               </div>
               <div class="field">
                 <%= submit_tag 'Noter', :class => 'btn btn-primary btn-mini' %><br/>
