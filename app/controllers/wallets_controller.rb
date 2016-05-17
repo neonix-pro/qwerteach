@@ -54,7 +54,9 @@ class WalletsController < ApplicationController
     end
     @user.load_mango_infos
     @user.load_bank_accounts
-    @mango_user = MangoPay::NaturalUser.fetch(@user.mango_id)
+    if @user.mango_id
+      @mango_user = MangoPay::NaturalUser.fetch(@user.mango_id)
+    end
   end
 
   def update_mangopay_wallet

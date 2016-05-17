@@ -3,11 +3,11 @@
 <%= form_tag  edit_wallet_path, method: :put do |f| %>
     <div class="field">
       <%= label_tag 'FirstName' %><br/>
-      <%= text_field_tag 'FirstName', (@mango_user.nil? ? @user.firstname : mango_user['FirstName']), :required => true  %>
+      <%= text_field_tag 'FirstName', (@mango_user.nil? ? @user.firstname : @mango_user['FirstName']), :required => true  %>
     </div>
     <div class="field">
       <%= label_tag 'LastName' %><br/>
-      <%= text_field_tag 'LastName', (@mango_user.nil? ? @user.lastname : mango_user['Lastname']), :required => true  %>
+      <%= text_field_tag 'LastName', (@mango_user.nil? ? @user.lastname : @mango_user['LastName']), :required => true  %>
     </div>
     <%= fields_for 'Address' do |address_fields| %>
         <div class="field">
