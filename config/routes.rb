@@ -89,6 +89,9 @@ Rails.application.routes.draw do
   #post "lessons/:teacher_id/require_lesson", to: "lessons#require_lesson", as: 'require_lesson'
   resources :lessons do
     get 'accept_lesson' => :accept_lesson
+    get 'refuse_lesson' => :refuse_lesson
+    get 'cancel_lesson' => :cancel_lesson
+
     resources :payments do
       resources :pay_postpayments
     end

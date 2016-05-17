@@ -71,12 +71,37 @@ class LessonsController < ApplicationController
     @lesson.update_attributes(:status => 2)
     @lesson.save
     body = "#"
-    subject = "Le professeur #{@lesson.teacher.email} a accepter votre demande de cours."
+    subject = "Le professeur #{@lesson.teacher.email} a accepté votre demande de cours."
     @lesson.student.send_notification(subject, body, @lesson.teacher)
     PrivatePub.publish_to "/lessons/#{@lesson.student_id}", :lesson => @lesson
     flash[:notice] = "Le cours a été accepté."
     redirect_to dashboard_path
   end
+
+  def refuse_lesson
+    @lesson = Lesson.find(params[:lesson_id])
+    @lesson.update_attributes(:status => 4)
+    @lesson.save
+    body = "#"
+    subject = "Le professeur #{@lesson.teacher.email} a refusé votre demande de cours."
+    @lesson.student.send_notification(subject, body, @lesson.teacher)
+    PrivatePub.publish_to "/lessons/#{@lesson.student_id}", :lesson => @lesson
+    flash[:notice] = "Le cours a été refusé."
+    redirect_to dashboard_path
+  end
+
+  def cancel_lesson
+    @lesson = Lesson.find(params[:lesson_id])
+    @lesson.update_attributes(:status => 3)
+    @lesson.save
+    body = "#"
+    subject = "Le professeur #{@lesson.teacher.email} a annulé votre demande de cours."
+    @lesson.student.send_notification(subject, body, @lesson.teacher)
+    PrivatePub.publish_to "/lessons/#{@lesson.student_id}", :lesson => @lesson
+    flash[:notice] = "Le cours a été annulé."
+    redirect_to dashboard_path
+  end
+
 
   private
   def lesson_params

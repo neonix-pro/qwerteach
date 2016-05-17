@@ -1,12 +1,18 @@
 <div class="lesson">
-		<p>Nom Prof: <%= lesson.teacher.firstname %><%= lesson.teacher.lastname %></p>
-		<p>Nom Student: <%= lesson.student.firstname %><%= lesson.student.lastname %></p>
-		<p> Topic: <%= lesson.topic_group_id %></p>
-		<p>Date debut: <%= lesson.time_start %></p>
-		<p> Date fin: <%= lesson.time_end %></p>
-		<p>Statut du cours: <%= lesson.status.to_s %></p>
+  <p>Nom Prof: <%= lesson.teacher.firstname %><%= lesson.teacher.lastname %></p>
+  <p>Nom Student: <%= lesson.student.firstname %><%= lesson.student.lastname %></p>
+  <p> Topic: <%= lesson.topic_group_id %></p>
+  <p>Date debut: <%= lesson.time_start %></p>
+  <p> Date fin: <%= lesson.time_end %></p>
+  <p>Statut du cours: <%= lesson.status.to_s %></p>
   <% if current_user.id == lesson.teacher.id && (lesson.pending_teacher? || lesson.pending_student?) %>
       <%= link_to t('.accept', :default => t("helpers.links.accept")),
                   lesson_accept_lesson_path(lesson), :class => 'btn btn-success' %>
+      <%= link_to t('.refuse', :default => t("helpers.links.refuse")),
+                  lesson_refuse_lesson_path(lesson), :class => 'btn btn-danger' %>
+  <% end %>
+  <% if current_user.id == lesson.teacher.id && lesson.created? %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  lesson_cancel_lesson_path(lesson), :class => 'btn btn-warning' %>
   <% end %>
 </div>
