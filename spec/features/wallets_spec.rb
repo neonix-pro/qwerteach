@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+# NOT WORKING, WE NEED TO ALLOW EXTERNAL REQUESTS
+
 feature "Wallets" do
   scenario "GET /wallets not logged in" do
     visit index_wallet_path
