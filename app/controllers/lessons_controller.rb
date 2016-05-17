@@ -70,6 +70,10 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:lesson_id])
     @lesson.update_attributes(:status => 2)
     @lesson.save
+    body = "#"
+    subject = "Le professeur #{@lesson.teacher.email} a accepter votre demande de cours."
+    @lesson.student.send_notification(subject, body, @lesson.teacher)
+    PrivatePub.publish_to "/lessons/#{@lesson.student_id}", :lesson => @lesson
     flash[:notice] = "Le cours a été accepté."
     redirect_to dashboard_path
   end

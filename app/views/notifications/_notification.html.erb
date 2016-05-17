@@ -1,10 +1,10 @@
 <% emetteur = User.find(notification.sender_id) %>
-<a class="content" href="<%= notification.body%>">
+<a class="content" href="<%= notification.body %>">
   <div class="notification-item">
     <h4 class="item-title">
       <li class="round-image-50"><%= image_tag(emetteur.avatar.url(:small)) %></li>
       <%= notification.subject %>
     </h4>
-    <p class="item-info">Rejoindre</p>
+   <!-- <p class="item-info">Rejoindre</p> -->
   </div>
 </a>
