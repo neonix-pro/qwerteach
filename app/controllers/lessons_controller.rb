@@ -26,6 +26,8 @@ class LessonsController < ApplicationController
     @Lesson = Lesson.find(params[:id])
   end
 
+
+  # Not used
   def create
     @student_id = current_user.id
     price = params[:lesson][:price]
@@ -62,6 +64,14 @@ class LessonsController < ApplicationController
   def require_lesson
     @student_id = current_user.id
     @lesson = Lesson.new
+  end
+
+  def accept_lesson
+    @lesson = Lesson.find(params[:lesson_id])
+    @lesson.update_attributes(:status => 2)
+    @lesson.save
+    flash[:notice] = "Le cours a été accepté."
+    redirect_to dashboard_path
   end
 
   private

@@ -2,7 +2,7 @@ class LessonsNotifierWorker
   @queue = :bigbluebutton_rails
 
   def self.perform(*args)
-    @beginning_lessons = Lesson.where(:time_start => (DateTime.now - 10.minutes)..(DateTime.now))
+    @beginning_lessons = Lesson.where(:time_start => (DateTime.now - 10.minutes)..(DateTime.now), :status => 2)
    # @beginning_lessons = Lesson.all
     Resque.enqueue(LessonsNotifierWorker)
     @beginning_lessons.each do |bl|
