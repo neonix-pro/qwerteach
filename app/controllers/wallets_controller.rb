@@ -318,5 +318,106 @@ class WalletsController < ApplicationController
     end
   end
 
+  def bank_accounts
+    @user = current_user
+    @user.load_mango_infos
+    @user.load_bank_accounts
+    list = ISO3166::Country.all
+    @list = []
+    list.each do |c|
+      t = [c.translations['fr'], c.alpha2]
+      @list.push(t)
+    end
+    @mango_user = MangoPay::NaturalUser.fetch(@user.mango_id)
+  end
+
+  def update_bank_accounts
+    begin
+      @user = current_user
+      @user.load_mango_infos
+      @user.load_bank_accounts
+      mango_infos = @user.mango_infos(params)
+      if @user.mango_id.nil?
+        m = @user.create_mango_user(params)
+      else
+        m = MangoPay::NaturalUser.update(@user.mango_id, mango_infos)
+      end
+      if params[:bank_account]
+        case params[:bank_account]['Type']
+          when 'iban'
+            params[:bank_account] = params[:iban_account]
+          when 'gb'
+            params[:bank_account] = params[:gb_account]
+          when 'us'
+            params[:bank_account] = params[:us_account]
+          when 'ca'
+            params[:bank_account] = params[:ca_account]
+          when 'other'
+            params[:bank_account] = params[:other_account]
+          else
+            flash[:danger] = "Il y a eu un problème lors de l'enregistrement de la carte."
+            redirect_to bank_accounts_path and return
+        end
+        params[:bank_account][:OwnerName]=@user.firstname + ' '+@user.lastname
+        params[:bank_account][:OwnerAddress] = m["Address"]
+
+        carte = MangoPay::BankAccount.create(@user.mango_id, params[:bank_account])
+        unless carte['Id'].blank?
+          flash[:notice] = "L'ajout de la carte a correctement été fait."
+          redirect_to bank_accounts_path and return
+        else
+          flash[:danger] = "Il y a eu un problème lors de l'enregistrement de la carte."
+          redirect_to bank_accounts_path and return
+        end
+      end
+
+    rescue MangoPay::ResponseError => ex
+      flash[:danger] = "Il y a eu un problème lors de l'enregistrement de la carte." + ex.details["Message"].to_s
+      #ex.details['errors'].each do |name, val|
+      #  flash[:danger] += " #{name}: #{val} \n\n"
+      #end
+      # jump_to(:banking_informations)
+      redirect_to bank_accounts_path and return
+    end
+  end
+
+  def payout
+    @user = current_user
+    @user.load_mango_infos
+    @user.load_bank_accounts
+    if @user.wallets.first['Balance']['Amount'].to_f == 0.0
+      flash[:alert] = "Vous n'avez rien à récupérer."
+      redirect_to controller: 'wallets',
+                  action: 'index_mangopay_wallet'
+    end
+  end
+
+  def make_payout
+    @account = params[:account]
+    payment_service = MangopayService.new(:user => current_user)
+    payment_service.set_session(session)
+    return_code = payment_service.make_payout({:bank_acccount_id => @account})
+    case return_code
+      when 1
+        flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+        redirect_to payout_path and return
+      when 2
+        flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+        list = ISO3166::Country.all
+        @list = []
+        list.each do |c|
+          t = [c.translations['fr'], c.alpha2]
+          @list.push(t)
+        end
+        @user.load_mango_infos
+        @user.load_bank_accounts
+        render 'wallets/_mangopay_form' and return
+      else
+        # 3DS
+        flash[:notice] = "La transaction s'est correctement effectuée. Vous verrez votre solde sur votre compte de peu."
+        redirect_to controller: 'wallets',
+                    action: 'index_mangopay_wallet'
+    end
+  end
 
 end

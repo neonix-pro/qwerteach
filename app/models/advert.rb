@@ -22,7 +22,7 @@ class Advert < ActiveRecord::Base
     unless advert_topic.nil?
       return advert_topic.advert_prices.map(&:level_id)
     else
-      return nil
+      return []
     end
   end
 

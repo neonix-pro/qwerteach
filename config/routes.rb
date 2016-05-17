@@ -34,6 +34,10 @@ Rails.application.routes.draw do
     get "transactions" => :transactions_mangopay_wallet
     get "card_info" => :card_info
     put "send_card_info" => :send_card_info
+    get 'bank_accounts' => :bank_accounts
+    put 'update_bank_accounts' => :update_bank_accounts
+    get 'payout' => :payout
+    put 'make_payout' => :make_payout
   end
 
   devise_for :users, :controllers => {:registrations => "registrations"}
