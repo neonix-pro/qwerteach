@@ -6,16 +6,9 @@ class WalletsController < ApplicationController
       @user = current_user
       @user.load_mango_infos
       @path = index_wallet_path
-      if !@user.mango_id
-        list = ISO3166::Country.all
-        @list = []
-        list.each do |c|
-          t = [c.translations['fr'], c.alpha2]
-          @list.push(t)
-        end
-        @user.load_mango_infos
-        @user.load_bank_accounts
-        render 'wallets/_mangopay_form' and return
+      if @user.mango_id.nil?
+        flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+        redirect_to edit_wallet_path and return
       end
       @wallets = MangoPay::User.wallets(@user.mango_id)
       @wallet = @wallets.first
@@ -61,6 +54,10 @@ class WalletsController < ApplicationController
 
   def update_mangopay_wallet
     @user = current_user
+    if @user.mango_id.nil?
+      flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+      redirect_to edit_wallet_path and return
+    end
     mangoInfos = @user.mango_infos(params)
     begin
       if !@user.mango_id
@@ -86,16 +83,9 @@ class WalletsController < ApplicationController
   def direct_debit_mangopay_wallet
     begin
       @user = current_user
-      if !@user.mango_id
-        list = ISO3166::Country.all
-        @list = []
-        list.each do |c|
-          t = [c.translations['fr'], c.alpha2]
-          @list.push(t)
-        end
-        @user.load_mango_infos
-        @user.load_bank_accounts
-        render 'wallets/_mangopay_form' and return
+      if @user.mango_id.nil?
+        flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+        redirect_to edit_wallet_path and return
       end
       @user.load_mango_infos
       @wallet = MangoPay::User.wallets(@user.mango_id).first
@@ -116,6 +106,10 @@ class WalletsController < ApplicationController
 
   def send_direct_debit_mangopay_wallet
     @user = current_user
+    if @user.mango_id.nil?
+      flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+      redirect_to edit_wallet_path and return
+    end
     @amount = params[:amount]
     amount = (params[:amount]).to_f * 100
     @card = params[:card]
@@ -197,16 +191,9 @@ class WalletsController < ApplicationController
   def card_info
     begin
       @user = current_user
-      if !@user.mango_id
-        list = ISO3166::Country.all
-        @list = []
-        list.each do |c|
-          t = [c.translations['fr'], c.alpha2]
-          @list.push(t)
-        end
-        @user.load_mango_infos
-        @user.load_bank_accounts
-        render 'wallets/_mangopay_form' and return
+      if @user.mango_id.nil?
+        flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+        redirect_to edit_wallet_path and return
       end
       @key = params[:data][:accessKey]
       @pre = params[:data][:preregistrationData]
@@ -219,7 +206,10 @@ class WalletsController < ApplicationController
   end
 
   def send_card_info
-
+    if cuurent_user.mango_id.nil?
+      flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+      redirect_to edit_wallet_path and return
+    end
     card = params[:account]
     expiration_month = params[:month]
     expiration_year = params[:year]
@@ -297,16 +287,9 @@ class WalletsController < ApplicationController
   def transactions_mangopay_wallet
     begin
       @user = current_user
-      if !@user.mango_id
-        list = ISO3166::Country.all
-        @list = []
-        list.each do |c|
-          t = [c.translations['fr'], c.alpha2]
-          @list.push(t)
-        end
-        @user.load_mango_infos
-        @user.load_bank_accounts
-        render 'wallets/_mangopay_form' and return
+      if @user.mango_id.nil?
+        flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+        redirect_to edit_wallet_path and return
       end
       @wallet = MangoPay::User.wallets(current_user.mango_id).first
       @bonus = MangoPay::User.wallets(current_user.mango_id).second
@@ -322,6 +305,10 @@ class WalletsController < ApplicationController
 
   def bank_accounts
     @user = current_user
+    if @user.mango_id.nil?
+      flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+      redirect_to edit_wallet_path and return
+    end
     @user.load_mango_infos
     @user.load_bank_accounts
     list = ISO3166::Country.all
@@ -336,6 +323,10 @@ class WalletsController < ApplicationController
   def update_bank_accounts
     begin
       @user = current_user
+      if @user.mango_id.nil?
+        flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+        redirect_to edit_wallet_path and return
+      end
       @user.load_mango_infos
       @user.load_bank_accounts
       mango_infos = @user.mango_infos(params)
@@ -385,6 +376,10 @@ class WalletsController < ApplicationController
 
   def payout
     @user = current_user
+    if @user.mango_id.nil?
+      flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+      redirect_to edit_wallet_path and return
+    end
     @user.load_mango_infos
     @user.load_bank_accounts
     if @user.wallets.first['Balance']['Amount'].to_f == 0.0
@@ -395,6 +390,10 @@ class WalletsController < ApplicationController
   end
 
   def make_payout
+    if current_user.mango_id.nil?
+      flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+      redirect_to edit_wallet_path and return
+    end
     @account = params[:account]
     payment_service = MangopayService.new(:user => current_user)
     payment_service.set_session(session)

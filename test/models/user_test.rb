@@ -1,13 +1,8 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-<<<<<<< HEAD
   test "users_count" do
     assert_equal 4, User.count
-=======
-  test "User.count" do
-    assert_equal 2, User.count
->>>>>>> test_fixture2
   end
 
   test "user_type" do
@@ -33,7 +28,6 @@ class UserTest < ActiveSupport::TestCase
     config.logger = Logger.new(STDOUT)
     User.first.upgrade
     User.first.upgrade
-    config.logger.debug User.first.type
     assert User.first.is_a?(Teacher)
   end
   test "type_max" do
@@ -55,4 +49,3 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 end
-end 

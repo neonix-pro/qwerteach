@@ -7,8 +7,6 @@ class PayPostpaymentsController < ApplicationController
     #params[:id] = 'payment'
     @payment = Payment.find(params[:payment_id])
     params.merge(:payment_id => @payment.id)
-    logger.debug('******************* merde'+@payment.id.to_s)
-    logger.debug('********** ' + params[:id].to_s)
     @user = current_user
     case step
       when :payment_choice
@@ -55,7 +53,6 @@ class PayPostpaymentsController < ApplicationController
           @user.load_bank_accounts
           render 'wallets/_mangopay_form' and return
         end
-        logger.debug('CDDDD')
         @user.load_mango_infos
         @wallet = MangoPay::User.wallets(@user.mango_id).first
         cards = MangoPay::User.cards(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 100})

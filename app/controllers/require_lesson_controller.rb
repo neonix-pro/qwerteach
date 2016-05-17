@@ -13,43 +13,21 @@ class RequireLessonController < ApplicationController
       when :payment
       when :transfert
         @user = current_user
-        if !@user.mango_id
-          list = ISO3166::Country.all
-          @list = []
-          list.each do |c|
-            t = [c.translations['fr'], c.alpha2]
-            @list.push(t)
-          end
-          @user.load_mango_infos
-          @user.load_bank_accounts
-          render 'wallets/_mangopay_form' and return
+        if @user.mango_id.nil?
+          flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+          redirect_to edit_wallet_path and return
         end
       when :bancontact
-        if !@user.mango_id
-          list = ISO3166::Country.all
-          @list = []
-          list.each do |c|
-            t = [c.translations['fr'], c.alpha2]
-            @list.push(t)
-          end
-          @user.load_mango_infos
-          @user.load_bank_accounts
-          render 'wallets/_mangopay_form' and return
+        if @user.mango_id.nil?
+          flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+          redirect_to edit_wallet_path and return
         end
       when :cd
         @user = current_user
-        if !@user.mango_id
-          list = ISO3166::Country.all
-          @list = []
-          list.each do |c|
-            t = [c.translations['fr'], c.alpha2]
-            @list.push(t)
-          end
-          @user.load_mango_infos
-          @user.load_bank_accounts
-          render 'wallets/_mangopay_form' and return
+        if @user.mango_id.nil?
+          flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
+          redirect_to edit_wallet_path and return
         end
-        logger.debug('CDDDD')
         @user.load_mango_infos
         @wallet = MangoPay::User.wallets(@user.mango_id).first
         cards = MangoPay::User.cards(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 100})
@@ -60,7 +38,6 @@ class RequireLessonController < ApplicationController
           end
         end
       when :finish
-
         @transaction_mango = params[:transactionId].to_i
         if params[:transactionId]
           status = MangoPay::PayIn.fetch(@transaction_mango)['Status']
@@ -80,11 +57,6 @@ class RequireLessonController < ApplicationController
         else
           #@lesson = Lesson.create(session[:lesson])
           @lesson = Lesson.create(:student_id => session[:lesson]['student_id'], :teacher_id => session[:lesson]['teacher_id'], :status => 0, :time_start => session[:lesson]['time_start'], :time_end => session[:lesson]['time_end'], :topic_id => session[:lesson]['topic_id'], :topic_group_id => session[:lesson]['topic_group_id'], :level_id => session[:lesson]['level_id'], :price => session[:lesson]['price'])
-
-          logger.debug('PRIIIIIIIXx = ' + @lesson.price.to_s)
-
-          logger.debug('PRIIIIIIIXx = ' + session[:lesson]['price'].to_s)
-          logger.debug('LESOSOOOOOON ' + session[:lesson].to_s)
           if @lesson.save
             @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
                                       :mangopay_payin_id => session[:payment], :transfert_date => DateTime.now, :price => @lesson.price)
@@ -129,7 +101,6 @@ class RequireLessonController < ApplicationController
         case payment_service.send_make_prepayment_transfert(
             {:amount => @amount, :other_part => @other})
           when 0
-            logger.debug('*****************************' + session[:payment].to_s)
             #flash[:notice] = "Le transfert s'est correctement effectué. Votre réservation de cours est donc correctement enregistrée."
             redirect_to wizard_path(:finish) and return
           when 1
@@ -221,7 +192,6 @@ class RequireLessonController < ApplicationController
         payin_direct = payment_service.send_make_prepayment_payin_direct({
                                                                              :amount => @amount, :other_part => @other, :card_id => @card, :return_url => @return_path
                                                                          })
-        logger.debug('PROUT = ' + payin_direct.to_s)
         case payin_direct
           when 0
             redirect_to wizard_path(:finish) and return

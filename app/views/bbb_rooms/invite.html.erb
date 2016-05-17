@@ -30,15 +30,12 @@
       url: "<%= url_for(:controller => 'users', action: 'both_users_online',:user_current => @moi, :user_other => @autre) %>",
       dataType: 'json',
       error: function (xhr_data) {
-        console.log(xhr_data.responseText);
-        console.log("<%= url_for(:controller => 'users', action: 'both_users_online',:user_current => @moi, :user_other => @autre) %>");
         setTimeout(function () {
           ajax_request();
         }, 10000);
       },
       success: function (xhr_data) {
         if (xhr_data.online == 'true') {
-          console.log('online');
           $("#join_link").empty();
           var a = document.createElement('a');
           var linkText = document.createTextNode("Rejoindre la classe");
@@ -48,7 +45,6 @@
           document.body.appendChild(a);
           $('#join_link').append()
         } else {
-          console.log('offline');
           $("#join_link").empty();
         }
         setTimeout(function () {

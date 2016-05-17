@@ -21,11 +21,8 @@ class BbbRoomsController < Bigbluebutton::RoomsController
         :allow_start_stop_recording => 0,
         :autoJoin => 0
     }
-    logger.debug('*************** ' + bigbluebutton_room.to_s)
     params.merge!(:bigbluebutton_room => bigbluebutton_room)
-    logger.debug('**** PARAMS ' + params.to_s)
     create
-    logger.debug('******** created ' + @room.as_json.to_s)
   end
 
   # redefinie pour changer le redirect et faire entrer l'utilisateur directement dans la classe

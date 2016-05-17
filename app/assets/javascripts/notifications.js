@@ -16,7 +16,6 @@ var NotificationsManager = function() {
 
     numberOfUnreadNotifications: function(){
       $.get('/notifications/unread/', function(answer){
-        console.log(answer);
         $('#unread-notifications').html(answer);
         if(answer != 0)
         {

@@ -272,7 +272,6 @@ class MangopayService
                                                  })
       return valid_payout(payout)
     rescue MangoPay::ResponseError => ex
-      Rails.logger.debug(ex)
       return false
     end
   end
