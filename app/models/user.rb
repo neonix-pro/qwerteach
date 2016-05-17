@@ -79,6 +79,12 @@ class User < ActiveRecord::Base
     return name
   end
 
+  def avg_reviews
+    @notes = self.reviews_received.map { |r| r.note }
+    @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size
+    return @avg
+  end
+
   acts_as_messageable
 
   def level_max

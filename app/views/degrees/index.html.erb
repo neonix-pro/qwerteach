@@ -1,37 +1,35 @@
-<% if @gdegrees.blank? %>
-      <h1>Diplômes</h1>
-      <%= link_to 'New', new_degree_path, :class => 'btn btn-mini' %>
+<h1>Diplômes</h1>
+<%= link_to 'Créer un diplôme', new_degree_path, :class => 'btn btn-mini' %>
 
-            <table style="width:75%">
-              <thead>
-              <tr>
-                <th>Titre</th>
-                <th>Institution</th>
-                <th>Année d'obtention</th>
-                <th>Niveau</th>
-                <th>Actions</th>
-              </tr>
-              </thead>
-              <tbody>
-              <% for degree in @degrees %>
-                  <tr>
-                    <td><%= degree.title %></td>
-                    <td><%= degree.institution %></td>
-                    <td><%= degree.completion_year %></td>
-                    <td><%= degree.level[I18n.locale[0..3]] %></td>
-                    <td>
-                    	<%= 
-                    	button_to "Delete", { action: "destroy", id: degree.id },
-                                method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
-                    	%>
-                    	<%= 
-                    	button_to "Update", { action: "edit", id: degree.id },
-                                method: :get, class: "btn btn-info"
-                    	%>
-                    </td>
-                  </tr>
-              <% end %>
-
-              </tbody>
-            </table>
+<table style="width:75%">
+  <thead>
+  <tr>
+    <th>Titre</th>
+    <th>Institution</th>
+    <th>Année d'obtention</th>
+    <th>Niveau</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% for degree in @degrees %>
+      <tr>
+        <td><%= degree.title %></td>
+        <td><%= degree.institution %></td>
+        <td><%= degree.completion_year %></td>
+        <td><%= degree.level[I18n.locale[0..3]] %></td>
+        <td>
+          <%=
+            button_to "Delete", {action: "destroy", id: degree.id},
+                      method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger"
+          %>
+          <%=
+            button_to "Update", {action: "edit", id: degree.id},
+                      method: :get, class: "btn btn-info"
+          %>
+        </td>
+      </tr>
   <% end %>
+
+  </tbody>
+</table>
