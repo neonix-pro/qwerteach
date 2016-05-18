@@ -21,7 +21,18 @@ class UsersController < ApplicationController
       with(:advert_prices_truc).greater_than(params[:min_price]) unless params[:min_price].blank?
       with(:advert_prices_truc).less_than(params[:max_price]) unless params[:max_price].blank?
     end
-    #@users = @search.results
+    @h = Hash.new()
+    @search.results.each do |x|
+      if @h.assoc(x.user_id).nil?
+        @h.store(x.user_id, Array.new)
+      end
+      @h[x.user_id].push(x)
+    end
+    if params[:degree_id].blank?
+      @pagin = User.where(:id => @h.keys, :postulance_accepted => true).order(:level_id).page(params[:page]).per(15)
+    else
+      @pagin = User.where(:id => @h.keys, :postulance_accepted => true).where('level_id >= ?', params[:degree_id]).order(:level_id).page(params[:page]).per(15)
+    end
   end
 
   def both_users_online
