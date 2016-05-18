@@ -38,7 +38,7 @@
             </li>
           -->
 
-<nav class="">
+<nav class="navbar">
   <div class="color">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -51,9 +51,10 @@
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
+        
 
           <% if user_signed_in? %>
+          <ul class="nav navbar-nav">
               <% if current_user.admin? %>
                   <li><%= link_to 'Administration', admin_root_path %></li>
               <% end %>
@@ -107,8 +108,9 @@
               </li>
               <li><%= link_to 'Rechercher un prof', users_path %></li>
               </ul>
-          <% end %>
+          
           </ul>
+          <% end %>
 
 
           <ul class="nav navbar-nav pull-right">
@@ -130,10 +132,10 @@
 
 
             <% else %> <!-- Trigger the modal with a button -->
-                <li><a data-toggle="modal" data-target="#myModCo">Devenir Prof</a></li>
-                <li><a data-toggle="modal" data-target="#myModCo">Aide</a></li>
+                <li><a data-toggle="modal" href="#myModCo">Devenir Prof</a></li>
+                <li><a data-toggle="modal" href="#myModCo">Aide</a></li>
                 <li>
-                  <a data-toggle="modal" data-target="#myModIns">S'inscrire</a>
+                  <a data-toggle="modal" href="#myModIns">S'inscrire</a>
                   <!-- Modal -->
                   <div id="myModIns" class="modal fade" role="dialog">
                     <div class="modal-dialog">
@@ -156,7 +158,7 @@
                   </div>
                 </li>
 
-                <li><a data-toggle="modal" data-target="#myModCo">Connexion</a>
+                <li><a data-toggle="modal" href="#myModCo">Connexion</a>
                   <div id="myModCo" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                       <div class="modal-content">

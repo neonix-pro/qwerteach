@@ -61,7 +61,6 @@
         <% @pagin = User.where(:id => h.keys, :postulance_accepted => true).where('level_id >= ?', params[:degree_id]).order(:level_id).page(params[:page]).per(15) %>
     <% end %>
     <% #@pagin = Kaminari.paginate_array(@table).page(params[:page]).per(1)%>
-
 <!--Permet l'affichage des résultats -->
       <div class="resultat">
           <% @pagin.each do |u| %>
