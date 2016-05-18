@@ -54,10 +54,6 @@ class WalletsController < ApplicationController
 
   def update_mangopay_wallet
     @user = current_user
-    if @user.mango_id.nil?
-      flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
-      redirect_to edit_wallet_path and return
-    end
     mangoInfos = @user.mango_infos(params)
     begin
       if !@user.mango_id
@@ -206,7 +202,7 @@ class WalletsController < ApplicationController
   end
 
   def send_card_info
-    if cuurent_user.mango_id.nil?
+    if current_user.mango_id.nil?
       flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
       redirect_to edit_wallet_path and return
     end

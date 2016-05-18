@@ -9,11 +9,11 @@
       </div>
       <div class="field">
         <%= f.label :number %><br/>
-        <%= number_field :AddressLine2, :value => @user.address['AddressLine2'], :required => true %>
+        <%= address_fields.number_field :AddressLine2, :value => @user.address['AddressLine2'], :required => true %>
       </div>
       <div class="field">
         <%= f.label :post_code %><br/>
-        <%= number_field :PostalCode, :value => @user.address['PostalCode'], :required => true %>
+        <%= address_fields.number_field :PostalCode, :value => @user.address['PostalCode'], :required => true %>
       </div>
       <div class="field">
         <%= f.label :city %><br/>

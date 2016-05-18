@@ -49,6 +49,10 @@ class RequireLessonController < ApplicationController
               @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
                                         :mangopay_payin_id => @transaction_mango, :transfert_date => DateTime.now, :price => @lesson.price)
               @payment.save
+              body = "#{dashboard_path}"
+              subject = "Vous avez une nouvelle demande de cours."
+              @lesson.teacher.send_notification(subject, body, @lesson.student)
+              PrivatePub.publish_to "/lessons/#{@lesson.teacher_id}", :lesson => @lesson
               flash[:notice] = 'La transaction a correctement été effectuée'
             end
           else
@@ -61,6 +65,10 @@ class RequireLessonController < ApplicationController
             @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
                                       :mangopay_payin_id => session[:payment], :transfert_date => DateTime.now, :price => @lesson.price)
             @payment.save
+            body = "#{dashboard_path}"
+            subject = "Vous avez une nouvelle demande de cours."
+            @lesson.teacher.send_notification(subject, body, @lesson.student)
+            PrivatePub.publish_to "/lessons/#{@lesson.teacher_id}", :lesson => @lesson
             flash[:notice] = 'La transaction a correctement été effectuée'
           end
         end

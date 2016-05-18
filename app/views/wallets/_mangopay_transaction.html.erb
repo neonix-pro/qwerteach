@@ -6,7 +6,7 @@
       <% if (transaction["CreditedUserId"]).to_i == current_user.mango_id
            proprio = MangoPay::Wallet.fetch(transaction["DebitedWalletId"])["Owners"].first
            prop = User.where(:mango_id => proprio) %>
-          <td><%= prop.first.email %></td>
+          <td><%= (prop.first.nil? ? "moi" : prop.first.email) %></td>
       <% else %>
           <% prop = User.where(:mango_id => transaction["CreditedUserId"]) %>
           <td><%= prop.first.email %></td>
