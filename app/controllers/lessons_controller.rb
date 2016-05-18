@@ -80,6 +80,14 @@ class LessonsController < ApplicationController
 
   def refuse_lesson
     @lesson = Lesson.find(params[:lesson_id])
+    payment_service = MangopayService.new(:user => @lesson.student)
+    payment_service.set_session(session)
+    return_code = payment_service.make_prepayment_transfer_refund(
+        {:lesson_id => @lesson.id})
+    if return_code == 1
+      flash[:danger] = "problème."
+      redirect_to dashboard_path and return
+    end
     @lesson.update_attributes(:status => 4)
     @lesson.save
     body = "#"
@@ -92,6 +100,14 @@ class LessonsController < ApplicationController
 
   def cancel_lesson
     @lesson = Lesson.find(params[:lesson_id])
+    payment_service = MangopayService.new(:user => @lesson.student)
+    payment_service.set_session(session)
+    return_code = payment_service.make_prepayment_transfer_refund(
+        {:lesson_id => @lesson.id})
+    if return_code == 1
+      flash[:danger] = "problème."
+      redirect_to dashboard_path and return
+    end
     @lesson.update_attributes(:status => 3)
     @lesson.save
     body = "#"

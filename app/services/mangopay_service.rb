@@ -158,6 +158,29 @@ class MangopayService
     return mangopay_payout(@user, @amount, @fees, @beneficiary_wallet['Id'], @bank_acccount_id)
   end
 
+
+  # params contient : lesson_id
+  def make_prepayment_transfer_refund(params)
+    lesson = Lesson.find(params[:lesson_id])
+    @lesson_price = lesson.price.to_f * 100
+    @normal_transfer_amount = MangoPay::Transfer.fetch(lesson.payments.first.mangopay_payin_id)['DebitedFunds']['Amount'].to_i
+    @fees = 0 * @normal_transfer_amount
+    @wallets = wallets
+    # vérifier assez
+    # (author_id, amount, fees, debited_wallet, credited_wallet)
+    transfer = mangopay_transfer(@user.mango_id, @normal_transfer_amount, @fees, @wallets.third['Id'], @wallets.first['Id'])
+    if valid_transfer(transfer)
+      if (@bonus_transfer_amout = @lesson_price - @normal_transfer_amount) > 0
+        @fees = 0 * @bonus_transfer_amout
+        bonus_tr = mangopay_transfer(@user.mango_id, @bonus_transfer_amout, @fees, @wallets.third['Id'], @wallets.second['Id'])
+        return valid_transfer(bonus_tr)
+      end
+    else
+      return 1
+    end
+
+  end
+
   private
 
   def define_secure_mode
@@ -255,6 +278,30 @@ class MangopayService
     return @amount <= wallets.third['Balance']['Amount']
   end
 
+  def mangopay_refund(author_id, amount, fees, debited_wallet, credited_wallet)
+    begin
+      refund = MangoPay::Transfer.refund({
+                                             :AuthorId => author_id,
+                                             :DebitedFunds => {
+                                                 :Currency => "EUR",
+                                                 :Amount => amount
+                                             },
+                                             :Fees => {
+                                                 :Currency => "EUR",
+                                                 :Amount => fees
+                                             },
+                                             :DebitedWalletID => debited_wallet,
+                                             :CreditedWalletID => credited_wallet
+                                         })
+      Rails.logger.debug(refund)
+      return valid_transfer(refund)
+    rescue MangoPay::ResponseError => ex
+      Rails.logger.debug(ex.type.to_s + ' ' + ex.details.to_s + ' ' + ex.errors.to_s)
+      Rails.logger.debug(author_id.to_s + ' ' + amount.to_s + ' ' + fees.to_s + ' ' + debited_wallet.to_s + ' ' + credited_wallet.to_s)
+      return false
+    end
+  end
+
   def mangopay_payout(author_id, amount, fees, debited_wallet, bank_account_id)
     begin
       payout = MangoPay::PayOut::BankWire.create({
@@ -292,8 +339,10 @@ class MangopayService
                                                :CreditedWalletID => credited_wallet
                                            })
       return transfer
-    rescue MangoPay::ResponseError
-      return nil
+    rescue MangoPay::ResponseError => ex
+      Rails.logger.debug(ex.type.to_s + ' ' + ex.details.to_s + ' ' + ex.errors.to_s)
+      Rails.logger.debug(author_id.to_s + ' ' + amount.to_s + ' ' + fees.to_s + ' ' + debited_wallet.to_s + ' ' + credited_wallet.to_s)
+      return false
     end
   end
 
@@ -337,7 +386,7 @@ class MangopayService
   def bonus_transfer
     amount_bonus_transfer
     if @amount_bonus_transfer > 0
-      bonus_transfer = mangopay_transfer(@user.mango_id, @amount_bonus_transfer, @fees_bonus_transfert, @sender_wallet["Id"], @beneficiary_wallet["Id"])
+      bonus_transfer = mangopay_transfer(@user.mango_id, @amount_bonus_transfer, @fees_bonus_transfert, @sender_bonus_wallet["Id"], @beneficiary_wallet["Id"])
       if bonus_transfer.nil?
         return false
       else
@@ -422,6 +471,7 @@ class MangopayService
     begin
       @wallets ||= wallets
       @sender_wallet = @wallets.first
+      @sender_bonus_wallet = @wallets.second
       @beneficiary_wallet = @wallets.third
       return 0
     rescue MangoPay::ResponseError
@@ -438,6 +488,25 @@ class MangopayService
       @wallets ||= wallets
       @sender_wallet = @wallets.first
       @beneficiary_wallet = @wallets.third
+      @amount = @sender_wallet['Balance']['Amount']
+      @amount_bonus_transfer = 0
+      @fees = 0.15 * @amount
+      return 0
+    rescue MangoPay::ResponseError
+      return 1
+    end
+  end
+
+  def transaction_refund_infos(params)
+
+    unless valid_users_infos
+      return 2
+    end
+
+    begin
+      @wallets ||= wallets
+      @sender_wallet = @wallets.third
+      @beneficiary_wallet = @wallets.first
       @amount = @sender_wallet['Balance']['Amount']
       @amount_bonus_transfer = 0
       @fees = 0.15 * @amount
