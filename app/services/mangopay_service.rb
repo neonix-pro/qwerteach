@@ -429,6 +429,8 @@ class MangopayService
       @beneficiary_wallet = other_wallets.first
       return 0
     rescue MangoPay::ResponseError
+      Rails.logger.debug('________________TTTTTT__________________')
+      Rails.logger.debug(MangoPay::ResponseError)
       return 1
     end
   end
@@ -597,6 +599,7 @@ class MangopayService
         return 0
       end
     rescue MangoPay::ResponseError => ex
+        Rails.logger.debug(ex)
       return 1
     end
   end
