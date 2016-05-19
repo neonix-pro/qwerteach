@@ -1,10 +1,21 @@
-<h5> Paiement du à <%= payment.lesson.teacher.firstname %></h5>
-
 <div class="facture">
-  <p> Nom  <%= payment.lesson.student.lastname %></p>
-  <p> Prenom Student <%= payment.lesson.student.lastname %></p>
-  <p> Debut <%= payment.lesson.time_start %></p>
-  <p> Fin <%= payment.lesson.time_end %></p>
-  <p> Statut du Cours <%= payment.lesson.status %></p>
-  <p> Prix de <%= payment.price %>€</p>
+  <tr>
+    <td><%= payment.id %></td>
+    <td><%= payment.lesson.teacher.lastname %><%= payment.lesson.teacher.firstname %></td>
+    <td><%= payment.lesson.student.lastname %><%= payment.lesson.student.firstname %></td>
+    <td><%= payment.lesson.topic_group.title %></td>
+    <td><%= payment.lesson.time_start %></td>
+    <td><%= payment.lesson.time_end %></td>
+    <td><%= payment.status %></td>
+    <td><%= payment.price %>€</td>
+    <td>
+      <% if payment.lesson.student_id == current_user.id && payment.postpayment? && (payment.pending? || payment.blocked?) %>
+          <%= link_to 'Payer Facture', lesson_payment_pay_postpayments_path(:lesson_id => payment.lesson_id, :payment_id => payment.id), :class => 'btn btn-success' %>
+      <% end %>
+      <% if payment.lesson.student_id == current_user.id && payment.lesson.time_start < DateTime.now && payment.lesson.time_start + 3.days > DateTime.now && payment.prepayment? && payment.pending? %>
+          <%= link_to 'Paiement Direct', lesson_payerfacture_path(:lesson_id => payment.lesson_id, :payment_id => payment.id), :class => 'btn btn-success' %>
+          <%= link_to 'Litige', lesson_bloquerpayment_path(payment.lesson), :method => :post , :class => 'btn btn-danger'%>
+      <% end %>
+    </td>
+  </tr>
 </div>
