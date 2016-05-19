@@ -59,9 +59,15 @@ $(document).ready(function () {
                 var after = moment(formated_end).add(hours, 'hours');
                 after = after.add(minutes, 'minutes').format('L LT');
                 end.val(after);
+                var price = $('#lesson_level_id option:selected').attr('data-price');
+                var hours = $('#date_lesson_hour option:selected').val();
+                var minutes = $('#date_lesson_minute option:selected').val();
+                $('#lesson_price').val(price * hours + (price * (minutes / 60)));
             };
 
             $('#price').append('<input id="lesson_price" name="lesson[price]" type="hidden" value="0"/>');
+
+            document.getElementById('price_shown').innerHTML = $('#lesson_price').val();
 
 
             topic_choice();
@@ -70,26 +76,32 @@ $(document).ready(function () {
             $(document.body).on('change', '#lesson_topic_group_id', function () {
                 $('#lesson_topic_id_field').remove();
                 topic_choice();
+                document.getElementById('price_shown').innerHTML = $('#lesson_price').val();
             });
             $(document.body).on('change', '#lesson_topic_id', function () {
                 $('#lesson_level_id_field').remove();
                 level_choice();
+                document.getElementById('price_shown').innerHTML = $('#lesson_price').val();
             });
             $(document.body).on('change', '#lesson_level_id', function () {
                 var price = $('#lesson_level_id option:selected').attr('data-price');
                 var hours = $('#date_lesson_hour option:selected').val();
                 var minutes = $('#date_lesson_minute option:selected').val();
                 $('#lesson_price').val(price * hours + (price * (minutes / 60)));
+                document.getElementById('price_shown').innerHTML = $('#lesson_price').val();
             });
             $(document.body).on('change', '#date_lesson_hour', function () {
                 hour_choice();
+                document.getElementById('price_shown').innerHTML = $('#lesson_price').val();
             });
             $(document.body).on('change', '#date_lesson_minute', function () {
                 hour_choice();
+                document.getElementById('price_shown').innerHTML = $('#lesson_price').val();
             });
             $('#datetimepicker2').on("dp.change", function (e) {
                 $('#datetimepicker2').data("DateTimePicker").minDate(new Date(new Date().setDate(new Date().getDate() - 1)));
                 hour_choice();
+                document.getElementById('price_shown').innerHTML = $('#lesson_price').val();
             });
             /* $('#lesson_topic_group_id').change(function () {
              $('#lesson_topic_id_field').remove();

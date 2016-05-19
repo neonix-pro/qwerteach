@@ -29,7 +29,7 @@ class LessonsController < ApplicationController
 
   # Not used
   def create
-    @student_id = current_user.id
+  /  @student_id = current_user.id
     price = params[:lesson][:price]
     debut = DateTime.new(params[:lesson]['time_start(1i)'].to_i,
                          params[:lesson]['time_start(2i)'].to_i,
@@ -53,12 +53,12 @@ class LessonsController < ApplicationController
           price_is_correct = true
         end
       end
-    end
+    end/
     #render 'lessons/payment_select'
-    @lesson = Lesson.create(lesson_params)
+   / @lesson = Lesson.create(lesson_params)
     if @lesson.save
       #  format.html { redirect_to root_path, notice: 'Lesson was successfully required.' }
-    end
+    end/
   end
 
   def require_lesson
