@@ -8,7 +8,7 @@
     </div>
     <div class="field type_choice">
       <%= f.label "Type de carte" %>
-      <%= select_tag "card_type", options_for_select(["BCMC","CB_VISA_MASTERCARD"], "CB_VISA_MASTERCARD"), :required => true %>
+      <%= select_tag "card_type", options_for_select(["BCMC","CB_VISA_MASTERCARD", "BANK_WIRE"], "CB_VISA_MASTERCARD"), :required => true %>
     </div>
     <div class="field credit_card_choice">
       <%= f.label "Carte existante" %>
@@ -25,6 +25,8 @@
     if ($('.type_choice option:selected').text() == "CB_VISA_MASTERCARD"){
       choice.show();
     }else if ($('.type_choice option:selected').text() == "BCMC"){
+      choice.hide();
+    }else if ($('.type_choice option:selected').text() == "BANK_WIRE"){
       choice.hide();
     }
   });

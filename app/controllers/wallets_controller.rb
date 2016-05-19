@@ -62,11 +62,6 @@ class WalletsController < ApplicationController
         m = MangoPay::NaturalUser.update(@user.mango_id, mangoInfos)
       end
 
-        # params[:bank_account][:Type]='IBAN'
-        # params[:bank_account][:OwnerName]=@user.firstname + ' '+@user.lastname
-        # params[:bank_account][:OwnerAddress] = m["Address"]
-
-        # MangoPay::BankAccount.create(@user.mango_id, params[:bank_account])
     rescue MangoPay::ResponseError => ex
       flash[:danger] = ex.details["Message"]
       ex.details['errors'].each do |name, val|
@@ -115,50 +110,72 @@ class WalletsController < ApplicationController
     session = {}
     payment_service.set_session(session)
     return_url = request.base_url+index_wallet_path
-      case @type
-        when 'BCMC'
-          h = {:amount => amount, :return_url => return_url, :other_part => @user}
-          redirect_url = payment_service.send_make_bancontact(h)
-          case redirect_url
-            when 1
-              flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
-              redirect_to direct_debit_path and return
-            when 2
-              flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
-              redirect_to edit_wallet_path and return
-            when 3
-              flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
-              redirect_to edit_wallet_path and return
-            else
-              redirect_to redirect_url and return
-          end
-
-        when 'CB_VISA_MASTERCARD'
-          if @card.blank?
-            render :controller => 'wallets', :action => 'card_info'
-          else
-            h = {:amount => amount, :other_part => @user, :card_id => @card, :return_url => return_url}
-            payin_direct = payment_service.send_make_payin_direct(h)
-            
-            case payin_direct
-              when 0
-                redirect_to index_wallet_path and return
-              when 1
-                flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
-                redirect_to direct_debit_path and return
-              when 2
-                flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
-                redirect_to edit_wallet_path and return
-              when 3
-                flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
-                redirect_to edit_wallet_path and return
-              else
-              redirect_to payin_direct and return
-            end
-          end
+    
+    case @type
+    when 'BCMC'
+      h = {:amount => amount, :return_url => return_url, :other_part => @user}
+      redirect_url = payment_service.send_make_bancontact(h)
+      case redirect_url
+        when 1
+          flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+          redirect_to direct_debit_path and return
+        when 2
+          flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+          redirect_to edit_wallet_path and return
+        when 3
+          flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+          redirect_to edit_wallet_path and return
+        else
+          redirect_to redirect_url and return
       end
+    when 'CB_VISA_MASTERCARD'
+      if @card.blank?
+        render :controller => 'wallets', :action => 'card_info'
+      else
+        h = {:amount => amount, :other_part => @user, :card_id => @card, :return_url => return_url}
+        payin_direct = payment_service.send_make_payin_direct(h)
+        
+        case payin_direct
+          when 0
+            redirect_to index_wallet_path and return
+          when 1
+            flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+            redirect_to direct_debit_path and return
+          when 2
+            flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+            redirect_to edit_wallet_path and return
+          when 3
+            flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+            redirect_to edit_wallet_path and return
+          else
+          redirect_to payin_direct and return
+        end
+      end
+    when 'BANK_WIRE'
+      h = {:amount => amount, :other_part => @user}
+      @bank_wire = payment_service.send_make_bank_wire(h)
+      case @bank_wire
+      when 0
+        redirect_to index_wallet_path and return
+      when 1
+        flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+        redirect_to direct_debit_path and return
+      when 2
+        flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+        redirect_to edit_wallet_path and return
+      else
 
+      end
+    end
+  end
 
+  def send_bank_wire_wallet
+    @amount = params[:amount]
+    payment_service = MangopayService.new(:user => current_user)
+    session = {}
+    payment_service.set_session(session)
+    h = {}
+    bank_wire = payment_service.send_bank_wire(h)
   end
 
   def card_info
