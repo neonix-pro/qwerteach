@@ -1,29 +1,29 @@
 <div class="lesson">
-        <p> id : <%= lesson.id %></p>
-		<p>Nom Prof: <%= lesson.teacher.firstname %><%= lesson.teacher.lastname %></p>
-		<p>Nom Student: <%= lesson.student.firstname %><%= lesson.student.lastname %></p>
-		<p> Topic: <%= lesson.topic_group_id %></p>
-		<p>Date debut: <%= lesson.time_start %></p>
-		<p> Date fin: <%= lesson.time_end %></p>
-		<p>Statut du cours: <%= lesson.status.to_s %></p>
-    <% # TODO: un seul payement par lesson %>
+  <tr>
+    <td><%= lesson.id %></td>
+    <td><%= lesson.teacher.firstname %><%= lesson.teacher.lastname %></td>
+    <td><%= lesson.student.firstname %><%= lesson.student.lastname %></td>
+    <td><%= lesson.topic_group_id %></td>
+    <td><%= lesson.time_start %></td>
+    <td><%= lesson.time_end %></td>
+    <td><%= lesson.status.to_s %></td>
     <% if lesson.teacher == current_user %>
-      <%= button_to 'Créer facture', lesson_create_postpayment_path(lesson) %>
-    <% end %>
-    
-    <% if lesson.student == current_user  %>
-      <%= button_to 'Litige', lesson_bloquerpayment_path(:lesson=>lesson, :lesson_id=>lesson.id) %>
-        <% lesson.payments.each do |p| %> 
-            <% if p.postpayment? && ( p.pending? || p.blocked? )  %>
-                <%= button_to 'Payer Facture',lesson_payment_pay_postpayments_path(:lesson_id=>lesson.id, :payment_id=>p.id) %>
-            <% end %>
-            <% if p.prepayment? && p.pending? %>
-                 <%= button_to 'Paiement Direct', lesson_payerfacture_path(:lesson_id=>lesson.id, :payment_id=>p.id) %>
-            <% end %>
-            
-        <% end %>
+        <td><%= link_to 'Créer facture', lesson_create_postpayment_path(lesson), :class => 'btn btn-success' %></td>
     <% end %>
 
-<hr>
+    <% if lesson.student == current_user %>
+        <td><%= link_to 'Litige', lesson_bloquerpayment_path(lesson), :method => :post, :class => 'btn btn-danger' %></td>
+        <% lesson.payments.each do |p| %>
+            <td>
+              <% if p.postpayment? && (p.pending? || p.blocked?) %>
+                  <%= link_to 'Payer Facture', lesson_payment_pay_postpayments_path(:lesson_id => lesson.id, :payment_id => p.id), :class => 'btn btn-success' %>
+              <% end %>
+              <% if p.prepayment? && p.pending? %>
+                  <%= link_to 'Paiement Direct', lesson_payerfacture_path(:lesson_id => lesson.id, :payment_id => p.id) %>
+              <% end %>
+            </td>
+        <% end %>
+    <% end %>
+  </tr>
 </div>
 

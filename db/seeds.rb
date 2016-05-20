@@ -85,27 +85,27 @@ Bigbluebutton::BigbluebuttonServer.create(name: "BBB_prod", url: "http://classev
 
 # student
 u = User.create(:email => "a@a.a",:firstname => "Macaque", :lastname => "Selfieur",  :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "2016-04-25 08:38:01.794476", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
-            :avatar_file_name=> "hello.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55")
+            :avatar_file_name=> "hello.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :time_zone => "Europe/Berlin")
 u.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello.jpg")
 u.save!
 
 
 # student admin
 u2 = User.create(:email => "b@b.b",:firstname => "Chimpanzé", :lastname => "Souriant", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "2016-04-25 08:38:01.794477", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
-                :avatar_file_name=> "hello2.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :admin => true)
+                :avatar_file_name=> "hello2.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :admin => true, :time_zone => "Europe/Berlin")
 u2.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello2.jpg")
 u2.save!
 
 # teacher
 u3 = User.create(:email => "c@c.c",:firstname => "Bonobo", :lastname => "Chauve", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "2016-04-25 08:38:01.794478", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
-                 :avatar_file_name=> "hello3.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :type => 'Teacher')
+                 :avatar_file_name=> "hello3.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :type => 'Teacher', :time_zone => "Europe/Berlin")
 u3.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello3.jpg")
 u3.save!
 
 # teacher admin
 
 u4 = User.create(:email => "d@d.d",:firstname => "Grosse", :lastname => "Tete", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "51d7292b4823498d5d8795ec30bd7e92d014d89fd0fe685ae006fa2adc08479d", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
-                 :avatar_file_name=> "hello4.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :type => 'Teacher', :admin => true, :postulance_accepted => true)
+                 :avatar_file_name=> "hello4.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :type => 'Teacher', :admin => true, :postulance_accepted => true, :time_zone => "Europe/Berlin")
 u4.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello4.jpg")
 u4.save!
 

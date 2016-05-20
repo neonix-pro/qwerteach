@@ -205,7 +205,13 @@ class MangopayService
       if (@bonus_transfer_amout = @lesson_price - @normal_transfer_amount) > 0
         @fees = 0 * @bonus_transfer_amout
         bonus_tr = mangopay_transfer(@user.mango_id, @bonus_transfer_amout, @fees, @wallets.third['Id'], @wallets.second['Id'])
-        return valid_transfer(bonus_tr)
+        if valid_transfer(bonus_tr)
+          return 0
+        else
+          return 1
+        end
+      else
+        return 0
       end
     else
       return 1

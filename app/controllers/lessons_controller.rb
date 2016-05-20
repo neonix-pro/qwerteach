@@ -1,5 +1,6 @@
 class LessonsController < ApplicationController
   before_action :authenticate_user!
+  around_filter :user_time_zone, :if => :current_user
 
   def index
     #Cours reçu par le Prof
@@ -23,13 +24,34 @@ class LessonsController < ApplicationController
   end
 
   def edit
-    @Lesson = Lesson.find(params[:id])
+    @lesson = Lesson.find(params[:id])
+    @hours = ((@lesson.time_end - @lesson.time_start) / 3600).to_i
+    @minutes = ((@lesson.time_end - @lesson.time_start) / 60 ) % 60
   end
 
+  def update
+    @lesson = Lesson.find(params[:id])
+    @hours = ((@lesson.time_end - @lesson.time_start) / 3600).to_i
+    @minutes = ((@lesson.time_end - @lesson.time_start) / 60 ) % 60
+    zone = current_user.time_zone
+    time_start = ActiveSupport::TimeZone[zone].parse(params[:lesson][:time_start])
+    time_end = time_start + @hours.hours
+    time_end += @minutes.minutes
+
+    @lesson.update_attributes(:time_start => time_start, :time_end => time_end)
+
+    if @lesson.save
+      flash[:success] = "La modification s'est correctement déroulée."
+      redirect_to dashboard_path and return
+    else
+      flash[:alert] = "Il y a eu un problème lors de la modification. Veuillez réessayer."
+      redirect_to dashboard_path and return
+    end
+  end
 
   # Not used
   def create
-  /  @student_id = current_user.id
+    /  @student_id = current_user.id
     price = params[:lesson][:price]
     debut = DateTime.new(params[:lesson]['time_start(1i)'].to_i,
                          params[:lesson]['time_start(2i)'].to_i,
@@ -55,7 +77,7 @@ class LessonsController < ApplicationController
       end
     end/
     #render 'lessons/payment_select'
-   / @lesson = Lesson.create(lesson_params)
+    / @lesson = Lesson.create(lesson_params)
     if @lesson.save
       #  format.html { redirect_to root_path, notice: 'Lesson was successfully required.' }
     end/
@@ -85,42 +107,88 @@ class LessonsController < ApplicationController
     return_code = payment_service.make_prepayment_transfer_refund(
         {:lesson_id => @lesson.id})
     if return_code == 1
-      flash[:danger] = "problème."
+      flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+      redirect_to dashboard_path and return
+    elsif return_code == 0
+      @lesson.update_attributes(:status => 4)
+      @lesson.save
+      body = "#"
+      subject = "Le professeur #{@lesson.teacher.email} a refusé votre demande de cours."
+      @lesson.student.send_notification(subject, body, @lesson.teacher)
+      @lesson.payments.each { |payment| payment.update_attributes(:status => 2) }
+      PrivatePub.publish_to "/lessons/#{@lesson.student_id}", :lesson => @lesson
+      flash[:notice] = "Le cours a été refusé."
+      redirect_to dashboard_path
+    else
+      flash[:alert] = "Il y a eu une erreur lors du refus. Veuillez réessayer."
       redirect_to dashboard_path and return
     end
-    @lesson.update_attributes(:status => 4)
-    @lesson.save
-    body = "#"
-    subject = "Le professeur #{@lesson.teacher.email} a refusé votre demande de cours."
-    @lesson.student.send_notification(subject, body, @lesson.teacher)
-    PrivatePub.publish_to "/lessons/#{@lesson.student_id}", :lesson => @lesson
-    flash[:notice] = "Le cours a été refusé."
-    redirect_to dashboard_path
+
   end
 
   def cancel_lesson
     @lesson = Lesson.find(params[:lesson_id])
-    payment_service = MangopayService.new(:user => @lesson.student)
-    payment_service.set_session(session)
-    return_code = payment_service.make_prepayment_transfer_refund(
-        {:lesson_id => @lesson.id})
-    if return_code == 1
-      flash[:danger] = "problème."
-      redirect_to dashboard_path and return
+    case current_user.id
+      when @lesson.teacher_id
+        payment_service = MangopayService.new(:user => @lesson.student)
+        payment_service.set_session(session)
+        return_code = payment_service.make_prepayment_transfer_refund(
+            {:lesson_id => @lesson.id})
+        if return_code == 1
+          flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+          redirect_to dashboard_path and return
+        elsif return_code == 0
+          @lesson.update_attributes(:status => 3)
+          @lesson.save
+          @lesson.payments.each { |payment| payment.update_attributes(:status => 2) }
+          body = "#"
+          subject = "Le professeur #{@lesson.teacher.email} a annulé votre cours."
+          @lesson.student.send_notification(subject, body, @lesson.teacher)
+          PrivatePub.publish_to "/lessons/#{@lesson.student_id}", :lesson => @lesson
+          flash[:notice] = "Le cours a été annulé."
+          redirect_to dashboard_path
+        else
+          flash[:alert] = "Il y a eu une erreur lors de l'annulation. Veuillez réessayer."
+          redirect_to dashboard_path and return
+        end
+      when @lesson.student_id
+        if @lesson.pending_teacher?
+          payment_service = MangopayService.new(:user => @lesson.student)
+          payment_service.set_session(session)
+          return_code = payment_service.make_prepayment_transfer_refund(
+              {:lesson_id => @lesson.id})
+          if return_code == 1
+            flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+            redirect_to dashboard_path and return
+          elsif return_code == 0
+            @lesson.update_attributes(:status => 3)
+            @lesson.save
+            @lesson.payments.each { |payment| payment.update_attributes(:status => 2) }
+            body = "#"
+            subject = "L'élève #{@lesson.student.email} a annulé sa demande de cours."
+            @lesson.teacher.send_notification(subject, body, @lesson.student)
+            PrivatePub.publish_to "/lessons/#{@lesson.teacher_id}", :lesson => @lesson
+            flash[:notice] = "Le cours a été annulé."
+            redirect_to dashboard_path
+          else
+            flash[:alert] = "Il y a eu une erreur lors de l'annulation. Veuillez réessayer."
+            redirect_to dashboard_path and return
+          end
+        else
+          flash[:alert] = "Le professeur a déjà accepté la demande de cours."
+          redirect_to dashboard_path and return
+        end
+      else
     end
-    @lesson.update_attributes(:status => 3)
-    @lesson.save
-    body = "#"
-    subject = "Le professeur #{@lesson.teacher.email} a annulé votre demande de cours."
-    @lesson.student.send_notification(subject, body, @lesson.teacher)
-    PrivatePub.publish_to "/lessons/#{@lesson.student_id}", :lesson => @lesson
-    flash[:notice] = "Le cours a été annulé."
-    redirect_to dashboard_path
   end
 
-
   private
+
+  def user_time_zone(&block)
+    Time.use_zone(current_user.time_zone, &block)
+  end
   def lesson_params
     params.require(:lesson).permit(:student_id, :teacher_id, :price, :level_id, :topic_id, :topic_group_id, :time_start, :time_end).merge(:student_id => current_user.id)
   end
+
 end
