@@ -13,7 +13,7 @@ class LessonsNotifierWorker
           :owner_type => 'Admin',
           :owner_id => bl.teacher.id.to_s,
           :server_id => 1,
-          :name => "Interview "+@interviewee.id.to_s+'_'+DateTime.now.to_time.to_i.to_s,
+          :name => "Cours de "+bl.topic.title+" du "+bl.time_start.strftime("%d/%m/%Y"),
           :param => @interviewee.id.to_s+'_'+DateTime.now.to_time.to_i.to_s,
           :record_meeting => 1,
           :logout_url => 'http://localhost:3000/bbb_rooms/end_room/'+@interviewee.id.to_s+'_'+DateTime.now.to_time.to_i.to_s,

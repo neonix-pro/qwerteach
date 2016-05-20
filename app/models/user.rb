@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
 
   #required for BBB
   def name
-    "#{firstname} #{lastname}”.presence || email"
+    "#{firstname} #{lastname}".presence || email
   end
   
   def username
