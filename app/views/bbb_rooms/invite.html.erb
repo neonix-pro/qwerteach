@@ -3,60 +3,64 @@
 <% @moi =  current_user.id %>
 <% @autre =  (current_user == lesson.teacher) ? lesson.student.id : lesson.teacher.id %>
 <script type="text/javascript">
-
-  function ajax_request() {
+  var meetingRunning = false;
+  var partnerOnline = false;
+  function is_meeting_running()
+  {
     $.ajax({
       url: "<%= running_bigbluebutton_room_url(@room, :format => 'json') %>",
       dataType: 'json',
       error: function (xhr_data) {
         $("#meeting_status").html("<request error>.");
         setTimeout(function () {
-          ajax_request();
+          is_meeting_running();
         }, 10000);
       },
       success: function (xhr_data) {
         if (xhr_data.running == 'false') {
-          $("#meeting_status").html("La classe n'est pas encore lancée.");
+          $("#meeting_status").html("La classe est actuellement vide.");
+          is_partner_online();
+          meetingRunning = false;
         } else {
-          $("#meeting_status").html("La classe est lancée!");
+          $("#meeting_status").html("Votre partenaire vous attend dans la classe virtuelle!");
+          is_partner_online();
+          meetingRunning = true;
         }
         setTimeout(function () {
-          ajax_request();
-        }, 10000);
-      },
-      contentType: 'application/json'
-    });
-    $.ajax({
-      url: "<%= url_for(:controller => 'users', action: 'both_users_online',:user_current => @moi, :user_other => @autre) %>",
-      dataType: 'json',
-      error: function (xhr_data) {
-        setTimeout(function () {
-          ajax_request();
-        }, 10000);
-      },
-      success: function (xhr_data) {
-        if (xhr_data.online == 'true') {
-          $("#join_link").empty();
-          var a = document.createElement('a');
-          var linkText = document.createTextNode("Rejoindre la classe");
-          a.appendChild(linkText);
-          a.title = "Rejoindre la classe";
-          a.href = "<%= join_bigbluebutton_room_url(@room) %>";
-          document.body.appendChild(a);
-          $('#join_link').append()
-        } else {
-          $("#join_link").empty();
-        }
-        setTimeout(function () {
-          ajax_request();
+          is_meeting_running();
         }, 10000);
       },
       contentType: 'application/json'
     });
   }
 
+  function is_partner_online() {  
+    $.ajax({
+      url: "<%= url_for(:controller => 'users', action: 'both_users_online',:user_current => @moi, :user_other => @autre) %>",
+      dataType: 'json',
+      error: function (xhr_data) {
+      },
+      success: function (xhr_data) {
+        if (xhr_data.online == 'true' || meetingRunning) {
+          $("#join_link").html('');
+          var a = document.createElement('a');
+          var linkText = document.createTextNode("Rejoindre la classe");
+          a.appendChild(linkText);
+          a.title = "Rejoindre la classe";
+          a.href = "<%= join_bigbluebutton_room_url(@room) %>";
+          $('#join_link').append(a)
+        } 
+        else {
+          $("#meeting_status").html('Votre partenaire n\'est pas encore connecté.');
+          $("#join_link").html('');
+        }
+      },
+      contentType: 'application/json'
+    });
+  }
+
   $(document).ready(function () {
-    ajax_request();
+    is_meeting_running();
   });
 
 </script>
