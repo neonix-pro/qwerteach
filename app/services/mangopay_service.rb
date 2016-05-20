@@ -158,6 +158,38 @@ class MangopayService
     return mangopay_payout(@user, @amount, @fees, @beneficiary_wallet['Id'], @bank_acccount_id)
   end
 
+  def make_bank_wire(author_id, amount, fees, credited_wallet)
+    begin
+      bank_wire = MangoPay::PayIn::BankWire::Direct.create({
+                                                     :AuthorId => author_id,
+                                                     :DeclaredDebitedFunds => {
+                                                         :Currency => "EUR",
+                                                         :Amount => amount
+                                                     },
+                                                     :DeclaredFees => {
+                                                         :Currency => "EUR",
+                                                         :Amount => fees
+                                                     },
+                                                     :CreditedWalletId => credited_wallet
+                                                     
+                                                 })
+      return bank_wire
+    rescue MangoPay::ResponseError => ex   
+      return false
+    end
+  end
+
+  def send_make_bank_wire(params)
+    unless valid_users_infos 
+      return 2
+    end
+    bank_wire_payin = make_bank_wire(@user.mango_id, params[:amount]*100, 0, wallets.first['Id'])
+    if valid_payout(bank_wire_payin) 
+      return bank_wire_payin
+    else 
+      return 1
+    end
+  end
 
   # params contient : lesson_id
   def make_prepayment_transfer_refund(params)
@@ -435,6 +467,8 @@ class MangopayService
       @beneficiary_wallet = other_wallets.first
       return 0
     rescue MangoPay::ResponseError
+      Rails.logger.debug('________________TTTTTT__________________')
+      Rails.logger.debug(MangoPay::ResponseError)
       return 1
     end
   end
@@ -603,6 +637,7 @@ class MangopayService
         return 0
       end
     rescue MangoPay::ResponseError => ex
+        Rails.logger.debug(ex)
       return 1
     end
   end

@@ -1,8 +1,4 @@
 <%= form_for @user, as: :user, url: send_card_info_path, method: :put do |f| %>
-    <%= hidden_field_tag "key", @reply["AccessKey"] %>
-    <%= hidden_field_tag "pre_data", @reply["PreregistrationData"] %>
-    <%= hidden_field_tag "link", @reply["CardRegistrationURL"] %>
-    <%= hidden_field_tag "card_regis_id", @reply["Id"] %>
     <%= hidden_field_tag "amount", @amount %>
 
     <div class="field form-group">

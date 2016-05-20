@@ -1,0 +1,26 @@
+<% if(@bank_wire) %>
+<h2>Charger mon portefeuille par virement</h2>
+<div>
+  Pour charger votre portefeuille, effectuez un virement bancaire aux coordonnées suivantes:<br /> 
+  Montant: <b><%= (@bank_wire['DeclaredDebitedFunds']['Amount']/100).to_s %> €</b><br />
+  <%= @bank_wire['BankAccount']['OwnerName'] %> ,
+  <%= @bank_wire['BankAccount']['OwnerAddress']['AddressLine1'] + ' '+ @bank_wire['BankAccount']['OwnerAddress']['City'] + ' '+ @bank_wire['BankAccount']['OwnerAddress']['PostalCode'] +' '+@bank_wire['BankAccount']['OwnerAddress']['Country']%>
+  <br />
+  IBAN: 
+  <b>
+    <%= @bank_wire['BankAccount']['IBAN'].to_s %>
+  </b>
+  <br />
+  BIC: 
+  <b>
+    <%= @bank_wire['BankAccount']['BIC'].to_s %>
+  </b>
+  <br />
+  Avec la communication suivante: 
+  <b>
+    <%= @bank_wire['WireReference'].to_s %>
+  </b>
+  <br />
+  <%= link_to('retour', index_wallet_path ) %>
+</div>
+<% end %>
