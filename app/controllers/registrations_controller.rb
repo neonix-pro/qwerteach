@@ -5,7 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update
     @user = User.find(current_user.id)
-    params[:user].permit(:crop_x, :crop_y, :crop_w, :crop_h, :level, :avatar, :occupation, :level_id, :type, :firstname, :lastname, :birthdate, :description, :gender, :phonenumber, :email, :password, :password_confirmation, :current_password, :accepts_post_payments)
+    params[:user].permit(:crop_x, :crop_y, :crop_w, :crop_h, :level, :avatar, :occupation, :level_id, :type, :firstname, :lastname, :birthdate, :description, :gender, :phonenumber, :email, :password, :password_confirmation, :current_password, :accepts_post_payments, :time_zone)
     # On vérifie que l'on a besoin d'un mdp pour updater ce/ces champs là
     successfully_updated = if needs_password?(@user, params)
                              @user.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))

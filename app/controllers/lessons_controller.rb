@@ -1,5 +1,6 @@
 class LessonsController < ApplicationController
   before_action :authenticate_user!
+  around_filter :user_time_zone, :if => :current_user
 
   def index
     #Cours reçu par le Prof
@@ -32,7 +33,20 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     @hours = ((@lesson.time_end - @lesson.time_start) / 3600).to_i
     @minutes = ((@lesson.time_end - @lesson.time_start) / 60 ) % 60
+    zone = current_user.time_zone
+    time_start = ActiveSupport::TimeZone[zone].parse(params[:lesson][:time_start])
+    time_end = time_start + @hours.hours
+    time_end += @minutes.minutes
 
+    @lesson.update_attributes(:time_start => time_start, :time_end => time_end)
+
+    if @lesson.save
+      flash[:success] = "La modification s'est correctement déroulée."
+      redirect_to dashboard_path and return
+    else
+      flash[:alert] = "Il y a eu un problème lors de la modification. Veuillez réessayer."
+      redirect_to dashboard_path and return
+    end
   end
 
   # Not used
@@ -169,6 +183,10 @@ class LessonsController < ApplicationController
   end
 
   private
+
+  def user_time_zone(&block)
+    Time.use_zone(current_user.time_zone, &block)
+  end
   def lesson_params
     params.require(:lesson).permit(:student_id, :teacher_id, :price, :level_id, :topic_id, :topic_group_id, :time_start, :time_end).merge(:student_id => current_user.id)
   end

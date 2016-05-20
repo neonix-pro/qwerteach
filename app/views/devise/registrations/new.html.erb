@@ -4,8 +4,13 @@
     <%= devise_error_messages! %>
 
     <div class="field">
+      <%= f.hidden_field :time_zone %>
+    </div>
+
+
+    <div class="field">
       <%= f.label :email %><br/>
-      <%= f.email_field :email, autofocus: true , class: 'form-control', :required => true %>
+      <%= f.email_field :email, autofocus: true, class: 'form-control', :required => true %>
     </div>
 
     <div class="field">
@@ -15,13 +20,13 @@
       <% end %><br/>
       <%= f.password_field :password, autocomplete: "off", class: 'form-control', :required => true, data: {
           :validation => "length", 'validation-length' => "min8",
-          "validation-error-msg" => "Too short." }  %>
+          "validation-error-msg" => "Too short."} %>
     </div>
 
     <div class="field">
       <%= f.label :password_confirmation %><br/>
       <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', :required => true, data: {
-          :validation => "confirmation",'validation-confirm'=> 'user[password]', "validation-error-msg" => "Not the same." } %>
+          :validation => "confirmation", 'validation-confirm' => 'user[password]', "validation-error-msg" => "Not the same."} %>
     </div>
 
     <div class="actions">
@@ -31,9 +36,12 @@
 
 <%= render "devise/shared/links" %>
 <script>
+  a = jstz.determine();
+  $('#user_time_zone').val(a.name());
   $('.form-control').on('change', function () {
     $.validate({
       modules: 'security'
     });
+
   });
 </script>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428120501) do
+ActiveRecord::Schema.define(version: 20160520090653) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id",                                        null: false
@@ -263,7 +263,7 @@ ActiveRecord::Schema.define(version: 20160428120501) do
   create_table "payments", force: :cascade do |t|
     t.integer  "status",                                    default: 0,                     null: false
     t.integer  "payment_type",                              default: 0,                     null: false
-    t.datetime "transfert_date",                            default: '2016-05-18 08:53:36', null: false
+    t.datetime "transfert_date",                            default: '2016-05-20 12:02:15', null: false
     t.decimal  "price",             precision: 8, scale: 2,                                 null: false
     t.integer  "lesson_id",                                                                 null: false
     t.integer  "mangopay_payin_id"
@@ -369,6 +369,7 @@ ActiveRecord::Schema.define(version: 20160428120501) do
     t.datetime "avatar_updated_at"
     t.integer  "mango_id"
     t.datetime "last_seen"
+    t.string   "time_zone",              default: "UTC"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
