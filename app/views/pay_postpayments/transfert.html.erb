@@ -7,7 +7,7 @@
     </div>
     <div class="field">
       <%= f.label "Bénéficiaire" %>
-      <%= hidden_field_tag "other_part", @payment.lesson.teacher_id, :required => true %>
+      <%= hidden_field_tag "beneficiary", @payment.lesson.teacher_id, :required => true %>
       <%= @payment.lesson.teacher.email %>
     </div>
     <div class="actions">

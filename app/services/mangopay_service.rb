@@ -452,7 +452,7 @@ class MangopayService
   def transaction_infos(params)
     @amount = params[:amount].to_f * 100
     @fees = 0 * @amount
-    @beneficiary = User.find(params[:other_part])
+    @beneficiary = User.find(params[:beneficiary])
 
     unless valid_users_infos
       return 2
@@ -476,7 +476,7 @@ class MangopayService
   def transaction_postpayment_infos(params)
     @amount = params[:amount].to_f * 100
     @fees = 0 * @amount
-    @beneficiary = User.find(params[:other_part])
+    @beneficiary = User.find(params[:beneficiary])
 
     unless valid_users_infos
       return 2
@@ -499,7 +499,7 @@ class MangopayService
   def transaction_prepayment_infos(params)
     @amount = params[:amount].to_f * 100
     @fees = 0 * @amount
-    @beneficiary = User.find(params[:other_part])
+    @beneficiary = User.find(params[:beneficiary])
 
     unless valid_users_infos
       return 2

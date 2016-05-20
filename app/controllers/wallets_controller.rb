@@ -113,7 +113,7 @@ class WalletsController < ApplicationController
     
     case @type
     when 'BCMC'
-      h = {:amount => amount, :return_url => return_url, :other_part => @user}
+      h = {:amount => amount, :return_url => return_url, :beneficiary => @user}
       redirect_url = payment_service.send_make_bancontact(h)
       case redirect_url
         when 1
@@ -132,7 +132,7 @@ class WalletsController < ApplicationController
       if @card.blank?
         render :controller => 'wallets', :action => 'card_info'
       else
-        h = {:amount => amount, :other_part => @user, :card_id => @card, :return_url => return_url}
+        h = {:amount => amount, :beneficiary => @user, :card_id => @card, :return_url => return_url}
         payin_direct = payment_service.send_make_payin_direct(h)
         
         case payin_direct
@@ -152,7 +152,7 @@ class WalletsController < ApplicationController
         end
       end
     when 'BANK_WIRE'
-      h = {:amount => amount, :other_part => @user}
+      h = {:amount => amount, :beneficiary => @user}
       @bank_wire = payment_service.send_make_bank_wire(h)
       case @bank_wire
       when 0
@@ -224,7 +224,7 @@ class WalletsController < ApplicationController
         @card = card_id
     end
     return_url = request.base_url + index_wallet_path
-    h = {:amount => amount, :other_part => current_user, :card_id => @card, :return_url => return_url}
+    h = {:amount => amount, :beneficiary => current_user, :card_id => @card, :return_url => return_url}
     payin_direct = payment_service.send_make_payin_direct(h)
     case payin_direct
       when 0

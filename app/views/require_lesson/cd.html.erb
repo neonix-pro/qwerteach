@@ -1,37 +1,61 @@
-<p>CD</p>
+<p>Paiement par carte de crédit.</p>
 <%= form_for @user, as: :user, url: wizard_path, method: :put do |f| %>
     <div class="field credit_card_choice">
-      <%= f.label "Carte existante" %>
+      <%= f.label "Choisir carte" %>
       <%= select_tag "card", options_for_select(@cards.map { |f| [f["Alias"], f["Id"]] }), {:include_blank => 'Nouvelle'} %>
     </div>
-    <div class="field form-group">
-      <%= label_tag "Numero" %>
-      <%= number_field_tag "account", nil, class: 'form-control', data: {
-          :validation => "optional creditcard", 'validation-allowing' => "visa, mastercard",
-          "validation-error-msg" => "This card number is invalid."
-      } %>
+    <div id="new_card">
+      <div class="field form-group">
+        <%= label_tag "Numero" %>
+        <%= text_field_tag "account", nil, class: 'form-control', :required => true, data: {
+            :validation => "creditcard", 'validation-allowing' => "visa, mastercard",
+            "validation-error-msg" => "Numéro de carte invalide."
+        } %>
+      </div>
+      <div class="field form-group">
+        <%= label_tag "Date d'expiration" %>
+        <%= text_field_tag "month", nil, :data => {:provide => "datepicker", 'date-format' => 'mm', 'date-view-mode' => 'months', 'date-min-view-mode' => 'months', 'date-autoclose' => true}, class: 'form-control', :required => true %>
+        <%= text_field_tag "year", nil, :data => {:provide => "datepicker", 'date-format' => 'yy', 'date-view-mode' => 'years', 'date-min-view-mode' => 'years', 'date-autoclose' => true, 'date-start-date' => (Date.new)}, class: 'form-control', :required => true  %>
+      </div>
+      <div class="field form-group">
+        <%= label_tag "Code de sécurité" %>
+        <%= password_field_tag "csc", nil, :required => true, class: 'form-control', data: {
+            :validation => "required cvv",
+            "validation-error-msg" => "Code invalide."
+        } %>
+      </div>
     </div>
-    <div class="field form-group">
-      <%= label_tag "Date d'expiration" %>
 
-      <%= text_field_tag "month", nil, :data => {:provide => "datepicker", 'date-format' => 'mm', 'date-view-mode' => 'months', 'date-min-view-mode' => 'months', 'date-autoclose' => true}, class: 'form-control'%>
-
-      <%= text_field_tag "year", nil, :data => {:provide => "datepicker", 'date-format' => 'yy', 'date-view-mode' => 'years', 'date-min-view-mode' => 'years', 'date-autoclose' => true, 'date-start-date' => (Date.new)}, class: 'form-control'%>
-
-    </div>
-    <div class="field form-group">
-      <%= label_tag "Code de sécurité" %>
-      <%= password_field_tag "csc", nil, class: 'form-control', data: {
-          :validation => "optional cvv",
-          "validation-error-msg" => "This code number is invalid."
-      } %>
-    </div>
     <div class="actions">
       <%= f.submit "Envoyer" %>
     </div>
 <% end %>
 
 <script>
+  $('#card').on('change', function () {
+    if ($('#card option:selected').val() == "") {
+      $('#new_card').show();
+      $('#account').attr('data-validation', 'required creditcard');
+      $('#account').attr('data-validation-allowing', 'visa, mastercard');
+      $('#account').attr('data-validation-error-msg', "Numéro de carte invalide.");
+      $('#account').attr('required', 'required');
+      $('#month').attr('required', 'required');
+      $('#year').attr('required', 'required');
+      $('#csc').attr('data-validation', "required cvv");
+      $('#csc').attr('data-validation-error-msg', "Code invalide.");
+    } else {
+      $('#new_card').hide();
+      $('#account').removeAttr('data-validation');
+      $('#account').removeAttr('data-validation-allowing');
+      $('#account').removeAttr('data-validation-error-msg');
+      $('#account').removeAttr('required');
+      $('#month').removeAttr('required');
+      $('#year').removeAttr('required');
+      $('#csc').removeAttr('data-validation');
+      $('#csc').removeAttr('data-validation-error-msg');
+      $('#csc').removeAttr('required');
+    }
+  });
   $('.form-control').on('change', function () {
     $.validate({
       modules: 'security'

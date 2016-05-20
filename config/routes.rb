@@ -21,8 +21,6 @@ Rails.application.routes.draw do
 
 
   scope '/user/mangopay', controller: :payments do
-    get "make_transfert" => :make_transfert
-    put "make_transfert" => :send_make_transfert
   end
 
   scope '/user/mangopay', controller: :wallets do
