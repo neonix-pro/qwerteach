@@ -1,0 +1,18 @@
+= form_for @lesson, :html => {:class => 'form-horizontal form-group', multipart: true} do |f|
+  = f.hidden_field :teacher_id, value: teacher
+  #price
+  .form-group
+    = f.label :time_start, :class => 'control-label'
+    = f.datetime_select :time_start, :class => 'form-control'
+  .form-group
+    = f.label :time_end, :class => 'control-label'
+    = f.datetime_select :time_end, :class => 'form-control'
+  .form-group
+    = label_tag 'Durée'
+    = select_hour 1, :start_hour => 0, :end_hour => 5
+    = select_minute 30, :minute_step => 15
+  #choices_lessons_topic_group
+  #choices_lessons_topic
+  #choices_lessons_level
+  .form-actions
+    = f.submit :enregistrer, :class => 'btn btn-primary btn-mini'

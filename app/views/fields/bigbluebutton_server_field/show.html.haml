@@ -1,0 +1,42 @@
+%h1
+  = BigbluebuttonServer.model_name.human
+  \:
+%p
+  %b
+    = BigbluebuttonServer.human_attribute_name(:id)
+    \:
+  = @server.id
+%p
+  %b
+    = BigbluebuttonServer.human_attribute_name(:name)
+    \:
+  = @server.name
+%p
+  %b
+    = BigbluebuttonServer.human_attribute_name(:url)
+    \:
+  = @server.url
+%p
+  %b
+    = BigbluebuttonServer.human_attribute_name(:salt)
+    \:
+  = @server.salt
+%p
+  %b
+    = BigbluebuttonServer.human_attribute_name(:version)
+    \:
+  = @server.version
+%p
+  %b
+    = BigbluebuttonServer.human_attribute_name(:param)
+    \:
+  = @server.param
+%p
+  %b= BigbluebuttonServerConfig.human_attribute_name(:available_layouts)
+  = @server.config.available_layouts
+%p
+  %span Access:
+  = link_to 'Edit', edit_admin_bigbluebutton_server_path(@server)
+  |
+  \#{link_to 'Destroy', admin_bigbluebutton_server_path(@server), :confirm => 'Are you sure?', :method => :delete} |
+  \#{link_to 'Back', admin_bigbluebutton_servers_path}

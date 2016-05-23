@@ -1,0 +1,29 @@
+= form_for([namespace, page.resource], html: {class: "form"}) do |f|
+  - if page.resource.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(page.resource.errors.count, "error")
+        prohibited this #{page.resource_name} from being saved:
+      %ul
+        - page.resource.errors.full_messages.each do |message|
+          %li= message
+  - page.attributes.each do |attribute|
+    - if (attribute.name == "sender")
+      %div{:class => "field-unit field-unit--#{attribute.html_class}"}
+        .field-unit__label
+          = f.label :sender
+        .field-unit__field
+          - u = User.where(:id => current_user.id)
+          = f.select :sender_id, u.all.collect { |p| [p.email, p.id] }
+    - elsif  (attribute.name == "subject")
+      %div{:class => "field-unit field-unit--#{attribute.html_class}"}
+        .field-unit__label
+          = f.label :subject
+        .field-unit__field
+          - u = User.all
+          = f.select :subject_id, u.all.collect { |p| [p.email, p.id] }
+    - else
+      %div{:class => "field-unit field-unit--#{attribute.html_class}"}
+        = render_field attribute, f: f
+  .form-actions
+    = f.submit

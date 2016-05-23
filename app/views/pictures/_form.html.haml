@@ -1,0 +1,23 @@
+= form_for [@gallery, @picture], :html => {:class => 'form-horizontal'} do |f|
+  .control-group
+    = f.label :description, :class => 'control-label'
+    .controls
+      = f.text_field :description, :class => 'text_field'
+  = image_tag @picture.image.url(:large), :id => 'cropbox'
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary  btn-mini'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), |
+      gallery_path(@gallery), :class => 'btn btn-mini'             |
+    = link_to 'Default', '', :class => 'btn btn-mini btn-success', :id => 'make_default'
+%script{:charset => "utf-8", :type => "text/javascript"}
+  :cdata
+    $(function () {
+    $('#make_default').click(function (event) {
+    event.preventDefault();
+    $.ajax({
+    url: '/galleries/#{@gallery.id}/pictures/#{@picture.id}',
+    type: 'POST',
+    data: {id:#{@picture.id}, gallery_id:#{@gallery.id}}
+    });
+    });
+    });

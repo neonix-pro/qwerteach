@@ -1,0 +1,89 @@
+%h2= "Bonjour #{@user.firstname+@user.lastname}"
+- if current_user.is_a? Teacher
+  %p
+    Etat de votre postulation : #{(current_user.postulance_accepted? ? 'Acceptée' : 'Refusée')}
+  - unless current_user.postulance_accepted?
+    %ul
+      %li
+        Interview :  #{(current_user.postulation.interview_ok? ? 'Validée' : 'Non-validée')}
+      %li
+        Avatar :  #{(current_user.postulation.avatar_ok? ? 'Validé' : 'Non-validé')}
+      %li
+        Informations générales
+        \:  #{(current_user.postulation.gen_informations_ok? ? 'Validées' : 'Non-validées')}
+      %li
+        Tarifs :  #{(current_user.postulation.advert_ok? ? 'Validés' : 'Non-validés')}
+%h3 Cours prévus
+- if @future_lessons.empty?
+  %p Aucun cours de prévu
+- else
+  %table{:border => "1", :style => "width:100%"}
+    %thead
+      %tr
+        %th Id
+        %th Professeur
+        %th Elève
+        %th Option
+        %th Début
+        %th Fin
+        %th Status
+        %th Action
+    %tbody
+      - @future_lessons.each do |lesson|
+        = render partial: 'dashboards/lesson', :locals => {:lesson => lesson}
+%h3 Cours en attente
+- if @pending_lessons.empty?
+  %p Aucun cours en attente
+- else
+  %table{:border => "1", :style => "width:100%"}
+    %thead
+      %tr
+        %th Id
+        %th Professeur
+        %th Elève
+        %th Option
+        %th Début
+        %th Fin
+        %th Status
+        %th Action
+    %tbody
+      - @pending_lessons.each do |lesson|
+        = render partial: 'dashboards/lesson', :locals => {:lesson => lesson}
+%h3 Factures en attente
+- if @pending_postpayments.empty?
+  %p Aucune facture en attente
+- else
+  %table{:border => "1", :style => "width:100%"}
+    %thead
+      %tr
+        %th Id
+        %th Professeur
+        %th Elève
+        %th Option
+        %th Début
+        %th Fin
+        %th Status
+        %th Prix
+        %th Action
+    %tbody
+      - @pending_postpayments.each do |payment|
+        = render partial: 'dashboards/payment', :locals => {:payment => payment}
+%h3 Paiements en attente
+- if @pending_prepayments.empty?
+  %p Aucun paiement en attente
+- else
+  %table{:border => "1", :style => "width:100%"}
+    %thead
+      %tr
+        %th Id
+        %th Professeur
+        %th Elève
+        %th Option
+        %th Début
+        %th Fin
+        %th Status
+        %th Prix
+        %th Action
+    %tbody
+      - @pending_prepayments.each do |payment|
+        = render partial: 'dashboards/payment', :locals => {:payment => payment}

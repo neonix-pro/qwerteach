@@ -1,0 +1,87 @@
+%h1
+  = BigbluebuttonRecording.model_name.human
+  \:
+%p
+  %b
+    = BigbluebuttonRecording.human_attribute_name(:id)
+    \:
+  = @recording.id
+%p
+  %b
+    = BigbluebuttonRecording.human_attribute_name(:recordid)
+    \:
+  = @recording.recordid
+%p
+  %b
+    = BigbluebuttonRecording.human_attribute_name(:name)
+    \:
+  = @recording.name
+%p
+  %b
+    = BigbluebuttonRecording.human_attribute_name(:server_id)
+    \:
+  = @recording.server_id
+  = link_to('(view server)', bigbluebutton_server_path(@recording.server)) unless @recording.server.nil?
+%p
+  %b
+    = BigbluebuttonRecording.human_attribute_name(:room_id)
+    \:
+  = @recording.room_id
+  = link_to('(view room)', bigbluebutton_room_path(@recording.room)) unless @recording.room.nil?
+%p
+  %b
+    = BigbluebuttonRecording.human_attribute_name(:meetingid)
+    \:
+  = @recording.meetingid
+%p
+  %b
+    = BigbluebuttonRecording.human_attribute_name(:published)
+    \:
+  = @recording.published
+%p
+  %b
+    = BigbluebuttonRecording.human_attribute_name(:available)
+    \:
+  = @recording.available
+%p
+  %b
+    = BigbluebuttonRecording.human_attribute_name(:start_time)
+    \:
+  = @recording.start_time
+%p
+  %b
+    = BigbluebuttonRecording.human_attribute_name(:end_time)
+    \:
+  = @recording.end_time
+%p
+  %b
+    = BigbluebuttonRecording.human_attribute_name(:description)
+    \:
+  = @recording.description
+%p
+  %b
+    = BigbluebuttonRecording.human_attribute_name(:metadata)
+    \:
+  - @recording.metadata.each do |metadata|
+    = metadata.attributes.except("id", "owner_id", "owner_type", "updated_at", "created_at")
+    ,
+%p
+  %b
+    = BigbluebuttonRecording.human_attribute_name(:playback_formats)
+    \:
+  - @recording.playback_formats.each do |format|
+    = format.attributes.except("id", "recording_id", "updated_at", "created_at")
+    ,
+%p
+  %span Access:
+  = link_to 'Edit', edit_bigbluebutton_recording_path(@recording)
+  |
+  \#{link_to 'Publish', publish_bigbluebutton_recording_path(@recording), :confirm => 'Are you sure?', :method => :post} |
+  \#{link_to 'Unpublish', unpublish_bigbluebutton_recording_path(@recording), :confirm => 'Are you sure?', :method => :post} |
+  \#{link_to 'Destroy', bigbluebutton_recording_path(@recording), :confirm => 'Are you sure?', :method => :delete} |
+  \#{link_to 'Back', bigbluebutton_recordings_path}
+%p
+  %label Play:
+  = link_to "default", play_bigbluebutton_recording_path(@recording)
+  - @recording.playback_formats.each do |format|
+    = link_to format.format_type, play_bigbluebutton_recording_path(@recording, :type => format.format_type)

@@ -1,0 +1,10 @@
+%p= @payment.lesson.student.email
+%p= @payment.lesson.topic_group.title
+= form_for @payment, :url => url_for(controller: 'payments', action: 'send_edit_postpayment'), :method => :post do |f|
+  .form-group
+    = f.label :price, :class => 'control-label'
+    = f.number_field :price, :class => 'form-control', :min => 0, :required => true
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary  btn-mini'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), |
+      payments_index_path, :class => 'btn btn-mini'                |

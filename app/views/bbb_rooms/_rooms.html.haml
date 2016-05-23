@@ -1,0 +1,85 @@
+#bbbrails_rooms_links
+  = link_to('View recording list', bigbluebutton_recordings_path)
+  %br/
+  = link_to('New room', new_bigbluebutton_room_path)
+%ul#bbbrails_list
+  - @rooms.each do |room|
+    %li
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:id)
+        = room.id
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:server_id)
+        = room.server_id
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:name)
+        = room.name
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:meetingid)
+        = room.meetingid
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:private)
+        = room.private
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:attendee_key)
+        = room.attendee_key
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:moderator_key)
+        = room.moderator_key
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:welcome_msg)
+        = room.welcome_msg
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:logout_url)
+        = room.logout_url
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:dial_number)
+        = room.dial_number
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:voice_bridge)
+        = room.voice_bridge
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:max_participants)
+        = room.max_participants
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:external)
+        = room.external
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:param)
+        = room.param
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:record_meeting)
+        = room.record_meeting
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:duration)
+        = room.duration
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:moderator_only_message)
+        = room.moderator_only_message
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:auto_start_recording)
+        = room.auto_start_recording
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:allow_start_stop_recording)
+        = room.allow_start_stop_recording
+      .field
+        %label= BigbluebuttonRoom.human_attribute_name(:metadata)
+        %div
+          - room.metadata.each do |metadata|
+            = metadata.attributes.except("id", "owner_id", "owner_type", "updated_at", "created_at")
+            ,
+      .field
+        %label Access
+        = link_to 'Show', bigbluebutton_room_path(room)
+        |
+        \#{link_to 'Join', join_bigbluebutton_room_path(room)} |
+        \#{link_to 'Invite', invite_bigbluebutton_room_path(room)} |
+        \#{link_to 'Mobile Join', join_mobile_bigbluebutton_room_path(room)} |
+        \#{link_to 'Edit', edit_bigbluebutton_room_path(room)} |
+        \#{link_to 'End', end_bigbluebutton_room_path(room), :confirm => 'Are you sure?'} |
+        \#{link_to 'Destroy', bigbluebutton_room_path(room), :confirm => 'Are you sure?', :method => :delete}
+      .field
+        %label Recordings
+        = link_to 'View recordings', recordings_bigbluebutton_room_path(room)
+        |
+        \#{link_to 'Fetch recordings', fetch_recordings_bigbluebutton_room_path(room), :confirm => 'Are you sure?', :method => :post}

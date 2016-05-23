@@ -1,0 +1,7 @@
+= render "users/crop"
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
+  = f.hidden_field :crop_x, :id => :crop_x
+  = f.hidden_field :crop_y, :id => :crop_y
+  = f.hidden_field :crop_w, :id => :crop_w
+  = f.hidden_field :crop_h, :id => :crop_h
+  %p= f.submit "Crop"

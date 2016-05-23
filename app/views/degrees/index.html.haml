@@ -1,0 +1,22 @@
+%h1 Diplômes
+= link_to 'Créer un diplôme', new_degree_path, :class => 'btn btn-mini'
+%table{:style => "width:75%"}
+  %thead
+    %tr
+      %th Titre
+      %th Institution
+      %th Année d'obtention
+      %th Niveau
+      %th Actions
+  %tbody
+    - for degree in @degrees
+      %tr
+        %td= degree.title
+        %td= degree.institution
+        %td= degree.completion_year
+        %td= degree.level[I18n.locale[0..3]]
+        %td
+          = button_to "Delete", {action: "destroy", id: degree.id},                    |
+            method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" |
+          = button_to "Update", {action: "edit", id: degree.id}, |
+            method: :get, class: "btn btn-info"                  |

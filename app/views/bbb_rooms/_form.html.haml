@@ -1,0 +1,106 @@
+- if @room.new_record?
+  - url = bigbluebutton_rooms_path
+- else
+  - url = bigbluebutton_room_path(@room)
+= form_for setup_bigbluebutton_room(@room), :url => url do |f|
+  - if @room.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@room.errors.count, "error")
+        \:
+      %ul
+        - @room.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :id
+    %br/
+    = @room.id
+  .field
+    = f.label :server_id
+    %br/
+    = f.text_field :server_id
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name
+  .field
+    = f.label :meetingid
+    %br/
+    = f.text_field :meetingid
+  .field
+    = f.label :private
+    %br/
+    = f.check_box :private
+  .field
+    = f.label :attendee_key
+    %br/
+    = f.text_field :attendee_key
+  .field
+    = f.label :moderator_key
+    %br/
+    = f.text_field :moderator_key
+  .field
+    = f.label :welcome_msg
+    %br/
+    = f.text_field :welcome_msg
+  .field
+    = f.label :logout_url
+    %br/
+    = f.text_field :logout_url
+  .field
+    = f.label :dial_number
+    %br/
+    = f.text_field :dial_number
+  .field
+    = f.label :voice_bridge
+    %br/
+    = f.text_field :voice_bridge
+  .field
+    = f.label :max_participants
+    %br/
+    = f.text_field :max_participants
+  .field
+    = f.label :external
+    %br/
+    = f.check_box :external
+  .field
+    = f.label :param
+    %br/
+    = f.text_field :param
+  .field
+    = f.label :record_meeting
+    %br/
+    = f.check_box :record_meeting
+  .field
+    = f.label :duration
+    %br/
+    = f.text_field :duration
+  .field
+    = f.label :moderator_only_message
+    %br/
+    = f.text_field :moderator_only_message
+    %br/
+  .field
+    = f.label :auto_start_recording
+    %br/
+    = f.check_box :auto_start_recording
+    %br/
+  .field
+    = f.label :allow_start_stop_recording
+    %br/
+    = f.check_box :allow_start_stop_recording
+    %br/
+  .field
+    %b Metadata
+    (by default we have 10 metadata in this view, but it's not limited to it)
+    %br/
+    = f.fields_for :metadata do |metadata_form|
+      = metadata_form.label :name
+      = metadata_form.text_field :name
+      = metadata_form.label :content
+      = metadata_form.text_field :content
+      = metadata_form.check_box :_destroy
+      = metadata_form.label :_destroy, "Remove Metadata"
+      %br/
+  .actions
+    = f.submit

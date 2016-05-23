@@ -1,0 +1,7 @@
+- emetteur = User.find(notification.sender_id)
+%a.content{:href => "#{notification.body}"}
+  .notification-item
+    %h4.item-title
+    %li.round-image-50= image_tag(emetteur.avatar.url(:small))
+    = notification.subject
+    / <p class="item-info">Rejoindre</p>

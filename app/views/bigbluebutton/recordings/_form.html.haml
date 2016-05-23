@@ -1,0 +1,69 @@
+= form_for @recording, :url => bigbluebutton_recording_path(@recording) do |f|
+  - if @recording.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@recording.errors.count, "error")
+        \:
+      %ul
+        - @recording.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :id
+    %br/
+    = @recording.id
+  .field
+    = f.label :recordid
+    %br/
+    = f.text_field :recordid
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name
+  .field
+    = f.label :room_id
+    %br/
+    = f.text_field :room_id, :disabled => "disabled"
+  .field
+    = f.label :server_id
+    %br/
+    = f.text_field :server_id, :disabled => "disabled"
+  .field
+    = f.label :published
+    %br/
+    = f.check_box :published
+  .field
+    = f.label :available
+    %br/
+    = f.check_box :available
+  .field
+    = f.label :start_time
+    %br/
+    = f.text_field :start_time
+  .field
+    = f.label :end_time
+    %br/
+    = f.text_field :end_time
+  .field
+    = f.label :description
+    %br/
+    = f.text_field :description
+  .field
+    = f.label :size
+    %br/
+    = f.text_field :size
+  %p
+    %b
+      = BigbluebuttonRecording.human_attribute_name(:metadata)
+      \:
+    - @recording.metadata.each do |metadata|
+      = metadata.attributes.except("id", "owner_id", "owner_type", "updated_at", "created_at")
+      ,
+  %p
+    %b
+      = BigbluebuttonRecording.human_attribute_name(:playback_formats)
+      \:
+    - @recording.playback_formats.each do |format|
+      = format.attributes.except("id", "recording_id", "updated_at", "created_at")
+      ,
+  .actions
+    = f.submit

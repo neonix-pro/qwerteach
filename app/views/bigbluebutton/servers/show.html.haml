@@ -1,0 +1,83 @@
+:javascript
+  $(document).ready(function() {
+    $("#fetch-recordings-input").keyup(function() {
+      var filters = $("#fetch-recordings-input").val();
+      var url = "#{fetch_recordings_bigbluebutton_server_path(@server)}";
+      if (filters.trim() != "") {
+        url = url + "?" + filters;
+      }
+      $("#fetch-recordings-link").attr("href", url);
+    });
+    $("#publish-recordings-input").keyup(function() {
+      var recordings = $("#publish-recordings-input").val();
+      var url = "#{publish_recordings_bigbluebutton_server_path(@server)}";
+      if (recordings.trim() != "") {
+        url = url + "?recordings=" + recordings;
+      }
+      $("#publish-recordings-link").attr("href", url);
+    });
+    $("#unpublish-recordings-input").keyup(function() {
+      var recordings = $("#unpublish-recordings-input").val();
+      var url = "#{unpublish_recordings_bigbluebutton_server_path(@server)}";
+      if (recordings.trim() != "") {
+        url = url + "?recordings=" + recordings;
+      }
+      $("#unpublish-recordings-link").attr("href", url);
+    });
+  });
+%h1
+  = BigbluebuttonServer.model_name.human
+  \:
+%p
+  %b
+    = BigbluebuttonServer.human_attribute_name(:id)
+    \:
+  = @server.id
+%p
+  %b
+    = BigbluebuttonServer.human_attribute_name(:name)
+    \:
+  = @server.name
+%p
+  %b
+    = BigbluebuttonServer.human_attribute_name(:url)
+    \:
+  = @server.url
+%p
+  %b
+    = BigbluebuttonServer.human_attribute_name(:salt)
+    \:
+  = @server.salt
+%p
+  %b
+    = BigbluebuttonServer.human_attribute_name(:version)
+    \:
+  = @server.version
+%p
+  %b
+    = BigbluebuttonServer.human_attribute_name(:param)
+    \:
+  = @server.param
+%p
+  %b= BigbluebuttonServerConfig.human_attribute_name(:available_layouts)
+  = @server.config.available_layouts
+%p
+  %span Access:
+  = link_to 'Edit', edit_bigbluebutton_server_path(@server)
+  |
+  \#{link_to 'View rooms', rooms_bigbluebutton_server_path(@server)} |
+  \#{link_to 'View recordings', recordings_bigbluebutton_server_path(@server)} |
+  \#{link_to 'Activity monitor', activity_bigbluebutton_server_path(@server)} |
+  \#{link_to 'Destroy', bigbluebutton_server_path(@server), :confirm => 'Are you sure?', :method => :delete} |
+  \#{link_to 'Back', bigbluebutton_servers_path}
+%p
+  %span Recordings:
+  %br/
+  = text_field_tag 'fetch_recordings', '', :id => 'fetch-recordings-input', :size => 50, :placeholder => 'e.g. "meetings=meeting1,meeting2&meta_name=value"'
+  = link_to 'Fetch recordings', fetch_recordings_bigbluebutton_server_path(@server), :confirm => 'Are you sure?', :method => :post, :id => 'fetch-recordings-link'
+  %br/
+  = text_field_tag 'publish_recordings', '', :id => 'publish-recordings-input', :size => 50, :placeholder => 'e.g. "meeting1,meeting2"'
+  = link_to 'Publish recordings', publish_recordings_bigbluebutton_server_path(@server), :confirm => 'Are you sure?', :method => :post, :id => 'publish-recordings-link'
+  %br/
+  = text_field_tag 'publish_recordings', '', :id => 'unpublish-recordings-input', :size => 50, :placeholder => 'e.g. "meeting1,meeting2"'
+  = link_to 'Unpublish recordings', unpublish_recordings_bigbluebutton_server_path(@server), :confirm => 'Are you sure?', :method => :post, :id => 'unpublish-recordings-link'

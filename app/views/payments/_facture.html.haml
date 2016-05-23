@@ -1,0 +1,18 @@
+%h3
+  Paiement envoyé à #{payment.lesson.student.firstname}
+.facture
+  %p
+    Nom  #{payment.lesson.teacher.lastname}
+  %p
+    Prenom Student #{payment.lesson.student.lastname}
+  %p
+    Debut #{payment.lesson.time_start}
+  %p
+    Fin #{payment.lesson.time_end}
+  %p
+    Statut du Cours #{payment.lesson.status}
+  %p
+    Paiement reçu de #{payment.price}€
+  - if can? :edit_postpayment, payment
+    = link_to 'Modifier', lesson_edit_postpayment_path(payment.lesson_id, payment.id)
+  %hr/
