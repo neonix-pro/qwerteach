@@ -2,6 +2,7 @@ class DashboardsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    @user = current_user
     @future_lessons = []
     current_user.lessons_given.where(:status => 2).where('time_start > ?', DateTime.now).each { |l| @future_lessons.push l }
     current_user.lessons_received.where(:status => 2).where('time_start > ?', DateTime.now).each { |l| @future_lessons.push l }
