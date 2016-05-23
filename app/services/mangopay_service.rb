@@ -1,4 +1,10 @@
 require 'mangopay'
+# return codes:
+# 0 ==> OK
+# 1 ==> Problème signalé par MP
+# 2 ==> Author does not have a MP account
+# 3 ==> benef does not have a MP account
+# 4 ==> Non solvable
 class MangopayService
 
   def initialize(params)
@@ -48,62 +54,7 @@ class MangopayService
     end
   end
 
-  def send_make_postpayment_transfert(params)
-    if (test=transaction_postpayment_infos(params)) > 0
-      return test
-    end
-    begin
-      if is_solvable_postwallet?
-        unless bonus_transfer
-          return 1
-        end
-        unless normal_transfer
-          return 1
-        end
-        return 0
-      else
-        return 4
-      end
-    rescue MangoPay::ResponseError => ex
-      return 1
-    end
-  end
-
-  def send_make_prepayment_transfert(params)
-    if (test=transaction_prepayment_infos(params)) > 0
-      return test
-    end
-    begin
-      if is_solvable?
-        unless bonus_transfer
-          return 1
-        end
-        unless normal_transfer
-          return 1
-        end
-        return 0
-      else
-        return 4
-      end
-    rescue MangoPay::ResponseError => ex
-      return 1
-    end
-  end
-
-  def send_make_prepayment_bancontact(params)
-    if (test=transaction_prepayment_infos(params)) > 0
-      return test
-    end
-    begin
-      if (payin = bancontact_payin(params[:return_url]))
-        return payin
-      end
-    rescue MangoPay::ResponseError => ex
-      return 1
-    end
-  end
-
-  def send_make_bancontact(params)
+  def send_make_payin_bancontact(params)
     if (test=transaction_infos(params)) > 0
       return test
     end
@@ -122,17 +73,7 @@ class MangopayService
     @expiration_year = params[:expiration_year]
     @csc = params[:card_csc]
     @card_type = params[:card_type]
-    return create_card_registration
-  end
-
-  def send_make_prepayment_payin_direct(params)
-    @card_id = params[:card_id]
-    @return_path = params[:return_url]
-    if (test=transaction_prepayment_infos(params)) > 0
-      return test
-    end
-    define_secure_mode
-    return make_prepayment_payin_direct
+    return mangopay_card_registration
   end
 
   def send_make_payin_direct(params)
@@ -142,10 +83,10 @@ class MangopayService
       return test
     end
     define_secure_mode
-    return make_prepayment_payin_direct
+    return mangopay_payin_direct
   end
 
-  def make_payout(params)
+  def send_make_payout(params)
     if (test=transaction_payout_infos(params)) >0
       return test
     end
@@ -158,32 +99,11 @@ class MangopayService
     return mangopay_payout(@user, @amount, @fees, @beneficiary_wallet['Id'], @bank_acccount_id)
   end
 
-  def make_bank_wire(author_id, amount, fees, credited_wallet)
-    begin
-      bank_wire = MangoPay::PayIn::BankWire::Direct.create({
-                                                     :AuthorId => author_id,
-                                                     :DeclaredDebitedFunds => {
-                                                         :Currency => "EUR",
-                                                         :Amount => amount
-                                                     },
-                                                     :DeclaredFees => {
-                                                         :Currency => "EUR",
-                                                         :Amount => fees
-                                                     },
-                                                     :CreditedWalletId => credited_wallet
-                                                     
-                                                 })
-      return bank_wire
-    rescue MangoPay::ResponseError => ex   
-      return false
-    end
-  end
-
   def send_make_bank_wire(params)
-    unless valid_users_infos 
+    unless valid_author_infos
       return 2
     end
-    bank_wire_payin = make_bank_wire(@user.mango_id, params[:amount]*100, 0, wallets.first['Id'])
+    bank_wire_payin = mangopay_bank_wire(@user.mango_id, params[:amount]*100, 0, wallets.first['Id'])
     if valid_payout(bank_wire_payin) 
       return bank_wire_payin
     else 
@@ -229,7 +149,7 @@ class MangopayService
     end
   end
 
-  def valid_users_infos
+  def valid_author_infos
     unless @user.mango_id
       return false
     end
@@ -261,7 +181,7 @@ class MangopayService
     end
   end
 
-  def valid_updated(registration)
+  def valid_validated(registration)
     if registration['Status']!='VALIDATED'
       return false
     else
@@ -269,7 +189,7 @@ class MangopayService
     end
   end
 
-  def valid_executed(payin)
+  def valid_succeeded(payin)
     if payin['Status']!='SUCCEEDED'
       return false
     else
@@ -300,7 +220,7 @@ class MangopayService
     MangoPay::User.wallets(@user.mango_id)
   end
 
-  def other_wallets
+  def benef_wallets
     MangoPay::User.wallets(@beneficiary.mango_id)
   end
 
@@ -408,6 +328,113 @@ class MangopayService
     end
   end
 
+  def mangopay_payin_direct
+    begin
+      if @amount > 0
+        @payin = MangoPay::PayIn::Card::Direct.create({
+                                                          :AuthorId => @user.mango_id,
+                                                          :CreditedUserId => @beneficiary.mango_id,
+                                                          :DebitedFunds => {
+                                                              :Currency => "EUR",
+                                                              :Amount => @amount
+                                                          },
+                                                          :Fees => {
+                                                              :Currency => "EUR",
+                                                              :Amount => @fees
+                                                          },
+                                                          :CreditedWalletId => @beneficiary_wallet['Id'],
+                                                          :SecureModeReturnURL => @return_path,
+                                                          :SecureMode => @secure_mode,
+                                                          :CardId => @card_id
+                                                      })
+        if @secure_mode == 'DEFAULT'
+          if @amount > 10000
+            # 3DS
+            if valid_created(@payin) != 1
+              return @payin['SecureModeRedirectURL']
+            else
+              return 1
+            end
+          else
+            # NO 3DS
+            if valid_succeeded(@payin)
+              return 0
+            else
+              return 1
+            end
+          end
+        else
+          # 3DS
+          if valid_created(@payin) != 1
+            return @payin['SecureModeRedirectURL']
+          else
+            return 1
+          end
+        end
+      else
+        return 0
+      end
+    rescue MangoPay::ResponseError => ex
+      Rails.logger.debug(ex)
+      return 1
+    end
+  end
+
+  def mangopay_card_registration
+    begin
+      @card_registration = MangoPay::CardRegistration.create({
+                                                                 :UserId => @user.mango_id,
+                                                                 :Currency => "EUR",
+                                                                 :CardType => @card_type
+                                                             })
+      if valid_created(@card_registration) != 1
+        param = {
+            :accessKeyRef => @card_registration['AccessKey'],
+            :preregistrationData => @card_registration['PreregistrationData'],
+            :cardNumber => @card_number,
+            :cardExpirationDate => @expiration_month + '' + @expiration_year,
+            :cardCvx => @csc,
+            :data => @card_registration['PreregistrationData']
+        }
+
+        @mango_response = Net::HTTP.post_form(URI.parse(@card_registration["CardRegistrationURL"]), param)
+        @updated_cardregistration = MangoPay::CardRegistration.update(@card_registration["Id"], {
+            :RegistrationData => "data=#{@mango_response.body}"
+        })
+        if valid_validated(@updated_cardregistration)
+          return @updated_cardregistration['CardId']
+        else
+          return 1
+        end
+      else
+        return 1
+      end
+    rescue MangoPay::ResponseError
+      return 1
+    end
+  end
+
+  def mangopay_bank_wire(author_id, amount, fees, credited_wallet)
+    begin
+      bank_wire = MangoPay::PayIn::BankWire::Direct.create({
+                                                               :AuthorId => author_id,
+                                                               :DeclaredDebitedFunds => {
+                                                                   :Currency => "EUR",
+                                                                   :Amount => amount
+                                                               },
+                                                               :DeclaredFees => {
+                                                                   :Currency => "EUR",
+                                                                   :Amount => fees
+                                                               },
+                                                               :CreditedWalletId => credited_wallet
+
+                                                           })
+      return bank_wire
+    rescue MangoPay::ResponseError => ex
+      return false
+    end
+  end
+
   def bancontact_payin(return_url)
     if @amount > 0
       bancontact_payin = mangopay_payin_card_web(@user.mango_id, @amount, @fees, @beneficiary_wallet['Id'], return_url)
@@ -454,54 +481,7 @@ class MangopayService
     @fees = 0 * @amount
     @beneficiary = User.find(params[:beneficiary])
 
-    unless valid_users_infos
-      return 2
-    end
-    unless valid_benef_infos
-      return 3
-    end
-
-    begin
-      @wallets ||= wallets
-      @sender_wallet = @wallets.first
-      @beneficiary_wallet = other_wallets.first
-      return 0
-    rescue MangoPay::ResponseError
-      Rails.logger.debug('________________TTTTTT__________________')
-      Rails.logger.debug(MangoPay::ResponseError)
-      return 1
-    end
-  end
-
-  def transaction_postpayment_infos(params)
-    @amount = params[:amount].to_f * 100
-    @fees = 0 * @amount
-    @beneficiary = User.find(params[:beneficiary])
-
-    unless valid_users_infos
-      return 2
-    end
-    unless valid_benef_infos
-      return 3
-    end
-
-    begin
-      @wallets ||= wallets
-      @sender_wallet = @wallets.third
-      @beneficiary_wallet = other_wallets.first
-      return 0
-    rescue MangoPay::ResponseError
-      return 1
-    end
-  end
-
-
-  def transaction_prepayment_infos(params)
-    @amount = params[:amount].to_f * 100
-    @fees = 0 * @amount
-    @beneficiary = User.find(params[:beneficiary])
-
-    unless valid_users_infos
+    unless valid_author_infos
       return 2
     end
     unless valid_benef_infos
@@ -512,7 +492,7 @@ class MangopayService
       @wallets ||= wallets
       @sender_wallet = @wallets.first
       @sender_bonus_wallet = @wallets.second
-      @beneficiary_wallet = @wallets.third
+      @beneficiary_wallet = benef_wallets.first
       return 0
     rescue MangoPay::ResponseError
       return 1
@@ -521,7 +501,7 @@ class MangopayService
 
   def transaction_payout_infos(params)
 
-    unless valid_users_infos
+    unless valid_author_infos
       return 2
     end
     begin
@@ -539,7 +519,7 @@ class MangopayService
 
   def transaction_refund_infos(params)
 
-    unless valid_users_infos
+    unless valid_author_infos
       return 2
     end
 
@@ -552,92 +532,6 @@ class MangopayService
       @fees = 0.15 * @amount
       return 0
     rescue MangoPay::ResponseError
-      return 1
-    end
-  end
-
-  def create_card_registration
-    begin
-      @card_registration = MangoPay::CardRegistration.create({
-                                                                 :UserId => @user.mango_id,
-                                                                 :Currency => "EUR",
-                                                                 :CardType => @card_type
-                                                             })
-      if valid_created(@card_registration) != 1
-        param = {
-            :accessKeyRef => @card_registration['AccessKey'],
-            :preregistrationData => @card_registration['PreregistrationData'],
-            :cardNumber => @card_number,
-            :cardExpirationDate => @expiration_month + '' + @expiration_year,
-            :cardCvx => @csc,
-            :data => @card_registration['PreregistrationData']
-        }
-
-        @mango_response = Net::HTTP.post_form(URI.parse(@card_registration["CardRegistrationURL"]), param)
-        @updated_cardregistration = MangoPay::CardRegistration.update(@card_registration["Id"], {
-            :RegistrationData => "data=#{@mango_response.body}"
-        })
-        if valid_updated(@updated_cardregistration)
-          return @updated_cardregistration['CardId']
-        else
-          return 1
-        end
-      else
-        return 1
-      end
-    rescue MangoPay::ResponseError
-      return 1
-    end
-  end
-
-  def make_prepayment_payin_direct
-    begin
-      if @amount > 0
-        @payin = MangoPay::PayIn::Card::Direct.create({
-                                                          :AuthorId => @user.mango_id,
-                                                          :CreditedUserId => @beneficiary.mango_id,
-                                                          :DebitedFunds => {
-                                                              :Currency => "EUR",
-                                                              :Amount => @amount
-                                                          },
-                                                          :Fees => {
-                                                              :Currency => "EUR",
-                                                              :Amount => @fees
-                                                          },
-                                                          :CreditedWalletId => @beneficiary_wallet['Id'],
-                                                          :SecureModeReturnURL => @return_path,
-                                                          :SecureMode => @secure_mode,
-                                                          :CardId => @card_id
-                                                      })
-        if @secure_mode == 'DEFAULT'
-          if @amount > 10000
-            # 3DS
-            if valid_created(@payin) != 1
-              return @payin['SecureModeRedirectURL']
-            else
-              return 1
-            end
-          else
-            # NO 3DS
-            if valid_executed(@payin)
-              return 0
-            else
-              return 1
-            end
-          end
-        else
-          # 3DS
-          if valid_created(@payin) != 1
-            return @payin['SecureModeRedirectURL']
-          else
-            return 1
-          end
-        end
-      else
-        return 0
-      end
-    rescue MangoPay::ResponseError => ex
-        Rails.logger.debug(ex)
       return 1
     end
   end

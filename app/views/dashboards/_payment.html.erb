@@ -13,7 +13,7 @@
           <%= link_to 'Payer Facture', lesson_payment_pay_postpayments_path(:lesson_id => payment.lesson_id, :payment_id => payment.id), :class => 'btn btn-success' %>
       <% end %>
       <% if payment.lesson.student_id == current_user.id && payment.lesson.time_start < DateTime.now && payment.lesson.time_start + 3.days > DateTime.now && payment.prepayment? && payment.pending? %>
-          <%= link_to 'Paiement Direct', lesson_payerfacture_path(:lesson_id => payment.lesson_id, :payment_id => payment.id), :class => 'btn btn-success' %>
+          <%= button_to 'Paiement Direct', lesson_payerfacture_path(:lesson_id => payment.lesson_id, :payment_id => payment.id), :class => 'btn btn-success' %>
           <%= link_to 'Litige', lesson_bloquerpayment_path(payment.lesson), :method => :post , :class => 'btn btn-danger'%>
       <% end %>
     </td>

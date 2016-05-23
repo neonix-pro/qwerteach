@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     get 'bank_accounts' => :bank_accounts
     put 'update_bank_accounts' => :update_bank_accounts
     get 'payout' => :payout
-    put 'make_payout' => :make_payout
+    put 'make_payout' => :send_make_payout
   end
 
   devise_for :users, :controllers => {:registrations => "registrations"}

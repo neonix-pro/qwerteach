@@ -106,7 +106,7 @@ class RequireLessonController < ApplicationController
         @other = User.find(session[:lesson]['teacher_id'])
         payment_service = MangopayService.new(:user => current_user)
         payment_service.set_session(session)
-        case payment_service.send_make_prepayment_transfert(
+        case payment_service.send_make_transfert(
             {:amount => @amount, :beneficiary => @other})
           when 0
             #flash[:notice] = "Le transfert s'est correctement effectué. Votre réservation de cours est donc correctement enregistrée."
@@ -143,7 +143,7 @@ class RequireLessonController < ApplicationController
         @return_path = request.base_url + wizard_path(:finish)
         payment_service = MangopayService.new(:user => current_user)
         payment_service.set_session(session)
-        redirect_url = payment_service.send_make_prepayment_bancontact(
+        redirect_url = payment_service.send_make_payin_bancontact(
             {:amount => @amount, :beneficiary => @other, :return_url => @return_path})
         case redirect_url
           when 1
@@ -197,7 +197,7 @@ class RequireLessonController < ApplicationController
           end
         end
         # paiement
-        payin_direct = payment_service.send_make_prepayment_payin_direct({
+        payin_direct = payment_service.send_make_payin_direct({
                                                                              :amount => @amount, :beneficiary => @other, :card_id => @card, :return_url => @return_path
                                                                          })
         case payin_direct

@@ -114,7 +114,7 @@ class WalletsController < ApplicationController
     case @type
     when 'BCMC'
       h = {:amount => amount, :return_url => return_url, :beneficiary => @user}
-      redirect_url = payment_service.send_make_bancontact(h)
+      redirect_url = payment_service.send_make_payin_bancontact(h)
       case redirect_url
         when 1
           flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
@@ -357,7 +357,7 @@ class WalletsController < ApplicationController
     @account = params[:account]
     payment_service = MangopayService.new(:user => current_user)
     payment_service.set_session(session)
-    return_code = payment_service.make_payout({:bank_acccount_id => @account})
+    return_code = payment_service.send_make_payout({:bank_acccount_id => @account})
     case return_code
       when 1
         flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."

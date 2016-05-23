@@ -26,7 +26,7 @@ class PaymentsController < ApplicationController
       @other = @payment.lesson.teacher
       payment_service = MangopayService.new(:user => current_user)
       payment_service.set_session(session)
-      case payment_service.send_make_postpayment_transfert(
+      case payment_service.send_make_transfert(
           {:amount => @amount, :beneficiary => @other})
         when 0
           @payment.update_attributes(:status => 1)
