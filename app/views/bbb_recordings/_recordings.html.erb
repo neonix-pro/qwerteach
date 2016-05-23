@@ -1,5 +1,4 @@
 <div id="bbbrails_recordings_links">
-  <%= link_to('View server list', bigbluebutton_servers_path) %><br/>
   <%= link_to('View room list', bigbluebutton_rooms_path) %><br/>
 </div>
 
@@ -15,7 +14,7 @@
       </div>
       <div class="field">
         <label><%= BigbluebuttonRecording.human_attribute_name(:server_id) %></label> <%= recording.server_id %>
-        <%= link_to('(view server)', bigbluebutton_server_path(recording.server)) unless recording.server.nil? %>
+
       </div>
       <div class="field"><label><%= BigbluebuttonRecording.human_attribute_name(:meetingid) %></label> <%= recording.meetingid %></div>
       <div class="field"><label><%= BigbluebuttonRecording.human_attribute_name(:published) %></label> <%= recording.published %></div>
