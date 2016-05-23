@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     resources :bigbluebutton_servers
     resources :bigbluebutton_recordings
 
+    resources :lessons
+    resources :topics
+    resources :topic_groups
+
     root to: "users#index"
   end
 
@@ -119,7 +123,7 @@ Rails.application.routes.draw do
     get "/end_room/:room_id" => "bbb_rooms#end_room", as: 'end_room'
   end
   bigbluebutton_routes :default, :only => 'recordings', :controllers => {:rooms => 'bbb_recordings'}
-  #get '/bigbluebutton/recordings/:id/play(.:format)' => "bbb_recordings#play"
+
   mount Resque::Server, :at => "/resque"
 
   # The priority is based upon order of creation: first created -> highest priority.
