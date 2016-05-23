@@ -76,6 +76,21 @@ class PaymentsController < ApplicationController
     redirect_to lessons_path
   end
 
+  def debloquerpayment 
+    payments = Payment.where(:lesson_id => params[:lesson_id])
+    
+    payments.each do |payment|
+      #On vérifie que le payment est en Blocked soit en Litige 
+      if payment.blocked?
+        flash[:sucess] = "Votre litige est retiré"
+        payment.update_attributes(:status => 0)
+      else
+        flash[:warning] = "Vous me pouvez pas faire un contre litige"
+      end
+    end
+    redirect_to lessons_path
+  end
+  
   def create_postpayment
     if (postpayment_lesson.present?)
       flash[:danger] = 'Il y a déjà une facture pour ce cours.'
