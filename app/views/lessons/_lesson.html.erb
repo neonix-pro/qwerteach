@@ -12,7 +12,10 @@
     <% end %>
 
     <% if lesson.student == current_user %>
+        <%= button_to 'Recording', bigbluebutton_recording_path(lesson.bbb_room.param)%>
         <td><%= link_to 'Litige', lesson_bloquerpayment_path(lesson), :method => :post, :class => 'btn btn-danger' %></td>
+        
+        <%= button_to 'Recording', bigbluebutton_recording_path(:lesson.bbb_room.param) %>
         <% lesson.payments.each do |p| %>
             <td>
               <% if p.postpayment? && (p.pending? || p.blocked?) %>
@@ -21,6 +24,9 @@
               <% if p.prepayment? && p.pending? %>
                   <%= link_to 'Paiement Direct', lesson_payerfacture_path(:lesson_id => lesson.id, :payment_id => p.id) %>
               <% end %>
+              <% if p.blocked? %>
+                <%= button_to 'Annuler litige', lesson_debloquerpayment_path(:lesson_id=>lesson.id, :payment_id=>p.id) %>
+            <% end %>
             </td>
         <% end %>
     <% end %>
