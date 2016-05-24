@@ -1,0 +1,5 @@
+- (conversation.participants - [current_user]).uniq.each do |participant|
+  %p
+    = image_tag participant.avatar.url(:small), :class => "round-image-50"
+    %i
+      = participant.email

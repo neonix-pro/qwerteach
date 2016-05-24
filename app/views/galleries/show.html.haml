@@ -1,0 +1,22 @@
+.row
+  %h1 Gallery
+  %input#galleryID{:type => "hidden", :value => "#{@gallery.id}"}/
+  - params[:gallery]=@gallery
+  - if can? :read, @gallery
+    .form-actions
+      - if can? :update, @gallery
+        = link_to 'Edit gallery', edit_gallery_path(@gallery), :class => 'btn btn-mini'
+    %h2 Pictures
+.row
+  %ul.thumbnails.files
+    - unless @pictures.empty?
+      - @pictures.each do |pic|
+        %li.span3{:id => "picture_#{pic.id}"}
+          .thumbnail
+            = image_tag pic.image.url
+            .caption
+              %p{:style => "text-align: center;"}
+                - if can? :destroy, pic
+                  = link_to "Delete picture", pic,          |
+                    :data => {:confirm => "Are you sure?"}, |
+                    :method => :delete                      |

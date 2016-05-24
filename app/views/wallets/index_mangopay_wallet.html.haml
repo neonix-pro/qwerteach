@@ -1,0 +1,31 @@
+- if @transaction
+  - if @transaction["ResultCode"] == "000000"
+    .alert.alert-notice La transaction s'est correctement déroulée
+  - else
+    .alert.alert-danger
+      Il y a eu un problème avec la transaction. Veuillez réessayer. Erreur : #{@transaction['ResultMessage']}
+- if flash[:notice]
+  .notice= flash[:notice]
+%h2 Infos générales
+%p
+  = @mango_user['LastName']
+  = @mango_user['FirstName']
+%p
+  Adresse :
+  - @user.address.keys.each do |k|
+    = @user.address.fetch(k)
+    ,
+%p
+  Résidence : #{ISO3166::Country[@user.countryOfResidence]}
+%p
+  Nationalité : #{ISO3166::Country[@user.nationality]}
+%h2 Portefeuille
+%p
+  = ((@wallet["Balance"]["Amount"]).to_f/100).to_f
+  = @wallet["Balance"]["Currency"]
+  +
+  \#{((@bonus["Balance"]["Amount"]).to_f/100).to_f} #{@bonus["Balance"]["Currency"]} de crédit bonus
+%p
+  En cours de transfert : #{@transactions_on_way["Balance"]["Amount"]}
+%p
+  Date de création : #{Time.at(@wallet['CreationDate']).to_date}

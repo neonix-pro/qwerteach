@@ -1,0 +1,35 @@
+%h2 Sign up
+= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = devise_error_messages!
+  .field
+    = f.hidden_field :time_zone
+  .field
+    = f.label :email
+    %br/
+    = f.email_field :email, autofocus: true, class: 'form-control', :required => true
+  .field
+    = f.label :password
+    - if @validatable
+      %em
+        (#{@minimum_password_length} characters minimum)
+    %br/
+    = f.password_field :password, autocomplete: "off", class: 'form-control', :required => true, data: { |
+      :validation => "length", 'validation-length' => "min8",                                            |
+      "validation-error-msg" => "Too short."}                                                            |
+  .field
+    = f.label :password_confirmation
+    %br/
+    = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', :required => true, data: {     |
+      :validation => "confirmation", 'validation-confirm' => 'user[password]', "validation-error-msg" => "Not the same."} |
+  .actions
+    = f.submit "Sign up"
+= render "devise/shared/links"
+:javascript
+  a = jstz.determine();
+  $('#user_time_zone').val(a.name());
+  $('.form-control').on('change', function () {
+    $.validate({
+      modules: 'security'
+    });
+
+  });

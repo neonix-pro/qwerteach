@@ -1,4 +1,0 @@
-<% @notifications.each do |notification| %>
-  <% notification.mark_as_read(current_user) %>
-  <%= render partial: "notifications/notification", locals: {notification: notification} %>
-<% end %>

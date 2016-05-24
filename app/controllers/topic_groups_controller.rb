@@ -1,4 +1,4 @@
-class TopicGroupsController < ApplicationController
+  class TopicGroupsController < ApplicationController
   before_filter :authenticate_user!
   def choice_group
     group = TopicGroup.find(params[:group_id])

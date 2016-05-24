@@ -1,0 +1,14 @@
+= fields_for :other_account do |bank_account_fields|
+  .field
+    = bank_account_fields.label :Country
+    %br/
+    = bank_account_fields.text_field :Country, :value => bank_account['Country'],:require => true
+  .field
+    = bank_account_fields.label :BIC
+    %br/
+    = bank_account_fields.text_field :BIC, :value => bank_account['BIC'],:require => true
+  .field
+    = bank_account_fields.label :AccountNumber
+    %br/
+    = bank_account_fields.number_field :AccountNumber, :value => bank_account['AccountNumber'],:require => true
+  = bank_account_fields.hidden_field :Type, :value => bank_account['Type']

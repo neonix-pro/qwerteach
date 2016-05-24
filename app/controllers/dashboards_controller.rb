@@ -27,5 +27,4 @@ class DashboardsController < ApplicationController
       lesson.payments.where(:status => 0, :payment_type => 0).each { |l| @pending_prepayments.push l }
     end
   end
-
 end

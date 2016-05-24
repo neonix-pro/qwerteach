@@ -1,0 +1,43 @@
+- model_class = @advert.class
+.page-header
+  %h1= t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human, |
+      :default => "Edit #{model_class.model_name.human}")                                      |
+= form_for @advert, :html => {:class => 'form-horizontal'} do |f|
+  .field.topic_choice
+    = f.label :topic
+    = f.select :topic_id, Topic.where(:id => @advert.topic).all.collect { |p| [p.title, p.id] }, {}, {:disabled => true, :required => true}
+    = hidden_field_tag :topic_id, @advert.topic.id
+  - unless @advert.other_name.nil?
+    .field.other_name
+      = f.label :other_name
+      = f.text_field :other_name, :required => true
+  %h2 Prices
+  - levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').group(I18n.locale[0..3]).order(:id)
+  = f.fields_for :advert_prices do |ff|
+    %div
+      = ff.label :level
+      / Bloquer le select pour pas changer ça
+      = ff.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }, {}, {:disabled => true, :required => true}
+    = ff.hidden_field :level_id, :required => true
+    %div
+      = ff.hidden_field :advert_id, :value => @advert.id, :required => true
+      = ff.label :price
+      = ff.number_field :price, :min => 0, :required => true
+      - if ff.object.persisted?
+        = ff.check_box :_destroy
+        = ff.label :_destroy, "Destroy"
+  %h3 Add prices
+  / N'afficher que les levels qui sont pas déjà entrés
+  - levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => 'scolaire').group(I18n.locale[0..3]).order(:id)
+  .level_choice_levels
+  :javascript
+    $(document).ready(function () {
+      $.ajax({
+        url: "/level_choice",
+        data: {topic_id: $('.topic_choice option:selected').val()}
+      })
+    });
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary  btn-mini'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), |
+      adverts_path(@adverts), :class => 'btn btn-mini'             |

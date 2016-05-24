@@ -1,0 +1,9 @@
+= tutorial_progress_bar
+%h2 Choisissez votre avatar
+= form_for(resource, as: resource_name, url: wizard_path, html: { method: :put }) do |f|
+  #avatar_select.field
+    - resource.crop_x=0
+    = f.label :avatar
+    = f.file_field :avatar, :required => true
+  .actions
+    = f.submit "Update"

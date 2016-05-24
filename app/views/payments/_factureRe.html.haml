@@ -1,0 +1,18 @@
+%h3
+  Paiement reçu de la part de #{coursRecu.lesson.student.firstname}#{coursRecu.lesson.student.lastname}
+.facture
+  %p
+    Nom  #{coursRecu.lesson.teacher.lastname}
+  %p
+    Prenom Student #{coursRecu.lesson.student.lastname}
+  %p
+    Debut #{coursRecu.lesson.time_start}
+  %p
+    Fin #{coursRecu.lesson.time_end}
+  %p
+    Statut du Cours #{coursRecu.lesson.status}
+  %p
+    Paiement de #{coursRecu.price}€
+  %hr/
+  - if coursRecu.pending? || coursRecu.blocked?
+    = link_to 'Payer facture', lesson_payment_pay_postpayments_path(:lesson_id => coursRecu.lesson_id, :payment_id => coursRecu.id)

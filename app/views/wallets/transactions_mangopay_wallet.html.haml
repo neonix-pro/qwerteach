@@ -1,0 +1,10 @@
+%table{:style => "width: 75%;"}
+  %thead
+    %tr
+      %th Date de création
+      %th Date d'execution
+      %th Autre partie
+      %th Montant
+  %tbody
+    - @transactions.each do |t|
+      = render 'mangopay_transaction', :transaction => t, :current_user => current_user
