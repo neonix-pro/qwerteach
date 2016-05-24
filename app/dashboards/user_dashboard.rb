@@ -60,13 +60,10 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
       :id,
-      :login,
       :email,
-      :gallery,
-      :adverts,
-      # :conversations,
-      :sent_comment,
-      :received_comment,
+      :type,
+      :confirmed_at,
+      :sign_in_count,
   ]
 
   # SHOW_PAGE_ATTRIBUTES

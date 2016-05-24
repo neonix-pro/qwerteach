@@ -9,7 +9,7 @@
           %span.cell-label__sort-indicator.cell-label__sort-indicator
           #{collection_presenter.ordered_html_class(attr_name)}"}
           = svg_tag("administrate/sort_arrow.svg","sort_arrow",width: "13",height: "13")  
-          %th{:colspan => "2", :scope => "col"}
+      %th.cell-label{:colspan => "2", :scope => "col"} Actions
   %tbody
     - resources.each do |resource|
       %tr.table__row{"data-url" => polymorphic_path([namespace, resource]), :role => "link", :tabindex => "0"}
@@ -19,6 +19,5 @@
         - collection_presenter.attributes_for(resource).each do |attribute|
           %td{:class => "cell-data cell-data--#{attribute.html_class}"}
             = render_field attribute
-        %td= link_to(t("administrate.actions.edit"),[:edit, namespace, resource],class: "action-edit")                                   
-        %td= link_to(t("administrate.actions.destroy"),[namespace, resource],class: "table__action--destroy",method: :delete,data: {confirm: t("administrate.actions.confirm")})
-      = render 'fields/mailboxer_conversation_field/show_current', :data => resource
+        %td= link_to(t("administrate.actions.show"),[namespace, resource],class: "action-show")
+        %td= link_to("Suspendre",[namespace, resource],class: "table__action--destroy",method: :delete,data: {confirm: t("administrate.actions.confirm")})
