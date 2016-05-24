@@ -1,0 +1,6 @@
+-unless resources.data.pictures.count
+  -resources.data.pictures.each do |picture|
+    = image_tag picture.url
+- else
+  %dt.attribute-label Gallery
+  %dd.attribute-data Empty!

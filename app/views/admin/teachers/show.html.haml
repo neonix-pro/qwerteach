@@ -12,5 +12,12 @@
         )
   %dl
     - page.attributes.each do |attribute|
-      %dt.attribute-label= attribute.name.titleize
-      %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}= render_field attribute
+
+      - case attribute.name
+        -when 'gallery'
+          = render "gallery", collection_presenter: page, resources: attribute
+        -when 'postulation'
+          = render "postulation", collection_presenter: page, resources: attribute
+        - else
+          %dt.attribute-label= attribute.name.titleize
+          %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}= render_field attribute
