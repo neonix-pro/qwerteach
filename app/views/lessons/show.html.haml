@@ -1,3 +1,13 @@
-- @recordings.each do |recording|
-  = link_to "recording #{recording.id}", recording.playback_formats.first.url
+%p= @lesson.teacher.firstname 
+%p= @lesson.teacher.lastname
+%p= @lesson.student.firstname
+%p= @lesson.student.lastname
+%p= @lesson.topic_group_id
+%p= @lesson.time_start    
+%P= @lesson.time_end
+%p= @lesson.status.to_s
+%p= @lesson.price 
+%p
+  - @recordings.each do |recording|
+    = link_to "recording #{recording.id}", recording.playback_formats.first.url  
   %br/

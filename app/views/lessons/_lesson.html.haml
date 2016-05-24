@@ -1,9 +1,11 @@
 .lesson
   %tr
-    %td= lesson.id
+    %td
+      = lesson.id
+      = link_to 'Détail du cours', lesson_path(lesson)
     %td
       = lesson.teacher.firstname
-      = lesson.teacher.lastname
+      = lesson.teacher.lastname 
     %td
       = lesson.student.firstname
       = lesson.student.lastname
