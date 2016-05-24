@@ -1,4 +1,4 @@
-%h2= "Bonjour #{@user.firstname+@user.lastname}"
+%h2 "Bonjour #{@user.firstname+@user.lastname}"
 - if current_user.is_a? Teacher
   %p
     Etat de votre postulation : #{(current_user.postulance_accepted? ? 'Acceptée' : 'Refusée')}

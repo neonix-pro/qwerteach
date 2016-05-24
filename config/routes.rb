@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :topic_groups
     resources :payments
     resources :bbb_rooms
+    resources :adverts
 
     root to: "users#index"
   end

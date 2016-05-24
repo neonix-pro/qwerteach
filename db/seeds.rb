@@ -102,6 +102,26 @@ u3 = User.create(:email => "c@c.c",:firstname => "Bonobo", :lastname => "Chauve"
 u3.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello3.jpg")
 u3.save!
 
+u5 = User.create(:email => "e@e.e",:firstname => "Bébé", :lastname => "Chimpanzé", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "2016-04-25 08:38:01.794479", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
+                 :avatar_file_name=> "hello3.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :type => 'Teacher', :time_zone => "Europe/Berlin")
+u5.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello5.jpg")
+u5.save!
+
+u6 = User.create(:email => "f@f.f",:firstname => "Garau", :lastname => "Gorille", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "2016-04-25 08:38:01.794480", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
+                 :avatar_file_name=> "hello3.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :type => 'Teacher', :time_zone => "Europe/Berlin")
+u6.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello6.jpg")
+u6.save!
+
+u7 = User.create(:email => "g@g.g",:firstname => "Tetede", :lastname => "Bite", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "2016-04-25 08:38:01.794481", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
+                 :avatar_file_name=> "hello3.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :type => 'Teacher', :time_zone => "Europe/Berlin")
+u7.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello7.jpg")
+u7.save!
+
+u8 = User.create(:email => "h@h.h",:firstname => "Impoli", :lastname => "Poilu", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "2016-04-25 08:38:01.794482", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
+                 :avatar_file_name=> "hello3.jpg", :avatar_content_type => "image/jpeg", :avatar_file_size => 64813, :avatar_updated_at => "2016-04-25 09:42:55", :type => 'Teacher', :time_zone => "Europe/Berlin")
+u8.avatar = File.open("#{Rails.root}/public/system/avatars/seeds/original/hello8.jpg")
+u8.save!
+
 # teacher admin
 
 u4 = User.create(:email => "d@d.d",:firstname => "Grosse", :lastname => "Tete", :password => "kaltrina", :encrypted_password => "$2a$10$kdhcUGrsb7gBk.RHrs2xK.OHMx5gdx7kmLHFozZgRdtigrlbt91Zu", :confirmation_token => "51d7292b4823498d5d8795ec30bd7e92d014d89fd0fe685ae006fa2adc08479d", :confirmation_sent_at => "2016-04-25 08:38:01.794477", :confirmed_at => "2016-04-25 08:38:01.794477",
@@ -129,3 +149,58 @@ ap3 = AdvertPrice.create(:advert => a3, :level_id => 15, :price => 18.0)
 a4 = Advert.create(:user => u4, :topic_id => 21, :topic_group_id => 5)
 ap2 = AdvertPrice.create(:advert => a4, :level_id => 18, :price => 24.0)
 ap3 = AdvertPrice.create(:advert => a4, :level_id => 20, :price => 28.0)
+
+# Fifth user's adverts
+a = Advert.create(:user => u5, :topic_id => 1, :topic_group_id => 1)
+ap = AdvertPrice.create(:advert => a, :level_id => 9, :price => 15.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 12, :price => 20.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 15, :price => 25.0)
+
+a = Advert.create(:user => u5, :topic_id => 2, :topic_group_id => 1)
+ap = AdvertPrice.create(:advert => a, :level_id => 9, :price => 15.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 12, :price => 20.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 15, :price => 25.0)
+
+a = Advert.create(:user => u5, :topic_id => 5, :topic_group_id => 2)
+ap = AdvertPrice.create(:advert => a, :level_id => 9, :price => 15.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 12, :price => 20.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 15, :price => 25.0)
+
+a = Advert.create(:user => u5, :topic_id => 4, :topic_group_id => 2)
+ap = AdvertPrice.create(:advert => a, :level_id => 9, :price => 15.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 12, :price => 20.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 15, :price => 25.0)
+
+# Sixth user's adverts
+a = Advert.create(:user => u6, :topic_id => 4, :topic_group_id => 2)
+ap = AdvertPrice.create(:advert => a, :level_id => 12, :price => 20.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 15, :price => 20.0)
+
+a = Advert.create(:user => u6, :topic_id => 5, :topic_group_id => 2)
+ap = AdvertPrice.create(:advert => a, :level_id => 12, :price => 20.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 15, :price => 20.0)
+
+a = Advert.create(:user => u6, :topic_id => 6, :topic_group_id => 2)
+ap = AdvertPrice.create(:advert => a, :level_id => 12, :price => 20.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 15, :price => 20.0)
+
+# Seventh user's adverts
+a = Advert.create(:user => u7, :topic_id => 15, :topic_group_id => 4)
+ap = AdvertPrice.create(:advert => a, :level_id => 27, :price => 40.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 28, :price => 50.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 29, :price => 50.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 30, :price => 50.0)
+
+a = Advert.create(:user => u7, :topic_id => 16, :topic_group_id => 4)
+ap = AdvertPrice.create(:advert => a, :level_id => 27, :price => 40.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 28, :price => 50.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 29, :price => 50.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 30, :price => 50.0)
+
+a = Advert.create(:user => u7, :topic_id => 17, :topic_group_id => 4)
+ap = AdvertPrice.create(:advert => a, :level_id => 27, :price => 40.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 28, :price => 50.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 29, :price => 50.0)
+ap = AdvertPrice.create(:advert => a, :level_id => 30, :price => 50.0)
+
+
