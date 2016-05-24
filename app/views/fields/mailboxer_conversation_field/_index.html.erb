@@ -1,4 +1,0 @@
-<%  @conversations = Mailboxer::Conversation.all.map{|t| t.participants.include?(data) ? t.id : nil} %>
-<% i = 0 %>
-<% @conversations.map{|t| t.nil? ? i : i+=1} %>
-<%= i %>

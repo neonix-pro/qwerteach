@@ -1,0 +1,73 @@
+:javascript
+  function ajax_request() {
+    $.ajax({
+      url: "#{running_bigbluebutton_room_url(@room, :format => 'json')}",
+      dataType: 'json',
+      error: function(xhr_data) {
+        $("#meeting_status").html("<request error>.");
+        setTimeout(function() { ajax_request(); }, 10000);
+      },
+      success: function(xhr_data) {
+        if (xhr_data.running == 'false') {
+          $("#meeting_status").html("not running.");
+        } else {
+          $("#meeting_status").html("running!");
+        }
+        setTimeout(function() { ajax_request(); }, 10000);
+      },
+      contentType: 'application/json'
+    });
+  }
+  
+  $(document).ready(function(){
+    ajax_request();
+  });
+%h1
+  Invite to the meeting #{@room.name}
+/ A helper to show errors, add it to the views were you need it
+/ <haml_loud> bbb_rails_error_explanation </haml_loud>
+%p
+  Meeting status:
+  %span#meeting_status -
+  (
+  %a{:href => "javascript:ajax_request();"}> refresh
+  )
+.bbbrails_invite_device_type
+  - if params[:mobile]
+    In this page you can join the conference from a
+    = succeed "." do
+      %b mobile device
+    = link_to "click here", invite_bigbluebutton_room_path(@room)
+    \.
+  - else
+    In this page you can join the conference from a
+    = succeed "." do
+      %b desktop
+    = link_to "click here", invite_bigbluebutton_room_path(@room, :mobile => true)
+    \.
+- saved_room = BbbRoom.where(:param => @room)
+- lesson = saved_room.lesson
+%p
+  LESSSON = #{lesson}
+%h1 LEEEEEEEES
+%p
+  = @room.name
+  requires a name and/or key to join:
+= form_tag join_bigbluebutton_room_path(@room, :mobile => params[:mobile]) do
+  .field
+    %label{:for => "user_name"} Name:
+    %br/
+    - if bigbluebutton_user.nil?
+      = text_field_tag "user[name]", ""
+    - else
+      = text_field_tag "user[name]", bigbluebutton_user.name, :readonly => true
+  .field
+    %label{:for => "user_key"} Key:
+    %br/
+    - if @user_role == :attendee
+      = password_field_tag "user[key]", @room.attendee_key, :readonly => true
+    - elsif @user_role == :moderator
+      = password_field_tag "user[key]", @room.moderator_key, :readonly => true
+    - else
+      = password_field_tag "user[key]", ""
+  = submit_tag "Submit"

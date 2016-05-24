@@ -1,0 +1,42 @@
+%h1
+  Listing #{BigbluebuttonServer.model_name.human}:
+#bbbrails_servers_links
+  = link_to('View room list', bigbluebutton_rooms_path)
+  %br/
+  = link_to('View recording list', bigbluebutton_recordings_path)
+  %br/
+  = link_to('New server', new_bigbluebutton_server_path)
+%ul#bbbrails_list
+  - @servers.each do |server|
+    %li
+      %div
+        %label= BigbluebuttonServer.human_attribute_name(:id)
+        = server.id
+      %div
+        %label= BigbluebuttonServer.human_attribute_name(:name)
+        = server.name
+      %div
+        %label= BigbluebuttonServer.human_attribute_name(:url)
+        = server.url
+      %div
+        %label= BigbluebuttonServer.human_attribute_name(:salt)
+        = server.salt
+      %div
+        %label= BigbluebuttonServer.human_attribute_name(:version)
+        = server.version
+      %div
+        %label= BigbluebuttonServer.human_attribute_name(:param)
+        = server.param
+      %div
+        %label Access
+        = link_to 'Show', server
+        |
+        \#{link_to 'View rooms', rooms_bigbluebutton_server_path(server)} |
+        \#{link_to 'Activity monitor', activity_bigbluebutton_server_path(server)} |
+        \#{link_to 'Edit', edit_bigbluebutton_server_path(server)} |
+        \#{link_to 'Destroy', bigbluebutton_server_path(server), :confirm => 'Are you sure?', :method => :delete}
+      %div
+        %label Recordings
+        = link_to 'View recordings', recordings_bigbluebutton_server_path(server)
+        |
+        \#{link_to 'Fetch recordings', fetch_recordings_bigbluebutton_server_path(server), :confirm => 'Are you sure?', :method => :post}

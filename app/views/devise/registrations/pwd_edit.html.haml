@@ -1,0 +1,34 @@
+%h2
+  Edit #{resource_name.to_s.humanize}
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
+  = devise_error_messages!
+  .field
+    = f.label :Mail
+    %br/
+    = f.email_field :email, autofocus: true
+  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+    %div
+      Currently waiting confirmation for: #{resource.unconfirmed_email}
+  .field
+    = f.label :Mot_De_Passe
+    %i (leave blank if you don't want to change it)
+    %br/
+    = f.password_field :password, autocomplete: "off" , class: 'form-control', data: { |
+      :validation => "length", 'validation-length' => "min8",                          |
+      "validation-error-msg" => "Trop court." }                                        |
+  .field
+    = f.label :Confirmation_Mot_de_Passe
+    %br/
+    = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', data: {                        |
+      :validation => "confirmation",'validation-confirm'=> 'user[password]', "validation-error-msg" => "Pas les mêmes." } |
+  .field
+    = f.label :current_password
+    %i (we need your current password to confirm your changes)
+    %br/
+    = f.password_field :current_password, autocomplete: "off"
+  .actions
+    = f.submit "Update"
+%h3 Cancel my account
+%p
+  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete}
+= link_to "Back", :back

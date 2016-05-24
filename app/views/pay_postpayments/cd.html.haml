@@ -1,0 +1,29 @@
+%p CD
+= form_for @user, as: :user, url: wizard_path, method: :put do |f|
+  .field.credit_card_choice
+    = f.label "Carte existante"
+    = select_tag "card", options_for_select(@cards.map { |f| [f["Alias"], f["Id"]] }), {:include_blank => 'Nouvelle'}
+  .field.form-group
+    = label_tag "Numero"
+    = number_field_tag "account", nil, class: 'form-control', :required => true, data: {     |
+          :validation => "required creditcard", 'validation-allowing' => "visa, mastercard", |
+          "validation-error-msg" => "This card number is invalid."                           |
+      }                                                                                      |
+  .field.form-group
+    = label_tag "Date d'expiration"
+    = text_field_tag "month", nil, :data => {:provide => "datepicker", 'date-format' => 'mm', 'date-view-mode' => 'months', 'date-min-view-mode' => 'months', 'date-autoclose' => true}, class: 'form-control', :required => true
+    = text_field_tag "year", nil, :data => {:provide => "datepicker", 'date-format' => 'yy', 'date-view-mode' => 'years', 'date-min-view-mode' => 'years', 'date-autoclose' => true, 'date-start-date' => (Date.new)}, class: 'form-control', :required => true
+  .field.form-group
+    = label_tag "Code de sécurité"
+    = password_field_tag "csc", nil, class: 'form-control', :required => true, data: { |
+          :validation => "required cvv",                                               |
+          "validation-error-msg" => "This code number is invalid."                     |
+      }                                                                                |
+  .actions
+    = f.submit "Envoyer"
+:javascript
+  $('.form-control').on('change', function () {
+    $.validate({
+      modules: 'security'
+    });
+  });

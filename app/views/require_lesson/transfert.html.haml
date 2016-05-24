@@ -1,0 +1,12 @@
+%p Transfert
+= form_for @user, as: :user, url: wizard_path, method: :put do |f|
+  .field
+    = f.label "Montant"
+    = hidden_field_tag "amount", session[:lesson]['price'], :required => true
+    = session[:lesson]['price']
+  .field
+    = f.label "Bénéficiaire"
+    = hidden_field_tag "beneficiary", session[:lesson]['teacher_id'], :required => true
+    = User.find(session[:lesson]['teacher_id']).email
+  .actions
+    = f.submit "Confirmer"

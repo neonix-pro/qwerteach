@@ -1,0 +1,21 @@
+- if can? :read, @gallery
+  .row
+    - if @galleries.blank?
+      %h1 Galleries
+      = link_to 'New', new_gallery_path, :class => 'btn btn-mini'
+    %p
+    %ul.thumbnails.files
+      - @galleries.each do |gallery|
+        - if can? :read, gallery
+          - params[:gallery]=@gallery
+          %li.span4{:id => "gallery_#{gallery.id}"}
+            .thumbnail
+              - if gallery.pictures.first
+                = link_to image_tag(gallery.pictures.first.image.url), gallery_path(gallery)
+              - else
+                N/A
+              .caption
+                %p{:style => "text-align: center;"}
+                  = link_to "Show", gallery_path(gallery)
+                  - if can? :update, gallery
+                    = link_to "Edit", edit_gallery_path(gallery)

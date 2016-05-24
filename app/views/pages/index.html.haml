@@ -1,0 +1,155 @@
+#entete.row.featurette.section-recherche
+  %h2
+    %b Le bon prof au bon moment
+  %h4 Passez au soutien scolaire à la demande.
+  = form_tag users_path, :method => :get do
+    %p
+      = text_field_tag :q, params[:search], class:'rech'
+      %br/
+      = submit_tag "Search", :name => nil
+  %p
+    %a{"data-target" => "#myModCo", "data-toggle" => "modal"} Mode d'emploi
+.row.featurette.section-vert
+  %h4
+    %b Recevez vos cours particuliers ddepuis chez vous.
+  #myCarousel.carousel.slide{"data-ride" => "carousel"}
+    / Indicators
+    %ol.carousel-indicators
+      %li.active{"data-slide-to" => "0", "data-target" => "#myCarousell"}
+      %li{"data-slide-to" => "1", "data-target" => "#myCarousel2"}
+      %li{"data-slide-to" => "2", "data-target" => "#myCarousel3"}
+    / Wrapper for slides
+    .carousel-inner{:role => "listbox"}
+      .item.active
+        = image_tag("yolo.png", :class => "image_carrousel img-responsive")
+      .item
+        = image_tag("test3.png", :class => "image_carrousel img-responsive")
+      .item
+        = image_tag("test3.png", :class => "image_carrousel img-responsive")
+    / Left and right controls
+    %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}
+      %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true"}
+      %span.sr-only Previous
+    %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel", :role => "button"}
+      %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true"}
+      %span.sr-only Next
+  / FinCarrousel
+  %a{"data-target" => "#myModCo", "data-toggle" => "modal"} Comment ça marche?
+  %br/
+  %button.btn.btn-primary{"data-target" => "#myModIns", "data-toggle" => "modal"} S'inscrire
+.row.featurette.section-choix
+  .col-md-5
+    %h4
+      %b Choisissez le professeur qui vous convient.
+    %button.btn-info.btn-lg{:type => "button"} Toute les matières
+  .col-md-2
+    = image_tag("test3.png", :class => "img_guitare img-responsive")
+.row.featurette.section-commentmarche
+  .col-md-7
+    = image_tag("test3.png", :class => "img_love img-responsive")
+  .col-md-5
+    %h4 Choisissez votre professeur.
+    %h6 Découvrez des experts aux compétences diverses et aux parcours uniques, à votre disposition?
+    %a{:href => "#entete"} Trouver un prof
+    %h4 Fixer un rendez-vous
+    %h6 Communiquez avec votre prof sur vos besoins spécifiques et validez le tarif du cours.
+    %h4 Recevez votre cours en ligne
+    %h6 Aprendez à votre rythme en partageant vos docuements dans la classe virtuelles.
+    %p
+      Qu'est ce que
+      %a{:href => ""} la classe virtuelle?
+.row.featurette.section.section-commentaire
+  .col-md-7
+    = image_tag("test3.png", :class => "img_present img-responsive")
+  .col-md-5
+    %h4#cadreBleu.txtCadreBleu Nos élèves adorent leurs cours en ligne.
+.row
+  .col-sm-6.col-md-4.colonne1.thumbnails
+    = image_tag("test3.png", :class => "image_presse img-responsive")
+    .caption
+      %h4 Des professeurs de qualités
+      %hr{:color => "grey", :width => "25%"}/
+      %p
+      %h5 La communauté Qwerteach offre un large choix de professeurs motivés et compétents. Tous nos professeurs sont interviewés individuellement, évalués puis validés par notre équipe.
+      %p
+        %a{:href => ""} Plus d'info
+  .col-sm-6.col-md-4.colonne2.thumbnails
+    = image_tag("test3.png", :class => "image_presse img-responsive")
+    .caption
+      %h4 Vous travaillez à votre rythme
+      %hr{:color => "grey", :width => "25%"}/
+      %p
+      %h5 Opter pour des cours en ligne permet de module plus aisément les heures de cours, de s'adapter ç l'emloi du temps de l'élève et de respecter son rythme de travail.
+      %p
+        %a{:href => ""} Plus d'info
+  .col-sm-6.col-md-4.colonne3.thumbnails
+    = image_tag("test3.png", :class => "image_presse img-responsive")
+    .caption
+      %h4 Vos cours sont enregistrés
+      %hr{:color => "grey", :width => "25%"}/
+      %p
+      %h5 Afin de favoriser la concentration sur les explications du professeur plutôt que sur la prise de note, chaque leçon est enregistrée et accesisslbe par la suite
+      %p
+        %a{:href => ""} Plus d'info
+  .container
+    %div{:classe => "row section-presse"}
+      %h2 La presse parle de nous!
+      .col-sm-2.col-xs-4.center-block
+        = image_tag("test3.png", :class => "image_presse img-responsive")
+      .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
+      .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
+      .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
+      .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
+      .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
+  - if user_signed_in?
+    %h2 Utilisateurs enregistrés
+    %table{:style => "width:75%"}
+      %thead
+        %tr
+          %th Photo
+          %th Id
+          %th Type
+          %th Email
+      %tbody
+        - for user in User.all
+          %tr
+            %td= link_to image_tag(user.avatar.url(:small)), user_path(user)
+            %td= user.id
+            %td= user.type
+            %td= user.email
+            %td
+              = link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation", 
+                "data-sid" => current_user.id, "data-rip" => user.id                             
+            - if user.is_a?(Teacher)
+              %td= link_to 'Demander un cours', user_require_lesson_index_path(user.id)
+  - else
+    %p Register to get started.
+    = link_to t('forms.buttons.subscribe'), new_user_registration_path, class: 'btn btn-primary btn-lg'
+  / Modal
+  #myModIns.modal.fade{:role => "dialog"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"data-dismiss" => "modal", :type => "button"} ×
+          %h4.modal-title S'inscrire (C'est gratuit!)
+        .modal-body
+          / Renvoi au formulaire d'inscription
+          %p= render "users/registrations/new.html.haml"
+        .modal-footer
+          .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
+            %a{:href => "#myModCo"}
+              Déjà inscrit?
+              %br/
+  #myModCo.modal.fade{:role => "dialog"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"data-dismiss" => "modal", :type => "button"} ×
+          %h4.modal-title Connexion
+        .modal-body
+          %p= render "users/sessions/new.html.haml"
+        .modal-footer
+          .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModIns", "data-toggle" => "modal"}
+            %a{:href => "#myModIns"}
+              Pas encore membre?
+              %br/

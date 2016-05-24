@@ -1,0 +1,66 @@
+#bbbrails_recordings_links
+  = link_to('View room list', bigbluebutton_rooms_path)
+  %br/
+%ul#bbbrails_list
+  - @recordings.each do |recording|
+    %li
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:id)
+        = recording.id
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:recordid)
+        = recording.recordid
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:name)
+        = recording.name
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:room_id)
+        = recording.room_id
+        = link_to('(view room)', bigbluebutton_room_path(recording.room)) unless recording.room.nil?
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:server_id)
+        = recording.server_id
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:meetingid)
+        = recording.meetingid
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:published)
+        = recording.published
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:available)
+        = recording.available
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:start_time)
+        = recording.start_time
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:end_time)
+        = recording.end_time
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:description)
+        = recording.description
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:size)
+        = recording.size
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:metadata)
+        %div
+          - recording.metadata.each do |metadata|
+            = metadata.attributes.except("id", "owner_id", "owner_type", "updated_at", "created_at")
+            ,
+      .field
+        %label= BigbluebuttonRecording.human_attribute_name(:playback_formats)
+        %div
+          - recording.playback_formats.each do |format|
+            = format.attributes.except("id", "recording_id", "updated_at", "created_at")
+            ,
+      .field
+        %label Access
+        = link_to 'Show', bigbluebutton_recording_path(recording)
+        |
+        \#{link_to 'Edit', edit_bigbluebutton_recording_path(recording)} |
+        \#{link_to 'Publish', publish_bigbluebutton_recording_path(recording), :confirm => 'Are you sure?', :method => :post} |
+        \#{link_to 'Unpublish', unpublish_bigbluebutton_recording_path(recording), :confirm => 'Are you sure?', :method => :post} |
+        \#{link_to 'Destroy', bigbluebutton_recording_path(recording), :confirm => 'Are you sure?', :method => :delete}
+      .field
+        %label Play
+        = link_to "default", play_bigbluebutton_recording_path(recording)

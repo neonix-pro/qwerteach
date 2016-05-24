@@ -1,0 +1,13 @@
+= tutorial_progress_bar
+%h1 Ajouter des Images
+- @gallery.pictures.each do |picture|
+  - if can? :read, @gallery
+    = image_tag picture.image.url(:thumb)
+- if can? :update, @gallery
+  = form_for @gallery, url: wizard_path, :html => {:class => 'form-horizontal', multipart: true, method: :put} do |f|
+    .control-group
+      = f.label :pictures, :class => 'control-label'
+      .controls
+        = file_field_tag "images[]", type: :file, multiple: true
+    .form-actions
+      = f.submit :continuer, :class => 'btn btn-primary'

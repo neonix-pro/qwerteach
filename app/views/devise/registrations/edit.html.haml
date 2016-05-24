@@ -1,0 +1,82 @@
+.backgroundEdit
+  %h2
+    Modifier votre compte #{resource_name.to_s.humanize}
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
+    = devise_error_messages!
+    .containter.backgroundEdit
+      .col-md-6.colonne1
+        %h4 Informations personnelles
+        .field
+          = f.label :Nom
+          %br/
+          = f.text_field :lastname, class: 'form-control'
+        .field
+          = f.label :Prénom
+          %br/
+          = f.text_field :firstname, class: 'form-control'
+        .field
+          = f.label :Date_de_Naissance
+          %br/
+          = f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}
+        .field
+          = f.label :Présentation
+          %br/
+          = f.text_area :description, :class => 'ckeditor'
+        .field
+          = f.label :Sexe
+          %br/
+          = f.select :gender, User::GENDER_TYPES
+        %h3 Mes photos
+        - @gallery=Gallery.where(:user => current_user).last
+        = link_to "photos", gallery_path(@gallery)
+      .col-md-6.colonne2
+        %h4 Informations Scolaire
+        - if resource.type == "Student"
+          #type.field
+            = f.label :type
+            %br/
+            = f.select :type, User::ACCOUNT_TYPES
+        .field
+          - levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id)
+          = f.label :level_id
+          %br/
+          = f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }
+        / if teacher, cannot change account type anymore
+        - if resource.type == "Teacher"
+          .field
+            = f.label :occupation
+            %br/
+            = f.text_field :occupation
+          .field
+            = f.label :accepts_post_payments
+            %br/
+            = f.check_box :accepts_post_payments
+        %h4 Mes diplomes
+        = link_to "diplomes", degrees_path
+        .field
+          = f.label :Téléphone
+          %br/
+          = f.text_field :phonenumber
+      .col-md-6.colonne3
+        %h4 Informations du compte
+        #avatar_select.field
+          - resource.crop_x=0
+          = f.label :avatar
+          = f.file_field :avatar
+        .actions
+          = f.submit "Update"
+      .col-md-6.case4
+        %h3 Mes annonces
+        = link_to "annonces", adverts_path
+/
+  Utilité ?
+  <h3>Cancel my account</h3>
+  <p>Unhappy? <haml_loud> button_to &quot;Cancel my account&quot;, registration_path(resource_name), data: {confirm: &quot;Are you sure?&quot;}, method: :delete </haml_loud></p>
+= link_to "Back", :back
+:javascript
+  $('.form-control').on('change', function () {
+    $.validate();
+    $.validate({
+      modules: 'security'
+    });
+  });

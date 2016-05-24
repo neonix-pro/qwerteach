@@ -1,0 +1,5 @@
+%h1 Historique paiement
+- @factures_received.each do |coursRecu|
+  = render( :partial => 'factureRe', :locals=>{:coursRecu => coursRecu} )
+- @factures_given.each do |payment|
+  = render( :partial => 'facture', :locals=>{:payment => payment} )
