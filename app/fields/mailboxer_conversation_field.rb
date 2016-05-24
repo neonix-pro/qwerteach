@@ -2,7 +2,6 @@ require "administrate/field/base"
 
 class MailboxerConversationField < Administrate::Field::Base
   def to_s
-
     data
   end
 

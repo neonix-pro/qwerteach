@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     resources :postuling_teachers
 
     resources :lessons
+    resources :topic
+    resources :topic_group
+    resources :level
 
     resources :payments
     resources :bbb_rooms
