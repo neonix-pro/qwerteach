@@ -1,16 +1,15 @@
 Rails.application.routes.draw do
   namespace :admin do
     resources :users
-    resources :galleries
-    resources :levels
-    resources :pictures
     resources :students
     resources :teachers
+    resources :pictures
+    resources :galleries
+
+
     resources :postulations
     resources :comments
-    #resources :conversations
-    #resources :messages
-    #resources :receipts
+
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
 
     # Gestion des serveurs BBB depuis l'admin
@@ -18,8 +17,7 @@ Rails.application.routes.draw do
     resources :bigbluebutton_recordings
 
     resources :lessons
-    resources :topics
-    resources :topic_groups
+
     resources :payments
     resources :bbb_rooms
     resources :adverts

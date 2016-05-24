@@ -1,0 +1,81 @@
+<%#
+# Sidebar
+
+This partial is used to display the sidebar in Administrate.
+By default, the sidebar contains navigation links
+for all resources in the admin dashboard,
+as defined by the routes in the `admin/` namespace
+%>
+
+<ul class="sidebar__list">
+  <li>
+    <%= link_to(
+      'All Users',
+      [namespace, User],
+      class: "sidebar__link sidebar__link--#{nav_link_state(:users)}"
+    )%>
+  </li>
+  <li>
+    <%= link_to(
+            'Postuling Teachers',
+            [namespace, Teacher],
+            class: "sidebar__link sidebar__link--#{nav_link_state(:teachers)}"
+        )%>
+  </li>
+  <li>
+    <%= link_to(
+            'Approved Teachers',
+            [namespace, Teacher],
+            class: "sidebar__link sidebar__link--#{nav_link_state(:teachers)}"
+        )%>
+  </li>
+  <li>
+    <%= link_to(
+            'Avatars',
+            [namespace, Picture],
+            class: "sidebar__link sidebar__link--#{nav_link_state(:pictures)}"
+        )%>
+  </li>
+  <li>
+    <%= link_to(
+            'Galleries',
+            [namespace, Gallery],
+            class: "sidebar__link sidebar__link--#{nav_link_state(:galleries)}"
+        )%>
+  </li>
+  <li>
+    <%= link_to(
+            'Reviews',
+            [namespace, Comment],
+            class: "sidebar__link sidebar__link--#{nav_link_state(:comments)}"
+        )%>
+  </li>
+  <li>
+    <%= link_to(
+            'BBB Server',
+            [namespace, BigbluebuttonServer],
+            class: "sidebar__link sidebar__link--#{nav_link_state(:bigbluebutton_servers)}"
+        )%>
+  </li>
+  <li>
+    <%= link_to(
+            'All Recordings',
+            [namespace, BigbluebuttonRecording],
+            class: "sidebar__link sidebar__link--#{nav_link_state(:bigbluebutton_recordings)}"
+        )%>
+  </li>
+  <li>
+    <%= link_to(
+            'Lessons',
+            [namespace, Lesson],
+            class: "sidebar__link sidebar__link--#{nav_link_state(:lessons)}"
+        )%>
+  </li>
+  <li>
+    <%= link_to(
+            'Payments',
+            [namespace, Payment],
+            class: "sidebar__link sidebar__link--#{nav_link_state(:payments)}"
+        )%>
+  </li>
+</ul>
