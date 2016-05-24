@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     # Gestion des serveurs BBB depuis l'admin
     resources :bigbluebutton_servers
     resources :bigbluebutton_recordings
+    resources :postuling_teachers
 
     resources :lessons
 
