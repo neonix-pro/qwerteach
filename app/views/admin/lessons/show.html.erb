@@ -1,0 +1,97 @@
+<%#
+# Show
+
+This view is the template for the show page.
+It renders the attributes of a resource,
+as well as a link to its edit page.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Show][1].
+  Contains methods for accessing the resource to be displayed on the page,
+  as well as helpers for describing how each attribute of the resource
+  should be displayed.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Show
+%>
+
+<% content_for(:title) { page.page_title } %>
+
+<header class="header">
+  <h1 class="header__heading"><%= content_for(:title) %></h1>
+  <div class="header__actions">
+    <%= link_to(
+      "Edit",
+      [:edit, namespace, page.resource],
+      class: "button",
+    ) %>
+  </div>
+</header>
+
+<dl>
+  <dt class="attribute-label">ID:</dt>
+  <dl><%= page.resource.id %></dl>
+  <dt class="attribute-label">Student:</dt>
+  <dl><%= link_to( "#{page.resource.student.firstname} #{page.resource.student.lastname}", [namespace, page.resource.student]) %></dl>
+  <dt class="attribute-label">Teacher:</dt>
+  <dl><%= link_to( "#{page.resource.teacher.firstname} #{page.resource.teacher.lastname}", [namespace, page.resource.teacher]) %></dl>
+  <dt class="attribute-label">Topic group:</dt>
+  <dl><%= page.resource.topic_group.title %></dl>
+  <dt class="attribute-label">Topic:</dt>
+  <dl><%= page.resource.topic.title %></dl>
+  <dt class="attribute-label">Level:</dt>
+  <dl><%= page.resource.level.fr %></dl>
+  <dt class="attribute-label">Time start:</dt>
+  <dl><%= page.resource.time_start %></dl>
+  <dt class="attribute-label">Duration:</dt>
+  <dl><%= (( page.resource.time_end - page.resource.time_start) / 1.minute).round %>min</dl>
+  <dt class="attribute-label">Price:</dt>
+  <dl><%= page.resource.price %>€</dl>
+  <dt class="attribute-label">Created at:</dt>
+  <dl><%= page.resource.created_at %></dl>
+  <dt class="attribute-label">Updated at:</dt>
+  <dl><%= page.resource.updated_at %></dl>
+</dl>
+<div class="header">
+  <h3>Payments</h3>
+</div>
+  <table>
+    <thead>
+    <th>ID</th><th>Amount</th><th>Status</th><th>Type</th><th>Payin ID</th><th>created at</th>
+    </thead>
+    <tbody>
+    <% page.resource.payments.each do |payment| %>
+      <tr>
+        <td><%= payment.id %></td>
+        <td><%= payment.price %></td>
+        <td><%= payment.status %></td>
+        <td><%= payment.payment_type %></td>
+        <td><%= payment.mangopay_payin_id %></td>
+        <td><%= payment.created_at %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+<div class="header">
+  <h3>Recordings</h3>
+</div>
+<table>
+  <thead>
+  <th>ID</th><th>Link</th><th>Created at</th>
+  </thead>
+  <tbody>
+  <% recordings = BigbluebuttonRecording.where(:room_id => page.resource.bbb_room) %>
+  <% recordings.each do |rec| %>
+      <tr>
+        <td><%= rec.id %></td>
+        <td><%= link_to "link", rec.playback_formats.first.url %></td>
+        <td><%= rec.created_at %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+

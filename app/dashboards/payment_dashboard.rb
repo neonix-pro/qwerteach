@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class LessonDashboard < Administrate::BaseDashboard
+class PaymentDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,20 +8,14 @@ class LessonDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    student: Field::BelongsTo.with_options(class_name: "User"),
-    teacher: Field::BelongsTo.with_options(class_name: "User"),
-    topic_group: Field::BelongsTo,
-    topic: Field::BelongsTo,
-    level: Field::BelongsTo,
-    payments: Field::HasMany,
-    bbb_room: Field::HasOne,
+    lesson: Field::BelongsTo,
     id: Field::Number,
-    student_id: Field::Number,
-    teacher_id: Field::Number,
     status: Field::String.with_options(searchable: false),
-    time_start: Field::DateTime,
-    time_end: Field::DateTime,
+    payment_type: Field::String.with_options(searchable: false),
+    transfert_date: Field::DateTime,
     price: Field::String.with_options(searchable: false),
+    mangopay_payin_id: Field::Number,
+    execution_date: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }
@@ -32,30 +26,23 @@ class LessonDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :student,
-    :teacher,
-    :topic_group,
-    :topic,
-    :time_start,
+    :lesson,
+    :id,
+    :status,
+    :payment_type,
   ]
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :student,
-    :teacher,
-    :topic_group,
-    :topic,
-    :level,
-    :payments,
-    :bbb_room,
+    :lesson,
     :id,
-    :student_id,
-    :teacher_id,
     :status,
-    :time_start,
-    :time_end,
+    :payment_type,
+    :transfert_date,
     :price,
+    :mangopay_payin_id,
+    :execution_date,
     :created_at,
     :updated_at,
   ]
@@ -64,25 +51,19 @@ class LessonDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :student,
-    :teacher,
-    :topic_group,
-    :topic,
-    :level,
-    :payments,
-    :bbb_room,
-    :student_id,
-    :teacher_id,
+    :lesson,
     :status,
-    :time_start,
-    :time_end,
+    :payment_type,
+    :transfert_date,
     :price,
+    :mangopay_payin_id,
+    :execution_date,
   ]
 
-  # Overwrite this method to customize how lessons are displayed
+  # Overwrite this method to customize how payments are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(lesson)
-  #   "Lesson ##{lesson.id}"
+  # def display_resource(payment)
+  #   "Payment ##{payment.id}"
   # end
 end

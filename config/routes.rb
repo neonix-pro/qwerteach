@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     resources :lessons
     resources :topics
     resources :topic_groups
+    resources :payments
+    resources :bbb_rooms
 
     root to: "users#index"
   end
