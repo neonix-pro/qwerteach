@@ -11,9 +11,9 @@
         %th.cell-label Level/Price
         %th.cell-label{:colspan => "2", :scope => "col"} Actions
   %tbody
-    - resources.each do |resource|
+    - adverts.each do |resource|
       %tr.table__row{"data-url" => "#{polymorphic_path([namespace, resource])}", :role => "link", :tabindex => "0"}
-        - if (resources.first.is_a?(Teacher))
+        - if (adverts.first.is_a?(Teacher))
           %td
             = image_tag(resource.avatar.url(:small))
         - collection_presenter.attributes_for(resource).each do |attribute|

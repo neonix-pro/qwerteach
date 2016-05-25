@@ -1,7 +1,7 @@
 %table.collection-data{"aria-labelledby" => "page-title"}
   %thead
     %tr
-      - if (resources.first.is_a?(Teacher))
+      - if (teachers.first.is_a?(Teacher))
         %th.cell-label.cell-label Photo
       - collection_presenter.attribute_types.each do |attr_name, attr_type|
         %th.cell-label.cell-label #{attr_name}
@@ -10,9 +10,9 @@
           = svg_tag("administrate/sort_arrow.svg","sort_arrow",width: "13",height: "13")
           %th{:colspan => "2", :scope => "col"}
   %tbody
-    - resources.each do |resource|
+    - teachers.each do |resource|
       %tr.table__row{"data-url" => "#{polymorphic_path([namespace, resource])}", :role => "link", :tabindex => "0"}
-        - if (resources.first.is_a?(Teacher))
+        - if (teachers.first.is_a?(Teacher))
           %td
             = image_tag(resource.avatar.url(:small))
         - collection_presenter.attributes_for(resource).each do |attribute|

@@ -1,13 +1,7 @@
 %dt.attribute-label Postulation
 %dd.attribute-data
-  %b Interview:
-  = resources.data.interview_ok
-  %br
-  %b Avatar:
-  = resources.data.avatar_ok
-  %br
-  %b Genetal Informations:
-  = resources.data.gen_informations_ok
-  %br
-  %b Adverts:
-  = resources.data.advert_ok
+  - postulation.admin_fields.each do |field|
+    %b= "#{field[0]}:"
+    = field[1]
+    %br
+  = link_to("Update", [:edit, namespace, postulation],class: "button")
