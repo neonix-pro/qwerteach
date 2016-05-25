@@ -26,5 +26,9 @@ class DashboardsController < ApplicationController
     current_user.lessons_received.each do |lesson|
       lesson.payments.where(:status => 0, :payment_type => 0).each { |l| @pending_prepayments.push l }
     end
+
+    @wallet_normal = @user.wallets.first
+    @wallet_bonus = @user.wallets.second
+    @wallet_transfer = @user.wallets.last
   end
 end

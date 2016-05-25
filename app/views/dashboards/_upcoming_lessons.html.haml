@@ -1,0 +1,8 @@
+%div.col-sm-6.col-md-4
+  %h5 Mes cours
+  -if @user.is_a?(Teacher)
+    -if @user.lessons_given.empty?
+      Vous n'avez pas encore donné cours sur Qwerteach!
+  -else
+    -if @user.lessons_received.empty?
+      Vous n'avez pas encore pris de cours sur Qwerteach!

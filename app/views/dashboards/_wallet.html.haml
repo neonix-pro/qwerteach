@@ -1,0 +1,9 @@
+%div.col-sm-6.col-md-4
+  -if @user.mango_id.nil?
+    %h5 Crédit sur Qwerteach:
+    %div 0€
+    =link_to 'Configurez votre portefeuille virtuel!', edit_wallet_path(@user)
+  -else
+    %h5 Crédit sur Qwerteach:
+    %div= "#{@wallet_normal['Balance']['Amount']}€ + #{@wallet_bonus['Balance']['Amount']}€ de crédit bonus"
+    %div= link_to 'Charger du crédit', direct_debit_path(@user)

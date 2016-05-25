@@ -1,18 +1,10 @@
-%h2 "Bonjour #{@user.firstname+@user.lastname}"
-- if current_user.is_a? Teacher
-  %p
-    Etat de votre postulation : #{(current_user.postulance_accepted? ? 'Acceptée' : 'Refusée')}
-  - unless current_user.postulance_accepted?
-    %ul
-      %li
-        Interview :  #{(current_user.postulation.interview_ok? ? 'Validée' : 'Non-validée')}
-      %li
-        Avatar :  #{(current_user.postulation.avatar_ok? ? 'Validé' : 'Non-validé')}
-      %li
-        Informations générales
-        \:  #{(current_user.postulation.gen_informations_ok? ? 'Validées' : 'Non-validées')}
-      %li
-        Tarifs :  #{(current_user.postulation.advert_ok? ? 'Validés' : 'Non-validés')}
+%div.container
+  %h2 Bonjour #{@user.firstname+@user.lastname}
+  %div.row
+    - if current_user.is_a? Teacher
+      = render partial: 'dashboards/teacher/postulance'
+    = render partial: 'wallet'
+    = render partial: 'upcoming_lessons'
 %h3 Cours prévus
 - if @future_lessons.empty?
   %p Aucun cours de prévu

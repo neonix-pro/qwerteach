@@ -16,6 +16,10 @@ class Postulation < ActiveRecord::Base
     }
   end
 
+  def dashboard_fields
+    admin_fields
+  end
+
   def ok_fields
     admin_fields.delete_if { |key, value| value==false }
   end
