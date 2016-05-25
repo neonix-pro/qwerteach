@@ -17,8 +17,5 @@
             = image_tag(resource.avatar.url(:small))
         - collection_presenter.attributes_for(resource).each do |attribute|
           %td{:class => "cell-data cell-data--#{attribute.html_class}"}
-            - if attribute.data.respond_to? :admin_fields
-              = render "postulation", collection_presenter: collection_presenter, postulation: attribute.data
-            - else
-              = render_field attribute
+            = render_field attribute
         %td= link_to(t("administrate.actions.show"),[namespace, resource],class: "action-show")

@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class AdvertDashboard < Administrate::BaseDashboard
+class AdvertPriceDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,13 +8,10 @@ class AdvertDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    user: Field::BelongsTo,
-    topic: Field::BelongsTo,
-    advert_prices: Field::HasMany,
+    level: Field::BelongsTo,
+    advert: Field::BelongsTo,
     id: Field::Number,
-    topic_group_id: Field::Number,
-    topic_group: Field::BelongsTo,
-    other_name: Field::String,
+    price: Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }
@@ -25,22 +22,19 @@ class AdvertDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    #:user,
-    :topic_group,
-    :topic,
-    :advert_prices,
-    :id,
+    #:advert,
+    :level,
+    #:id,
+    :price,
   ]
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :user,
-    :topic,
-    :advert_prices,
+    :level,
+    :advert,
     :id,
-    :topic_group_id,
-    :other_name,
+    :price,
     :created_at,
     :updated_at,
   ]
@@ -49,17 +43,15 @@ class AdvertDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :user,
-    :topic,
-    :advert_prices,
-    :topic_group_id,
-    :other_name,
+    :level,
+    :advert,
+    :price,
   ]
 
-  # Overwrite this method to customize how adverts are displayed
+  # Overwrite this method to customize how advert prices are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(advert)
-    "#{advert.topic.topic_group.title}: #{advert.topic.title}"
+  def display_resource(advert_price)
+    "#{advert_price.price}"
   end
 end

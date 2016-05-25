@@ -13,22 +13,13 @@
         )
       = form_for([namespace, page.resource], html: {class: "form"}) do |f|
         = f.hidden_field :postulance_accepted, value: !page.resource.postulance_accepted
-        = page.resource.postulance_accepted ? (f.submit 'Suspend') : (f.submit 'Approve')
+        = page.resource.postulance_accepted ? (f.submit 'Suspend') : (f.submit 'Approve', :class => 'action-destroy')
   %dl
     - page.attributes.each do |attribute|
-
-      - case attribute.name
-        -when 'gallery'
-          = render "gallery", collection_presenter: page, gallery: attribute.data
-        -when 'postulation'
-          = render "postulation", collection_presenter: page, postulation: attribute.data
-        -when 'level'
-          = render "level", collection_presenter: page, level: attribute.data
+      %dt.attribute-label= attribute.name.titleize
+      %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}
+        - if attribute.data != "" && !attribute.data.nil?
+          = render_field attribute
         - else
-          %dt.attribute-label= attribute.name.titleize
-          %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}
-            - if attribute.data != "" && !attribute.data.nil?
-              = render_field attribute
-            - else
-              ="-"
+          ="-"
 

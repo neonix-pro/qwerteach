@@ -62,7 +62,7 @@ class PostulationDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how postulations are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(postulation)
-  #   "Postulation ##{postulation.id}"
-  # end
+  def display_resource(postulation)
+    "Status: #{postulation.ok_fields.count} / #{postulation.admin_fields.count}"
+  end
 end

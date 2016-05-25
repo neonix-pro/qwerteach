@@ -1,7 +1,7 @@
 %body
-  - content_for(:title) {"Postulation of #{page.resource.teacher.firstname} #{page.resource.teacher.lastname}"}
+  - content_for(:title) {"Postulation of #{page.resource.teacher.name}"}
   %header.header
-    %h1.header__heading ="Postulation of #{page.resource.teacher.firstname} #{page.resource.teacher.lastname}"
+    %h1.header__heading ="Postulation of #{page.resource.teacher.name}"
     .header__actions
       = link_to(                             |
           "Edit",                            |

@@ -69,7 +69,7 @@ class LevelDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how levels are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(level)
-  #   "Level ##{level.id}"
-  # end
+  def display_resource(level)
+    level.be
+  end
 end

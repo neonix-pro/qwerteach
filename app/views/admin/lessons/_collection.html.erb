@@ -57,16 +57,7 @@ to display a collection of resources in an HTML table.
         <% collection_presenter.attributes_for(resource).each do |attribute| %>
 
           <td class="cell-data cell-data--<%= attribute.html_class %>">
-            <% case attribute.data %>
-              <% when Student %>
-                <%= link_to( "#{attribute.data.firstname} #{attribute.data.lastname}", [namespace, attribute.data]) %>
-              <% when Topic %>
-                  <%= link_to( "#{attribute.data.title}", [namespace, attribute.data]) %>
-              <% when TopicGroup %>
-                  <%= link_to( "#{attribute.data.title}", [namespace, attribute.data]) %>
-              <% else %>
-                <%= attribute.data %>
-            <% end %>
+            <%= render_field attribute %>
           </td>
         <% end %>
 

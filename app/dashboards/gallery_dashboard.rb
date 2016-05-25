@@ -46,15 +46,13 @@ class GalleryDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :pictures,
-    :user,
     :cover,
-    :token,
   ]
 
   # Overwrite this method to customize how galleries are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(gallery)
-  #   "Gallery ##{gallery.id}"
-  # end
+  def display_resource(gallery)
+    "#{gallery.pictures.count} pictures"
+  end
 end

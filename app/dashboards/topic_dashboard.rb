@@ -54,7 +54,7 @@ class TopicDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how topics are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(topic)
-  #   "Topic ##{topic.id}"
-  # end
+  def display_resource(topic)
+    "#{topic.title}"
+  end
 end

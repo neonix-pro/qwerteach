@@ -54,7 +54,7 @@ class TopicGroupDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how topic groups are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(topic_group)
-  #   "TopicGroup ##{topic_group.id}"
-  # end
+  def display_resource(topic_group)
+    "#{topic_group.title}"
+  end
 end

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :topic
     resources :topic_group
     resources :level
+    resources :advert_prices
 
     resources :payments
     resources :bbb_rooms
