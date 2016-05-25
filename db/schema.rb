@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520090653) do
+ActiveRecord::Schema.define(version: 20160525083614) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id",                                        null: false
@@ -370,6 +370,8 @@ ActiveRecord::Schema.define(version: 20160520090653) do
     t.integer  "mango_id"
     t.datetime "last_seen"
     t.string   "time_zone",              default: "UTC"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

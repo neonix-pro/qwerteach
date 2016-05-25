@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   GENDER_TYPES = ["Not telling", "Male", "Female"]
   ACCOUNT_TYPES = ["Student", "Teacher"]
-
+  devise 
   paginates_per 1
 
   # Include default devise modules. Others available are:
@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   #    confirmable – Users will have to confirm their e-mails after registration before being allowed to sign in.
   #    lockable – Users’ accounts will be locked out after a number of unsuccessful authentication attempts.
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable, :lastseenable
+         :recoverable, :rememberable, :trackable, :confirmable, :lockable, :lastseenable, :omniauthable, :omniauth_providers => [:facebook]
   # Avatar attaché au User
   has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"},
                     :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg",
@@ -205,9 +205,25 @@ class User < ActiveRecord::Base
     #return the model's email here
   end
   
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      user.lastname = auth.info.last_name
+      user.firstname = auth.info.first_name
+      user.confirmed_at = DateTime.now.to_date
+    end
+  end
+   def self.new_with_session(params, session)
+      super.tap do |user|
+        if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+          user.email = data["email"] if user.email.blank?
+        end
+      end
     private
   def reprocess_avatar
     avatar.assign(avatar)
     avatar.save
   end
+end 
 end

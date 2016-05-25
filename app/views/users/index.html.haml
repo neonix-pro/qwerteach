@@ -1,4 +1,5 @@
 = form_tag users_path, :method => :get do
+  = collection_select( :Users ,:topic_group_id, :TopicGroup.all, :id, : title, {}, {:multiple => false})
   %p
     = label_tag "Mot-clé"
     = text_field_tag :q, params[:search]

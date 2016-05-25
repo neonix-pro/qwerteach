@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     put 'make_payout' => :send_make_payout
   end
 
-  devise_for :users, :controllers => {:registrations => "registrations"}
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   as :user do
     get 'users/edit_pwd' => 'registrations#pwd_edit', :as => 'edit_pwd_user_registration'
   end

@@ -185,6 +185,7 @@ Devise.setup do |config|
   # Warn on the last attempt before the account is locked.
    config.last_attempt_warning = true
 
+ 
   # ==> Configuration for :recoverable
   #
   # Defines which key will be used when recovering the password for an account
@@ -237,7 +238,9 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-
+  config.omniauth :facebook, "469401469916085", "8ac2048e3164091db1e4cd22d89813e5",scope: 'email', info_fields: 'email, first_name, last_name'
+  config.omniauth :twitter, "zJLgYhx0QVgh6e58EFSIhxHuL", "FTKNu4Oa9W3TH1uN5dX0svMLqNvysVhUn6T69pjRBZl2sYh6f3"
+  config.omniauth :google_oauth2, "519941720031-0b9tr2vjcd5eot86u1i6blu2il8pdou3.apps.googleusercontent.com", "lI0TLmZlcfFxVoIa6VCVWoUe", {}
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
