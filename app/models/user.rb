@@ -209,6 +209,7 @@ class User < ActiveRecord::Base
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         if @provider == "twitter"
           user.firstname = auth.info.name
+          user.lastname = auth.info.nickname
           user.email = auth.info.email
           user.confirmed_at = DateTime.now.to_date
           user.avatar = auth[:extra][:raw_info][:profile_image_url]
