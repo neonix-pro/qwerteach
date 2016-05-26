@@ -27,13 +27,13 @@
       %br/
       = address_fields.select :Country, options_for_select(@list, :selected => @user.address['Country']),:required => true
   .field
-    = f.label :country_of_residence
+    = label_tag 'Country_of_residence'
     %br/
-    = f.select :countryOfResidence, options_for_select(@list, :selected => @user.countryOfResidence),:required => true
+    = select_tag :CountryOfResidence, options_for_select(@list, :selected => @user.countryOfResidence), :required => true
   .field
-    = f.label :Nationality
+    = label_tag 'Nationality'
     %br/
-    = f.select :nationality, options_for_select(@list, selected: @user.nationality),:required => true
+    = select_tag :Nationality, options_for_select(@list, :selected => @user.nationality), :required => true
   %hr/
   - if(!@user.bank_accounts || @user.bank_accounts.empty?)
     = render( :partial => '/mangopay/bank_accounts/new' )

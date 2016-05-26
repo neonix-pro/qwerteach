@@ -39,8 +39,6 @@ class User < ActiveRecord::Base
 
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
-  has_many :lessons_given, :class_name => 'Lesson', :foreign_key => 'teacher_id'
-  has_many :lessons_received, :class_name => 'Lesson', :foreign_key => 'student_id'
 
   has_many :reviews_sent, :class_name => 'Review', :foreign_key => 'sender_id'
   has_many :reviews_received, :class_name => 'Review', :foreign_key => 'subject_id'
@@ -136,8 +134,12 @@ class User < ActiveRecord::Base
   end
 
   def create_mango_user (params)
+    logger.debug('-----------------TRUC')
     m = {}
     if !(self.mango_id?)
+      logger.debug(params[:Nationality])
+      logger.debug('-----------------TEST-------------')
+      logger.debug(mango_infos(params))
       m = MangoPay::NaturalUser.create(mango_infos(params))
       self.mango_id = m['Id']
       self.save!
@@ -166,7 +168,6 @@ class User < ActiveRecord::Base
 
   # Méthode liée au crop de l'avatar, elle permet de savoir si une modification a été faite
   def cropping?
-    #!crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
     [crop_x, crop_y, crop_w, crop_h].all?(&:present?)
   end
 

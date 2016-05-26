@@ -28,6 +28,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise', '3.4.1'
 #bootstrap-sass is not relevant to the tutorial, but I like it for styling.
 gem 'bootstrap-sass'
+gem 'font-awesome-sass'
+
 gem 'jquery-turbolinks'
 # droits d'accès
 gem "cancan"

@@ -3,7 +3,26 @@
 = form_for(resource, as: resource_name, url: wizard_path, html: { method: :put }) do |f|
   #avatar_select.field
     - resource.crop_x=0
-    = f.label :avatar
+    = f.label 'Sélectionnez un fichier'
     = f.file_field :avatar, :required => true
+  #preview-uploaded-avatar
   .actions
-    = f.submit "Update"
+    = f.submit "Enregistrer"
+
+
+:javascript
+  $(function() {
+    $('#user_avatar').on('change', function(event) {
+      var files = event.target.files;
+      var image = files[0]
+      var reader = new FileReader();
+      reader.onload = function(file) {
+        var img = new Image();
+        console.log(file);
+        img.src = file.target.result;
+        $('#preview-uploaded-avatar').html(img);
+      }
+      reader.readAsDataURL(image);
+      console.log(files);
+    });
+  });

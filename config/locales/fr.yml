@@ -30,7 +30,7 @@ fr:
       update:
         galleries: "Vous n'êtes pas autorisé à mettre à jour une gallerie de vous appartenant pas."
         pictures: "Vous n'êtes pas autorisé à mettre à jour une photo de vous appartenant pas."
-  become_teacher: 
+  become_teacher:
     general_infos: "Informations générales"
     avatar: "Photo de profil"
     crop: "Recadrer"

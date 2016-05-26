@@ -2,7 +2,21 @@
   %h5 Mes cours
   -if @user.is_a?(Teacher)
     -if @user.lessons_given.empty?
-      Vous n'avez pas encore donné cours sur Qwerteach!
+      %div Vous n'avez pas encore donné cours sur Qwerteach!
+      -unless @user.postulance_accepted
+        %div Votre #{link_to "candidature", '#'}  n'as pas encore été approuvée.
+    -else
+      -if @user.lessons_upcoming[:given].empty?
+        Aucun cours prévu
+      -else
+        -@user.lessons_upcoming[:given].each do |lesson|
+          = render partial: 'dashboards/lesson', :locals => {:lesson => lesson}
   -else
     -if @user.lessons_received.empty?
       Vous n'avez pas encore pris de cours sur Qwerteach!
+    -else
+      -if @user.lessons_upcoming.empty?
+        Aucun cours prévu
+      -else
+        -@user.lessons_upcoming[:received].each do |lesson|
+          = render partial: 'dashboards/lesson', :locals => {:lesson => lesson}

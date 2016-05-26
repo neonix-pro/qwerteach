@@ -3,6 +3,7 @@ class Teacher  < Student
 
   has_one :postulation, foreign_key:  "user_id"
   has_many :degrees, foreign_key:  "user_id"
+  has_many :lessons_given, :class_name => 'Lesson', :foreign_key => 'teacher_id'
 
   acts_as_reader
   after_create :create_postulation_user
@@ -21,5 +22,11 @@ class Teacher  < Student
   # Méthode permettant de créer une postulation
   def create_postulation_user
     create_postulation
+  end
+
+  def lessons_upcoming
+    received = self.lessons_received.where(:status => 2).where('time_start > ?', DateTime.now)
+    given = self.lessons_given.where(:status => 2).where('time_start > ?', DateTime.now)
+    {:received => received, :given => given}
   end
 end

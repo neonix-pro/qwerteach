@@ -78,10 +78,12 @@ class BecomeTeacherController < ApplicationController
           end
 
         rescue MangoPay::ResponseError => ex
-          flash[:danger] = ex.details["Message"]
-          #ex.details['errors'].each do |name, val|
-          #  flash[:danger] += " #{name}: #{val} \n\n"
-          #end
+          #flash[:danger] = ex.details["Message"]
+          errors = []
+          ex.details['errors'].each do |name, val|
+            errors.push("#{name}: #{val}")
+          end
+          flash[:danger] = errors.join("<br />").html_safe
           # jump_to(:banking_informations)
           redirect_to wizard_path(:banking_informations) and return
         end
