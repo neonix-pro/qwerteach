@@ -484,6 +484,7 @@ DEPENDENCIES
   mangopay
   minitest
   momentjs-rails (~> 2.10.6)
+  omniauth
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-twitter

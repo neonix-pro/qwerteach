@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   #    confirmable – Users will have to confirm their e-mails after registration before being allowed to sign in.
   #    lockable – Users’ accounts will be locked out after a number of unsuccessful authentication attempts.
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :confirmable, :lockable, :lastseenable, :omniauthable, :omniauth_providers => [:facebook]
+         :recoverable, :rememberable, :trackable, :confirmable, :lockable, :lastseenable, :omniauthable, :omniauth_providers => [:twitter, :facebook, :google_oauth2]
   # Avatar attaché au User
   has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"},
                     :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg",
@@ -33,7 +33,6 @@ class User < ActiveRecord::Base
   after_update :reprocess_avatar, :if => :cropping?
   has_one :gallery
   has_many :adverts
-
   # on crée une gallery après avoir créé le user
   after_create :create_gallery_user
 
@@ -206,13 +205,20 @@ class User < ActiveRecord::Base
   end
   
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0,20]
-      user.lastname = auth.info.last_name
-      user.firstname = auth.info.first_name
-      user.confirmed_at = DateTime.now.to_date
-    end
+    @provider = auth.provider
+      where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+        if @provider == "twitter"
+          user.firstname = auth.info.name
+          user.email = auth.info.email  
+          user.confirmed_at = DateTime.now.to_date
+        else
+          user.firstname = auth.info.first_name
+          user.lastname = auth.info.last_name
+          user.password = Devise.friendly_token[0,20]
+          user.email = auth.info.email  
+          user.confirmed_at = DateTime.now.to_date
+        end
+      end
   end
    def self.new_with_session(params, session)
       super.tap do |user|
@@ -220,10 +226,10 @@ class User < ActiveRecord::Base
           user.email = data["email"] if user.email.blank?
         end
       end
+   end
     private
   def reprocess_avatar
     avatar.assign(avatar)
     avatar.save
   end
-end 
 end
