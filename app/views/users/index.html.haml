@@ -1,5 +1,6 @@
 = form_tag users_path, :method => :get do
-  = collection_select( :Users ,:topic_group_id, :TopicGroup.all, :id, : title, {}, {:multiple => false})
+  = select("post", "topic_group_id", TopicGroup.all.collect {|p| [ p.title, p.topic_group_id] },{:class => 'form-control'})
+  = submit_tag "Search", :name => nil
   %p
     = label_tag "Mot-clé"
     = text_field_tag :q, params[:search]
@@ -23,16 +24,8 @@
     = submit_tag "Search", :name => nil
 / Permet la recherche en haut de page
 .section-resultat-header
-  %br/
-  = form_tag users_path, :method => :get do
-    = label_tag "Prof de"
-    / A MODIFIER EN FONCTION DE LA BDD POUR LES MATIERES
-    = select_tag(:q, options_for_select([['Mathématiques', 'Mathématiques'], ['Statistiques', 'Statistiques'], ['Autre','Autre'],['Physique', 'Physique'], ['Chimie', 'Chimie'], ['Biologie','Biologie'],['Autre','Autre' ], ['Français', 'Français'], ['Latin','Latin'], ['Grec','Grec' ]], ":q"), {:class => 'form-control select select-primary'})
-    / <haml_loud> select_tag(:q, options_for_select([[&#39;Mathématiques&#39;, 1], [&#39;Statistiques&#39;, 2], [&#39;Autre&#39;,3],[&#39;Physique&#39;, 4], [&#39;Chimie&#39;, 5], [&#39;Biologie&#39;,6],[&#39;Autre&#39;, 7], [&#39;Français&#39;, 8], [&#39;Latin&#39;,9], [&#39;Grec&#39;, 10]]), {:class =&gt; &#39;form-control select select-primary&#39;}) </haml_loud>
-    = submit_tag "Rechercher", :name => nil
-    %br/
-    = label_tag "trié par"
-    = select_tag(:p, options_for_select([['Pertinence', 'Pertinence'], ['Prix', 'Prix'], ['Avis','Avis'],['Activité', 'Activite']]), {:class => 'form-control select select-primary'})
+  = label_tag "trié par"
+  = select_tag(:p, options_for_select([['Pertinence', 'Pertinence'], ['Prix', 'Prix'], ['Avis','Avis'],['Activité', 'Activite']]), {:class => 'form-control select select-primary'})
   %h3
     Trouvez votre
     %b
