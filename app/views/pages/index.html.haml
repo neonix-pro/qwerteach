@@ -1,11 +1,7 @@
 #entete.row.featurette.section-recherche
-  %h2
-    %b Le bon prof au bon moment
-  %h4 Passez au soutien scolaire à la demande.
-  = form_tag users_path, :method => :get do
-    %p
-      = text_field_tag :q, params[:search], class:'rech'
-      %br/
+  %p
+    = form_tag users_path, :method => :get do
+      = select("post", "topic_group_id", TopicGroup.all.collect {|p| [ p.title, p.topic_group_id] },{:class => 'form-control'})
       = submit_tag "Search", :name => nil
   %p
     %a{"data-target" => "#myModCo", "data-toggle" => "modal"} Mode d'emploi

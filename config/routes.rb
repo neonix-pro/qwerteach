@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     put 'make_payout' => :send_make_payout
   end
 
-  devise_for :users, :controllers => {:registrations => "registrations"}
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   as :user do
     get 'users/edit_pwd' => 'registrations#pwd_edit', :as => 'edit_pwd_user_registration'
   end
@@ -94,13 +94,13 @@ Rails.application.routes.draw do
 
   #Permet affichage facture
   get "/payments/index" => "payments#index"
-
+  
   #post "lessons/:teacher_id/require_lesson", to: "lessons#require_lesson", as: 'require_lesson'
   resources :lessons do
     get 'accept_lesson' => :accept_lesson
     get 'refuse_lesson' => :refuse_lesson
     get 'cancel_lesson' => :cancel_lesson
-
+    
     resources :payments do
       resources :pay_postpayments
     end

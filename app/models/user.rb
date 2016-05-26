@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   GENDER_TYPES = ["Not telling", "Male", "Female"]
   ACCOUNT_TYPES = ["Student", "Teacher"]
-
+  devise 
   paginates_per 1
 
   # Include default devise modules. Others available are:
@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   #    confirmable – Users will have to confirm their e-mails after registration before being allowed to sign in.
   #    lockable – Users’ accounts will be locked out after a number of unsuccessful authentication attempts.
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable, :lastseenable
+         :recoverable, :rememberable, :trackable, :confirmable, :lockable, :lastseenable, :omniauthable, :omniauth_providers => [:twitter, :facebook, :google_oauth2]
   # Avatar attaché au User
   has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"},
                     :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg",
@@ -33,7 +33,6 @@ class User < ActiveRecord::Base
   after_update :reprocess_avatar, :if => :cropping?
   has_one :gallery
   has_many :adverts
-
   # on crée une gallery après avoir créé le user
   after_create :create_gallery_user
 
@@ -206,6 +205,32 @@ class User < ActiveRecord::Base
     #return the model's email here
   end
   
+  def self.from_omniauth(auth)
+    @provider = auth.provider
+      where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+        if @provider == "twitter"
+          user.firstname = auth.info.name
+          user.lastname = auth.info.nickname
+          user.email = auth.info.email
+          user.confirmed_at = DateTime.now.to_date
+          user.avatar = auth[:extra][:raw_info][:profile_image_url]
+        else
+          user.firstname = auth.info.first_name
+          user.lastname = auth.info.last_name
+          user.password = Devise.friendly_token[0,20]
+          user.email = auth.info.email
+          user.avatar = URI.parse(auth.info.image) if auth.info.image?
+          user.confirmed_at = DateTime.now.to_date
+        end
+      end
+  end
+   def self.new_with_session(params, session)
+      super.tap do |user|
+        if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+          user.email = data["email"] if user.email.blank?
+        end
+      end
+   end
     private
   def reprocess_avatar
     avatar.assign(avatar)
