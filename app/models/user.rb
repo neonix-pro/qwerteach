@@ -209,13 +209,15 @@ class User < ActiveRecord::Base
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         if @provider == "twitter"
           user.firstname = auth.info.name
-          user.email = auth.info.email  
+          user.email = auth.info.email
           user.confirmed_at = DateTime.now.to_date
+          user.avatar = auth[:extra][:raw_info][:profile_image_url]
         else
           user.firstname = auth.info.first_name
           user.lastname = auth.info.last_name
           user.password = Devise.friendly_token[0,20]
-          user.email = auth.info.email  
+          user.email = auth.info.email
+          user.avatar = URI.parse(auth.info.image) if auth.info.image?
           user.confirmed_at = DateTime.now.to_date
         end
       end
