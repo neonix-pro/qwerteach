@@ -14,7 +14,7 @@
     %td= lesson.time_end
     %td= lesson.status.to_s
     - room = BbbRoom.where(lesson_id = lesson.id).last
-    %td= button_to 'Fetch Recording', fetch_recordings_bigbluebutton_room_path(room)
+
     - if lesson.teacher == current_user
       %td= link_to 'Créer facture', lesson_create_postpayment_path(lesson), :class => 'btn btn-success'
     - if lesson.student == current_user

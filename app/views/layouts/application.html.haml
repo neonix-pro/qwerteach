@@ -24,7 +24,7 @@
               - if current_user.admin?
                 %li= link_to 'Administration', admin_root_path
               - if current_user.postulance_accepted == false
-                %li= link_to 'Devenir Prof', become_teacher_index_path
+                %li= link_to 'Devenir Prof', become_teacher_accueil_path
               %li= link_to 'Dashboard', dashboard_path
               %li= link_to 'Mes annonces', adverts_path
               %li= link_to 'Message', conversations_path
@@ -77,7 +77,7 @@
                   %li= link_to 'Ma gallerie', gallery_path(current_user.gallery)
                   %li= link_to 'Se déconnecter', destroy_user_session_path, method: :delete
             - else
-              %li= link_to 'Devenir Prof', become_teacher_index_path
+              %li= link_to 'Devenir Prof', become_teacher_accueil_path	
               %li 
                 %a{"data-toggle" => "modal", :href => "#myModCo"} Aide
               %li

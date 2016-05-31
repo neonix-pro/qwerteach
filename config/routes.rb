@@ -83,7 +83,7 @@ Rails.application.routes.draw do
   get '/adverts_user/:user_id', to: 'adverts#get_all_adverts', as: 'get_all_adverts'
 
   get "/pages/*page" => "pages#show"
-
+  get '/become_teacher/accueil' => "pages#devenir-prof"
   resources :become_teacher
   resources :conversations, only: [:index, :show, :destroy] do
     member do

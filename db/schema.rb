@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160526130536) do
+ActiveRecord::Schema.define(version: 20160531090402) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id",                                        null: false
@@ -184,17 +184,18 @@ ActiveRecord::Schema.define(version: 20160526130536) do
   end
 
   create_table "lessons", force: :cascade do |t|
-    t.integer  "student_id",                                         null: false
-    t.integer  "teacher_id",                                         null: false
-    t.integer  "status",                                 default: 0, null: false
-    t.datetime "time_start",                                         null: false
-    t.datetime "time_end",                                           null: false
+    t.integer  "student_id",                                             null: false
+    t.integer  "teacher_id",                                             null: false
+    t.integer  "status",                                 default: 0,     null: false
+    t.datetime "time_start",                                             null: false
+    t.datetime "time_end",                                               null: false
     t.integer  "topic_id"
-    t.integer  "topic_group_id",                                     null: false
-    t.integer  "level_id",                                           null: false
-    t.decimal  "price",          precision: 8, scale: 2,             null: false
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.integer  "topic_group_id",                                         null: false
+    t.integer  "level_id",                                               null: false
+    t.decimal  "price",          precision: 8, scale: 2,                 null: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.boolean  "freeLesson",                             default: false
   end
 
   create_table "levels", force: :cascade do |t|
@@ -263,7 +264,7 @@ ActiveRecord::Schema.define(version: 20160526130536) do
   create_table "payments", force: :cascade do |t|
     t.integer  "status",                                    default: 0,                     null: false
     t.integer  "payment_type",                              default: 0,                     null: false
-    t.datetime "transfert_date",                            default: '2016-05-26 13:34:06', null: false
+    t.datetime "transfert_date",                            default: '2016-05-31 15:33:58', null: false
     t.decimal  "price",             precision: 8, scale: 2,                                 null: false
     t.integer  "lesson_id",                                                                 null: false
     t.integer  "mangopay_payin_id"

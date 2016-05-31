@@ -12,6 +12,8 @@
     .container-fluid.tailleHeader
       .row
         .col-md-3
+          - if @user.first_lesson_free?
+            %h3 FirstLessonFree
           - if @user.postulance_accepted?
             %h3.nomPrenomProfil.col-md-4
               %b
@@ -22,7 +24,7 @@
               ans
             %i
               Prof certifié #{image_tag("check.png")}
-            .col-md-4
+            .div 
               - if @prices && !@prices.empty?
                 %p
                   Prix minimum : #{ActionController::Base.helpers.number_to_currency(@prices.min.first)}
