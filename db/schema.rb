@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160531090402) do
+ActiveRecord::Schema.define(version: 20160601084154) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id",                                        null: false
@@ -375,6 +375,7 @@ ActiveRecord::Schema.define(version: 20160531090402) do
     t.string   "time_zone",              default: "UTC"
     t.string   "provider"
     t.string   "uid"
+    t.integer  "score",                  default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
