@@ -17,7 +17,7 @@ class MessagesController < ApplicationController
     end
     conversation = current_user.send_message(recipients, params[:message][:body], params[:message][:subject]).conversation
     flash[:success] = "Message has been sent!"
-    respond_to do |format|
+    respond_to do |format|  
       format.html { redirect_to conversation_path(conversation) }
     end
   end
@@ -28,5 +28,6 @@ class MessagesController < ApplicationController
   def seen
     @conversation =  Mailboxer::Conversation.find(params[:conversation_id])
     @path = reply_conversation_path(@conversation)
-  end
 end
+end
+

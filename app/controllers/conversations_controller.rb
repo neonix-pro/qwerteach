@@ -13,6 +13,7 @@ class ConversationsController < ApplicationController
     @messages = @conversation.messages
     @last_message = @messages.last
     @message = Mailboxer::Message.new
+    Resque.enqueue(MessageStatWorker, current_user.id)
   end
 
   def reply

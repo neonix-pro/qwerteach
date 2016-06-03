@@ -16,4 +16,9 @@ update_server_configs:
   class: BigbluebuttonUpdateServerConfigs
   description: "Updates the server configs that are stored locally. Same as 'rake bigbluebutton_rails:server_configs:update'."
 
-
+stat_message:
+  every:
+    - "1m"
+  class: MessageStatWorker
+  queue: message_stat
+  description: "MaJ Stat UserMessage"

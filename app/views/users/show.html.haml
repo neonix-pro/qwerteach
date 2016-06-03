@@ -19,6 +19,8 @@
               %b
                 = @user.lastname
                 = @user.firstname
+                = @user.response_rate
+                = @user.response_time
             %p
               = Time.now.year - @user.birthdate.year
               ans

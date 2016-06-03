@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
-
+#TimeDiff
+gem 'time_difference'
+#McdBDD
+gem "rails-erd"
 #LogFacebook
 gem 'omniauth-facebook'
 #LogTwitter

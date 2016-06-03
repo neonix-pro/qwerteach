@@ -114,7 +114,7 @@ Rails.application.routes.draw do
 
   end
 
-  resources :messages, only: [:new, :create]
+  resources :messages, only: [:new, :create, ]
   post "/typing" => "messages#typing"
   post "/seen" => "messages#seen"
   get "/level_choice" => "adverts#choice"
