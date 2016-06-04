@@ -7,8 +7,9 @@ class MessageStatWorker
     message_not_read = user.mailbox.inbox({:is_read => false}).count
     #message_not_read = user.mailbox.inbox({:read => false}).count
     old_msg_count = user.messages.count
+    horaireLastMsg = user.messages.last.created_at
     
-    msg_response_time = TimeDifference.between(Time.now, user.messages.last.created_at).in_minutes
+    msg_response_time = TimeDifference.between(Time.now, horaireLastMsg).in_minutes
     response_time = (user.average_response_time * old_msg_count)+msg_response_time/old_msg_count +1
     response_rate = (message_not_read / old_msg_count +1) * 100 #TauxDeReponse en % ET Stocker en Entier Db
     if response_rate > 100  #Lockage du % à 100

@@ -11,102 +11,87 @@
     = csrf_meta_tags
     = yield(:head)
 
-%body
-  .nav.navbar
-    .color
-      .container-fluid
-        .navbar-header
-          %button.navbar-toggle{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
-          = link_to 'Qwerteach', root_path, class: 'navbar-brand'
-        #bs-example-navbar-collapse-1.collapse.navbar-collapse
-          -if user_signed_in?
-            %ul.nav.navbar-nav
-              - if current_user.admin?
-                %li= link_to 'Administration', admin_root_path
-              - if current_user.postulance_accepted == false
-                %li= link_to 'Devenir Prof', become_teacher_accueil_path
-              %li= link_to 'Dashboard', dashboard_path
-              %li= link_to 'Mes annonces', adverts_path
-              %li= link_to 'Message', conversations_path
-              - @gallery=Gallery.where(:user => current_user).last
-              %li.dropdown
-                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                  = image_tag("mango.png", :class => "mangopay")
-                  %span.caret
-                %ul.dropdown-menu{:role => "menu"}
-                  %li= link_to 'Voir compte', index_wallet_path
-                  %li= link_to 'Editer compte', edit_wallet_path
-                  %li= link_to 'Charger mon portefeuille', direct_debit_path
-                  %li= link_to 'Voir mes transactions', transactions_path
-                  %li= link_to 'Gérer mes comptes en banque', bank_accounts_path
-                  - if current_user.is_a? Teacher
-                    %li= link_to 'Récupérer mon gain', payout_path
-              %li#notifications-dropdown.dropdown
-                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                  %i.fa.fa-bell
-                  ( 
-                  %span#unread-notifications>= current_user.mailbox.notifications.unread.count 
-                  )
-                  %ul.dropdown-menu.notifications{:role => "menu"}
-                    .notification-heading
-                      %h4.menu-title Notifications
-                      %h4.menu-title.pull-left
-                        View all
-                        %i.glyphicon.glyphicon-circle-arrow-right
-                    #notifications-wrapper.notifications-wrapper
-                    %li.divider
-                    .notification-footer
-                      %h4.menu-title
-                        %a.see-more-notifications
+  %body
+    .nav.navbar
+      .color
+        .container-fluid
+          .navbar-header
+            %button.navbar-toggle{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+            = link_to 'Qwerteach', root_path, class: 'navbar-brand'
+          #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            -if user_signed_in?
+              %ul.nav.navbar-nav
+                - if current_user.admin?
+                  %li= link_to 'Administration', admin_root_path
+                - if current_user.postulance_accepted == false
+                  %li= link_to 'Devenir Prof', become_teacher_accueil_path
+                %li= link_to 'Dashboard', dashboard_path
+                %li= link_to 'Mes annonces', adverts_path
+                %li= link_to 'Message', conversations_path
+                - @gallery=Gallery.where(:user => current_user).last
+                %li.dropdown
+                  %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                    = image_tag("mango.png", :class => "mangopay")
+                    %span.caret
+                  %ul.dropdown-menu{:role => "menu"}
+                    %li= link_to 'Voir compte', index_wallet_path
+                    %li= link_to 'Editer compte', edit_wallet_path
+                    %li= link_to 'Charger mon portefeuille', direct_debit_path
+                    %li= link_to 'Voir mes transactions', transactions_path
+                    %li= link_to 'Gérer mes comptes en banque', bank_accounts_path
+                    - if current_user.is_a? Teacher
+                      %li= link_to 'Récupérer mon gain', payout_path
+                %li#notifications-dropdown.dropdown
+                  %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                    %i.fa.fa-bell
+                    ( 
+                    %span#unread-notifications>= current_user.mailbox.notifications.unread.count 
+                    )
+                    %ul.dropdown-menu.notifications{:role => "menu"}
+                      .notification-heading
+                        %h4.menu-title Notifications
+                        %h4.menu-title.pull-left
                           View all
                           %i.glyphicon.glyphicon-circle-arrow-right
-              %li= link_to 'Rechercher un Prof', users_path
-          %ul.nav.navbar-nav.pull-right
-            - if user_signed_in?
-              %li.round-image-50= image_tag(current_user.avatar.url(:small))
-              %li.dropdown
-                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                  %h9
-                    Salut #{current_user.lastname} !
-                  %span.carret
-                %ul.dropdown-menu{:role => "menu"}
-                  %li= link_to 'Mon Profil', user_path(current_user)
-                  %li= link_to 'Editer mon profil', edit_user_registration_path
-                  %li= link_to 'Modifier mon mdp', edit_pwd_user_registration_path
-                  - @gallery=Gallery.where(:user => current_user).last
-                  %li= link_to 'Ma gallerie', gallery_path(current_user.gallery)
-                  %li= link_to 'Se déconnecter', destroy_user_session_path, method: :delete
-            - else
-              %li= link_to 'Devenir Prof', become_teacher_accueil_path	
-              %li 
-                %a{"data-toggle" => "modal", :href => "#myModCo"} Aide
-              %li
-                %a{"data-toggle" => "modal", :href => "#myModIns"} S'inscrire
-              %li
-                %a{"data-toggle" => "modal", :href => "#myModCo"} Connexion
-.container
-- flash.each do |key, value|
-  %div{:class => "alert alert-#{key}"}
-    = value
-    = yield :top_content
-#body.container-fluid
-= yield
-- if (current_user)
-  = subscribe_to "/chat"
-  = subscribe_to "/notifications/"+current_user.id.to_s
-    
-  :javascript
-        PrivatePub.subscribe("/chat", function (data, channel) {
-          var current_user_id = '\#{current_user.try(:id)}';
-          if (data.receiver_id == current_user_id) {
-            chatBox.chatWith(data.conversation_id);
-          }
-          else {
-            chatBox.chatWith(data.conversation_id);
-          }
-        });
-  :javascript
-        PrivatePub.subscribe("/notifications/#{current_user.id.to_s}", function (data, channel) {
-          Notifications.numberOfUnreadNotifications();
-          Notifications.sound.play();
-        });
+                      #notifications-wrapper.notifications-wrapper
+                      %li.divider
+                      .notification-footer
+                        %h4.menu-title
+                          %a.see-more-notifications
+                            View all
+                            %i.glyphicon.glyphicon-circle-arrow-right
+                %li= link_to 'Rechercher un Prof', users_path
+            %ul.nav.navbar-nav.pull-right
+              - if user_signed_in?
+                %li.round-image-50= image_tag(current_user.avatar.url(:small))
+                %li.dropdown
+                  %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                    %h9
+                      Salut #{current_user.lastname} !
+                    %span.carret
+                  %ul.dropdown-menu{:role => "menu"}
+                    %li= link_to 'Mon Profil', user_path(current_user)
+                    %li= link_to 'Editer mon profil', edit_user_registration_path
+                    %li= link_to 'Modifier mon mdp', edit_pwd_user_registration_path
+                    - @gallery=Gallery.where(:user => current_user).last
+                    %li= link_to 'Ma gallerie', gallery_path(current_user.gallery)
+                    %li= link_to 'Se déconnecter', destroy_user_session_path, method: :delete
+              - else
+                %li= link_to 'Devenir Prof', become_teacher_accueil_path	
+                %li 
+                  %a{"data-toggle" => "modal", :href => "#myModCo"} Aide
+                %li
+                  %a{"data-toggle" => "modal", :href => "#myModIns"} S'inscrire
+                %li
+                  %a{"data-toggle" => "modal", :href => "#myModCo"} Connexion
+    .container
+      - flash.each do |key, value|
+        %div{:class => "alert alert-#{key}"}
+          = value
+          = yield :top_content
+    #body.container-fluid
+      = yield
+    - if (current_user)
+      = subscribe_to "/chat"
+      = subscribe_to "/notifications/"+current_user.id.to_s
+        

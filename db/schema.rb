@@ -264,7 +264,7 @@ ActiveRecord::Schema.define(version: 20160601091043) do
   create_table "payments", force: :cascade do |t|
     t.integer  "status",                                    default: 0,                     null: false
     t.integer  "payment_type",                              default: 0,                     null: false
-    t.datetime "transfert_date",                            default: '2016-06-03 15:10:41', null: false
+    t.datetime "transfert_date",                            default: '2016-06-04 08:20:48', null: false
     t.decimal  "price",             precision: 8, scale: 2,                                 null: false
     t.integer  "lesson_id",                                                                 null: false
     t.integer  "mangopay_payin_id"

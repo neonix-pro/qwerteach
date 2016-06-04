@@ -61,7 +61,8 @@ Rails.application.routes.draw do
   end
   get '/both_users_online' => 'users#both_users_online', :as => 'both_users_online'
   authenticated :user do
-    root 'dashboards#index'
+    #root 'dashboards#index'
+    root 'users#index'
   end
 
 

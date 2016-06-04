@@ -17,7 +17,7 @@ RSpec.describe AdvertsController, type: :controller do
         end
         
         it "show" do
-            get 'show', :id => Advert.first.id
+            get 'show', :id => Advert.last.id
             expect(response).to be_success
         end
         

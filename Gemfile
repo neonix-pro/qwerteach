@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
+
+#LogLinkedIn 
+gem 'omniauth-linkedin-oauth2'
 #TimeDiff
 gem 'time_difference'
 #McdBDD

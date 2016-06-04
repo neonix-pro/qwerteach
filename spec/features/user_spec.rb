@@ -3,19 +3,25 @@ require 'rails_helper'
 feature "UserSignsUps" do
   scenario "GET /new_user_registration" do
     visit new_user_registration_path
-    expect(page).to have_content("S'inscrire")
+    expect(page).to have_content("Sign up")
   end
   scenario 'with invalid email' do
     sign_up_with 'invalid_email', 'password', 'password'
-    expect(page).to have_content("Email n'est pas valide")
+      within("#container") do
+       expect(page).to have_content("Email n'est pas valide")  #JS
+      end
   end
   scenario 'with invalid password' do
     sign_up_with 'p@p.p', 'passwo', 'passwo'
-    expect(page).to have_content("Password est trop court")
+    within ("#body") do
+      expect(page).to have_content("Password est trop court") #JS
+    end
   end
   scenario 'with not same passwords' do
     sign_up_with 'p@p.p', 'password', 'passwo'
-    expect(page).to have_content("Password confirmation ne concorde pas avec Password")
+      within ("#body") do
+       expect(page).to have_content("Not the same") #JS
+      end
   end
   scenario 'with not same passwords' do
     sign_up_with 'p@p.p', 'password', 'password'
