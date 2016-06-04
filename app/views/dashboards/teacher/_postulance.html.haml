@@ -1,9 +1,10 @@
 %div.col-sm-6.col-md-4
   -if @user.postulance_accepted
     %h5 Vous êtes un prof approuvé!
+    #{image_tag("check.png")}
   -else
     %h5 Etat de votre postulation:
     %dl.dl-horizontal
       -@user.postulation.dashboard_fields.each do |field|
         %dt #{field[0].to_s.humanize}:
-        %dd= field[1] ? 'OK':'X'
+        %dd= field[1] ? 'OK':'x'

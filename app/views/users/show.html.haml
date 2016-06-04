@@ -15,12 +15,13 @@
           - if @user.first_lesson_free?
             %h3 FirstLessonFree
           - if @user.postulance_accepted?
-            %h3.nomPrenomProfil.col-md-4
+            %h3.nomPrenomProfil
               %b
                 = @user.lastname
                 = @user.firstname
-                = @user.response_rate
-                = @user.response_time
+            %h4
+              = @user.response_rate
+              = @user.response_time
             %p
               = Time.now.year - @user.birthdate.year
               ans
@@ -34,10 +35,10 @@
           - elsif @user.is_a? Teacher
             - if current_user.admin?
               = button_to 'Inviter à une interview', room_invite_bbb_rooms_path(@user) , method: :get
-        .col-md-4
+        .div
           %p= link_to 'voir gallerie', gallery_path(@user.gallery.id)
-          %p= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation", |
-              "data-sid" => @user.id, "data-rip" => @user.id                                   |
+          %p= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation", 
+              "data-sid" => @user.id, "data-rip" => @user.id                                   
         %div
           - if @user.postulance_accepted?
             - @adverts.each do |a|
@@ -46,7 +47,7 @@
   / /#page2-content-wrapper
   #page-content-wrapper
     .container-fluid
-      .row
+      .row  
         %p= raw(@user.description)
   - if @user.postulance_accepted?
     %h3 Diplomes
@@ -77,8 +78,5 @@
         .field
           = submit_tag 'Noter', :class => 'btn btn-primary btn-mini'
           %br/
-    %h3 Diplomes
-    - @degrees.each do |d|
-      = d.title
-      %br/
+      %h3 Professeurs similaires
 / /#wrapper
