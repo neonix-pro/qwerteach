@@ -1,22 +1,22 @@
 FactoryGirl.define do
-  factory :user do
-    email "a@a.a"
-    password "kaltrina"
-    password_confirmation "kaltrina"
-    confirmed_at Date.today
-  end
-  factory :admin, class: User do
-    email "d@d.d"
-    password "kaltrina"
-    password_confirmation "kaltrina"
-    admin true
-    confirmed_at Date.today
-  end
-  factory :prof, class: User do
-    email "d@d.d"
-    password "kaltrina"
-    password_confirmation "kaltrina"
-    postulance_accepted true
-    confirmed_at Date.today
-  end
-end
+   factory :user do
+     email "z@z.z"
+     password "password"
+     password_confirmation "password"
+     confirmed_at Date.today
+   end
+   factory :admin, class: User do
+     email "y@y.y"
+     password "password"
+     password_confirmation "password"
+     admin true
+     confirmed_at Date.today
+   end
+   factory :prof, class: User do
+    email "g@g.g"
+     password "password"
+     password_confirmation "password"
+     postulance_accepted true
+     confirmed_at Date.today
+   end
+end 

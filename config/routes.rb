@@ -61,8 +61,7 @@ Rails.application.routes.draw do
   end
   get '/both_users_online' => 'users#both_users_online', :as => 'both_users_online'
   authenticated :user do
-    #root 'dashboards#index'
-    root 'users#index'
+    root 'dashboards#index'
   end
 
 
@@ -85,6 +84,7 @@ Rails.application.routes.draw do
 
   get "/pages/*page" => "pages#show"
   get '/become_teacher/accueil' => "pages#devenir-prof"
+  get '/index' => "pages#index"
   resources :become_teacher
   resources :conversations, only: [:index, :show, :destroy] do
     member do
