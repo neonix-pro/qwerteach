@@ -3,7 +3,6 @@ class BecomeTeacherController < ApplicationController
   before_filter :authenticate_user!
 
   steps :general_infos, :avatar, :crop, :pictures, :adverts, :banking_informations, :finish_postulation
-
   def show
     @user = current_user
     case step

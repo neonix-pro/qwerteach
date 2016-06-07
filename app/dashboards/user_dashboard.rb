@@ -50,7 +50,6 @@ class UserDashboard < Administrate::BaseDashboard
       avatar_file_name: Field::String,
       avatar_content_type: Field::String,
       avatar_file_size: Field::Number,
-      avatar_updated_at: Field::DateTime,
   }
 
   # COLLECTION_ATTRIBUTES

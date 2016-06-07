@@ -83,7 +83,8 @@ Rails.application.routes.draw do
   get '/adverts_user/:user_id', to: 'adverts#get_all_adverts', as: 'get_all_adverts'
 
   get "/pages/*page" => "pages#show"
-
+  get '/become_teacher/accueil' => "pages#devenir-prof"
+  get '/index' => "pages#index"
   resources :become_teacher
   resources :conversations, only: [:index, :show, :destroy] do
     member do
@@ -114,7 +115,7 @@ Rails.application.routes.draw do
 
   end
 
-  resources :messages, only: [:new, :create]
+  resources :messages, only: [:new, :create, ]
   post "/typing" => "messages#typing"
   post "/seen" => "messages#seen"
   get "/level_choice" => "adverts#choice"

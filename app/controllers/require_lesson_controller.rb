@@ -2,16 +2,16 @@ class RequireLessonController < ApplicationController
   include Wicked::Wizard
   before_filter :authenticate_user!
 
-  steps :choose_lesson, :payment, :transfert, :bancontact, :cd, :finish
-
+  steps :choose_lesson, :payment, :transfert, :bancontact, :cd, :finish 
   def show
     @teacher = params[:user_id]
     @user = current_user
     case step
       when :choose_lesson
+        @teacher = Teacher.find( params[:user_id])
+        @lessonStudent = Lesson.where(:student => current_user, :teacher_id => params[:user_id], :freeLesson => true)
         @lesson = Lesson.new
       when :payment
-      when :transfert
         @user = current_user
         if @user.mango_id.nil?
           flash[:danger] = "Vous devez d'abord enregistrer vos informations de paiement."
@@ -44,7 +44,6 @@ class RequireLessonController < ApplicationController
           if status == "SUCCEEDED"
             #@lesson = Lesson.create(session[:lesson])
             @lesson = Lesson.create(:student_id => session[:lesson]['student_id'], :teacher_id => session[:lesson]['teacher_id'], :status => 0, :time_start => session[:lesson]['time_start'], :time_end => session[:lesson]['time_end'], :topic_id => session[:lesson]['topic_id'], :topic_group_id => session[:lesson]['topic_group_id'], :level_id => session[:lesson]['level_id'], :price => session[:lesson]['price'])
-
             if @lesson.save
               @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
                                         :mangopay_payin_id => @transaction_mango, :transfert_date => DateTime.now, :price => @lesson.price)
@@ -59,8 +58,12 @@ class RequireLessonController < ApplicationController
             flash[:notice] = 'Il y a eu un problème lors de la transaction, veuillez réessayer.'
           end
         else
+          if session[:lesson][:freeLesson] = true
+            @lesson = Lesson.create(:student_id => session[:lesson]['student_id'], :teacher_id => session[:lesson]['teacher_id'], :status => 0, :time_start => session[:lesson]['time_start'], :time_end => session[:lesson]['time_end'], :topic_id => session[:lesson]['topic_id'], :topic_group_id => session[:lesson]['topic_group_id'], :level_id => session[:lesson]['level_id'], :price => session[:lesson]['price'], :freeLesson=>true)
+          else
           #@lesson = Lesson.create(session[:lesson])
-          @lesson = Lesson.create(:student_id => session[:lesson]['student_id'], :teacher_id => session[:lesson]['teacher_id'], :status => 0, :time_start => session[:lesson]['time_start'], :time_end => session[:lesson]['time_end'], :topic_id => session[:lesson]['topic_id'], :topic_group_id => session[:lesson]['topic_group_id'], :level_id => session[:lesson]['level_id'], :price => session[:lesson]['price'])
+            @lesson = Lesson.create(:student_id => session[:lesson]['student_id'], :teacher_id => session[:lesson]['teacher_id'], :status => 0, :time_start => session[:lesson]['time_start'], :time_end => session[:lesson]['time_end'], :topic_id => session[:lesson]['topic_id'], :topic_group_id => session[:lesson]['topic_group_id'], :level_id => session[:lesson]['level_id'], :price => session[:lesson]['price'])
+          end
           if @lesson.save
             @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
                                       :mangopay_payin_id => session[:payment], :transfert_date => DateTime.now, :price => @lesson.price)
@@ -70,6 +73,7 @@ class RequireLessonController < ApplicationController
             @lesson.teacher.send_notification(subject, body, @lesson.student)
             PrivatePub.publish_to "/lessons/#{@lesson.teacher_id}", :lesson => @lesson
             flash[:notice] = 'La transaction a correctement été effectuée'
+            
           end
         end
         #@transaction = session[:payment] || session[:payment]
@@ -87,17 +91,27 @@ class RequireLessonController < ApplicationController
     @lesson = Lesson.new
     case step
       when :choose_lesson
-        right_time = ((DateTime.parse(params[:lesson][:time_end]).beginning_of_minute()  - DateTime.parse(params[:lesson][:time_start]).beginning_of_minute() ) * 24).to_f
-        right_price = Advert.get_price(User.find(params[:lesson][:teacher_id]), Topic.find(params[:lesson][:topic_id]), Level.find(params[:lesson][:level_id])) * right_time
-        if right_price != params[:lesson][:price].to_f
-          flash[:danger] = 'Ne modifiez pas le prix comme ça!!!'
-          redirect_to wizard_path(:choose_lesson) and return
-        end
-        session[:lesson] = {}
-        session[:lesson] = params[:lesson]
-        session[:lesson][:student_id] = current_user.id
-        session[:lesson][:status] = 0
-        jump_to(:payment)
+          if params[:firstLessonFree] == "on" #En cas de lessonsm gratuite par le Prof
+            right_time = ((DateTime.parse(params[:lesson][:time_end]).beginning_of_minute()  - DateTime.parse(params[:lesson][:time_start]).beginning_of_minute() ) * 24).to_f
+            session[:lesson] = {}
+            session[:lesson] = params[:lesson]
+            session[:lesson][:student_id] = current_user.id
+            session[:lesson][:status] = 0
+            session[:lesson][:freeLesson] = true
+            jump_to(:finish)
+          else  #Lesson commandé normalement
+            right_time = ((DateTime.parse(params[:lesson][:time_end]).beginning_of_minute()  - DateTime.parse(params[:lesson][:time_start]).beginning_of_minute() ) * 24).to_f
+            right_price = Advert.get_price(User.find(params[:lesson][:teacher_id]), Topic.find(params[:lesson][:topic_id]), Level.find(params[:lesson][:level_id])) * right_time
+              if right_price != params[:lesson][:price].to_f
+                flash[:danger] = 'Ne modifiez pas le prix comme ça!!!'
+                redirect_to wizard_path(:choose_lesson) and return
+              end
+            session[:lesson] = {}
+            session[:lesson] = params[:lesson]
+            session[:lesson][:student_id] = current_user.id
+            session[:lesson][:status] = 0
+            jump_to(:payment)
+          end
       when :payment
         mode = params[:mode]
         jump_to(mode)

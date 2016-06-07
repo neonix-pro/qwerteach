@@ -54,6 +54,7 @@ class TeacherDashboard < Administrate::BaseDashboard
       avatar_file_size: Field::Number,
       avatar_updated_at: Field::DateTime,
       mango_id: Field::Number,
+      score: Field::Number,
   }
 
   # COLLECTION_ATTRIBUTES
@@ -72,6 +73,7 @@ class TeacherDashboard < Administrate::BaseDashboard
       :postulance_accepted,
       :teacher_status,
       :adverts,
+      :score,
   ]
 
   # SHOW_PAGE_ATTRIBUTES
@@ -126,6 +128,7 @@ class TeacherDashboard < Administrate::BaseDashboard
       # #:avatar_content_type,
       # #:avatar_file_size,
       # #:avatar_updated_at,
+      :score,
   ]
 
   # FORM_ATTRIBUTES
@@ -170,6 +173,7 @@ class TeacherDashboard < Administrate::BaseDashboard
       #:unlock_token,
       #:locked_at,
       :admin,
+      :score,
   ]
 
   # Overwrite this method to customize how teachers are displayed

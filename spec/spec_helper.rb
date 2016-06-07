@@ -21,6 +21,7 @@ require 'support/factory_girl'
 require 'sunspot/rails/spec_helper'
 
 RSpec.configure do |config|
+
   #Ajout de Sunspot pour les tests sur Advert
     config.before(:each) do
     ::Sunspot.session = ::Sunspot::Rails::StubSessionProxy.new(::Sunspot.session)

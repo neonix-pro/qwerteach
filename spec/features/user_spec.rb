@@ -3,23 +3,45 @@ require 'rails_helper'
 feature "UserSignsUps" do
   scenario "GET /new_user_registration" do
     visit new_user_registration_path
-    expect(page).to have_content("S'inscrire")
+    expect(page).to have_content("Sign up")
   end
   scenario 'with invalid email' do
-    sign_up_with 'invalid_email', 'password', 'password'
-    expect(page).to have_content("Email n'est pas valide")
+    visit new_user_registration_path
+    within('#body') do 
+      fill_in 'user[email]', with:'t@.'
+      fill_in 'user[password]', with: 'password'
+      fill_in 'user[password_confirmation]', with: 'password'
+      click_button 'Sign up'
+      expect(page).to have_content 'Sign up'
+    end
+
   end
   scenario 'with invalid password' do
-    sign_up_with 'p@p.p', 'passwo', 'passwo'
-    expect(page).to have_content("Password est trop court")
+    visit new_user_registration_path
+    within('#body') do 
+      fill_in 'user[email]', with:'t@t.t'
+      fill_in 'user[password]', with: 'pass'
+      fill_in 'user[password_confirmation]', with: 'pass'
+      click_button 'Sign up'
+      expect(page).to have_content 'Sign up'
   end
-  scenario 'with not same passwords' do
-    sign_up_with 'p@p.p', 'password', 'passwo'
-    expect(page).to have_content("Password confirmation ne concorde pas avec Password")
+end
+  scenario 'with different password' do
+    visit new_user_registration_path
+    within('#body') do 
+      fill_in 'user[email]', with:'t@t.t'
+      fill_in 'user[password]', with: 'kaltrina'
+      fill_in 'user[password_confirmation]', with: 'rouilliiiiiiiiiiii'
+      click_button 'Sign up'
+      expect(page).to have_content 'Sign up'
   end
+end
   scenario 'with not same passwords' do
-    sign_up_with 'p@p.p', 'password', 'password'
-    expect(page).to have_content("Un message contenant un lien de confirmation a été envoyé à votre adresse email")
+    sign_up_with 'p@p.p', 'password', 'paswor'
+      within ("#body") do
+       expect(page).to have_content("Un message contenant un lien de confirmation a été envoyé à votre adresse email. Ouvrez ce lien pour activer votre compte.")
+      end
+  end
   end
   def sign_up_with(email, password, password_confirmation)
     visit new_user_registration_path
@@ -30,7 +52,6 @@ feature "UserSignsUps" do
       click_button 'Sign up'
     end
   end
-end
 feature "UserUnlockInstructions" do
   scenario "right unlock information" do
     User.first.lock_access!

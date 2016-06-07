@@ -30,5 +30,4 @@ class CustomMessageMailer < Mailboxer::MessageMailer
          :subject => 'Vous avez  messages! Connectez-vous pour les lire!',
          :template_name => 'new_message_email'
   end
-
 end

@@ -6,7 +6,7 @@
   .field
     = f.label :email
     %br/
-    = f.email_field :email, autofocus: true, class: 'form-control', :required => true
+    = f.email_field :email, autofocus: true, class: 'form-control', :required => true, id: "user_email"
   .field
     = f.label :password
     - if @validatable

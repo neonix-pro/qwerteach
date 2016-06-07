@@ -1,6 +1,11 @@
 = form_tag wizard_path, method: :put do |f|
-  = hidden_field_tag 'lesson[teacher_id]', @teacher
+  = hidden_field_tag 'lesson[teacher_id]', @teacher.id
   #price
+    .form-group
+      - if @teacher.first_lesson_free == true && @lessonStudent.empty?
+        %input{:name => "firstLessonFree", :type => "checkbox", :class => "firstLessonFree"}
+        Cours d'essai gratuit 30mn
+        %br
   .form-group
     = label_tag :time_start
     #datetimepicker2.input-group.date
@@ -21,3 +26,4 @@
       %span#price_shown 0
       €
     = submit_tag :enregistrer, :class => 'btn btn-primary btn-mini'
+
