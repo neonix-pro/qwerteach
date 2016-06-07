@@ -73,25 +73,26 @@ as well as a link to its edit page.
     <% end %>
     </tbody>
   </table>
-
-<div class="header">
-  <h3>Recordings</h3>
-</div>
-<table>
-  <thead>
-  <th>ID</th><th>Link</th><th>Created at</th>
-  </thead>
-  <tbody>
-  <% recordings = BigbluebuttonRecording.where(:room_id => page.resource.bbb_room) %>
-  <% recordings.each do |rec| %>
-      <tr>
-        <td><%= rec.id %></td>
-        <td><%= link_to "link", rec.playback_formats.first.url %></td>
-        <td><%= rec.created_at %></td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
+<% unless page.resource.bbb_room.nil? %>
+  <div class="header">
+    <h3>Recordings</h3>
+  </div>
+  <table>
+    <thead>
+    <th>ID</th><th>Link</th><th>Created at</th>
+    </thead>
+    <tbody>
+      <% recordings = BigbluebuttonRecording.where(:room_id => page.resource.bbb_room) %>
+      <% recordings.each do |rec| %>
+          <tr>
+            <td><%= rec.id %></td>
+            <td><%= link_to "link", rec.playback_formats.first.url %></td>
+            <td><%= rec.created_at %></td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 
 
