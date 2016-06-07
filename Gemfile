@@ -55,6 +55,10 @@ gem 'bootstrap-datepicker-rails'
 #interface admin
 gem "administrate", "~> 0.1.4"
 
+
+# seed dump
+gem 'seed_dump'
+
 #gems for async actions
 gem 'private_pub'
 gem 'thin'
