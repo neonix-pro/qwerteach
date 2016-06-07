@@ -6,29 +6,42 @@ feature "UserSignsUps" do
     expect(page).to have_content("Sign up")
   end
   scenario 'with invalid email' do
+    visit new_user_registration_path
+    within('#body') do 
       fill_in 'user[email]', with:'t@.'
       fill_in 'user[password]', with: 'password'
       fill_in 'user[password_confirmation]', with: 'password'
       click_button 'Sign up'
       expect(page).to have_content 'Sign up'
+    end
+
   end
   scenario 'with invalid password' do
-    sign_up_with 'p@p.p', 'password', 'passwo'
-    within ("#body") do
-      expect(page).to have_content('Sign up')
-    end
+    visit new_user_registration_path
+    within('#body') do 
+      fill_in 'user[email]', with:'t@t.t'
+      fill_in 'user[password]', with: 'pass'
+      fill_in 'user[password_confirmation]', with: 'pass'
+      click_button 'Sign up'
+      expect(page).to have_content 'Sign up'
   end
+end
+  scenario 'with different password' do
+    visit new_user_registration_path
+    within('#body') do 
+      fill_in 'user[email]', with:'t@t.t'
+      fill_in 'user[password]', with: 'kaltrina'
+      fill_in 'user[password_confirmation]', with: 'rouilliiiiiiiiiiii'
+      click_button 'Sign up'
+      expect(page).to have_content 'Sign up'
+  end
+end
   scenario 'with not same passwords' do
-    sign_up_with 'p@p.p', 'password', 'pasword'
+    sign_up_with 'p@p.p', 'password', 'paswor'
       within ("#body") do
        expect(page).to have_content("Un message contenant un lien de confirmation a été envoyé à votre adresse email. Ouvrez ce lien pour activer votre compte.")
       end
   end
-  scenario 'with not same passwords' do
-    sign_up_with 'p@p.p', 'password', 'pafressword'
-    expect(page).to have_css("div#help-block form-error")
-    
-    end
   end
   def sign_up_with(email, password, password_confirmation)
     visit new_user_registration_path

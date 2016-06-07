@@ -208,37 +208,39 @@ class User < ActiveRecord::Base
   def self.from_omniauth(auth)
     @provider = auth.provider
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      case @provider
-        when "twitter"
-          user.firstname = auth.info.name
-          user.lastname = auth.info.nickname
-          user.email = auth.info.email
-          user.confirmed_at = DateTime.now.to_date
-          user.avatar = auth[:extra][:raw_info][:profile_image_url]
-        when "facebook"
-          user.firstname = auth.info.first_name
-          user.lastname = auth.info.last_name
-          user.password = Devise.friendly_token[0,20]
-          user.email = auth.info.email
-          user.avatar = auth.info.images
-          user.confirmed_at = DateTime.now.to_date
-        when "linkedin"
-          user.firstname = auth.info.firstName
-          user.lastname = auth.info.lastName
-          user.email = auth.info.email
-          user.avatar = auth.info.image
-          user.confirmed_at = DateTime.now.to_date
-        when "google_oauth2"
-          #user.firstname = auth.info.firstname
-          #user.lastname = auth.info.lastname
-          user.password = Devise.friendly_token[0,20]
-          user.email = auth.info.email
-          user.avatar = URI.parse(auth.info.image) if auth.info.image?
-          user.confirmed_at = DateTime.now.to_date
-      end
+        case @provider
+          when "twitter"
+            user.firstname = auth.info.name
+            user.lastname = auth.info.nickname
+            user.email = auth.info.email
+            user.password = Devise.friendly_token[0,20]
+            user.confirmed_at = DateTime.now.to_date
+            user.avatar = auth[:extra][:raw_info][:profile_image_url]
+          when "facebook"
+            user.firstname = auth.info.first_name
+            user.lastname = auth.info.last_name
+            user.password = Devise.friendly_token[0,20]
+            user.email = auth.info.email
+            user.avatar = URI.parse(auth.info.image) if auth.info.image?
+            user.confirmed_at = DateTime.now.to_date
+          when "linkedin"
+            user.firstname = auth.info.first-name
+            user.lastname = auth.info.last-name
+            user.email = auth.info.email-address
+            user.password = Devise.friendly_token[0,20]
+            user.avatar = auth.info.picture-urls
+            user.confirmed_at = DateTime.now.to_date
+          when "google_oauth2"
+            user.firstname = auth.info.first_name 
+            user.lastname = auth.info.last_name 
+            user.password = Devise.friendly_token[0,20]
+            user.email = auth.info.email 
+            user.avatar = URI.parse(auth.info.image) if auth.info.image?
+            user.confirmed_at = DateTime.now.to_date
+        end
     end
   end
-   def self.new_with_session(params, session)
+   def self.new_with_session(params, session) 
       super.tap do |user|
         if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
           user.email = data["email"] if user.email.blank?
