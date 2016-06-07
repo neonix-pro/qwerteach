@@ -87,16 +87,7 @@
       %h5 Afin de favoriser la concentration sur les explications du professeur plutôt que sur la prise de note, chaque leçon est enregistrée et accesisslbe par la suite
       %p
         %a{:href => ""} Plus d'info
-  .container
-    %div{:classe => "row section-presse"}
-      %h2 La presse parle de nous!
-      .col-sm-2.col-xs-4.center-block
-        = image_tag("test3.png", :class => "image_presse img-responsive")
-      .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
-      .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
-      .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
-      .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
-      .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
+  = render "pages/presse"
   - if user_signed_in?
     %h2 Utilisateurs enregistrés
     %table{:style => "width:75%"}
