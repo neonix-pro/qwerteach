@@ -226,7 +226,7 @@ class RequireLessonController < ApplicationController
         end
         jump_to(:finish)
       when :finish
-
+f
       else
     end
 

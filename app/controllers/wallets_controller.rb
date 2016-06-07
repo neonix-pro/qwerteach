@@ -16,14 +16,14 @@ class WalletsController < ApplicationController
       @transactions_on_way = @wallets.third
       @mango_user = MangoPay::NaturalUser.fetch(@user.mango_id)
 
-      #@transactions = MangoPay::User.transactions(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 100})
-      #@transactions_on_way = 0
-      #@transactions.each do |t|
-      #  if t["Status"] == "CREATED"
-      #    @transactions_on_way += (t["DebitedFunds"]["Amount"]).to_f/100
-      #  end
-      #end
-      #@transactions_on_way
+      @transactions = MangoPay::User.transactions(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 100})
+      @transactions_on_way = 0
+      @transactions.each do |t|
+       if t["Status"] == "CREATED"
+         @transactions_on_way += (t["DebitedFunds"]["Amount"]).to_f/100
+       end
+      end
+      @transactions_on_way
 
       if params[:transactionId]
         @transaction = MangoPay::PayIn.fetch(params[:transactionId])

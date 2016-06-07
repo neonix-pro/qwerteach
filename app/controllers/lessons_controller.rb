@@ -52,40 +52,6 @@ class LessonsController < ApplicationController
     end
   end
 
-  # Not used
-  def create
-    /  @student_id = current_user.id
-    price = params[:lesson][:price]
-    debut = DateTime.new(params[:lesson]['time_start(1i)'].to_i,
-                         params[:lesson]['time_start(2i)'].to_i,
-                         params[:lesson]['time_start(3i)'].to_i,
-                         params[:lesson]['time_start(4i)'].to_i,
-                         params[:lesson]['time_start(5i)'].to_i)
-    fin = DateTime.new(params[:lesson]['time_end(1i)'].to_i,
-                       params[:lesson]['time_end(2i)'].to_i,
-                       params[:lesson]['time_end(3i)'].to_i,
-                       params[:lesson]['time_end(4i)'].to_i,
-                       params[:lesson]['time_end(5i)'].to_i)
-
-    calculatedTime = (fin - debut)*24
-    @teacher = User.find(params[:lesson][:teacher_id])
-    advert_prices = @teacher.adverts.where(:topic_id => params[:lesson][:topic_id]).map { |a| a.advert_prices.where(:level_id => params[:lesson][:level_id]) }
-    prices = advert_prices.map { |m| m.map { |k| k.price } }
-    price_is_correct = false
-    prices.each do |p|
-      p.each do |n|
-        if (n*calculatedTime) == BigDecimal.new(price, 8)
-          price_is_correct = true
-        end
-      end
-    end/
-    #render 'lessons/payment_select'
-    / @lesson = Lesson.create(lesson_params)
-    if @lesson.save
-      #  format.html { redirect_to root_path, notice: 'Lesson was successfully required.' }
-    end/
-  end
-
   def require_lesson
     @student_id = current_user.id
     @lesson = Lesson.new
@@ -145,7 +111,7 @@ class LessonsController < ApplicationController
           @lesson.save
           @lesson.payments.each { |payment| payment.update_attributes(:status => 2) }
           body = "#"
-          subject = "Le professeur #{@lesson.teacher.email} a annulé votre cours."
+          subject = "Le professeur #{@lesson.teacher.name} a annulé votre cours."
           @lesson.student.send_notification(subject, body, @lesson.teacher)
           PrivatePub.publish_to "/lessons/#{@lesson.student_id}", :lesson => @lesson
           flash[:notice] = "Le cours a été annulé."
@@ -168,7 +134,7 @@ class LessonsController < ApplicationController
             @lesson.save
             @lesson.payments.each { |payment| payment.update_attributes(:status => 2) }
             body = "#"
-            subject = "L'élève #{@lesson.student.email} a annulé sa demande de cours."
+            subject = "L'élève #{@lesson.student.name} a annulé sa demande de cours."
             @lesson.teacher.send_notification(subject, body, @lesson.student)
             PrivatePub.publish_to "/lessons/#{@lesson.teacher_id}", :lesson => @lesson
             flash[:notice] = "Le cours a été annulé."

@@ -2,13 +2,14 @@
   %tr
     %td= Time.at(transaction["CreationDate"]).to_datetime
     %td= Time.at(transaction["ExecutionDate"]).to_datetime
-    - if (transaction["CreditedUserId"]).to_i == current_user.mango_id
-    - proprio = MangoPay::Wallet.fetch(transaction["DebitedWalletId"])["Owners"].first
-    - prop = User.where(:mango_id => proprio)
+    %td= transaction['Type']
+    - if (transaction["CreditedUserId"]).to_i == @user.mango_id
+      - proprio = MangoPay::Wallet.fetch(transaction["DebitedWalletId"])["Owners"].first
+      - prop = User.where(:mango_id => proprio)
       %td= (prop.first.nil? ? "moi" : prop.first.email)
     - else
       - prop = User.where(:mango_id => transaction["CreditedUserId"])
-      %td= prop.first.email
+      %td= prop.first.nil? ? transaction['creditedWalletId'] : prop.first.email
     %td
       = (transaction["CreditedUserId"]).to_i == current_user.mango_id ? +((transaction["CreditedFunds"]["Amount"]).to_f/100).to_f : -((transaction["DebitedFunds"]["Amount"]).to_f/100).to_f
       = transaction["CreditedFunds"]["Currency"]

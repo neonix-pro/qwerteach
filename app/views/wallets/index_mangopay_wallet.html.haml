@@ -26,6 +26,6 @@
   +
   \#{((@bonus["Balance"]["Amount"]).to_f/100).to_f} #{@bonus["Balance"]["Currency"]} de crédit bonus
 %p
-  En cours de transfert : #{@transactions_on_way["Balance"]["Amount"]}
+  En cours de transfert : #{@transactions_on_way}
 %p
   Date de création : #{Time.at(@wallet['CreationDate']).to_date}

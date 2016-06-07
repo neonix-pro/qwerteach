@@ -47,6 +47,7 @@ TopicGroup.create(:title => "Lettres", :level_code => "scolaire")
 TopicGroup.create(:title => "Langues", :level_code => "langue")
 TopicGroup.create(:title => "Economie", :level_code => "scolaire")
 TopicGroup.create(:title => "Informatique", :level_code => "scolaire")
+TopicGroup.create(:title => "Autre", :level_code => "scolaire")
 
 Topic.create(:topic_group_id => 1 ,:title => "Mathématiques")
 Topic.create(:topic_group_id => 1 ,:title => "Statistiques")
@@ -80,6 +81,8 @@ Topic.create(:topic_group_id => 6 ,:title => "Programmation")
 Topic.create(:topic_group_id => 6 ,:title => "Réseaux")
 Topic.create(:topic_group_id => 6 ,:title => "Base de données")
 Topic.create(:topic_group_id => 6 ,:title => "Other")
+
+Topic.create(:topic_group_id => 7 ,:title => "Other")
 
 Bigbluebutton::BigbluebuttonServer.create(name: "BBB_prod", url: "http://classevirtuelle.qwerteach.com/bigbluebutton/api", salt: "f3b1e2b44deea958cb3503c032310d3c", version: "0.9", param: "bbb_prod")
 

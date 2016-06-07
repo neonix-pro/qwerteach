@@ -57,7 +57,9 @@ class User < ActiveRecord::Base
   end
 
   def wallets
-    MangoPay::User.wallets(mango_id)
+    unless(mango_id.nil?)
+      MangoPay::User.wallets(mango_id)
+      end
   end
 
   def total_wallets
