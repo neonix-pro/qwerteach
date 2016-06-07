@@ -242,7 +242,7 @@ Devise.setup do |config|
   config.omniauth :twitter, "zJLgYhx0QVgh6e58EFSIhxHuL", "FTKNu4Oa9W3TH1uN5dX0svMLqNvysVhUn6T69pjRBZl2sYh6f3" 
   #Pensez à demander Upgrade droit Support Twitter
   config.omniauth :google_oauth2, "1050328477515-4cdevujj1h044kqt41fqh4dd8nf61mo8.apps.googleusercontent.com", "bG5ygVRwoep0_JJqqDvI1o6h", { access_type: "offline", approval_prompt: "" }
-  config.omniauth :linkedin_oauth2, "77f4ga9nq6n1iw", "kcEaHPCF97y5XUsO"
+  config.omniauth :linkedin, "77f4ga9nq6n1iw", "kcEaHPCF97y5XUsO"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
