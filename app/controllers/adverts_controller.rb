@@ -142,12 +142,6 @@ class AdvertsController < ApplicationController
 
   private
   def advert_params
-    params.require(:advert).permit(:advert, :prices, :topic_group_id, :levels_chosen, :topic_id, :user_id, :other_name, :topic, advert_prices_attributes: [:id, :level_id, :price, :_destroy]).merge(user_id: current_user.id, topic: Topic.find(params[:topic_id]))
+    params.require(:advert).permit(:advert, :prices, :topic_group_id, :levels_chosen, :topic_id, :user_id, :other_name, :topic, :description, advert_prices_attributes: [:id, :level_id, :price, :_destroy]).merge(user_id: current_user.id, topic: Topic.find(params[:topic_id]))
   end
-
-  private
-  def advert_create_params
-    params.permit(:advert, :prices, :levels_chosen, :topic_id, :user_id, :other_name, :topic, advert_prices_attributes: [:id, :level_id, :price, :_destroy]).merge(user_id: current_user.id, topic: Topic.find(params[:topic_id]))
-  end
-
 end
