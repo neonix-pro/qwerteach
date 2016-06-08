@@ -4,6 +4,9 @@
     = f.select :topic_group_id, options_for_select(TopicGroup.all.collect { |p| [p.title, p.id] }), {include_blank: "Choisissez une catégorie"}, :required => true
   .field.topic_choice.group_choice_topic
   .field.other_name
+  .field.description
+    = f.label :description
+    = f.text_area :description, :class => 'ckeditor'
   .field.level_choice_levels
   .form-actions
     = f.submit nil, :class => 'btn btn-primary  btn-mini'
