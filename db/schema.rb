@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601091043) do
+ActiveRecord::Schema.define(version: 20160608082444) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id",                                        null: false
@@ -22,12 +22,13 @@ ActiveRecord::Schema.define(version: 20160601091043) do
   end
 
   create_table "adverts", force: :cascade do |t|
-    t.integer  "user_id",        null: false
+    t.integer  "user_id",                     null: false
     t.integer  "topic_id"
-    t.integer  "topic_group_id", null: false
+    t.integer  "topic_group_id",              null: false
     t.string   "other_name"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "description",    default: ""
   end
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|

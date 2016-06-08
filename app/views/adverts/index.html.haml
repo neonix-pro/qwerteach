@@ -5,6 +5,7 @@
 - @adverts.each do |advert|
   .col-xs-6.col-md-3.thumbnail
     %h4= advert.topic.topic_group.title
+    %h6= raw(advert.description)
     - if (advert.topic.title=="Autre")
       %p
         Topic: #{advert.other_name}
