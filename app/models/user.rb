@@ -46,7 +46,42 @@ class User < ActiveRecord::Base
   # for gem unread
   acts_as_reader
 
-
+  def numberOfReview
+    @review = Review.where(subject_id: self.id).count
+    return @review
+  end
+  def avg_reviews
+    @notes = self.reviews_received.map { |r| r.note }
+    @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size
+    return @avg
+  end  
+  def firstLessonFree
+    if self.first_lesson_free == true
+      @freeLesson = 'Premier cours gratuit!'
+    else
+      @freeLesson = ''
+    end
+    return @freeLesson
+  end
+  def lastReview
+    lastReview = Review.where(subject_id: self.id)
+      lastReview.each do |review|
+        @text_review = review.review_text
+      end
+    return @text_review
+    
+  end
+  def priceLessExpensive 
+    prices = self.adverts.map { |d| d.advert_prices.map { |l| l.price } }.min.first
+  end
+  def online
+    online = self.updated_at > 10.minutes.ago
+    if online == true
+      return "Prof online!"
+    else
+      return ""
+    end
+  end
   def send_notification (subject, body, sender)
     notification = self.notify(subject, body, nil, true, 100, false, sender)
     PrivatePub.publish_to '/notifications/'+self.id.to_s, :notification => notification
