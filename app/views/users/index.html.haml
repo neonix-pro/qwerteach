@@ -57,66 +57,6 @@
             .commentaireProf Wahouu Troop biiiien
             .voirProfil= link_to "Voir le profil", user_path(u)
     = paginate @pagin
-.row.featurette.section-commentmarche
-  .col-md-7
-    = image_tag("test3.png", :class => "img_love img-responsive")
-  .col-md-5
-    %p
-    %h4
-      Choisissez votre professeur.
-      %br/
-      %h6 Découvrez des experts aux compétences diverses et aux parcours uniques, à votre disposition?
-      %br/
-      %a{:href => "#entete"} Trouver un prof
-    %p
-    %h4 Fixer un rendez-vous
-    %h6 Communiquez avec votre prof sur vos besoins spécifiques et validez le tarif du cours.
-    %br/
-    %p
-    %h4 Recevez votre cours en ligne
-    %h6 Aprendez à votre rythme en partageant vos docuements dans la classe virtuelles.
-    %p
-      Qu'est ce que
-      %a{:href => ""} la classe virtuelle?
-.row.featurette.section.section-commentaire
-  .col-md-7
-    = image_tag("test3.png", :class => "img_present img-responsive")
-  .col-md-5
-    %h4#cadreBleu.txtCadreBleu Nos élèves adorent leurs cours en ligne.
-.row
-  .col-sm-6.col-md-4.colonne1.thumbnails
-    = image_tag("test3.png", :class => "image_presse img-responsive")
-    .caption
-      %h4 Des professeurs de qualités
-      %hr{:color => "grey", :width => "25%"}/
-      %p
-      %h5 La communauté Qwerteach offre un large choix de professeurs motivés et compétents. Tous nos professeurs sont interviewés individuellement, évalués puis validés par notre équipe.
-      %p
-        %a{:href => ""} Plus d'info
-  .col-sm-6.col-md-4.colonne2.thumbnails
-    = image_tag("test3.png", :class => "image_presse img-responsive")
-    .caption
-      %h4 Vous travaillez à votre rythme
-      %hr{:color => "grey", :width => "25%"}/
-      %p
-      %h5 Opter pour des cours en ligne permet de module plus aisément les heures de cours, de s'adapter ç l'emloi du temps de l'élève et de respecter son rythme de travail.
-      %p
-        %a{:href => ""} Plus d'info
-  .col-sm-6.col-md-4.colonne3.thumbnails
-    = image_tag("test3.png", :class => "image_presse img-responsive")
-    .caption
-      %h4 Vos cours sont enregistrés
-      %hr{:color => "grey", :width => "25%"}/
-      %p
-      %h5 Afin de favoriser la concentration sur les explications du professeur plutôt que sur la prise de note, chaque leçon est enregistrée et accesisslbe par la suite
-      %p
-        %a{:href => ""} Plus d'info
-.container
-  %div{:classe => "row section-presse"}
-    %h2 La presse parle de nous!
-    .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
+= render 'pages/partieCommentaire'
+= render 'pages/triColonne'
+= render "pages/presse"

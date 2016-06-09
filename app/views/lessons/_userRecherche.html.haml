@@ -1,0 +1,21 @@
+.col-xs-6.col-md-3.result
+  .thumbnail.result
+    .caption.result
+      %p
+      %p= link_to 'Demander un cours', user_require_lesson_index_path(u.id)
+      .nomPrenomResult
+      %h5
+        = u.lastname
+        = u.firstname
+      .notation
+        Etoile #{u.avg_reviews}
+      .specialite
+        Spécialité :
+        - @h[u.id].each do |a|
+          = link_to a.topic.title, advert_path(a)
+      %br/
+      %h9
+        = raw(u.description)
+      %br/
+      .commentaireProf Wahouu Troop biiiien
+      .voirProfil= link_to "Voir le profil", user_path(u)

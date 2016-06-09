@@ -1,0 +1,6 @@
+%h5 Crédit sur Qwerteach:
+= ((@wallet_normal["Balance"]["Amount"]).to_f/100).to_f
+= @wallet_normal["Balance"]["Currency"]
++
+\#{((@wallet_bonus["Balance"]["Amount"]).to_f/100).to_f} #{@wallet_bonus["Balance"]["Currency"]} de crédit bonus
+%div= link_to 'Charger du crédit', direct_debit_path(@user)

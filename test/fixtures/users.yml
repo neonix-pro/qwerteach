@@ -27,7 +27,7 @@ one:
     type: User
     confirmation_sent_at: "2016-04-25 08:38:01.794477"
     confirmed_at: "2016-04-25 08:38:01.794477"
-    mango_id: nil
+    mango_id: 575577
 
 two:
     id: 2

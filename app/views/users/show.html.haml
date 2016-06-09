@@ -11,30 +11,29 @@
   #page-content-wrapper
     .container-fluid.tailleHeader
       .row
-        .col-md-3
-          - if @user.first_lesson_free?
-            %h3 FirstLessonFree
-          - if @user.postulance_accepted?
-            %h3.nomPrenomProfil
-              %b
-                = @user.lastname
-                = @user.firstname
-            %h4
-              = @user.response_rate
-              = @user.response_time
-            %p
-              = Time.now.year - @user.birthdate.year
-              ans
-            %i
-              Prof certifié #{image_tag("check.png")}
-            .div 
-              - if @prices && !@prices.empty?
-                %p
-                  Prix minimum : #{ActionController::Base.helpers.number_to_currency(@prices.min.first)}
-                %p= link_to 'Demander un cours', user_require_lesson_index_path(@user.id)
-          - elsif @user.is_a? Teacher
-            - if current_user.admin?
-              = button_to 'Inviter à une interview', room_invite_bbb_rooms_path(@user) , method: :get
+        - if @user.first_lesson_free?
+          %h3 FirstLessonFree
+        - if @user.postulance_accepted?
+          %h3.nomPrenomProfil
+            %b
+              = @user.lastname
+              = @user.firstname
+          %h4
+            = @user.response_rate
+            = @user.response_time
+          %p
+            = Time.now.year - @user.birthdate.year
+            ans
+          %i
+            Prof certifié #{image_tag("check.png")}
+          .div 
+            - if @prices && !@prices.empty?
+              %p
+                Prix minimum : #{ActionController::Base.helpers.number_to_currency(@prices.min.first)}
+              %p= link_to 'Demander un cours', user_require_lesson_index_path(@user.id)
+        - elsif @user.is_a? Teacher
+          - if current_user.admin?
+            = button_to 'Inviter à une interview', room_invite_bbb_rooms_path(@user) , method: :get
         .div
           %p= link_to 'voir gallerie', gallery_path(@user.gallery.id)
           %p= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation", 

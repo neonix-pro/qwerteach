@@ -1,0 +1,10 @@
+.form-group
+  = label_tag :time_start
+  - formatted_date = @lesson.time_start.strftime("%F %I:%M")
+  = formatted_date.to_s
+  #datetimepicker2.input-group.date
+    = text_field_tag 'lesson[time_start]', nil, class: 'form-control', :required => true, :data => 'DateTimePicker'
+    %span.input-group-addon
+      %span.glyphicon.glyphicon-calendar
+.form-actions
+  = submit_tag :modifier, :class => 'btn btn-primary btn-mini'

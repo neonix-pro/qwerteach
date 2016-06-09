@@ -8,7 +8,7 @@
 one:
   student_id: 1
   teacher: 3
-  status: 0
+  status: 2
   time_start: DateTime.now + 11.minutes
   time_end: DateTime.now + 2.hours
   topic_id: 5
