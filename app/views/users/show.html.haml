@@ -1,81 +1,96 @@
 .headerIcone
-#wrapper.mail
   / Sidebar
-  #sidebar-wrapper
+#sidebar-wrapper
+  %ul.sidebar-nav
     %ul.sidebar-nav
-      %ul.sidebar-nav
-        .photoProfil
-          = image_tag(@user.avatar.url(:medium), size: "250x250")
-  / /#sidebar-wrapper
-  / Page Content
-  #page-content-wrapper
-    .container-fluid.tailleHeader
-      .row
-        - if @user.first_lesson_free?
-          %h3 FirstLessonFree
-        - if @user.postulance_accepted?
-          %h3.nomPrenomProfil
-            %b
-              = @user.lastname
-              = @user.firstname
-          %h4
-            = @user.response_rate
-            = @user.response_time
-          %p
-            = Time.now.year - @user.birthdate.year
-            ans
-          %i
-            Prof certifié #{image_tag("check.png")}
-          .div 
-            - if @prices && !@prices.empty?
-              %p
-                Prix minimum : #{ActionController::Base.helpers.number_to_currency(@prices.min.first)}
-              %p= link_to 'Demander un cours', user_require_lesson_index_path(@user.id)
-        - elsif @user.is_a? Teacher
-          - if current_user.admin?
-            = button_to 'Inviter à une interview', room_invite_bbb_rooms_path(@user) , method: :get
-        .div
-          %p= link_to 'voir gallerie', gallery_path(@user.gallery.id)
-          %p= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation", 
-              "data-sid" => @user.id, "data-rip" => @user.id                                   
-        %div
-          - if @user.postulance_accepted?
-            - @adverts.each do |a|
-              %h9.matiereProfil= a.topic.topic_group.title
-            %p= @user.occupation
-  / /#page2-content-wrapper
-  #page-content-wrapper
-    .container-fluid
-      .row  
-        %p= raw(@user.description)
-  - if @user.postulance_accepted?
-    %h3 Diplomes
-    - @degrees.each do |d|
-      = d.title
-      %br/
-    %h3 Description
-    %p= raw(@user.description)
-    - @adverts.each do |a|
-      - max = a.advert_prices.map { |ap| ap.level }.max.fr
-      %h5
-        = a.topic.topic_group.title
+      .photoProfil
+        = image_tag(@user.avatar.url(:medium), size: "250x250")
+/ /#sidebar-wrapper
+/ Page Content
+#page-content-wrapper
+  .container-fluid
+    .row
+      - if @user.first_lesson_free?
+        %h3 FirstLessonFree
+      - if @user.postulance_accepted?
+        %h3.nomPrenomProfil
+          %b
+            = @user.lastname
+            = @user.firstname
+        %h4
+          = @user.response_rate
+          = @user.response_time
+        %p
+          = Time.now.year - @user.birthdate.year
+          ans
         %i
-          jusqu'au niveau #{max}
-    - if @user.is_a?(Teacher)
-      %p
-        Moyenne des notations = #{@avg}
-      = link_to 'Notations', user_reviews_path(@user)
-      = form_tag user_reviews_path(@user), method: :post do
-        .field
-          = label_tag :note
-          %br/
-          = number_field_tag :note, 3, min: 0, max: 5, :required => true
-        .field
-          = label_tag :review_text
-          %br/
-          = text_area_tag :review_text, nil
-        .field
-          = submit_tag 'Noter', :class => 'btn btn-primary btn-mini'
-          %br/
-      %h3 Professeurs similaires
-/ /#wrapper
+          Prof certifié #{image_tag("check.png")}
+        .div
+          - if @prices && !@prices.empty?
+            %p
+              Prix minimum : #{ActionController::Base.helpers.number_to_currency(@prices.min.first)}
+            %button{"data-toggle" => "modal", "data-target"=>"#request-lesson"} Demander un cours
+
+      - elsif @user.is_a? Teacher
+        - if current_user.admin?
+          = button_to 'Inviter à une interview', room_invite_bbb_rooms_path(@user) , method: :get
+      .div
+        %p= link_to 'voir gallerie', gallery_path(@user.gallery.id)
+        %p= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
+            "data-sid" => @user.id, "data-rip" => @user.id
+      %div
+        - if @user.postulance_accepted?
+          - @adverts.each do |a|
+            %h9.matiereProfil= a.topic.topic_group.title
+          %p= @user.occupation
+/ /#page2-content-wrapper
+#page-content-wrapper
+  .container-fluid
+    .row
+      %p= raw(@user.description)
+- if @user.postulance_accepted?
+  %h3 Diplomes
+  - @degrees.each do |d|
+    = d.title
+    %br/
+  %h3 Description
+  %p= raw(@user.description)
+  - @adverts.each do |a|
+    - max = a.advert_prices.map { |ap| ap.level }.max.fr
+    %h5
+      = a.topic.topic_group.title
+      %i
+        jusqu'au niveau #{max}
+  - if @user.is_a?(Teacher)
+    %p
+      Moyenne des notations = #{@avg}
+    = link_to 'Notations', user_reviews_path(@user)
+    = form_tag user_reviews_path(@user), method: :post do
+      .field
+        = label_tag :note
+        %br/
+        = number_field_tag :note, 3, min: 0, max: 5, :required => true
+      .field
+        = label_tag :review_text
+        %br/
+        = text_area_tag :review_text, nil
+      .field
+        = submit_tag 'Noter', :class => 'btn btn-primary btn-mini'
+        %br/
+    %h3 Professeurs similaires
+
+
+#request-lesson.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
+        %h3.modal-title= "Réserver un cours avec #{@user.name}"
+      .modal-body
+        #lesson_details
+
+        #cd
+      .modal-footer
+        %button.btn{"data-dismiss" => "modal", :type => "button"} Close
+
+
