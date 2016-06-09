@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
 
   # for gem unread
   acts_as_reader
-
+  
   def numberOfReview
     @review = Review.where(subject_id: self.id).count
     return @review

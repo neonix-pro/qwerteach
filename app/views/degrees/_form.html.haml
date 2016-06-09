@@ -13,6 +13,18 @@
   .form-group
     = f.label :completion_year, :class => 'control-label'
     = f.text_field :completion_year, :data => {:provide => "datepicker", 'date-format' => 'yyyy', 'date-view-mode'=>'years', 'date-min-view-mode'=>'years', 'date-autoclose' => true, 'date-end-date' => (Date.new)}, :class => 'form-control',  required: true
+  .form-group
+    = f.label :adress, :class => 'control-label'
+    = f.text_field :adress, :class => 'form-control', required: true
+  .form-group 
+    = f.label :postalCode, :class => 'control-label'
+    = f.number_field :postalCode, :class => 'form-control', required: true
+  .form-group
+    = f.label :city, :class =>'control-label'
+    = f.text_field :city, :class => 'form-control', required: true
+  .form-group
+    = f.label :country, :class => 'control-label'
+    = f.text_field :country, :class => 'form-control', required: true
   .form-actions
     = f.submit :enregistrer, :class => 'btn btn-primary btn-mini'
     = link_to t('.cancel', :default => t("helpers.links.cancel")), |
