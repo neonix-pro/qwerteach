@@ -75,4 +75,15 @@ var ready = function () {
 $(document).ready(ready);
 $(document).on("page:load", ready);
 
+$(document).ready(function(){
+    $('#request-lesson').on('show.bs.modal', function(){
+
+        $.get( "/require_lesson/", function( data ) {
+            console.log(data);
+        });
+
+
+    })
+});
+
 

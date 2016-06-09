@@ -202,10 +202,6 @@ body {
   max-height: 250px;
 }
 
-.photoProfil {
-  text-align: left;
-}
-
 .matiereProfil {
   color: #21DE80;
 }
@@ -248,20 +244,17 @@ body {
 
 #page-content-wrapper {
   width: 100%;
-  position: absolute;
   padding: 15px;
 }
 
 #wrapper.toggled #page-content-wrapper {
-  position: absolute;
   margin-right: -250px;
 }
 
 /* Sidebar Styles */
 
 .sidebar-nav {
-  position: absolute;
-  top: 0;
+  position: relative;
   width: 250px;
   margin: 0;
   padding: 0;
@@ -315,6 +308,8 @@ body {
   }
 
   #sidebar-wrapper {
+    top:53px;
+    position:fixed;
     width: 250px;
   }
 
@@ -335,7 +330,6 @@ body {
 
 .tailleMax {
   max-height: 250px;
-
 }
 
 .fixed {
