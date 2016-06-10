@@ -250,26 +250,33 @@ class User < ActiveRecord::Base
             user.firstname = auth.info.name
             user.lastname = auth.info.nickname
             user.email = auth.info.email
+            user.description = auth.info.description
+            #user.birthdate = auth.info.birthdate
             user.password = Devise.friendly_token[0,20]
             user.confirmed_at = DateTime.now.to_date
             user.avatar = auth[:extra][:raw_info][:profile_image_url]
           when "facebook"
             user.firstname = auth.info.first_name
             user.lastname = auth.info.last_name
+            user.birthdate = auth.extra.raw_info.birthdate
+            user.gender = auth.extra.raw_info.gender
             user.password = Devise.friendly_token[0,20]
             user.email = auth.info.email
             user.avatar = URI.parse(auth.info.image) if auth.info.image?
             user.confirmed_at = DateTime.now.to_date
           when "linkedin"
-            user.firstname = auth.info.first-name
-            user.lastname = auth.info.last-name
-            user.email = auth.info.email-address
+            user.firstname = auth.r_basicprofile.first-name
+            user.lastname = auth.r_basicprofile.last-name
+            user.email = auth.r_emailaddress .email-address
+            user.description = auth.r_basicprofile.summary
             user.password = Devise.friendly_token[0,20]
-            user.avatar = auth.info.picture-urls
+            user.avatar = auth.r_basicprofile.picture-urls
             user.confirmed_at = DateTime.now.to_date
           when "google_oauth2"
             user.firstname = auth.info.first_name 
             user.lastname = auth.info.last_name 
+            user.birthdate = auth.extra.raw_info.birthdate
+            user.gender = auth.extra.raw_info.gender
             user.password = Devise.friendly_token[0,20]
             user.email = auth.info.email 
             user.avatar = URI.parse(auth.info.image) if auth.info.image?
