@@ -135,12 +135,8 @@ class User < ActiveRecord::Base
   end
 
   def create_mango_user (params)
-    logger.debug('-----------------TRUC')
     m = {}
     if !(self.mango_id?)
-      logger.debug(params[:Nationality])
-      logger.debug('-----------------TEST-------------')
-      logger.debug(mango_infos(params))
       m = MangoPay::NaturalUser.create(mango_infos(params))
       self.mango_id = m['Id']
       self.save!

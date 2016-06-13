@@ -57,6 +57,10 @@ Rails.application.routes.draw do
 
   resources :users, :only => [:show, :index] do
     resources :require_lesson
+    put '/request_lesson/payment' => 'request_lesson/payment'
+    get '/request_lesson/process_bancontact' => 'request_lesson/process_bancontact'
+    get '/request_lesson/process_creditcard' => 'request_lesson/process_creditcard'
+    resources :request_lesson
     resources :reviews, only: [:index, :create, :new]
   end
   get '/both_users_online' => 'users#both_users_online', :as => 'both_users_online'

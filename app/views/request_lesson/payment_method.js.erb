@@ -1,0 +1,26 @@
+$('#lesson-details').html("<%= j render(:partial => '/request_lesson/payment_method') %>");
+$('#payment-form').html("<%= j render(:partial => '/request_lesson/wallet_balance') %>");
+$('#lesson-details').on('change', '#mode', function(){
+  if($(this).val()=='transfert')
+  {
+    $('#payment-form').html("<%= j render(:partial => '/request_lesson/wallet_balance') %>");
+  }
+  else if($(this).val()=='bancontact')
+  {
+    $('#payment-form').html("<%= j render(:partial => '/request_lesson/bancontact') %>");
+  }
+  else if($(this).val()=='cd')
+  {
+    $('#payment-form').html("<%= j render(:partial => '/request_lesson/cd') %>");
+    $('#card').on('change', function(){
+      if($(this).val()=="")
+      {
+        $('#new_card').removeClass('hidden').show();
+      }
+      else {
+        $('#new_card').hide();
+      }
+    });
+  }
+});
+

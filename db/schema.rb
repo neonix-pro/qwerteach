@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608082444) do
+ActiveRecord::Schema.define(version: 20160610092703) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id",                                        null: false
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160608082444) do
     t.string   "other_name"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.string   "description",    default: ""
+    t.text     "description",    default: ""
   end
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
@@ -196,7 +196,7 @@ ActiveRecord::Schema.define(version: 20160608082444) do
     t.decimal  "price",          precision: 8, scale: 2,                 null: false
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
-    t.boolean  "freeLesson",                             default: false
+    t.boolean  "free_lesson",                            default: false
   end
 
   create_table "levels", force: :cascade do |t|

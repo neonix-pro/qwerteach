@@ -29,7 +29,7 @@
           - if @prices && !@prices.empty?
             %p
               Prix minimum : #{ActionController::Base.helpers.number_to_currency(@prices.min.first)}
-            %button{"data-toggle" => "modal", "data-target"=>"#request-lesson"} Demander un cours
+            = link_to 'Demander un cours', new_user_request_lesson_path(@user), class: "btn btn-default", remote: true
 
       - elsif @user.is_a? Teacher
         - if current_user.admin?
@@ -87,10 +87,9 @@
         %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
         %h3.modal-title= "Réserver un cours avec #{@user.name}"
       .modal-body
-        #lesson_details
+        #lesson-details
 
         #cd
       .modal-footer
         %button.btn{"data-dismiss" => "modal", :type => "button"} Close
-
 

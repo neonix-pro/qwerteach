@@ -1,6 +1,12 @@
 class RequireLessonController < ApplicationController
-  include Wicked::Wizard
   before_filter :authenticate_user!
+
+
+
+
+
+  include Wicked::Wizard
+
 
   steps :choose_lesson, :payment, :transfert, :bancontact, :cd, :finish 
   def show
@@ -83,6 +89,9 @@ class RequireLessonController < ApplicationController
       else
 
 
+    end
+    respond_to do |format|
+      format.js { render :layout => false}
     end
     render_wizard
   end

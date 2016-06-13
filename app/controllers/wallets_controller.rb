@@ -1,5 +1,6 @@
 class WalletsController < ApplicationController
   before_filter :authenticate_user!
+  after_filter { flash.discard if request.xhr? }
 
   def index_mangopay_wallet
     begin
@@ -39,16 +40,20 @@ class WalletsController < ApplicationController
   def edit_mangopay_wallet
     @user = current_user
     @path = edit_wallet_path
+    countries_list
+    @user.load_mango_infos
+    @user.load_bank_accounts
+    if @user.mango_id
+      @mango_user = MangoPay::NaturalUser.fetch(@user.mango_id)
+    end
+  end
+
+  def countries_list
     list = ISO3166::Country.all
     @list = []
     list.each do |c|
       t = [c.translations['fr'], c.alpha2]
       @list.push(t)
-    end
-    @user.load_mango_infos
-    @user.load_bank_accounts
-    if @user.mango_id
-      @mango_user = MangoPay::NaturalUser.fetch(@user.mango_id)
     end
   end
 
@@ -68,7 +73,18 @@ class WalletsController < ApplicationController
         flash[:danger] += " #{name}: #{val} \n\n"
       end
     end
-    redirect_to index_wallet_path
+    if params[:reservation]
+      if @user.mango_id.nil?
+        countries_list
+        render 'request_lesson/mango_wallet', locals: {error: 'Vérifiez les informations'}, :layout => false
+      else
+        @lesson = Lesson.new(session[:lesson])
+        render 'request_lesson/payment_method', :layout=>false
+      end
+    else
+      redirect_to index_wallet_path
+    end
+
   end
 
   def direct_debit_mangopay_wallet

@@ -1,8 +1,12 @@
-= form_tag wizard_path, method: :put, remote: true do |f|
+= form_tag user_request_lesson_index_path(@teacher), method: :post, remote: true do |f|
+  - unless @lesson.errors.empty?
+    .alert.alert-danger
+      - @lesson.errors.full_messages.each do |message|
+        %li= message
   = hidden_field_tag 'lesson[teacher_id]', @teacher.id
   #price
     .form-group
-      - if @teacher.first_lesson_free == true && @lessonStudent.empty?
+      - if @teacher.first_lesson_free == true && @free_lessons.empty?
         %input{:name => "firstLessonFree", :type => "checkbox", :class => "firstLessonFree"}
         Cours d'essai gratuit 30mn
         %br
