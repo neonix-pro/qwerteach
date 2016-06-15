@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160609130237) do
+ActiveRecord::Schema.define(version: 20160613085317) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id",                                        null: false
@@ -269,7 +269,7 @@ ActiveRecord::Schema.define(version: 20160609130237) do
   create_table "payments", force: :cascade do |t|
     t.integer  "status",                                    default: 0,                     null: false
     t.integer  "payment_type",                              default: 0,                     null: false
-    t.datetime "transfert_date",                            default: '2016-06-10 09:17:28', null: false
+    t.datetime "transfert_date",                            default: '2016-06-07 17:15:01', null: false
     t.decimal  "price",             precision: 8, scale: 2,                                 null: false
     t.integer  "lesson_id",                                                                 null: false
     t.integer  "mangopay_payin_id"

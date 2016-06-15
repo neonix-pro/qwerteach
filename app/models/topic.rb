@@ -6,5 +6,4 @@ class Topic < ActiveRecord::Base
 
   validates :topic_group_id, presence: true
   validates :title, presence: true
-
 end

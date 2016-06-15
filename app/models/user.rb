@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
 
   # for gem unread
   acts_as_reader
-  
+
   def numberOfReview
     @review = Review.where(subject_id: self.id).count
     return @review
@@ -69,10 +69,9 @@ class User < ActiveRecord::Base
         @text_review = review.review_text
       end
     return @text_review
-    
   end
   def priceLessExpensive 
-    prices = self.adverts.map { |d| d.advert_prices.map { |l| l.price } }.min.first
+    @prices = self.adverts.map { |d| d.advert_prices.map { |l| l.price } }.min.first
   end
   def online
     online = self.updated_at > 10.minutes.ago

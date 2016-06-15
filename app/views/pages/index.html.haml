@@ -1,3 +1,7 @@
+- @dataTeachers.each do |prof|
+  = render partial: 'pages/prof', :locals => {:prof => prof}
+- @dataReviews.each do |rev|
+  = render partial: 'pages/rev', :locals => {:rev => rev}
 = render 'pages/partieRecherche'
 = render 'pages/partieCarrousel'
 = render 'pages/partieQuadriProf'
@@ -5,6 +9,7 @@
 = render 'pages/partieCommentaire'
 = render 'pages/triColonne'
 = render "pages/presse"
+
 #myModIns.modal.fade{:role => "dialog"}
   .modal-dialog
     .modal-content
