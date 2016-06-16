@@ -26,7 +26,7 @@ class RequestLessonController < ApplicationController
       if @lesson.valid?
         session[:lesson]=@lesson
         if(@user.mango_id.nil?)
-          @list = coutries_list
+          coutries_list
           render 'mango_wallet', :layout=>false
         else
           user_cards
@@ -49,7 +49,11 @@ class RequestLessonController < ApplicationController
         case payment_service.send_make_transfert(
             {:amount => @lesson.price, :beneficiary => @teacher})
           when 0
-            flash[:notice] = "Le transfert s'est correctement effectué. Votre réservation de cours est donc correctement enregistrée."
+            if @lesson.save
+              flash[:notice] = "Le transfert s'est correctement effectué. Votre réservation de cours est donc correctement enregistrée."
+            else
+              flash[:danger] = "Nous n'avons pas pu procéder à votre réservation, veuillez contacter l'équipe du site."
+            end
           when 1
             flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
             user_cards
@@ -69,10 +73,8 @@ class RequestLessonController < ApplicationController
             user_cards
             render 'payment_method', :layout=>false
         end
-
-        # create lesson
       when 'bancontact'
-        return_url = request.base_url + user_request_lesson_process_bancontact_path(@teacher)
+        return_url = request.base_url + user_request_lesson_process_payin_path(@teacher)
         redirect_url = payment_service.send_make_payin_bancontact({
                         :amount => @lesson.price,
                         :beneficiary => @teacher.id,
@@ -116,41 +118,68 @@ class RequestLessonController < ApplicationController
             else
               @card = card_id
           end
-          return_url = request.base_url + user_request_lesson_process_creditcard_path(@teacher)
-          payin_direct = payment_service.send_make_payin_direct({
-                          :amount => @lesson.price,
-                          :beneficiary => @teacher,
-                          :card_id => @card,
-                          :return_url => return_url
-                          })
-          case payin_direct
-            when 0
-              #create lesson
-              @lesson.save
-              render 'finish', :layout => false
-            when 1
-              flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
-              user_cards
-              render 'payment_method', :layout=>false
-            when 2
-              flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
-              countries_list
-              render '/request_lesson/mango_wallet', :layout=>false
-            when 3
-              flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
-              redirect_to create and return
-            else
-              # 3DS
-              respond_to do |format|
-                format.js {render js: "window.location = '#{payin_direct}'" and return}
-                format.html {redirect_to payin_direct and return}
-              end
+        end
+        return_url = request.base_url + user_request_lesson_process_payin_path(@teacher)
+        payin_direct = payment_service.send_make_payin_direct({
+                        :amount => @lesson.price,
+                        :beneficiary => @teacher,
+                        :card_id => @card,
+                        :return_url => return_url
+                        })
+        case payin_direct
+          when 0
+            #create lesson
+            @lesson.save
+            render 'finish', :layout => false
+          when 1
+            flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+            user_cards
+            render 'payment_method', :layout=>false
+          when 2
+            flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+            countries_list
+            render '/request_lesson/mango_wallet', :layout=>false
+          when 3
+            flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
+            redirect_to create and return
+          else
+            # 3DS
+            respond_to do |format|
+              format.js {render js: "window.location = '#{payin_direct}'" and return}
+              format.html {redirect_to payin_direct and return}
+            end
+        end
+    end
+  end
 
-          end
+  def process_payin
+    if params[:transactionId].present?
+      status = MangoPay::PayIn.fetch(params[:transactionId].to_i)['Status']
+      if status == "SUCCEEDED"
+        @lesson = Lesson.create(session[:lesson])
+        @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
+                                    :mangopay_payin_id => @transaction_mango, :transfert_date => DateTime.now, :price => @lesson.price)
+        if @payment.save && @lesson.save
+          # prévenir le prof
+          body = "#{dashboard_path}"
+          subject = "Vous avez une nouvelle demande de cours."
+          @lesson.teacher.send_notification(subject, body, @lesson.student)
+          PrivatePub.publish_to "/lessons/#{@lesson.teacher_id}", :lesson => @lesson
+          # flash et redirect
+          flash[:notice] = 'La transaction a correctement été effectuée, votre cours a bien été réservé.'
+          redirect_to lessons_path
+        else
+          flash[:danger] = 'Il y a eu un problème avec votre réservation, contactez un administrateur!'
         end
       else
-
+        flash[:notice] = 'Il y a eu un problème lors de la transaction, veuillez réessayer.'
+        redirect_to user_path(@lesson.teacher)
+      end
+    else
+      flash[:warning] = 'Vous ne devriez pas être ici!'
     end
+    session.delete(:lesson)
+    session.delete(:payment)
   end
 
   private

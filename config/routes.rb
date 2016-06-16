@@ -58,8 +58,7 @@ Rails.application.routes.draw do
   resources :users, :only => [:show, :index] do
     resources :require_lesson
     put '/request_lesson/payment' => 'request_lesson/payment'
-    get '/request_lesson/process_bancontact' => 'request_lesson/process_bancontact'
-    get '/request_lesson/process_creditcard' => 'request_lesson/process_creditcard'
+    get '/request_lesson/process_payin' => 'request_lesson/process_payin'
     resources :request_lesson
     resources :reviews, only: [:index, :create, :new]
   end
@@ -68,7 +67,6 @@ Rails.application.routes.draw do
     #root 'dashboards#index'
     root 'pages#index' #Pour test sur Wallet Add root pages#Index
   end
-
 
   unauthenticated :user do
     devise_scope :user do

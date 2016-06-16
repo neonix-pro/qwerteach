@@ -16,9 +16,11 @@ $('#lesson-details').on('change', '#mode', function(){
       if($(this).val()=="")
       {
         $('#new_card').removeClass('hidden').show();
+        $('#new_card input').prop('required', true);
       }
       else {
         $('#new_card').hide();
+        $('#new_card input').prop('required', false);
       }
     });
   }
