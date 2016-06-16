@@ -36,6 +36,12 @@ class ApplicationController < ActionController::Base
   #definir bigbluebutton_user
 
 public
+  def index
+    #get 12 teacher random 
+    @dataTeachers = User.where(postulance_accepted: true).limit(5).order("RANDOM()")
+    #get 3 last review avec Note + Txt
+    @dataReviews =  Review.where.not(:review_text => "").order("created_at DESC").uniq.limit(3)
+  end
   def bigbluebutton_role(room)
       :moderator
   end
@@ -48,6 +54,7 @@ public
     Time.now.to_i
   end
 
+  helper_method :twelve_teacher
 #  rescue_from ActiveRecord::RecordNotFound do
 #    flash[:warning] = 'Resource not found.'
 #    redirect_back_or root_path

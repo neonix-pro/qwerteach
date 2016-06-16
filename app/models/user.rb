@@ -46,7 +46,41 @@ class User < ActiveRecord::Base
   # for gem unread
   acts_as_reader
 
-
+  def numberOfReview
+    @review = Review.where(subject_id: self.id).count
+    return @review
+  end
+  def avg_reviews
+    @notes = self.reviews_received.map { |r| r.note }
+    @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size
+    return @avg
+  end  
+  def firstLessonFree
+    if self.first_lesson_free == true
+      @freeLesson = 'Premier cours gratuit!'
+    else
+      @freeLesson = ''
+    end
+    return @freeLesson
+  end
+  def lastReview
+    lastReview = Review.where(subject_id: self.id)
+      lastReview.each do |review|
+        @text_review = review.review_text
+      end
+    return @text_review
+  end
+  def priceLessExpensive 
+    @prices = self.adverts.map { |d| d.advert_prices.map { |l| l.price } }.min.first
+  end
+  def online
+    online = self.updated_at > 10.minutes.ago
+    if online == true
+      return "Prof online!"
+    else
+      return ""
+    end
+  end
   def send_notification (subject, body, sender)
     notification = self.notify(subject, body, nil, true, 100, false, sender)
     PrivatePub.publish_to '/notifications/'+self.id.to_s, :notification => notification
@@ -211,26 +245,33 @@ class User < ActiveRecord::Base
             user.firstname = auth.info.name
             user.lastname = auth.info.nickname
             user.email = auth.info.email
+            user.description = auth.info.description
+            #user.birthdate = auth.info.birthdate
             user.password = Devise.friendly_token[0,20]
             user.confirmed_at = DateTime.now.to_date
             user.avatar = auth[:extra][:raw_info][:profile_image_url]
           when "facebook"
             user.firstname = auth.info.first_name
             user.lastname = auth.info.last_name
+            user.birthdate = auth.extra.raw_info.birthdate
+            user.gender = auth.extra.raw_info.gender
             user.password = Devise.friendly_token[0,20]
             user.email = auth.info.email
             user.avatar = URI.parse(auth.info.image) if auth.info.image?
             user.confirmed_at = DateTime.now.to_date
           when "linkedin"
-            user.firstname = auth.info.first-name
-            user.lastname = auth.info.last-name
-            user.email = auth.info.email-address
+            user.firstname = auth.r_basicprofile.first-name
+            user.lastname = auth.r_basicprofile.last-name
+            user.email = auth.r_emailaddress .email-address
+            user.description = auth.r_basicprofile.summary
             user.password = Devise.friendly_token[0,20]
-            user.avatar = auth.info.picture-urls
+            user.avatar = auth.r_basicprofile.picture-urls
             user.confirmed_at = DateTime.now.to_date
           when "google_oauth2"
             user.firstname = auth.info.first_name 
             user.lastname = auth.info.last_name 
+            user.birthdate = auth.extra.raw_info.birthdate
+            user.gender = auth.extra.raw_info.gender
             user.password = Devise.friendly_token[0,20]
             user.email = auth.info.email 
             user.avatar = URI.parse(auth.info.image) if auth.info.image?

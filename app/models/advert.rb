@@ -50,6 +50,7 @@ class Advert < ActiveRecord::Base
   # Pour Sunspot, définition des champs sur lesquels les recherches sont faites et des champs sur lesquels les filtres sont réalisés
   searchable do
     text :other_name
+
     text :user do
       user.email
     end
@@ -66,7 +67,7 @@ class Advert < ActiveRecord::Base
     string :user_age do
       Time.now.year - self.user.birthdate.year
     end
-
+    
     string :advert_prices_truc, :multiple => true do
       advert_prices.map(&:price)
     end

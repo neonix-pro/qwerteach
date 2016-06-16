@@ -34,28 +34,7 @@
   / Permet l'affichage des résultats
   .resultat
     - @pagin.each do |u|
-      .col-xs-6.col-md-3.result
-        .thumbnail.result
-          .caption.result
-            %p
-              = image_tag(u.avatar.url(:medium))
-            %p= link_to 'Demander un cours', user_require_lesson_index_path(u.id)
-            .nomPrenomResult
-              %h5
-                = u.lastname
-                = u.firstname
-            .notation
-              Etoile #{u.avg_reviews}
-            .specialite
-              Spécialité :
-              - @h[u.id].each do |a|
-                = link_to a.topic.title, advert_path(a)
-            %br/
-            %h9
-              = raw(u.description)
-            %br/
-            .commentaireProf Wahouu Troop biiiien
-            .voirProfil= link_to "Voir le profil", user_path(u)
+      = render partial: 'users/profRecherche', :locals => {:u => u}
     = paginate @pagin
 = render 'pages/partieCommentaire'
 = render 'pages/triColonne'

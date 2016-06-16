@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   before_filter :authenticate_user!
-
+  
   def show
     @user = User.find(params[:id])
     if @user.is_a?(Teacher)
@@ -12,6 +12,19 @@ class UsersController < ApplicationController
       @notes = @reviews.map { |r| r.note }
       @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size
     end
+    a = Advert.where(user_id: @user.id)
+    ids = a.map{|ad| ad.topic_id } #Get pour chaque Obj dans a les topics_id
+    adverts = Advert.where(topic_id: ids)
+    ids_user = adverts.map{|adv| adv.user_id}
+    
+    idsProfSimi = []
+    ids_user.each do |id|
+      if ids_user.include?(id) == true
+        idsProfSimi.push(id)
+        end
+      end
+    @new_id = idsProfSimi.sample(4)
+    @profSimis = @new_id.map{|id| User.find(id)}
   end
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination

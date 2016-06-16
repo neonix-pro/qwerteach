@@ -63,7 +63,7 @@ class DegreesController < ApplicationController
 
   private
   def degree_params
-    params.require(:degree).permit(:title, :institution, :completion_year, :type, :user_id, :level_id).merge(user_id: current_user.id)
+    params.require(:degree).permit(:title, :institution, :completion_year, :adress, :postalCode, :city,:country, :type, :user_id, :level_id).merge(user_id: current_user.id)
   end
 
   def find_degree

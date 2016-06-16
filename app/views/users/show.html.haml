@@ -5,6 +5,11 @@
     %ul.sidebar-nav
       .photoProfil
         = image_tag(@user.avatar.url(:medium), size: "250x250")
+      .test
+        = render "messages/sendMessage"
+      .tarif
+      %li 
+        %a{"data-toggle" => "modal", :href => "#myModIns"} Tarifs
 / /#sidebar-wrapper
 / Page Content
 #page-content-wrapper
@@ -17,6 +22,7 @@
           %b
             = @user.lastname
             = @user.firstname
+            = @user.occupation
         %h4
           = @user.response_rate
           = @user.response_time
@@ -30,6 +36,7 @@
           - if @prices && !@prices.empty?
             %p
               Prix minimum : #{ActionController::Base.helpers.number_to_currency(@prices.min.first)}
+
             = link_to 'Demander un cours', new_user_request_lesson_path(@user), class: "btn btn-default", remote: true, "data-toggle" => "modal", 'data-target' => '#request-lesson'
 
       - elsif @user.is_a? Teacher
@@ -53,6 +60,12 @@
   %h3 Diplomes
   - @degrees.each do |d|
     = d.title
+    = d.institution
+    = d.completion_year
+    = d.adress
+    = d.postalCode
+    = d.city
+    = d.country
     %br/
   %h3 Description
   %p= raw(@user.description)
@@ -78,7 +91,19 @@
       .field
         = submit_tag 'Noter', :class => 'btn btn-primary btn-mini'
         %br/
-    %h3 Professeurs similaires
+    %h3 Professeurs similaires  
+    - @profSimis.each do |teacher|
+      = render partial: 'users/teacher', :locals => {:teacher => teacher}
+
+#myModIns.modal.fade{:role => "dialog"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", :type => "button"} ×
+        %h4.modal-title Tarif(s)
+      .modal-body
+    .modal-footer
+      .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
 
 
 #request-lesson.modal.fade

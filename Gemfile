@@ -4,8 +4,6 @@ source 'https://rubygems.org'
 gem 'omniauth-linkedin-oauth2'
 #TimeDiff
 gem 'time_difference'
-#McdBDD
-gem "rails-erd"
 #LogFacebook
 gem 'omniauth-facebook'
 #LogTwitter
@@ -132,8 +130,6 @@ group :development, :test do
   gem 'byebug',      '3.4.0'
 
   gem 'sunspot_solr'
-  #gem 'sunspot_rails', github: "betam4x/sunspot" # , '2.1.1'
-  #gem 'sunspot_solr', github: "betam4x/sunspot" # '2.1.1'
   gem 'rspec-rails', '~> 3.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

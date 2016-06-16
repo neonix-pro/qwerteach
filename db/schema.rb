@@ -11,8 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160610092703) do
 
+=======
+ActiveRecord::Schema.define(version: 20160613085317) do
+>>>>>>> feactureRecherche
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id",                                        null: false
@@ -172,6 +176,10 @@ ActiveRecord::Schema.define(version: 20160610092703) do
     t.integer  "level_id",        null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "adress"
+    t.integer  "postalCode"
+    t.string   "city"
+    t.string   "country"
   end
 
   add_index "degrees", ["level_id"], name: "index_degrees_on_level_id"

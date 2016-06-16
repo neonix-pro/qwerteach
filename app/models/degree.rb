@@ -8,5 +8,9 @@ class Degree < ActiveRecord::Base
   validates :level_id, presence: true
   validates :title, presence: true
   validates :institution, presence: true
+  validates :adress, presence: true
+  validates :postalCode, presence: true
+  validates :city, presence: true
+  validates :country, presence: true
 
 end
