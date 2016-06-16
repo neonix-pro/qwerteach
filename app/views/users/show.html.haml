@@ -88,7 +88,10 @@
       .field
         = submit_tag 'Noter', :class => 'btn btn-primary btn-mini'
         %br/
-    %h3 Professeurs similaires
+    %h3 Professeurs similaires  
+    - @profSimis.each do |teacher|
+      = render partial: 'users/teacher', :locals => {:teacher => teacher}
+
 #myModIns.modal.fade{:role => "dialog"}
   .modal-dialog
     .modal-content
