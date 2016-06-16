@@ -1,9 +1,13 @@
-= form_tag wizard_path, method: :put do |f|
+= form_tag user_request_lesson_index_path(@teacher), method: :post, remote: true do |f|
+  - unless @lesson.errors.empty?
+    .alert.alert-danger
+      - @lesson.errors.full_messages.each do |message|
+        %li= message
   = hidden_field_tag 'lesson[teacher_id]', @teacher.id
   #price
     .form-group
-      - if @teacher.first_lesson_free == true && @lessonStudent.empty?
-        %input{:name => "firstLessonFree", :type => "checkbox", :class => "firstLessonFree"}
+      - if @teacher.first_lesson_free == true && @free_lessons.empty?
+        %input{:name => "firstLessonFree", :type => "checkbox", :class => "firstLessonFree", :checked=> @lesson.free_lesson}
         Cours d'essai gratuit 30mn
         %br
   .form-group
@@ -16,8 +20,8 @@
     = hidden_field_tag 'lesson[time_end]'
   .form-group
     = label_tag 'Durée'
-    = select_hour 1, :field_name => 'lesson[hour]', :start_hour => 0, :end_hour => 5, class: 'form-control', :required => true
-    = select_minute 30, :field_name => 'lesson[minute]', :minute_step => 15, class: 'form-control', :required => true
+    = select_hour @hours, :field_name => 'lesson[hour]', :start_hour => 0, :end_hour => 5, class: 'form-control', :required => true
+    = select_minute @minutes, :field_name => 'lesson[minute]', :minute_step => 15, class: 'form-control', :required => true
   #choices_lessons_topic_group
   #choices_lessons_topic
   #choices_lessons_level

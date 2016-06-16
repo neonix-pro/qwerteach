@@ -1,0 +1,12 @@
+= form_tag  user_request_lesson_payment_path(@teacher), :method => :put, remote: true do |f|
+  - flash.each do |key, value|
+    %div{:class => "alert alert-#{key}"}
+      = value
+  .form-group
+    = label_tag 'Mode de paiement'
+    = select_tag 'mode', options_for_select(['transfert', 'bancontact', 'cd']) , :required => true
+  #payment-form
+  .actions
+    = submit_tag "ok"
+  = link_to 'retour', new_user_request_lesson_path(@teacher), remote: true
+

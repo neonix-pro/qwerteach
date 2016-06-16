@@ -15,4 +15,8 @@ class Student < User
     {:received => self.lessons_received.where(:status => 2).where('time_start > ?', DateTime.now)}
   end
 
+  def free_lessons_with(teacher)
+    Lesson.where(:student => self, :teacher_id => teacher.id, :free_lesson => true)
+  end
+
 end

@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   end
 
   def total_wallets
-    wallets.first['Balance']['Amount'] + wallets.second['Balance']['Amount']
+    @total_wallets ||=wallets.first['Balance']['Amount'] + wallets.second['Balance']['Amount']
   end
   def is_solvable?(amount)
     amount < total_wallets
@@ -135,12 +135,8 @@ class User < ActiveRecord::Base
   end
 
   def create_mango_user (params)
-    logger.debug('-----------------TRUC')
     m = {}
     if !(self.mango_id?)
-      logger.debug(params[:Nationality])
-      logger.debug('-----------------TEST-------------')
-      logger.debug(mango_infos(params))
       m = MangoPay::NaturalUser.create(mango_infos(params))
       self.mango_id = m['Id']
       self.save!

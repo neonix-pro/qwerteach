@@ -1,0 +1,15 @@
+%p Paiement par carte de crédit.
+.field.credit_card_choice
+  = label_tag "Choisir carte"
+  = select_tag "card", options_for_select(@cards.map { |f| [f["Alias"], f["Id"]] }), {:include_blank => 'Nouvelle carte'}
+#new_card
+  .field.form-group
+    = label_tag "Numero"
+    = text_field_tag "card_number", nil, class: 'form-control', :required => true, :data => {:validation => "creditcard", :validation_allowing => "visa, mastercard", :validation_error_msg => "Numéro de carte invalide."}
+  .field.form-group
+    = label_tag "Date d'expiration"
+    = text_field_tag "expiration_month", nil, :data => {:provide => "datepicker", 'date-format' => 'mm', 'date-view-mode' => 'months', 'date-min-view-mode' => 'months', 'date-autoclose' => true}, class: 'form-control', :required => true
+    = text_field_tag "expiration_year", nil, :data => {:provide => "datepicker", 'date-format' => 'yy', 'date-view-mode' => 'years', 'date-min-view-mode' => 'years', 'date-autoclose' => true, 'date-start-date' => (Date.new)}, class: 'form-control', :required => true
+  .field.form-group
+    = label_tag "Code de sécurité"
+    = password_field_tag "csc", nil, :required => true, class: 'form-control', data: { :validation => "required cvv", :validation_error_msg => "Code invalide."}

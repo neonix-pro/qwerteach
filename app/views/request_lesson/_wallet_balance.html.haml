@@ -1,0 +1,7 @@
+%div
+  = "Il reste #{@user.total_wallets/100}€ sur votre portefeuille virtuel."
+  - if(@lesson.price > @user.total_wallets)
+    Ce montant n'est pas suffisant pour payer le cours. Veuillez sélectionner un autre mode de payement.
+  - else
+    = "Le montant du cours est de #{@lesson.price}€"
+    = "Après le transfer, il vous restera donc #{(@user.total_wallets/100 - @lesson.price)}€."

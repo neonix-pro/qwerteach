@@ -50,6 +50,7 @@ class MangopayService
         return 4
       end
     rescue MangoPay::ResponseError => ex
+      Rails.logger.debug(ex)
       return 1
     end
   end
@@ -61,6 +62,8 @@ class MangopayService
     begin
       if (payin = bancontact_payin(params[:return_url]))
         return payin
+      else
+        return 1
       end
     rescue MangoPay::ResponseError => ex
       return 1
@@ -480,7 +483,6 @@ class MangopayService
     @amount = params[:amount].to_f * 100
     @fees = 0 * @amount
     @beneficiary = User.find(params[:beneficiary])
-
     unless valid_author_infos
       return 2
     end
@@ -494,7 +496,7 @@ class MangopayService
       @sender_bonus_wallet = @wallets.second
       @beneficiary_wallet = benef_wallets.first
       return 0
-    rescue MangoPay::ResponseError
+    rescue MangoPay::ResponseError => ex
       return 1
     end
   end
