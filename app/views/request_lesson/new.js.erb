@@ -1,6 +1,7 @@
+var pleaseWait = "<%= j render(:partial => 'please_wait') %>";
 $(document).ready(function(){
-  $('#request-lesson').modal('show');
-  $('#lesson-details').html("<%= j render(:partial => 'new') %>");
+  var newLesson = "<%= j render(:partial => 'new') %>";
+  $('#lesson-details').html(newLesson);
 
   findUserAdverts('<%= @teacher.id %>');
 
@@ -9,7 +10,7 @@ $(document).ready(function(){
     $('#datetimepicker2').datetimepicker({
       locale: moment.locale(),
       format: "L LT",
-      minDate: new Date()
+      minDate: minStartTime()
     });
 
     //find user adverts
@@ -123,10 +124,7 @@ $(document).ready(function(){
       }
 
       $('#price').append('<input id="lesson_price" name="lesson[price]" type="hidden" value="0"/>');
-      updatePrix();
-      topic_choice();
-      level_choice();
-      hour_choice();
+
 
       $(document.body).on('change', '#lesson_topic_group_id', function () {
         $('#lesson_topic_id_field').remove();
@@ -155,6 +153,59 @@ $(document).ready(function(){
         hour_choice();
       });
 
+      <% if @lesson.topic_group.nil? %>
+        topic_choice();
+        level_choice();
+      <% else %>
+        $('#lesson_topic_group_id option').each(function(){
+          if($(this).val()== "<%= @lesson.topic_group.id %>"){
+            $(this).prop('selected', true);
+            topic_choice();
+          }
+        });
+        $('#lesson_topic_id option').each(function(){
+          if($(this).val()== "<%= @lesson.topic.id %>"){
+            $(this).prop('selected', true);
+            level_choice();
+          }
+        });
+        $('#lesson_level_id option').each(function(){
+          if($(this).val()== "<%= @lesson.level.id %>"){
+            $(this).prop('selected', true);
+            calculPrice();
+            updatePrix();
+          }
+        });
+      <% end %>
+
+      updatePrix();
+      hour_choice();
+
     });
+
+    //fonctions de mignonification du processus
+    function minStartTime(){
+      if(<%= @lesson.time_start.nil? %>)
+      {
+        time = moment();
+        minutes = time.minutes();
+        quarter = Math.ceil(minutes / 15);
+        return time.minutes(15*quarter);
+      }
+      else
+      {
+        return moment("<%= @lesson.time_start %>", 'L LT');
+      }
+    }
+
+    $('#lesson-details form').submit(function(){
+      $('#lesson-details').html(pleaseWait);
+    });
+
+    $('#request-lesson').on('hide.bs.modal', function(){
+      $('#lesson-details').html(pleaseWait);
+    });
+
   }
+
 });

@@ -34,8 +34,10 @@ class Lesson < ActiveRecord::Base
   end
 
   def expected_price
-    if free_lesson && price !=0
-      errors.add(:price, "Le prix d'un cours d'essai est toujours zéro!")
+    if free_lesson
+      if price !=0
+        errors.add(:price, "Le prix d'un cours d'essai est toujours zéro!")
+      end
     else
       right_time = ((time_end.beginning_of_minute()  - time_start.beginning_of_minute() ) / 3600).to_f
       right_price = Advert.get_price(User.find(teacher), Topic.find(topic), Level.find(level)) * right_time

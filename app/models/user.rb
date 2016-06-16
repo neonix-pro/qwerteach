@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   end
 
   def total_wallets
-    wallets.first['Balance']['Amount'] + wallets.second['Balance']['Amount']
+    @total_wallets ||=wallets.first['Balance']['Amount'] + wallets.second['Balance']['Amount']
   end
   def is_solvable?(amount)
     amount < total_wallets

@@ -5,7 +5,15 @@ class RequestLessonController < ApplicationController
 
   def new
     @free_lessons = @user.free_lessons_with(@teacher)
-    @lesson = Lesson.new
+    if session[:lesson].blank?
+      @lesson = Lesson.new
+    else
+      @lesson = Lesson.new(session[:lesson])
+      @hours = ((@lesson.time_end - @lesson.time_start)/3600).floor
+      @minutes = ((@lesson.time_end - @lesson.time_start)/60 - @hours*60).floor
+      logger.debug('--------------------')
+      logger.debug(@hours)
+    end
     render :layout=>false
   end
 
@@ -16,13 +24,14 @@ class RequestLessonController < ApplicationController
       params[:lesson][:free_lesson] = true
       @lesson = Lesson.create(lesson_params)
       if @lesson.save
+        session.delete(:lesson)
+        session.delete(:payment)
         render 'finish', :layout=>false
       else
         render 'new', :layout=>false
       end
     else  #cas de réservation normale
       @lesson = Lesson.new(lesson_params)
-      logger.debug(params[:lesson][:time_start])
       if @lesson.valid?
         session[:lesson]=@lesson
         if(@user.mango_id.nil?)
@@ -51,6 +60,8 @@ class RequestLessonController < ApplicationController
           when 0
             if @lesson.save
               flash[:notice] = "Le transfert s'est correctement effectué. Votre réservation de cours est donc correctement enregistrée."
+              session.delete(:lesson)
+              session.delete(:payment)
             else
               flash[:danger] = "Nous n'avons pas pu procéder à votre réservation, veuillez contacter l'équipe du site."
             end
