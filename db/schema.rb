@@ -11,12 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160610092703) do
-
-=======
 ActiveRecord::Schema.define(version: 20160613085317) do
->>>>>>> feactureRecherche
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id",                                        null: false

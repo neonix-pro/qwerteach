@@ -1,7 +1,11 @@
 #entete.row.featurette.section-recherche
   %p
     = form_tag users_path, :method => :get do
-      = select("post", "topic_group_id", TopicGroup.all.collect {|p| [ p.title, p.topic_group_id] },{:class => 'form-control'})
+      = select("post", ":q",TopicGroup.all.collect {|p| [ p.title, p.topic_group_id]}, {:class => 'form-control'})
+      = label_tag "Mot-clé"
+      = text_field_tag :q, params[:search]
       = submit_tag "Search", :name => nil
+      %br/
+  = @test
   %p
     %a{"data-target" => "#myModCo", "data-toggle" => "modal"} Mode d'emploi
