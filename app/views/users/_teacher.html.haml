@@ -1,4 +1,6 @@
 .profSimilaire
-  = teacher.lastname
-  = teacher.firstname
+  = link_to teacher.name, user_path(teacher) unless teacher.nil?
   = image_tag(teacher.avatar.url(:small), size: "100x100")
+  %div
+    -teacher.adverts.each do |ad|
+      = ad.topic.title

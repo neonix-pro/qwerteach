@@ -8,13 +8,14 @@
         %h5
           = u.lastname
           = u.firstname
+          = u.score
       .notation
         Etoile #{u.avg_reviews}
         Nombre de Review #{u.numberOfReview}
       .specialite
         Spécialité :
-        - @h[u.id].each do |a|
-          = link_to a.topic.title, advert_path(a)
+        - u.adverts.each do |a|
+          = link_to a.topic.title, advert_path(a) unless a.topic.title == "Other"
       %br/
       %h6
         = raw(u.description)

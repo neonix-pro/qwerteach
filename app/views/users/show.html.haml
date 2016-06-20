@@ -51,13 +51,10 @@
           - @adverts.each do |a|
             %h9.matiereProfil= a.topic.topic_group.title
           %p= @user.occupation
-/ /#page2-content-wrapper
-#page-content-wrapper
-  .container-fluid
-    .row
-      %p= raw(@user.description)
 - if @user.postulance_accepted?
   %h3 Diplomes
+  - if @degrees.empty?
+    %p --
   - @degrees.each do |d|
     = d.title
     = d.institution

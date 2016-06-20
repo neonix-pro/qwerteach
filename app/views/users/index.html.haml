@@ -29,13 +29,17 @@
         prof de #{}
       pour un
       %b cours particulier en ligne.
-#facets.row.featurette.hautPageResult
-  %h3 Résultat(s)
-  / Permet l'affichage des résultats
-  .resultat
-    - @pagin.each do |u|
-      = render partial: 'users/profRecherche', :locals => {:u => u}
-    = paginate @pagin
+.container
+  - @search.results.each do |r|
+    = r.user.id
+    %br
+  #facets.row.featurette.hautPageResult
+    %h3 Résultat(s)
+    / Permet l'affichage des résultats
+    .resultat
+      - @pagin.each do |u|
+        = render partial: 'users/profRecherche', :locals => {:u => u}
+      = #paginate @pagin
 = render 'pages/partieCommentaire'
 = render 'pages/triColonne'
 = render "pages/presse"
