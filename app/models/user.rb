@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   GENDER_TYPES = ["Not telling", "Male", "Female"]
   ACCOUNT_TYPES = ["Student", "Teacher"]
-  devise 
+  devise
   paginates_per 1
 
   # Include default devise modules. Others available are:
@@ -77,8 +77,6 @@ class User < ActiveRecord::Base
     online = self.updated_at > 10.minutes.ago
     if online == true
       return "Prof online!"
-    else
-      return ""
     end
   end
   def send_notification (subject, body, sender)

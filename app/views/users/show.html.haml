@@ -9,14 +9,15 @@
         = render "messages/sendMessage"
       .tarif
       %li 
-        %a{"data-toggle" => "modal", :href => "#myModIns"} Tarifs
+        %a{"data-toggle" => "modal", :href => "#myModTarif"} Tarifs
 / /#sidebar-wrapper
 / Page Content
 #page-content-wrapper
   .container-fluid
     .row
+      #{@user.online}
       - if @user.first_lesson_free?
-        %h3 FirstLessonFree
+        %h3 Première leçon gratuite! (30mn)
       - if @user.postulance_accepted?
         %h3.nomPrenomProfil
           %b
@@ -55,7 +56,6 @@
 #page-content-wrapper
   .container-fluid
     .row
-      %p= raw(@user.description)
 - if @user.postulance_accepted?
   %h3 Diplomes
   - @degrees.each do |d|
@@ -77,7 +77,7 @@
         jusqu'au niveau #{max}
   - if @user.is_a?(Teacher)
     %p
-      Moyenne des notations = #{@avg}
+      Moyenne des notations = #{number_with_precision(@avg, :precision => 1, :delimiter => ',')} 
     = link_to 'Notations', user_reviews_path(@user)
     = form_tag user_reviews_path(@user), method: :post do
       .field
@@ -95,13 +95,15 @@
     - @profSimis.each do |teacher|
       = render partial: 'users/teacher', :locals => {:teacher => teacher}
 
-#myModIns.modal.fade{:role => "dialog"}
+#myModTarif.modal.fade{:role => "dialog"}
   .modal-dialog
     .modal-content
       .modal-header
         %button.close{"data-dismiss" => "modal", :type => "button"} ×
-        %h4.modal-title Tarif(s)
+        %h4.modal-title Tarif(s) de #{@user.name}
       .modal-body
+        - @adverts.each do |advert|
+          = render partial: "users/tarifs", :locals => {:advert => advert}
     .modal-footer
       .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
 

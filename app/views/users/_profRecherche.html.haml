@@ -26,7 +26,10 @@
       .connexion_last 
         #{u.online}
         = u.last_sign_in_at
-      .commentaireProf 
+      .stat
+        = u.response_rate
+        = u.response_time
+      .commentaireProf
         #{u.lastReview}
         #{u.numberOfReview}
       .voirProfil= link_to "Voir le profil", user_path(u)
