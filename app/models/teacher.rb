@@ -29,4 +29,13 @@ class Teacher  < Student
     given = self.lessons_given.where(:status => 2).where('time_start > ?', DateTime.now)
     {:received => received, :given => given}
   end
+
+  def similar_teachers(n)
+    a = Advert.where(user_id: id)
+    ids = a.map{|ad| ad.topic_id } #Get pour chaque Obj dans a les topics_id
+    adverts = Advert.where(topic_id: ids)
+    similar_teachers = adverts.map{|adv| adv.user}
+
+    similar_teachers.uniq{|u| u}.sample(n)
+  end
 end
