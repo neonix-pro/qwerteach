@@ -12,19 +12,34 @@ class UsersController < ApplicationController
       @notes = @reviews.map { |r| r.note }
       @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size
     end
-    a = Advert.where(user_id: @user.id)
-    ids = a.map{|ad| ad.topic_id } #Get pour chaque Obj dans a les topics_id
-    adverts = Advert.where(topic_id: ids)
-    ids_user = adverts.map{|adv| adv.user_id}
+    a = Advert.where(user_id: @user.id) #Get Advert from User
+    ids = a.map{|ad| ad.topic_id }  #Get Topic from User
+    adverts = Advert.where(topic_id: ids) #Check advert where Topic = Topic
+    ids_user = adverts.map{|adv| adv.user_id} #Get User.id from advert
     
     idsProfSimi = []
-    ids_user.each do |id|
+    ids_user.each do |id| 
       if ids_user.include?(id) == true
-        idsProfSimi.push(id)
-        end
+        idsProfSimi.push(id) #Si un prof apparait 2 fois alors Push dans le tableau 
       end
-    @new_id = idsProfSimi.sample(4)
-    @profSimis = @new_id.map{|id| User.find(id)}
+    end
+    
+    users = User.where(postulance_accepted: true) #Get prof postulance True
+    users_id = [] #Contiendra All teacher id
+    new_id = [] #Contiendra les users_id sélectionné
+    users_id = users.map{|u| u.id} #Get id des profs 
+    
+    if users_id.include?(@user.id) #Check si le user n'est pas déjà dans le tab
+      users_id.delete(@user.id) #Delete
+    end
+    
+    users_id.each do |u|
+      if idsProfSimi.include?(u) 
+        new_id.push(u) #Si un idTeacher apparait push dans un tab
+      end
+    end
+    @new_ids = new_id.sample(4) #Sélection random de 4 teachers
+    @profSimis = @new_ids.map{|id| User.find(id)} #Boum information user sélectionner 
   end
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
