@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
 
 public
   def index
-    #get 12 teacher random 
+    #get 5 teacher random 
     @dataTeachers = User.where(postulance_accepted: true).limit(5).order("RANDOM()")
     #get 3 last review avec Note + Txt
     @dataReviews =  Review.where.not(:review_text => "").order("created_at DESC").uniq.limit(3)

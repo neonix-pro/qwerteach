@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     if @user.is_a?(Teacher)
       @degrees = @user.degrees
       @adverts = @user.adverts
-      @prices = @adverts.map { |d| d.advert_prices.map { |l| l.price } }
+      @prices = @adverts.map{ |d| d.advert_prices.map{ |l| l.price } }
       @reviews = @user.reviews_received
       @notes = @reviews.map { |r| r.note }
       @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size unless @notes.empty?

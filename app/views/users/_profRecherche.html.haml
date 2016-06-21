@@ -27,7 +27,11 @@
       .connexion_last 
         #{u.online}
         = u.last_sign_in_at
-      .commentaireProf 
+      .stat
+        Taux de réponse: #{u.response_rate}%
+        %br/
+        Temps moyen de réponse : #{u.response_time}mn
+      .commentaireProf
         #{u.lastReview}
         #{u.numberOfReview}
       .voirProfil= link_to "Voir le profil", user_path(u)
