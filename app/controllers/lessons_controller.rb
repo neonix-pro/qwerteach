@@ -8,7 +8,6 @@ class LessonsController < ApplicationController
     #Cours donné par le Prof
     @lesson += Lesson.where(:teacher => current_user)
 
-
     respond_to do |format|
       format.html # index.html.erb
     end

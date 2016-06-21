@@ -38,8 +38,8 @@ class UsersController < ApplicationController
         new_id.push(u) #Si un idTeacher apparait push dans un tab
       end
     end
-    @new_ids = new_id.sample(4) #Sélection random de 4 teachers
-    @profSimis = @new_ids.map{|id| User.find(id)} #Boum information user sélectionner 
+    new_ids = new_id.sample(4) #Sélection random de 4 teachers
+    @profSimis = new_ids.map{|id| User.find(id)} #Boum information user sélectionner 
   end
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination

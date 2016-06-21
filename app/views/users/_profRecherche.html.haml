@@ -27,8 +27,9 @@
         #{u.online}
         = u.last_sign_in_at
       .stat
-        = u.response_rate
-        = u.response_time
+        Taux de réponse: #{u.response_rate}%
+        %br/
+        Temps moyen de réponse : #{u.response_time}mn
       .commentaireProf
         #{u.lastReview}
         #{u.numberOfReview}

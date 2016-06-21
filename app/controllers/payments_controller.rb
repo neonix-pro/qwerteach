@@ -127,7 +127,7 @@ class PaymentsController < ApplicationController
   end
 
   private
-
+ 
   def postpayment_lesson
     payment = Payment.find_by(:lesson_id => params[:lesson_id], :payment_type => 1)
   end

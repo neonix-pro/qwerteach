@@ -251,17 +251,17 @@ class User < ActiveRecord::Base
           when "facebook"
             user.firstname = auth.info.first_name
             user.lastname = auth.info.last_name
-            user.birthdate = auth.extra.raw_info.birthdate
-            user.gender = auth.extra.raw_info.gender
+            #user.birthdate = auth.extra.raw_info.birthdate
+            #user.gender = auth.extra.raw_info.gender
             user.password = Devise.friendly_token[0,20]
             user.email = auth.info.email
             user.avatar = URI.parse(auth.info.image) if auth.info.image?
             user.confirmed_at = DateTime.now.to_date
           when "linkedin"
-            user.firstname = auth.r_basicprofile.first-name
+            user.firstname = auth.raw_info.firstName
             user.lastname = auth.r_basicprofile.last-name
-            user.email = auth.r_emailaddress .email-address
-            user.description = auth.r_basicprofile.summary
+            user.email = auth.r_emailaddress.email-address
+            #user.description = auth.r_basicprofile.summary
             user.password = Devise.friendly_token[0,20]
             user.avatar = auth.r_basicprofile.picture-urls
             user.confirmed_at = DateTime.now.to_date
