@@ -1,4 +1,4 @@
-#entete.row.featurette.section-recherche
+.row.section-recherche
   %p
     = form_tag users_path, :method => :get do
       = select("post", "topic_group_id", TopicGroup.all.collect {|p| [ p.title, p.topic_group_id] },{:class => 'form-control'})

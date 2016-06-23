@@ -38,8 +38,8 @@
     / Permet l'affichage des résultats
     .resultat
       - @pagin.each do |u|
-        = render partial: 'users/profRecherche', :locals => {:u => u}
+        = render partial: 'users/prof_recherche', :locals => {:u => u}
       = #paginate @pagin
-= render 'pages/partieCommentaire'
-= render 'pages/triColonne'
+= render 'pages/partie_commentaire'
+= render 'pages/tri_colonne'
 = render "pages/presse"
