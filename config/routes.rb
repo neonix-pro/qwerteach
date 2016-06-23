@@ -5,27 +5,23 @@ Rails.application.routes.draw do
     resources :teachers
     resources :pictures
     resources :galleries
-
-
     resources :postulations
     resources :comments
+    resources :postuling_teachers
+    resources :lessons
+    resources :topic
+    resources :topic_group
+    resources :level
+    resources :advert_prices
+    resources :adverts
+    resources :payments
 
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
 
     # Gestion des serveurs BBB depuis l'admin
     resources :bigbluebutton_servers
     resources :bigbluebutton_recordings
-    resources :postuling_teachers
-
-    resources :lessons
-    resources :topic
-    resources :topic_group
-    resources :level
-    resources :advert_prices
-
-    resources :payments
     resources :bbb_rooms
-    resources :adverts
 
     root to: "users#index"
   end
@@ -64,8 +60,7 @@ Rails.application.routes.draw do
   end
   get '/both_users_online' => 'users#both_users_online', :as => 'both_users_online'
   authenticated :user do
-    #root 'dashboards#index'
-    root 'pages#index' #Pour test sur Wallet Add root pages#Index
+    root 'pages#index'
   end
 
   unauthenticated :user do
@@ -136,60 +131,6 @@ Rails.application.routes.draw do
 
   mount Resque::Server, :at => "/resque"
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 
 
   #root to: 'pages#index'

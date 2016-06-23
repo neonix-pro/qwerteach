@@ -14,4 +14,10 @@ class PagesController < ApplicationController
       # end
 
 	end
+
+	#page d'accueil
+	def index
+		@featured_teachers = User.where(postulance_accepted: true).limit(12).order("RANDOM()")
+		@featured_reviews =  Review.where.not(:review_text => "").order("created_at DESC").uniq.limit(3)
+	end
 end

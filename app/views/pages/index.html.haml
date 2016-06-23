@@ -1,9 +1,7 @@
 = render 'pages/partie_recherche'
 = render 'pages/partie_carrousel'
-- @dataTeachers.each do |prof|
-  = render partial: 'pages/prof', :locals => {:prof => prof}
-- @dataReviews.each do |rev|
-  = render partial: 'pages/rev', :locals => {:rev => rev}
+= render partial: 'pages/prof', :locals => {profs: @featured_teachers}
+= render partial: 'pages/rev', :locals => {:reviews => @featured_reviews}
 = render 'pages/partie_quadri_prof'
 = render 'pages/partie_comment_ca_marche'
 = render 'pages/partie_commentaire'
