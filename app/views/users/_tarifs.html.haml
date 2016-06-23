@@ -1,0 +1,15 @@
+.price
+  %h4= advert.topic.topic_group.title
+  %h6= raw(advert.description)
+  - if (advert.topic.title=="Autre")
+    %p
+      Topic: #{advert.other_name}
+  - else
+    %p
+      Topic : #{advert.topic.title}
+  - prices = advert.advert_prices
+  - prices.each { |p|
+  %dd
+    = p.level.fr
+    \: #{ActionController::Base.helpers.number_to_currency(p.price)}
+  - }
