@@ -50,11 +50,6 @@ class User < ActiveRecord::Base
     @review = Review.where(subject_id: self.id).count
     return @review
   end
-  def avg_reviews
-    @notes = self.reviews_received.map { |r| r.note }
-    @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size
-    return @avg
-  end  
   def firstLessonFree
     if self.first_lesson_free == true
       @freeLesson = 'Premier cours gratuit!'
@@ -74,7 +69,7 @@ class User < ActiveRecord::Base
     @prices = self.adverts.map { |d| d.advert_prices.map { |l| l.price } }.min.first
   end
   def online
-    online = self.updated_at > 10.minutes.ago
+    online = self.updated_at > 5.minutes.ago
     if online == true
       return "Prof online!"
     end
@@ -91,7 +86,7 @@ class User < ActiveRecord::Base
   def wallets
     unless(mango_id.nil?)
       MangoPay::User.wallets(mango_id)
-      end
+    end
   end
 
   def total_wallets

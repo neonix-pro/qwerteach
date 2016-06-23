@@ -59,13 +59,7 @@
   - if @degrees.empty?
     %p --
   - @degrees.each do |d|
-    = d.title
-    = d.institution
-    = d.completion_year
-    = d.adress
-    = d.postalCode
-    = d.city
-    = d.country
+    = render partial: 'users/degree', :locals => {:d => d}
     %br/
   %h3 Description
   %p= raw(@user.description)
@@ -106,8 +100,6 @@
           = render partial: "users/tarifs", :locals => {:advert => advert}
     .modal-footer
       .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
-
-
 #request-lesson.modal.fade
   .modal-dialog
     .modal-content

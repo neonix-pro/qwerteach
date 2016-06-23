@@ -7,30 +7,3 @@
 = render 'pages/partie_commentaire'
 = render 'pages/tri_colonne'
 = render "pages/presse"
-
-#myModIns.modal.fade{:role => "dialog"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{"data-dismiss" => "modal", :type => "button"} ×
-        %h4.modal-title S'inscrire (C'est gratuit!)
-      .modal-body
-        %p= render "users/registrations/new.html.haml"
-      .modal-footer
-        .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
-          %a{:href => "#myModCo"}
-            Déjà inscrit?
-            %br/
-#myModCo.modal.fade{:role => "dialog"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{"data-dismiss" => "modal", :type => "button"} ×
-        %h4.modal-title Connexion
-      .modal-body
-        %p= render "users/sessions/new.html.haml"
-      .modal-footer
-        .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModIns", "data-toggle" => "modal"}
-          %a{:href => "#myModIns"}
-            Pas encore membre?
-            %br/

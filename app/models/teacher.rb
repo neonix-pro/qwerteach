@@ -31,35 +31,21 @@ class Teacher  < Student
   end
 
   def similar_teachers(n)
-
+    ids_user = []
+    idsProfSimi = []
     a = Advert.where(user_id: id) #Get Advert from User
     ids = a.map{|ad| ad.topic_id }  #Get Topic from User
     adverts = Advert.where(topic_id: ids) #Check advert where Topic = Topic
-    ids_user = adverts.map{|adv| adv.user_id} #Get User.id from advert
+    ids_user = adverts.map{|adv|adv.user_id} #Get User.id from advert
     
-    idsProfSimi = []
-    ids_user.each do |id| 
+    ids_user.each{|id| #Récup idTeacher Double 
       if ids_user.include?(id) == true
-        idsProfSimi.push(id) #Si un prof apparait 2 fois alors Push dans le tableau 
+        idsProfSimi.push(id)
       end
-    end
-    
-    users = User.where(postulance_accepted: true) #Get prof postulance True
-    users_id = [] #Contiendra All teacher id
-    new_id = [] #Contiendra les users_id sélectionné
-    users_id = users.map{|u| u.id} #Get id des profs 
-    
-    if users_id.include?(id) #Check si le user n'est pas déjà dans le tab
-      users_id.delete(id) #Delete
-    end
-    
-    users_id.each do |u|
-      if idsProfSimi.include?(u) 
-        new_id.push(u) #Si un idTeacher apparait push dans un tab
-      end
-    end
-    new_ids = new_id.sample(n) #Sélection random de 4 teachers
-    @profSimis = new_ids.map{|id| User.find(id)} #Boum information user sélectionner 
-    
+    }
+      if idsProfSimi.size <= 4 #Si - de 4 teachers sont récup 
+        idsProfSimi = ids_user.uniq
+      end 
+      @profSimis = User.where.not(:id => id).where(:id => idsProfSimi , :postulance_accepted => true).limit(n).order("RANDOM()")
   end
 end

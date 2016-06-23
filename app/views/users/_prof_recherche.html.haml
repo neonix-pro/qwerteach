@@ -2,13 +2,14 @@
   .thumbnail.result
     .caption.result
       %p
-        = image_tag(u.avatar.url(:medium))
-      %p= link_to 'Demander un cours', user_require_lesson_index_path(u.id)
+        = image_tag(u.avatar.url(:small))
+        %p= link_to 'Demander un cours', new_user_request_lesson_path(u.id), class: "btn btn-default", remote: true, "data-toggle" => "modal", 'data-target' => '#request-lesson'
       .nomPrenomResult
         %h5
           = u.lastname
           = u.firstname
-          = u.score
+          %br/
+          Score: #{u.score}
       .notation
         Etoile #{u.avg_reviews}
         Nombre de Review #{u.numberOfReview}
@@ -18,7 +19,7 @@
           = link_to a.topic.title, advert_path(a) unless a.topic.title == "Other"
       %br/
       %h6
-        = raw(u.description)
+        = raw((u.description).truncate_words(100))
       %br
       .lowerPrice
         Prix minimum : #{u.priceLessExpensive}€
@@ -26,7 +27,8 @@
         #{u.firstLessonFree}
       .connexion_last 
         #{u.online}
-        = u.last_sign_in_at
+        %br/
+        Dernière connexion #{u.last_sign_in_at}
       .stat
         Taux de réponse: #{u.response_rate}%
         %br/
@@ -35,3 +37,15 @@
         #{u.lastReview}
         #{u.numberOfReview}
       .voirProfil= link_to "Voir le profil", user_path(u)
+#request-lesson.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
+        %h3.modal-title= "Réserver un cours avec #{u.name}"
+      .modal-body
+        #lesson-details
+          %i.fa.fa-spin.fa-spinner.fa-2x
+        #cd
+      .modal-footer
+        %button.btn{"data-dismiss" => "modal", :type => "button"} Close
