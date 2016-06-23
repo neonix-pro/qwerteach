@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
   
   def show
     @user = User.find(params[:id])
@@ -12,7 +11,6 @@ class UsersController < ApplicationController
       @notes = @reviews.map { |r| r.note }
       @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size unless @notes.empty?
     end
-
     @profSimis = @user.similar_teachers(4)
   end
 

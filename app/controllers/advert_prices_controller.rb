@@ -24,7 +24,6 @@ class AdvertPricesController < ApplicationController
       end
     end
   end
-
   def create
     @advertPrice = AdvertPrice.new(advertPrice_params)
     respond_to do |format|

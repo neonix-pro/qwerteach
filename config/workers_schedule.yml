@@ -18,7 +18,7 @@ update_server_configs:
 
 stat_message:
   every:
-    - "1m"
+    - "1h"
   class: MessageStatWorker
   queue: message_stat
   description: "MaJ Stat UserMessage"

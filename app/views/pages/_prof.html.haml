@@ -1,7 +1,7 @@
 .prof
-    = prof.id
-    = prof.firstname
-    = prof.lastname
+    = link_to prof.name, user_path(prof)
     = prof.first_lesson_free
+    = prof.postulance_accepted
+    - prof.adverts.each do |ad|
+        = ad.topic.title
     = image_tag(prof.avatar.url(:small), size: "100x100")
-    = link_to "Voir le profil", user_path(prof)
