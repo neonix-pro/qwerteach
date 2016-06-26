@@ -1,28 +1,10 @@
 .section-resultat-header
   = form_tag users_path, :method => :get do
-    = select("post", "topic_group_id", TopicGroup.all.collect {|p| [ p.title, p.topic_group_id] },{:class => 'form-control'})
-    = submit_tag "Search", :name => nil
-    %p
-      = label_tag "Mot-clé"
-      = text_field_tag :q, params[:search]
-      %br/
-      = label_tag "Age : "
-      = label_tag "De"
-      = number_field_tag :age_min, params[:age_min], :min => 0
-      = label_tag "A"
-      = number_field_tag :age_max, params[:age_max], :min => 0
-      %br/
-      = label_tag "Diplome"
-      - levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id)
-      = select_tag :degree_id, options_for_select(levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }), :include_blank => true
-      %br/
-      = label_tag "Prix : "
-      = label_tag "De"
-      = number_field_tag :min_price, params[:min_price] , :min => 0
-      = label_tag "A"
-      = number_field_tag :max_price, params[:max_price], :min => 0
-      %br/
-      = submit_tag "Search", :name => nil
+    Profs de
+    = select_tag("topic", options_for_select(@topic_options))
+    triés par
+    = select_tag("search_sorting", options_for_select(@sorting_options))
+    = submit_tag("Go")
     %h3
       Trouvez votre
       %b
@@ -30,8 +12,8 @@
       pour un
       %b cours particulier en ligne.
 .container
-  - @search.results.each do |r|
-    = r.user.id
+  - @pagin.each do |r|
+    = r.id
     %br
   #facets.row.featurette.hautPageResult
     %h3 Résultat(s)

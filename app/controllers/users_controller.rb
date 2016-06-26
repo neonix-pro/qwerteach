@@ -18,26 +18,31 @@ class UsersController < ApplicationController
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
-    if params[:q].nil?
-      # pas d'infos entrées par le visiteur
+    search_sorting_options
+    search_topic_options
+    if params[:topic].nil?
       @pagin = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
     else
-      # le visiteur a fait une requête
-      @search = Sunspot.search(Advert) do
-        fulltext params[:q]
-        order_by(:topic_id, "desc")
-        group :user_id_str
-        with(:user_age).greater_than_or_equal_to(params[:age_min]) unless params[:age_min].blank?
-        with(:user_age).less_than_or_equal_to(params[:age_max]) unless params[:age_max].blank?
-        with(:advert_prices_search).greater_than(params[:min_price]) unless params[:min_price].blank?
-        with(:advert_prices_search).less_than(params[:max_price]) unless params[:max_price].blank?
-        paginate(:page => params[:page], :per_page => 12)
-      end
-      @pagin = []
-      @search.group(:user_id_str).groups.each do |group|
-        group.results.each do |result|
-          @pagin.push(result.user)
+      if params[:topic].blank?
+        @search = Sunspot.search(Advert) do
+          with(:postulance_accepted, true)
+          fulltext params[:q]
+          order_by(:qwerteach_score, "desc")
+          group :user_id_str
+          with(:user_age).greater_than_or_equal_to(params[:age_min]) unless params[:age_min].blank?
+          with(:user_age).less_than_or_equal_to(params[:age_max]) unless params[:age_max].blank?
+          with(:advert_prices_search).greater_than(params[:min_price]) unless params[:min_price].blank?
+          with(:advert_prices_search).less_than(params[:max_price]) unless params[:max_price].blank?
+          paginate(:page => params[:page], :per_page => 12)
         end
+        @pagin = []
+        @search.group(:user_id_str).groups.each do |group|
+          group.results.each do |result|
+            @pagin.push(result.user)
+          end
+        end
+      else
+        @pagin = Advert.joins(:user).where(topic_id: params[:topic]).order("users.score desc").page(params[:page]).per(12).map{|u| u.user}
       end
     end
   end
@@ -50,6 +55,15 @@ class UsersController < ApplicationController
     else
       render :json => { :online => "false"}
     end
+  end
+
+  def search_sorting_options
+    @sorting_options = ["pertinence", "prix", "dernière connexion"]
+  end
+
+  def search_topic_options
+    @topic_options = Topic.where.not(:title=> "Other").map{|p| [p.title.downcase, p.id]}
+
   end
 
 end

@@ -67,6 +67,9 @@ class Advert < ActiveRecord::Base
     string :user_email do
       self.user.email
     end
+    boolean :postulance_accepted do
+      self.user.postulance_accepted
+    end
     string :user_age do
       Time.now.year - self.user.birthdate.year
     end
@@ -74,5 +77,6 @@ class Advert < ActiveRecord::Base
     string :advert_prices_search, :multiple => true do
       advert_prices.map(&:price)
     end
+    integer(:qwerteach_score) {|a| a.user.score}
   end
 end
