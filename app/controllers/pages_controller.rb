@@ -19,5 +19,6 @@ class PagesController < ApplicationController
 	def index
 		@featured_teachers = User.where(postulance_accepted: true).limit(12).order("RANDOM()")
 		@featured_reviews =  Review.where.not(:review_text => "").order("created_at DESC").uniq.limit(3)
+    @featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)
 	end
 end

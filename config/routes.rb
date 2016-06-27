@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     resources :comments
     resources :postuling_teachers
     resources :lessons
-    resources :topic
-    resources :topic_group
+    resources :topics
+    resources :topic_groups
     resources :level
     resources :advert_prices
     resources :adverts

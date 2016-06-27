@@ -13,6 +13,8 @@ class TopicGroupDashboard < Administrate::BaseDashboard
     id: Field::Number,
     title: Field::String,
     level_code: Field::String,
+    featured: Field::Boolean,
+    picto: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }
@@ -23,19 +25,21 @@ class TopicGroupDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
+    :title,
     :topics,
     :lessons,
     :id,
-    :title,
   ]
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
+    :title,
     :topics,
+    :featured,
+    :picto,
     :lessons,
     :id,
-    :title,
     :level_code,
     :created_at,
     :updated_at,
@@ -45,6 +49,8 @@ class TopicGroupDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
+    :featured,
+    :picto,
     :topics,
     :lessons,
     :title,
