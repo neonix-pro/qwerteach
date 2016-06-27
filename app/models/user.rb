@@ -43,8 +43,13 @@ class User < ActiveRecord::Base
   has_many :reviews_received, :class_name => 'Review', :foreign_key => 'subject_id'
   has_many :levels, through: :degrees
 
-  # for gem unread
-  acts_as_reader
+  def qwerteach_score
+    s = score
+    unless last_seen.nil?
+      s += 1000 if last_seen > 1.hour.ago
+    end
+    s
+  end
 
   def numberOfReview
     @review = Review.where(subject_id: self.id).count
@@ -205,7 +210,6 @@ class User < ActiveRecord::Base
     @geometry ||= {}
     @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
   end
-
 
   # Methode permettant de faire passer un User à Student
   public
