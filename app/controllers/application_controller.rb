@@ -13,38 +13,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # loader les permitted params pour devise
   before_filter :configure_permitted_parameters, if: :devise_controller?
-
-<<<<<<< HEAD
-=======
-  # Pour définir les permitted params dans les controllers en utilisant require
-  protected
-  before_filter do
-    resource = controller_name.singularize.to_sym
-    method = "#{resource}_params"
-    params[resource] &&= send(method) if respond_to?(method, true)
-  end
-  # Permitted params pour Devise pour l'inscription et la maj d'un compte existant
-  def configure_permitted_parameters
-
-    devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(:email, :password, :password_confirmation, :current_password, :time_zone)
-    end
-    devise_parameter_sanitizer.for(:account_update) {
-        |u| u.permit(
-          :crop_x, :crop_y, :crop_w, :crop_h,:level, :pictures, :gallery, :avatar, :occupation, :level_id, :type, :birthdate, :description, :gender, :phonenumber, :firstname, :lastname, :email, :password, :password_confirmation, :current_password, :accepts_post_payments, :time_zone
-      ) }
-
-  end
-  #definir bigbluebutton_user
-
-public
-  def index
-    #get 12 teacher random 
-    @dataTeachers = User.where(postulance_accepted: true).limit(12).order("RANDOM()")
-    #get 3 last review avec Note + Txt
-    @dataReviews =  Review.where.not(:review_text => "").order("created_at DESC").uniq.limit(3)
-  end
->>>>>>> 21062016
+  
   def bigbluebutton_role(room)
       :moderator
   end
