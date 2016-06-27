@@ -5,6 +5,10 @@ body, html{
     margin: 0;
 }
 
+a, a:hover{
+    text-decoration: none !important;
+}
+
 .main-content{
     display: block !important;
     width: 100% !important;
@@ -12,7 +16,6 @@ body, html{
     padding: 0 !important;
     overflow: hidden !important;
 }
-
 
 .nav{
  border: 0 !important;
