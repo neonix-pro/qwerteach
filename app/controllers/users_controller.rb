@@ -21,10 +21,14 @@ class UsersController < ApplicationController
     if params[:topic].nil?
       @pagin = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
     else
-      @topic = Topic.where('lower(title) = ?', params[:topic]).first
+      # can't access global variable sin sunspot search...
+      topic = Topic.where('lower(title) = ?', params[:topic]).first
+      if topic.nil?
+        topic = TopicGroup.where('lower(title) = ?', params[:topic]).first
+      end
       @search = Sunspot.search(Advert) do
         with(:postulance_accepted, true)
-        fulltext Topic.where('lower(title) = ?', params[:topic]).first.title
+        fulltext topic.title
         order_by(sorting, sorting_direction(params[:search_sorting]))
         group :user_id_str
         with(:user_age).greater_than_or_equal_to(params[:age_min]) unless params[:age_min].blank?
@@ -39,6 +43,7 @@ class UsersController < ApplicationController
           @pagin.push(result.user)
         end
       end
+      @topic = topic
       #@pagin = Advert.joins(:user).includes(:advert_prices).where(topic_id: params[:topic]).order("score desc").page(params[:page]).per(12).map{|u| u.user}
     end
   end
