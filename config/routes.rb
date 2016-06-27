@@ -63,6 +63,8 @@ Rails.application.routes.draw do
     root 'pages#index'
   end
 
+  get '/profs/:topic/:level' => 'users#index'
+
   unauthenticated :user do
     devise_scope :user do
       get "/" => "pages#index"

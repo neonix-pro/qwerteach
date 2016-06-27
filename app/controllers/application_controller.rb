@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # loader les permitted params pour devise
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  
+
   def bigbluebutton_role(room)
       :moderator
   end

@@ -21,10 +21,10 @@ class UsersController < ApplicationController
     if params[:topic].nil?
       @pagin = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
     else
-      @topic = Topic.find(params[:topic])
+      @topic = Topic.where('lower(title) = ?', params[:topic]).first
       @search = Sunspot.search(Advert) do
         with(:postulance_accepted, true)
-        fulltext Topic.find(params[:topic]).title
+        fulltext Topic.where('lower(title) = ?', params[:topic]).first.title
         order_by(params[:search_sorting], sorting_direction(params[:search_sorting]))
         group :user_id_str
         with(:user_age).greater_than_or_equal_to(params[:age_min]) unless params[:age_min].blank?
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
   end
 
   def search_topic_options
-    @topic_options = Topic.where.not(:title=> "Other").map{|p| [p.title.downcase, p.id]}
+    @topic_options = Topic.where.not(:title=> "Other").map{|p| [p.title.downcase]}
   end
 
   def sorting_direction(sort)
