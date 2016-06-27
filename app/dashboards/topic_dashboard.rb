@@ -13,6 +13,8 @@ class TopicDashboard < Administrate::BaseDashboard
     lessons: Field::HasMany,
     id: Field::Number,
     title: Field::String,
+    featured: Field::Boolean,
+    picto: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }
@@ -23,7 +25,10 @@ class TopicDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
+    :title,
     :topic_group,
+    :featured,
+    :picto,
     :adverts,
     :lessons,
     :id,
@@ -45,10 +50,10 @@ class TopicDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
+    :featured,
+    :picto,
     :topic_group,
-    :adverts,
-    :lessons,
-    :title,
+    :title
   ]
 
   # Overwrite this method to customize how topics are displayed

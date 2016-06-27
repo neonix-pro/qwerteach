@@ -21,11 +21,15 @@ class UsersController < ApplicationController
     if params[:topic].nil?
       @pagin = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
     else
-      @topic = Topic.where('lower(title) = ?', params[:topic]).first
+      # can't access global variable sin sunspot search...
+      topic = Topic.where('lower(title) = ?', params[:topic]).first
+      if topic.nil?
+        topic = TopicGroup.where('lower(title) = ?', params[:topic]).first
+      end
       @search = Sunspot.search(Advert) do
         with(:postulance_accepted, true)
-        fulltext Topic.where('lower(title) = ?', params[:topic]).first.title
-        order_by(params[:search_sorting], sorting_direction(params[:search_sorting]))
+        fulltext topic.title
+        order_by(sorting, sorting_direction(params[:search_sorting]))
         group :user_id_str
         with(:user_age).greater_than_or_equal_to(params[:age_min]) unless params[:age_min].blank?
         with(:user_age).less_than_or_equal_to(params[:age_max]) unless params[:age_max].blank?
@@ -39,6 +43,7 @@ class UsersController < ApplicationController
           @pagin.push(result.user)
         end
       end
+      @topic = topic
       #@pagin = Advert.joins(:user).includes(:advert_prices).where(topic_id: params[:topic]).order("score desc").page(params[:page]).per(12).map{|u| u.user}
     end
   end
@@ -46,7 +51,7 @@ class UsersController < ApplicationController
   def both_users_online
     current = User.find(params[:user_current])
     other = User.find(params[:user_other])
-    if current.last_seen > 10.minutes.ago && other.last_seen > 10.minutes.ago
+    if current.online? && other.online?
       render :json => { :online => "true"}
     else
       render :json => { :online => "false"}
@@ -73,6 +78,14 @@ class UsersController < ApplicationController
         r = "desc"
     end
     r
+  end
+
+  def sorting
+    if params[:search_sorting]
+      params[:search_sorting]
+    else
+      "qwerteach_score"
+    end
   end
 
 end

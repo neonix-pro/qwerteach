@@ -11,7 +11,7 @@
           = u.qwerteach_score
       .notation
         Etoile #{u.avg_reviews}
-        Nombre de Review #{u.numberOfReview}
+        Nombre de Review #{u.reviews_received.count}
       .specialite
         Spécialité :
         - u.adverts.each do |a|
@@ -21,20 +21,21 @@
         = raw((u.description).truncate_words(100))
       %br
       .lowerPrice
-        Prix minimum : #{u.priceLessExpensive}€
+        Prix minimum : #{u.min_price}€
       .firstLessonFree
-        #{u.firstLessonFree}
+        - if u.first_lesson_free
+          Premier cours gratuit!
       .connexion_last 
-        #{u.online}
-        %br/
-        Dernière connexion #{u.last_sign_in_at}
+        - if u.online?
+          en ligne!
       .stat
-        Taux de réponse: #{u.response_rate}%
-        %br/
-        Temps moyen de réponse : #{u.response_time}mn
-      .commentaireProf
-        #{u.lastReview}
-        #{u.numberOfReview}
+        - "Taux de réponse: #{u.response_rate}%" unless u.response_rate == 0
+        - "Temps moyen de réponse : #{u.response_time}mn" unless u.response_time == 0
+      - unless u.featured_review.nil?
+        .commentaireProf
+          #{simple_format(u.featured_review.review_text)}
+          %br
+          #{u.reviews_received.count}
       .voirProfil= link_to "Voir le profil", user_path(u)
 #request-lesson.modal.fade
   .modal-dialog

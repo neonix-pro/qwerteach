@@ -1,6 +1,6 @@
 .section-recherche
   .row
-    = form_tag users_path, :method => :get do
+    = form_tag profs_path, :method => :get do
       = select("post", ":q",TopicGroup.all.collect {|p| [ p.title, p.topic_group_id]}, {:class => 'form-control'})
       = label_tag "Mot-clé"
       = text_field_tag :q, params[:search]

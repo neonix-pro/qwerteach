@@ -57,7 +57,7 @@
                           %a.see-more-notifications
                             View all
                             %i.glyphicon.glyphicon-circle-arrow-right
-                %li= link_to 'Rechercher un Prof', users_path
+                %li= link_to 'Rechercher un Prof', profs_path
             %ul.nav.navbar-nav.pull-right
               - if user_signed_in?
                 %li.round-image-50= image_tag(current_user.avatar.url(:small))
