@@ -94,9 +94,6 @@ gem 'jquery-form-validator-rails'
 gem 'momentjs-rails', '~> 2.10.6'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 
-# magouille bdd david
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
-
 #Sans la Gem Erreur concernant les Images_Tags
 gem 'coffee-script-source', '1.8.0'
 
