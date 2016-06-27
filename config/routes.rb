@@ -51,7 +51,7 @@ Rails.application.routes.draw do
   end
   get 'dashboard' => 'dashboards#index', :as => 'dashboard'
 
-  resources :users, :only => [:show, :index] do
+  resources :users, :only => [:show] do
     resources :require_lesson
     put '/request_lesson/payment' => 'request_lesson/payment'
     get '/request_lesson/process_payin' => 'request_lesson/process_payin'
@@ -63,7 +63,8 @@ Rails.application.routes.draw do
     root 'pages#index'
   end
 
-  get '/profs/:topic/:level' => 'users#index'
+  match '/profs/:topic' => 'users#index', :as => 'profs_by_topic', via: :get
+  match '/profs' => 'users#index', :as => 'profs', via: :get
 
   unauthenticated :user do
     devise_scope :user do
@@ -132,8 +133,6 @@ Rails.application.routes.draw do
   bigbluebutton_routes :default, :only => 'recordings', :controllers => {:rooms => 'bbb_recordings'}
 
   mount Resque::Server, :at => "/resque"
-
-
 
   #root to: 'pages#index'
 end

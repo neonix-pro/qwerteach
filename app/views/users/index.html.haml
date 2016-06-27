@@ -1,5 +1,5 @@
 .section-resultat-header
-  = form_tag users_path, :method => :get do
+  = form_tag profs_path, :method => :get do
     Profs de
     = select_tag("topic", options_for_select(@topic_options, params[:topic]))
     triés par

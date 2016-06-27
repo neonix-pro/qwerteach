@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       @search = Sunspot.search(Advert) do
         with(:postulance_accepted, true)
         fulltext Topic.where('lower(title) = ?', params[:topic]).first.title
-        order_by(params[:search_sorting], sorting_direction(params[:search_sorting]))
+        order_by(sorting, sorting_direction(params[:search_sorting]))
         group :user_id_str
         with(:user_age).greater_than_or_equal_to(params[:age_min]) unless params[:age_min].blank?
         with(:user_age).less_than_or_equal_to(params[:age_max]) unless params[:age_max].blank?
@@ -73,6 +73,14 @@ class UsersController < ApplicationController
         r = "desc"
     end
     r
+  end
+
+  def sorting
+    if params[:search_sorting]
+      params[:search_sorting]
+    else
+      "qwerteach_score"
+    end
   end
 
 end
