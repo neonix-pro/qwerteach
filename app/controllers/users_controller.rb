@@ -23,10 +23,10 @@ class UsersController < ApplicationController
     if params[:topic].nil?
       @pagin = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
     else
-      topic = Topic.find(params[:topic]).title
+      @topic = Topic.find(params[:topic])
       @search = Sunspot.search(Advert) do
         with(:postulance_accepted, true)
-        fulltext topic
+        fulltext Topic.find(params[:topic]).title
         order_by(params[:search_sorting], sorting_direction(params[:search_sorting]))
         group :user_id_str
         with(:user_age).greater_than_or_equal_to(params[:age_min]) unless params[:age_min].blank?

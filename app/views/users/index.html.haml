@@ -1,14 +1,14 @@
 .section-resultat-header
   = form_tag users_path, :method => :get do
     Profs de
-    = select_tag("topic", options_for_select(@topic_options))
+    = select_tag("topic", options_for_select(@topic_options, params[:topic]))
     triés par
-    = select_tag("search_sorting", options_for_select(@sorting_options))
+    = select_tag("search_sorting", options_for_select(@sorting_options, :selected => params[:search_sorting]))
     = submit_tag("Go")
     %h3
       Trouvez votre
       %b
-        prof de #{}
+        prof de #{@topic.title}
       pour un
       %b cours particulier en ligne.
 .container
