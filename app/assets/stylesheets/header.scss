@@ -1,0 +1,26 @@
+$color_qwerteach_green : #22de80;
+$color_link_grey: #b9b9b9;
+
+body, html{
+    margin: 0;
+}
+
+.nav{
+ border: 0 !important;
+ background: #222222 !important;
+ height: 30px !important;
+}
+
+.nav .navbar-nav a{
+    color: $color_link_grey;
+    text-shadow: none;
+}
+
+.nav .navbar-nav a:hover{
+    background: none;
+    color: $color_qwerteach_green;
+}
+
+.nav .navbar-header .navbar-brand{
+    padding: 10px;
+}
