@@ -51,29 +51,6 @@ class User < ActiveRecord::Base
     s
   end
 
-  def numberOfReview
-    @review = Review.where(subject_id: self.id).count
-    return @review
-  end
-  def firstLessonFree
-    if self.first_lesson_free == true
-      @freeLesson = 'Premier cours gratuit!'
-    else
-      @freeLesson = ''
-    end
-    return @freeLesson
-  end
-  def lastReview
-    lastReview = Review.where(subject_id: self.id)
-      lastReview.each do |review|
-        @text_review = review.review_text
-      end
-    return @text_review
-  end
-  def priceLessExpensive 
-    @prices = self.adverts.map { |d| d.advert_prices.map { |l| l.price } }.min.first
-  end
-
   def online?
     last_seen > 10.minutes.ago unless last_seen.nil?
   end
