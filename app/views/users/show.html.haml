@@ -15,7 +15,8 @@
 #page-content-wrapper
   .container-fluid
     .row
-      #{@user.online}
+      - if @user.online?
+        en ligne!
       - if @user.first_lesson_free?
         %h3 Première leçon gratuite! (30mn)
       - if @user.postulance_accepted?

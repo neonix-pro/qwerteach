@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   def both_users_online
     current = User.find(params[:user_current])
     other = User.find(params[:user_other])
-    if current.last_seen > 10.minutes.ago && other.last_seen > 10.minutes.ago
+    if current.online? && other.online?
       render :json => { :online => "true"}
     else
       render :json => { :online => "false"}

@@ -73,11 +73,9 @@ class User < ActiveRecord::Base
   def priceLessExpensive 
     @prices = self.adverts.map { |d| d.advert_prices.map { |l| l.price } }.min.first
   end
-  def online
-    online = self.updated_at > 5.minutes.ago
-    if online == true
-      return "Prof online!"
-    end
+
+  def online?
+    last_seen > 10.minutes.ago
   end
   def send_notification (subject, body, sender)
     notification = self.notify(subject, body, nil, true, 100, false, sender)

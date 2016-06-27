@@ -25,7 +25,8 @@
       .firstLessonFree
         #{u.firstLessonFree}
       .connexion_last 
-        #{u.online}
+        - if u.online?
+          en ligne!
         %br/
         Dernière connexion #{u.last_sign_in_at}
       .stat
