@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
   end
 
   def online?
-    last_seen > 10.minutes.ago
+    last_seen > 10.minutes.ago unless last_seen.nil?
   end
   def send_notification (subject, body, sender)
     notification = self.notify(subject, body, nil, true, 100, false, sender)
