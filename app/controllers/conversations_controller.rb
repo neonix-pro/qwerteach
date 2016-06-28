@@ -4,7 +4,17 @@ class ConversationsController < ApplicationController
   before_action :get_conversation, except: [:index, :show_min, :find]
 
   def index
-    @conversations = @mailbox.conversations.page(params[:page]).per(4)
+    @user = current_user
+    case params[:mailbox]
+      when :inbox
+        @conversations = @mailbox.inbox.page(params[:page]).per(10)
+      when :sentbox
+        @conversations = @mailbox.sentbox.page(params[:page]).per(10)
+      when :trash
+        @conversations = @mailbox.trash.page(params[:page]).per(10)
+      else
+        @conversations = @mailbox.inbox.page(params[:page]).per(10)
+    end
   end
 
   def show

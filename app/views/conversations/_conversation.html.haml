@@ -1,12 +1,9 @@
-%li.list-group-item.clearfix
-  = link_to conversation.subject, conversation_path(conversation)
-  %p= render 'conversations/participants', conversation: conversation
-  %p
-    = conversation.last_message.body
-    %small
-      (
-      %span.text-muted>= conversation.last_message.created_at.strftime("%-d %B %Y, %H:%M:%S")
-      )
-  - if conversation.is_unread?(current_user)
-    = link_to 'Mark as read', mark_as_read_conversation_path(conversation), |
-      class: 'btn btn-xs btn-info', method: :post                           |
+%tr{class:[ (:unread unless conversation.is_read?(user)), (:read if conversation.is_read?(user)) ] }
+  %td.inbox-small-cells
+    %input.mail-checkbox{:type => "checkbox"}
+  %td.view-message.dont-show
+    #{conversation.last_sender.id == user.id ? "(moi)" : "#{conversation.last_sender.name}"}
+  %td.view-message #{conversation.last_message.body}
+  %td.view-message.inbox-small-cells
+    -#%i.fa.fa-paperclip
+  %td.view-message.text-right #{time_ago_in_words(conversation.last_message.created_at)}
