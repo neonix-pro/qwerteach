@@ -1,21 +1,27 @@
-.section-carrousel
+.section_carrousel
   .row
-    %h4
-      %b Recevez vos cours particuliers ddepuis chez vous.
-    #myCarousel.carousel.slide{"data-ride" => "carousel"}
+    
+    #myCarousel.carousel.slide{"data-ride" => "carousel", :class => "100window"}
       / Indicators
       %ol.carousel-indicators
         %li.active{"data-slide-to" => "0", "data-target" => "#myCarousell"}
         %li{"data-slide-to" => "1", "data-target" => "#myCarousel2"}
-        %li{"data-slide-to" => "2", "data-target" => "#myCarousel3"}
       / Wrapper for slides
       .carousel-inner{:role => "listbox"}
-        .item.active
-          = image_tag("test3.png", :class => "image_carrousel img-responsive")
-        .item
-          = image_tag("test3.png", :class => "image_carrousel img-responsive")
-        .item
-          = image_tag("test3.png", :class => "image_carrousel img-responsive")
+        .item.active.100window
+          = image_tag(image_path("acceuil/classe_eleve.png"), :class => "image_carrousel img-responsive img_slide1")
+          %div{:class => "left"}
+            %h2 Recevez vos cours particuliers depuis chez vous.
+            %div
+              %a.devenir_prof{:href => "#"} Inscription gratuite
+              %a.comment_ca_marche{:href => "#"} Comment ça marche ?
+        .item.100window
+          = image_tag(image_path("acceuil/classe_prof.png"), :class => "image_carrousel img-responsive img_slide2")
+          %div{:class => "right"}
+            %h2 Devenez prof particulier, travaillez en ligne.
+            %div
+              %a.devenir_prof{:href => "#"} Devenir prof
+              %a.comment_ca_marche{:href => "#"} Comment ça marche ?
       %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}
         %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true"}
         %span.sr-only Previous

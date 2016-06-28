@@ -1,4 +1,6 @@
 $color_qwerteach_green : #22de80;
+$color_qwerteach_pink : #d92d9b;
+$color_qwerteach_darkgrey: #4a4a4a;
 $color_link_grey: #b9b9b9;
 
 .section_bigimage{
@@ -39,7 +41,65 @@ $color_link_grey: #b9b9b9;
     }
 }
 
+
 .section_recherche{
     background: #000;
     height: 50px;
+}
+
+
+.section_carrousel{
+    .slide{
+        background: $color_qwerteach_green;
+    }
+    .item{
+        position: relative;
+        height: 100%;
+        img{
+            position: relative;
+            display: inline-block;
+            top: 50%;
+            right: 0;
+            width: 50%;
+            height: auto;
+            transform: translateY(-50%);
+        }
+        .img_slide1{
+            float: right;
+        }
+        .right{
+            width: 45%;
+            right: 5%;
+            position: absolute;
+            top: 40%;
+            transform: translateY(-50%);
+            text-align: left;
+            h2{
+                width: 70%;
+                color: $color_qwerteach_darkgrey;
+
+                font-size: 48px;
+            }
+            .devenir_prof{
+                display: block;
+                background: $color_qwerteach_pink;
+                border-radius: 25px;
+                color: #fff;
+                font-size: 18px;
+                text-align: center;
+                width: 200px;
+                padding: 10px 20px;
+                margin-top: 70px;
+            }
+            .comment_ca_marche{
+                display: block;
+                padding: 10px 20px;
+                width: 210px;
+                font-size: 16px;
+                color: $color_qwerteach_darkgrey;
+                text-align: center;
+                margin-top: 2px;
+            }
+        }
+    }
 }

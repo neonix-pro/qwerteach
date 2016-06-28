@@ -16,13 +16,13 @@ $(document).ready(function(e){
     });
     
     //100window
-    $(".100Window").css("height", height);
+    $(".100window").css("height", height);
     window.addEventListener("resize", function(){
       height = $(window).height();
-      $(".100Window").css("height", height);
+      $(".100window").css("height", height);
     });
     window.addEventListener("orientationchange", function(){
       height = $(window).height();
-      $(".100Window").css("height", height);
+      $(".100window").css("height", height);
     });
 })
