@@ -1,0 +1,40 @@
+$color_qwerteach_green : #22de80;
+$color_link_grey: #b9b9b9;
+
+.section-bigimage{
+    width: 100%;
+    background: url(image_path("acceuil/bigimage.jpg"));
+    background-size: cover;
+    background-position: center center;
+    
+    .title{
+    padding-top: 120px;
+    padding-left: 150px;
+        h1,h2{
+            color: #fff;
+            text-align: left;
+            margin: 5px;
+            text-shadow: 0 1px 0;
+        }
+        h2{
+            font-size: 24px;
+        }
+    }
+    
+    .mode-emploi{
+        margin: 100px auto auto auto;
+        
+        a{
+            padding: 10px 20px;
+            background: #313131;
+            border: 1px solid $color_qwerteach_green;
+            border-radius: 25px;
+            color: $color_qwerteach_green;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        a:hover{
+            background: #414141;
+        }
+    }
+}
