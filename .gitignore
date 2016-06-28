@@ -40,17 +40,12 @@
 
 .idea/workspace.xml
 
-*.jpeg
-
-*.jpg
-
-*.png
-
 db/schema.rb
 
 solr/
 config/database.yml
 public/system/avatars/*
 
+public/system/*
 
 
