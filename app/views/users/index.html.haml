@@ -8,7 +8,7 @@
     %h3
       Trouvez votre
       %b
-        - @topic.nil? ? "prof particulier" : "prof de #{@topic.title}"
+        = @topic.nil? ? "prof particulier" : "prof de #{@topic.title.downcase}"
       pour un
       %b cours particulier en ligne.
 .container

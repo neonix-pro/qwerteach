@@ -60,4 +60,12 @@ class Teacher  < Student
     end
     review
   end
+
+  def qwerteach_score
+    s = score
+    unless last_seen.nil?
+      s += 1000 if last_seen > 1.hour.ago
+    end
+    s
+  end
 end

@@ -43,13 +43,7 @@ class User < ActiveRecord::Base
   has_many :reviews_received, :class_name => 'Review', :foreign_key => 'subject_id'
   has_many :levels, through: :degrees
 
-  def qwerteach_score
-    s = score
-    unless last_seen.nil?
-      s += 1000 if last_seen > 1.hour.ago
-    end
-    s
-  end
+  acts_as_messageable
 
   def online?
     last_seen > 10.minutes.ago unless last_seen.nil?
@@ -72,6 +66,7 @@ class User < ActiveRecord::Base
   def total_wallets
     @total_wallets ||=wallets.first['Balance']['Amount'] + wallets.second['Balance']['Amount']
   end
+
   def is_solvable?(amount)
     amount < total_wallets
   end
@@ -91,15 +86,12 @@ class User < ActiveRecord::Base
     return @avg
   end
 
-  acts_as_messageable
-
   def level_max
     if Degree.where(:user_id => self).map { |t| t.level }.max.blank?
       nil
     else
       Degree.where(:user_id => self).map { |t| t.level }.max.id
     end
-    #self.degrees.map{|t| t.level}.max.id
   end
 
   def create_gallery_user
