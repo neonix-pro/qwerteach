@@ -1,7 +1,7 @@
 $color_qwerteach_green : #22de80;
 $color_link_grey: #b9b9b9;
 
-.section-bigimage{
+.section_bigimage{
     width: 100%;
     background: url(image_path("acceuil/bigimage.jpg"));
     background-size: cover;
@@ -21,7 +21,7 @@ $color_link_grey: #b9b9b9;
         }
     }
     
-    .mode-emploi{
+    .mode_emploi{
         margin: 100px auto auto auto;
         
         a{
@@ -37,4 +37,9 @@ $color_link_grey: #b9b9b9;
             background: #414141;
         }
     }
+}
+
+.section_recherche{
+    background: #000;
+    height: 50px;
 }

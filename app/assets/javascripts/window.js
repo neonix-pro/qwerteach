@@ -5,14 +5,14 @@ $(document).ready(function(e){
     height = $(window).height();
     
     //bigimage
-    $(".section-bigimage").css("height", height-100);
+    $(".section_bigimage").css("height", height-100);
     window.addEventListener("resize", function(){
       height = $(window).height();
-      $(".section-bigimage").css("height", height-100);
+      $(".section_bigimage").css("height", height-100);
     });
     window.addEventListener("orientationchange", function(){
       height = $(window).height();
-      $(".section-bigimage").css("height", height-100);
+      $(".section_bigimage").css("height", height-100);
     });
     
     //100window
