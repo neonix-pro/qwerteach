@@ -137,4 +137,14 @@ $color_link_grey: #b9b9b9;
             }
         }
     }
+    .carousel-control{
+        background: none !important;
+        img{
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 25px;
+            opacity: 1;
+        }
+    }
 }
