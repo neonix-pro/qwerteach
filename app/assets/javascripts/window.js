@@ -1,8 +1,10 @@
 $(document).ready(function(e){
     
-    var height
+    var height;
+    var width;
     
     height = $(window).height();
+    width = $(window).width();
     
     //bigimage
     $(".section_bigimage").css("height", height-100);
@@ -24,5 +26,16 @@ $(document).ready(function(e){
     window.addEventListener("orientationchange", function(){
       height = $(window).height();
       $(".100window").css("height", height);
+    });
+    
+    //100width
+    $(".100width").css("height", height);
+    window.addEventListener("resize", function(){
+      width = $(window).width();
+      $(".100width").css("width", width);
+    });
+    window.addEventListener("orientationchange", function(){
+      width = $(window).width();
+      $(".100width").css("width", width);
     });
 })
