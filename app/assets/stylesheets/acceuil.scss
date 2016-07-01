@@ -5,6 +5,17 @@ $color_qwerteach_navgrey: #202020;
 $color_qwerteach_purple: #501dd4;
 $color_link_grey: #b9b9b9;
 
+.boutton{
+    display: block;
+    background: $color_qwerteach_purple;
+    border-radius: 25px;
+    font-size: 18px;
+    text-align: center;
+    width: 200px;
+    padding: 10px 20px;
+    margin-top: 70px;
+}
+
 .section_bigimage{
     width: 100%;
     background: url(image_path("acceuil/bigimage.jpg"));
@@ -176,5 +187,48 @@ $color_link_grey: #b9b9b9;
             width: 70px;
             font-size: 32px;
         }
+    }
+    .point{
+        position: relative;
+        text-align: left;
+        margin-left: -125px;
+        span{
+            font-size: 32px;
+            color: $color_qwerteach_green;
+        }
+        h4{
+            font-size: 32px;
+            color: block;
+            display: inline-block;
+            color: #fff;
+            margin-left: 15px;
+        }
+    }
+    .point1{
+        top: 40px;
+    }
+    .point2{
+        top: 115px;
+    }
+    .point3{
+        top: 185px;
+    }
+    .plus_infos{
+        color: #fff;
+        background: $color_qwerteach_pink;
+        position: relative;
+        top: 150px;
+    }
+    .quit{
+        color: #fff;
+        position: absolute;
+        top: 10px;
+        right: 25px;
+        font-size: 32px;
+        cursor: pointer;
+    }
+    .quit:hover{
+        transform: rotate(180deg);
+        transition-duration: 0.5s;
     }
 }

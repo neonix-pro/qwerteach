@@ -1,15 +1,16 @@
-.row.featurette.section_commentmarche.100window
-  .col-md-7.left
+.row.featurette.section_commentmarche
+  .col-md-6.left
     %h3 Mode d'emploi
     = image_tag("guitare.png", :class => "img_love img-responsive")
-  .col-md-5
-    %h4 Choisissez votre professeur.
-    %h6 Découvrez des experts aux compétences diverses et aux parcours uniques, à votre disposition?
-    %a{:href => "#entete"} Trouver un prof
-    %h4 Fixer un rendez-vous
-    %h6 Communiquez avec votre prof sur vos besoins spécifiques et validez le tarif du cours.
-    %h4 Recevez votre cours en ligne
-    %h6 Aprendez à votre rythme en partageant vos docuements dans la classe virtuelles.
-    %p
-    Qu'est ce que
-    %a{:href => "http://classevirtuelle.qwerteach.com/client/BigBlueButton.html"} la classe virtuelle?
+  .col-md-6
+    %div.point1.point
+      %span 1.
+      %h4 Choisissez votre professeur. 
+    %div.point2.point
+      %span 2.
+      %h4 Fixez un rendez-vous.
+    %div.point3.point
+      %span 3.
+      %h4 Recevez votre cours en ligne.
+    %a.boutton.plus_infos.opacity_hover{:href => "#"} Plus d'inforamtions
+  %span.quit#quit_mode_emploi ✖
