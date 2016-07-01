@@ -1,6 +1,7 @@
 $color_qwerteach_green : #22de80;
 $color_qwerteach_pink : #d92d9b;
 $color_qwerteach_darkgrey: #4a4a4a;
+$color_qwerteach_navgrey: #202020;
 $color_qwerteach_purple: #501dd4;
 $color_link_grey: #b9b9b9;
 
@@ -139,12 +140,41 @@ $color_link_grey: #b9b9b9;
     }
     .carousel-control{
         background: none !important;
+        opacity: 1;
         img{
             position: relative;
             top: 50%;
             transform: translateY(-50%);
             width: 25px;
             opacity: 1;
+        }
+    }
+}
+
+
+.section_commentmarche{
+    background: $color_qwerteach_navgrey;
+    height: 500px;
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    display: block;
+    padding: 0;
+    margin-top: -50px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    .left{
+        position: relative;
+        img{
+            margin-top: 43px;
+        }
+        h3{
+            position: absolute;
+            left: 135px;
+            top: 35px;
+            color: $color_qwerteach_green;
+            width: 70px;
+            font-size: 32px;
         }
     }
 }
