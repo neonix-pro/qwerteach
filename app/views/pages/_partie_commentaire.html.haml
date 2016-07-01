@@ -1,5 +1,26 @@
-.row.featurette.section.section-commentaire
-  .col-md-7
-    = image_tag("test3.png", :class => "img_present img-responsive")
+.row.featurette.section.section_commentaire.100window
+  .col-md-7.bigimage.100window
   .col-md-5
     %h4#cadreBleu.txtCadreBleu Nos élèves adorent leurs cours en ligne.
+  .commentaires
+    .commentaire
+      .triangle
+      %p « Connaît son sujet, polyvalent, clair et concis. Parfait pour corriger les imperfections avant une session d'examens! 
+      %div
+        %img.avatar{"src" => image_path("avatar.jpg")}
+        %p.avatar_name Francois, élève.
+    .commentaire
+      .triangle
+      %p « Super prof! très efficace et très À l'écoute. Bon contact humain, ce qui est très appréciable! »
+      %div
+        %img.avatar{"src" => image_path("avatar.jpg")}
+        %p.avatar_name Meir, élève.
+    .commentaire
+      .triangle
+      %p « Super prof super sympa qui maitrise très bien sa matière ! A conseiller à tout le monde :) »
+      %div
+        %img.avatar{"src" => image_path("avatar.jpg")}
+        %p.avatar_name Kevin, élève.
+    .plus.opacity_hover
+      %div
+        %a{:href => "#"} +
