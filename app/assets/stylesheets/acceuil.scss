@@ -169,7 +169,7 @@ $color_link_grey: #b9b9b9;
     position: fixed;
     z-index: 100;
     width: 100%;
-    display: block;
+    display: none;
     padding: 0;
     margin-top: -50px;
     margin-left: 0 !important;
@@ -228,7 +228,7 @@ $color_link_grey: #b9b9b9;
         cursor: pointer;
     }
     .quit:hover{
-        transform: rotate(180deg);
+        transform: rotate(360deg);
         transition-duration: 0.5s;
     }
 }
