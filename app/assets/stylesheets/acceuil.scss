@@ -2,7 +2,9 @@ $color_qwerteach_green : #22de80;
 $color_qwerteach_pink : #d92d9b;
 $color_qwerteach_darkgrey: #4a4a4a;
 $color_qwerteach_navgrey: #202020;
+$color_qwerteach_lightblack: #191919;
 $color_qwerteach_purple: #501dd4;
+$color_qwerteach_orange: #eba029;
 $color_link_grey: #b9b9b9;
 
 .boutton{
@@ -314,6 +316,60 @@ $color_link_grey: #b9b9b9;
                     padding: 0;
                 }
             }
+        }
+    }
+}
+
+
+.section_tri_colonne{
+    img{
+        margin: auto;
+        padding-top: 50px;
+        height: 120px;
+    }
+    h4{
+        color: #fff;
+        width: 60%;
+        text-align: left;
+        margin: auto;
+        font-size: 32px;
+        margin-top : 15px;
+    }
+    h5{
+        color: #797979;
+        width: 70%;
+        font-size: 18px;
+        margin: auto;
+        text-align: justify;
+        margin-bottom: 25px;
+    }
+    hr{
+        width: 50%;
+    }
+    a{
+        font-size: 16px;
+    }
+    .colonne1, .colonne3{
+        position: relative;
+        background: $color_qwerteach_navgrey;
+        height: 420px;
+    }
+    .colonne1{
+        a{
+            color: $color_qwerteach_orange;
+        }
+    }
+    .colonne2{
+        position: relative;
+        background: $color_qwerteach_lightblack;
+        height: 420px;
+        a{
+            color: $color_qwerteach_pink;
+        }
+    }
+    .colonne3{
+        a{
+            color: $color_qwerteach_green;
         }
     }
 }
