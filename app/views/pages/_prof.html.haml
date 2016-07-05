@@ -1,11 +1,11 @@
-.section-profs
+.section_profs.100window
   - profs.each do |prof|
     .prof
       = prof.id
       = prof.firstname
       = prof.lastname
       = prof.first_lesson_free
-      = image_tag(prof.avatar.url(:small), size: "100x100")
+      = image_tag(prof.avatar.url(:small))
   #topic-groups-list
     - topic_groups.each do |tg|
       .topic-group
