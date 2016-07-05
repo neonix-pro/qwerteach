@@ -5,9 +5,9 @@
     .inbox-body
       %a.btn.btn-compose{"data-toggle" => "modal", :href => "#myModal", :title => "Compose"}
         Nouveau
-    = render 'mailbox_navigation'
-    = render 'mailbox_contacts'
+    = render partial: 'mailbox_navigation', :locals=>{mailbox_type: @mailbox_type, unread_count: @unread_count}
+    = render partial: 'mailbox_contacts', :locals=>{online_buddies: @online_buddies}
   %aside.lg-side
-    = render 'mailbox_head'
+    = render partial: 'mailbox_head', :locals=>{mailbox_type: @mailbox_type}
     = render partial: 'mailbox_options', :locals=>{conversations: @conversations}
     = render partial: 'mailbox_conversations', :locals=>{conversations: @conversations, user: @user}

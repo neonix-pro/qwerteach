@@ -2,8 +2,8 @@
   %td.inbox-small-cells
     %input.mail-checkbox{:type => "checkbox"}
   %td.view-message.dont-show
-    #{conversation.last_sender.id == user.id ? "(moi)" : "#{conversation.last_sender.name}"}
-  %td.view-message #{conversation.last_message.body}
+    = conversation.participants.map{|participant| user.id == participant.id ? 'moi' : participant.name}.join(', ')
+  %td.view-message #{truncate(conversation.last_message.body, length: 80, separator: ' ')}
   %td.view-message.inbox-small-cells
     -#%i.fa.fa-paperclip
   %td.view-message.text-right #{time_ago_in_words(conversation.last_message.created_at)}

@@ -5,16 +5,23 @@ class ConversationsController < ApplicationController
 
   def index
     @user = current_user
-    case params[:mailbox]
-      when :inbox
+    @mailbox_type = params[:mailbox]
+    @unread_count = @mailbox.inbox({:read => false}).count
+    case @mailbox_type
+      when 'inbox'
         @conversations = @mailbox.inbox.page(params[:page]).per(10)
-      when :sentbox
+      when 'sentbox'
         @conversations = @mailbox.sentbox.page(params[:page]).per(10)
-      when :trash
+      when 'trash'
         @conversations = @mailbox.trash.page(params[:page]).per(10)
       else
         @conversations = @mailbox.inbox.page(params[:page]).per(10)
     end
+    @online_buddies = []
+    @mailbox.conversations.each do |conv|
+      conv.participants.map{|u| @online_buddies.push(u.id) unless u.id == @user.id}
+    end
+    @online_buddies = User.where(:id=>@online_buddies).where(last_seen: (Time.now - 1.hour)..Time.now).order(last_seen: :desc).limit(10)
   end
 
   def show

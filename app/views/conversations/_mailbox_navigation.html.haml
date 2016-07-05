@@ -1,14 +1,14 @@
 %ul.inbox-nav.inbox-divider
-  %li.active
-    %a{:href => "#"}
+  %li{:class => ("active" if mailbox_type == 'inbox')}
+    %a{:href => "/mailbox/inbox"}
       %i.fa.fa-inbox
       Inbox
-      %span.label.label-danger.pull-right 2
-  %li
-    %a{:href => "#"}
+      %span.label.pull-right{class: [('label-danger' unless unread_count==0), ('label-default' if unread_count == 0)]} #{unread_count}
+  %li{:class => ("active" if mailbox_type == 'sentbox')}
+    %a{:href => "/mailbox/sentbox"}
       %i.fa.fa-envelope-o
       Sentbox
-  %li
-    %a{:href => "#"}
+  %li{:class => ("active" if mailbox_type == 'trash')}
+    %a{:href => "/mailbox/trash"}
       %i.fa.fa-trash-o
       Trash
