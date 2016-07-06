@@ -7,6 +7,9 @@ $('#mailbox_options').html("<%= j render partial: 'mailbox_options',
 
 $('#mailbox_head').html("<%= j render partial: 'mailbox_head',
                                         locals: {mailbox_type: @mailbox_type} %>");
+$('#mailbox_navigation').html("<%= j render partial: 'mailbox_navigation',
+                                            locals: {mailbox_type: @mailbox_type,
+                                            unread_count: @unread_count}%>");
 
 $('.inbox-nav-link').each(function(el) {
   $(this).parent().removeClass('active');

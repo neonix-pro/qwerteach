@@ -2,6 +2,7 @@ class ConversationsController < ApplicationController
   before_action :authenticate_user!
   before_action :get_mailbox
   before_action :get_conversation, except: [:index, :show_min, :find]
+  after_filter { flash.discard if request.xhr? }
 
   def index
     @user = current_user
@@ -47,7 +48,11 @@ class ConversationsController < ApplicationController
 
   def mark_as_unread
     @conversation = @mailbox.conversations.find(params[:id])
-    @conversation.mark_as_unread(current_user)
+    if @conversation.mark_as_unread(current_user)
+      flash[:success] = 'La conversation a bien été marquée comme non lue'
+    else
+      flash[:danger] = 'il y a eu un problème, l\'opération n\'a pas pu être effectuée.'
+    end
     refresh_mailbox
   end
 
@@ -58,6 +63,7 @@ class ConversationsController < ApplicationController
     @last_message = @messages.last
     @message = Mailboxer::Message.new
     Resque.enqueue(MessageStatWorker, current_user.id)
+    @unread_count = @mailbox.inbox({:read => false}).count
   end
 
   def reply
