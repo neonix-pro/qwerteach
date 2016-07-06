@@ -93,6 +93,7 @@ Rails.application.routes.draw do
       post :mark_as_read
     end
   end
+  match 'mailbox' => 'conversations#index', :as => 'messagerie', via: :get
   match 'mailbox/:mailbox' => 'conversations#index', :as => 'mailbox', via: :get
 
   #Permet affichage facture

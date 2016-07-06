@@ -1,0 +1,11 @@
+$('#conversations').html("<%= j render partial: 'mailbox_conversations',
+                                       locals: {conversations: @conversations,
+                                       user: @user}%>");
+
+$('.inbox-nav-link').each(function(el) {
+  $(this).parent().removeClass('active');
+  if($(this).attr('data-boxtype') == '<%= @mailbox_type %>')
+  {
+    $(this).parent().addClass('active');
+  }
+});

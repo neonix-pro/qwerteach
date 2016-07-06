@@ -1,4 +1,4 @@
-%table.table.table-inbox.table-hover
+%table#conversations.table.table-inbox.table-hover
   %tbody
     - conversations.each do |conversation|
       = render partial: 'conversation', :locals=> {conversation: conversation, user: user}
