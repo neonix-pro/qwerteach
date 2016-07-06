@@ -401,18 +401,40 @@ $color_link_grey: #b9b9b9;
             background-size: cover;
             background-position: center center;
             position: absolute;
+            color: $color_qwerteach_pruple;
+            p{
+                visibility: hidden;
+            }
         }
         .item0{
             top: 0;
             left: 400px;
             height: 500px;
             width: 500px;
+            p{
+                position: absolute;
+                left: 15px;
+                bottom: 10px;
+                visibility: visible;
+                font-size: 14px;
+                padding: 15px;
+                background-color : $color_qwerteach_yellow;
+            }
         }
         .item1{
             top: 0;
             left: 900px;
             width: 350px;
             height: 350px;
+            p{
+                position: absolute;
+                left: 15px;
+                bottom: 10px;
+                visibility: visible;
+                font-size: 14px;
+                padding: 15px;
+                background-color : $color_qwerteach_yellow;
+            }
         }
         .item2{
             top: 0;

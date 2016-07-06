@@ -8,13 +8,15 @@
         %br convient
     - profs.each do |prof|
       .prof{:style => "background-image: url(#{image_path prof.avatar.url(:large)})"}
-        = prof.id
-        = prof.firstname
-        = prof.lastname
-        = prof.first_lesson_free
+        %p.name
+          = prof.firstname
+          = prof.lastname
+          %br
+          - prof.adverts.each do |advert|
+            = advert.topic.title unless advert.topic.title == 'Other'
         //= image_tag(prof.avatar.url(:small))
     #topic-groups-list
-      - topic_groups.each do |tg|
+      - topic_groups.first(1).each do |tg|
         .topic-group
           = link_to profs_by_topic_path(tg.title.downcase) do
             = image_tag(tg.picto)
