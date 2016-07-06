@@ -47,5 +47,5 @@ config/database.yml
 public/system/avatars/*
 
 public/system/*
-
+app/assets/videos/*
 
