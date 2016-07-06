@@ -5,6 +5,7 @@ $color_qwerteach_navgrey: #202020;
 $color_qwerteach_lightblack: #191919;
 $color_qwerteach_purple: #501dd4;
 $color_qwerteach_orange: #eba029;
+$color_qwerteach_yellow: #f8e71d;
 $color_link_grey: #b9b9b9;
 
 .boutton{
@@ -375,8 +376,115 @@ $color_link_grey: #b9b9b9;
 }
 
 
-.section__prof{
-    .prof{
-        display: inline-block;
-    }
+.section_profs{
+    overflow: hidden;
+    text-align: left;
+    position: relative;
+    .inside{
+    position: absolute;
+    left: 0;
+    top: 0;
+        .title{
+            background: $color_qwerteach_yellow;
+            color: $color_qwerteach_purple;
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            h3{
+                font-size: 300%;
+                padding: 25px;
+            }
+        }
+        .prof{
+            background-size: cover;
+            background-position: center center;
+            position: absolute;
+        }
+        .item0{
+            top: 0;
+            left: 400px;
+            height: 500px;
+            width: 500px;
+        }
+        .item1{
+            top: 0;
+            left: 900px;
+            width: 350px;
+            height: 350px;
+        }
+        .item2{
+            top: 0;
+            left: 1250px;
+            height: 100px;
+            width: 100px;
+        }
+        .item3{
+            top: 400px;
+            left: 300px;
+            width: 100px;
+            height: 100px;
+        }
+        .item4{
+            top: 400px;
+            left: 100px;
+            height: 200px;
+            width: 200px;
+        }
+        .item5{
+            top: 400px;
+            left: -100px;
+            height: 200px;
+            width: 200px;
+            background-position: left center;
+        }
+        .item6{
+            top: 500px;
+            left: 300px;
+            height: 300px;
+            width: 300px;
+            background-position: bottom center;
+        }
+        .item7{
+            top: 500px;
+            left: 600px;
+            height: 300px;
+            width: 300px;
+            background-position: bottom center;
+        }
+        .item8{
+            top: 600px;
+            left: 0;
+            height: 300px;
+            width: 300px;
+            background-position: bottom center;
+        }
+        .item9{
+            top: 350px;
+            left: 900px;
+            height: 200px;
+            width: 200px;
+        }
+        .item10{
+            top: 550px;
+            left: 900px;
+            height: 200px;
+            width: 200px;
+        }
+        .item11{
+            top: 350px;
+            left: 1100px;
+            height: 500px;
+            width: 500px;
+            background-position: top left;
+        }
+        .item12{
+            top: 100px;
+            left: 1250px;
+            width: 250px;
+            height: 250px;
+            background-position: left center;
+        }
+    }    
 }

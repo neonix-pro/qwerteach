@@ -1,14 +1,21 @@
 .section_profs.100window
-  - profs.each do |prof|
-    .prof
-      = prof.id
-      = prof.firstname
-      = prof.lastname
-      = prof.first_lesson_free
-      = image_tag(prof.avatar.url(:small))
-  #topic-groups-list
-    - topic_groups.each do |tg|
-      .topic-group
-        = link_to profs_by_topic_path(tg.title.downcase) do
-          = image_tag(tg.picto)
-          = tg.title
+  .inside
+    .title.cadre_large.item
+      %h3 
+        Choisissez
+        %br le professeur
+        qui vous  
+        %br convient
+    - profs.each do |prof|
+      .prof{:style => "background-image: url(#{image_path prof.avatar.url(:large)})"}
+        = prof.id
+        = prof.firstname
+        = prof.lastname
+        = prof.first_lesson_free
+        //= image_tag(prof.avatar.url(:small))
+    #topic-groups-list
+      - topic_groups.each do |tg|
+        .topic-group
+          = link_to profs_by_topic_path(tg.title.downcase) do
+            = image_tag(tg.picto)
+            = tg.title
