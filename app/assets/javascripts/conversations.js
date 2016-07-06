@@ -12,7 +12,7 @@ function mailbox_links(){
         checkConversations($(this).attr('data-check'));
     });
 
-    $('input.mail-checkbox').on('change', function(){
+    $('input.mail-group-checkbox').on('change', function(){
         if($(this).prop('checked')){
             $('#mailbox_conversations tr input').prop('checked', true);
         }
@@ -20,6 +20,35 @@ function mailbox_links(){
             $('#mailbox_conversations tr input').prop('checked', false);
         }
     });
+
+    $('#trash').click(function(e){
+        e.preventDefault();
+        $('#mailbox_conversations tr input').each(function(){
+            if($(this).prop('checked')){
+                moveConversation($(this).attr('data-id'), 'trash');
+            }
+        });
+    });
+
+    $('#untrash').click(function(e){
+        e.preventDefault();
+        $('#mailbox_conversations tr input').each(function(){
+            if($(this).prop('checked')){
+                moveConversation($(this).attr('data-id'), 'untrash');
+            }
+        });
+    });
+
+    $('#mark_as_unread').click(function(e){
+        e.preventDefault();
+        $('#mailbox_conversations tr input').each(function(){
+            if($(this).prop('checked')){
+                moveConversation($(this).attr('data-id'), 'mark_as_unread');
+            }
+        });
+    });
+
+
 
     function checkConversations(type){
         $('#mailbox_conversations tr input').prop('checked', false);
@@ -33,4 +62,9 @@ function mailbox_links(){
             $('#mailbox_conversations tr input').prop('checked', true);
         }
     }
+
+    function moveConversation(id, action){
+        $.post( "conversations/"+id+"/"+action );
+    }
+
 }

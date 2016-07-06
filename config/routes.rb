@@ -87,10 +87,13 @@ Rails.application.routes.draw do
   get '/become_teacher/accueil' => "pages#devenir-prof"
   get '/index' => "pages#index"
   resources :become_teacher
-  resources :conversations, only: [:index, :show, :destroy] do
+  resources :conversations, only: [:index, :show, :delete] do
     member do
       post :reply
       post :mark_as_read
+      post :trash
+      post :mark_as_unread
+      post :untrash
     end
   end
   match 'mailbox' => 'conversations#index', :as => 'messagerie', via: :get

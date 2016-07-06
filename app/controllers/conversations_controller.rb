@@ -25,6 +25,32 @@ class ConversationsController < ApplicationController
     @online_buddies = User.where(:id=>@online_buddies).where(last_seen: (Time.now - 1.hour)..Time.now).order(last_seen: :desc).limit(10)
   end
 
+  def trash
+    @conversation = @mailbox.conversations.find(params[:id])
+    if @conversation.move_to_trash(current_user)
+      flash[:success] = 'La conversation a bien été placée dans votre corbeille'
+    else
+      flash[:danger] = 'il y a eu un problème, la conversation n\'a pas pu être supprimée.'
+    end
+    refresh_mailbox
+  end
+
+  def untrash
+    @conversation = @mailbox.conversations.find(params[:id])
+    if @conversation.untrash(current_user)
+      flash[:success] = 'La conversation a bien été déplacée vers votre boîte de réception'
+    else
+      flash[:danger] = 'il y a eu un problème, la conversation n\'a pas pu être déplacée.'
+    end
+    refresh_mailbox
+  end
+
+  def mark_as_unread
+    @conversation = @mailbox.conversations.find(params[:id])
+    @conversation.mark_as_unread(current_user)
+    refresh_mailbox
+  end
+
   def show
     @conversation.mark_as_read(current_user)
     @reciever = @conversation.participants - [current_user]
@@ -97,5 +123,13 @@ class ConversationsController < ApplicationController
   end
   def get_mailbox
     @mailbox ||= current_user.mailbox
+  end
+
+  def refresh_mailbox
+    index
+    respond_to do |format|
+      format.js {render :index}
+      format.html {}
+    end
   end
 end

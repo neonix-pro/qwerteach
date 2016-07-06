@@ -5,6 +5,9 @@ $('#mailbox_options').html("<%= j render partial: 'mailbox_options',
                                        locals: {conversations: @conversations,
                                        mailbox_type: @mailbox_type}%>");
 
+$('#mailbox_head').html("<%= j render partial: 'mailbox_head',
+                                        locals: {mailbox_type: @mailbox_type} %>");
+
 $('.inbox-nav-link').each(function(el) {
   $(this).parent().removeClass('active');
   if($(this).attr('data-boxtype') == '<%= @mailbox_type %>')
@@ -12,5 +15,16 @@ $('.inbox-nav-link').each(function(el) {
     $(this).parent().addClass('active');
   }
 });
+
+
+
+if('<%= @mailbox_type %>' == 'trash') {
+  $('#untrash').show();
+  $('#trash').hide();
+}
+else {
+  $('#untrash').hide();
+  $('#trash').show();
+}
 
 mailbox_links();

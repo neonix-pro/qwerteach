@@ -1,5 +1,5 @@
 .inbox-head
-  %h3 #{mailbox_type}
+  %h3 #{mailbox_type.humanize}
   %form.pull-right.position{:action => "#"}
     .input-append
       %input.sr-input{:placeholder => "Search Mail", :type => "text"}

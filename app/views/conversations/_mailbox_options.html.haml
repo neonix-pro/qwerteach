@@ -22,13 +22,17 @@
         %i.fa.fa-angle-down
       %ul.dropdown-menu
         %li
-          %a{:href => "#"}
+          %a#mark_as_unread{:href => "#"}
             %i.fa.fa-pencil
-            Mark as Read
+            Mark as Unread
         %li
-          %a{:href => "#"}
+          %a#trash{:href => "#"}
             %i.fa.fa-trash-o
             Delete
+        %li
+          %a#untrash{:href => "#"}
+            %i.fa.fa-undo
+            Untrash
     %ul.unstyled.inbox-pagination
       %li
         %span 1-#{conversations.count} of #{conversations.total_count}

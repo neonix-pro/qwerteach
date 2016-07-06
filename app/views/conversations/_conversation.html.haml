@@ -1,6 +1,6 @@
 %tr{class:[ (:unread unless conversation.is_read?(user)), (:read if conversation.is_read?(user)) ] }
   %td.inbox-small-cells
-    %input.mail-checkbox{:type => "checkbox"}
+    %input.mail-checkbox{:type => "checkbox", data: {id: conversation.id }}
   %td.view-message.dont-show
     = conversation.participants.map{|participant| user.id == participant.id ? 'moi' : participant.name}.join(', ')
   %td.view-message #{truncate(conversation.last_message.body, length: 80, separator: ' ')}
