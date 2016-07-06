@@ -25,26 +25,26 @@ a, a:hover, a:active, a:focus{
     overflow: hidden !important;
 }
 
-.nav{
+.main-nav{
  border: 0 !important;
  background: #222222 !important;
  height: 30px !important;
 }
 
-.nav{
+.main-nav{
     margin: 0 !important;
 }
 
-.nav .navbar-nav a{
+.main-nav .navbar-nav a{
     color: $color_link_grey;
     text-shadow: none;
 }
 
-.nav .navbar-nav a:hover{
+.main-nav .navbar-nav a:hover{
     background: none;
     color: $color_qwerteach_green;
 }
 
-.nav .navbar-header .navbar-brand{
+.main-nav .navbar-header .navbar-brand{
     padding: 10px;
 }
