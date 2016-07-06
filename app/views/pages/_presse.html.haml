@@ -1,10 +1,21 @@
-.container
-  %div{:classe => "row section-presse"}
-    %h2 La presse parle de nous!
-    .col-sm-2.col-xs-4.center-block
-      = image_tag("test3.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block= image_tag("test3.png", :class => "image_presse img-responsive")
+.container.section_presse
+  %div{:classe => "row"}
+    %h3 La presse parle de nous!
+    .col-sm-2.col-xs-4.center-block.presse_link
+      %a{:href => "http://www.rtl.be/belrtl/index-bel-rtl.htm", :target => "_blank"}
+        = image_tag("acceuil/logo_presse/belrtl.png", :class => "image_presse img-responsive")
+    .col-sm-2.col-xs-4.center-block.presse_link
+      %a{:href => "http://datanews.levif.be/ict/", :target => "_blank"}
+        = image_tag("acceuil/logo_presse/datanews.png", :class => "image_presse img-responsive")
+    .col-sm-2.col-xs-4.center-block.presse_link
+      %a{:href => "http://www.educadis.fr/", :target => "_blank"}
+        = image_tag("acceuil/logo_presse/educadis.png", :class => "image_presse img-responsive")
+    .col-sm-2.col-xs-4.center-block.presse_link
+      %a{:href => "http://www.lesoir.be/", :target => "_blank"}
+        = image_tag("acceuil/logo_presse/leSoir.png", :class => "image_presse img-responsive")
+    .col-sm-2.col-xs-4.center-block.presse_link
+      %a{:href => "http://www.solutions-magazine.com/", :target => "_blank"}
+        = image_tag("acceuil/logo_presse/solutionsMagazine.png", :class => "image_presse img-responsive")
+    .col-sm-2.col-xs-4.center-block.presse_link
+      %a{:href => "http://trends.levif.be/economie/", :target => "_blank"}
+        = image_tag("acceuil/logo_presse/trends-logo.png", :class => "image_presse img-responsive")
