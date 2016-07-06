@@ -1,0 +1,13 @@
+$('#mailbox_conversations').html('<%= j render partial: 'conversation', locals:{conversation: @conversation} %>');
+
+var chatbox = $("#chatbox_"+<%= @conversation.id %>+" .chatboxcontent");
+chatbox.scrollTop(chatbox[0].scrollHeight);
+
+
+$('#chatbox_#{@conversation.id} .chatboxinput').click(function () {
+  $.ajax({
+    url: "/seen",
+    data: {conversation_id: "#{@conversation.id}"},
+    method: 'post'
+  });
+});

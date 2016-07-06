@@ -28,6 +28,10 @@ function mailbox_links(){
                 moveConversation($(this).attr('data-id'), 'trash');
             }
         });
+        if($('.chatbox').length)
+        {
+            moveConversation($('.chatbox').attr('data-id'), 'trash');
+        }
     });
 
     $('#untrash').click(function(e){
@@ -37,6 +41,10 @@ function mailbox_links(){
                 moveConversation($(this).attr('data-id'), 'untrash');
             }
         });
+        if($('.chatbox').length)
+        {
+            moveConversation($('.chatbox').attr('data-id'), 'untrash');
+        }
     });
 
     $('#mark_as_unread').click(function(e){
@@ -46,6 +54,10 @@ function mailbox_links(){
                 moveConversation($(this).attr('data-id'), 'mark_as_unread');
             }
         });
+        if($('.chatbox').length)
+        {
+            moveConversation($('.chatbox').attr('data-id'), 'mark_as_unread');
+        }
     });
 
 

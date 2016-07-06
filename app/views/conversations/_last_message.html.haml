@@ -1,0 +1,11 @@
+%tr{class:[ (:unread unless conversation.is_read?(user)), (:read if conversation.is_read?(user)) ] }
+  %td.inbox-small-cells
+    %input.mail-checkbox{:type => "checkbox", data: {id: conversation.id }}
+  %td.view-message.dont-show
+    = conversation.participants.map{|participant| user.id == participant.id ? 'moi' : participant.name}.join(', ')
+  %td.view-message
+    = link_to conversation_path(conversation), remote: true do
+      #{truncate(conversation.last_message.body, length: 80, separator: ' ')}
+  %td.view-message.inbox-small-cells
+    -#%i.fa.fa-paperclip
+  %td.view-message.text-right #{time_ago_in_words(conversation.last_message.created_at)}
