@@ -1,6 +1,9 @@
-$('#conversations').html("<%= j render partial: 'mailbox_conversations',
+$('#mailbox_conversations').html("<%= j render partial: 'mailbox_conversations',
                                        locals: {conversations: @conversations,
                                        user: @user}%>");
+$('#mailbox_options').html("<%= j render partial: 'mailbox_options',
+                                       locals: {conversations: @conversations,
+                                       mailbox_type: @mailbox_type}%>");
 
 $('.inbox-nav-link').each(function(el) {
   $(this).parent().removeClass('active');
@@ -9,3 +12,5 @@ $('.inbox-nav-link').each(function(el) {
     $(this).parent().addClass('active');
   }
 });
+
+mailbox_links();

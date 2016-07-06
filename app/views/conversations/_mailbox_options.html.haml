@@ -1,20 +1,20 @@
 .inbox-body
   .mail-option
     .chk-all
-      %input.mail-checkbox.mail-group-checkbox{:type => "checkbox"}
+      %input.mail-checkbox.mail-group-checkbox{:type => "checkbox", "data-check"=>'all'}
         .btn-group
           %a.btn.mini.all{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#"}
             All
             %i.fa.fa-angle-down
           %ul.dropdown-menu
             %li
-              %a{:href => "#"} None
+              %a.chk_all{:href => "#", :data=>{:check=>:none}} None
             %li
-              %a{:href => "#"} Read
+              %a.chk_all{:href => "#", :data=>{:check=>:read}} Read
             %li
-              %a{:href => "#"} Unread
+              %a.chk_all{:href => "#", :data=>{:check=>:unread}} Unread
     .btn-group
-      %a.btn.mini.tooltips{:href => "#"}
+      = link_to mailbox_path(mailbox_type), :class => 'inbox-nav-link btn mini', data: {boxtype: mailbox_type}, :remote => true do
         %i.fa.fa-refresh
     .btn-group.hidden-phone
       %a.btn.mini.blue{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#"}

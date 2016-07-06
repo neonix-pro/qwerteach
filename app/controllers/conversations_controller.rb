@@ -6,7 +6,8 @@ class ConversationsController < ApplicationController
   def index
     @user = current_user
     params[:mailbox].nil? ? @mailbox_type = 'inbox': @mailbox_type = params[:mailbox]
-        @unread_count = @mailbox.inbox({:read => false}).count
+    @unread_count = @mailbox.inbox({:read => false}).count
+
     case @mailbox_type
       when 'inbox'
         @conversations = @mailbox.inbox.page(params[:page]).per(10)
