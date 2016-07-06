@@ -1,5 +1,18 @@
-- page_header "Vos conversations"
-%p= link_to 'Envoyer un message', new_message_path, class: 'btn btn-lg btn-primary'
-%ul.list-group
-  = render partial: 'conversations/conversation', collection: @conversations
-= paginate @conversations
+// le css est dans conversations.scss
+.mail-box
+  %aside.sm-side
+    .user-head
+    .inbox-body
+      %a.btn.btn-compose{"data-toggle" => "modal", :href => "#myModal", :title => "Compose"}
+        Nouveau
+    #mailbox_navigation
+      = render partial: 'mailbox_navigation', :locals=>{mailbox_type: @mailbox_type, unread_count: @unread_count}
+    #mailbox_contacts
+      = render partial: 'mailbox_contacts', :locals=>{online_buddies: @online_buddies}
+  %aside.lg-side
+    #mailbox_head
+      = render partial: 'mailbox_head', :locals=>{mailbox_type: @mailbox_type}
+    #mailbox_options
+      = render partial: 'mailbox_options', :locals=>{conversations: @conversations, mailbox_type: @mailbox_type}
+    #mailbox_conversations
+      = render partial: 'mailbox_conversations', :locals=>{conversations: @conversations, user: @user}

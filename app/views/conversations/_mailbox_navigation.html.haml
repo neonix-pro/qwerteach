@@ -1,0 +1,14 @@
+%ul.inbox-nav.inbox-divider
+  %li{:class => ("active" if mailbox_type == 'inbox')}
+    = link_to mailbox_path('inbox'), :class => 'inbox-nav-link', data: {boxtype: 'inbox'}, :remote => true do
+      %i.fa.fa-inbox
+      Inbox
+      %span.label.pull-right{class: [('label-danger' unless unread_count==0), ('label-default' if unread_count == 0)]} #{unread_count}
+  %li{:class => ("active" if mailbox_type == 'sentbox')}
+    = link_to mailbox_path('sentbox'), :class => 'inbox-nav-link', data: {boxtype: 'sentbox'}, :remote => true do
+      %i.fa.fa-envelope-o
+      Sentbox
+  %li{:class => ("active" if mailbox_type == 'trash')}
+    = link_to mailbox_path('trash'), :class => 'inbox-nav-link', data: {boxtype: 'trash'}, :remote => true do
+      %i.fa.fa-trash-o
+      Trash

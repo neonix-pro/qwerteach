@@ -2,9 +2,58 @@ class ConversationsController < ApplicationController
   before_action :authenticate_user!
   before_action :get_mailbox
   before_action :get_conversation, except: [:index, :show_min, :find]
+  after_filter { flash.discard if request.xhr? }
 
   def index
-    @conversations = @mailbox.conversations.page(params[:page]).per(4)
+    @user = current_user
+    params[:mailbox].nil? ? @mailbox_type = 'inbox': @mailbox_type = params[:mailbox]
+    @unread_count = @mailbox.inbox({:read => false}).count
+
+    case @mailbox_type
+      when 'inbox'
+        @conversations = @mailbox.inbox.page(params[:page]).per(10)
+      when 'sentbox'
+        @conversations = @mailbox.sentbox.page(params[:page]).per(10)
+      when 'trash'
+        @conversations = @mailbox.trash.page(params[:page]).per(10)
+      else
+        @conversations = @mailbox.inbox.page(params[:page]).per(10)
+    end
+    @online_buddies = []
+    @mailbox.conversations.each do |conv|
+      conv.participants.map{|u| @online_buddies.push(u.id) unless u.id == @user.id}
+    end
+    @online_buddies = User.where(:id=>@online_buddies).where(last_seen: (Time.now - 1.hour)..Time.now).order(last_seen: :desc).limit(10)
+  end
+
+  def trash
+    @conversation = @mailbox.conversations.find(params[:id])
+    if @conversation.move_to_trash(current_user)
+      flash[:success] = 'La conversation a bien été placée dans votre corbeille'
+    else
+      flash[:danger] = 'il y a eu un problème, la conversation n\'a pas pu être supprimée.'
+    end
+    refresh_mailbox
+  end
+
+  def untrash
+    @conversation = @mailbox.conversations.find(params[:id])
+    if @conversation.untrash(current_user)
+      flash[:success] = 'La conversation a bien été déplacée vers votre boîte de réception'
+    else
+      flash[:danger] = 'il y a eu un problème, la conversation n\'a pas pu être déplacée.'
+    end
+    refresh_mailbox
+  end
+
+  def mark_as_unread
+    @conversation = @mailbox.conversations.find(params[:id])
+    if @conversation.mark_as_unread(current_user)
+      flash[:success] = 'La conversation a bien été marquée comme non lue'
+    else
+      flash[:danger] = 'il y a eu un problème, l\'opération n\'a pas pu être effectuée.'
+    end
+    refresh_mailbox
   end
 
   def show
@@ -14,6 +63,7 @@ class ConversationsController < ApplicationController
     @last_message = @messages.last
     @message = Mailboxer::Message.new
     Resque.enqueue(MessageStatWorker, current_user.id)
+    @unread_count = @mailbox.inbox({:read => false}).count
   end
 
   def reply
@@ -79,5 +129,13 @@ class ConversationsController < ApplicationController
   end
   def get_mailbox
     @mailbox ||= current_user.mailbox
+  end
+
+  def refresh_mailbox
+    index
+    respond_to do |format|
+      format.js {render :index}
+      format.html {}
+    end
   end
 end
