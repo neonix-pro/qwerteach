@@ -1,0 +1,3 @@
+$('#mailbox_conversations').html("<%= j render partial: 'mailbox_conversations',
+                                       locals: {conversations: @conversations,
+                                       user: @user}%>");

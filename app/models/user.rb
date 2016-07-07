@@ -252,6 +252,10 @@ class User < ActiveRecord::Base
     end
  end
 
+  def qwerteach_score
+    0
+  end
+
     private
   def reprocess_avatar
     avatar.assign(avatar)

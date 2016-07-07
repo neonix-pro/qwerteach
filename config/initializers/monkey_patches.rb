@@ -1,0 +1,1 @@
+require 'ext/mailboxer.rb'

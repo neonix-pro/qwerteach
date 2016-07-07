@@ -1,8 +1,10 @@
 class ConversationsController < ApplicationController
   before_action :authenticate_user!
   before_action :get_mailbox
-  before_action :get_conversation, except: [:index, :show_min, :find]
+  before_action :get_conversation, except: [:index, :show_min, :find, :search]
   after_filter { flash.discard if request.xhr? }
+
+  include Mailboxer
 
   def index
     @user = current_user
@@ -64,6 +66,11 @@ class ConversationsController < ApplicationController
     @message = Mailboxer::Message.new
     Resque.enqueue(MessageStatWorker, current_user.id)
     @unread_count = @mailbox.inbox({:read => false}).count
+  end
+
+  def search
+    @user = current_user
+    @conversations = @user.search_messages(params[:q])
   end
 
   def reply

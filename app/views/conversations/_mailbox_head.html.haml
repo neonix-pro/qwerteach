@@ -1,7 +1,7 @@
 .inbox-head
   %h3 #{mailbox_type.humanize}
-  %form.pull-right.position{:action => "#"}
+  = form_tag mailbox_search_path, class: "pull-right position", remote: true do
     .input-append
-      %input.sr-input{:placeholder => "Search Mail", :type => "text"}
-        %button.btn.sr-btn{:type => "button"}
+      %input.sr-input{:placeholder => "Search Mail", :type => "text", :name => :q}
+        %button.btn.sr-btn{:type => "submit"}
           %i.fa.fa-search
