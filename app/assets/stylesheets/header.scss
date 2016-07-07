@@ -1,4 +1,5 @@
 $color_qwerteach_green : #22de80;
+$color_qwerteach_navgrey : #191919;
 $color_link_grey: #b9b9b9;
 
 body, html{
@@ -47,4 +48,54 @@ a, a:hover, a:active, a:focus{
 
 .main-nav .navbar-header .navbar-brand{
     padding: 10px;
+}
+
+#footer{
+     background: $color_qwerteach_navgrey;   
+     color: $color_link_grey;
+     height: 400px;
+     .inner{
+         position: relative;
+         top: 50px;
+         width: 80%;
+         display: block;
+         margin: auto;
+         height: 100%;
+         .logo{
+             display: block;
+             margin: auto;
+             height: 100px;
+         }
+         a{
+            padding-right: 10%;
+            display: block;
+            text-align: left;
+            color: $color_link_grey;
+        }
+        h3{
+            font-size: 18px;
+            text-align: left;
+        }
+        p{
+            text-align: left;
+        }
+        .social_block{
+            text-align: left;
+            .social{
+                display: inline-block;
+                margin: 0;
+                padding: 0;
+                text-align: left;
+                img{
+                    width: 25px;
+                    margin: 10px;
+                }
+            }
+        }
+        .green{
+            color: $color_qwerteach_green;
+        }
+
+         
+     }
 }
