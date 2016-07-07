@@ -98,6 +98,7 @@ Rails.application.routes.draw do
   end
   match 'mailbox' => 'conversations#index', :as => 'messagerie', via: :get
   match 'mailbox/:mailbox' => 'conversations#index', :as => 'mailbox', via: :get
+  post 'mailbox/search' => 'conversations#search'
 
   #Permet affichage facture
   get "/payments/index" => "payments#index"

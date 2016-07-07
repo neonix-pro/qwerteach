@@ -47,6 +47,10 @@ class Advert < ActiveRecord::Base
     advert_prices.create
   end
 
+  def title
+    self.topic.title == 'Other' ? self.other_name : self.topic.title
+  end
+
   # Pour Sunspot, définition des champs sur lesquels les recherches sont faites et des champs sur lesquels les filtres sont réalisés
   searchable do
     text :other_name

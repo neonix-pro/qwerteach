@@ -12,4 +12,6 @@ class Receipt < Mailboxer::Receipt
       CustomMessageMailer.email_sender_send(@kk, @receipts[k].to_s).deliver_now
     end
   end
+
+
 end
