@@ -1,10 +1,12 @@
 $color_qwerteach_green : #22de80;
 $color_qwerteach_navgrey : #191919;
+$color_qwerteach_darkgrey: #4a4a4a;
 $color_link_grey: #b9b9b9;
 
 body, html{
     margin: 0;
     font-family: "Source Sans Pro" !important;
+    outline: none !important;
 }
 
 a, a:hover, a:active, a:focus{
@@ -13,6 +15,12 @@ a, a:hover, a:active, a:focus{
     border: none;
     outline: 0;
     background: none;
+}
+button{
+    outline: none !important;
+}
+input{
+    outline: none !important;
 }
 
 .opacity_hover:hover{
@@ -31,6 +39,7 @@ a, a:hover, a:active, a:focus{
  border: 0 !important;
  background: #222222 !important;
  height: 30px !important;
+ outline: none !important;
 }
 
 .main-nav{
