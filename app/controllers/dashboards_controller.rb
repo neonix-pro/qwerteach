@@ -3,34 +3,19 @@ class DashboardsController < ApplicationController
 
   def index
     @user = current_user
-    @future_lessons = []
-     current_user.lessons_given.where(:status => 2).where('time_start > ?', DateTime.now).each { |l| @future_lessons.push l }
-     current_user.lessons_received.where(:status => 2).where('time_start > ?', DateTime.now).each { |l| @future_lessons.push l }
-
-    @pending_lessons = []
-     current_user.lessons_given.where(:status => 0..1).where('time_start > ?', DateTime.now).each { |l| @pending_lessons.push l }
-     current_user.lessons_received.where(:status => 0..1).where('time_start > ?', DateTime.now).each { |l| @pending_lessons.push l }
-
-    @pending_postpayments = []
-     current_user.lessons_given.each do |lesson|
-       lesson.payments.where(:status => 0, :payment_type => 1).each { |l| @pending_postpayments.push l }
-     end
-     current_user.lessons_received.each do |lesson|
-       lesson.payments.where(:status => 0, :payment_type => 1).each { |l| @pending_postpayments.push l }
-     end
-
-    @pending_prepayments = []
-     current_user.lessons_given.each do |lesson|
-       lesson.payments.where(:status => 0, :payment_type => 0).each { |l| @pending_prepayments.push l }
-     end
-     current_user.lessons_received.each do |lesson|
-       lesson.payments.where(:status => 0, :payment_type => 0).each { |l| @pending_prepayments.push l }
-     end
+    @upcoming_lessons = Lesson.where(:status => 2).where('time_start > ?', DateTime.now).where("student_id =#{@user.id}  OR teacher_id = #{@user.id}")
+    @past_lessons = @user.lessons_received.limit(3).order(time_start: :desc).where('time_end < ?', DateTime.now).where(status: :created)
 
     unless(@user.mango_id.nil?)
-      @wallet_normal = @user.wallets.first
-      @wallet_bonus = @user.wallets.second
-      @wallet_transfer = @user.wallets.last
-      end
+      @wallets = {normal: @user.wallets.first, bonus: @user.wallets.second, transfer: @user.wallets.third}
+    end
+
+    lessons_without_review = @user.noreview_lessons
+    unpaid_lessons = @user.unpaid_lessons
+    pending_lessons = @user.pending_lessons
+    @to_do_list = ( unpaid_lessons + lessons_without_review + pending_lessons).sort_by &:created_at
+
+    @featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)
+    @featured_teachers = Teacher.all.order(score: :desc).limit(5)
   end
 end

@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   ACCOUNT_TYPES = ["Student", "Teacher"]
   devise
   paginates_per 1
-
+  # DEVISE
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   #    database_authenticatable – Users will be able to authenticate with a login and password that are stored in the database. (password is stored in a form of a digest).
@@ -15,35 +15,31 @@ class User < ActiveRecord::Base
   #    confirmable – Users will have to confirm their e-mails after registration before being allowed to sign in.
   #    lockable – Users’ accounts will be locked out after a number of unsuccessful authentication attempts.
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :confirmable, :lockable, :lastseenable, :omniauthable, :omniauth_providers => [:twitter, :facebook, :google_oauth2, :linkedin]
-  # Avatar attaché au User
-  has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"},
-                    :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg",
-                    url: "/system/avatars/:hash.:extension", hash_secret: "laVieEstBelllllee", :hash_data => "/:attachment/:id/:style"
-  # Vérifie que le type de l'avatar est bien une image
-  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :message => 'file type is not allowed (only jpeg/png/gif images)'
-  # Attributs pour le crop de l'avatar
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+         :recoverable, :rememberable, :trackable, :confirmable, :lockable,
+         :lastseenable, :omniauthable, :omniauth_providers => [:twitter, :facebook, :google_oauth2]
 
-  # Attributs pour mangopay
-  attr_accessor :address, :nationality, :countryOfResidence, :bank_accounts
-  # Vérifie que la date de naissance est bien dans le passé
-  validates_date :birthdate, :on_or_before => lambda { Date.current }
-  # Update de l'avatar pour le crop
-  after_update :reprocess_avatar, :if => :cropping?
   has_one :gallery
   has_many :adverts
-  # on crée une gallery après avoir créé le user
-  after_create :create_gallery_user
-
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
-
   has_many :reviews_sent, :class_name => 'Review', :foreign_key => 'sender_id'
   has_many :reviews_received, :class_name => 'Review', :foreign_key => 'subject_id'
   has_many :levels, through: :degrees
+  belongs_to :level
+
+  attr_accessor :address, :nationality, :countryOfResidence, :bank_accounts
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+
+  after_update :reprocess_avatar, :if => :cropping?
+  after_create :create_gallery
 
   acts_as_messageable
+  validates_date :birthdate, :on_or_before => lambda { Date.current }
+  has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"},
+                    :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg",
+                    url: "/system/avatars/:hash.:extension", hash_secret: "laVieEstBelllllee", :hash_data => "/:attachment/:id/:style"
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :message => 'file type is not allowed (only jpeg/png/gif images)'
+
 
   def online?
     last_seen > 10.minutes.ago unless last_seen.nil?
@@ -57,27 +53,8 @@ class User < ActiveRecord::Base
     where(:admin => true)
   end
 
-  def wallets
-    unless(mango_id.nil?)
-      MangoPay::User.wallets(mango_id)
-    end
-  end
-
-  def total_wallets
-    @total_wallets ||=wallets.first['Balance']['Amount'] + wallets.second['Balance']['Amount']
-  end
-
-  def is_solvable?(amount)
-    amount < total_wallets
-  end
-
-  #required for BBB
   def name
     "#{firstname} #{lastname}".presence || email
-  end
-  
-  def username
-    return name
   end
 
   def avg_reviews
@@ -94,8 +71,18 @@ class User < ActiveRecord::Base
     end
   end
 
-  def create_gallery_user
-    create_gallery
+  def wallets
+    unless(mango_id.nil?)
+      MangoPay::User.wallets(mango_id)
+    end
+  end
+
+  def total_wallets_in_cents
+    @total_wallets ||=wallets.first['Balance']['Amount'] + wallets.second['Balance']['Amount']
+  end
+
+  def is_solvable?(amount)
+    amount < total_wallets_in_cents
   end
 
   def mango_infos (params)
@@ -174,15 +161,10 @@ class User < ActiveRecord::Base
   end
 
   # Methode permettant de faire passer un User à Student
-  public
   def upgrade
     self.type = User::ACCOUNT_TYPES[0]
     self.save!
   end
-
-  belongs_to :level
-  # Méthode permettant de savoir si le User est admin
-  public
 
   # Types de User possibles
   def self.types
@@ -190,15 +172,9 @@ class User < ActiveRecord::Base
   end
 
   # Methode permettant de rendre un User admin
-  public
   def become_admin
     self.admin=true
-    self.save
-  end
-
-  def mailboxer_email(object)
-    self.email
-    #return the model's email here
+    self.save!
   end
   
   def self.from_omniauth(auth)
@@ -256,9 +232,9 @@ class User < ActiveRecord::Base
     0
   end
 
-    private
-  def reprocess_avatar
-    avatar.assign(avatar)
-    avatar.save
-  end
+  private
+    def reprocess_avatar
+      avatar.assign(avatar)
+      avatar.save
+    end
 end

@@ -47,4 +47,16 @@ class Lesson < ActiveRecord::Base
     end
 
   end
+
+  def paid?
+    paid = true
+    self.payments.each do |payment|
+      paid = false if payment.pending?
+    end
+    paid
+  end
+
+  def pending?(user)
+    (teacher == user && status == 'pending_teacher') || (student == user && status == 'pending_student')
+  end
 end

@@ -1,8 +1,0 @@
-%div.col-sm-6.col-md-4
-  -if @user.mango_id.nil?
-    %h5 Crédit sur Qwerteach:
-    %div 0€
-    =link_to 'Configurez votre portefeuille virtuel!', edit_wallet_path(@user)
-  -else
-    = render 'dashboards/contenuWallet'
-   

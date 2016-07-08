@@ -1,0 +1,11 @@
+-if user.mango_id.nil?
+  %h5 Portefeuille:
+  %div 0€
+  =link_to 'Configurez votre portefeuille virtuel!', edit_wallet_path(user)
+-else
+  %h5 Portefeuille:
+  = "#{user.total_wallets_in_cents/100} €"
+  = link_to 'Charger', direct_debit_path(user)
+
+
+   
