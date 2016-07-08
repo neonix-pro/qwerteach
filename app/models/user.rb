@@ -77,12 +77,12 @@ class User < ActiveRecord::Base
     end
   end
 
-  def total_wallets
+  def total_wallets_in_cents
     @total_wallets ||=wallets.first['Balance']['Amount'] + wallets.second['Balance']['Amount']
   end
 
   def is_solvable?(amount)
-    amount < total_wallets
+    amount < total_wallets_in_cents
   end
 
   def mango_infos (params)

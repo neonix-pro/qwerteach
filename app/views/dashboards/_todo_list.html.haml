@@ -1,8 +1,8 @@
 - to_do_list.each do |lesson|
   %div
     -if lesson.pending?(user)
-      = render partial: 'todo_answer', locals: {lesson: lesson}
+      = render partial: 'dashboards/todo_list/todo_answer', locals: {lesson: lesson}
     -if lesson.paid?
-      = render partial: 'todo_review', locals: {lesson: lesson}
+      = render partial: 'dashboards/todo_list/todo_review', locals: {lesson: lesson}
     - else
-      = render partial: 'todo_payment', locals: {lesson: lesson}
+      = render partial: 'dashboards/todo_list/todo_payment', locals: {lesson: lesson}

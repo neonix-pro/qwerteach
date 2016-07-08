@@ -4,3 +4,11 @@
   = render partial: 'upcoming_lessons', locals:{lessons: @upcoming_lessons}
 #past_lessons
   = render partial: 'upcoming_lessons', locals:{lessons: @past_lessons}
+#wallet_overview
+  = render partial: 'wallet_overview', locals:{user: @user}
+#bonus
+  = render partial: 'bonus', locals:{user: @user}
+#topics.section-choix
+  = render partial: 'pages/topic_groups_list', locals:{topic_groups: @featured_topics}
+#featured_teachers
+  = render partial: 'featured_teachers', locals: {teachers: @featured_teachers}

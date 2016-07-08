@@ -1,0 +1,12 @@
+-teachers.each do |teacher|
+  .featured_teacher
+    .picture
+      =image_tag(teacher.avatar.url(:small))
+    .min_price
+      = "#{teacher.min_price} €/h"
+    .name
+      %b #{teacher.name}
+    .topics
+      - teacher.adverts.first(3).each do |ad|
+        #{ad.title}
+
