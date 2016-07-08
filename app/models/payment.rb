@@ -13,4 +13,8 @@ class Payment < ActiveRecord::Base
   validates :lesson_id, presence: true
   validates :transfert_date, presence: true
 
+  def pending?
+    status == 'pending'
+  end
+
 end

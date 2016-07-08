@@ -47,4 +47,12 @@ class Lesson < ActiveRecord::Base
     end
 
   end
+
+  def paid?
+    paid = true
+    self.payments.each do |payment|
+      paid = false if payment.pending?
+    end
+    paid
+  end
 end
