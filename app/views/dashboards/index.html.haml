@@ -1,1 +1,6 @@
-= render partial: 'todo_list', locals: {to_do_list: @to_do_list}
+#todo_list
+  = render partial: 'todo_list', locals: {to_do_list: @to_do_list, user: @user}
+#upcoming_lessons
+  = render partial: 'upcoming_lessons', locals:{lessons: @upcoming_lessons}
+#past_lessons
+  = render partial: 'upcoming_lessons', locals:{lessons: @past_lessons}

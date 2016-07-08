@@ -55,4 +55,8 @@ class Lesson < ActiveRecord::Base
     end
     paid
   end
+
+  def pending?(user)
+    (teacher == user && status == 'pending_teacher') || (student == user && status == 'pending_student')
+  end
 end
