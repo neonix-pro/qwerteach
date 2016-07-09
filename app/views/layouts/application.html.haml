@@ -6,6 +6,8 @@
         = value
         = yield :top_content
 .container-fluid.main-content
+  -if current_user
+    = render 'layouts/sidebar'
   = yield
 - if (current_user)
   = subscribe_to "/chat"
