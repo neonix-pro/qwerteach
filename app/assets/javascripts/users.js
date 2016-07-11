@@ -69,8 +69,18 @@ var ready = function () {
     $('.ckeditor').ckeditor({
         // optional config
     });
+    adjustProfileSidebar();
+    function adjustProfileSidebar(){
+        height= $(window).height();
+        $('#sidebar-profile').height(height);
+    };
 
 }
 
 $(document).ready(ready);
 $(document).on("page:load", ready);
+
+function adjustProfileSidebar(){
+    height= $(window).hieght();
+    $('#sidebar-profile').height(height);
+};

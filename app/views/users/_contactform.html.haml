@@ -1,0 +1,7 @@
+= form_tag messages_path, method: :post do
+  = hidden_field_tag 'message[subject]', "#{me.name} vous pose une question!"
+  = hidden_field_tag 'message[recipient]', user
+  .form-group
+    = text_area_tag 'message[body]', nil, rows: 5,
+      placeholder: "Posez une question à #{user.firstname}", class: 'form-control', required: true
+  = submit_tag 'Envoyer', class: 'btn btn-send-message btn-small'

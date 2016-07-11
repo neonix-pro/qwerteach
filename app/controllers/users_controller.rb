@@ -12,6 +12,7 @@ class UsersController < ApplicationController
       @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size unless @notes.empty?
     end
     @profSimis = @user.similar_teachers(4)
+    @me = current_user
   end
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
