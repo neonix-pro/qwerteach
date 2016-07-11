@@ -68,4 +68,10 @@ class Teacher  < Student
     end
     s
   end
+
+  def avg_reviews
+    @notes = self.reviews_received.map { |r| r.note }
+    @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size
+    return @avg
+  end
 end
