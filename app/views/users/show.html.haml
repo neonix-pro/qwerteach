@@ -11,9 +11,33 @@
   #user-contactform
     = render partial: "contactform", locals:{me: @me, user: @user}
 #profile-content
-  %h3 Professeurs similaires
-  - @profSimis.each do |teacher|
-    = render partial: 'users/teacher', :locals => {:teacher => teacher}
+  .profile-header
+    .left
+      %h2 #{@user.name}
+      .topics
+        #{@user.adverts.map{|ad| "#{link_to ad.title, "#"}"}.join(", ").html_safe}
+      .rating
+        = render partial: "shared/star_rating", locals: {user: @user}
+    .right
+      .age
+        = "#{@user.age} ans" unless @user.birthdate.nil?
+      .degree #{@user.level_max}
+      .occupation #{@user.occupation}
+  .profile-description
+    #{@user.description.html_safe}
+  #profile-adverts
+    - @user.adverts.each do |advert|
+      .profile-advert
+        .flipper
+          .front
+            #{advert.title}
+          .back
+            #{advert.description}
+  .similar-teachers
+  .clearfix
+    -#%h3 Professeurs similaires
+    -#- @profSimis.each do |teacher|
+    -#  = render partial: 'users/teacher', :locals => {:teacher => teacher}
 -#  - if @user.online?
 -#    en ligne!
 -#  - if @user.first_lesson_free?

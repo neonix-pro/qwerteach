@@ -57,12 +57,6 @@ class User < ActiveRecord::Base
     "#{firstname} #{lastname}".presence || email
   end
 
-  def avg_reviews
-    @notes = self.reviews_received.map { |r| r.note }
-    @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size
-    return @avg
-  end
-
   def level_max
     if Degree.where(:user_id => self).map { |t| t.level }.max.blank?
       nil
@@ -230,6 +224,11 @@ class User < ActiveRecord::Base
 
   def qwerteach_score
     0
+  end
+
+  def age
+    now = Time.now.utc.to_date
+    now.year - birthdate.year - ((now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)) ? 0 : 1)
   end
 
   private

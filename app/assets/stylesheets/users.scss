@@ -224,7 +224,71 @@ $color_link_grey: #b9b9b9;
 }
 
 #profile-content{
+  .profile-header{
+    background-color: $color_qwerteach_darkgrey;
+    width:80%;
+    float:left;
+    height:140px;
+    margin-bottom:30px;
+    h2{
+      margin:0px;
+      color:white;
+      font-size: 35px;
+      letter-spacing: 0px;
+      font-weight:300;
+    }
+    .topics a, .topics{
+      font-weight:200;
+      color: $color_qwerteach_green;
+      font-size: 18px;
+      letter-spacing: 0.17px;
+      line-height: 30px;
+    }
+    .left{
+      margin-left:30px;
+      float:left;
+      margin-top:20px;
+    }
+    .right{
+      color:$color_link_grey;
+      float:right;
+      margin-right:20%;
+      line-height:25px;
+      margin-top:25px;
+      font-weight:300;
+    }
+    .rating{
+      margin-top:8px;
+    }
+    .number-of-reviews{
+      margin-left:10px;
+      font-size:17px;
+      color:$color_link_grey;
+      font-weight:200;
+    }
+  }
+  .profile-description{
+    padding-left:30px;
+    font-size: 14px;
+    color: #626262;
+    letter-spacing: 0px;
+    margin-left:20%;
+    margin-right: 15%;
+  }
+}
+
+#profile-adverts{
+  position:relative;
+  margin-left: 20%;
   width:80%;
+  .profile-advert .front{
+    background-color: $color_qwerteach_pink;
+    color:white;
+  }
+  .profile-advert .back{
+    background-color: $color_qwerteach_lightblack;
+    color:white;
+  }
 }
 
 /* A refactorer ailleurs? */
@@ -299,4 +363,54 @@ $color_link_grey: #b9b9b9;
     .modal-footer{
       border: none;
     }
+}
+.navbar {
+  margin-bottom:0px!important;
+  border-radius:0px!important;
+}
+
+/*Flipping cards effect*/
+/* entire container, keeps perspective */
+.profile-advert {
+  perspective: 1000px;
+  width:33.3333%;
+  width: calc(100% / 3);
+  float:left;
+  position:relative;
+}
+/* flip the pane when hovered */
+.profile-advert:hover .flipper, .profile-advert.hover .flipper {
+  transform: rotateY(180deg);
+}
+
+.profile-advert, .front, .back {
+  height: 300px;
+}
+
+/* flip speed goes here */
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width:100%;
+}
+
+/* front pane, placed above back */
+.front {
+  z-index: 2;
+  /* for firefox 31 */
+  transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+  transform: rotateY(180deg);
+>>>>>>> e3aef44099686342459623048d26e6445522bf89
 }
