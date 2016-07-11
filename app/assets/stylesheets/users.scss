@@ -227,13 +227,24 @@ $color_link_grey: #b9b9b9;
   width:80%;
 }
 
-<<<<<<< HEAD
+/* A refactorer ailleurs? */
+.btn-green{
+  background: $color_qwerteach_green!important;
+  border-radius: 30px!important;
+  font-size: 16px!important;
+  color: #313131!important;
+  letter-spacing: 0.2px!important;
+  line-height: 20px!important;
+  font-weight:300!important;
+  padding:8px 20px;
 .descriptionPlusResteProfil {
   margin-top: 400px;
+}
 }
 
 /*Inscription & connexion*/
 .conin{
+    text-align: center;
     .modal-header{
       border: none;
       font-size: 32px;
@@ -247,6 +258,14 @@ $color_link_grey: #b9b9b9;
         background: $color_qwerteach_green !important;
         color: #fff;
         outline: none !important;
+        .provider_signin{
+          display: block;
+          margin: auto;
+          padding: 5px;
+          img{
+            width: 250px;
+          }
+        }
         form{
           margin-bottom: 35px;
         }
@@ -280,16 +299,4 @@ $color_link_grey: #b9b9b9;
     .modal-footer{
       border: none;
     }
-=======
-/* A refactorer ailleurs? */
-.btn-green{
-  background: $color_qwerteach_green!important;
-  border-radius: 30px!important;
-  font-size: 16px!important;
-  color: #313131!important;
-  letter-spacing: 0.2px!important;
-  line-height: 20px!important;
-  font-weight:300!important;
-  padding:8px 20px;
->>>>>>> 4cdbffe9ae32a7fcf137c9a964d2810f1bbb70ac
 }
