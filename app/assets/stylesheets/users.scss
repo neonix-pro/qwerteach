@@ -10,30 +10,7 @@ $color_link_grey: #b9b9b9;
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-@font-face {
-  font-family: Futura;
-  //src: url('futura-icg-demi.tff');
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  width: auto;
-  text-align: center;
-}
-
-.color {
-  background-color: #222222;
-}
-
-body {
-
-  height: auto;
-  margin-right: 0px;
-  margin-left: 0px;
-  width: auto;
-}
+@import "global_variables";
 
 .section-recherche {
   margin: 0;
@@ -191,162 +168,66 @@ body {
 }
 
 /* Profil*/
-
-.mail {
-  height: 250px;
-  background-color: #222222;
-}
-
-.headerIcone {
-  background-color: #21DE80;
-  text-align: center;
-  width: auto;
-  height: 150px;
-}
-
-.infoProf {
-  text-align: left;
-  background-color: #222222;
-  max-height: 250px;
-}
-
-.matiereProfil {
-  color: #21DE80;
-}
-
-.nomPrenomProfil {
-  display: inline;
-}
-
-#wrapper {
-  padding-left: 0;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-
-#wrapper.toggled {
-  padding-left: 250px;
-}
-
-#sidebar-wrapper {
-  z-index: 1000;
-  position: fixed;
-  left: 250px;
-  width: 0;
-  height: 100%;
-  margin-left: -250px;
-  overflow-y: auto;
-  background: #F2F2F2;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-
-#wrapper.toggled #sidebar-wrapper {
-  width: 250px;
-}
-
-#page-content-wrapper {
-  width: 100%;
-  padding: 15px;
-}
-
-#wrapper.toggled #page-content-wrapper {
-  margin-right: -250px;
-}
-
-/* Sidebar Styles */
-
-.sidebar-nav {
-  position: relative;
-  width: 250px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.sidebar-nav li {
-  text-indent: 20px;
-  line-height: 40px;
-}
-
-.sidebar-nav li a {
-  display: block;
-  text-decoration: none;
-  color: #999999;
-}
-
-.sidebar-nav li a:hover {
-  text-decoration: none;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-  text-decoration: none;
-}
-
-.sidebar-nav > .sidebar-brand {
-  height: 65px;
-  font-size: 18px;
-  line-height: 60px;
-}
-
-.sidebar-nav > .sidebar-brand a {
-  color: #999999;
-}
-
-.sidebar-nav > .sidebar-brand a:hover {
-  color: #fff;
-  background: none;
-}
-
-@media(min-width: 768px) {
-  #wrapper {
-    padding-left: 250px;
+#sidebar-profile{
+  position:relative;
+  float:left;
+  height:100%;
+  font-weight:200;
+  width:20%;
+  overflow:hidden;
+  background-color: $color_qwerteach_darkgrey;
+  text-align:center;
+  #user-profilepicture{
+    width:100%;
+    margin-bottom:24px;
+    img{
+      width:100%;
+      height:auto;
+    }
   }
-
-  #wrapper.toggled {
-    padding-left: 0;
+  .user-pricing{
+    margin-bottom:30px;
+    /* voir le tarif détail: */
+    font-size: 14px;
+    font-family: 'Helvetica';
+    a{
+      margin-top:-4px;
+      color:$color_link_grey;
+    }
   }
-
-  #sidebar-wrapper {
-    top:53px;
-    position:fixed;
-    width: 250px;
-  }
-
-  #wrapper.toggled #sidebar-wrapper {
-    width: 0;
-  }
-
-  #page-content-wrapper {
-    padding: 20px;
-    position: relative;
-  }
-
-  #wrapper.toggled #page-content-wrapper {
-    position: relative;
-    margin-right: 0;
+  .minprice{
+    font-size: 34px;
+    color: $color_qwerteach_green;
+    margin-bottom: -8px;
   }
 }
 
-.tailleMax {
-  max-height: 250px;
+#user-contactform{
+  position:absolute;
+  bottom:15px;
+  width:100%;
+  textarea{
+    border-radius:0px;
+  }
+  .btn-send-message{
+    background: $color_qwerteach_green!important;
+    border-radius:0px;
+    position:relative;
+    top:-45px;
+    left:5px;
+    float:left;
+    font-size: 13px;
+    color: #4A4A4A;
+    letter-spacing: 0px;
+    line-height: 10px!important;
+  }
 }
 
-.fixed {
-  position: fixed;
+#profile-content{
+  width:80%;
 }
 
-.tailleHeader {
-  height: 250px;
-}
-
+<<<<<<< HEAD
 .descriptionPlusResteProfil {
   margin-top: 400px;
 }
@@ -399,4 +280,16 @@ body {
     .modal-footer{
       border: none;
     }
+=======
+/* A refactorer ailleurs? */
+.btn-green{
+  background: $color_qwerteach_green!important;
+  border-radius: 30px!important;
+  font-size: 16px!important;
+  color: #313131!important;
+  letter-spacing: 0.2px!important;
+  line-height: 20px!important;
+  font-weight:300!important;
+  padding:8px 20px;
+>>>>>>> 4cdbffe9ae32a7fcf137c9a964d2810f1bbb70ac
 }

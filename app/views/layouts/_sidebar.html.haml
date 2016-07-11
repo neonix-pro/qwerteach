@@ -1,0 +1,38 @@
+%nav.navbar.navbar-inverse.sidebar{:role => "navigation"}
+  .container-fluid
+    / Brand and toggle get grouped for better mobile display
+    .navbar-header
+      %button.navbar-toggle{"data-target" => "#bs-sidebar-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    / Collect the nav links, forms, and other content for toggling
+    #bs-sidebar-navbar-collapse-1.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        %li.active
+          = link_to dashboard_path do
+            Home
+            %span.pull-right.hidden-xs.showopacity.glyphicon.glyphicon-home{:style => "font-size:16px;"}
+        %li
+          = link_to lessons_path do
+            Mes cours
+            %span.pull-right.hidden-xs.showopacity.glyphicon.glyphicon-book{:style => "font-size:16px;"}
+        %li
+          = link_to mailbox_path('inbox') do
+            Messages
+            %span.pull-right.hidden-xs.showopacity.glyphicon.glyphicon-envelope{:style => "font-size:16px;"}
+        %li
+          = link_to index_wallet_path do
+            Portefeuille
+            %span.pull-right.hidden-xs.showopacity.fa.fa-credit-card{:style => "font-size:16px;"}
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            Mon profil
+            %span.caret
+            %span.pull-right.hidden-xs.showopacity.glyphicon.glyphicon-user{:style => "font-size:16px;"}
+          %ul.dropdown-menu.forAnimate{:role => "menu"}
+            %li
+              =link_to 'Modifier mon profil', edit_user_registration_path(current_user)
+            %li
+              =link_to 'Voir mon profil', user_path(current_user)

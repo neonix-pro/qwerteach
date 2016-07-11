@@ -1,16 +1,17 @@
 = render "layouts/header"
-.container
+-if current_user
+  = render 'layouts/sidebar'
+.main-content
   #flash-messages
     - flash.each do |key, value|
       %div{:class => "alert alert-#{key}"}
         = value
         = yield :top_content
-.container-fluid.main-content
   = yield
+  = render "layouts/footer"
 - if (current_user)
   = subscribe_to "/chat"
   = subscribe_to "/notifications/"+current_user.id.to_s
-= render "layouts/footer"
 
 #myModIns.conin.modal.fade{:role => "dialog"}
   .modal-dialog

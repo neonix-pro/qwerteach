@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
   end
 
   def is_solvable?(amount)
-    amount < total_wallets_in_cents
+    amount < total_wallets_in_cents/100
   end
 
   def mango_infos (params)
