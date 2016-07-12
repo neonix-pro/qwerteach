@@ -71,7 +71,7 @@ var ready = function () {
     });
     adjustProfileSidebar();
     function adjustProfileSidebar(){
-        height= $('.main-content').height();
+        height= $(window).height();
         $('#sidebar-profile').height(height);
     };
 

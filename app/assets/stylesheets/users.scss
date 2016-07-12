@@ -160,14 +160,15 @@
 
 /* Profil*/
 #sidebar-profile{
-  position:relative;
-  float:left;
+  position:fixed;
+  top:50px;
   height:100%;
   font-weight:200;
   width:20%;
   overflow:hidden;
   background-color: $color_qwerteach_darkgrey;
   text-align:center;
+  z-index:2;
   #user-profilepicture{
     width:100%;
     margin-bottom:24px;
@@ -215,9 +216,12 @@
 }
 
 #profile-content{
+  width: calc(100%-256px);
+  margin-left:256px;
+  margin-top:50px;
   .profile-header{
     background-color: $color_qwerteach_darkgrey;
-    width:80%;
+    width:100%;
     float:left;
     height:140px;
     margin-bottom:30px;
@@ -263,22 +267,67 @@
     font-size: 14px;
     color: #626262;
     letter-spacing: 0px;
-    margin-left:20%;
     margin-right: 15%;
+    padding-bottom:30px;
   }
 }
 
 #profile-adverts{
   position:relative;
-  margin-left: 20%;
-  width:80%;
+  width:100%;
   .profile-advert .front{
-    background-color: $color_qwerteach_pink;
+    padding-top:50px;
     color:white;
+    text-align:center;
+    h4{
+      text-align:center;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 35px;
+    }
   }
   .profile-advert .back{
-    background-color: $color_qwerteach_lightblack;
+    text-align:left;
     color:white;
+  }
+  .profile-advert.simple{
+    width: 100%;
+  }
+  .profile-advert.double{
+    width: 50%;
+  }
+  .profile-advert.triple{
+    width: calc(100% / 3);
+  }
+  .profile-advert:first-child{
+    background-color: $color_qwerteach_yellow;
+    .back {
+      color: $color_qwerteach_lightgrey;
+      .advert-title {
+        color: #313131;
+      }
+    }
+  }
+  .profile-advert:nth-child(2){
+    background-color: $color_qwerteach_pink;
+  }
+  .profile-advert:nth-child(3){
+    background-color: $color_qwerteach_purple;
+  }
+  .profile-advert:nth-child(4){
+    background-color: $color_qwerteach_green;
+  }
+  .profile-advert:nth-child(5){
+    background-color: $color_qwerteach_blue;
+  }
+  .profile-advert:nth-child(6){
+    background-color: $color_qwerteach_lightblack;
+  }
+  .profile-advert:nth-child(7){
+    background-color: $color_qwerteach_orange;
+  }
+  .profile-advert:nth-child(8){
+    background-color: $color_qwerteach_pink;
   }
   .advert-flip-toggle {
     position: absolute;
@@ -330,27 +379,19 @@
   font-weight:300!important;
   padding:8px 20px;
 }
-.navbar {
-  margin-bottom:0px!important;
-  border-radius:0px!important;
-}
 
 /*Flipping cards effect*/
-/* entire container, keeps perspective */
 .profile-advert {
   perspective: 1000px;
-  width:33.3333%;
-  width: calc(100% / 3);
+  overflow: auto;
   float:left;
   position:relative;
+  height: 256px;
 }
+
 /* flip the pane when hovered */
 .profile-advert.hover .flipper {
   transform: rotateY(180deg);
-}
-
-.profile-advert, .front, .back {
-  height: 300px;
 }
 
 /* flip speed goes here */
@@ -377,5 +418,18 @@
 
 /* back, initially hidden pane */
 .back {
+  padding:20px 30px;
   transform: rotateY(180deg);
+  font-size: 14px;
+
+  letter-spacing: 0px;
+  height: 226px;
+  overflow: auto;
+  .advert-title {
+    font-size: 20px;
+    font-weight:300;
+    letter-spacing: 0.2px;
+    margin-bottom: 20px;
+    line-height: 23px;
+  }
 }

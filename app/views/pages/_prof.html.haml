@@ -14,5 +14,4 @@
           %br
           - prof.adverts.each do |advert|
             = advert.topic.title unless advert.topic.title == 'Other'
-        //= image_tag(prof.avatar.url(:small))
     = render partial: 'topic_groups_list', locals:{topic_groups: topic_groups}

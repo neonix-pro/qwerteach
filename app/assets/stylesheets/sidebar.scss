@@ -5,6 +5,8 @@ body,html{
 /*Remove rounded coners*/
 nav.sidebar.navbar {
   border-radius: 0px;
+  position:fixed;
+  top:50px;
 }
 
 nav.sidebar{

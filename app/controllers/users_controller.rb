@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     end
     @profSimis = @user.similar_teachers(4)
     @me = current_user
+    @profil_advert_classes = profil_advert_classes(@adverts.count)
   end
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
@@ -86,6 +87,36 @@ class UsersController < ApplicationController
       params[:search_sorting]
     else
       "qwerteach_score"
+    end
+  end
+
+  def profil_advert_classes(n)
+    case n
+      when 1
+        ['simple']
+      when 2
+        ['double', 'double']
+      when 3
+        ['simple', 'double', 'double']
+      when 4
+        ['simple', 'triple', 'triple', 'triple']
+      when 5
+        ['double', 'double', 'triple', 'triple', 'triple']
+      # when 6
+      #   profil_advert_classes(2) + profil_advert_classes(1) + profil_advert_classes(3)
+      # when 7
+      #   profil_advert_classes(2) + profil_advert_classes(3) + profil_advert_classes(2)
+      # when 8
+      #   profil_advert_classes(2) + profil_advert_classes(3) + profil_advert_classes(3)
+      else
+        r= profil_advert_classes(2)
+        c = n - 2
+        while c > 0
+          t = rand(1..[5, c].min)
+          r += profil_advert_classes(t)
+          c -= t
+        end
+        r
     end
   end
 
