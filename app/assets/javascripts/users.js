@@ -71,16 +71,15 @@ var ready = function () {
     });
     adjustProfileSidebar();
     function adjustProfileSidebar(){
-        height= $(window).height();
+        height= $('.main-content').height();
         $('#sidebar-profile').height(height);
     };
 
+    $('#profile-content .advert-flip-toggle').click(function(){
+        $(this).toggleClass('active');
+        $(this).parent().toggleClass('hover');
+    })
 }
 
 $(document).ready(ready);
 $(document).on("page:load", ready);
-
-function adjustProfileSidebar(){
-    height= $(window).hieght();
-    $('#sidebar-profile').height(height);
-};

@@ -280,6 +280,43 @@
     background-color: $color_qwerteach_lightblack;
     color:white;
   }
+  .advert-flip-toggle {
+    position: absolute;
+    z-index: 2;
+    top: 15px;
+    right: 30px;
+  }
+  .advert-flip-toggle span, .advert-flip-toggle span:before, .advert-flip-toggle span:after {
+    cursor: pointer;
+    border-radius: 1px;
+    height: 2px;
+    width: 20px;
+    background: white;
+    position: absolute;
+    display: block;
+    content: '';
+  }
+  .advert-flip-toggle span:before {
+    top: -7px;
+  }
+  .advert-flip-toggle span:after {
+    bottom: -7px;
+  }
+  .advert-flip-toggle span, .advert-flip-toggle span:before, .advert-flip-toggle span:after {
+    transition: all 500ms ease-in-out;
+  }
+  .advert-flip-toggle.active span {
+    background-color: transparent;
+  }
+  .advert-flip-toggle.active span:before, .advert-flip-toggle.active span:after {
+    top: 0;
+  }
+  .advert-flip-toggle.active span:before {
+    transform: rotate(45deg);
+  }
+  .advert-flip-toggle.active span:after {
+    transform: rotate(-45deg);
+  }
 }
 
 /* A refactorer ailleurs? */
@@ -308,7 +345,7 @@
   position:relative;
 }
 /* flip the pane when hovered */
-.profile-advert:hover .flipper, .profile-advert.hover .flipper {
+.profile-advert.hover .flipper {
   transform: rotateY(180deg);
 }
 
