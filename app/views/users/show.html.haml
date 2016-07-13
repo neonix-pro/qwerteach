@@ -19,19 +19,7 @@
     =render partial: 'users/profile/profile_adverts', locals:{adverts: @adverts}
   #profile-calendar
   #profile-reviews
-    - @reviews.each do |review|
-      .review.clearfix
-        = link_to user_path(review.sender) do
-          .review-sender.col-sm-2
-            = image_tag(review.sender.avatar.url(:small), {class: 'sender-picture'})
-            .sender-name #{review.sender.name}
-        .col-sm-8
-          .review-stars
-            =render partial: "shared/star_rating", locals:{note: review.note}
-          .review-content
-            #{review.review_text.html_safe}
-        .col-sm-2
-          %small.review-date.pull-right #{review.created_at.strftime('%d.%m.%Y')}
+    = render partial: 'users/profile/profile_reviews', locals:{reviews: @reviews}
   .similar-teachers
   .clearfix
 

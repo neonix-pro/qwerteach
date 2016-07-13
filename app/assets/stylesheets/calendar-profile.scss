@@ -1,0 +1,74 @@
+@import "global_variables";
+
+#profile-calendar{
+  background-color:#222222;
+  padding-top:30px;
+  float:left;
+  .fc-toolbar{
+    color: $color_qwerteach_green;
+    .fc-today-button{
+      color:white;
+      background-color:transparent;
+      border: none;
+      text-shadow: none;
+      opacity:0.3;
+      font-size:20px;
+      font-weight:300;
+    }
+    .fc-prev-button, .fc-next-button {
+      border-radius: 50%;
+      background: #FFFFFF;
+      height: 30px;
+      width: 30px;
+      padding: 0px;
+      margin: 0px 7px;
+      margin-top: 5px;
+    }
+    .fc-icon{
+      margin:0;
+    }
+    .fc-icon-left-single-arrow::after{
+      content: '';
+    }
+    .fc-icon-left-single-arrow{
+      border-bottom: 7px solid transparent;
+      position: relative;
+      right: 2px;
+      border-right: 7px solid black;
+      border-top: 7px solid transparent;
+      top: -2px;
+    }
+    .fc-icon-right-single-arrow::after{
+      content: '';
+    }
+    .fc-icon-right-single-arrow{
+      border-bottom: 7px solid transparent;
+      position: relative;
+      right: 2px;
+      border-left: 7px solid black;
+      border-top: 7px solid transparent;
+      top: -2px;
+    }
+    .fc-right{
+      margin-right:30px;
+    }
+  }
+  .fc-view{
+    color: $text_lightgrey;
+    table td, .fc th, .fc-day-header, .fc-axis{
+      border:none;
+      border-width:0px;
+      border-style:none;
+    }
+    .fc-slats table tbody tr{
+      height:30px;
+    }
+    .fc-slats table tbody tr td{
+      border-bottom:1px dashed;
+    }
+    .fc-slats table tbody tr td:first-child{
+      border-bottom:none;
+    }
+  }
+
+}
