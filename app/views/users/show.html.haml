@@ -12,110 +12,28 @@
     = render partial: "contactform", locals:{me: @me, user: @user}
 #profile-content
   .profile-header
-    .left
-      %h2 #{@user.name}
-      .topics
-        #{@user.adverts.map{|ad| "#{link_to ad.title, "#"}"}.join(", ").html_safe}
-      .rating
-        = render partial: "shared/star_rating", locals: {user: @user}
-    .right
-      .age
-        = "#{@user.age} ans" unless @user.birthdate.nil?
-      .degree #{@user.level_max}
-      .occupation #{@user.occupation}
+    =render partial: 'users/profile/profile_header', locals:{user: @user}
   .profile-description
     #{@user.description.html_safe}
   #profile-adverts
-    - @user.adverts.each_with_index do |advert, key|
-      .profile-advert{:class=>"#{@profil_advert_classes[key]}"}
-        .flipper
-          .front
-            = image_tag(advert.topic.pictotype('big'), :class => 'advert-picto')
-            %h4.advert-title
-              #{advert.title}
-          .back
-            .advert-title
-              #{advert.title}
-              %br
-              %small Jusqu'au niveau #{advert.max_level}
-            .advert-description #{advert.description}
-        %span.advert-flip-toggle
-          %span
+    =render partial: 'users/profile/profile_adverts', locals:{adverts: @adverts}
+  #profile-calendar
+  #profile-reviews
+    - @reviews.each do |review|
+      .review.clearfix
+        = link_to user_path(review.sender) do
+          .review-sender.col-sm-2
+            = image_tag(review.sender.avatar.url(:small), {class: 'sender-picture'})
+            .sender-name #{review.sender.name}
+        .col-sm-8
+          .review-stars
+            =render partial: "shared/star_rating", locals:{note: review.note}
+          .review-content
+            #{review.review_text.html_safe}
+        .col-sm-2
+          %small.review-date.pull-right #{review.created_at.strftime('%d.%m.%Y')}
   .similar-teachers
   .clearfix
-    -#%h3 Professeurs similaires
-    -#- @profSimis.each do |teacher|
-    -#  = render partial: 'users/teacher', :locals => {:teacher => teacher}
--#  - if @user.online?
--#    en ligne!
--#  - if @user.first_lesson_free?
--#    %h3 Première leçon gratuite! (30mn)
--#  - if @user.postulance_accepted?
--#    %h3.nomPrenomProfil
--#      %b
--#        = @user.lastname
--#        = @user.firstname
--#        = @user.occupation
--#    %h4
--#      Taux de réponse : #{@user.response_rate}%
--#      %br/
--#      Temps de réponse moyen : #{@user.response_time} mn
--#    %p
--#      = Time.now.year - @user.birthdate.year
--#      ans
--#    %i
--#      Prof certifié
--#    %i.fa.fa-check
--#    .div
--#      - if @prices && !@prices.empty?
--#        %p
--#          Prix minimum : #{ActionController::Base.helpers.number_to_currency(@prices.min.first)}
--#
--#        = link_to 'Demander un cours', new_user_request_lesson_path(@user), class: "btn btn-default", remote: true, "data-toggle" => "modal", 'data-target' => '#request-lesson'
--#
--#  - elsif @user.is_a? Teacher
--#    - if current_user.admin?
--#      = button_to 'Inviter à une interview', room_invite_bbb_rooms_path(@user) , method: :get
--#  .div
--#    %p= link_to 'voir gallerie', gallery_path(@user.gallery.id)
--#    %p= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
--#        "data-sid" => @user.id, "data-rip" => @user.id
--#  %div
--#    - if @user.postulance_accepted?
--#      - @adverts.each do |a|
--#        %h9.matiereProfil= a.topic.topic_group.title
--#      %p= @user.occupation
--#
--#- if @user.postulance_accepted?
--#  %h3 Diplomes
--#  - if @degrees.empty?
--#    %p --
--#  - @degrees.each do |d|
--#    = render partial: 'users/degree', :locals => {:d => d}
--#    %br/
--#  %h3 Description
--#  %p= raw(@user.description)
--#  - @adverts.each do |a|
--#    - max = a.advert_prices.map { |ap| ap.level }.max.fr
--#    %h5
--#      = a.topic.topic_group.title
--#      %i
--#        jusqu'au niveau #{max}
--#  - if @user.is_a?(Teacher)
--#    %p
--#      Moyenne des notations = #{number_with_precision(@avg, :precision => 1, :delimiter => ',')}
--#    = link_to 'Notations', user_reviews_path(@user)
--#    = form_tag user_reviews_path(@user), method: :post do
--#      .field
--#        = label_tag :note
--#        %br/
--#        = number_field_tag :note, 3, min: 0, max: 5, :required => true
--#      .field
--#        = label_tag :review_text
--#        %br/
--#        = text_area_tag :review_text, nil
--#      .field
--#        = submit_tag 'Noter', :class => 'btn btn-primary btn-mini'
 
 #myModTarif.modal.fade{:role => "dialog"}
   .modal-dialog

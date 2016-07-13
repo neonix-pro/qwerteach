@@ -1,11 +1,8 @@
 - (0..4).each do |i|
-  -if user.avg_reviews > i
-    - if user.avg_reviews > i+0.99999
+  -if note > i
+    - if note > i+0.99999
       %i.fa.fa-star
     - else
       %i.fa.fa-star-half
   - else
     %i.fa.fa-star-o
-%span.number-of-reviews
-  #{user.reviews_received.count}
-  %i.fa.fa-user

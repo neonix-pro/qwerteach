@@ -1,0 +1,15 @@
+- user = @user
+.left
+  %h2 #{user.name}
+  .topics
+    #{user.adverts.map{|ad| "#{link_to ad.title, "#"}"}.join(", ").html_safe}
+  .rating
+    = render partial: "shared/star_rating", locals: {note: user.avg_reviews}
+    %span.number-of-reviews
+      #{user.reviews_received.count}
+      %i.fa.fa-user
+.right
+  .age
+    = "#{user.age} ans" unless user.birthdate.nil?
+  .degree #{user.level_max}
+  .occupation #{user.occupation}
