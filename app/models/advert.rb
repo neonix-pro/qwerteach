@@ -35,6 +35,10 @@ class Advert < ActiveRecord::Base
     @max_price ||= advert_prices.order('price DESC').first.price
   end
 
+  def max_level
+    @max_level ||= advert_prices.order('level_id DESC').first.level.be
+  end
+
   def topic_group_title
     topic.topic_group.title
   end

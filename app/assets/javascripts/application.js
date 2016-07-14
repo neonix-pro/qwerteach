@@ -24,7 +24,8 @@
 //= require chosen-jquery
 //= require jquery.form-validator
 //= require jquery.turbolinks
-
+//= require fullcalendar
+//= require fullcalendar/lang/fr.js
 
 $.validate({
     modules : 'security'

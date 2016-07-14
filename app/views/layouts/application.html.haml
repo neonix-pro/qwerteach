@@ -1,7 +1,7 @@
 = render "layouts/header"
 -if current_user
   = render 'layouts/sidebar'
-.main-content
+.main-content{:class => ('logged-in' if current_user)}
   #flash-messages
     - flash.each do |key, value|
       %div{:class => "alert alert-#{key}"}

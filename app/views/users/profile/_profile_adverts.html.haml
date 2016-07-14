@@ -1,0 +1,15 @@
+- adverts.each_with_index do |advert, key|
+  .profile-advert{:class=>"#{@profil_advert_classes[key]}"}
+    .flipper
+      .front
+        = image_tag(advert.topic.pictotype('big'), :class => 'advert-picto')
+        %h4.advert-title
+          #{advert.title}
+      .back
+        .advert-title
+          #{advert.title}
+          %br
+          %small Jusqu'au niveau #{advert.max_level}
+        .advert-description #{advert.description}
+    %span.advert-flip-toggle
+      %span
