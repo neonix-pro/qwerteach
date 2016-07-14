@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     if params[:topic].nil?
       @pagin = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
     else
-      # can't access global variable sin sunspot search...
+      # can't access global variable in sunspot search...
       topic = Topic.where('lower(title) = ?', params[:topic]).first
       if topic.nil?
         topic = TopicGroup.where('lower(title) = ?', params[:topic]).first

@@ -1,0 +1,5 @@
+$('#message_body').val('');
+<% flash.each do |key, value| %>
+  var div = "<div class ='alert alert-<%= key %>'><%= value %></div>";
+  $('#flash-messages').append(div);
+<% end %>

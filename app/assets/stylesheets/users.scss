@@ -218,13 +218,12 @@
 #profile-content{
   width: calc(100%-256px);
   margin-left:256px;
-  margin-top:50px;
   .profile-header{
     background-color: $color_qwerteach_darkgrey;
     width:100%;
     float:left;
-    height:140px;
     margin-bottom:30px;
+    padding-bottom: 20px;
     h2{
       margin:0px;
       color:white;
@@ -243,14 +242,16 @@
       margin-left:30px;
       float:left;
       margin-top:20px;
+      width:60%;
     }
     .right{
       color:$color_link_grey;
-      float:right;
-      margin-right:20%;
-      line-height:25px;
-      margin-top:25px;
-      font-weight:300;
+      float: left;
+      margin-right: 10%;
+      line-height: 25px;
+      margin-top: 25px;
+      font-weight: 300;
+      max-width: 25%;
     }
     #rating{
       cursor:pointer;
