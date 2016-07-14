@@ -1,0 +1,87 @@
+@import "global_variables";
+
+.section_video{
+    height: 550px;
+    .left{
+        float: left;
+        width: 40%;
+        background: $color_qwerteach_yellow;
+        color: $color_qwerteach_darkgrey;
+        height: 100%;
+        h2{
+            font-size: 42px;
+            display: block;
+            margin-left: 35px;
+            margin-top: 35px;
+            width: 50%;
+            color: $color_qwerteach_pink;
+            font-weight: bold;
+        }
+        hr{
+            width: 35%;
+            text-align: left;
+            border: 1.5px solid $color_qwerteach_darkgrey;
+            margin-left: 35px;
+        }
+        p{
+            text-align: justify;
+            display: block;
+            margin-left: 35px;
+            width: 50%;
+            font-size: 18px;
+        }
+    }
+    .right{
+        float: left;
+        width: 60%;
+        height: 100%;
+        iframe{
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    }
+}
+
+.section_test_classe{
+    height: 500px;
+    width: 100%;
+    .left{
+        float: left;
+        height: 100%;
+        width: 70%;
+        iframe{
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    }
+    .right{
+        float: left;
+        background: $color_qwerteach_green;
+        height: 100%;
+        width: 30%;
+        h2{
+            font-size: 42px;
+            display: block;
+            margin-left: 35px;
+            margin-top: 35px;
+            width: 80%;
+            color: $color_qwerteach_purple;
+            font-weight: bold;
+        }
+        hr{
+            width: 50%;
+            text-align: left;
+            border: 1.5px solid $color_qwerteach_darkgrey;
+            margin-left: 35px;
+        }
+        p{
+            text-align: justify;
+            display: block;
+            margin-left: 35px;
+            width: 80%;
+            font-size: 18px;
+        }
+    }
+}
