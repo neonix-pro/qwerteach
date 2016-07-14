@@ -6,6 +6,7 @@
   float:left;
   .fc-toolbar{
     color: $color_qwerteach_green;
+    padding-left:30px;
     .fc-today-button{
       color:white;
       background-color:transparent;
@@ -54,21 +55,44 @@
     }
   }
   .fc-view{
-    color: $text_lightgrey;
+    color: #979797;
     table td, .fc th, .fc-day-header, .fc-axis{
       border:none;
       border-width:0px;
       border-style:none;
     }
-    .fc-slats table tbody tr{
-      height:30px;
+    .fc-slats{
+      margin-top:10px;
     }
     .fc-slats table tbody tr td{
-      border-bottom:1px dashed;
+      border:none;
+      line-height:33px;
+    }
+    .fc-slats table tbody tr td.fc-widget-content{
+      border-top:1px dashed #424242;
     }
     .fc-slats table tbody tr td:first-child{
-      border-bottom:none;
+      border-top: none;
+    }
+    .fc-axis.fc-time span{
+      top: -18px;
+      position: relative;
+      font-size: 15px;
+      font-weight: 300;
+    }
+    .fc-axis.fc-time{
+      margin:20px;
+      padding: 0px 15px;
+    }
+    .fc-time-grid table{
+      border-top:1px;
+    }
+    .fc-day-header{
+      font-size: 17px;
+      font-weight: 300;
     }
   }
-
+  .fc-today {
+    background: #383838;
+  }
 }
