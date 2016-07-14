@@ -79,6 +79,12 @@ var ready = function () {
         $(this).toggleClass('active');
         $(this).parent().toggleClass('hover');
     })
+
+    $('#rating').click(function(){
+        $('html, body').animate({
+            scrollTop:$('#profile-reviews').offset().top
+        }, 'slow');
+    })
 }
 
 $(document).ready(ready);

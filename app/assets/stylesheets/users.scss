@@ -252,7 +252,9 @@
       margin-top:25px;
       font-weight:300;
     }
-    .rating{
+    #rating{
+      cursor:pointer;
+      display:inline-block;
       margin-top:8px;
     }
     .number-of-reviews{
@@ -334,6 +336,9 @@
     z-index: 2;
     top: 15px;
     right: 30px;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
   }
   .advert-flip-toggle span, .advert-flip-toggle span:before, .advert-flip-toggle span:after {
     cursor: pointer;
@@ -346,7 +351,7 @@
     content: '';
   }
   .advert-flip-toggle span:before {
-    top: -7px;
+    top: 14px;
   }
   .advert-flip-toggle span:after {
     bottom: -7px;
@@ -419,10 +424,12 @@
 /*Flipping cards effect*/
 .profile-advert {
   perspective: 1000px;
-  overflow: auto;
   float:left;
   position:relative;
   height: 256px;
+}
+.profile-advert.hover{
+  overflow: auto;
 }
 
 /* flip the pane when hovered */
