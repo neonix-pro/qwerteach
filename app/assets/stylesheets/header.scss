@@ -9,6 +9,10 @@ body, html{
     outline: none !important;
 }
 
+.container-fluid{
+    padding: 0 !important;
+}
+
 a, a:hover, a:active, a:focus{
     text-decoration: none !important;
     cursor: pointer;
@@ -40,11 +44,12 @@ input{
  background: #222222 !important;
  height: 30px !important;
  outline: none !important;
+ margin: 0 !important;
+ padding: 0 !important;
+ position: static !important;
+ border: none !important;
 }
-
-.main-nav{
-    margin: 0 !important;
-}
+    
 
 .main-nav .navbar-nav a{
     color: $color_link_grey;
