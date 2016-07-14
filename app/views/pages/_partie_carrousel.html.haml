@@ -1,28 +1,26 @@
 .section_carrousel
-  .row
-    
-    #myCarousel.carousel.slide{"data-ride" => "carousel", :class => "100window"}
-      / Indicators
-      %ol.carousel-indicators
-        %li.active{"data-slide-to" => "0", "data-target" => "#myCarousell"}
-        %li{"data-slide-to" => "1", "data-target" => "#myCarousel2"}
-      / Wrapper for slides
-      .carousel-inner{:role => "listbox"}
-        .item.100window
-          = image_tag(image_path("acceuil/classe_prof.png"), :class => "image_carrousel img-responsive img_slide2")
-          %div{:class => "right"}
-            %h2 Devenez prof particulier, travaillez en ligne.
-            %div
-              %a.devenir_prof.opacity_hover{:href => "#"} Devenir prof
-              %a.comment_ca_marche.open_mode_emploi Comment ça marche ?
-        .item.active.100window
-          = image_tag(image_path("acceuil/classe_eleve.png"), :class => "image_carrousel img-responsive img_slide1")
-          %div{:class => "left"}
-            %h2 Recevez vos cours particuliers depuis chez vous.
-            %div
-              %a.inscription.opacity_hover{:href => "#myModIns", "data-toggle" => "modal"} Inscription gratuite
-              %a.comment_ca_marche.open_mode_emploi Comment ça marche ?
-      %a.left.carousel-control.100window{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}
-        = image_tag(image_path("acceuil/flecheg.png"))
-      %a.right.carousel-control.100window{"data-slide" => "next", :href => "#myCarousel", :role => "button"}
-        = image_tag(image_path("acceuil/fleched.png"))
+  #myCarousel.carousel.slide{"data-ride" => "carousel", :class => "100window"}
+    //Indicators
+    %ol.carousel-indicators
+      %li.active{"data-slide-to" => "0", "data-target" => "#myCarousell"}
+      %li{"data-slide-to" => "1", "data-target" => "#myCarousel2"}
+    //Wrapper for slides
+    .carousel-inner{:role => "listbox"}
+      .item.100window
+        = image_tag(image_path("acceuil/classe_prof.png"), :class => "image_carrousel img-responsive img_slide2")
+        %div{:class => "right"}
+          %h2 Devenez prof particulier, travaillez en ligne.
+          %div
+            %a.devenir_prof.opacity_hover{:href => "#"} Devenir prof
+            %a.comment_ca_marche.open_mode_emploi Comment ça marche ?
+      .item.active.100window
+        = image_tag(image_path("acceuil/classe_eleve.png"), :class => "image_carrousel img-responsive img_slide1")
+        %div{:class => "left"}
+          %h2 Recevez vos cours particuliers depuis chez vous.
+          %div
+            %a.inscription.opacity_hover{:href => "#myModIns", "data-toggle" => "modal"} Inscription gratuite
+            %a.comment_ca_marche.open_mode_emploi Comment ça marche ?
+    %a.left.carousel-control.100window{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}
+      = image_tag(image_path("acceuil/flecheg.png"))
+    %a.right.carousel-control.100window{"data-slide" => "next", :href => "#myCarousel", :role => "button"}
+      = image_tag(image_path("acceuil/fleched.png"))

@@ -1,7 +1,6 @@
 .section_recherche
-  .row
-    = form_tag profs_path, :method => :get do
-      = select("post", ":q",TopicGroup.all.collect {|p| [ p.title, p.topic_group_id]}, {:class => 'form-control'})
-      = label_tag "Mot-clé"
-      = text_field_tag :q, params[:search]
-      = submit_tag "Search", :name => nil
+  = form_tag profs_path, :method => :get do
+    = select("post", ":q",TopicGroup.all.collect {|p| [ p.title, p.topic_group_id]}, {:class => 'form-control'})
+    = label_tag "Mot-clé"
+    = text_field_tag :q, params[:search]
+    = submit_tag "Search", :name => nil
