@@ -1,0 +1,15 @@
+@import "global_variables";
+
+#flash-messages{
+  position: fixed;
+  top: 200px;
+  width: 60%;
+  left: 20%;
+  z-index: 3;
+}
+
+#footer{
+  z-index:10;
+  position: absolute;
+  width: 100%;
+}
