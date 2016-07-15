@@ -26,16 +26,19 @@ nav.sidebar{
   -o-transition: margin 200ms ease-out;
   transition: margin 200ms ease-out;
 }
+.scrolling{
+  position:relative;
+}
 
 /*small/medium side display*/
 @media (min-width: 768px) {
 
   /*Allow main-content to be next to Nav*/
   .main-content.logged-in{
-    position: absolute;
+    position: relative;
     width: calc(100% - 40px); /*keeps 100% minus nav size*/
     margin-left: 40px;
-    float: right;
+    padding-top: 50px;
   }
 
   /*lets nav bar to be showed on mouseover*/
@@ -98,7 +101,7 @@ nav.sidebar{
     height: 100%;
     margin-left: -160px;
     float: left;
-    z-index: 8000;
+    z-index: 3;
     margin-bottom: 0px;
   }
 

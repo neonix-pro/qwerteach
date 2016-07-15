@@ -1,4 +1,4 @@
-= render partial: 'conversation', locales: {conversation: @conversation}
+= render partial: 'conversation', locals: {conversation: @conversation}
 :javascript
   $('#chatbox_#{@conversation.id} .chatboxinput').click(function () {
     $.ajax({

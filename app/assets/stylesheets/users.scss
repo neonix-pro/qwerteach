@@ -173,7 +173,6 @@ $color_link_grey: #b9b9b9;
   top:50px;
   height:100%;
   font-weight:200;
-  width:20%;
   overflow:hidden;
   background-color: $color_qwerteach_darkgrey;
   text-align:center;
@@ -227,13 +226,12 @@ $color_link_grey: #b9b9b9;
 #profile-content{
   width: calc(100%-256px);
   margin-left:256px;
-  margin-top:50px;
   .profile-header{
     background-color: $color_qwerteach_darkgrey;
     width:100%;
     float:left;
-    height:140px;
     margin-bottom:30px;
+    padding-bottom: 20px;
     h2{
       margin:0px;
       color:white;
@@ -252,16 +250,20 @@ $color_link_grey: #b9b9b9;
       margin-left:30px;
       float:left;
       margin-top:20px;
+      width:60%;
     }
     .right{
       color:$color_link_grey;
-      float:right;
-      margin-right:20%;
-      line-height:25px;
-      margin-top:25px;
-      font-weight:300;
+      float: left;
+      margin-right: 10%;
+      line-height: 25px;
+      margin-top: 25px;
+      font-weight: 300;
+      max-width: 25%;
     }
-    .rating{
+    #rating{
+      cursor:pointer;
+      display:inline-block;
       margin-top:8px;
     }
     .number-of-reviews{
@@ -343,6 +345,9 @@ $color_link_grey: #b9b9b9;
     z-index: 2;
     top: 15px;
     right: 30px;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
   }
   .advert-flip-toggle span, .advert-flip-toggle span:before, .advert-flip-toggle span:after {
     cursor: pointer;
@@ -355,7 +360,7 @@ $color_link_grey: #b9b9b9;
     content: '';
   }
   .advert-flip-toggle span:before {
-    top: -7px;
+    top: 14px;
   }
   .advert-flip-toggle span:after {
     bottom: -7px;
@@ -490,10 +495,12 @@ $color_link_grey: #b9b9b9;
 /*Flipping cards effect*/
 .profile-advert {
   perspective: 1000px;
-  overflow: auto;
   float:left;
   position:relative;
   height: 256px;
+}
+.profile-advert.hover{
+  overflow: auto;
 }
 
 /* flip the pane when hovered */

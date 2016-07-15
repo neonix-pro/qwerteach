@@ -1,0 +1,4 @@
+$('#message_body').val('');
+<% flash.each do |key, value| %>
+  $('#flash-messages').append("<%= j render partial: 'shared/flash_dismiss', locals:{type: key, content: value} %>");
+<% end %>

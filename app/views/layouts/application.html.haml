@@ -1,14 +1,12 @@
 = render "layouts/header"
 -if current_user
   = render 'layouts/sidebar'
-.main-content{:class => ('logged-in' if current_user)}
-  #flash-messages
-    - flash.each do |key, value|
-      %div{:class => "alert alert-#{key}"}
-        = value
-        = yield :top_content
+#flash-messages
+  - flash.each do |key, value|
+    = render partial: 'shared/flash_dismiss', locals:{type: key, content: value}
+.main-content{:class => ('logged-in clearfix' if current_user)}
   = yield
-  = render "layouts/footer"
+= render "layouts/footer"
 - if (current_user)
   = subscribe_to "/chat"
   = subscribe_to "/notifications/"+current_user.id.to_s
