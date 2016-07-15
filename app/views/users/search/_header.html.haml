@@ -1,0 +1,14 @@
+#search_header{"data-vide-bg" => "mp4: #{video_path('videos/accueil/bigimage.mp4')} , webm: #{video_path('videos/accueil/bigimage.webm')} , poster: #{image_path('search/search_header.jpg')}", "data-vide-options" => "posterType: jpg, loop: ture, muted: true, position: 50% 50%"}
+  %h1
+    Trouvez votre #{@topic.nil? ? "prof particulier" : "prof de #{@topic.title.downcase}"}
+    %br
+    pour un
+    %span.text-green
+      cours particulier en ligne.
+  .search-controls
+    = form_tag profs_path, :method => :get do
+      Profs de
+      = select_tag("topic", options_for_select(@topic_options, params[:topic]))
+      triés par
+      = select_tag("search_sorting", options_for_select(@sorting_options, :selected => params[:search_sorting]))
+      = submit_tag("Go")
