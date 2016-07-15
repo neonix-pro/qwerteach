@@ -85,3 +85,27 @@
         }
     }
 }
+
+.section_etapes{
+    width: 100%;
+    color: $color_qwerteach_purple;
+    background: $color_qwerteach_yellow;
+    height: 275px;
+    .col{
+        float: left;
+        width: 25%;
+        p{
+            padding: 25px;
+            text-align: left;
+            font-size: 18px;
+        }
+        .circle{
+            width: 125px;
+            height: 125px;
+            margin: auto;
+            border: $color_qwerteach_purple 2px solid;
+            border-radius: 100%;
+            margin-top: 25px
+        }
+    }
+}
