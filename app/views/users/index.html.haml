@@ -1,13 +1,9 @@
 = render partial: 'users/search/header'
-.section-resultat-header
-
-.container
-  #facets.row.featurette.hautPageResult
-    %h3 Résultat(s)
-    / Permet l'affichage des résultats
-    .resultat
-      - @pagin.each do |u|
-        = render partial: 'users/prof_recherche', :locals => {:u => u}
-= render 'pages/partie_commentaire'
-= render 'pages/tri_colonne'
-= render "pages/presse"
+#search-filters
+#search-results.clearfix
+  - @pagin.each do |u|
+    = render partial: 'users/search/search_result', :locals => {:u => u}
+.container-fluid
+  = render 'pages/accueil/partie_commentaire'
+  = render 'pages/accueil/tri_colonne'
+  = render 'pages/accueil/presse'

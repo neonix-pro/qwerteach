@@ -26,6 +26,7 @@
 //= require jquery.turbolinks
 //= require fullcalendar
 //= require fullcalendar/lang/fr.js
+//= require simpletextrotator
 
 $.validate({
     modules : 'security'

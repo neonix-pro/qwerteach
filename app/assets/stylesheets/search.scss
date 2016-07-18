@@ -1,7 +1,125 @@
+@import "global_variables";
 #search_header{
   height:500px;
+  padding-top:100px;
   h1{
     margin:0px;
     color:white;
+    font-size: 32px;
+    margin-left:10%;
+  }
+  .search-controls{
+    position:absolute;
+    bottom:0px;
+    height:100px;
+    width:100%;
+    background-color:rgba(0,0,0,0.80);
+    line-height:100px;
+    padding:0% 10%;
+    font-size: 25.84px;
+    color: #E5E5E5;
+    font-weight:300;
+    .text-appear{
+      border-bottom:1px solid #E5E5E5;
+      opacity:0;
+      background-color:transparent;
+    }
+    .caret{
+      border-top: 6px solid;
+      border-right: 6px solid transparent;
+      border-left: 6px solid transparent;
+    }
+  }
+}
+
+#search-results{
+  .result{
+    width:25%;
+    float:left;
+    height:600px;
+    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
+    .result-wrapper{
+      position:relative;
+      height:100%;
+
+    }
+    img{
+      width:100%;
+    }
+  }
+  .result:nth-child(even){
+    box-shadow:none;
+  }
+  .user-price{
+    position: relative;
+    top: -30px;
+    line-height: 30px;
+    text-align: center;
+    background: #191919;
+    font-size: 18px;
+    letter-spacing: 0.22px;
+    color:white;
+  }
+  .result:nth-child(even) .user-price{
+    background: #222222;
+  }
+  .result:nth-child(even) .result-footer{
+    z-index:-1;
+  }
+  .result-online{
+    width:100%;
+    border: 2px solid $color_qwerteach_green;
+  }
+  .result-infos{
+    margin-top:-30px;
+    padding:20px;
+    padding-top:10px;
+    .user-name{
+      font-size: 16px;
+      color: #313131;
+      letter-spacing: 0.2px;
+    }
+    .user-rating{
+      font-size: 14px;
+      color: #9B9B9B;
+    }
+    .user-topics a{
+      font-size: 13px;
+      color: #511DD4;
+      line-height:15px;
+    }
+    .user-topics{
+      margin-bottom:13px;
+    }
+  }
+  p{
+    margin: 0!important;
+  }
+  .user-description-excerpt{
+    font-size: 13px;
+    color: #626262;
+    letter-spacing: 0px;
+  }
+
+  .result-footer{
+    height:60px;
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    text-align:center;
+    font-size: 14px;
+    color: #313131;
+    line-height: 60px;
+
+    .footer-review{
+      background-color:$color_qwerteach_green;
+      width:100%;
+      height:100%;
+    }
+    .footer-free-lesson{
+      width:100%;
+      background-color:$color_qwerteach_yellow;
+      height:100%;
+    }
   }
 }
