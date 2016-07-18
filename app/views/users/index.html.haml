@@ -2,7 +2,10 @@
 #search-filters
 #search-results.clearfix
   - @pagin.each do |u|
-    = render partial: 'users/search/search_result', :locals => {:u => u}
+    = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
+#more-results
+  .more-results-button
+    = link_to_next_page @pagin, 'voir plus', remote: true
 .container-fluid
   = render 'pages/accueil/partie_commentaire'
   = render 'pages/accueil/tri_colonne'

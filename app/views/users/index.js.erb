@@ -1,0 +1,15 @@
+<% @pagin.each_with_index do |u, index| %>
+  var t = <%= index %> * 200;
+  setTimeout(function(item){
+    $('#search-results').append($('<%= j render partial: 'users/search/search_result', :locals => {u: u, custom: 'animate'} %>').fadeIn('slow'));
+  }, t);
+
+<% end %>
+
+$('#more-results .more-results-button').html('<%= j link_to_next_page @pagin, 'voir plus', remote: true %>')
+
+
+setTimeout(function(){
+  $('.more-results-button').show();
+  $('.more-results-button').parent().find('i').remove();
+}, t)

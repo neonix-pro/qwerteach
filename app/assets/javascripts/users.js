@@ -84,8 +84,15 @@ var ready = function () {
         $('html, body').animate({
             scrollTop:$('#profile-reviews').offset().top
         }, 'slow');
-    })
+    });
+
+    //search
+    $('.more-results-button').click(function(){
+        $(this).hide();
+        $(this).parent().append('<i class="fa fa-spin fa-spinner"></i>');
+    });
 }
 
 $(document).ready(ready);
 $(document).on("page:load", ready);
+
