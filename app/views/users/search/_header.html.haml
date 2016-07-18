@@ -1,0 +1,23 @@
+#search_header{"data-vide-bg" => "mp4: #{video_path('videos/accueil/bigimage.mp4')} , webm: #{video_path('videos/accueil/bigimage.webm')} , poster: #{image_path('search/search_header.jpg')}", "data-vide-options" => "posterType: jpg, loop: ture, muted: true, position: 50% 50%"}
+  %h1
+    Trouvez votre #{@topic.nil? ? "prof particulier" : "prof de #{@topic.title.downcase}"}
+    %br
+    pour un
+    %span.text-green
+      cours particulier en ligne.
+  .mode_emploi
+    %a.open_mode_emploi Mode d'emploi
+  .search-controls
+    = form_tag profs_path, :method => :get do
+      - if @topic.nil?
+        %span#search-topic.text-appear Tous les profs
+        %span.caret
+      - else
+        Profs de
+        %span#search-topic.text-appear #{@topic.title.downcase}
+        %span.caret
+      = hidden_field_tag("topic", params[:topic], id: 'search-topic-field')
+      triés par
+      %span#search-sorting.text-appear #{params[:search_sorting].nil? ? "pertinence": params[:search_sorting].to_s}
+      %span.caret
+      = hidden_field_tag("search_sorting", params[:search_sorting], id: 'search-sorting-field')

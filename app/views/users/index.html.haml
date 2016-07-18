@@ -1,23 +1,9 @@
-.section-resultat-header
-  = form_tag profs_path, :method => :get do
-    Profs de
-    = select_tag("topic", options_for_select(@topic_options, params[:topic]))
-    triés par
-    = select_tag("search_sorting", options_for_select(@sorting_options, :selected => params[:search_sorting]))
-    = submit_tag("Go")
-    %h3
-      Trouvez votre
-      %b
-        = @topic.nil? ? "prof particulier" : "prof de #{@topic.title.downcase}"
-      pour un
-      %b cours particulier en ligne.
-.container
-  #facets.row.featurette.hautPageResult
-    %h3 Résultat(s)
-    / Permet l'affichage des résultats
-    .resultat
-      - @pagin.each do |u|
-        = render partial: 'users/prof_recherche', :locals => {:u => u}
-= render 'pages/partie_commentaire'
-= render 'pages/tri_colonne'
-= render "pages/presse"
+= render partial: 'users/search/header'
+#search-filters
+#search-results.clearfix
+  - @pagin.each do |u|
+    = render partial: 'users/search/search_result', :locals => {:u => u}
+.container-fluid
+  = render 'pages/accueil/partie_commentaire'
+  = render 'pages/accueil/tri_colonne'
+  = render 'pages/accueil/presse'

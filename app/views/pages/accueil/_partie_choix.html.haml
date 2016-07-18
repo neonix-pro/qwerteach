@@ -1,27 +1,27 @@
 .featurette.section_choix
   .matiere
-    %a
+    =link_to profs_by_topic_path('maths') do
       = image_tag("matieres/maths.png", :class => "image_presse img-responsive")
       %h3 Maths
   .matiere
-    %a
+    =link_to profs_by_topic_path('sciences') do
       = image_tag("matieres/sciences.png", :class => "image_presse img-responsive")
       %h3 Science
   .matiere
-    %a
+    =link_to profs_by_topic_path('français') do
       = image_tag("matieres/francais.png", :class => "image_presse img-responsive")
       %h3 Français
   .matiere
-    %a
+    =link_to profs_by_topic_path('informatique') do
       = image_tag("matieres/informatique.png", :class => "image_presse img-responsive")
       %h3 Informatique
   .matiere
-    %a
+    =link_to profs_by_topic_path('anglais') do
       = image_tag("matieres/anglais.png", :class => "image_presse img-responsive")
       %h3 Anglais
   .matiere
-    %a
+    =link_to profs_by_topic_path('neerlandais') do
       = image_tag("matieres/neerlandais.png", :class => "image_presse img-responsive")
       %h3 Néerlandais
   .tous
-    %a.opacity_hover Toutes les matières
+    =link_to 'Toutes les matières', profs_path, :class=>'opacity_hover'
