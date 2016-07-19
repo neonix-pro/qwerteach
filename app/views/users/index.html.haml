@@ -1,4 +1,5 @@
 = render partial: 'users/search/header'
+= render partial: 'users/search/search_options', locals: {topics_options: @topic_options, sorting_options: @sorting_options}
 #search-filters
 #search-results.clearfix
   - @pagin.each do |u|

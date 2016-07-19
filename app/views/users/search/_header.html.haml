@@ -14,7 +14,7 @@
         %span.caret
       - else
         Profs de
-        %span#search-topic.text-appear #{@topic.title.downcase}
+        %span#search-top.text-appear #{@topic.title.downcase}
         %span.caret
       = hidden_field_tag("topic", params[:topic], id: 'search-topic-field')
       triés par

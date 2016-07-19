@@ -1,0 +1,25 @@
+#search-topics
+  .options-wrapper
+    %ul.topics-list
+      - topics_options.each do |topic|
+        %li.option{data: {value: topic[0]}}
+          #{topic[0].humanize}
+    %span.scroller-down{data: {scroll: '#search-topics .topics-list'}}
+      %i.fa.fa-angle-down.fa-3x
+    %span.scroller-up{data: {scroll: '#search-topics .topics-list'}}
+      %i.fa.fa-angle-up.fa-3x
+  .close-search-overlay
+    &#215;
+#search-sorting-options
+  .options-wrapper
+    %ul.sorting-list
+      -sorting_options.each do |sorting|
+        %li.option{data: {value: sorting[1]}}
+          #{sorting[0].humanize}
+    -#%span.scroller-down{data: {scroll: '#search-sorting-options .topics-list'}}
+    -#  %i.fa.fa-angle-down.fa-3x
+    -#%span.scroller-up{data: {scroll: '#search-sorting-options .topics-list'}}
+    -#  %i.fa.fa-angle-up.fa-3x
+  .close-search-overlay
+    &#215;
+
