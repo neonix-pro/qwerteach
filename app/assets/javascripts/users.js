@@ -135,6 +135,15 @@ var ready = function () {
         closeSearchOverlay();
     });
 
+    $('#search-topics ul li').click(function(){
+        closeSearchOverlay();
+        $('#search-topic').text($(this).text());
+    });
+    $('#search-sorting-options ul li').click(function(){
+        closeSearchOverlay();
+        $('#search-sorting').text($(this).text());
+    });
+
     function closeSearchOverlay(){
         $('#search-sorting-options').fadeOut();
         $('#search-sorting-options .options-wrapper').attr('style', '');

@@ -21,16 +21,21 @@ class UsersController < ApplicationController
     search_sorting_options
     search_topic_options
     if params[:topic].nil?
-      @pagin = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
+      @search = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
+      @pagin = @search
     else
       # can't access global variable in sunspot search...
       topic = Topic.where('lower(title) = ?', params[:topic]).first
       if topic.nil?
         topic = TopicGroup.where('lower(title) = ?', params[:topic]).first
       end
-      @search = Sunspot.search(Advert) do
+      @sunspot_search = Sunspot.search(Advert) do
         with(:postulance_accepted, true)
-        fulltext topic.title
+        if topic.nil?
+          fulltext params[:topic]
+        else
+          fulltext topic.title
+        end
         order_by(sorting, sorting_direction(params[:search_sorting]))
         group :user_id_str
         with(:user_age).greater_than_or_equal_to(params[:age_min]) unless params[:age_min].blank?
@@ -39,12 +44,15 @@ class UsersController < ApplicationController
         with(:advert_prices_search).less_than(params[:max_price]) unless params[:max_price].blank?
         paginate(:page => params[:page], :per_page => 12)
       end
-      @pagin = []
-      @search.group(:user_id_str).groups.each do |group|
+      @search = []
+      @total = 0;
+      @sunspot_search.group(:user_id_str).groups.each do |group|
+        @total += group.total
         group.results.each do |result|
-          @pagin.push(result.user)
+          @search.push(result.user)
         end
       end
+      @pagin = Kaminari.paginate_array(@search, total_count: @total).page(params[:page]).per(12)
       @topic = topic
     end
   end

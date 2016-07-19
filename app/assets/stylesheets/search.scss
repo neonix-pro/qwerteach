@@ -201,6 +201,9 @@
     padding-right:250px;
     white-space: nowrap;
     height:100%;
+    li{
+      cursor:pointer;
+    }
   }
   .scroller-down{
     cursor:pointer;

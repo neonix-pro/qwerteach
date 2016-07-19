@@ -2,7 +2,7 @@
 = render partial: 'users/search/search_options', locals: {topics_options: @topic_options, sorting_options: @sorting_options}
 #search-filters
 #search-results.clearfix
-  - @pagin.each do |u|
+  - @search.each do |u|
     = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
 #more-results
   .more-results-button
