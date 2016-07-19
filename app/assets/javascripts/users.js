@@ -137,11 +137,15 @@ var ready = function () {
 
     $('#search-topics ul li').click(function(){
         closeSearchOverlay();
-        $('#search-topic').text($(this).text());
+        changeText('#search-topic', $(this).text().toLowerCase());
+        $('#search-topic-field').val($(this).attr('data-value'));
+        newSearch();
     });
     $('#search-sorting-options ul li').click(function(){
         closeSearchOverlay();
-        $('#search-sorting').text($(this).text());
+        changeText('#search-sorting', $(this).text().toLowerCase());
+        $('#search-sorting-field').val($(this).attr('data-value'));
+        newSearch();
     });
 
     function closeSearchOverlay(){
@@ -150,6 +154,18 @@ var ready = function () {
         $('#search-topics').fadeOut();
         $('#search-topics .options-wrapper').attr('style', '');
     }
+
+    function changeText(anchor, text){
+        $(anchor).css({opacity: 0});
+        $(anchor).text(text);
+        $(anchor).animate({opacity: 1}, 500);
+    }
+
+    function newSearch(){
+        $('#search-form').submit();
+        $('#search-results').html('<i class="fa fa-spin fa-spinner></i>');
+    }
+
 
 }
 

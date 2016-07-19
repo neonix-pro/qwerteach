@@ -18,7 +18,7 @@
           #{u.reviews_received.count}
           %i.fa.fa-user
       .user-topics
-        #{u.adverts.map{|ad| "#{link_to ad.title, profs_by_topic_path(ad.title)}"}.first(5).join(", ").html_safe}
+        #{u.adverts.map{|ad| "#{link_to ad.title, profs_by_topic_path(ad.title.downcase)}"}.first(5).join(", ").html_safe}
         - if u.adverts.count > 5
           = link_to '...', user_path(u)
       -unless u.online?

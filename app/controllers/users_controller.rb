@@ -19,6 +19,7 @@ class UsersController < ApplicationController
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
     search_sorting_options
+    search_sorting_name
     search_topic_options
     if params[:topic].nil?
       @search = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
@@ -52,9 +53,13 @@ class UsersController < ApplicationController
           @search.push(result.user)
         end
       end
-      @pagin = Kaminari.paginate_array(@search, total_count: @total).page(params[:page]).per(12)
+      @pagin = Kaminari.paginate_array(@search, total_count: @total, topic: topic.title).page(params[:page]).per(12)
       @topic = topic
     end
+  end
+
+  def profs_by_topic
+    redirect_to profs_by_topic_path(params[:topic])
   end
 
   def both_users_online
@@ -97,6 +102,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def search_sorting_name
+    @sorting_options.each do |sort|
+      @sorting_name =  sort[0] if sort[1] == params[:search_sorting]
+    end
+    @sorting_name = "pertinence"
+  end
+
   def profil_advert_classes(n)
     case n
       when 1
@@ -109,12 +121,6 @@ class UsersController < ApplicationController
         ['simple', 'triple', 'triple', 'triple']
       when 5
         ['double', 'double', 'triple', 'triple', 'triple']
-      # when 6
-      #   profil_advert_classes(2) + profil_advert_classes(1) + profil_advert_classes(3)
-      # when 7
-      #   profil_advert_classes(2) + profil_advert_classes(3) + profil_advert_classes(2)
-      # when 8
-      #   profil_advert_classes(2) + profil_advert_classes(3) + profil_advert_classes(3)
       else
         r= profil_advert_classes(2)
         c = n - 2

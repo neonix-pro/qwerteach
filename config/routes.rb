@@ -63,8 +63,8 @@ Rails.application.routes.draw do
     root 'pages#index'
   end
 
-  match '/profs/:topic' => 'users#index', :as => 'profs_by_topic', via: :get
-  match '/profs' => 'users#index', :as => 'profs', via: :get
+  match "/profs/" => "users#profs_by_topic", as: :profs, via: :get
+  match "/profs/:topic" => "users#index", :as => :profs_by_topic, :via => [:get]
 
   unauthenticated :user do
     devise_scope :user do
