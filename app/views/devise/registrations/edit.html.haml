@@ -3,7 +3,7 @@
     Modifier votre compte #{resource_name.to_s.humanize}
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
     = devise_error_messages!
-    .containter.backgroundEdit
+    .containter.backgroundEdit.panel-group
       .colonne1.colonne
         %h4 Informations personnelles
         .field
