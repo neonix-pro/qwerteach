@@ -1,3 +1,4 @@
+var t=500;
 <% @pagin.each_with_index do |u, index| %>
   var t = <%= index %> * 200;
   setTimeout(function(item){
@@ -6,8 +7,7 @@
 
 <% end %>
 
-$('#more-results .more-results-button').html('<%= j link_to_next_page @pagin, 'voir plus', remote: true %>')
-
+$('#more-results .more-results-button').html('<%= j link_to_next_page @pagin, 'voir plus', params: params, remote: true %>')
 
 setTimeout(function(){
   $('.more-results-button').show();

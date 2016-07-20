@@ -8,7 +8,7 @@
   .mode_emploi
     %a.open_mode_emploi Mode d'emploi
   .search-controls
-    = form_tag profs_path, method: :get, id: 'search-form', remote: true do
+    = form_tag profs_path, method: :post, id: 'search-form', remote: false do
       - if @topic.nil?
         %span#search-topic.text-appear Tous les profs
         %span.caret

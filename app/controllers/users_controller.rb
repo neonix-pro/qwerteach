@@ -18,6 +18,8 @@ class UsersController < ApplicationController
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
+    logger.debug(params)
+    logger.debug('-----------')
     search_sorting_options
     search_sorting_name
     search_topic_options
@@ -46,7 +48,7 @@ class UsersController < ApplicationController
         paginate(:page => params[:page], :per_page => 12)
       end
       @search = []
-      @total = 0;
+      @total = 0
       @sunspot_search.group(:user_id_str).groups.each do |group|
         @total += group.total
         group.results.each do |result|
@@ -59,7 +61,7 @@ class UsersController < ApplicationController
   end
 
   def profs_by_topic
-    redirect_to profs_by_topic_path(params[:topic])
+    redirect_to profs_by_topic_path(params[:topic], params: params)
   end
 
   def both_users_online
@@ -96,7 +98,10 @@ class UsersController < ApplicationController
 
   def sorting
     if params[:search_sorting]
-      params[:search_sorting]
+      @sorting_options.each do |option|
+        return params[:search_sorting] if params[:search_sorting] == option[1]
+      end
+      "qwerteach_score"
     else
       "qwerteach_score"
     end
@@ -104,7 +109,7 @@ class UsersController < ApplicationController
 
   def search_sorting_name
     @sorting_options.each do |sort|
-      @sorting_name =  sort[0] if sort[1] == params[:search_sorting]
+      return @sorting_name =  sort[0] if sort[1] == params[:search_sorting]
     end
     @sorting_name = "pertinence"
   end

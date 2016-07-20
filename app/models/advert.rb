@@ -85,7 +85,7 @@ class Advert < ActiveRecord::Base
     string :advert_prices_search, :multiple => true do
       advert_prices.map(&:price)
     end
-    integer(:min_price) {|a| a.min_price}
+    integer(:min_price) {|a| a.user.min_price if a.user.is_a?(Teacher)}
     time(:last_seen){|a| a.user.last_seen}
     integer(:qwerteach_score) { |a| a.user.qwerteach_score}
   end
