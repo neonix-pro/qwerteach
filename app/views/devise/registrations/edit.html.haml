@@ -1,73 +1,75 @@
-.backgroundEdit
+.backgroundEdit.edit_profile
   %h2
     Modifier votre compte #{resource_name.to_s.humanize}
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
     = devise_error_messages!
     .containter.backgroundEdit
-      .col-md-6.colonne1
+      .colonne1.colonne
         %h4 Informations personnelles
         .field
-          = f.label :Nom
-          %br/
-          = f.text_field :lastname, class: 'form-control'
+          = f.text_field :lastname, class: 'form-control', :placeholder => :Nom
         .field
-          = f.label :Prénom
-          %br/
-          = f.text_field :firstname, class: 'form-control'
+          = f.text_field :firstname, class: 'form-control', :placeholder => :Prénom
         .field
-          = f.label :Date_de_Naissance
-          %br/
-          = f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}
+          = f.text_field:birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}, :placeholder => :Date_de_Naissance
         .field
-          = f.label :Présentation
-          %br/
-          = f.text_area :description, :class => 'ckeditor'
+          = f.text_area :description, :class => 'ckeditor', :placeholder => :Présentation
         .field
-          = f.label :Sexe
-          %br/
-          = f.select :gender, User::GENDER_TYPES
+          = f.select :gender, User::GENDER_TYPES, :placeholder => :Sexe
         %h3 Mes photos
         - @gallery=Gallery.where(:user => current_user).last
-        = link_to "photos", gallery_path(@gallery)
-      .col-md-6.colonne2
+        = link_to "Gérer mes photos", gallery_path(@gallery),:class => "link opacity_hover"
+        %br
+        %br
+        %br
+        %br
+      .colonne2.colonne
         %h4 Informations Scolaire
         - if resource.type == "Student"
           #type.field
             = f.label :type
-            %br/
             = f.select :type, User::ACCOUNT_TYPES
         .field
           - levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id)
           = f.label :level_id
-          %br/
           = f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }
         / if teacher, cannot change account type anymore
         - if resource.type == "Teacher"
           .field
             = f.label :occupation
-            %br/
             = f.text_field :occupation
           .field
             = f.label :accepts_post_payments
-            %br/
             = f.check_box :accepts_post_payments
         %h4 Mes diplomes
-        = link_to "diplomes", degrees_path
+        = link_to "Gérer mes diplomes", degrees_path, :class => "link opacity_hover"
+        %br
+        %br
+        %br
         .field
           = f.label :Téléphone
-          %br/
           = f.text_field :phonenumber
-      .col-md-6.colonne3
+          %br
+          %br
+          %br
+      .colonne3.colonne
         %h4 Informations du compte
         #avatar_select.field
           - resource.crop_x=0
           = f.label :avatar
           = f.file_field :avatar
         .actions
-          = f.submit "Update"
-      .col-md-6.case4
+          = f.submit "Update", :class => "submit opactiy_hover"
+          %br
+          %br
+          %br
+      .case4.colonne.colonne4
         %h3 Mes annonces
-        = link_to "annonces", adverts_path
+        = link_to "Gérer mes annonces", adverts_path, :class => "link opacity_hover"
+        %br
+        %br
+        %br
+        
 /
   Utilité ?
   <h3>Cancel my account</h3>

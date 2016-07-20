@@ -1,0 +1,93 @@
+@import "global_variables";
+
+/***User registration edit ***/
+.edit_profile{
+  h2{
+    background: $color_qwerteach_darkgrey;
+    color: #fff;
+    text-align: center;
+    padding: 35px;
+    margin: 0;
+    font-weight: bold;
+  }
+  .colonne{
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    text-align: center;
+    h4,h3{
+      text-align: center;
+      padding: 25px;
+      margin: 0;
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    input{
+      width: 65%;
+      color: $color_qwerteach_green;
+      font-size: 18px;
+      text-align: center;
+      margin: 20px auto;
+      border-radius: 75px;
+      border: none;
+      outline: none;
+      display: block;
+      height: 50px;
+    }
+    label{
+      text-align: center;
+      font-size: 18px;
+      display: block;
+      margin: auto auto 0px auto;
+    }
+    select{
+      width: 200px;
+      color: $color_qwerteach_green;
+      font-size: 18px;
+      text-align: center;
+      margin: 20px auto;
+      border: none;
+      outline: none;
+      display: block;
+      height: 50px;
+    }
+    iframe{
+      height: 300px;
+      margin: auto;
+    }
+    .submit{
+      background: $color_qwerteach_green;
+      width: 200px;
+      color: #fff;
+    }
+    .link{
+      width: 200px;
+      font-size: 18px;
+      color: #fff;
+      padding: 10px 25px;
+      background: $color_qwerteach_navgrey;
+      margin: auto;
+      margin-bottom: 45px;
+      border-radius: 75px;
+    }
+  }
+  #user_avatar{
+      color: #fff;
+      width: auto;
+      font-size: 16px;
+    }
+  .colonne1{
+    background: $color_qwerteach_green !important;
+  }
+  .colonne3{
+    background: $color_qwerteach_pink !important;
+  }
+  .colonne3{
+    background: $color_qwerteach_purple !important;
+  }
+  .colonne4{
+    background: $color_qwerteach_green !important;
+  }
+}
