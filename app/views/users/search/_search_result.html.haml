@@ -1,7 +1,8 @@
 .result{:class => (custom unless custom.nil?)}
   .result-wrapper
     .result-picture
-      = image_tag(u.avatar.url(:medium))
+      = link_to user_path(u) do
+        = image_tag(u.avatar.url(:medium))
     - if u.online?
       %span.online
         en ligne
@@ -11,14 +12,14 @@
         #{"%g" % (u.min_price)}€/h
     .result-infos
       .user-name
-        #{u.name}
+        = link_to "#{u.name.split.map(&:capitalize).join(' ')}", user_path(u)
       .user-rating
         = render partial: "shared/star_rating", locals: {note: u.avg_reviews}
         %span.number-of-reviews
           #{u.reviews_received.count}
           %i.fa.fa-user
       .user-topics
-        #{u.adverts.map{|ad| "#{link_to ad.title, profs_by_topic_path(ad.title)}"}.first(5).join(", ").html_safe}
+        #{u.adverts.map{|ad| "#{link_to ad.title, profs_by_topic_path(ad.title.downcase)}"}.first(5).join(", ").html_safe}
         - if u.adverts.count > 5
           = link_to '...', user_path(u)
       -unless u.online?
@@ -28,16 +29,18 @@
         = sanitize(u.description, tags: %w(a p)).truncate_words(25).html_safe
     .result-footer
       - unless u.featured_review.nil?
-        .footer-review
-          .review-picture
-            = image_tag(u.featured_review.sender.avatar.url(:small))
-          .review-text
-            - unless u.featured_review.sender.firstname.empty?
-              #{u.featured_review.sender.firstname}:
-            #{simple_format(u.featured_review.review_text.truncate(50))}
-            = render partial: "shared/star_rating", locals: {note: u.featured_review.note}
+        = link_to user_path(u) do
+          .footer-review
+            .review-picture
+              = image_tag(u.featured_review.sender.avatar.url(:small))
+            .review-text
+              - unless u.featured_review.sender.firstname.empty?
+                #{u.featured_review.sender.firstname}:
+              #{simple_format(u.featured_review.review_text.truncate(50))}
+              = render partial: "shared/star_rating", locals: {note: u.featured_review.note} if strip_tags(u.featured_review.review_text).empty?
       - else
         - if u.first_lesson_free
-          .footer-free-lesson
-            %i.fa.fa-gift.fa-2x
-            Premier cours gratuit!
+          = link_to user_path(u) do
+            .footer-free-lesson
+              %i.fa.fa-gift.fa-2x
+              Premier cours gratuit!

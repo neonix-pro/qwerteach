@@ -19,34 +19,55 @@ class UsersController < ApplicationController
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
     search_sorting_options
+    search_sorting_name
     search_topic_options
     if params[:topic].nil?
-      @pagin = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
+      @search = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
+      @pagin = @search
     else
       # can't access global variable in sunspot search...
       topic = Topic.where('lower(title) = ?', params[:topic]).first
       if topic.nil?
         topic = TopicGroup.where('lower(title) = ?', params[:topic]).first
       end
-      @search = Sunspot.search(Advert) do
+      @sunspot_search = Sunspot.search(Advert) do
         with(:postulance_accepted, true)
-        fulltext topic.title
+        if topic.nil?
+          fulltext params[:topic]
+        else
+          fulltext topic.title
+        end
         order_by(sorting, sorting_direction(params[:search_sorting]))
         group :user_id_str
         with(:user_age).greater_than_or_equal_to(params[:age_min]) unless params[:age_min].blank?
         with(:user_age).less_than_or_equal_to(params[:age_max]) unless params[:age_max].blank?
         with(:advert_prices_search).greater_than(params[:min_price]) unless params[:min_price].blank?
         with(:advert_prices_search).less_than(params[:max_price]) unless params[:max_price].blank?
+        with(:first_lesson_free, true) if params[:filter] == 'first_lesson_free'
+        with(:online, true) if params[:filter] == 'online'
+        with(:has_reviews).greater_than(0) if params[:filter] == 'has_reviews'
         paginate(:page => params[:page], :per_page => 12)
       end
-      @pagin = []
-      @search.group(:user_id_str).groups.each do |group|
+      @search = []
+      @total = 0
+      @sunspot_search.group(:user_id_str).groups.each do |group|
+        @total += group.total
         group.results.each do |result|
-          @pagin.push(result.user)
+          @search.push(result.user)
         end
       end
+      if topic.nil?
+        topic_title = params[:topic]
+      else
+        topic_title = topic.title
+      end
+      @pagin = Kaminari.paginate_array(@search, total_count: @total, topic: topic_title).page(params[:page]).per(12)
       @topic = topic
     end
+  end
+
+  def profs_by_topic
+    redirect_to profs_by_topic_path(params[:topic], params: params)
   end
 
   def both_users_online
@@ -83,10 +104,20 @@ class UsersController < ApplicationController
 
   def sorting
     if params[:search_sorting]
-      params[:search_sorting]
+      @sorting_options.each do |option|
+        return params[:search_sorting] if params[:search_sorting] == option[1]
+      end
+      "qwerteach_score"
     else
       "qwerteach_score"
     end
+  end
+
+  def search_sorting_name
+    @sorting_options.each do |sort|
+      return @sorting_name =  sort[0] if sort[1] == params[:search_sorting]
+    end
+    @sorting_name = "pertinence"
   end
 
   def profil_advert_classes(n)
@@ -101,12 +132,6 @@ class UsersController < ApplicationController
         ['simple', 'triple', 'triple', 'triple']
       when 5
         ['double', 'double', 'triple', 'triple', 'triple']
-      # when 6
-      #   profil_advert_classes(2) + profil_advert_classes(1) + profil_advert_classes(3)
-      # when 7
-      #   profil_advert_classes(2) + profil_advert_classes(3) + profil_advert_classes(2)
-      # when 8
-      #   profil_advert_classes(2) + profil_advert_classes(3) + profil_advert_classes(3)
       else
         r= profil_advert_classes(2)
         c = n - 2

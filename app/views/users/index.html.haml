@@ -1,11 +1,12 @@
 = render partial: 'users/search/header'
-#search-filters
+= render partial: 'users/search/search_options', locals: {topics_options: @topic_options, sorting_options: @sorting_options}
+= render partial: 'users/search/search_filters'
 #search-results.clearfix
-  - @pagin.each do |u|
+  - @search.each do |u|
     = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
 #more-results
   .more-results-button
-    = link_to_next_page @pagin, 'voir plus', remote: true
+    = link_to_next_page @pagin, 'voir plus', params: params, remote: true
 .container-fluid
   = render 'pages/accueil/partie_commentaire'
   = render 'pages/accueil/tri_colonne'

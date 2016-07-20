@@ -1,0 +1,11 @@
+#search-filters
+  %ul.search-filters
+    %li.filter{data:{filter: :online}, class:('selected' if params[:filter] == :online)}
+      %i.fa.fa-check
+      En ligne
+    %li.filter{data:{filter: :first_lesson_free}}
+      %i.fa.fa-gift
+      Premier cours gratuit
+    %li.filter{data:{filter: :has_reviews}}
+      %i.fa.fa-star-o
+      Appréciations

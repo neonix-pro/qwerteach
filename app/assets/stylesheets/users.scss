@@ -157,6 +157,7 @@
 #profile-content{
   width: calc(100%-256px);
   margin-left:256px;
+  position:relative;
   .profile-header{
     background-color: $color_qwerteach_darkgrey;
     width:100%;
