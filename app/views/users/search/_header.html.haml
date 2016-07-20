@@ -21,3 +21,4 @@
       %span#search-sorting.text-appear #{params[:search_sorting].nil? ? "pertinence": @sorting_name}
       %span.caret
       = hidden_field_tag("search_sorting", params[:search_sorting].nil? ? "qwerteach_score": params[:search_sorting].to_s, id: 'search-sorting-field')
+      = hidden_field_tag('filter', params[:filter], id:'search-filter')

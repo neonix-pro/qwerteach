@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    footerScroll();
     $( window ).scroll(function() {
         footerScroll();
     });
@@ -29,7 +30,7 @@ function footerScroll(){
         $('#sidebar-profile').css({
             position: 'fixed',
             top: 0,
-            width: '20%'
+            width: 256
         });
     }
     else
@@ -40,9 +41,10 @@ function footerScroll(){
             top: 0
         });
         $('#sidebar-profile').css({
+            float: 'left',
             position: 'relative',
             top: 0,
-            width: '20%'
+            width: 256
         });
     }
 }

@@ -78,6 +78,15 @@ class Advert < ActiveRecord::Base
     boolean :postulance_accepted do
       self.user.postulance_accepted
     end
+    boolean :online do
+      self.user.online?
+    end
+    boolean :first_lesson_free do
+      self.user.first_lesson_free
+    end
+    integer :has_reviews do
+      self.user.reviews_received.count
+    end
     string :user_age do
       Time.now.year - self.user.birthdate.year
     end

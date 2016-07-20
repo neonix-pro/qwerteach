@@ -33,12 +33,42 @@
   }
 }
 
+#search-filters{
+  width:12%;
+  float:left;
+  padding:20px 0px;
+  z-index:1;
+  ul.search-filters{
+    li{
+      cursor:pointer;
+      font-size: 12px;
+      color: #626262;
+      padding: 10px 20px;
+      border-bottom: 1px solid #4A4A4A;
+    }
+    li:hover, li.selected{
+      color: $color_qwerteach_green;
+      text-decoration:underline;
+    }
+
+  }
+}
+
 #search-results{
+  position:relative;
+  margin-left:12%;
+  background-color: #F2F2F2;
+  a{
+    color:inherit;
+  }
   .result{
     width:25%;
     float:left;
     height:600px;
     box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
+    background-color:white;
+    z-index:1;
+    position:relative;
     .result-wrapper{
       position:relative;
       height:100%;
@@ -47,9 +77,6 @@
     img{
       width:100%;
     }
-  }
-  .result:nth-child(even){
-    box-shadow: 0 6px 4px -4px rgba(0,0,0,0.50);
   }
   .user-price{
     position: relative;
@@ -113,7 +140,7 @@
     font-size: 14px;
     color: #313131;
     line-height: 60px;
-
+    overflow: hidden;
     .footer-review{
       background-color:$color_qwerteach_green;
       width:100%;

@@ -1,6 +1,6 @@
 = render partial: 'users/search/header'
 = render partial: 'users/search/search_options', locals: {topics_options: @topic_options, sorting_options: @sorting_options}
-#search-filters
+= render partial: 'users/search/search_filters'
 #search-results.clearfix
   - @search.each do |u|
     = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}

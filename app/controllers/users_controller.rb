@@ -18,8 +18,6 @@ class UsersController < ApplicationController
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
-    logger.debug(params)
-    logger.debug('-----------')
     search_sorting_options
     search_sorting_name
     search_topic_options
@@ -45,6 +43,9 @@ class UsersController < ApplicationController
         with(:user_age).less_than_or_equal_to(params[:age_max]) unless params[:age_max].blank?
         with(:advert_prices_search).greater_than(params[:min_price]) unless params[:min_price].blank?
         with(:advert_prices_search).less_than(params[:max_price]) unless params[:max_price].blank?
+        with(:first_lesson_free, true) if params[:filter] == 'first_lesson_free'
+        with(:online, true) if params[:filter] == 'online'
+        with(:has_reviews).greater_than(0) if params[:filter] == 'has_reviews'
         paginate(:page => params[:page], :per_page => 12)
       end
       @search = []
@@ -55,7 +56,12 @@ class UsersController < ApplicationController
           @search.push(result.user)
         end
       end
-      @pagin = Kaminari.paginate_array(@search, total_count: @total, topic: topic.title).page(params[:page]).per(12)
+      if topic.nil?
+        topic_title = params[:topic]
+      else
+        topic_title = topic.title
+      end
+      @pagin = Kaminari.paginate_array(@search, total_count: @total, topic: topic_title).page(params[:page]).per(12)
       @topic = topic
     end
   end
