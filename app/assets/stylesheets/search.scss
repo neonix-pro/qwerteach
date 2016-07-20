@@ -41,14 +41,14 @@
     .result-wrapper{
       position:relative;
       height:100%;
-
+      transform-style: preserve-3d;
     }
     img{
       width:100%;
     }
   }
   .result:nth-child(even){
-    box-shadow:none;
+    box-shadow: 0 6px 4px -4px rgba(0,0,0,0.50);
   }
   .user-price{
     position: relative;
@@ -74,6 +74,8 @@
     margin-top:-30px;
     padding:20px;
     padding-top:10px;
+    max-height: 230px;
+    overflow: hidden;
     .user-name{
       font-size: 16px;
       color: #313131;
@@ -115,11 +117,58 @@
       background-color:$color_qwerteach_green;
       width:100%;
       height:100%;
+      img{
+        border-radius: 50%;
+        margin-left: 20px;
+        width:40px;
+      }
+      .review-picture{
+        width:40px;
+        float:left;
+      }
+      .review-text{
+        margin-left: 70px;
+        text-align: left;
+        line-height: 23px;
+        padding: 8px 20px;
+      }
     }
     .footer-free-lesson{
       width:100%;
       background-color:$color_qwerteach_yellow;
       height:100%;
+    }
+  }
+  .result.animate{
+    display:none;
+  }
+}
+
+#more-results{
+  text-align:center;
+  height: 125px;
+  padding:30px;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  .more-results-button{
+    cursor:pointer;
+    display:inline-block;
+    a{
+      color: #4A4A4A;
+    }
+    a:after{
+      background-color:$color_qwerteach_green;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      line-height: 35px;
+      margin-top: 8px;
+      content: "\f175";
+      font-family: FontAwesome;
+      position: absolute;
+      margin-left:50%;
+      display:block;
+      left: -20px;
     }
   }
 }

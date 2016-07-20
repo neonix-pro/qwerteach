@@ -46,7 +46,6 @@ class UsersController < ApplicationController
         end
       end
       @topic = topic
-      #@pagin = Advert.joins(:user).includes(:advert_prices).where(topic_id: params[:topic]).order("score desc").page(params[:page]).per(12).map{|u| u.user}
     end
   end
 
