@@ -3,8 +3,12 @@
     Modifier votre compte #{resource_name.to_s.humanize}
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
     = devise_error_messages!
-    .containter.backgroundEdit.panel-group
-      .colonne1.colonne
+    .containter.backgroundEdit
+      =link_to "Informations personnelles", "#infos-perso" , :class => "title", data: {:target => "#infos-perso"}, :id => "title1"
+      =link_to "Informations Scolaires", "#infos-scol" , :class => "title", data: {:toggle => "collapse", :target => "#infos-scol"}, :id => "title2"
+      =link_to "Informations du compte", "#infos-compte" , :class => "title", data: {:toggle => "collapse", :target => "#infos-compte"}, :id => "title3"
+      =link_to "Informations du compte", "#annonces" , :class => "title", data: {:toggle => "collapse", :target => "#annonces"}, :id => "title4"
+      .colonne1.colonne.panel-collapse.in{:id => "infos-perso"}
         %h4 Informations personnelles
         .field
           = f.text_field :lastname, class: 'form-control', :placeholder => :Nom
@@ -23,7 +27,7 @@
         %br
         %br
         %br
-      .colonne2.colonne
+      .colonne2.colonne.panel-collapse{:id => "infos-scol"}
         %h4 Informations Scolaire
         - if resource.type == "Student"
           #type.field
@@ -52,7 +56,7 @@
           %br
           %br
           %br
-      .colonne3.colonne
+      .colonne3.colonne.panel-collapse{:id => "infos-compte"}
         %h4 Informations du compte
         #avatar_select.field
           - resource.crop_x=0
@@ -63,7 +67,7 @@
           %br
           %br
           %br
-      .case4.colonne.colonne4
+      .case4.colonne.colonne4.panel-collapse{:id => "annonces"}
         %h3 Mes annonces
         = link_to "Gérer mes annonces", adverts_path, :class => "link opacity_hover"
         %br
