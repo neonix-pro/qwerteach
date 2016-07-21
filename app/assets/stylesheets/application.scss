@@ -28,27 +28,9 @@
 
 /* TO DO: place somewhere else!*/
 
-.alert-alert {
-  @extend .alert-warning;
-}
 
-.alert-notice {
-  @extend .alert-info;
-}
 
-.round-image-50 {
-  background-color: black;
-  border-radius: 25px;
-  -moz-border-radius: 25px;
-  -webkit-border-radius: 25px;
-  height: 50px;
-  width: 50px;
-  overflow: hidden;
-  text-align: center;
-  img {
-    width: 100%
-  }
-}
+
 
 .messages {
   max-height: 400px;

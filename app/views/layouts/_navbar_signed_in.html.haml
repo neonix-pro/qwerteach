@@ -1,0 +1,45 @@
+-if current_user.admin?
+  %ul.nav.navbar-nav
+    %li= link_to 'Administration', admin_root_path
+  = form_tag profs_path, method: :post, class: 'navbar-form navbar-left' do
+    .input-group
+      = text_field_tag('topic', '', class: 'form-control', placeholder: 'Chercher un prof')
+      %span.input-group-btn-floating
+        %button
+          %i.fa.fa-search.text-green
+%ul.nav.navbar-nav.pull-right
+  - unless current_user.postulance_accepted
+    %li= link_to 'Devenir Prof', become_teacher_accueil_path
+  %li
+    = link_to conversations_path do
+      %i.fa.fa-envelope
+    %li#notifications-dropdown.dropdown
+      %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+        %i.fa.fa-bell
+        (
+        %span#unread-notifications>= current_user.mailbox.notifications.unread.count
+        )
+        %ul.dropdown-menu.notifications{:role => "menu"}
+          .notification-heading
+            %h4.menu-title Notifications
+            %h4.menu-title.pull-left
+              Voir tout
+              %i.glyphicon.glyphicon-circle-arrow-right
+          #notifications-wrapper.notifications-wrapper
+          %li.divider
+          .notification-footer
+            %h4.menu-title
+              %a.see-more-notifications
+                Voir tout
+                %i.glyphicon.glyphicon-circle-arrow-right
+    %li.dropdown
+      %a.dropdown-toggle.image-dropdown{"data-toggle" => "dropdown", :href => "#"}
+        = image_tag(current_user.avatar.url(:small))
+        %span.carret
+      %ul.dropdown-menu{:role => "menu"}
+        %li= link_to 'Mon Profil', user_path(current_user)
+        %li= link_to 'Editer mon profil', edit_user_registration_path
+        %li= link_to 'Modifier mon mdp', edit_pwd_user_registration_path
+        - @gallery=Gallery.where(:user => current_user).last
+        %li= link_to 'Ma gallerie', gallery_path(current_user.gallery)
+        %li= link_to 'Se déconnecter', destroy_user_session_path, method: :delete
