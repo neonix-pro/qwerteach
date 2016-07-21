@@ -1,9 +1,18 @@
 $(document).ready(function () {
     footerScroll();
+    bodySidebarHeight();
     $( window ).scroll(function() {
         footerScroll();
     });
 });
+
+function bodySidebarHeight(){
+    h1 = $('.main-content').height();
+    h2 = $('.sidebar').height();
+    if(h2<h1){
+        $('.main-content').height($('.sidebar').height());
+    }
+}
 
 function footerScroll(){
     h1 = $('#footer').offset().top - $(body).height();

@@ -1,13 +1,12 @@
 %ul.nav.nav-pills.nav-stacked.labels-info
   %li
-    %h4 Buddy online
+    %h4 Contacts en ligne
   - online_buddies.each do |user|
     %li
       =link_to user_path(user) do
         %i.fa.fa-circle{class: [('text-success' if user.online?),
         ('text-danger' if !user.last_seen.nil? && user.last_seen > 1.hour.ago)]}
         = user.name
-
   - if online_buddies.empty?
     %li
       %small Aucun contact en ligne

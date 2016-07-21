@@ -34,17 +34,15 @@ class RegistrationsController < Devise::RegistrationsController
 
   end
 
-  private
-
-  # on vérifier si l'email a changé ou le mdp pour savoir s'il faut les vérifier
-  def needs_password?(user, params)
-    (params[:user].has_key?(:email) && user.email != params[:user][:email]) || !params[:user][:password].blank?
-  end
-  public
   def pwd_edit
     send(:"authenticate_#{resource_name}!", force: true)
     self.resource = send(:"current_#{resource_name}")
+  end
 
+  private
+  # on vérifier si l'email a changé ou le mdp pour savoir s'il faut les vérifier
+  def needs_password?(user, params)
+    (params[:user].has_key?(:email) && user.email != params[:user][:email]) || !params[:user][:password].blank?
   end
 
 end
