@@ -7,9 +7,9 @@ var t=500;
 
 <% end %>
 
-$('#more-results .more-results-button').html('<%= j link_to_next_page @pagin, 'voir plus', params: params, remote: true %>')
+$('#more-results .more-results-button').html('<%= j link_to_next_page @pagin, 'voir plus', params: params, remote: true %>');
 
 setTimeout(function(){
   $('.more-results-button').show();
   $('.more-results-button').parent().find('i').remove();
-}, t)
+}, t);

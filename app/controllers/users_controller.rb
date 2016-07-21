@@ -49,9 +49,8 @@ class UsersController < ApplicationController
         paginate(:page => params[:page], :per_page => 12)
       end
       @search = []
-      @total = 0
+      @total = @sunspot_search.group(:user_id_str).matches
       @sunspot_search.group(:user_id_str).groups.each do |group|
-        @total += group.total
         group.results.each do |result|
           @search.push(result.user)
         end
