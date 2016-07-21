@@ -7,6 +7,4 @@ $(document).ready(function(){
        $('#search-filter').val($(this).attr('data-filter'));
         $('#search-form').submit();
     });
-
-    //$('#search-filters').innerHeight($('#search-results').height());
 });

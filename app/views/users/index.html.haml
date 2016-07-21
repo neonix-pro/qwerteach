@@ -1,9 +1,10 @@
 = render partial: 'users/search/header'
 = render partial: 'users/search/search_options', locals: {topics_options: @topic_options, sorting_options: @sorting_options}
-= render partial: 'users/search/search_filters'
-#search-results.clearfix
-  - @search.each do |u|
-    = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
+.search-wrapper
+  = render partial: 'users/search/search_filters'
+  #search-results.clearfix
+    - @search.each do |u|
+      = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
 #more-results
   .more-results-button
     = link_to_next_page @pagin, 'voir plus', params: params, remote: true

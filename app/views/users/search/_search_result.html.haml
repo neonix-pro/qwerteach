@@ -1,12 +1,13 @@
 .result{:class => (custom unless custom.nil?)}
   .result-wrapper
-    .result-picture
-      = link_to user_path(u) do
+    = link_to user_path(u) do
+      .result-picture
         = image_tag(u.avatar.url(:medium))
-    - if u.online?
-      %span.online
-        en ligne
-      .result-online
+        - if u.online?
+          %span.online
+            %i.fa.fa-circle.text-green
+            en ligne
+          .result-online
     - if u.is_a?(Teacher)
       .user-price
         #{"%g" % (u.min_price)}€/h
@@ -22,9 +23,10 @@
         #{u.adverts.map{|ad| "#{link_to ad.title, profs_by_topic_path(ad.title.downcase)}"}.first(5).join(", ").html_safe}
         - if u.adverts.count > 5
           = link_to '...', user_path(u)
-      -unless u.online?
-        .user-last-seen
-        Der. connexion:
+      -unless u.online? || u.last_seen.nil?
+        .user-last-seen.text-green
+          %i.fa.fa-circle-o
+          = "Der. connexion: #{time_ago_in_words(u.last_seen)}"
       %p.user-description-excerpt
         = sanitize(u.description, tags: %w(a p)).truncate_words(25).html_safe
     .result-footer
