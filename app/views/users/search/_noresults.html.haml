@@ -1,0 +1,10 @@
+.noresult
+  %h4 Recherches populaires:
+  %ul
+    - popular_topics.each do |topic|
+      -unless topic.title == 'Other'
+        %li
+          = link_to profs_by_topic_path(topic.title) do
+            Profs de
+            %b.text-green #{topic.title}
+    %b #{link_to 'Tous les professeurs', profs_path, class: 'text-green'}

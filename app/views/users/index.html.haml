@@ -3,11 +3,19 @@
 .search-wrapper
   = render partial: 'users/search/search_filters'
   #search-results.clearfix
-    - @search.each do |u|
-      = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
-#more-results
-  .more-results-button
-    = link_to_next_page @pagin, 'voir plus', params: params, remote: true
+    %h4.noresult
+      #{@search_total_results}
+      %b.text-green
+        &laquo; #{@topic_title} &raquo;
+    - unless @search.empty?
+      - @search.each do |u|
+        = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
+    - else
+      =render partial: 'users/search/noresults', locals:{popular_topics: @popular_topics}
+- unless @search.empty?
+  #more-results
+    .more-results-button
+      = link_to_next_page @pagin, 'voir plus', params: params, remote: true
 .container-fluid
   = render 'pages/accueil/partie_commentaire'
   = render 'pages/accueil/tri_colonne'

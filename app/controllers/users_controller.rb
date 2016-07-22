@@ -18,6 +18,7 @@ class UsersController < ApplicationController
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
+    popular_topics
     search_sorting_options
     search_sorting_name
     search_topic_options
@@ -56,13 +57,14 @@ class UsersController < ApplicationController
         end
       end
       if topic.nil?
-        topic_title = params[:topic]
+        @topic_title = params[:topic]
       else
-        topic_title = topic.title
+        @topic_title = topic.title
       end
-      @pagin = Kaminari.paginate_array(@search, total_count: @total, topic: topic_title).page(params[:page]).per(12)
+      @pagin = Kaminari.paginate_array(@search, total_count: @total, topic: @topic_title).page(params[:page]).per(12)
       @topic = topic
     end
+    @search_total_results = search_total_results
   end
 
   def profs_by_topic
@@ -117,6 +119,21 @@ class UsersController < ApplicationController
       return @sorting_name =  sort[0] if sort[1] == params[:search_sorting]
     end
     @sorting_name = "pertinence"
+  end
+
+  def search_total_results
+    case @pagin.total_count
+      when 0
+        "Oh zut! Il semblerait qu'il n'y ait pas de prof de "
+      when 1
+        "#{@pagin.total_count} prof trouvé pour "
+      else
+        "#{@pagin.total_count} profs trouvés pour"
+    end
+  end
+
+  def popular_topics
+    @popular_topics = Advert.group(:topic).order('count_id DESC').limit(5).count(:id).map{|topic| topic.first}
   end
 
   def profil_advert_classes(n)

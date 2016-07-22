@@ -69,6 +69,9 @@
 }
 
 #search-results{
+  .noresult{
+    padding:10px 30px;
+  }
   position:relative;
   margin-left:12%;
   background-color: #F2F2F2;
