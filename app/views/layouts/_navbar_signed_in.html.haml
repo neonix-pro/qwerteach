@@ -19,16 +19,12 @@
         (
         %span#unread-notifications>= current_user.mailbox.notifications.unread.count
         )
-        %ul.dropdown-menu.notifications{:role => "menu"}
-          .notification-heading
-            %h4.menu-title Notifications
-            %h4.menu-title.pull-left
-              Voir tout
-              %i.glyphicon.glyphicon-circle-arrow-right
-          #notifications-wrapper.notifications-wrapper
-          %li.divider
-          .notification-footer
-            %h4.menu-title
+      %ul.dropdown-menu.notifications{:role => "menu"}
+        #notifications-wrapper.notifications-wrapper
+        %li.divider
+        .notification-footer
+          %h4.menu-title
+            %small
               %a.see-more-notifications
                 Voir tout
                 %i.glyphicon.glyphicon-circle-arrow-right

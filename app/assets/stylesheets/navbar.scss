@@ -1,3 +1,4 @@
+@import 'global_variables';
 .navbar.main-nav{
   position:fixed;
   width:100%;
@@ -37,7 +38,7 @@
   }
 }
 .navbar-form .input-group input.form-control{
-  background-color:transparent;
+  background: #313131;
   box-shadow: inset 1px 4px 3px 0px rgba(0,0,0,0.50);
   border-radius: 40px;
   font-size: 12px;
@@ -45,4 +46,32 @@
   letter-spacing: 0.2px;
   width:150%;
   border:none;
+}
+
+#navbar{
+  .nav .open > a, nav .open > a:focus, .nav .open > a:hover, .nav a{
+    background-color:transparent;
+  }
+  .dropdown-menu{
+    left:-200%;
+    top:49px;
+    border-radius:0px;
+    background-color: #313131;
+    li a{
+      padding: 6px 20px;
+    }
+  }
+  .dropdown-menu.notifications{
+    min-width:200px;
+    padding:0px 10px;
+    a.dropdown-toggle{
+      margin:0px;
+    }
+    .notification-heading h4{
+      margin:0px;
+      color:$color_qwerteach_green;
+    }
+  }
+
+
 }

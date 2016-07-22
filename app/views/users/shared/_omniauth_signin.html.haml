@@ -1,0 +1,5 @@
+.omniauth-signin
+  - if devise_mapping.omniauthable?
+    - resource_class.omniauth_providers.each do |provider|
+      = link_to omniauth_authorize_path(resource_name, provider), id: "connection_#{provider.to_s}", class: "provider_signin" do
+        = image_tag image_path("signin/#{provider.to_s}_signin.jpg"), :class => "opacity_hover"
