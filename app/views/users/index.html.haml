@@ -4,7 +4,7 @@
   = render partial: 'users/search/search_filters'
   #search-results.clearfix
     %h4.noresult
-      #{@search_total_results}
+      #{search_total_results(@pagin)}
       %b.text-green
         &laquo; #{@topic_title} &raquo;
     - unless @search.empty?

@@ -27,5 +27,14 @@ module UsersHelper
     @popular_topics ||= Advert.group(:topic).order('count_id DESC').limit(5).count(:id).map{|topic| topic.first}
   end
 
-
+  def search_total_results(pagin)
+    case pagin.total_count
+      when 0
+        "Oh zut! Il semblerait qu'il n'y ait pas de prof de "
+      when 1
+        "#{pagin.total_count} prof trouvé pour "
+      else
+        "#{pagin.total_count} profs trouvés pour "
+    end
+  end
 end

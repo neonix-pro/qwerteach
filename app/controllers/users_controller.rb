@@ -62,7 +62,6 @@ class UsersController < ApplicationController
       @pagin = Kaminari.paginate_array(@search, total_count: @total, topic: @topic_title).page(params[:page]).per(12)
       @topic = topic
     end
-    @search_total_results = search_total_results
   end
 
   def profs_by_topic
@@ -117,17 +116,6 @@ class UsersController < ApplicationController
       return @sorting_name =  sort[0] if sort[1] == params[:search_sorting]
     end
     @sorting_name = "pertinence"
-  end
-
-  def search_total_results
-    case @pagin.total_count
-      when 0
-        "Oh zut! Il semblerait qu'il n'y ait pas de prof de "
-      when 1
-        "#{@pagin.total_count} prof trouvé pour "
-      else
-        "#{@pagin.total_count} profs trouvés pour"
-    end
   end
 
 end
