@@ -37,4 +37,7 @@ module UsersHelper
         "#{pagin.total_count} profs trouvés pour "
     end
   end
+  def search_topic_options
+    @topic_options = Topic.where.not(:title=> "Other").map{|p| [p.title.downcase]}
+  end
 end

@@ -19,7 +19,6 @@ class UsersController < ApplicationController
   def index
     search_sorting_options
     search_sorting_name
-    search_topic_options
     if params[:topic].nil?
       @search = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
       @pagin = @search
@@ -80,10 +79,6 @@ class UsersController < ApplicationController
 
   def search_sorting_options
     @sorting_options = [["pertinence", "qwerteach_score"], ["prix", "min_price"], ["dernière connexion", "last_seen"]]
-  end
-
-  def search_topic_options
-    @topic_options = Topic.where.not(:title=> "Other").map{|p| [p.title.downcase]}
   end
 
   def sorting_direction(sort)
