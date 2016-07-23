@@ -22,4 +22,10 @@ module UsersHelper
         r
     end
   end
+
+  def popular_topics
+    @popular_topics ||= Advert.group(:topic).order('count_id DESC').limit(5).count(:id).map{|topic| topic.first}
+  end
+
+
 end

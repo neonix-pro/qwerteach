@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   #before_filter :authenticate_user!
-  
+
   def show
     @user = User.find(params[:id])
     if @user.is_a?(Teacher)
@@ -17,7 +17,6 @@ class UsersController < ApplicationController
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
-    popular_topics
     search_sorting_options
     search_sorting_name
     search_topic_options
@@ -129,10 +128,6 @@ class UsersController < ApplicationController
       else
         "#{@pagin.total_count} profs trouvés pour"
     end
-  end
-
-  def popular_topics
-    @popular_topics = Advert.group(:topic).order('count_id DESC').limit(5).count(:id).map{|topic| topic.first}
   end
 
 end

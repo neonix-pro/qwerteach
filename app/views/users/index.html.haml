@@ -11,7 +11,7 @@
       - @search.each do |u|
         = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
     - else
-      =render partial: 'users/search/noresults', locals:{popular_topics: @popular_topics}
+      =render partial: 'users/search/noresults', locals:{popular_topics: popular_topics}
 - unless @search.empty?
   #more-results
     .more-results-button
