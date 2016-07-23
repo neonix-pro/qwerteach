@@ -1,5 +1,5 @@
 - adverts.each_with_index do |advert, key|
-  .profile-advert{:class=>"#{@profil_advert_classes[key]}"}
+  .profile-advert{:class=>"#{adverts_classes[key]}"}
     .flipper
       .front
         = image_tag(advert.topic.pictotype('big'), :class => 'advert-picto')
