@@ -37,7 +37,15 @@ module UsersHelper
         "#{pagin.total_count} profs trouvés pour "
     end
   end
+
   def search_topic_options
     @topic_options = Topic.where.not(:title=> "Other").map{|p| [p.title.downcase]}
+  end
+
+  def search_sorting_name
+    @sorting_options.each do |sort|
+      return @search_sorting_name ||=  sort[0] if sort[1] == params[:search_sorting]
+    end
+    @search_sorting_name ||= "pertinence"
   end
 end

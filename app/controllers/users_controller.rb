@@ -18,7 +18,6 @@ class UsersController < ApplicationController
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
     search_sorting_options
-    search_sorting_name
     if params[:topic].nil?
       @search = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
       @pagin = @search
@@ -104,13 +103,6 @@ class UsersController < ApplicationController
     else
       "qwerteach_score"
     end
-  end
-
-  def search_sorting_name
-    @sorting_options.each do |sort|
-      return @sorting_name =  sort[0] if sort[1] == params[:search_sorting]
-    end
-    @sorting_name = "pertinence"
   end
 
 end
