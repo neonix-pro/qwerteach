@@ -6,7 +6,7 @@
     %h4.noresult
       #{search_total_results(@pagin)}
       %b.text-green
-        &laquo; #{@topic_title} &raquo;
+        &laquo; #{@search_text} &raquo;
     - unless @search.empty?
       - @search.each do |u|
         = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}

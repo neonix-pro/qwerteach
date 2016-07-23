@@ -23,23 +23,11 @@ class UsersController < ApplicationController
       @pagin = @search
     else
       # can't access global variable in sunspot search...
-      topic = Topic.where('lower(title) = ?', params[:topic]).first
-      if topic.nil?
-        topic = TopicGroup.where('lower(title) = ?', params[:topic]).first
-      end
       @sunspot_search = Sunspot.search(Advert) do
         with(:postulance_accepted, true)
-        if topic.nil?
-          fulltext params[:topic]
-        else
-          fulltext topic.title
-        end
+        fulltext search_text
         order_by(sorting, sorting_direction(params[:search_sorting]))
         group :user_id_str
-        with(:user_age).greater_than_or_equal_to(params[:age_min]) unless params[:age_min].blank?
-        with(:user_age).less_than_or_equal_to(params[:age_max]) unless params[:age_max].blank?
-        with(:advert_prices_search).greater_than(params[:min_price]) unless params[:min_price].blank?
-        with(:advert_prices_search).less_than(params[:max_price]) unless params[:max_price].blank?
         with(:first_lesson_free, true) if params[:filter] == 'first_lesson_free'
         with(:online, true) if params[:filter] == 'online'
         with(:has_reviews).greater_than(0) if params[:filter] == 'has_reviews'
@@ -52,13 +40,7 @@ class UsersController < ApplicationController
           @search.push(result.user)
         end
       end
-      if topic.nil?
-        @topic_title = params[:topic]
-      else
-        @topic_title = topic.title
-      end
-      @pagin = Kaminari.paginate_array(@search, total_count: @total, topic: @topic_title).page(params[:page]).per(12)
-      @topic = topic
+      @pagin = Kaminari.paginate_array(@search, total_count: @total, topic: @search_text).page(params[:page]).per(12)
     end
   end
 
@@ -102,6 +84,19 @@ class UsersController < ApplicationController
       "qwerteach_score"
     else
       "qwerteach_score"
+    end
+  end
+
+  def search_text
+    @topic = Topic.where('lower(title) = ?', params[:topic]).first
+    if @topic.nil?
+      @topic_group = TopicGroup.where('lower(title) = ?', params[:topic]).first
+    end
+    @search_topic ||= @topic || @topic_group
+    unless @search_topic.nil?
+      @search_text ||= @search_topic.title
+    else
+      @search_text ||= params[:topic]
     end
   end
 

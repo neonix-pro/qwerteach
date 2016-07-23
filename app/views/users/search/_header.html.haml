@@ -1,6 +1,6 @@
 #search_header{"data-vide-bg" => "mp4: #{video_path('videos/accueil/bigimage.mp4')} , webm: #{video_path('videos/accueil/bigimage.webm')} , poster: #{image_path('search/search_header.jpg')}", "data-vide-options" => "posterType: jpg, loop: ture, muted: true, position: 50% 50%"}
   %h1
-    Trouvez votre #{@topic.nil? ? "prof particulier" : "prof de #{@topic.title.downcase}"}
+    Trouvez votre #{params[:topic].nil? ? "prof particulier" : "prof de #{@search_text.downcase}"}
     %br
     pour un
     %span.text-green
@@ -9,12 +9,12 @@
     %a.open_mode_emploi Mode d'emploi
   .search-controls
     = form_tag profs_path, method: :post, id: 'search-form', remote: false do
-      - if @topic_title.nil?
+      - if params[:topic].nil?
         %span#search-topic.text-appear Tous les profs
         %span.caret
       - else
         Profs de
-        %span#search-topic.text-appear #{@topic_title}
+        %span#search-topic.text-appear #{@search_text.downcase}
         %span.caret
       = hidden_field_tag("topic", params[:topic], id: 'search-topic-field')
       triés par
