@@ -3,7 +3,7 @@
   %aside.sm-side
     .user-head
     .inbox-body
-      %a.btn.btn-compose{"data-toggle" => "modal", :href => "#myModal", :title => "Compose"}
+      %a.btn.btn-compose{"data-toggle" => "modal", :href => "#modalCompose", :title => "Compose"}
         Nouveau
     #mailbox_navigation
       = render partial: 'mailbox_navigation', :locals=>{mailbox_type: @mailbox_type, unread_count: @unread_count}
@@ -16,3 +16,29 @@
       = render partial: 'mailbox_options', :locals=>{conversations: @conversations, mailbox_type: @mailbox_type}
     #mailbox_conversations
       = render partial: 'mailbox_conversations', :locals=>{conversations: @conversations, user: @user}
+
+#modalCompose.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "Nouveau message", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h4.modal-title Nouveau message
+      .modal-body
+        = form_tag messages_path, method: :post do
+          .form-group
+            = label_tag 'recipients', 'Envoyer à'
+            = select_tag 'recipients', options_for_select(@recipient_options.collect{|u| [u.name, u.id]}), class:'form-control', required: true
+          .form-group
+            = label_tag 'message[subject]', 'Sujet'
+            = text_field_tag 'message[subject]', nil, class: 'form-control', required: true
+          .form-group
+            = label_tag 'message[body]', 'Message'
+            = text_area_tag 'message[body]', nil, rows: 5, class: 'form-control', required: true
+          = submit_tag 'Send', class: 'btn btn-primary'
+          -#.form-group
+          -#  .col-lg-offset-2.col-lg-10
+          -#    %span.btn.green.fileinput-button
+          -#      %i.fa.fa-plus.fa.fa-white
+          -#      %span Attachment
+          -#      %input{:multiple => "multiple", :name => "files[]", :type => "file"}
+          -#    %button.btn.btn-send{:type => "submit"} Send

@@ -8,11 +8,10 @@ $(document).ready(function () {
 
 function bodySidebarHeight(){
     h1 = $('.main-content').innerHeight();
-    h2 = $('.sidebar').height();
     h3 = $(body).height();
-    if(h1<h3){
+    if(h1==h3){
         console.log('resize');
-        $('.main-content').height(h3);
+        $('.main-content').css({position: 'relative', height: '100%'});
     }
 }
 
@@ -20,7 +19,6 @@ function footerScroll(){
     h1 = $('#footer').offset().top - $(body).height();
     if($(window).scrollTop() > h1 )
     {
-        console.log('footer');
         // Footer visible
         $('nav.sidebar').css({
             position: 'absolute',
@@ -34,7 +32,6 @@ function footerScroll(){
     }
     else  if($(window).scrollTop() <= 50)
     {
-        console.log('nav');
         //navbar visible
         $('nav.sidebar').css({
             position: 'relative',
@@ -49,7 +46,6 @@ function footerScroll(){
     }
 else
     {
-        console.log('none');
         // footer et navbar invisibles
         $('nav.sidebar').css({
             position: 'fixed',

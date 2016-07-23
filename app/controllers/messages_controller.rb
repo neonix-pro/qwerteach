@@ -11,9 +11,9 @@ class MessagesController < ApplicationController
     current_user.mailbox.conversations.each do |c|
       if (c.participants - recipients - [current_user]).empty? && (recipients - c.participants).empty?
         conversation = current_user.reply_to_conversation(c, params[:message][:body]).conversation
-        flash[:success] = "Votre réponse a bien été envoyée!"
+        flash[:success] = "Votre message a bien été envoyé!"
         respond_to do |format|
-          format.html {redirect_to conversation_path(conversation)}
+          format.html {redirect_to messagerie_path}
           format.js {}
         end
         return
@@ -22,7 +22,7 @@ class MessagesController < ApplicationController
     conversation = current_user.send_message(recipients, params[:message][:body], params[:message][:subject]).conversation
     flash[:success] = "Votre message a bien été envoyé."
     respond_to do |format|
-      format.html { redirect_to conversation_path(conversation) }
+      format.html { redirect_to messagerie_path }
     end
   end
 

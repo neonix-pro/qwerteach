@@ -10,7 +10,6 @@ class ConversationsController < ApplicationController
     @user = current_user
     params[:mailbox].nil? ? @mailbox_type = 'inbox': @mailbox_type = params[:mailbox]
     @unread_count = @mailbox.inbox({:read => false}).count
-
     case @mailbox_type
       when 'inbox'
         @conversations = @mailbox.inbox.page(params[:page]).per(10)
@@ -21,11 +20,11 @@ class ConversationsController < ApplicationController
       else
         @conversations = @mailbox.inbox.page(params[:page]).per(10)
     end
-    @online_buddies = []
+    @recipient_options = []
     @mailbox.conversations.each do |conv|
-      conv.participants.map{|u| @online_buddies.push(u.id) unless u.id == @user.id}
+      conv.participants.map{|u| @recipient_options.push(u) unless u.id == @user.id}
     end
-    @online_buddies = User.where(:id=>@online_buddies).where(last_seen: (Time.now - 1.hour)..Time.now).order(last_seen: :desc).limit(10)
+    @online_buddies = User.where(:id=>@recipient_options.map(&:id)).where(last_seen: (Time.now - 1.hour)..Time.now).order(last_seen: :desc).limit(10)
   end
 
   def trash
