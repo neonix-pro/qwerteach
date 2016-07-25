@@ -1,0 +1,7 @@
+.section-head
+  %h2 Cours reçus
+#lessons-content.clearfix
+  = render partial: 'lessons_navigation'
+  #lessons-list
+    - @lessons.each do |lesson|
+      = render partial: 'lesson', locals:{lesson:lesson}

@@ -9,4 +9,5 @@ class TopicGroup < ActiveRecord::Base
   def pictotype(arg)
     self.picto.insert(-5, "_#{arg}")
   end
+
 end

@@ -29,6 +29,16 @@ class Lesson < ActiveRecord::Base
   validates :price, :numericality => { :greater_than_or_equal_to => 0 }
   validate :expected_price
 
+  def self.past
+    where("time_end < ?", DateTime.now)
+  end
+  def self.upcoming
+    where("time_start > ?", DateTime.now)
+  end
+  def self.occuring
+    where("time_end > ? AND time_start < ?", DateTime.now, DateTime.now)
+  end
+
   def self.async_send_notifications
     Resque.enqueue(LessonsNotifierWorker)
   end
@@ -58,5 +68,13 @@ class Lesson < ActiveRecord::Base
 
   def pending?(user)
     (teacher == user && status == 'pending_teacher') || (student == user && status == 'pending_student')
+  end
+
+  def other(user)
+    if user.id == student.id
+      teacher
+    else
+      student
+    end
   end
 end

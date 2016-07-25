@@ -1,29 +1,19 @@
 .lesson
-  %tr
-    %td
-      = lesson.id
-      = link_to 'Détail du cours', lesson_path(lesson)
-    %td
-      = lesson.teacher.firstname
-      = lesson.teacher.lastname 
-    %td
-      = lesson.student.firstname
-      = lesson.student.lastname
-    %td= lesson.topic_group_id
-    %td= lesson.time_start
-    %td= lesson.time_end
-    %td= lesson.status.to_s
-    - room = BbbRoom.where(lesson_id = lesson.id).last
-
-    - if lesson.teacher == current_user
-      %td= link_to 'Créer facture', lesson_create_postpayment_path(lesson), :class => 'btn btn-success'
-    - if lesson.student == current_user
-      %td= link_to 'Litige', lesson_bloquerpayment_path(lesson), :method => :post, :class => 'btn btn-danger'
-      - lesson.payments.each do |p|
-        %td
-          - if p.postpayment? && (p.pending? || p.blocked?)
-            = link_to 'Payer Facture', lesson_payment_pay_postpayments_path(:lesson_id => lesson.id, :payment_id => p.id), :class => 'btn btn-success'
-          - if p.prepayment? && p.pending?
-            = link_to 'Paiement Direct', lesson_payerfacture_path(:lesson_id => lesson.id, :payment_id => p.id)
-          - if p.blocked?
-            = button_to 'Annuler litige', lesson_debloquerpayment_path(:lesson_id=>lesson.id, :payment_id=>p.id)
+  .lesson-topic{class: "topic_#{lesson.topic.topic_group.id}"}
+    =image_tag(lesson.topic.pictotype('big'), class:'lesson-picto')
+  .lesson-other
+    =image_tag(lesson.other(current_user).avatar(:medium), class:'lesson-user')
+  .lesson-details
+    .lesson-duration
+      #{lesson_duration(lesson.time_start, lesson.time_end)} de
+      %span.text-purple
+        #{lesson.topic.title}
+    .lesson-participant-name
+      avec #{link_to lesson.other(current_user).name, user_path(lesson.other(current_user)), class:'text-purple'}
+    .lesson-date
+      Il y a #{time_ago_in_words(lesson.time_end)}
+      %small (le #{lesson.time_end.strftime('%d/%m/%Y')})
+    .lesson-actions
+      %button.btn.btn-qw.btn-pink.btn-sm
+        détails
+    .lesson-status{class: lesson_status_class(lesson) }

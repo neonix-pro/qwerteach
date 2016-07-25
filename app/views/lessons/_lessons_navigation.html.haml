@@ -1,0 +1,15 @@
+#lessons-navigation.vertical-navigation
+  %nav.list-group
+
+    %a.list-group-item.text-center{:href => cours_donnes_path, class: (controller?("lessons") && action?("given"))? 'active': '' }
+      %h4
+        %i.fa.fa-graduation-cap
+        Cours donnés
+    %a.list-group-item.text-center{:href => cours_recus_path, class: (controller?("lessons") && action?("received"))? 'active': ''}
+      %h4
+        %i.fa.fa-book
+        Cours reçus
+    %a.list-group-item.text-center{:href => "#"}
+      %h4
+        %i.fa.fa-list
+        Historique

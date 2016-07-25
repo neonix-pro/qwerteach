@@ -120,8 +120,10 @@ Rails.application.routes.draw do
     post "bloquerpayment" => "payments#bloquerpayment"
     post "debloquerpayment" => "payments#debloquerpayment"
     post "payerfacture/:payment_id" => "payments#payerfacture", as: 'payerfacture'
-
   end
+  match '/cours' =>'lessons#index', :as => 'cours', via: :get
+  match '/cours/recus'=>'lessons#given', :as => 'cours_recus', via: :get
+  match '/cours/donnes'=>'lessons#given', :as => 'cours_donnes', via: :get
 
   resources :messages, only: [:new, :create, ]
   post "/typing" => "messages#typing"

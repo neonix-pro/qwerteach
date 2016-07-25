@@ -37,6 +37,19 @@
   width: 100%;
 }
 
+.btn.btn-qw {
+  border-radius: 30px;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  line-height: 20px;
+  font-weight: 300;
+  padding: 8px 20px;
+}
+.btn-sm.btn.btn-qw {
+  font-size: 14px;
+  padding: 5px 15px;
+}
+
 .btn-green{
   background: $color_qwerteach_green!important;
   border-radius: 30px!important;
@@ -50,12 +63,25 @@
     margin-top: 400px;
   }
 }
+.btn-pink{
+  background: $color_qwerteach_pink;
+  color:white;
+}
 
 .text-green{
   color:$color_qwerteach_green!important;
 }
 .text-grey{
   color: $text_lightgrey;
+}
+.text-pink{
+  color: $color_qwerteach_pink;
+}
+.text-blue{
+  color: $color_qwerteach_blue;
+}
+.text-purple{
+  color: $color_qwerteach_purple;
 }
 
 a:hover {

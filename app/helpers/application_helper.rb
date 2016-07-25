@@ -25,7 +25,15 @@ module ApplicationHelper
   end
   
   def resource_class
-  devise_mapping.to
+    devise_mapping.to
+  end
+
+  def controller?(*controller)
+    controller.include?(params[:controller])
+  end
+
+  def action?(*action)
+    action.include?(params[:action])
   end
 end
 

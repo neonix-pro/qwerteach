@@ -3,14 +3,21 @@ class LessonsController < ApplicationController
   around_filter :user_time_zone, :if => :current_user
 
   def index
-    #Cours reçu par le Prof
-    @lesson = Lesson.where(:student => current_user)
-    #Cours donné par le Prof
-    @lesson += Lesson.where(:teacher => current_user)
-
-    respond_to do |format|
-      format.html # index.html.erb
+    if current_user.is_a?(Teacher)
+      redirect_to cours_donnes_path
+    else
+      redirect_to cours_recus_path
     end
+  end
+
+  def given
+    @lessons = current_user.lessons_given
+  end
+  def received
+    @lessons = current_user.lessons_received
+  end
+  def history
+    @lesson = Lesson.where('student_id=? OR teacher_id=?', current_user.id, current_user.id)
   end
 
   def show
