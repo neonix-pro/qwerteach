@@ -77,4 +77,16 @@ class Lesson < ActiveRecord::Base
       student
     end
   end
+
+  def upcoming?
+    time_start > DateTime.now
+  end
+
+  def review_needed?(user)
+    if user.id != student_id
+      return false
+    else
+      Review.where('sender_id = ? AND subject_id = ?', student.id, teacher.id).empty?
+    end
+  end
 end

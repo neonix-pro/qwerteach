@@ -20,4 +20,28 @@ module LessonsHelper
       end
     end
   end
+
+  def partial_action(lesson)
+    if lesson.upcoming?
+      if lesson.pending?(current_user)
+        return 'pending'
+      end
+      if lesson.pending?(lesson.other)
+        return 'show_pending'
+      end
+      return 'expired'
+    else
+      unless lesson.paid?
+        if current_user.id == lesson.student.id
+          return 'payment'
+        else
+          return 'wait_payment'
+        end
+      end
+      if lesson.review_needed?(current_user)
+        return 'review'
+      end
+    end
+
+  end
 end

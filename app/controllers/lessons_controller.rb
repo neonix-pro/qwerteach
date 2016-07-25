@@ -17,7 +17,7 @@ class LessonsController < ApplicationController
     @lessons = current_user.lessons_received
   end
   def history
-    @lesson = Lesson.where('student_id=? OR teacher_id=?', current_user.id, current_user.id)
+    @lessons = Lesson.where('student_id=? OR teacher_id=?', current_user.id, current_user.id)
   end
 
   def show

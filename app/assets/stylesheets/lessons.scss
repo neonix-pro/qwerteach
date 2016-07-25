@@ -51,9 +51,11 @@
   background-image: none;
   color: #ffffff;
   border-radius:0px;
+  border:none!important;
 }
 .vertical-navigation .list-group>a.active .fa{
   color:white;
+
 }
 .vertical-navigation .list-group>a.active:after{
   content: '';
@@ -161,6 +163,12 @@
   .lesson-date{
     margin-top:10px;
     font-size: 16px;
+  }
+  .lesson-actions{
+    float: right;
+    width: 35%;
+    position: relative;
+    top: -50px;
   }
 }
 

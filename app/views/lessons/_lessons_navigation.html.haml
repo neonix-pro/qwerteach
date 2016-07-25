@@ -9,7 +9,7 @@
       %h4
         %i.fa.fa-book
         Cours reçus
-    %a.list-group-item.text-center{:href => "#"}
+    %a.list-group-item.text-center{:href => cours_historique_path, class: (controller?("lessons") && action?("history"))? 'active': ''}
       %h4
         %i.fa.fa-list
         Historique
