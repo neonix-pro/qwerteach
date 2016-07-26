@@ -16,5 +16,7 @@ class Payment < ActiveRecord::Base
   def pending?
     status == 'pending'
   end
-
+  def prepayment?
+    payment_type == 'prepayment'
+  end
 end

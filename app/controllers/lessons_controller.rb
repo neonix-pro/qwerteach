@@ -25,9 +25,9 @@ class LessonsController < ApplicationController
 
   def show
     @lesson = Lesson.find(params[:id])
-    #TODO syntaxe correcte fecth room
+    @other = @lesson.other(current_user)
     @room = BbbRoom.where(lesson_id = @lesson.id).first
-    @recordings = BigbluebuttonRecording.where(room_id = @room.id)
+    @recordings = BigbluebuttonRecording.where(room_id = @room.id) unless @room.nil?
   end
 
   def new

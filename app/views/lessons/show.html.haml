@@ -1,13 +1,62 @@
-%p= @lesson.teacher.firstname 
-%p= @lesson.teacher.lastname
-%p= @lesson.student.firstname
-%p= @lesson.student.lastname
-%p= @lesson.topic_group_id
-%p= @lesson.time_start    
-%P= @lesson.time_end
-%p= @lesson.status.to_s
-%p= @lesson.price 
-%p
-  - @recordings.each do |recording|
-    = link_to "recording #{recording.id}", recording.playback_formats.first.url  
-  %br/
+.section-head
+  %h2
+    = image_tag(@other.avatar(:small), class: 'img-circle')
+    Cours de
+    #{link_to @lesson.topic.title, profs_by_topic_path(@lesson.topic.title), class: 'text-purple'}
+    du #{@lesson.time_start.strftime('%d/%m/%Y')}
+    .pull-right.lesson-status
+      - if @lesson.created?
+        .lesson-created
+          Cours confirmé
+          %i.fa.fa-check
+      -else
+        - if @lesson.upcoming?
+          - if @lesson.pending_student || @lesson.pending_teacher
+            .lesson-pending
+              Cours en attente
+              %i.fa.fa-question
+          - else
+            .lesson-canceled
+              Cours annulé
+              %i.fa.fa-times
+        - else
+          .lesson-expired
+            Cours expiré
+            %i.fa.fa-times
+
+#lessons-content.clearfix
+  = render partial: 'lessons_navigation'
+  #lessons-list
+    .lesson-details{class: lesson_topic_class(@lesson)}
+      .row
+        .col-sm-5
+          %dl.dl-horizontal
+            %dt Prof:
+            %dd #{link_to @lesson.teacher.name, user_path(@lesson.teacher), class:'text-purple'}
+            %dt Élève:
+            %dd #{link_to @lesson.student.name, user_path(@lesson.student), class:'text-purple'}
+            %dt Matière:
+            %dd #{@lesson.topic.title}
+            %dt Date:
+            %dd #{@lesson.time_start.strftime('le %d/%m/%Y à %H:%M')}
+            %dt Durée:
+            %dd #{lesson_duration(@lesson.time_start, @lesson.time_end)}
+            %dt Prix
+            %dd #{@lesson.price}€
+        .col-sm-4
+          - if @recordings.nil?
+            %i.fa.fa-warning.fa-2x
+            Pas d'enregistrement disponible pour ce cours !
+          -else
+            - @recordings.each do |recording|
+              = link_to "recording #{recording.id}", recording.playback_formats.first.url
+            %br/
+        .col-sm-3.lesson-picture
+          #{image_tag(@lesson.topic.pictotype("big"))}
+    .lesson-payments
+      %h3 Payement
+      - if @lesson.free_lesson
+        Cours d'essai gratuit - rien à payer!
+      - else
+        - @lesson.payments.each do |payment|
+          =payment.inspect

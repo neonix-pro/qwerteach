@@ -24,6 +24,19 @@ module LessonsHelper
     end
   end
 
+  def lesson_payment_status(lesson)
+    if lesson.prepaid?
+      return 'prepaid'
+    end
+    if lesson.paid?
+      return 'paid'
+    end
+  end
+
+  def lesson_topic_class(lesson)
+    "topic_#{lesson.topic.topic_group.id}"
+  end
+
   def partial_action(lesson)
     if lesson.upcoming?
       if lesson.pending?(current_user)
@@ -47,6 +60,5 @@ module LessonsHelper
         return 'review'
       end
     end
-
   end
 end

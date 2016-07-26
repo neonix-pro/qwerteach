@@ -69,6 +69,15 @@ class Lesson < ActiveRecord::Base
     paid
   end
 
+  def prepaid?
+    payments.each do |payment|
+      if payment.postpaid? || payment.pending?
+        return false
+      end
+    end
+    return true
+  end
+
   def pending?(user)
     (teacher == user && status == 'pending_teacher') || (student == user && status == 'pending_student')
   end
@@ -94,13 +103,13 @@ class Lesson < ActiveRecord::Base
   end
 
   def created?
-    status == 2
+    status == 'created'
   end
   def pending_teacher?
-    status == 1
+    status == 'pending_teacher'
   end
 
   def pending_student?
-    status == 1
+    status == 'pending_student'
   end
 end

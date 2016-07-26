@@ -111,25 +111,24 @@
     background-color: white;
     color: #313131;
     margin-left:300px;
-    padding-left:40px;
+    padding-left:10px;
     padding-top:15px;
-    color: #313131;
     line-height: 27px;
     font-family:'Helvetica';
     font-weight: 300;
-    /* 14:30 Maths  avec Je: */
-    font-size:20px;
+    font-size:18px;
   }
   .lesson-details-left, .lesson-details-right{
-    width:50%;
+    width:40%;
     display:inline-block;
   }
   .lesson-details-right{
-    padding-right:30px;
+    width:60%;
+    padding-right:60px;
     line-height:18px;
   }
   .lesson-status{
-    width:30px;
+    width:60px;
     height:150px;
     position:absolute;
     top:0px;
@@ -150,8 +149,6 @@
   .lesson-status:after{
     font-family: FontAwesome;
     color:white;
-    position:absolute;
-    top:70px;
     top: 60px;
     position: relative;
     left: 6px;
@@ -206,4 +203,33 @@
 .topic_6{
   background-color: $color_qwerteach_blue;
   color:white;
+}
+
+/*SHOW*/
+.show-lesson-details{
+  padding:30px;
+  padding-right:70px;
+  h3{
+    margin-top:0px;
+  }
+}
+.lesson-status{
+  font-size:30px;
+  div{
+    width:70px;
+    height:100%;
+  }
+  .lesson-expired{
+    background-color:$color_link_grey;
+    color:white;
+  }
+  .lesson-created{
+    background-color:$color_qwerteach_green;
+  }
+  .lesson-canceled{
+    background-color:$color_link_grey;
+  }
+  .lesson-pending{
+    background-color:$color_qwerteach_purple;
+  }
 }

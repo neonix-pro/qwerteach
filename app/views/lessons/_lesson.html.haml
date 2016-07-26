@@ -1,45 +1,52 @@
 .lesson
-  .lesson-topic{class: "topic_#{lesson.topic.topic_group.id}"}
+  .lesson-topic{class: lesson_topic_class(lesson)}
     =image_tag(lesson.topic.pictotype('big'), class:'lesson-picto')
   .lesson-other
     =image_tag(lesson.other(current_user).avatar(:medium), class:'lesson-user')
   .lesson-details
     .lesson-details-left.pull-left
       .lesson-duration
-        #{lesson_duration(lesson.time_start, lesson.time_end)} de
-        %span.text-purple
-          #{lesson.topic.title}
-      .lesson-participant-name
-        avec #{link_to lesson.other(current_user).name, user_path(lesson.other(current_user)), class:'text-purple'}
-      .lesson-date
         - if lesson.upcoming?
           Prévue dans #{time_ago_in_words(lesson.time_start)}
         - else
           Il y a #{time_ago_in_words(lesson.time_end)}
         %small (le #{lesson.time_end.strftime('%d/%m/%Y')})
+      .lesson-date
+        #{lesson_duration(lesson.time_start, lesson.time_end)} de
+        %span.text-purple
+          #{lesson.topic.title}
+        avec #{link_to lesson.other(current_user).name, user_path(lesson.other(current_user)), class:'text-purple'}
     .lesson-details-right.pull-right
       .lesson-actions
         -case partial_action(lesson)
           -when 'pending'
             .pending
-              Ce cours n'a pas encore été confirmé. Acceptez-vous la proposition de cours ?
+              Confirmer le cours ?
+              %br
               %button.btn.btn-qw.btn-green.btn-sm confirmer
-              %button.btn.btn-qw.btn-green.btn-sm modifier
-            %a.text-grey refuser
+              %button.btn.btn-qw.btn-orange.btn-sm modifier
+              %a.text-grey refuser
           -when 'show_pending'
             .show-pending
-              Ce cours n'a pas encore été confirmé par l'autre partie.
-              %a.text-grey annuler le cours
+              En attente de la confirmation de l'autre partie.
+              %br
+              %button.btn.btn-qw.btn-grey.btn-sm annuler
           -when 'expired'
             .expired Cette propositionde cours a expiré!
           -when 'payment'
             .payment
-              Souhaitez-vous débloquer le payement ?
-              %button.btn.btn-qw.btn-green.btn-sm payer
-              %a.text-grey contester
+              Votre cours s'est-il bien passé ?
+              %br
+              %button.btn.btn-qw.btn-green.btn-sm Oui!
+              %a.text-pink non
+          -when 'wait_payment'
+            .wait-payment
+              Nous attendons la confirmation de l'élève avant de débloquer le payement.
           -when 'review'
-
       .lesson-show-details
-        =link_to 'détails', lesson_path(lesson), class: 'btn btn-qw btn-pink btn-sm'
+        =link_to 'détails', lesson_path(lesson), class: 'text-pink'
 
-    .lesson-status{class: lesson_status_class(lesson) }
+    .lesson-status
+      .confirmation-status
+
+      .payment-status{class: }
