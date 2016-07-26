@@ -3,7 +3,13 @@ class Payment < ActiveRecord::Base
   enum payment_type: [:prepayment, :postpayment]
   # meme nom que dans DB sinon KO.
   # cf schéma etats de Payment
-  enum status: [:pending, :paid, :canceled, :blocked]
+  enum status: [:pending, :locked, :paid, :canceled, :disputed]
+  #pending: en attente
+  #paid: payé (au prof)
+  #canceled: annulé
+  #locked: détenu par Qwerteach
+  #disputed: en litige
+
   belongs_to :lesson
 
   validates :status, presence: true
@@ -16,7 +22,23 @@ class Payment < ActiveRecord::Base
   def pending?
     status == 'pending'
   end
+  def paid?
+    status == 'paid'
+  end
+  def locked?
+    status == 'locked'
+  end
+  def canceled?
+    status == 'canceled'
+  end
+  def disputed?
+    status == 'disputed'
+  end
   def prepayment?
     payment_type == 'prepayment'
+  end
+
+  def postpayment?
+    payment_type == 'postpayment'
   end
 end

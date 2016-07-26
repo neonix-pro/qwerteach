@@ -6,31 +6,28 @@ module LessonsHelper
     r = (hours < 1 ? '' : "#{hours}h") + (minutes == 0 ? "" :"#{minutes}min")
   end
 
-  def lesson_status_class(lesson)
+  def lesson_confirmation_status(lesson)
     if lesson.status == 'pending_teacher' || lesson.status =='pending_student'
-      return 'lesson-pending'
+      return 'pending'
     end
     if lesson.status =='canceled' || lesson.status == 'refused'
-      return 'lesson-canceled'
+      return 'canceled'
     end
-    if lesson.paid?
-      return 'lesson-status-paid'
-    else
-      if lesson.upcoming?
-        return 'lesson-status-upcoming'
-      else
-        return 'lesson-status-unpaid'
-      end
-    end
+    return 'created'
   end
 
   def lesson_payment_status(lesson)
-    if lesson.prepaid?
-      return 'prepaid'
-    end
     if lesson.paid?
       return 'paid'
     end
+    if lesson.prepaid?
+      if lesson.student.id == current_user.id
+        return 'paid' #le vlient, on lui affiche payé ou non payé. Le reste, ça le rend confus.
+      else
+        return 'prepaid'
+      end
+    end
+    return 'unpaid'
   end
 
   def lesson_topic_class(lesson)

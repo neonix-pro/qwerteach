@@ -168,8 +168,9 @@ class RequestLessonController < ApplicationController
       status = MangoPay::PayIn.fetch(params[:transactionId].to_i)['Status']
       if status == "SUCCEEDED"
         @lesson = Lesson.create(session[:lesson])
-        @payment = Payment.create(:payment_type => 0, :status => 0, :lesson_id => @lesson.id,
+        @payment = Payment.create(:payment_type => 0, :status => 1, :lesson_id => @lesson.id,
                                     :mangopay_payin_id => @transaction_mango, :transfert_date => DateTime.now, :price => @lesson.price)
+        #payement status 1 = locked (= détenu par Qwerteach)
         if @payment.save && @lesson.save
           # prévenir le prof
           body = "#{dashboard_path}"

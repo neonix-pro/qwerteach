@@ -127,44 +127,27 @@
     padding-right:60px;
     line-height:18px;
   }
-  .lesson-status{
-    width:60px;
-    height:150px;
-    position:absolute;
-    top:0px;
-    right:0px;
+  .lesson-status {
+    width: 60px;
+    height: 150px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    .confirmation-status, .payment-status{
+      height:50%;
+      width:100%;
+      text-align:center;
+      border-left: 1px solid #ddd;
+      padding-top:5px;
+      small{
+        font-size: 12px;
+      }
+    }
+    .confirmation-status{
+      border-bottom: 1px solid #ddd;
+    }
   }
-  .lesson-status-paid{
-    background-color:$color_qwerteach_green;
-  }
-  .lesson-status-unpaid{
-    background-color:$color_qwerteach_orange;
-  }
-  .lesson-status-pending{
-    background-color:$color_qwerteach_purple;
-  }
-  .lesson-status-upcoming{
-    background-color:$color_qwerteach_pink;
-  }
-  .lesson-status:after{
-    font-family: FontAwesome;
-    color:white;
-    top: 60px;
-    position: relative;
-    left: 6px;
-  }
-  .lesson-status-paid:after{
-    content: '\f00c';
-  }
-  .lesson-status-unpaid:after{
-    content: '\f00d';
-  }
-  .lesson-status-pending:after{
-    content: '\f128';
-  }
-  .lesson-status-upcoming:after{
-    content: '\f073';
-  }
+
   .lesson-date{
     margin-top:10px;
     font-size: 16px;
@@ -205,7 +188,7 @@
   color:white;
 }
 
-/*SHOW*/
+/*SHOW
 .show-lesson-details{
   padding:30px;
   padding-right:70px;
@@ -233,3 +216,4 @@
     background-color:$color_qwerteach_purple;
   }
 }
+*/

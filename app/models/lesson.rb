@@ -64,14 +64,20 @@ class Lesson < ActiveRecord::Base
   def paid?
     paid = true
     self.payments.each do |payment|
-      paid = false if payment.pending?
+      paid = false unless payment.paid?
+    end
+    if self.payments.empty?
+      paid = false
     end
     paid
   end
 
   def prepaid?
+    if payments.empty?
+      return false
+    end
     payments.each do |payment|
-      if payment.postpaid? || payment.pending?
+      if payment.postpayment? || payment.pending?
         return false
       end
     end
