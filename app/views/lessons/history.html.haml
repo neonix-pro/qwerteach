@@ -1,7 +1,8 @@
 .section-head
-  %h2 Cours donnés
+  %h2 Historique
 #lessons-content.clearfix
   = render partial: 'lessons_navigation'
   #lessons-list
     - @lessons.each do |lesson|
       = render partial: 'lesson', locals:{lesson:lesson}
+  #{paginate(@lessons)}

@@ -1,6 +1,9 @@
 #lessons-navigation.vertical-navigation
   %nav.list-group
-
+    %a.list-group-item.text-center{:href => cours_pending_path, class: (controller?("lessons") && action?("pending"))? 'active': ''}
+      %h4
+        %i.fa.fa-question
+        En attente
     %a.list-group-item.text-center{:href => cours_donnes_path, class: (controller?("lessons") && action?("given"))? 'active': '' }
       %h4
         %i.fa.fa-graduation-cap

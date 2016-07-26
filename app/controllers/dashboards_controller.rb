@@ -12,7 +12,7 @@ class DashboardsController < ApplicationController
 
     lessons_without_review = @user.noreview_lessons
     unpaid_lessons = @user.unpaid_lessons
-    pending_lessons = @user.pending_lessons
+    pending_lessons = @user.pending_me_lessons
     @to_do_list = ( unpaid_lessons + lessons_without_review + pending_lessons).sort_by &:created_at
 
     @featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)

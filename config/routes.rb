@@ -125,6 +125,7 @@ Rails.application.routes.draw do
   match '/cours/recus'=>'lessons#received', :as => 'cours_recus', via: :get
   match '/cours/donnes'=>'lessons#given', :as => 'cours_donnes', via: :get
   match '/cours/historique'=>'lessons#history', :as => 'cours_historique', via: :get
+  match '/cours/pending'=>'lessons#pending', :as => 'cours_pending', via: :get
 
   resources :messages, only: [:new, :create, ]
   post "/typing" => "messages#typing"

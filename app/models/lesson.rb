@@ -38,6 +38,9 @@ class Lesson < ActiveRecord::Base
   def self.occuring
     where("time_end > ? AND time_start < ?", DateTime.now, DateTime.now)
   end
+  def self.created
+    where(status: 2)
+  end
 
   def self.async_send_notifications
     Resque.enqueue(LessonsNotifierWorker)
@@ -88,5 +91,16 @@ class Lesson < ActiveRecord::Base
     else
       Review.where('sender_id = ? AND subject_id = ?', student.id, teacher.id).empty?
     end
+  end
+
+  def created?
+    status == 2
+  end
+  def pending_teacher?
+    status == 1
+  end
+
+  def pending_student?
+    status == 1
   end
 end

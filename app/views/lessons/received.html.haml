@@ -5,3 +5,4 @@
   #lessons-list
     - @lessons.each do |lesson|
       = render partial: 'lesson', locals:{lesson:lesson}
+  #{paginate(@lessons)}

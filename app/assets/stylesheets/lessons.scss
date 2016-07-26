@@ -120,6 +120,14 @@
     /* 14:30 Maths  avec Je: */
     font-size:20px;
   }
+  .lesson-details-left, .lesson-details-right{
+    width:50%;
+    display:inline-block;
+  }
+  .lesson-details-right{
+    padding-right:30px;
+    line-height:18px;
+  }
   .lesson-status{
     width:30px;
     height:150px;
@@ -164,11 +172,14 @@
     margin-top:10px;
     font-size: 16px;
   }
-  .lesson-actions{
-    float: right;
-    width: 35%;
+  .lesson-actions, .lesson-show-details{
     position: relative;
-    top: -50px;
+    text-align:center;
+    font-size:15px;
+  }
+  .lesson-actions{
+    padding-bottom:15px;
+    margin-bottom:15px;
   }
 }
 

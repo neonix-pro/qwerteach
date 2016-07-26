@@ -12,20 +12,16 @@ class Student < User
     self.save!
   end
 
-  def lessons_upcoming
-    {:received => self.lessons_received.where(:status => 2).where('time_start > ?', DateTime.now)}
-  end
-
   def free_lessons_with(teacher)
     Lesson.where(:student => self, :teacher_id => teacher.id, :free_lesson => true)
   end
 
   def pending_lessons
-    if self.is_a?(Teacher)
-      lessons_given.where(status: 'pending_teacher').where('time_start > ?', DateTime.now)
-    else
-      lessons_received.where(status: 'pending_student').where('time_start > ?', DateTime.now)
-    end
+    Lesson.where('student_id=? OR teacher_id=?', id, id).where(status: ['pending_teacher', 'pending_student'] )
+  end
+
+  def pending_me_lessons
+    Lesson.where('student_id=? AND status=? OR teacher_id=? AND status=?', id, 'pending_student', id, 'pending_teacher')
   end
 
   def unpaid_lessons

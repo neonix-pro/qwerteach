@@ -7,8 +7,11 @@ module LessonsHelper
   end
 
   def lesson_status_class(lesson)
-    if lesson.pending?(current_user)
+    if lesson.status == 'pending_teacher' || lesson.status =='pending_student'
       return 'lesson-pending'
+    end
+    if lesson.status =='canceled' || lesson.status == 'refused'
+      return 'lesson-canceled'
     end
     if lesson.paid?
       return 'lesson-status-paid'
@@ -26,11 +29,13 @@ module LessonsHelper
       if lesson.pending?(current_user)
         return 'pending'
       end
-      if lesson.pending?(lesson.other)
+      if lesson.pending?(lesson.other(current_user))
         return 'show_pending'
       end
-      return 'expired'
     else
+      if lesson.pending?(current_user) || lesson.pending?(lesson.other(current_user))
+        return 'expired'
+      end
       unless lesson.paid?
         if current_user.id == lesson.student.id
           return 'payment'

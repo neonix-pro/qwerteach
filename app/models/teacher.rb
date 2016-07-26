@@ -24,11 +24,6 @@ class Teacher  < Student
     create_postulation
   end
 
-  def lessons_upcoming
-    received = self.lessons_received.where(:status => 2).where('time_start > ?', DateTime.now)
-    given = self.lessons_given.where(:status => 2).where('time_start > ?', DateTime.now)
-    {:received => received, :given => given}
-  end
 
   def min_price
     @prices = self.adverts.map { |d| d.advert_prices.map { |l| l.price } }.min.first
