@@ -34,8 +34,8 @@ function footerScroll(){
     {
         //navbar visible
         $('nav.sidebar').css({
-            position: 'relative',
-            top: 0
+            position: 'absolute',
+            top: 50
         });
         $('#sidebar-profile').css({
             float: 'left',

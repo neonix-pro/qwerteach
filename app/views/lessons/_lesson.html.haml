@@ -40,6 +40,6 @@
           -when 'review'
 
       .lesson-show-details
-        %button.btn.btn-qw.btn-pink.btn-sm
-          détails
+        =link_to 'détails', lesson_path(lesson), class: 'btn btn-qw btn-pink btn-sm'
+
     .lesson-status{class: lesson_status_class(lesson) }
