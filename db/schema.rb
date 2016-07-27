@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627135340) do
+ActiveRecord::Schema.define(version: 20160727131337) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id",                                        null: false
@@ -267,15 +267,16 @@ ActiveRecord::Schema.define(version: 20160627135340) do
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
 
   create_table "payments", force: :cascade do |t|
-    t.integer  "status",                                    default: 0,                     null: false
-    t.integer  "payment_type",                              default: 0,                     null: false
-    t.datetime "transfert_date",                            default: '2016-06-07 17:15:01', null: false
-    t.decimal  "price",             precision: 8, scale: 2,                                 null: false
-    t.integer  "lesson_id",                                                                 null: false
-    t.integer  "mangopay_payin_id"
+    t.integer  "status",            limit: 11
+    t.integer  "payment_type",      limit: 11
+    t.datetime "transfert_date"
+    t.float    "price"
+    t.integer  "lesson_id",         limit: 11
+    t.integer  "mangopay_payin_id", limit: 11
     t.datetime "execution_date"
-    t.datetime "created_at",                                                                null: false
-    t.datetime "updated_at",                                                                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "payment_method",               default: 3
   end
 
   create_table "pictures", force: :cascade do |t|

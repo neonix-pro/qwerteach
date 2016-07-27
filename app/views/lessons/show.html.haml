@@ -11,7 +11,7 @@
           %i.fa.fa-check
       -else
         - if @lesson.upcoming?
-          - if @lesson.pending_student || @lesson.pending_teacher
+          - if @lesson.pending_student? || @lesson.pending_teacher?
             .lesson-pending
               Cours en attente
               %i.fa.fa-question
@@ -67,7 +67,7 @@
                 %th Référence
                 %th Montant
                 %th Statut
-                %th Méthode de payement
+                %th #{ "Méthode de payement" if @lesson.is_student?(@user)}
                 %th Date de création
                 %th Dernière modification
               %tbody
@@ -75,6 +75,6 @@
                   %td #{payment.id}
                   %td #{payment.price}
                   %td #{payment.status}
-                  %td #{payment.payment_method}
+                  %td #{payment.payment_method if @lesson.is_student?(@user)}
                   %td #{payment.created_at.strftime('%d/%m/%Y')}
                   %td #{payment.updated_at.strftime('%d/%m/%Y')}

@@ -118,4 +118,11 @@ class Lesson < ActiveRecord::Base
   def pending_student?
     status == 'pending_student'
   end
+
+  def is_teacher?(user)
+    user.id == teacher.id
+  end
+  def is_student?(user)
+    user.id == student.id
+  end
 end

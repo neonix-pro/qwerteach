@@ -27,7 +27,7 @@ $(document).ready(function(){
       });
       topic_group += '</select>';
       topic_group += '</div>';
-      $('#choices_lessons_topic_group').append(topic_group);
+      $('#choices_lessons_topic_group').html(topic_group);
 
       var topic_choice = function () {
         var topic = '<div class="field" id="lesson_topic_id_field">';
@@ -43,7 +43,7 @@ $(document).ready(function(){
         });
         topic += '</select>';
         topic += '</div>';
-        $('#choices_lessons_topic').append(topic);
+        $('#choices_lessons_topic').html(topic);
       };
 
       //premier cours gratuit
@@ -199,10 +199,6 @@ $(document).ready(function(){
     }
 
     $('#lesson-details form').submit(function(){
-      $('#lesson-details').html(pleaseWait);
-    });
-
-    $('#request-lesson').on('hide.bs.modal', function(){
       $('#lesson-details').html(pleaseWait);
     });
 

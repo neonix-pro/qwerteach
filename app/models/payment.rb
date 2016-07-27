@@ -4,6 +4,8 @@ class Payment < ActiveRecord::Base
   # meme nom que dans DB sinon KO.
   # cf schéma etats de Payment
   enum status: [:pending, :locked, :paid, :canceled, :disputed]
+
+  enum payment_method: [:creditcard, :bcmc, :wallet, :unknown]
   #pending: en attente
   #paid: payé (au prof)
   #canceled: annulé
@@ -18,6 +20,7 @@ class Payment < ActiveRecord::Base
   validates :price, :numericality => {:greater_than_or_equal_to => 0}
   validates :lesson_id, presence: true
   validates :transfert_date, presence: true
+  validates :payment_method, presence: true
 
   def pending?
     status == 'pending'
@@ -42,7 +45,4 @@ class Payment < ActiveRecord::Base
     payment_type == 'postpayment'
   end
 
-  def payment_method
-
-  end
 end

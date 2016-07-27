@@ -79,6 +79,14 @@ class WalletsController < ApplicationController
         render 'request_lesson/mango_wallet', locals: {error: 'Vérifiez les informations'}, :layout => false
       else
         @lesson = Lesson.new(session[:lesson])
+        @teacher = @lesson.teacher
+        cards = MangoPay::User.cards(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 100})
+        @cards = []
+        cards.each do |c|
+          if c["Validity"]=="VALID" && c["Active"]
+            @cards.push(c)
+          end
+        end
         render 'request_lesson/payment_method', :layout=>false
       end
     else

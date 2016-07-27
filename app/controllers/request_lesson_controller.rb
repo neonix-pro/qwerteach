@@ -137,10 +137,13 @@ class RequestLessonController < ApplicationController
                         :card_id => @card,
                         :return_url => return_url
                         })
-        case payin_direct
+        case payin_direct[:returncode]
           when 0
-            #create lesson
+            #create lesson and payment
             @lesson.save
+            @payment = Payment.create(:payment_type => 0, :status => 1, :lesson_id => @lesson.id, :payment_method => 0,
+                                      :mangopay_payin_id => payin_direct[:transaction]['Id'], :transfert_date => DateTime.now, :price => @lesson.price)
+            @payment.save
             render 'finish', :layout => false
           when 1
             flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
@@ -165,11 +168,14 @@ class RequestLessonController < ApplicationController
 
   def process_payin
     if params[:transactionId].present?
-      status = MangoPay::PayIn.fetch(params[:transactionId].to_i)['Status']
+      transaction = MangoPay::PayIn.fetch(params[:transactionId].to_i)
+      status = transaction['Status']
+      payment_method = transaction['CardId'].nil? ? 1 : 0
       if status == "SUCCEEDED"
+        logger.debug(params[:transactionId])
         @lesson = Lesson.create(session[:lesson])
-        @payment = Payment.create(:payment_type => 0, :status => 1, :lesson_id => @lesson.id,
-                                    :mangopay_payin_id => @transaction_mango, :transfert_date => DateTime.now, :price => @lesson.price)
+        @payment = Payment.create(:payment_type => 0, :status => 1, :lesson_id => @lesson.id, :payment_method => payment_method,
+                                    :mangopay_payin_id => params[:transactionId].to_i, :transfert_date => DateTime.now, :price => @lesson.price)
         #payement status 1 = locked (= détenu par Qwerteach)
         if @payment.save && @lesson.save
           # prévenir le prof

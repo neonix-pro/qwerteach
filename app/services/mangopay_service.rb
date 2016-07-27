@@ -354,16 +354,16 @@ class MangopayService
           if @amount > 10000
             # 3DS
             if valid_created(@payin) != 1
-              return @payin['SecureModeRedirectURL']
+              returncode = @payin['SecureModeRedirectURL']
             else
-              return 1
+              returncode = 1
             end
           else
             # NO 3DS
             if valid_succeeded(@payin)
-              return 0
+              returncode = 0
             else
-              return 1
+              returncode = 1
             end
           end
         else
@@ -371,16 +371,17 @@ class MangopayService
           if valid_created(@payin) != 1
             return @payin['SecureModeRedirectURL']
           else
-            return 1
+            returncode = 1
           end
         end
       else
-        return 0
+        returncode = 0
       end
     rescue MangoPay::ResponseError => ex
       Rails.logger.debug(ex)
-      return 1
+      returncode = 1
     end
+    return {returncode: returncode, transaction: @payin}
   end
 
   def mangopay_card_registration
