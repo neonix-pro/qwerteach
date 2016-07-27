@@ -2,6 +2,31 @@
 
 /***User registration edit ***/
 .edit_profile{
+  .title{
+    color: #fff;
+    text-align: center;
+    display: block;
+    float: left;
+    width: 100%;
+    font-size: 24px;
+    background: $color_qwerteach_navgrey;
+    font-weight: bold;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    width: 25%;
+  }
+  #title1{
+    background: $color_qwerteach_green;
+  }
+  #title2{
+    background: $color_qwerteach_pink;
+  }
+  #title3{
+    background: $color_qwerteach_purple;
+  }
+  #title4{
+    background: $color_qwerteach_yellow;
+  }
   h2{
     background: $color_qwerteach_darkgrey;
     color: #fff;
