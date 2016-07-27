@@ -1,12 +1,12 @@
 -if current_user.admin?
   %ul.nav.navbar-nav
     %li= link_to 'Administration', admin_root_path
-  = form_tag profs_path, method: :post, class: 'navbar-form navbar-left' do
-    .input-group
-      = text_field_tag('topic', '', class: 'form-control', placeholder: 'Chercher un prof')
-      %span.input-group-btn-floating
-        %button
-          %i.fa.fa-search.text-green
+= form_tag profs_path, method: :post, class: 'navbar-form navbar-left' do
+  .input-group
+    = text_field_tag('topic', '', class: 'form-control', placeholder: 'Chercher un prof')
+    %span.input-group-btn-floating
+      %button
+        %i.fa.fa-search.text-green
 %ul.nav.navbar-nav.pull-right
   - unless current_user.postulance_accepted
     %li= link_to 'Devenir Prof', become_teacher_accueil_path
