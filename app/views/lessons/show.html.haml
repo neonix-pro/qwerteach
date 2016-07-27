@@ -4,7 +4,7 @@
     Cours de
     #{link_to @lesson.topic.title, profs_by_topic_path(@lesson.topic.title), class: 'text-purple'}
     du #{@lesson.time_start.strftime('%d/%m/%Y')}
-    .pull-right.lesson-status
+    .pull-right.show-lesson-status
       - if @lesson.created?
         .lesson-created
           Cours confirmé
@@ -27,7 +27,7 @@
 #lessons-content.clearfix
   = render partial: 'lessons_navigation'
   #lessons-list
-    .lesson-details{class: lesson_topic_class(@lesson)}
+    .show-lesson-details{class: lesson_topic_class(@lesson)}
       .row
         .col-sm-5
           %dl.dl-horizontal
@@ -58,5 +58,23 @@
       - if @lesson.free_lesson
         Cours d'essai gratuit - rien à payer!
       - else
-        - @lesson.payments.each do |payment|
-          =payment.inspect
+        - if @lesson.payments.empty?
+          Aucun payement associé à ce cours.
+        -else
+          - @lesson.payments.each do |payment|
+            %table.table
+              %thead
+                %th Référence
+                %th Montant
+                %th Statut
+                %th Méthode de payement
+                %th Date de création
+                %th Dernière modification
+              %tbody
+                %tr
+                  %td #{payment.id}
+                  %td #{payment.price}
+                  %td #{payment.status}
+                  %td #{payment.payment_method}
+                  %td #{payment.created_at.strftime('%d/%m/%Y')}
+                  %td #{payment.updated_at.strftime('%d/%m/%Y')}

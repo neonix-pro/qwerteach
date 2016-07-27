@@ -41,4 +41,8 @@ class Payment < ActiveRecord::Base
   def postpayment?
     payment_type == 'postpayment'
   end
+
+  def payment_method
+
+  end
 end

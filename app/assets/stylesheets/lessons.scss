@@ -188,32 +188,37 @@
   color:white;
 }
 
-/*SHOW
+/*SHOW*/
 .show-lesson-details{
-  padding:30px;
+  padding:30px 0px;
   padding-right:70px;
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
   h3{
     margin-top:0px;
   }
 }
-.lesson-status{
-  font-size:30px;
+.show-lesson-status {
+  font-size: 25px;
   div{
-    width:70px;
-    height:100%;
+    padding:0px 30px;
   }
-  .lesson-expired{
-    background-color:$color_link_grey;
-    color:white;
+  .lesson-expired {
+    background-color: $color_link_grey;
+    color: white;
   }
-  .lesson-created{
-    background-color:$color_qwerteach_green;
+  .lesson-created {
+    background-color: $color_qwerteach_green;
   }
-  .lesson-canceled{
-    background-color:$color_link_grey;
+  .lesson-canceled {
+    background-color: $color_link_grey;
   }
-  .lesson-pending{
-    background-color:$color_qwerteach_purple;
+  .lesson-pending {
+    background-color: $color_qwerteach_purple;
   }
 }
-*/
+.lesson-payments{
+  padding: 30px;
+  h3{
+    margin-top:0px;
+  }
+}
