@@ -21,7 +21,7 @@ class Student < User
   end
 
   def pending_me_lessons
-    Lesson.where('student_id=? AND status=? OR teacher_id=? AND status=?', id, 'pending_student', id, 'pending_teacher')
+    Lesson.where('(student_id=? AND status=?) OR (teacher_id=? AND status=?)', id, 'pending_student', id, 'pending_teacher')
   end
 
   def unpaid_lessons

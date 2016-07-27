@@ -3,10 +3,13 @@ class LessonsController < ApplicationController
   around_filter :user_time_zone, :if => :current_user
 
   def index
+    unless current_user.pending_lessons.empty?
+      redirect_to cours_pending_path and return
+    end
     if current_user.is_a?(Teacher)
-      redirect_to cours_donnes_path
+      redirect_to cours_donnes_path and return
     else
-      redirect_to cours_recus_path
+      redirect_to cours_recus_path and return
     end
   end
 

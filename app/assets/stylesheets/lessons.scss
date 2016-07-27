@@ -88,13 +88,14 @@
   position:relative;
   z-index:1;
   .lesson-topic{
+    text-align:center;
     width:150px;
     height:100%;
     line-height:150px;
     float:left;
     img{
-      margin-left:25%;
-      margin-right:25%;
+      max-width:100px;
+      max-height:100px;
     }
   }
   .lesson-other{

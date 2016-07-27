@@ -52,7 +52,7 @@
               = link_to "recording #{recording.id}", recording.playback_formats.first.url
             %br/
         .col-sm-3.lesson-picture
-          #{image_tag(@lesson.topic.pictotype("big"))}
+          #{image_tag(@lesson.topic.pictotype("medium"))}
     .lesson-payments
       %h3 Payement
       - if @lesson.free_lesson
