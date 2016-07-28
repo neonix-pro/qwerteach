@@ -11,6 +11,8 @@ class Teacher  < Student
   def self.reader_scope
     where(:is_admin => true)
   end
+
+
   # Methode override de User bloquant le type de User à Teacher au maximum
   def upgrade
     self.type = User::ACCOUNT_TYPES[1]

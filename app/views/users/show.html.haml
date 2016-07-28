@@ -16,7 +16,7 @@
   .profile-description
     #{@user.description.html_safe}
   #profile-adverts
-    =render partial: 'users/profile/profile_adverts', locals:{adverts: @adverts, adverts_classes: profile_advert_classes(@adverts.count)}
+    =render partial: 'users/profile/profile_adverts', locals:{adverts: @adverts, adverts_single: @adverts_single}
   #profile-calendar
   #profile-reviews
     = render partial: 'users/profile/profile_reviews', locals:{reviews: @reviews}

@@ -166,29 +166,39 @@
     }
   }
 }
-
+//maths
 .topic_1{
   background-color: $color_qwerteach_yellow;
-  color:$text_lightgrey;
+  color:$text_lightgrey!important;
 }
+//sciences
 .topic_2{
   background-color: $color_qwerteach_pink;
   color:white;
 }
+//lettres
 .topic_3{
   background-color: $color_qwerteach_orange;
   color:white;
 }
+//langues
 .topic_4{
   background-color: $color_qwerteach_purple;
   color:white;
 }
+//sciences humaines
 .topic_5{
   background-color: $color_qwerteach_green;
   color:white;
 }
+//informatique
 .topic_6{
   background-color: $color_qwerteach_blue;
+  color:white;
+}
+//autre
+.topic_7{
+  background-color: $color_qwerteach_red;
   color:white;
 }
 
@@ -196,7 +206,7 @@
 .show-lesson-details{
   padding:30px 0px;
   padding-right:70px;
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,1);
   h3{
     margin-top:0px;
   }

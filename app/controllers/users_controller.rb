@@ -5,7 +5,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.is_a?(Teacher)
       @degrees = @user.degrees
-      @adverts = @user.adverts
+      @adverts = @user.adverts.order(:topic_group_id)
+      @adverts_single = @adverts.group_by(&:topic_group_id).map{|topic_group, adverts| adverts.first if adverts.count == 1}.compact
       @prices = @adverts.map{ |d| d.advert_prices.map{ |l| l.price } }
       @reviews = @user.reviews_received
       @notes = @reviews.map { |r| r.note }

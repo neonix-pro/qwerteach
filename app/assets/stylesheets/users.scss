@@ -218,6 +218,9 @@
 #profile-adverts{
   position:relative;
   width:100%;
+  .profile-advert{
+    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
+  }
   .profile-advert .front{
     padding-top:50px;
     color:white;
@@ -242,6 +245,10 @@
   .profile-advert.triple{
     width: calc(100% / 3);
   }
+  .profile-advert.quadruple{
+    width: calc(100% / 4);
+  }
+  /*
   .profile-advert:first-child{
     background-color: $color_qwerteach_yellow;
     .back {
@@ -272,6 +279,7 @@
   .profile-advert:nth-child(8){
     background-color: $color_qwerteach_pink;
   }
+  */
   .advert-flip-toggle {
     position: absolute;
     z-index: 2;
