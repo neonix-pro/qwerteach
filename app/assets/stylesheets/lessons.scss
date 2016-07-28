@@ -161,6 +161,9 @@
   .lesson-actions{
     padding-bottom:15px;
     margin-bottom:15px;
+    form.button_to{
+      display:inline-block;
+    }
   }
 }
 
@@ -197,6 +200,15 @@
   h3{
     margin-top:0px;
   }
+  .lesson-picture{
+    height: 200px;
+    position: absolute;
+    right: 0px;
+    bottom: 191px;
+    z-index:-1;
+    text-align: center;
+    line-height: 200px;
+  }
 }
 .show-lesson-status {
   font-size: 25px;
@@ -215,6 +227,27 @@
   }
   .lesson-pending {
     background-color: $color_qwerteach_purple;
+  }
+}
+
+.lesson-todo{
+  background-color: $color_qwerteach_lightgrey;
+  color:white;
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
+  .todo-title{
+    background-color: #222;
+    text-align:center;
+    padding:15px 0px;
+    h3{
+      margin:0px;
+    }
+  }
+  .todo{
+    padding: 30px 0px;
+    width:100%;
+    button{
+      margin-right: 20px;
+    }
   }
 }
 .lesson-payments{

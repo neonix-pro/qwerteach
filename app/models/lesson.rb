@@ -61,6 +61,7 @@ class Lesson < ActiveRecord::Base
 
   end
 
+  # fin de l'histoire, c'est payé au prof
   def paid?
     paid = true
     self.payments.each do |payment|
@@ -69,9 +70,12 @@ class Lesson < ActiveRecord::Base
     if self.payments.empty?
       paid = false
     end
+    if self.free_lesson
+      paid = true
+    end
     paid
   end
-
+  # l'élève a payé mais le prof n'a pas encore touché l'argent
   def prepaid?
     if payments.empty?
       return false
@@ -84,6 +88,7 @@ class Lesson < ActiveRecord::Base
     return true
   end
 
+  # le user doit-il confirmer?
   def pending?(user)
     (teacher == user && status == 'pending_teacher') || (student == user && status == 'pending_student')
   end
@@ -98,6 +103,9 @@ class Lesson < ActiveRecord::Base
 
   def upcoming?
     time_start > DateTime.now
+  end
+  def past?
+    time_end < DateTime.now
   end
 
   def review_needed?(user)
@@ -124,5 +132,23 @@ class Lesson < ActiveRecord::Base
   end
   def is_student?(user)
     user.id == student.id
+  end
+
+  # defines if the user needs to do something with the lesson: confirm, unlock, pay, review
+  def todo(user)
+    if pending?(user)
+      return :confirm
+    end
+    if past?
+      if prepaid?
+        return :unlock
+      end
+      unless paid?
+        return :pay
+      end
+    end
+    if review_needed?(user)
+      return :review
+    end
   end
 end

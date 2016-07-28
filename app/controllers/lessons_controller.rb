@@ -32,6 +32,7 @@ class LessonsController < ApplicationController
     @other = @lesson.other(current_user)
     @room = BbbRoom.where(lesson_id = @lesson.id).first
     @recordings = BigbluebuttonRecording.where(room_id = @room.id) unless @room.nil?
+    @todo = @lesson.todo(@user)
   end
 
   def new

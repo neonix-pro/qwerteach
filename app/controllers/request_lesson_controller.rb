@@ -52,39 +52,17 @@ class RequestLessonController < ApplicationController
     payment_service = MangopayService.new(:user => current_user)
     payment_service.set_session(session)
     @lesson = Lesson.new(session[:lesson])
+    @payment = Payment.new(:payment_type => 0, :status => 1, :lesson_id => @lesson.id,
+                           :transfert_date => DateTime.now, :price => @lesson.price)
     case params[:mode]
       when 'transfert'
-        # make transfer
-        case payment_service.send_make_transfert(
-            {:amount => @lesson.price, :beneficiary => @teacher})
-          when 0
-            if @lesson.save
-              flash[:notice] = "Le transfert s'est correctement effectué. Votre réservation de cours est donc correctement enregistrée."
-              session.delete(:lesson)
-              session.delete(:payment)
-            else
-              flash[:danger] = "Nous n'avons pas pu procéder à votre réservation, veuillez contacter l'équipe du site."
-            end
-          when 1
-            flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
-            user_cards
-            render 'payment_method', :layout=>false
-          when 2
-            flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
-            countries_list
-            render 'request_lesson/mango_wallet', :layout=>false
-          when 3
-            flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
-          when 4
-            flash[:alert] = "Votre solde est insuffisant. Il faut d'abord recharger votre compte."
-            user_cards
-            render 'payment_method', :layout=>false
-          else
-            flash[:alert] = "Erreur inconnue."
-            user_cards
-            render 'payment_method', :layout=>false
-        end
+        @payment.payment_method = :transfer
+        transfer_to_wallet_3
       when 'bancontact'
+        @payment.payment_method = :bcmc
+        payin_by_bancontact
+        transfer_to_wallet_3
+        #####################
         return_url = request.base_url + user_request_lesson_process_payin_path(@teacher)
         redirect_url = payment_service.send_make_payin_bancontact({
                         :amount => @lesson.price,
@@ -111,6 +89,10 @@ class RequestLessonController < ApplicationController
             end
         end
       when 'cd'
+        @payment.payment_method = :creditcard
+        payin_by_creditcard
+        transfer_to_wallet_3
+        #############################
         @card = params[:card]
         if @card.blank?
           #register card
@@ -226,6 +208,40 @@ class RequestLessonController < ApplicationController
       if c["Active"]
         @cards.push(c)
       end
+    end
+  end
+
+  def transfer_to_wallet_3
+    transfer = payment_service.send_make_transfert(
+        {:amount => @lesson.price, :beneficiary => @teacher})
+    case transfer[:returncode]
+      when 0
+        @payent.transfer_eleve_id = transfer[:transaction]['Id']
+        if @lesson.save
+          flash[:notice] = "Le transfert s'est correctement effectué. Votre réservation de cours est donc correctement enregistrée."
+          session.delete(:lesson)
+          session.delete(:payment)
+        else
+          flash[:danger] = "Nous n'avons pas pu procéder à votre réservation, veuillez contacter l'équipe du site."
+        end
+      when 1
+        flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+        user_cards
+        render 'payment_method', :layout=>false
+      when 2
+        flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+        countries_list
+        render 'request_lesson/mango_wallet', :layout=>false
+      when 3
+        flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
+      when 4
+        flash[:alert] = "Votre solde est insuffisant. Il faut d'abord recharger votre compte."
+        user_cards
+        render 'payment_method', :layout=>false
+      else
+        flash[:alert] = "Erreur inconnue."
+        user_cards
+        render 'payment_method', :layout=>false
     end
   end
 end

@@ -13,8 +13,7 @@
         - if @lesson.upcoming?
           - if @lesson.pending_student? || @lesson.pending_teacher?
             .lesson-pending
-              Cours en attente
-              %i.fa.fa-question
+              Cours en attente...
           - else
             .lesson-canceled
               Cours annulé
@@ -23,11 +22,44 @@
           .lesson-expired
             Cours expiré
             %i.fa.fa-times
-
 #lessons-content.clearfix
   = render partial: 'lessons_navigation'
   #lessons-list
-    .show-lesson-details{class: lesson_topic_class(@lesson)}
+    - if @lesson.todo(@user)
+      .lesson-todo
+        .todo-title
+          %h3 To do
+        - case @lesson.todo(@user)
+          - when :confirm
+            .row.todo
+              .col-sm-6
+                %h4.text-center Accepter cette proposition de cours?
+              .col-sm-6
+                %button.btn.btn-qw.btn-green.btn-sm accepter
+                %button.btn.btn-qw.btn-orange.btn-sm modifier
+                %a.text-grey refuser
+          - when :unlock
+            .row.todo
+              .col-sm-6
+                %h4.text-center Votre cours s'est-il bien passé?
+              .col-sm-6
+                %button.btn.btn-qw.btn-green.btn-sm Oui!
+                %a.text-grey non
+          - when :pay
+            .row.todo
+              .col-sm-6
+                %h4.text-center Procéder au payement
+              .col-sm-6
+                %button.btn.btn-qw.btn-green.btn-sm payer
+                %a.text-grey contester
+          -when :review
+            .row.todo
+              .col-sm-6
+                %h4.text-center Laisser une appréciation à #{@lesson.teacher.name} ?
+              .col-sm-6
+                %button.btn.btn-qw.btn-green.btn-sm donner mon avis
+                %a.text-grey plus tard
+    .show-lesson-details
       .row
         .col-sm-5
           %dl.dl-horizontal
@@ -51,7 +83,7 @@
             - @recordings.each do |recording|
               = link_to "recording #{recording.id}", recording.playback_formats.first.url
             %br/
-        .col-sm-3.lesson-picture
+        .col-sm-3.lesson-picture{class: lesson_topic_class(@lesson)}
           #{image_tag(@lesson.topic.pictotype("medium"))}
     .lesson-payments
       %h3 Payement

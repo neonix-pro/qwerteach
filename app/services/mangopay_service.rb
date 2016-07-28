@@ -35,24 +35,27 @@ class MangopayService
 
   def send_make_transfert(params)
     if (test=transaction_infos(params)) > 0
-      return test
+      returncode = test
     end
     begin
       if is_solvable?
-        unless bonus_transfer
-          return 1
+        unless bonus_transfer[:returncode]
+          returncode = 1
+          transaction = bonus_transfer[:transaction]
         end
-        unless normal_transfer
-          return 1
+        unless normal_transfer[:returncode]
+          returncode = 1
+          transaction = normal_transfer[:transaction]
         end
-        return 0
+        returncode = 0
       else
-        return 4
+        returncode = 4
       end
     rescue MangoPay::ResponseError => ex
       Rails.logger.debug(ex)
-      return 1
+      returncode = 1
     end
+    return {returncode: returncode, transaction: transaction}
   end
 
   def send_make_payin_bancontact(params)
@@ -118,28 +121,43 @@ class MangopayService
   def make_prepayment_transfer_refund(params)
     lesson = Lesson.find(params[:lesson_id])
     @lesson_price = lesson.price.to_f * 100
-    @normal_transfer_amount = MangoPay::Transfer.fetch(lesson.payments.first.mangopay_payin_id)['DebitedFunds']['Amount'].to_i
-    @fees = 0 * @normal_transfer_amount
-    @wallets = wallets
-    # vérifier assez
-    # (author_id, amount, fees, debited_wallet, credited_wallet)
-    transfer = mangopay_transfer(@user.mango_id, @normal_transfer_amount, @fees, @wallets.third['Id'], @wallets.first['Id'])
-    if valid_transfer(transfer)
-      if (@bonus_transfer_amout = @lesson_price - @normal_transfer_amount) > 0
-        @fees = 0 * @bonus_transfer_amout
-        bonus_tr = mangopay_transfer(@user.mango_id, @bonus_transfer_amout, @fees, @wallets.third['Id'], @wallets.second['Id'])
-        if valid_transfer(bonus_tr)
-          return 0
+    begin
+      @wallets = wallets
+      @normal_transfer_amount = 0
+      @bonus_transfer_amount = 0
+      lesson.payments.each do |payment|
+        transfer = MangoPay::Transfer.fetch(payment.transfer_eleve_id)
+        if transfer['DebitedWalletId'] == @wallets[1]['Id']
+          # cas d'un transfer depuis le wallet bonus
+          @bonus_transfer_amount += transfer['DebitedFunds']['Amount'].to_i
         else
-          return 1
+          # cas d'un transfer normal
+          @normal_transfer_amount += transfer['DebitedFunds']['Amount'].to_i
+        end
+      end
+      @fees = 0 * @normal_transfer_amount
+
+      # vérifier assez
+      # (author_id, amount, fees, debited_wallet, credited_wallet)
+      transfer = mangopay_transfer(@user.mango_id, @normal_transfer_amount, @fees, @wallets.third['Id'], @wallets.first['Id'])
+      if valid_transfer(transfer)
+        if (@bonus_transfer_amout = @lesson_price - @normal_transfer_amount) > 0
+          @fees = 0 * @bonus_transfer_amout
+          bonus_tr = mangopay_transfer(@user.mango_id, @bonus_transfer_amout, @fees, @wallets.third['Id'], @wallets.second['Id'])
+          if valid_transfer(bonus_tr)
+            return 0
+          else
+            return 1
+          end
+        else
+          return 0
         end
       else
-        return 0
+        return 1
       end
-    else
+    rescue MangoPay::ResponseError => ex
       return 1
     end
-
   end
 
   private
@@ -457,13 +475,14 @@ class MangopayService
     if @amount_bonus_transfer > 0
       bonus_transfer = mangopay_transfer(@user.mango_id, @amount_bonus_transfer, @fees_bonus_transfert, @sender_bonus_wallet["Id"], @beneficiary_wallet["Id"])
       if bonus_transfer.nil?
-        return false
+        returncode =  false
       else
-        return valid_transfer(bonus_transfer)
+        returncode =  valid_transfer(bonus_transfer)
       end
     else
-      return true
+      returncode = true
     end
+    return {returncode: returncode, transaction: bonus_transfer}
   end
 
   def normal_transfer
@@ -471,13 +490,14 @@ class MangopayService
     if @amount_normal > 0
       normal_transfer = mangopay_transfer(@user.mango_id, @amount_normal, @fees_normal, @sender_wallet["Id"], @beneficiary_wallet["Id"])
       if normal_transfer.nil?
-        return false
+        returncode=  false
       else
-        return valid_transfer(normal_transfer)
+        returncode =  valid_transfer(normal_transfer)
       end
     else
-      return true
+      returncode = true
     end
+    return {returncode: returncode, transaction: normal_transfer}
   end
 
   def transaction_infos(params)

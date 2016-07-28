@@ -24,5 +24,6 @@
   = render 'wallets/contenuWallet'
 %p
   En cours de transfert : #{@transactions_on_way}
+%p troisième wallet: #{@wallets.third.inspect}
 %p
   Date de création : #{Time.at(@wallet['CreationDate']).to_date}

@@ -7,7 +7,7 @@
     .lesson-details-left.pull-left
       .lesson-duration
         - if lesson.upcoming?
-          Prévue dans #{time_ago_in_words(lesson.time_start)}
+          Prévu dans #{time_ago_in_words(lesson.time_start)}
         - else
           Il y a #{time_ago_in_words(lesson.time_end)}
         %small (le #{lesson.time_end.strftime('%d/%m/%Y')})
@@ -23,23 +23,23 @@
             .pending
               Confirmer le cours ?
               %br
-              %button.btn.btn-qw.btn-green.btn-sm confirmer
-              %button.btn.btn-qw.btn-orange.btn-sm modifier
-              %a.text-grey refuser
+              = link_to 'confirmer', lesson_accept_lesson_path(lesson), class: 'btn btn-qw btn-green btn-sm'
+              = link_to 'modifier', edit_lesson_path(lesson), class: 'btn btn-qw btn-orange btn-sm'
+              = link_to 'refuser', lesson_refuse_lesson_path(lesson), class: 'text-grey'
           -when 'show_pending'
             .show-pending
             .show-pending
               En attente de la confirmation de l'autre partie.
               %br
-              %button.btn.btn-qw.btn-grey.btn-sm annuler
+              = link_to 'annuler', lesson_cancel_lesson_path(lesson), class: 'btn btn-qw btn-grey btn-sm'
           -when 'expired'
             .expired Cette propositionde cours a expiré!
           -when 'payment'
             .payment
               Votre cours s'est-il bien passé ?
               %br
-              %button.btn.btn-qw.btn-green.btn-sm Oui!
-              %a.text-pink non
+              = link_to 'Oui!', lesson_debloquerpayment_path(lesson) , class:'btn btn-qw btn-green btn-sm'
+              = link_to 'non', lesson_bloquerpayment_path(lesson), class: 'text-pink'
           -when 'wait_payment'
             .wait-payment
               Nous attendons la confirmation de l'élève avant de débloquer le payement.
