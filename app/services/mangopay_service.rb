@@ -9,6 +9,7 @@ class MangopayService
 
   def initialize(params)
     @user = params[:user]
+    @lock_money_fees = 0;
   end
 
   def set_session(session_)
@@ -33,7 +34,7 @@ class MangopayService
     }
   end
 
-  def send_make_transfert(params)
+  def lock_money_transfer(params)
     if (test=transaction_infos(params)) > 0
       returncode = test
     end
@@ -41,13 +42,15 @@ class MangopayService
       if is_solvable?
         unless bonus_transfer[:returncode]
           returncode = 1
-          transaction = bonus_transfer[:transaction]
+          transaction_bonus = bonus_transfer[:transaction]
         end
         unless normal_transfer[:returncode]
           returncode = 1
-          transaction = normal_transfer[:transaction]
+          transaction_normal = normal_transfer[:transaction]
         end
         returncode = 0
+        transaction_bonus = bonus_transfer[:transaction]
+        transaction_normal = normal_transfer[:transaction]
       else
         returncode = 4
       end
@@ -55,7 +58,7 @@ class MangopayService
       Rails.logger.debug(ex)
       returncode = 1
     end
-    return {returncode: returncode, transaction: transaction}
+    return {returncode: returncode, transaction_bonus: transaction_bonus, transaction_normal: transaction_normal}
   end
 
   def send_make_payin_bancontact(params)
@@ -86,7 +89,7 @@ class MangopayService
     @card_id = params[:card_id]
     @return_path = params[:return_url]
     if (test=transaction_infos(params)) > 0
-      return test
+      return {returncode: test}
     end
     define_secure_mode
     return mangopay_payin_direct
@@ -158,6 +161,17 @@ class MangopayService
     rescue MangoPay::ResponseError => ex
       return 1
     end
+  end
+
+  def lock_money_payin(params)
+    @user = params[:user]
+    transfer = mangopay_transfer(@user.mango_id, params[:amount].to_i, @lock_money_fees, wallets.first['Id'], wallets.third['Id'])
+    unless transfer
+      returncode = false
+    else
+      returncode = valid_transfer(transfer)
+    end
+    return {returncode: returncode, transaction: transfer}
   end
 
   private
@@ -387,7 +401,7 @@ class MangopayService
         else
           # 3DS
           if valid_created(@payin) != 1
-            return @payin['SecureModeRedirectURL']
+            returncode = @payin['SecureModeRedirectURL']
           else
             returncode = 1
           end
@@ -473,7 +487,7 @@ class MangopayService
   def bonus_transfer
     amount_bonus_transfer
     if @amount_bonus_transfer > 0
-      bonus_transfer = mangopay_transfer(@user.mango_id, @amount_bonus_transfer, @fees_bonus_transfert, @sender_bonus_wallet["Id"], @beneficiary_wallet["Id"])
+      bonus_transfer = mangopay_transfer(@user.mango_id, @amount_bonus_transfer, @fees_bonus_transfert, @sender_bonus_wallet["Id"], @wallets.third["Id"])
       if bonus_transfer.nil?
         returncode =  false
       else
@@ -488,7 +502,7 @@ class MangopayService
   def normal_transfer
     amount_normal_transfer
     if @amount_normal > 0
-      normal_transfer = mangopay_transfer(@user.mango_id, @amount_normal, @fees_normal, @sender_wallet["Id"], @beneficiary_wallet["Id"])
+      normal_transfer = mangopay_transfer(@user.mango_id, @amount_normal, @fees_normal, @sender_wallet["Id"], @wallets.third["Id"])
       if normal_transfer.nil?
         returncode=  false
       else
@@ -500,10 +514,10 @@ class MangopayService
     return {returncode: returncode, transaction: normal_transfer}
   end
 
-  def transaction_infos(params)
+  def transaction_infos(params) #
     @amount = params[:amount].to_f * 100
     @fees = 0 * @amount
-    @beneficiary = User.find(params[:beneficiary])
+    @beneficiary = User.find(params[:beneficiary].id)
     unless valid_author_infos
       return 2
     end

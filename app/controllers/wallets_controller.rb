@@ -159,8 +159,9 @@ class WalletsController < ApplicationController
         h = {:amount => amount, :beneficiary => @user, :card_id => @card, :return_url => return_url}
         payin_direct = payment_service.send_make_payin_direct(h)
         
-        case payin_direct
+        case payin_direct[:returncode]
           when 0
+            flash[:notice] = "La transaction s'est correctement déroulée."
             redirect_to index_wallet_path and return
           when 1
             flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
