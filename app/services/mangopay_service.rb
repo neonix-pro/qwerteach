@@ -7,6 +7,19 @@ require 'mangopay'
 # 4 ==> Non solvable
 class MangopayService
 
+  #payins: bancontact, bank_wire, credit card
+          # benef (=author), params
+  #locks: lock from bonus, lock normal
+          # author, type, amount
+  #release:
+        # benef, sender, amount
+  #unlock: unlock to normal, unlock to bonus
+        # author, type, amount
+  #pre-payout:
+        # author, amount
+  #payout:
+        # author, amount
+
   def initialize(params)
     @user = params[:user]
     @lock_money_fees = 0;
