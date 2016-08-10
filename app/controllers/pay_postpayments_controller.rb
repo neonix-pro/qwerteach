@@ -202,7 +202,7 @@ class PayPostpaymentsController < ApplicationController
           end
         end
         # paiement
-        payin_direct = payment_service.send_make_payin_direct({
+        payin_direct = payment_service.payin_creditcard({
                                                                   :amount => @amount, :beneficiary => @other, :card_id => @card, :return_url => @return_path
                                                               })
         case payin_direct
