@@ -1,6 +1,4 @@
-%li{:class => "#{message.sender == current_user ? "self" : "other"}"}
-  .avatar
-    = image_tag(message.sender.avatar.url(:small))
-  .chatboxmessagecontent
-    %p= message.body
-    %time{:datetime => "#{message.created_at}", :title => "#{message.created_at.strftime("%d %b  %Y at %I:%M%p")}"}
+- if (message.sender == current_user)
+  = render 'messages/message_sent', message: message
+- else
+  = render 'messages/message_received', message: message

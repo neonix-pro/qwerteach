@@ -2,18 +2,18 @@
 \// Publie le message dans le channel de la conversation (sur lequel l'interlocuteur écoute)
 - publish_to @path do
   var id = "#{@conversation.id}";
-  var chatbox = $("#chatbox_" + id + " .chatboxcontent");
+  var chatbox = $("#chatbox_" + id + " .conversation-content");
   var sender_id = "#{current_user.id}";
   var reciever_id = $('meta[name=user-id]').attr("content");
-  
-  chatbox.append("#{j render 'messages/message', message: @message}");
-  chatbox.scrollTop(chatbox[0].scrollHeight);
+
+
   $('#chatbox_' + id).find('.seen').hide();
   if (sender_id != reciever_id) {
-  chatBox.chatWith(id);
-  chatbox.children().last().removeClass("self").addClass("other");
+  chatbox.append("#{j render 'messages/message_received', message: @message}");
   chatbox.scrollTop(chatbox[0].scrollHeight);
   chatBox.notify();
   } else {
+  chatbox.append("#{j render 'messages/message_sent', message: @message}");
   $("#chatbox_"+ id +" .chatboxtextarea").val("");
   }
+  chatbox.scrollTop(chatbox[0].scrollHeight);

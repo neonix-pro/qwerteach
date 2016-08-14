@@ -1,11 +1,14 @@
-%tr{class:[ (:unread unless conversation.is_read?(user)), (:read if conversation.is_read?(user)) ] }
-  %td.inbox-small-cells
-    %input.mail-checkbox{:type => "checkbox", data: {id: conversation.id }}
-  %td.view-message
-    = conversation.participants.map{|participant| user.id == participant.id ? 'moi' : participant.name}.join(', ')
-  %td.view-message
-    = link_to conversation_path(conversation), class: 'text-grey', remote: true do
-      #{truncate(conversation.last_message.body, length: 80, separator: ' ')}
-  %td.view-message.inbox-small-cells
-    -#%i.fa.fa-paperclip
-  %td.view-message.text-right #{time_ago_in_words(conversation.last_message.created_at)}
+.conversation-preview.clearfix
+  = link_to conversation_path(conversation), class: 'text-grey', remote: true do
+    .avatars
+      - conversation.recipients.select{|participant| user.id != participant.id}.each do |p|
+        = image_tag(p.avatar.url(:small), class: 'img img-circle')
+    .participants
+      = conversation.participants.select{|participant| user.id != participant.id}.map{ |participant| participant.firstname }.join(', ')
+    .last-message
+      #{truncate(conversation.last_message.body, length: 40, separator: ' ')}
+    .last-message-date
+      #{time_ago_in_words(conversation.last_message.created_at)}
+    - unless conversation.is_read?(user)
+      .unread
+        %i.fa.fa-envelope

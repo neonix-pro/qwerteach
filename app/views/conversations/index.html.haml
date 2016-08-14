@@ -1,21 +1,24 @@
 // le css est dans conversations.scss
+
+-# barre de recherche
+-#= form_tag mailbox_search_path, class: "mailbox-search form", remote: true do
+-#  .input-append
+-#    %input.form-control.sr-input{:placeholder => "Search Mail", :type => "text", :name => :q}
+-#      %button.btn.sr-btn{:type => "submit"}
+-#        %i.fa.fa-search
 .mail-box
-  %aside.sm-side
-    .user-head
-    .inbox-body
-      %a.btn.btn-compose{"data-toggle" => "modal", :href => "#modalCompose", :title => "Compose"}
-        Nouveau
-    #mailbox_navigation
-      = render partial: 'mailbox_navigation', :locals=>{mailbox_type: @mailbox_type, unread_count: @unread_count}
-    #mailbox_contacts
-      = render partial: 'mailbox_contacts', :locals=>{online_buddies: @online_buddies}
-  %aside.lg-side
-    #mailbox_head
-      = render partial: 'mailbox_head', :locals=>{mailbox_type: @mailbox_type}
-    #mailbox_options
-      = render partial: 'mailbox_options', :locals=>{conversations: @conversations, mailbox_type: @mailbox_type}
-    #mailbox_conversations
-      = render partial: 'mailbox_conversations', :locals=>{conversations: @conversations, user: @user}
+  #mailbox-head
+  #mailbox-content
+    %aside.sm-side
+      -#liste des conversations
+      #conversations-list
+        - @conversations.each do |conversation|
+          = render partial: 'last_message', :locals=> {conversation: conversation, user: @user}
+    %aside.lg-side
+      -#contenu de la conversation
+      #mailbox_conversations
+    .clearfix
+
 
 #modalCompose.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "Nouveau message", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
   .modal-dialog
@@ -42,3 +45,6 @@
           -#      %span Attachment
           -#      %input{:multiple => "multiple", :name => "files[]", :type => "file"}
           -#    %button.btn.btn-send{:type => "submit"} Send
+
+:javascript
+  $('.main-content').css({position: 'relative', height:'100%'});
