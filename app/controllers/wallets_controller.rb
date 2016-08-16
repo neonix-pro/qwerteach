@@ -98,7 +98,6 @@ class WalletsController < ApplicationController
     when 'BANK_WIRE'
       payin = Mango::SendMakeBankWire.run(user: current_user, amount: amount)
       if payin.valid?
-        byebug
         redirect_to index_wallet_path, notice: t('notice.processing_success') and return
       else
         #TODO: render direct_debit_mangopay_wallet with filled fields
