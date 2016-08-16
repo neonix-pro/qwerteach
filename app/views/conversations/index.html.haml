@@ -17,6 +17,7 @@
     %aside.lg-side
       -#contenu de la conversation
       #mailbox_conversations
+        = render partial: 'conversation', locals:{conversation: @conversations.first}
     .clearfix
 
 
@@ -45,6 +46,8 @@
           -#      %span Attachment
           -#      %input{:multiple => "multiple", :name => "files[]", :type => "file"}
           -#    %button.btn.btn-send{:type => "submit"} Send
+
+= render partial: 'request_lesson/request_lesson_modal'
 
 :javascript
   $('.main-content').css({position: 'relative', height:'100%'});

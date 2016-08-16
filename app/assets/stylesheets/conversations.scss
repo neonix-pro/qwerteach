@@ -12,7 +12,7 @@
 
 .mail-box {
   text-align: left;
-  height:calc(100% - 90px);
+  height:calc(100% - 40px);
   width:100%;
   position:relative;
 }
@@ -87,25 +87,28 @@
     }
   }
 }
-.tempname{
+.mailbox-conversation{
   height:100%;
+  width:80%;
 }
 
 #mailbox_conversations{
   height: 100%;
   .conversation-content{
     height: calc(100% - 110px);
-    margin-bottom:150px;
+    margin-bottom:110px;
     overflow-y: scroll;
   }
   .conversation-reply{
     height:110px;
     position: absolute;
     bottom: 0px;
-    width: 100%;
+    width: 80%;
     textarea{
       height:110px;
       padding-right:100px;
+      border-right: none;
+      border-left: none;
     }
     input[type="submit"]{
       position:absolute;
@@ -145,4 +148,57 @@
   float:right;
   margin-right:20px;
   background-color: $color_qwerteach_green;
+}
+
+.mailbox-conversation-details{
+  padding:20px;
+  width:20%;
+  height:100%;
+  position:absolute;
+  top:0px;
+  right:0px;
+  background-color: $color_qwerteach_lightgrey;
+  color:white;
+  .participant{
+    border-bottom: 1px solid $color_qwerteach_darkgrey;
+    padding-bottom:20px;
+    .avatar{
+      width:60px;
+      img{
+        width:100%;
+      }
+    }
+    .name{
+      padding-left: 60px;
+      text-align: center;
+      small{
+        color: #b2b2b2;
+      }
+    }
+  }
+  .participant-adverts-title{
+    margin: 10px 0px;
+    color: #b2b2b2;
+  }
+  .participant-adverts{
+    .advert{
+      color:white;
+      width:50%;
+      float:left;
+      box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
+      text-align:center;
+      font-size:10px;
+      padding: 5px 0px;
+      img{
+        width:65%;
+      }
+    }
+  }
+  .participant-cta{
+    margin-top:10px;
+    color: #b2b2b2;
+    a{
+      color: #b2b2b2;
+    }
+  }
 }

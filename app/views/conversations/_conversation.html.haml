@@ -22,7 +22,7 @@
 -#      = text_area_tag 'body', nil, cols: 3, class: 'form-control chatboxtextarea', placeholder: 'Type something...', required: true, "data-cid" => conversation.id
 -#      = submit_tag "Envoyer message", class: 'btn btn-primary'
 -#  = subscribe_to reply_conversation_path(conversation)
-.tempname{:id => "chatbox_#{conversation.id}", data: {id: @conversation.id}}
+.mailbox-conversation{:id => "chatbox_#{conversation.id}", data: {id: conversation.id}}
   .conversation-content
     - if conversation.messages.first.body != "init_conv_via_chat"
       = render 'messages/message', message: conversation.messages.first
@@ -32,4 +32,8 @@
     = form_tag reply_conversation_path(conversation), :remote => true, method: :post do
       = text_area_tag 'body', nil, cols: 3, class: 'form-control chatboxtextarea', placeholder: 'Type something...', required: true, "data-cid" => conversation.id
       = submit_tag "Envoyer", class: 'btn btn-primary'
+.mailbox-conversation-details
+  .conversation-participants
+    -conversation.participants.each do |p|
+      = render 'conversations/conversation_participant', user: p unless p == current_user
 = subscribe_to reply_conversation_path(conversation)
