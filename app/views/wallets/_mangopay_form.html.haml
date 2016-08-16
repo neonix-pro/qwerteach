@@ -1,47 +1,49 @@
 %h1 Mes informations bancaires
 - @user = current_user
-= form_tag  edit_wallet_path, method: :put do |f|
+- path = local_assigns[:path] || edit_wallet_path
+= form_for @account, as: :account, url: path, method: :put do |f|
+  = hidden_field_tag :redirect_to, params[:redirect_to]
+  = render 'shared/errors', object: f.object
   .field
-    = label_tag 'FirstName'
+    = f.label :first_name, 'FirstName'
     %br/
-    = text_field_tag 'FirstName', (@mango_user.nil? ? @user.firstname : @mango_user['FirstName']), :required => true
+    = f.text_field :first_name, value: @account.first_name || @user.firstname, :required => true
   .field
-    = label_tag 'LastName'
+    = f.label :last_name, 'LastName'
     %br/
-    = text_field_tag 'LastName', (@mango_user.nil? ? @user.lastname : @mango_user['LastName']), :required => true
-  = fields_for 'Address' do |address_fields|
-    .field
-      = label_tag 'street'
-      %br/
-      = address_fields.text_field 'AddressLine1', :value => @user.address['AddressLine1'], :required => true
-    .field
-      = label_tag 'number'
-      %br/
-      = address_fields.text_field 'AddressLine2', :value => @user.address['AddressLine2'] , :required => true
-    .field
-      = label_tag 'post_code'
-      %br/
-      = address_fields.number_field 'PostalCode' , :value => @user.address['PostalCode'], :required => true
-    .field
-      = label_tag 'city'
-      %br/
-      = address_fields.text_field 'City', :value => @user.address['City'], :required => true
-    .field
-      = label_tag 'region'
-      %br/
-      = address_fields.text_field 'Region' , :value => @user.address['Region'], :required => true
-    .field
-      = label_tag 'Country'
-      %br/
-      = address_fields.select 'Country', options_for_select(@list, :selected => @user.address['Country']) , :required => true
+    = f.text_field :last_name, value: @account.last_name || @user.lastname, :required => true
   .field
-    = label_tag 'Country_of_residence'
+    = f.label :street
     %br/
-    = select_tag 'CountryOfResidence', options_for_select(@list, :selected => @user.countryOfResidence), :required => true
+    = f.text_field :address_line1, :required => true
   .field
-    = label_tag 'Nationality'
+    = f.label :number
     %br/
-    = select_tag 'Nationality', options_for_select(@list, :selected => @user.nationality), :required => true
+    = f.text_field :address_line2, :required => true
   .field
-    = submit_tag 'terminer', :class => 'btn btn-primary btn-mini'
+    = f.label :post_code
+    %br/
+    = f.number_field :postal_code, :required => true
+  .field
+    = f.label :city
+    %br/
+    = f.text_field :city, :required => true
+  .field
+    = f.label :region
+    %br/
+    = f.text_field :region, :required => true
+  .field
+    = f.label :country
+    %br/
+    = f.select :country, options_for_select(countries_list, :selected => @account.country) , :required => true
+  .field
+    = f.label :country_of_residence
+    %br/
+    = f.select :country_of_residence, options_for_select(countries_list, :selected => @account.country_of_residence), :required => true
+  .field
+    = f.label :nationality
+    %br/
+    = f.select :nationality, options_for_select(countries_list, :selected => @user.nationality), :required => true
+  .field
+    = submit_tag :terminer, :class => 'btn btn-primary btn-mini'
     %br/

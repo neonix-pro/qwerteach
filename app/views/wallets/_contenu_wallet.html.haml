@@ -1,0 +1,4 @@
+- user = local_assigns[:user] || current_user
+= wallet_balance(user.normal_wallet)
++
+\#{wallet_balance(user.bonus_wallet)} de crédit bonus

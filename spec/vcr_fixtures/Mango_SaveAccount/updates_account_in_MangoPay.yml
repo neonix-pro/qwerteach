@@ -1,0 +1,284 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/natural
+    body:
+      encoding: UTF-8
+      string: '{"CountryOfResidence":"MZ","Nationality":"ST","Address":{"AddressLine1":"Kirlin
+        Courts","AddressLine2":"598","PostalCode":"TN9 2JR","City":"Feeneymouth","Region":"Texas","Country":"NR"},"FirstName":"Mariane","LastName":"Steuber","Birthday":682189200,"Email":"brandyn@grantrippin.ca","PersonType":"NATURAL","Tag":"user
+        1"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer ab83e100e740488e805357e04e142b0d
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Mon, 15 Aug 2016 17:24:22 GMT
+      Content-Length:
+      - '464'
+    body:
+      encoding: UTF-8
+      string: '{"Address":{"AddressLine1":"Kirlin Courts","AddressLine2":"598","City":"Feeneymouth","Region":"Texas","PostalCode":"TN9
+        2JR","Country":"NR"},"FirstName":"Mariane","LastName":"Steuber","Birthday":682189200,"Nationality":"ST","CountryOfResidence":"MZ","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"brandyn@grantrippin.ca","KYCLevel":"LIGHT","Id":"15218013","Tag":"user
+        1","CreationDate":1471281861}'
+    http_version: 
+  recorded_at: Mon, 15 Aug 2016 17:24:23 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    body:
+      encoding: UTF-8
+      string: '{"Owners":[15218013],"Currency":"EUR","Description":"wallet user 1"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer ab83e100e740488e805357e04e142b0d
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Mon, 15 Aug 2016 17:24:22 GMT
+      Content-Length:
+      - '185'
+    body:
+      encoding: UTF-8
+      string: '{"Description":"wallet user 1","Owners":["15218013"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"15218014","Tag":null,"CreationDate":1471281863}'
+    http_version: 
+  recorded_at: Mon, 15 Aug 2016 17:24:24 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    body:
+      encoding: UTF-8
+      string: '{"Owners":[15218013],"Currency":"EUR","Description":"wallet bonus 1","Tag":"Bonus"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer ab83e100e740488e805357e04e142b0d
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Mon, 15 Aug 2016 17:24:23 GMT
+      Content-Length:
+      - '189'
+    body:
+      encoding: UTF-8
+      string: '{"Description":"wallet bonus 1","Owners":["15218013"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"15218015","Tag":"Bonus","CreationDate":1471281863}'
+    http_version: 
+  recorded_at: Mon, 15 Aug 2016 17:24:24 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    body:
+      encoding: UTF-8
+      string: '{"Owners":[15218013],"Currency":"EUR","Description":"wallet transfert
+        1","Tag":"Transfert"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer ab83e100e740488e805357e04e142b0d
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Mon, 15 Aug 2016 17:24:23 GMT
+      Content-Length:
+      - '197'
+    body:
+      encoding: UTF-8
+      string: '{"Description":"wallet transfert 1","Owners":["15218013"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"15218016","Tag":"Transfert","CreationDate":1471281864}'
+    http_version: 
+  recorded_at: Mon, 15 Aug 2016 17:24:25 GMT
+- request:
+    method: put
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/natural/15218013
+    body:
+      encoding: UTF-8
+      string: '{"CountryOfResidence":"SS","Nationality":"SC","Address":{"AddressLine1":"Erdman
+        Canyon","AddressLine2":"619","PostalCode":"SB48 3EN","City":"Barnaul","Region":"Wyoming","Country":"HN"},"FirstName":"Tania","LastName":"Schroeder","Birthday":682189200,"Email":"brandyn@grantrippin.ca","PersonType":"NATURAL","Tag":"user
+        1"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer ab83e100e740488e805357e04e142b0d
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Mon, 15 Aug 2016 17:24:24 GMT
+      Content-Length:
+      - '463'
+    body:
+      encoding: UTF-8
+      string: '{"Address":{"AddressLine1":"Erdman Canyon","AddressLine2":"619","City":"Barnaul","Region":"Wyoming","PostalCode":"SB48
+        3EN","Country":"HN"},"FirstName":"Tania","LastName":"Schroeder","Birthday":682189200,"Nationality":"SC","CountryOfResidence":"SS","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"brandyn@grantrippin.ca","KYCLevel":"LIGHT","Id":"15218013","Tag":"user
+        1","CreationDate":1471281861}'
+    http_version: 
+  recorded_at: Mon, 15 Aug 2016 17:24:26 GMT
+- request:
+    method: get
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/natural/15218013
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer ab83e100e740488e805357e04e142b0d
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Mon, 15 Aug 2016 17:24:24 GMT
+      Content-Length:
+      - '463'
+    body:
+      encoding: UTF-8
+      string: '{"Address":{"AddressLine1":"Erdman Canyon","AddressLine2":"619","City":"Barnaul","Region":"Wyoming","PostalCode":"SB48
+        3EN","Country":"HN"},"FirstName":"Tania","LastName":"Schroeder","Birthday":682189200,"Nationality":"SC","CountryOfResidence":"SS","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"brandyn@grantrippin.ca","KYCLevel":"LIGHT","Id":"15218013","Tag":"user
+        1","CreationDate":1471281861}'
+    http_version: 
+  recorded_at: Mon, 15 Aug 2016 17:24:26 GMT
+recorded_with: VCR 3.0.3

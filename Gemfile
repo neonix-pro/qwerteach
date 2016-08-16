@@ -116,6 +116,10 @@ gem "factory_girl_rails", "~> 4.0"
 gem 'capybara' #Pour les test
 
 gem "rails-erd"
+
+gem 'active_interaction'
+gem 'hashie'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -127,8 +131,10 @@ group :development, :test do
   #gem 'byebug'
   gem 'sqlite3', '1.3.11'
   gem 'byebug',      '3.4.0'
-
-  gem 'sunspot_solr'
+  gem 'ffaker'
+  gem 'database_cleaner'
+  gem 'webmock'
+  gem 'vcr'
   gem 'rspec-rails', '~> 3.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

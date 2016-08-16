@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   end
 
   scope '/user/mangopay', controller: :wallets do
+    get 'new'=> :new
+    post '/' => :create
     get "edit_wallet" => :edit_mangopay_wallet
     put "edit_wallet" => :update_mangopay_wallet
     get "index_wallet" => :index_mangopay_wallet

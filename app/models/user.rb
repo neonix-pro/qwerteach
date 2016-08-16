@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   has_many :levels, through: :degrees
   belongs_to :level
 
-  attr_accessor :address, :nationality, :countryOfResidence, :bank_accounts
+  attr_accessor :bank_accounts
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
   after_update :reprocess_avatar, :if => :cropping?
@@ -39,6 +39,13 @@ class User < ActiveRecord::Base
                     :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg",
                     url: "/system/avatars/:hash.:extension", hash_secret: "laVieEstBelllllee", :hash_data => "/:attachment/:id/:style"
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :message => 'file type is not allowed (only jpeg/png/gif images)'
+
+  delegate :wallets, :normal_wallet, :bonus_wallet, :transaction_wallet,
+            :total_wallets_in_cents, to: :mangopay
+
+  def mangopay
+    @mangopay ||= MangoUser.new(self)
+  end
 
 
   def online?
@@ -58,26 +65,13 @@ class User < ActiveRecord::Base
   end
 
   def level_max
-    if Degree.where(:user_id => self).map { |t| t.level }.max.blank?
-      nil
-    else
-      Degree.where(:user_id => self).map { |t| t.level }.max.id
-    end
-  end
-
-  def wallets
-    unless(mango_id.nil?)
-      MangoPay::User.wallets(mango_id)
-    end
-  end
-
-  def total_wallets_in_cents
-    @total_wallets ||=wallets.first['Balance']['Amount'] + wallets.second['Balance']['Amount']
+    Degree.where(:user_id => self).map { |t| t.level }.max.try(:id)
   end
 
   def is_solvable?(amount)
     amount < total_wallets_in_cents/100
   end
+
 
   def mango_infos (params)
     {
@@ -93,19 +87,34 @@ class User < ActiveRecord::Base
     }
   end
 
+  def address
+    self.mango_id.present? ? mangopay.address : Hashie::Mash.new({})
+  end
+
+  def country_of_residence
+    mangopay.country_of_residence if self.mango_id.present?
+  end
+  #TODO: CamelCase isn't native naming for ruby variables. Need change in views
+  alias_method :countryOfResidence, :country_of_residence
+
+  def nationality
+    mangopay.nationality if self.mango_id.present?
+  end
+
+  #TODO: Remove call this method in controller
   def load_mango_infos
-    if self.mango_id?
-      begin
-        m = MangoPay::NaturalUser.fetch(mango_id)
-        self.address = m['Address']
-        self.countryOfResidence = m['CountryOfResidence']
-        self.nationality = m['Nationality']
-      rescue MangoPay::ResponseError => ex
-        flash[:danger] = ex.details["Message"]
-      end
-    else
-      self.address = {}
-    end
+    # if self.mango_id?
+    #   begin
+    #     m = MangoPay::NaturalUser.fetch(mango_id)
+    #     self.address = m['Address']
+    #     self.countryOfResidence = m['CountryOfResidence']
+    #     self.nationality = m['Nationality']
+    #   rescue MangoPay::ResponseError => ex
+    #     flash[:danger] = ex.details["Message"]
+    #   end
+    # else
+    #   self.address = {}
+    # end
   end
 
   def load_bank_accounts

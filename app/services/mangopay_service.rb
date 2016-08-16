@@ -19,18 +19,16 @@ class MangopayService
         # author, amount
   #payout:
         #author, amount
+  attr_reader :session
 
   def initialize(params)
     @user = params[:user]
+    @session = params[:session]
     @lock_money_fees = 0;
   end
 
   def set_session(session_)
-    @mysession = session_
-  end
-
-  def session
-    @mysession
+    @session = session_
   end
 
   def mango_infos(params)

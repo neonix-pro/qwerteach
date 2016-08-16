@@ -38,3 +38,8 @@ fr:
     adverts: "Annonces de cours"
     banking_informations: "Informations bancaires"
     finish_postulation: "c'est fini!!!"
+  notice:
+    processing_error: Il y a eu une erreur lors de la transaction. Veuillez réessayer.
+    processing_success: La transaction s'est correctement déroulée.
+    missing_account: Vous devez d'abord correctement compléter vos informations de paiement.
+
