@@ -1,4 +1,4 @@
-.conversation-preview.clearfix
+.conversation-preview.clearfix{id: "conversation_#{conversation.id}"}
   = link_to conversation_path(conversation), class: 'text-grey', remote: true do
     .avatars
       - conversation.recipients.select{|participant| user.id != participant.id}.each do |p|

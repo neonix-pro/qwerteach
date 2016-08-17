@@ -51,3 +51,9 @@
 
 :javascript
   $('.main-content').css({position: 'relative', height:'100%'});
+  $(document).ready(function(){
+    $('.conversation-preview').first().addClass('active');
+    $('.conversation-preview').click(function(){
+       $('#mailbox_conversations').html('<i class="fa fa-spin fa-spinner text-green"></i>');
+    });
+  });
