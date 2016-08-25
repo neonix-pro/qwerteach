@@ -1,41 +1,46 @@
-= render "layouts/header"
--if current_user
-  = render 'layouts/sidebar'
-#flash-messages
-  - flash.each do |key, value|
-    = render partial: 'shared/flash_dismiss', locals:{type: key, content: value}
-.main-content{:class => ('logged-in clearfix' if current_user)}
-  = yield
-= render "layouts/footer"
-- if (current_user)
-  = subscribe_to "/chat"
-  = subscribe_to "/notifications/"+current_user.id.to_s
+!!! 5
+%html
+  %head
+    = render "layouts/header"
+  %body#body
+    =render partial: 'layouts/navbar'
+    -if current_user
+      = render 'layouts/sidebar'
+    #flash-messages
+      - flash.each do |key, value|
+        = render partial: 'shared/flash_dismiss', locals:{type: key, content: value}
+    .main-content{:class => ('logged-in clearfix' if current_user)}
+      = yield
+    = render "layouts/footer"
+    - if (current_user)
+      = subscribe_to "/chat"
+      = subscribe_to "/notifications/"+current_user.id.to_s
 
-#myModIns.conin.modal.fade{:role => "dialog"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{"data-dismiss" => "modal", :type => "button"} ×
-        %h4.modal-title Inscription
-      .modal-body
-        %p= render "users/registrations/new.html.haml"
-      .modal-footer
-        .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
-          %a{:href => "#myModCo"}
-            Déjà inscrit?
-            %br/
-#myModCo.conin.modal.fade{:role => "dialog"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{"data-dismiss" => "modal", :type => "button"} ×
-        %h4.modal-title Connexion
-      .modal-body
-        %p= render "users/sessions/new.html.haml"
-      .modal-footer
-        .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModIns", "data-toggle" => "modal"}
-          %a{:href => "#myModIns"}
-            Pas encore membre?
-            %br/
+    #myModIns.conin.modal.fade{:role => "dialog"}
+      .modal-dialog
+        .modal-content
+          .modal-header
+            %button.close{"data-dismiss" => "modal", :type => "button"} ×
+            %h4.modal-title Inscription
+          .modal-body
+            %p= render "users/registrations/new.html.haml"
+          .modal-footer
+            .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
+              %a{:href => "#myModCo"}
+                Déjà inscrit?
+                %br/
+    #myModCo.conin.modal.fade{:role => "dialog"}
+      .modal-dialog
+        .modal-content
+          .modal-header
+            %button.close{"data-dismiss" => "modal", :type => "button"} ×
+            %h4.modal-title Connexion
+          .modal-body
+            %p= render "users/sessions/new.html.haml"
+          .modal-footer
+            .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModIns", "data-toggle" => "modal"}
+              %a{:href => "#myModIns"}
+                Pas encore membre?
+                %br/
 
-= yield :bottom
+    = yield :bottom

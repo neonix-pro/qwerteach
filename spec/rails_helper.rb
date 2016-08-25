@@ -9,7 +9,7 @@ require 'rspec/rails'
 # note: require 'devise' after require 'rspec/rails'
 require 'devise'
 require "cancan/matchers"
-require "database_cleaner"
+require 'capybara-screenshot/rspec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -41,17 +41,6 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
   config.global_fixtures = :all
-
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.around(:each) do |example|
-    DatabaseCleaner.cleaning do
-      example.run
-    end
-  end
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and

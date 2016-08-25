@@ -52,7 +52,18 @@ class MangoUser
   end
 
   def valid_cards
-    cards.map{|c| c.validity == "VALID" && c.active}
+    cards.select{|c| c.validity == "VALID" && c.active}
+  end
+
+  def wallet_transactions
+    Mango.normalize_response(
+      MangoPay::Wallet.transactions(normal_wallet.id, {'sort' => 'CreationDate:desc', 'per_page' => 100}) +
+      MangoPay::Wallet.transactions(bonus_wallet.id, {'sort' => 'CreationDate:desc', 'per_page' => 100})
+    )
+  end
+
+  def bank_accounts
+    @bank_accounts ||= Mango.normalize_response MangoPay::BankAccount.fetch(id_for_api)
   end
 
 end

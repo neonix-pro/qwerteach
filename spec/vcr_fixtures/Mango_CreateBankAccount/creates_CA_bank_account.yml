@@ -1,0 +1,284 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/natural
+    body:
+      encoding: UTF-8
+      string: '{"CountryOfResidence":"BJ","Nationality":"SM","Address":{"AddressLine1":"Weldon
+        Plaza","AddressLine2":"2770","PostalCode":"ZQ9 6JD","City":"South Marcel","Region":"Texas","Country":"MO"},"FirstName":"Janet","LastName":"McCullough","Birthday":682362000,"Email":"columbus@bailey.info","PersonType":"NATURAL","Tag":"user
+        1"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer aeeb444b08a2433facb7741e31c0256e
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Wed, 17 Aug 2016 15:06:44 GMT
+      Content-Length:
+      - '464'
+    body:
+      encoding: UTF-8
+      string: '{"Address":{"AddressLine1":"Weldon Plaza","AddressLine2":"2770","City":"South
+        Marcel","Region":"Texas","PostalCode":"ZQ9 6JD","Country":"MO"},"FirstName":"Janet","LastName":"McCullough","Birthday":682362000,"Nationality":"SM","CountryOfResidence":"BJ","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"columbus@bailey.info","KYCLevel":"LIGHT","Id":"15258184","Tag":"user
+        1","CreationDate":1471446403}'
+    http_version: 
+  recorded_at: Wed, 17 Aug 2016 15:06:45 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    body:
+      encoding: UTF-8
+      string: '{"Owners":[15258184],"Currency":"EUR","Description":"wallet user 1"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer aeeb444b08a2433facb7741e31c0256e
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Wed, 17 Aug 2016 15:06:45 GMT
+      Content-Length:
+      - '185'
+    body:
+      encoding: UTF-8
+      string: '{"Description":"wallet user 1","Owners":["15258184"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"15258185","Tag":null,"CreationDate":1471446405}'
+    http_version: 
+  recorded_at: Wed, 17 Aug 2016 15:06:46 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    body:
+      encoding: UTF-8
+      string: '{"Owners":[15258184],"Currency":"EUR","Description":"wallet bonus 1","Tag":"Bonus"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer aeeb444b08a2433facb7741e31c0256e
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Wed, 17 Aug 2016 15:06:45 GMT
+      Content-Length:
+      - '189'
+    body:
+      encoding: UTF-8
+      string: '{"Description":"wallet bonus 1","Owners":["15258184"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"15258186","Tag":"Bonus","CreationDate":1471446405}'
+    http_version: 
+  recorded_at: Wed, 17 Aug 2016 15:06:47 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    body:
+      encoding: UTF-8
+      string: '{"Owners":[15258184],"Currency":"EUR","Description":"wallet transfert
+        1","Tag":"Transfert"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer aeeb444b08a2433facb7741e31c0256e
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Wed, 17 Aug 2016 15:06:46 GMT
+      Content-Length:
+      - '197'
+    body:
+      encoding: UTF-8
+      string: '{"Description":"wallet transfert 1","Owners":["15258184"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"15258187","Tag":"Transfert","CreationDate":1471446406}'
+    http_version: 
+  recorded_at: Wed, 17 Aug 2016 15:06:48 GMT
+- request:
+    method: get
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/natural/15258184
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer aeeb444b08a2433facb7741e31c0256e
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Wed, 17 Aug 2016 15:06:47 GMT
+      Content-Length:
+      - '464'
+    body:
+      encoding: UTF-8
+      string: '{"Address":{"AddressLine1":"Weldon Plaza","AddressLine2":"2770","City":"South
+        Marcel","Region":"Texas","PostalCode":"ZQ9 6JD","Country":"MO"},"FirstName":"Janet","LastName":"McCullough","Birthday":682362000,"Nationality":"SM","CountryOfResidence":"BJ","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"columbus@bailey.info","KYCLevel":"LIGHT","Id":"15258184","Tag":"user
+        1","CreationDate":1471446403}'
+    http_version: 
+  recorded_at: Wed, 17 Aug 2016 15:06:49 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/15258184/bankaccounts/ca
+    body:
+      encoding: UTF-8
+      string: '{"OwnerName":"Schuyler Shanahan","OwnerAddress":{"AddressLine1":"Weldon
+        Plaza","AddressLine2":"2770","City":"South Marcel","Region":"Texas","PostalCode":"ZQ9
+        6JD","Country":"MO"},"Type":"ca","BranchCode":"00152","InstitutionNumber":"614","AccountNumber":"11696419","BankName":"SberBank"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer aeeb444b08a2433facb7741e31c0256e
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Wed, 17 Aug 2016 15:06:47 GMT
+      Content-Length:
+      - '374'
+    body:
+      encoding: UTF-8
+      string: '{"OwnerAddress":{"AddressLine1":"Weldon Plaza","AddressLine2":"2770","City":"South
+        Marcel","Region":"Texas","PostalCode":"ZQ9 6JD","Country":"MO"},"AccountNumber":"11696419","InstitutionNumber":"614","BranchCode":"00152","BankName":"SberBank","UserId":"15258184","OwnerName":"Schuyler
+        Shanahan","Type":"CA","Id":"15258189","Tag":null,"CreationDate":1471446408,"Active":true}'
+    http_version: 
+  recorded_at: Wed, 17 Aug 2016 15:06:49 GMT
+recorded_with: VCR 3.0.3

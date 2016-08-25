@@ -132,7 +132,6 @@ group :development, :test do
   gem 'sqlite3', '1.3.11'
   gem 'byebug',      '3.4.0'
   gem 'ffaker'
-  gem 'database_cleaner'
   gem 'webmock'
   gem 'vcr'
   gem 'rspec-rails', '~> 3.0'
@@ -140,6 +139,10 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
+end
+
+group :test do
+  gem 'capybara-screenshot'
 end
 
 group :development do

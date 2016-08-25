@@ -1,5 +1,5 @@
 module Mango
-  class SaveAccount < ActiveInteraction::Base
+  class SaveAccount < BaseInteraction
 
     object :user, class: User
     string :first_name, :last_name
@@ -30,9 +30,7 @@ module Mango
       end
       user.mango_id
     rescue MangoPay::ResponseError => error
-      message = error.details['Message']
-      message += error.details['errors'].map{|name, val| " #{name}: #{val} \n\n"}.join
-      self.errors.add(:base, message)
+      handle_mango_error(error)
     end
 
     private

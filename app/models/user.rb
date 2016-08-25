@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
   has_many :levels, through: :degrees
   belongs_to :level
 
-  attr_accessor :bank_accounts
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
   after_update :reprocess_avatar, :if => :cropping?
@@ -41,7 +40,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :message => 'file type is not allowed (only jpeg/png/gif images)'
 
   delegate :wallets, :normal_wallet, :bonus_wallet, :transaction_wallet,
-            :total_wallets_in_cents, to: :mangopay
+            :total_wallets_in_cents, :bank_accounts, to: :mangopay
 
   def mangopay
     @mangopay ||= MangoUser.new(self)
@@ -103,24 +102,9 @@ class User < ActiveRecord::Base
 
   #TODO: Remove call this method in controller
   def load_mango_infos
-    # if self.mango_id?
-    #   begin
-    #     m = MangoPay::NaturalUser.fetch(mango_id)
-    #     self.address = m['Address']
-    #     self.countryOfResidence = m['CountryOfResidence']
-    #     self.nationality = m['Nationality']
-    #   rescue MangoPay::ResponseError => ex
-    #     flash[:danger] = ex.details["Message"]
-    #   end
-    # else
-    #   self.address = {}
-    # end
   end
 
   def load_bank_accounts
-    if self.mango_id?
-      self.bank_accounts = MangoPay::BankAccount.fetch(self.mango_id)
-    end
   end
 
   def create_mango_user (params)
@@ -238,6 +222,11 @@ class User < ActiveRecord::Base
   def age
     now = Time.now.utc.to_date
     now.year - birthdate.year - ((now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)) ? 0 : 1)
+  end
+
+  def reload(options = nil)
+    @mangopay = nil
+    super
   end
 
   private

@@ -1,15 +1,18 @@
-- if transaction["Status"] != 'FAILED' && transaction["Type"] != 'PAYIN'
+- if transaction.status != 'FAILED' and transaction.type != 'PAYIN'
   %tr
-    %td= Time.at(transaction["CreationDate"]).to_datetime
-    %td= Time.at(transaction["ExecutionDate"]).to_datetime
-    %td= transaction['Type']
-    - if (transaction["CreditedUserId"]).to_i == @user.mango_id
-      - proprio = MangoPay::Wallet.fetch(transaction["DebitedWalletId"])["Owners"].first
-      - prop = User.where(:mango_id => proprio)
-      %td= (prop.first.nil? ? "moi" : prop.first.email)
+    %td= Time.at(transaction.creation_date).to_datetime
+    %td= Time.at(transaction.execution_date).to_datetime if transaction.execution_date
+    %td= transaction.type
+    - if transaction.credited_user_id.to_i == @user.mango_id
+      - if transaction.debited_wallet_id.present?
+        - proprio = MangoPay::Wallet.fetch(transaction.debited_wallet_id)["Owners"].first
+        - prop = User.where(mango_id: proprio)
+        %td= (prop.first.nil? ? "moi" : prop.first.email)
+      - else
+        %td
     - else
-      - prop = User.where(:mango_id => transaction["CreditedUserId"])
-      %td= prop.first.nil? ? transaction['creditedWalletId'] : prop.first.email
+      - prop = User.where(mango_id: transaction.credited_user_id)
+      %td= prop.first.nil? ? transaction.credited_wallet_id : prop.first.email
     %td
-      = (transaction["CreditedUserId"]).to_i == current_user.mango_id ? +((transaction["CreditedFunds"]["Amount"]).to_f/100).to_f : -((transaction["DebitedFunds"]["Amount"]).to_f/100).to_f
-      = transaction["CreditedFunds"]["Currency"]
+      = transaction.credited_user_id.to_i == current_user.mango_id ? transaction.credited_funds.amount.to_f/100 : -transaction.debited_funds.amount.to_f/100
+      = transaction.credited_funds.currency

@@ -1,8 +1,8 @@
 module Mango
-  class SendMakeBankWire < ActiveInteraction::Base
+  class SendMakeBankWire < BaseInteraction
     object :user, class: User
-    integer :amount
-    integer :fees, default: 0
+    float :amount
+    float :fees, default: 0
 
     set_callback :execute, :before, :check_mango_account
 
@@ -13,9 +13,7 @@ module Mango
       end
       payin
     rescue MangoPay::ResponseError => error
-      message = error.details['Message']
-      message += error.details['errors'].map{|name, val| " #{name}: #{val} \n\n"}.join
-      self.errors.add(:base, message)
+      handle_mango_error(error)
     end
 
     private
@@ -32,12 +30,12 @@ module Mango
       {
         :author_id => user.mango_id.to_s,
         :declared_debited_funds => {
-            :currency => "EUR",
-            :amount => amount * 100
+          :currency => "EUR",
+          :amount => amount * 100
         },
         :declared_fees => {
-            :currency => "EUR",
-            :amount => fees * 100
+          :currency => "EUR",
+          :amount => fees * 100
         },
         :credited_wallet_id => credited_wallet.id
       }.camelize_keys

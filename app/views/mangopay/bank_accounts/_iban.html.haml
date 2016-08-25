@@ -1,10 +1,9 @@
-= fields_for :iban_account do |bank_account_fields|
+= fields_for :iban_account, bank_account do |bank_account_fields|
   .field
-    = bank_account_fields.label :IBAN
+    = bank_account_fields.label :iban
     %br/
-    = bank_account_fields.text_field :IBAN, :value => bank_account['IBAN'], :require => true
+    = bank_account_fields.text_field :iban, :require => true
   .field
-    = bank_account_fields.label :BIC
+    = bank_account_fields.label :bic
     %br/
-    = bank_account_fields.text_field :BIC, :value => bank_account['BIC'],:require => true
-  = bank_account_fields.hidden_field :Type, :value => bank_account['Type']
+    = bank_account_fields.text_field :bic, :require => true
