@@ -246,18 +246,26 @@
     background: $color_qwerteach_purple;
     color: #fff;
     position: relative;
+    .left{
+        float: left;
+        width: 66.66666%;
+    }
+    .right{
+        float: left;
+        width: 33.33333%;
+    }
     .bigimage{
         background: url(image_path("bg_commentaire.jpg"));
         background-size: cover;
         background-position: center center;
     }
     h4{
-        font-size: 400%;
+        font-size: 38px;
+        padding: 25px 50px;
         text-align: left;
         width: 80%;
         margin-top: 45px;
         margin-left: 15px;
-        font-weight: bold;
     }
     .commentaires{
         position: absolute;
@@ -290,6 +298,8 @@
                 padding: 25px 50px 10px 50px;
                 text-align: left;
                 margin: auto;
+                font-size: 14px;
+                line-height: 21px;
             }
             .avatar{
                 width: 45px;
@@ -331,34 +341,36 @@
 .section_tri_colonne{
     width: 100%;  
     margin: 0 !important;
-    img{
+    .caption{
+        width: 80%;
         margin: auto;
+    }
+    img{
         padding-top: 50px;
         height: 120px;
     }
     h4{
         color: #fff;
-        width: 70%;
         text-align: left;
-        margin: auto;
-        font-size: 32px;
+        font-size: 24px;
         margin-top : 15px;
     }
     h5{
         color: #797979;
-        width: 70%;
-        font-size: 18px;
-        margin: auto;
-        text-align: justify;
+        font-size: 14px;
+        line-height: 21px; 
+        text-align: left;
         margin-bottom: 25px;
     }
     hr{
-        width: 70%;
+        width: 50%;
+        text-align: left;
+        margin: 15px 0;
     }
     a{
-        font-size: 16px;
+        font-size: 14px;
         width: 70%;
-        margin: auto;
+        margin: 0;
         display: block;
     }
     .colonne1, .colonne3{
@@ -535,12 +547,12 @@
 
 .section_presse{
     width: 100%;   
+    clear: both;
     h3{
         margin-top: 50px;
         margin-bottom: 35px;
-        font-size: 32px;
+        font-size: 38px;
         text-align: center;
-        font-weight: bold;
     }
     .presse_link{
         margin-bottom: 50px;
@@ -571,7 +583,7 @@
         }
     }
     .matiere:hover{
-        background: #fff;
+        background: #fef46e;
     }
     .tous{
         width: 25%;
