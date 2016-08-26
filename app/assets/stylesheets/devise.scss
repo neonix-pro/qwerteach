@@ -8,7 +8,7 @@
     display: block;
     float: left;
     width: 100%;
-    font-size: 24px;
+    font-size: 18px;
     background: $color_qwerteach_navgrey;
     font-weight: bold;
     padding-top: 25px;
@@ -106,13 +106,16 @@
   .colonne1{
     background: $color_qwerteach_green !important;
   }
-  .colonne3{
+  .colonne2{
     background: $color_qwerteach_pink !important;
+    display: none;
   }
   .colonne3{
     background: $color_qwerteach_purple !important;
+    display: none;
   }
   .colonne4{
     background: $color_qwerteach_green !important;
+    display: none;
   }
 }
