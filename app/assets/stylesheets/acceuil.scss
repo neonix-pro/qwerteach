@@ -16,6 +16,9 @@
     background-position: center center;
     text-align: center;  
     width: 100%;   
+    .open_mode_emploi{
+        font-size: 16px;
+    }
     .title{
     padding-top: 120px;
     padding-left: 150px;
@@ -94,15 +97,14 @@
             h2{
                 width: 70%;
                 color: $color_qwerteach_darkgrey;
-
-                font-size: 48px;
+                font-size: 38px;
             }
             .devenir_prof{
                 display: block;
                 background: $color_qwerteach_pink;
-                border-radius: 25px;
+                border-radius: 15px;
                 color: #fff;
-                font-size: 18px;
+                font-size: 14px;
                 text-align: center;
                 width: 200px;
                 padding: 10px 20px;
@@ -112,7 +114,7 @@
                 display: block;
                 padding: 10px 20px;
                 width: 210px;
-                font-size: 16px;
+                font-size: 14px;
                 color: $color_qwerteach_darkgrey;
                 text-align: center;
                 margin-top: 2px;
@@ -128,15 +130,14 @@
             h2{
                 width: 70%;
                 color: #fff;
-
-                font-size: 48px;
+                font-size: 38px;
             }
             .inscription{
                 display: block;
                 background: $color_qwerteach_purple;
-                border-radius: 25px;
+                border-radius: 15px;
                 color: #fff;
-                font-size: 18px;
+                font-size: 14px;
                 text-align: center;
                 width: 200px;
                 padding: 10px 20px;
@@ -146,7 +147,7 @@
                 display: block;
                 padding: 10px 20px;
                 width: 210px;
-                font-size: 16px;
+                font-size: 14px;
                 color: $color_qwerteach_darkgrey;
                 text-align: center;
                 margin-top: 2px;
@@ -404,9 +405,8 @@
             top: 0;
             left: 0;
             h3{
-                font-size: 300%;
-                padding: 25px;
-                font-weight: bold;
+                font-size: 38px;
+                padding: 25px 50px;
             }
         }
         .prof{
@@ -431,6 +431,11 @@
                 visibility: visible;
                 font-size: 14px;
                 color: #fff;
+                font-family: SofiaProLight !important;
+            }
+            .name{
+                font-size: 16px;
+                font-size: SofiaProRegular;
             }
         }
         .item1{
@@ -446,6 +451,11 @@
                 visibility: visible;
                 font-size: 14px;
                 color: #fff;
+                font-family: SofiaProLight;
+            }
+            .name{
+                font-size: 16px;
+                font-family: SofiaProRegular;
             }
         }
         .item2{
@@ -540,24 +550,28 @@
 .section_choix{
     width: 100%;   
     background: $color_qwerteach_yellow;
-    height: 100px;
+    height: 150px;
     .matiere{
         float: left;
         width: 12.5%;
         text-align: center;
         position: relative;
         height: 100%;
+        cursor: pointer;
         img{
             margin: 10px auto auto auto;
             height: 40px;
-            margin-top: 15px;
+            margin-top: 40px;
         }
         h3{
             margin: auto;
             color: $color_qwerteach_purple;
-            font-size: 24px;
+            font-size: 14px;
             margin-top: 10px;
         }
+    }
+    .matiere:hover{
+        background: #fff;
     }
     .tous{
         width: 25%;

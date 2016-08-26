@@ -8,9 +8,10 @@
         %br convient
     - profs.each do |prof|
       .prof{:style => "background-image: url(#{image_path prof.avatar.url(:large)})"}
-        %p.name
-          = prof.firstname
-          = prof.lastname
+        %p
+          %span.name
+            = prof.firstname
+            = prof.lastname
           %br
           - prof.adverts.each do |advert|
             = advert.topic.title unless advert.topic.title == 'Other'
