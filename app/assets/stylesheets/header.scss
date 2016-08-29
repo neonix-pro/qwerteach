@@ -53,7 +53,10 @@ input{
  position: static !important;
  border: none !important;
 }
-    
+
+.navbar-nav{
+    float: right !important;
+}    
 
 .main-nav .navbar-nav a{
     color: $color_link_grey;
