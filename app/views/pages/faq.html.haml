@@ -3,6 +3,68 @@
         %h1 Foire aux questions
         %ul
             %li
+                %a.active Alpha
             %li
+                %a Beta
             %li
+                %a Gamma
+    .unav
+        %ul
+            %li
+                %a One
+            %li 
+                %a Two
+            %li
+                %a Three
+            %li
+                %a Four
+    .panel-group{:id => "accordion"}
+        .panel.panel-default
+            .panel-heading
+                %div
+                    %h4.panel-title 
+                        =link_to "This is my first question", "#collapseOne", :data => {:toggle => "collapse", :parent => "#accordion"}
+            .panel-collapse.collapse{:id=>"collapseOne"}
+                %div
+                    %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+        .panel.panel-default
+            .panel-heading
+                %div
+                    %h4.panel-title 
+                        =link_to "What is the sense of life, 42 ?", "#collapseTwo", :data => {:toggle => "collapse", :parent => "#accordion"}
+            .panel-collapse.collapse{:id=>"collapseTwo"}
+                %div
+                    %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+        .panel.panel-default
+            .panel-heading
+                %div
+                    %h4.panel-title 
+                        =link_to "When do we eat ?", "#collapseThree", :data => {:toggle => "collapse", :parent => "#accordion"}
+            .panel-collapse.collapse.in{:id=>"collapseThree"}
+                %div
+                    %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+        .panel.panel-default
+            .panel-heading
+                %div
+                    %h4.panel-title 
+                        =link_to "Can I be a bee ?", "#collapseFour", :data => {:toggle => "collapse", :parent => "#accordion"}
+            .panel-collapse.collapse{:id=>"collapseFour"}
+                %div
+                    %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+        .panel.panel-default
+            .panel-heading
+                %div
+                    %h4.panel-title 
+                        =link_to "I don't know what to ask...", "#collapseFive", :data => {:toggle => "collapse", :parent => "#accordion"}
+            .panel-collapse.collapse{:id=>"collapseFive"}
+                %div
+                    %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+        .panel.panel-default
+            .panel-heading
+                %div
+                    %h4.panel-title 
+                        =link_to "Where can I find the FAQ?", "#collapseSix", :data => {:toggle => "collapse", :parent => "#accordion"}
+            .panel-collapse.collapse{:id=>"collapseSix"}
+                %div    
+                    %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
         

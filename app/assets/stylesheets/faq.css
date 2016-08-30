@@ -1,0 +1,59 @@
+.faq {
+  background: #F6F6F6; }
+  .faq .header {
+    display: block;
+    margin: auto;
+    width: 60%;
+    padding-top: 50px; }
+    .faq .header h1 {
+      padding-bottom: 25px; }
+    .faq .header ul li {
+      display: inline-block;
+      padding-right: 25px; }
+      .faq .header ul li a {
+        color: #3C3C3B;
+        font-size: 14px; }
+    .faq .header ul .active {
+      border-bottom: 2px solid #5DB677; }
+  .faq .unav {
+    width: 100%;
+    background: #5DB677;
+    margin-top: 25px;
+    box-shadow: 0px -1px 29px -9px rgba(0, 0, 0, 0.75); }
+    .faq .unav ul {
+      width: 60%;
+      margin: auto;
+      padding: 15px 0px; }
+      .faq .unav ul li {
+        display: inline-block;
+        padding-right: 25px; }
+        .faq .unav ul li a {
+          color: #fff;
+          font-size: 14px; }
+        .faq .unav ul li a:hover {
+          border-bottom: 1px solid #fff; }
+  .faq .panel {
+    background: #F6F6F6 !important;
+    background-image: none !important;
+    margin: 0 !important;
+    border: none !important; }
+    .faq .panel a, .faq .panel p, .faq .panel h4 {
+      font-size: 12px !important;
+      color: #3C3C3B !important; }
+    .faq .panel .panel-heading {
+      padding: 0 !important;
+      background-image: none !important; }
+      .faq .panel .panel-heading div {
+        width: 60%;
+        margin: auto;
+        padding: 15px 0px; }
+    .faq .panel .panel-collapse {
+      background: #F6F6F6 !important; }
+      .faq .panel .panel-collapse div {
+        width: 60%;
+        margin: auto; }
+        .faq .panel .panel-collapse div p {
+          padding-top: 20px;
+          padding-bottom: 20px; }
+
+/*# sourceMappingURL=faq.css.map */
