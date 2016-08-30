@@ -1,0 +1,17 @@
+.adverts-list{
+  position:relative;
+  width:100%;
+}
+.advert{
+  padding: 50px;
+  float:left;
+}
+.advert.simple{
+  width:100%;
+}
+.advert.double{
+  width:50%;
+}
+.advert.triple{
+  width:33.3333333%;
+}

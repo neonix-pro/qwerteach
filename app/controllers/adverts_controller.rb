@@ -24,8 +24,9 @@ class AdvertsController < ApplicationController
   def new
     @advert = Advert.new
     respond_to do |format|
-      format.html # new.html.erb
+      format.html {}
       format.json { render json: @advert }
+      format.js {}
     end
   end
 
