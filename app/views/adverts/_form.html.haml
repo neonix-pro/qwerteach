@@ -1,4 +1,4 @@
-= form_for @advert, :html => {:class => 'form-horizontal'}, :remote => remote do |f|
+= form_for advert, :html => {:class => 'form-horizontal'}, :remote => remote do |f|
   .field.group_choice
     = f.label :topic_group
     = f.select :topic_group_id, options_for_select(TopicGroup.all.collect { |p| [p.title, p.id] }), {include_blank: "Choisissez une catégorie"}, :required => true
@@ -11,4 +11,4 @@
   .form-actions
     = f.submit nil, :class => 'btn btn-primary  btn-mini'
     = link_to t('.cancel', :default => t("helpers.links.cancel")), |
-      adverts_path(@adverts), :class => 'btn btn-mini'             |
+      adverts_path, :class => 'btn btn-mini'             |

@@ -2,6 +2,8 @@ $('#mailbox_conversations').html('<%= j render partial: 'conversation', locals:{
 $('#mailbox_navigation').html("<%= j render partial: 'mailbox_navigation',
                                             locals: {mailbox_type: @mailbox_type,
                                             unread_count: @unread_count}%>");
+$('.conversation-preview.active').removeClass('active');
+$('<%= "#conversation_#{@conversation.id}"%>').addClass('active');
 
 var chatbox = $("#chatbox_"+<%= @conversation.id %>+" .chatboxcontent");
 chatbox.scrollTop(chatbox[0].scrollHeight);

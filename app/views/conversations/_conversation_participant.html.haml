@@ -1,0 +1,20 @@
+.participant.clearfix
+  .avatar.pull-left
+    = image_tag(user.avatar.url(:small), class: 'img img-circle')
+  .name
+    #{user.name}
+    - if user.is_a?(Teacher)
+      %br
+      %small Professeur
+- if user.is_a?(Teacher)
+  .participant-adverts-title
+    Cours
+    %i.fa.fa-angle-down
+  .participant-adverts.clearfix
+    - user.adverts.each do |ad|
+      .advert{class: "topic_#{ad.topic_group.id}"}
+        #{ad.topic.title}
+        = image_tag(ad.topic.pictotype("medium"))
+  .participant-cta
+    = link_to 'Réserver un cours', new_user_request_lesson_path(user), remote: true, "data-toggle" => "modal", 'data-target' => '#request-lesson'
+

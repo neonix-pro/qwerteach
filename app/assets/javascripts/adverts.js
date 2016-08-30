@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    animateAdvertFields();
+});
+
+function animateAdvertFields() {
     $('.topic_choice').on('change', function () {
         $.ajax({
             url: "/level_choice",
@@ -19,4 +23,4 @@ $(document).ready(function () {
             data: {group_id: $('#advert_topic_group_id option:selected').val()}
         })
     });
-});
+}

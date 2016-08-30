@@ -1,0 +1,6 @@
+.message-container.clearfix
+  .message.message-received
+    .avatar
+      = image_tag(message.sender.avatar.url(:small), class: "img img-circle")
+    #{message.body}
+    %time{:datetime => "#{message.created_at}", :title => "#{message.created_at.strftime("%d %b  %Y at %I:%M%p")}"}

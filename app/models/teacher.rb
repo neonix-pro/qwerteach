@@ -28,7 +28,7 @@ class Teacher  < Student
 
 
   def min_price
-    @prices = self.adverts.map { |d| d.advert_prices.map { |l| l.price } }.min.first
+    adverts.empty? ? 0 : @prices = self.adverts.map { |d| d.advert_prices.map { |l| l.price } }.min.first
   end
 
   def similar_teachers(n)

@@ -1,7 +1,10 @@
 var pleaseWait = "<%= j render(:partial => 'please_wait') %>";
 $(document).ready(function(){
   var newLesson = "<%= j render(:partial => 'new') %>";
+  var modalHeader = "<%= j render partial: 'reservation_header', teacher: @teacher %>";
   $('#lesson-details').html(newLesson);
+  $('#request-lesson .modal-header').html(modalHeader);
+
 
   findUserAdverts('<%= @teacher.id %>');
 

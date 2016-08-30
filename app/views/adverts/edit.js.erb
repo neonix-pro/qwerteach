@@ -1,0 +1,7 @@
+$('#new_advert').html('');
+$('.edit-advert').html('');
+var source = $('<%= "#advert_#{@advert.id}" %>');
+console.log(source);
+source.nextAll('.edit-advert:first').html('<%= j render partial: 'editAdvert', locals: {advert: @advert, remote: true} %>');
+animateAdvertFields();
+$('.main-content').height('auto');
