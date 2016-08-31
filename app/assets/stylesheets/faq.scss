@@ -1,0 +1,87 @@
+.faq{
+    background: #F6F6F6;
+    min-height: 100%;
+    .header{
+        display: block;
+        margin: auto;
+        width: 60%;
+        padding-top: 50px;
+        h1{
+            padding-bottom: 25px;
+        }
+        ul{
+        padding: 0;
+            li{
+                display: inline-block;
+                padding-right: 25px;
+                a{
+                    color: #3C3C3B;
+                    font-size: 14px;
+                }
+            }
+            .active{
+                border-bottom: 2px solid #5DB677;
+            }
+        }
+    }
+    .unav{
+        width: 100%;
+        background: #5DB677;
+        margin-top: 25px;
+        box-shadow: 0px -1px 29px -9px rgba(0,0,0,0.75);
+        ul{
+            width: 60%;
+            margin: auto;
+            padding: 15px 0px;
+            li{
+                display: inline-block;
+                padding-right: 25px;
+                a{
+                    color: #fff;
+                    font-size: 14px;
+                }
+                a:hover{
+                    border-bottom: 1px solid #fff;
+                }
+            }
+        }
+    }
+    #accordion{
+        background: #F6F6F6;
+    }
+    .panel{
+        background-image: none !important;
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: inset 0px 10px 38px -24px rgba(0,0,0,0.75);
+        border-radius: 0 !important;
+        background: #F6F6F6;
+        a,p,h4{
+            font-size: 12px !important;
+            color: #3C3C3B !important;
+        }
+        .panel-heading{
+            padding: 0 !important;
+            background-image: none !important;
+            background: transparent !important;
+            div{
+                width: 60%;
+                margin: auto;
+                padding: 15px 0px;
+            }
+        }
+        .panel-collapse{
+            background: transparent;
+            border: none !important;
+            div{
+                width: 60%;
+                margin: auto;
+                p{
+                padding-top: 20px;
+                padding-bottom: 20px;
+                font-weight: bold;
+                }
+            }
+        }
+    }
+}

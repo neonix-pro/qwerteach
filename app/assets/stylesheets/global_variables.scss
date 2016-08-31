@@ -10,5 +10,57 @@ $color_link_grey: #9B9B9B;
 $color_qwerteach_lightgrey: #313131;
 $color_qwerteach_blue: #3DCAFF;
 $color_qwerteach_red: #A80015;
-
 $text_lightgrey: #626262;
+
+
+/***Fonts***/
+
+/**Sofia Pro**/
+@font-face {
+    font-family: 'SofiaProRegular';
+    src: font-url('SofiaProRegular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SofiaProBold';
+    src: font-url('SofiaProRegular.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SofiaProBoldItalic';
+    src: font-url('SofiaProBoldItalic.otf') format('opentype');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'SofiaProExtraLight';
+    src: font-url('SofiaProExtraLight.otf') format('opentype');
+    font-weight: thin;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SofiaProExtraLightItalic';
+    src: font-url('SofiaProExtraLightItalic.otf') format('opentype');
+    font-weight: thin;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'SofiaProItalic';
+    src: font-url('SofiaProItalic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'SofiaProLight';
+    src: font-url('SofiaProLight.otf') format('opentype');
+    font-weight: light;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SofiaProLightItalic';
+    src: font-url('SofiaProLightItalic.otf') format('opentype');
+    font-weight: light;
+    font-style: italic;
+}

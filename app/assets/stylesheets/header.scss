@@ -5,8 +5,12 @@ $color_link_grey: #b9b9b9;
 
 body, html{
     margin: 0;
-    font-family: "Source Sans Pro" !important;
+    font-family: SofiaProRegular !important;
     outline: none !important;
+}
+
+h1,h2,h3,h4,h5,p,span{
+    font-family: SofiaProRegular !important;
 }
 
 .container-fluid{
@@ -49,7 +53,10 @@ input{
  position: static !important;
  border: none !important;
 }
-    
+
+.navbar-nav{
+    float: right !important;
+}    
 
 .main-nav .navbar-nav a{
     color: $color_link_grey;
@@ -68,7 +75,11 @@ input{
 #footer{
      background: $color_qwerteach_navgrey;   
      color: $color_link_grey;
-     height: 400px;
+     height: 500px;
+     .cadre{
+         border-top: 1px solid #767676;
+         margin-top: 50px;
+     }
      .inner{
          position: relative;
          top: 50px;
@@ -76,10 +87,13 @@ input{
          display: block;
          margin: auto;
          height: 350px;
+         .col{
+             float: left;
+             width: 25%;
+         }
          .logo{
              display: block;
              margin: auto;
-             height: 100px;
          }
          a{
             padding-right: 10%;
@@ -90,6 +104,7 @@ input{
         h3{
             font-size: 18px;
             text-align: left;
+            font-weight: bold;
         }
         p{
             text-align: left;
@@ -101,6 +116,7 @@ input{
                 margin: 0;
                 padding: 0;
                 text-align: left;
+                width: auto;
                 img{
                     width: 25px;
                     margin: 10px;
@@ -110,7 +126,11 @@ input{
         .green{
             color: $color_qwerteach_green;
         }
-
-         
      }
+    .copyright{
+            clear: both;
+            bottom: 25px;
+            color: $color_link_grey;
+            margin-top: 280px;
+        }
 }
