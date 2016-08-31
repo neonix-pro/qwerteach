@@ -12,15 +12,13 @@ class RequestLessonController < ApplicationController
       @lesson = Lesson.new(session[:lesson])
       @hours = ((@lesson.time_end - @lesson.time_start)/3600).floor
       @minutes = ((@lesson.time_end - @lesson.time_start)/60 - @hours*60).floor
-      logger.debug('--------------------')
-      logger.debug(@hours)
     end
     render :layout=>false
   end
 
   def create
     @free_lessons = @user.free_lessons_with(@teacher)
-    if params[:firstLessonFree] == "on" # cas où l'utilisateur veut un premier cours gratuit
+    if params[:firstLessonFree] == "on" # first free trial lesson
       params[:lesson][:status]= 0
       params[:lesson][:free_lesson] = true
       @lesson = Lesson.create(lesson_params)
@@ -31,7 +29,7 @@ class RequestLessonController < ApplicationController
       else
         render 'new', :layout=>false
       end
-    else  #cas de réservation normale
+    else  # normal lesson
       @lesson = Lesson.new(lesson_params)
       if @lesson.valid?
         session[:lesson]=@lesson
