@@ -1,14 +1,9 @@
-!!! 5
-%html
-  %head
-    %meta{:content => user_signed_in? ? current_user.id : "", :name => "user-id"}/
-    %title Qwerteach
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'
-    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Sans+Pro' 
-    = favicon_link_tag 'logo.ico'
-    = csrf_meta_tags
-    = yield(:head)
-  %body#body
-    =render partial: 'layouts/navbar'
+%meta{:content => user_signed_in? ? current_user.id : "", :name => "user-id"}/
+%title Qwerteach
+= javascript_include_tag 'application', 'data-turbolinks-track' => true
+= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'
+= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Sans+Pro' 
+= favicon_link_tag 'logo.ico'
+= csrf_meta_tags
+= yield(:head)

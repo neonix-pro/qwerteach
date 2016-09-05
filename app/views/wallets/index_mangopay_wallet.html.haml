@@ -1,29 +1,27 @@
 - if @transaction
-  - if @transaction["ResultCode"] == "000000"
+  - if @transaction.result_code == "000000"
     .alert.alert-notice La transaction s'est correctement déroulée
   - else
     .alert.alert-danger
-      Il y a eu un problème avec la transaction. Veuillez réessayer. Erreur : #{@transaction['ResultMessage']}
+      Il y a eu un problème avec la transaction. Veuillez réessayer. Erreur : #{@transaction.result_message}
+
 - if flash[:notice]
   .notice= flash[:notice]
 %h2 Infos générales
 %p
-  = @mango_user['LastName']
-  = @mango_user['FirstName']
+  = @user.mangopay.last_name
+  = @user.mangopay.first_name
 %p
-  Adresse :
-  - @user.address.keys.each do |k|
-    = @user.address.fetch(k)
-    ,
+  Adresse : #{ @user.address.values.select(&:present?).join(', ') }
 %p
-  Résidence : #{ISO3166::Country[@user.countryOfResidence]}
+  Résidence : #{ISO3166::Country[@user.country_of_residence]}
 %p
   Nationalité : #{ISO3166::Country[@user.nationality]}
 %h2 Portefeuille
 %p
-  = render 'wallets/contenuWallet'
+  = render 'contenu_wallet', user: @user
 %p
   En cours de transfert : #{@transactions_on_way}
-%p troisième wallet: #{@wallets.third.inspect}
+%p troisième wallet: #{@user.transaction_wallet.to_hash.inspect}
 %p
-  Date de création : #{Time.at(@wallet['CreationDate']).to_date}
+  Date de création : #{Time.at(@user.normal_wallet.creation_date).to_date}

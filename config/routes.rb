@@ -38,11 +38,12 @@ Rails.application.routes.draw do
     put "direct_debit" => :load_wallet
     get "transactions" => :transactions_mangopay_wallet
     get "card_info" => :card_info
+    get "card_registration" => :card_registration
     put "send_card_info" => :send_card_info
     get 'bank_accounts' => :bank_accounts
     put 'update_bank_accounts' => :update_bank_accounts
     get 'payout' => :payout
-    put 'make_payout' => :send_make_payout
+    put 'make_payout' => :make_payout
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
