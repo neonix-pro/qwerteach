@@ -9,4 +9,5 @@ VCR.configure do |config|
   config.debug_logger = File.open('log/vcr.log', 'w')
   #config.default_cassette_options = { :serialize_with => :xsyck }
   #config.locale = :ru
+  config.allow_http_connections_when_no_cassette = true
 end
