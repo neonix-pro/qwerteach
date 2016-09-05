@@ -2,7 +2,7 @@
   %p
     Sur Qwerteach, nous offrons aux élève sla possibilité de réserver un premier cours gratuit d'une heure avec un professeur.
     Par défaut, tous les professeurs participent à ce mouvement. Si vous ne souhaitez pas proposer cette option aux élèves qui souhaitent prendre cours avec vous, vous pouvez ici changer ce paramètre.
-  %label Premier cours gratuit
+  %label#cours_gratuit_info.info Pour le moment, les élèves ont la possibilité de réserver un premier cours gratuit avec vous.
   .switch
     %input#cmn-toggle-4.cmn-toggle.cmn-toggle-round-flat{type: "checkbox"}
     %label{for: "cmn-toggle-4"}
@@ -14,12 +14,13 @@
     -else
       - unless @adverts[c].nil?
         .advert{class: "#{cl} topic_#{@adverts[c].topic_group.id}", id: "advert_#{@adverts[c].id}"}
-          #{@adverts[c].topic.title}
+          %p #{@adverts[c].topic.title}
           = link_to edit_advert_path(@adverts[c]), remote: true do
-            %i.fa.fa-gear.fa-2x
+            =image_tag "option.png", :class => "option"
         - c+=1
   .advert.add-new-advert{class: adverts_layout(@adverts.count+1).last}
     = link_to new_advert_path, remote: true do
-      %i.fa.fa-plus.fa-5x
+      =image_tag("plus_annonce.png")
+    %p Ajouter un annonce
   .edit-advert
 #new-advert
