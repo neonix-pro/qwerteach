@@ -1,0 +1,322 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/oauth/token
+    body:
+      encoding: UTF-8
+      string: grant_type=client_credentials
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic aXBhaTVhdjc3M3hoemh5ajpVTjQ5TVFDWUpYbVFVMlljcTRoc2ViN21vdG9HM1pCZ3hKdVQyU2JndUNDWlVhYjA4RA==
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Wed, 17 Aug 2016 15:59:07 GMT
+      Content-Length:
+      - '91'
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"ae75cb79aeb947b1b466ce78650d6fee","token_type":"Bearer","expires_in":1199}'
+    http_version: 
+  recorded_at: Wed, 17 Aug 2016 15:59:09 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/natural
+    body:
+      encoding: UTF-8
+      string: '{"CountryOfResidence":"AD","Nationality":"NR","Address":{"AddressLine1":"Dicki
+        Key","AddressLine2":"9625","PostalCode":"FO5 0NB","City":"Rathburgh","Region":"Arizona","Country":"RE"},"FirstName":"Jefferey","LastName":"Cruickshank","Birthday":682362000,"Email":"katelyn.grimes@wolfdoyle.info","PersonType":"NATURAL","Tag":"user
+        5"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer ae75cb79aeb947b1b466ce78650d6fee
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Wed, 17 Aug 2016 15:59:09 GMT
+      Content-Length:
+      - '473'
+    body:
+      encoding: UTF-8
+      string: '{"Address":{"AddressLine1":"Dicki Key","AddressLine2":"9625","City":"Rathburgh","Region":"Arizona","PostalCode":"FO5
+        0NB","Country":"RE"},"FirstName":"Jefferey","LastName":"Cruickshank","Birthday":682362000,"Nationality":"NR","CountryOfResidence":"AD","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"katelyn.grimes@wolfdoyle.info","KYCLevel":"LIGHT","Id":"15259925","Tag":"user
+        5","CreationDate":1471449548}'
+    http_version: 
+  recorded_at: Wed, 17 Aug 2016 15:59:10 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    body:
+      encoding: UTF-8
+      string: '{"Owners":[15259925],"Currency":"EUR","Description":"wallet user 5"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer ae75cb79aeb947b1b466ce78650d6fee
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Wed, 17 Aug 2016 15:59:09 GMT
+      Content-Length:
+      - '185'
+    body:
+      encoding: UTF-8
+      string: '{"Description":"wallet user 5","Owners":["15259925"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"15259927","Tag":null,"CreationDate":1471449550}'
+    http_version: 
+  recorded_at: Wed, 17 Aug 2016 15:59:11 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    body:
+      encoding: UTF-8
+      string: '{"Owners":[15259925],"Currency":"EUR","Description":"wallet bonus 5","Tag":"Bonus"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer ae75cb79aeb947b1b466ce78650d6fee
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Wed, 17 Aug 2016 15:59:10 GMT
+      Content-Length:
+      - '189'
+    body:
+      encoding: UTF-8
+      string: '{"Description":"wallet bonus 5","Owners":["15259925"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"15259928","Tag":"Bonus","CreationDate":1471449550}'
+    http_version: 
+  recorded_at: Wed, 17 Aug 2016 15:59:12 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    body:
+      encoding: UTF-8
+      string: '{"Owners":[15259925],"Currency":"EUR","Description":"wallet transfert
+        5","Tag":"Transfert"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer ae75cb79aeb947b1b466ce78650d6fee
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Wed, 17 Aug 2016 15:59:10 GMT
+      Content-Length:
+      - '197'
+    body:
+      encoding: UTF-8
+      string: '{"Description":"wallet transfert 5","Owners":["15259925"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"15259929","Tag":"Transfert","CreationDate":1471449551}'
+    http_version: 
+  recorded_at: Wed, 17 Aug 2016 15:59:12 GMT
+- request:
+    method: get
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/natural/15259925
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer ae75cb79aeb947b1b466ce78650d6fee
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Wed, 17 Aug 2016 15:59:11 GMT
+      Content-Length:
+      - '473'
+    body:
+      encoding: UTF-8
+      string: '{"Address":{"AddressLine1":"Dicki Key","AddressLine2":"9625","City":"Rathburgh","Region":"Arizona","PostalCode":"FO5
+        0NB","Country":"RE"},"FirstName":"Jefferey","LastName":"Cruickshank","Birthday":682362000,"Nationality":"NR","CountryOfResidence":"AD","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"katelyn.grimes@wolfdoyle.info","KYCLevel":"LIGHT","Id":"15259925","Tag":"user
+        5","CreationDate":1471449548}'
+    http_version: 
+  recorded_at: Wed, 17 Aug 2016 15:59:13 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/15259925/bankaccounts/other
+    body:
+      encoding: UTF-8
+      string: '{"OwnerName":"Kelley Wiza","OwnerAddress":{"AddressLine1":"Dicki Key","AddressLine2":"9625","City":"Rathburgh","Region":"Arizona","PostalCode":"FO5
+        0NB","Country":"RE"},"Type":"other","Country":"FR","AccountNumber":"11696419","BIC":"CRLYFRPP"}'
+    headers:
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer ae75cb79aeb947b1b466ce78650d6fee
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
+        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        x86_64 x86_64 GNU/Linux"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Wed, 17 Aug 2016 15:59:12 GMT
+      Content-Length:
+      - '330'
+    body:
+      encoding: UTF-8
+      string: '{"OwnerAddress":{"AddressLine1":"Dicki Key","AddressLine2":"9625","City":"Rathburgh","Region":"Arizona","PostalCode":"FO5
+        0NB","Country":"RE"},"AccountNumber":"11696419","BIC":"CRLYFRPP","Country":"FR","UserId":"15259925","OwnerName":"Kelley
+        Wiza","Type":"OTHER","Id":"15259930","Tag":null,"CreationDate":1471449552,"Active":true}'
+    http_version: 
+  recorded_at: Wed, 17 Aug 2016 15:59:14 GMT
+recorded_with: VCR 3.0.3

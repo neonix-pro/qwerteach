@@ -1,10 +1,9 @@
-= fields_for :gb_account do |bank_account_fields|
+= fields_for :gb_account, bank_account do |bank_account_fields|
   .field
-    = bank_account_fields.label :Number
+    = bank_account_fields.label :number
     %br/
-    = bank_account_fields.number_field :AccountNumber, :value => bank_account['AccountNumber'],:require => true
+    = bank_account_fields.number_field :account_number, :require => true
   .field
-    = bank_account_fields.label :SortCode
+    = bank_account_fields.label :sort_code
     %br/
-    = bank_account_fields.number_field :SortCode, :value => bank_account['SortCode'],:require => true
-  = bank_account_fields.hidden_field :Type, :value => bank_account['Type']
+    = bank_account_fields.number_field :sort_code, :require => true

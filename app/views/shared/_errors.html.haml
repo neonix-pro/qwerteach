@@ -1,0 +1,6 @@
+- if object.errors.any?
+  .alert.alert-danger
+    %button.close{ type: "button", data: {dismiss: "alert"}, aria: {hidden: true} } &times;    
+    %ul
+      - object.errors.full_messages.each do |msg| 
+        %li= msg.html_safe

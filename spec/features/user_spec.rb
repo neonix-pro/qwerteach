@@ -7,7 +7,7 @@ feature "UserSignsUps" do
   end
   scenario 'with invalid email' do
     visit new_user_registration_path
-    within('#body') do 
+    within('.main-content') do 
       fill_in 'user[email]', with:'t@.'
       fill_in 'user[password]', with: 'password'
       fill_in 'user[password_confirmation]', with: 'password'
@@ -18,7 +18,7 @@ feature "UserSignsUps" do
   end
   scenario 'with invalid password' do
     visit new_user_registration_path
-    within('#body') do 
+    within('.main-content') do 
       fill_in 'user[email]', with:'t@t.t'
       fill_in 'user[password]', with: 'pass'
       fill_in 'user[password_confirmation]', with: 'pass'
@@ -28,7 +28,7 @@ feature "UserSignsUps" do
 end
   scenario 'with different password' do
     visit new_user_registration_path
-    within('#body') do 
+    within('.main-content') do 
       fill_in 'user[email]', with:'t@t.t'
       fill_in 'user[password]', with: 'kaltrina'
       fill_in 'user[password_confirmation]', with: 'rouilliiiiiiiiiiii'
@@ -45,7 +45,7 @@ end
   end
   def sign_up_with(email, password, password_confirmation)
     visit new_user_registration_path
-    within("#body") do
+    within(".main-content") do
       fill_in 'user_email', with: email
       fill_in 'user[password]', with: password
       fill_in 'user[password_confirmation]', with: password_confirmation
@@ -72,7 +72,7 @@ feature "UserUnlockInstructions" do
   end
   def ask_unlock_information(email)
     visit new_user_unlock_path
-    within("#body") do
+    within(".main-content") do
       fill_in 'user_email', with: email
       find('input[type=submit]').click
     end
@@ -93,7 +93,7 @@ feature "UserResetPassword" do
   end
   def ask_reset_password(email)
     visit new_user_password_path
-    within("#body") do
+    within(".main-content") do
       fill_in 'user_email', with: email
       find('input[type=submit]').click
     end
@@ -121,7 +121,7 @@ feature "UserResendInstructions" do
   end
   def ask_resend_insctructions(email)
     visit new_user_confirmation_path
-    within("#body") do
+    within(".main-content") do
       fill_in 'user_email', with: email
       find('input[type=submit]').click
     end
