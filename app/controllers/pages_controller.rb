@@ -1,5 +1,6 @@
 
 class PagesController < ApplicationController
+	autocomplete :topic, :title, :full => true
 	def show
 		render template: "pages/#{params[:page]}"
     
@@ -21,4 +22,5 @@ class PagesController < ApplicationController
 		@featured_reviews =  Review.where.not(:review_text => "").order("created_at DESC").uniq.limit(3)
     @featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)
 	end
+
 end

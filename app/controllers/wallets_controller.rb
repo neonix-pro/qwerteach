@@ -23,6 +23,7 @@ class WalletsController < ApplicationController
 
   def edit_mangopay_wallet
     @account = Mango::SaveAccount.new(user: current_user)
+    render "index_mangopay_wallet"
   end
 
   def update_mangopay_wallet

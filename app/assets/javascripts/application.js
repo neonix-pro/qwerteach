@@ -20,6 +20,8 @@
 //= require_tree .
 //= require bootstrap-datetimepicker
 //= require jquery_ujs
+//= require jquery-ui/autocomplete
+//= require autocomplete-rails
 //= require ckeditor-jquery
 //= require chosen-jquery
 //= require jquery.form-validator

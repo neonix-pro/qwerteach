@@ -26,6 +26,9 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
 
+  resources :pages do
+    get :autocomplete_topic_title, :on => :collection
+  end
 
   scope '/user/mangopay', controller: :payments do
   end
