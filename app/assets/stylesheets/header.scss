@@ -5,12 +5,12 @@ $color_link_grey: #b9b9b9;
 
 body, html{
     margin: 0;
-    font-family: SofiaProRegular !important;
+    font-family: SofiaProRegular;
     outline: none !important;
 }
 
-h1,h2,h3,h4,h5,p,span{
-    font-family: SofiaProRegular !important;
+h1,h2,h3,h4,h5,p,span,a{
+    font-family: SofiaProRegular;
 }
 
 .container-fluid{
