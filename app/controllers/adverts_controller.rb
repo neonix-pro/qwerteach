@@ -1,5 +1,6 @@
 class AdvertsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :find_user
 
   load_and_authorize_resource
 
@@ -143,5 +144,9 @@ class AdvertsController < ApplicationController
   private
   def advert_params
     params.require(:advert).permit(:advert, :prices, :topic_group_id, :levels_chosen, :topic_id, :user_id, :other_name, :topic, :description, advert_prices_attributes: [:id, :level_id, :price, :_destroy]).merge(user_id: current_user.id, topic: Topic.find(params[:topic_id]))
+  end
+
+  def find_user
+    @user = current_user
   end
 end

@@ -23,7 +23,11 @@ class RegistrationsController < Devise::RegistrationsController
         set_flash_message :notice, :updated
         # Sign in the user bypassing validation in case their password changed
         sign_in @user, :bypass => true
-        redirect_to after_update_path_for(@user)
+
+        respond_to do |format|
+          format.html {redirect_to after_update_path_for(@user)}
+          format.js {}
+        end
       else
         # Il faut cropper l'avatar
         render "crop"
