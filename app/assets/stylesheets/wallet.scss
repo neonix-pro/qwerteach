@@ -1,0 +1,81 @@
+.account_fields{
+    font-family: sofiaProRegular;
+    .header{
+        position: relative;
+        display: block;
+        background: #F5A726;
+        text-align: center;
+        height: 100%;
+        .option{
+            margin: 30px;
+        }
+        h1{
+            font-family: sofiaProRegular;
+            color: #fff;
+            margin-top: 5px;
+            margin-bottom: 30px;
+        }
+        .triangle{
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-left-width: 30px;
+            border-left-style: solid;
+            border-left-color: transparent;
+            border-right: 30px solid transparent;
+            border-top: 30px solid #F5A726;
+            position: absolute;
+            left: 50%;
+            bottom: -30px;
+            transform:translateX(-50%);
+        }
+    }
+    form{
+    margin: auto;
+    width: 60%;
+        .left,.right{
+            float: left;
+            width: 50%;
+            margin-top: 50px;
+        }
+        .field{
+            margin-left: 30px;
+            margin: auto;
+            margin-bottom: 12px;
+            width: 250px;
+            label{
+                color: #3C3C3B;
+                padding-left: 5px;
+            }
+            input{
+                 border-radius: 5px;
+                 border: 1px solid #706F6F;
+                 width: 250px;
+                 padding-left: 10px;
+                 color: #706F6F;
+            }
+            select{
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                width: 250px;
+                height: 25px;
+                border-radius: 5px;
+                color: #706F6F;
+                border-color: #706F6F;
+                outline: none !important;
+                padding-left: 10px;
+                background: url('select_arrow.png') no-repeat 97% 50% #ffffff;
+              }
+            .btn{
+                border-radius: 15px;
+                border-color: #29B46C;
+                border: 1px solid;
+                color: #29B46C;
+                background: #fff;
+                width: 200px;
+                margin-top: 20px;
+            }
+        }
+    }
+}

@@ -1,10 +1,14 @@
-%h1 Mes informations bancaires
-- @user = current_user
-- path = local_assigns[:path] || edit_wallet_path
-= form_for @account, as: :account, url: path, method: :put do |f|
-  = hidden_field_tag :redirect_to, params[:redirect_to]
-  = render 'shared/errors', object: f.object
-  = render 'mangopay/account_fields', f: f
-  .field
-    = submit_tag :terminer, :class => 'btn btn-primary btn-mini'
-    %br/
+.account_fields
+  .header
+    =image_tag "wallet/option.png", :class => "option"
+    %h1 Mes informations bancaires
+    .triangle
+  - @user = current_user
+  - path = local_assigns[:path] || edit_wallet_path
+  = form_for @account, as: :account, url: path, method: :put do |f|
+    = hidden_field_tag :redirect_to, params[:redirect_to]
+    = render 'shared/errors', object: f.object
+    = render 'mangopay/account_fields', f: f
+    .field
+      = submit_tag :terminer, :class => 'btn btn-primary btn-mini'
+      %br/
