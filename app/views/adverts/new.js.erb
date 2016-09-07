@@ -1,4 +1,4 @@
 $('.edit-advert').html('');
-$('#new-advert').html('<%= j render partial: 'form', locals: {advert: @advert, remote: true} %>');
+$('#new-advert').html('<%= j render partial: 'form', locals: {advert: @advert, remote: false} %>');
 animateAdvertFields();
 $('.main-content').height('auto');

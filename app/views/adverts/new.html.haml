@@ -1,7 +1,4 @@
 - model_class = @advert.class
 .page-header
-  /
-    <h1><haml_loud>t &#39;.title&#39;, :default =&gt; t(&#39;helpers.titles.new&#39;, :model =&gt; model_class.model_name.human,
-    \:default =&gt; &quot;New \#{model_class.model_name.human}&quot;) </haml_loud></h1>
   %h1 Créer une annonce
 = render :partial => 'form' , :locals => {:advert => @advert, :remote => false}
