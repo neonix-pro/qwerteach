@@ -15,7 +15,7 @@ class AdvertPricesController < ApplicationController
           format.json { head :no_content }
         end
       end
-      if @advertPrice.update_attributes(advertPrice_params)
+      if @advertPrice.update_attributes(advert_price_params)
         format.html { redirect_to adverts_path, notice: 'Price was successfully updated.'}
         format.json { head :no_content }
       else
@@ -25,10 +25,11 @@ class AdvertPricesController < ApplicationController
     end
   end
   def create
-    @advertPrice = AdvertPrice.new(advertPrice_params)
+    @advertPrice = AdvertPrice.new(advert_price_params)
     respond_to do |format|
 
       if @advertPrice.save
+        format.js {redirect_to edit_advert_path(params[:advert_id])}
         format.html { redirect_to adverts_path, notice: 'Price was successfully created.'}
         format.json { head :no_content }
       else
@@ -38,8 +39,17 @@ class AdvertPricesController < ApplicationController
     end
   end
 
+  def destroy
+    @advertPrice = AdvertPrice.find(params[:id])
+    @advertPrice.destroy
+    respond_to do |format|
+      params[:action]=nil
+      format.js {redirect_to edit_advert_path(params[:advert_id]), status: 303}
+    end
+  end
+
   private
-  def advertPrice_params
-    params.require(:advert_price).permit(:advert_id, :level_id, :price, :_destroy)
+  def advert_price_params
+    params.require(:advert_price).permit(:level_id, :price, :_destroy).merge(advert_id: params[:advert_id])
   end
 end

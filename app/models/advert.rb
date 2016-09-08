@@ -3,7 +3,7 @@ class Advert < ActiveRecord::Base
   belongs_to :user
   belongs_to :topic
   belongs_to :topic_group
-  has_many :advert_prices
+  has_many :advert_prices, -> { order(:level_id) }
   accepts_nested_attributes_for :advert_prices,
                                 :allow_destroy => true,
                                 :reject_if => :all_blank

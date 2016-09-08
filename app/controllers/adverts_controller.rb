@@ -32,6 +32,8 @@ class AdvertsController < ApplicationController
 
   def edit
     @advert = Advert.find(params[:id])
+    @levels = Level.where(:code => @advert.topic.topic_group.level_code).group(I18n.locale[0..3]).order(id: :asc) - @advert.advert_prices.map{|ap| ap.level}
+    @advert_price = AdvertPrice.new(advert_price_params)
   end
 
   def create
@@ -74,25 +76,11 @@ class AdvertsController < ApplicationController
 
     respond_to do |format|
       if @advert.update_attributes!(advert_params)
-        if params[:levels_chosen]
-          cpt = 0;
-          p = params[:prices][cpt.to_i]
-          params[:levels_chosen].each { |level|
-            while (p.blank?)
-              cpt+=1
-              p = params[:prices][cpt.to_i]
-            end
-            if (@advert.advert_prices.where(:level_id => level).blank?)
-              @advert.advert_prices.create(level_id: level, advert_id: @advert.id, price: p)
-            end
-            cpt+=1
-            p = params[:prices][cpt.to_i]
-          }
-        end
+        flash[:notice] = 'Vos modifications ont été sauvegardées.'
 
         format.html { redirect_to adverts_path, notice: 'Advert was successfully updated.' }
         format.json { head :no_content }
-
+        format.js {}
       else
         format.html { render action: "edit" }
         format.json { render json: @advert.errors, status: :unprocessable_entity }
@@ -114,15 +102,8 @@ class AdvertsController < ApplicationController
   def choice
     topic = Topic.find(params[:topic_id])
     level_choice = topic.topic_group.level_code
-    deja_pris = Advert.get_levels(current_user, topic)
-    liste = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => level_choice).group(I18n.locale[0..3]).order(:id)
-    @levels = []
-    liste.each do |level|
-      unless deja_pris.include?(level.id)
-        @levels.push level
-      end
-    end
-    #@levels = @levels.where.not(:id => Advert.get_levels(current_user, topic))
+    @advert = Advert.find_by(user_id: current_user.id, topic_id: topic.id) || Advert.new()
+    @levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => level_choice).group(I18n.locale[0..3]).order(:id)
     respond_to do |format|
       format.js {}
     end
@@ -144,6 +125,10 @@ class AdvertsController < ApplicationController
   private
   def advert_params
     params.require(:advert).permit(:advert, :prices, :topic_group_id, :levels_chosen, :topic_id, :user_id, :other_name, :topic, :description, advert_prices_attributes: [:id, :level_id, :price, :_destroy]).merge(user_id: current_user.id, topic: Topic.find(params[:topic_id]))
+  end
+
+  def advert_price_params
+    params.permit(:advert).merge(advert: @advert)
   end
 
   def find_user
