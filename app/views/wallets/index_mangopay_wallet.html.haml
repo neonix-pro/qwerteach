@@ -22,15 +22,109 @@
     .center
       =image_tag("wallet/info_bank.png")
       %p Information bancaires
+    .triangle
   .threecol#historique.col-md-4
     .center
       =image_tag("wallet/historique.png")
       %p Historique
+    .triangle
   .threecol#option.col-md-4
     .center
       =image_tag("wallet/option.png")
       %p Coordonnées
-
+    .triangle
+  #option_info_bank.block_info
+    .line
+      .cont
+        .v-center.title
+          %p Moyens de payements
+      .cont
+        .v-center.tile
+          %p Carte 1
+      .cont
+        .v-center.tile
+          %p Carte 2
+      .cont
+        .v-center.tile#plus
+          .center
+            =image_tag("wallet/plus.png")
+            %p Ajouter un moyen de paiement
+    .line
+      .cont
+        .v-center.title
+          %p Moyens de payements
+      .cont
+        .v-center.tile#plus
+          .center
+            =image_tag("wallet/plus.png")
+            %p Préférences de versement
+  #option_historique.block_info
+    %table
+      %tr
+        %th.dark Date
+        %th Type
+        %th.dark Auteur
+        %th Utilisateur crédité
+        %th.dark Montant crédité
+        %th Montant débité
+        %th.dark Frais
+      %tr
+        %td 18/10/1970
+        %td A
+        %td Auteur
+        %td Moi
+        %td Trop
+        %td Beaucoup trop
+        %td Enormément trop
+      %tr
+        %td 18/10/1970
+        %td A
+        %td Auteur
+        %td Moi
+        %td Trop
+        %td Beaucoup trop
+        %td Enormément trop
+      %tr
+        %td 18/10/1970
+        %td A
+        %td Auteur
+        %td Moi
+        %td Trop
+        %td Beaucoup trop
+        %td Enormément trop
+  #option_option.block_info
+    %form
+      .left.col-md-5
+        .form-section
+          %label Nom  
+          %input
+        .form-section
+          %label Prénom
+          %input
+        .form-section
+          %label Date de naissance
+          %input
+        .form-section
+          %label Nationalité
+          %select
+            %option tu n'as pas le choix
+      .left.col-md-5
+        .form-section
+          %label Adresse
+          %input
+        .form-section
+          %label Code postal
+          %input
+        .form-section
+          %label Région
+          %input
+        .form-section
+          %label Pays
+          %select
+            %option tu n'as pas le choix choix
+      .right.col-md-2  
+        .form-section-submit
+          = submit_tag :terminer, :class => 'submit'
 /
   %p
     = @user.mangopay.last_name

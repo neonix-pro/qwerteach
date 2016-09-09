@@ -83,6 +83,18 @@
 }
 
 .wallet_index{
+    .center{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    .v-center{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
     .money{
         position: relative;
         height: 170px;
@@ -106,6 +118,7 @@
             width: 100%;
         }
     }
+    
     .reload{
         position: relative;
         height: 170px;
@@ -124,6 +137,7 @@
             margin-top: 10px;
         }
     }
+    
     .threecol{
         position: relative;
         box-shadow: 10px 2px 14px 2px rgba(0,0,0,0.45);
@@ -141,19 +155,165 @@
             transform: translate(-50%,-40%);
         }
     }
+    
     #info_bank{
         background: #82368C;
         height: 170px;
         z-index: 8;
+        .triangle{
+            display: none;
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-left-width: 30px;
+            border-left-style: solid;
+            border-left-color: transparent;
+            border-right: 30px solid transparent;
+            border-top: 30px solid #82368C;
+            position: absolute;
+            left: 50%;
+            bottom: -30px;
+            transform:translateX(-50%);
+        }
     }
+    
     #historique{
         background: #E71D73;
         height: 170px;
         z-index: 7;
+        .triangle{
+            display: none;
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-left-width: 30px;
+            border-left-style: solid;
+            border-left-color: transparent;
+            border-right: 30px solid transparent;
+            border-top: 30px solid #E71D73;
+            position: absolute;
+            left: 50%;
+            bottom: -30px;
+            transform:translateX(-50%);
+        }
     }
+    
     #option{
         background: #F5A726;
         height: 170px;
         z-index: 6;
+        .triangle{
+            display: none;
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-left-width: 30px;
+            border-left-style: solid;
+            border-left-color: transparent;
+            border-right: 30px solid transparent;
+            border-top: 30px solid #F5A726;
+            position: absolute;
+            left: 50%;
+            bottom: -30px;
+            transform:translateX(-50%);
+        }
+    }
+    
+    .block_info{
+        display: none;
+        width: 100%;
+    }
+    
+    #option_info_bank{
+        .line{
+            height: 170px;
+            box-shadow: 10px 2px 14px 2px rgba(0,0,0,0.45);
+            width: 100%;
+            display: block;
+            overflow-x: scroll;
+            position: relative;
+            background: #F6F6F6;
+            .cont:first-child{
+                left: 13%;
+                margin-right: 50px;
+            }
+            .cont{
+                height: 90%;
+                top: 5%;
+                width: 220px;
+                position: relative;
+                display: inline-block;
+            }
+            .title{
+                width: 100px;
+                font-size: 16px;
+            }
+            .tile{
+                width: 200px;
+                height: 120px;
+                border-radius: 10px;
+                margin-left: 20px;
+                background: rgb(random(225),random(225),random(225));
+                p{
+                    position: absolute;
+                    text-align: center;
+                    width: 100%;
+                    bottom: 15px;
+                    color: #fff;
+                }
+            }
+            #plus{
+                background: #1D1D1B;
+                text-align: center;
+                p{
+                    position: static;
+                }
+                .center{
+                    width: 80%;
+                    margin: auto;
+                    color: #fff;
+                }
+            }
+        }
+    }
+    
+    #option_historique{
+        display: none;
+        table{
+            width: 100%;
+            tr{
+                border-bottom: #3C3C3B 1px solid;
+                th,td{
+                    text-align: center;
+                    padding: 10px 0px;
+                    background: #F6F6F6;
+                }
+                th{
+                    padding-top: 50px;
+                }
+            }
+            .dark{
+                background: #DADADA;
+            }
+        }
+    }
+    
+    #option_option{
+        display: none;
+        form{
+            width: 68%;
+            margin: auto;
+            .form-section{
+                margin-top: 20px;
+            }
+            .form-section-submit {
+                text-align: center;
+                margin-top: 50px;
+                .submit{
+                    margin: auto;
+                    
+                }
+            }
+        }
     }
 }

@@ -24,6 +24,53 @@ a, a:hover, a:active, a:focus{
     outline: 0;
     background: none;
 }
+
+form{
+    
+    input{
+        border-radius: 5px;
+        border: 1px solid #706F6F;
+        width: 250px;
+        padding-left: 10px;
+        color: #706F6F;
+        display: block;
+    }
+    select{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 250px;
+        height: 25px;
+        border-radius: 5px;
+        color: #706F6F;
+        border-color: #706F6F;
+        outline: none !important;
+        padding-left: 10px;
+        background: url('select_arrow.png') no-repeat 97% 50% #ffffff;
+        border: 1px solid;
+        pointer: cursor
+    }
+    label{
+        color: #3C3C3B;
+        padding-left: 5px;
+        display: block;
+        margin-top: 10px;
+   }
+   .submit{
+        border-radius: 15px;
+        border-color: #29B46C;
+        border: 1px solid;
+        color: #29B46C;
+        background: #fff;
+        width: 200px;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 6px;
+    }
+}
+
 button{
     outline: none !important;
 }
