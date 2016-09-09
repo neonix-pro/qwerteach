@@ -36,3 +36,6 @@
               =link_to 'Modifier mon profil', edit_user_registration_path(current_user)
             %li
               =link_to 'Voir mon profil', user_path(current_user)
+            - if current_user.is_a?(Teacher)
+              %li
+                =link_to 'Mes annonces', adverts_path
