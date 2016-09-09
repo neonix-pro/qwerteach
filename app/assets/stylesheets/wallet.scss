@@ -132,6 +132,17 @@
             top: 50%;
             transform: translate(-50%,-40%);
         }
+        .high{
+            height: 50%;
+            position: relative;
+            text-align: center;
+            img{
+                height: 15px;
+            }
+        }
+        .high:first-child{
+            border-bottom: 1px solid #000;
+        }
         p{
             font-size: 16px;
             margin-top: 10px;

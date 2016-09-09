@@ -15,9 +15,19 @@
     %span
       \#{wallet_balance(user.bonus_wallet)} de crédit bonus
   .reload.col-md-2
-    .center
-      =image_tag("wallet/reload.png")
-      %p Recharger
+    - if @user.is_a?(Teacher)
+      .high
+        .center
+          =image_tag("wallet/deload.png")
+          %p Décharger
+      .high
+        .center
+          =image_tag("wallet/reload.png")
+          %p Recharger
+    - else
+      .center
+        =image_tag("wallet/reload.png")
+        %p Recharger
   .threecol#info_bank.col-md-4
     .center
       =image_tag("wallet/info_bank.png")
@@ -143,3 +153,5 @@
   %p troisième wallet: #{@user.transaction_wallet.to_hash.inspect}
   %p
     Date de création : #{Time.at(@user.normal_wallet.creation_date).to_date}
+    
+    
