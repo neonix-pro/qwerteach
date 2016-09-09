@@ -7,21 +7,45 @@
 
 - if flash[:notice]
   .notice= flash[:notice]
-%h2 Infos générales
-%p
-  = @user.mangopay.last_name
-  = @user.mangopay.first_name
-%p
-  Adresse : #{ @user.address.values.select(&:present?).join(', ') }
-%p
-  Résidence : #{ISO3166::Country[@user.country_of_residence]}
-%p
-  Nationalité : #{ISO3166::Country[@user.nationality]}
-%h2 Portefeuille
-%p
-  = render 'contenu_wallet', user: @user
-%p
-  En cours de transfert : #{@transactions_on_way}
-%p troisième wallet: #{@user.transaction_wallet.to_hash.inspect}
-%p
-  Date de création : #{Time.at(@user.normal_wallet.creation_date).to_date}
+.wallet_index
+  .money.col-md-10
+    - user = local_assigns[:user] || current_user
+    %p
+      = wallet_balance(user.normal_wallet)
+    %span
+      \#{wallet_balance(user.bonus_wallet)} de crédit bonus
+  .reload.col-md-2
+    .center
+      =image_tag("wallet/reload.png")
+      %p Recharger
+  .threecol#info_bank.col-md-4
+    .center
+      =image_tag("wallet/info_bank.png")
+      %p Information bancaires
+  .threecol#historique.col-md-4
+    .center
+      =image_tag("wallet/historique.png")
+      %p Historique
+  .threecol#option.col-md-4
+    .center
+      =image_tag("wallet/option.png")
+      %p Coordonnées
+
+/
+  %p
+    = @user.mangopay.last_name
+    = @user.mangopay.first_name
+  %p
+    Adresse : #{ @user.address.values.select(&:present?).join(', ') }
+  %p
+    Résidence : #{ISO3166::Country[@user.country_of_residence]}
+  %p
+    Nationalité : #{ISO3166::Country[@user.nationality]}
+  %h2 Portefeuille
+  %p
+    = render 'contenu_wallet', user: @user
+  %p
+    En cours de transfert : #{@transactions_on_way}
+  %p troisième wallet: #{@user.transaction_wallet.to_hash.inspect}
+  %p
+    Date de création : #{Time.at(@user.normal_wallet.creation_date).to_date}
