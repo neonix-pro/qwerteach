@@ -39,6 +39,8 @@
   padding:20px 0px;
   z-index:1;
   ul.search-filters{
+    list-style: outside none none;
+    padding-left: 0px;
     li{
       cursor:pointer;
       font-size: 12px;
