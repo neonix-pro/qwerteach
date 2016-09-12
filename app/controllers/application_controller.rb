@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  # Rediriger en cas d'exception CanCan car pas le droit d'accès
+  # redirects if catches cancan access denied
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
   end
@@ -7,13 +7,13 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
-  # Protéger le site en vérifiant les sources des requetes extérieures
   # To protect against all other forged requests, we introduce a required
   # security token that our site knows but other sites don't know. We include
   # the security token in requests and verify it on the server.
   protect_from_forgery with: :exception
-  # loader les permitted params pour devise
+  # loads devise permitted params
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  after_filter :flash_to_headers
 
   def bigbluebutton_role(room)
       :moderator
@@ -27,16 +27,25 @@ class ApplicationController < ActionController::Base
     Time.now.to_i
   end
 
+  def flash_to_headers
+    return unless request.xhr?
+    return if flash_message.nil?
+    response.headers['X-Message'] = flash_message
+    response.headers["X-Message-Type"] = flash_type.to_s
+
+    flash.discard  # discard flash messages after encoding so don't appear twice
+  end
+
   helper_method :twelve_teacher
 
-  # Pour définir les permitted params dans les controllers en utilisant require
+  # Use require to define permitted params
   protected
     before_filter do
       resource = controller_name.singularize.to_sym
       method = "#{resource}_params"
       params[resource] &&= send(method) if respond_to?(method, true)
     end
-    # Permitted params pour Devise pour l'inscription et la maj d'un compte existant
+    # Permitted params pour Devise sign up & update
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) do |u|
         u.permit(:email, :password, :password_confirmation, :current_password, :time_zone)
@@ -46,4 +55,18 @@ class ApplicationController < ActionController::Base
             :crop_x, :crop_y, :crop_w, :crop_h,:level, :pictures, :gallery, :avatar, :occupation, :level_id, :type, :birthdate, :description, :gender, :phonenumber, :firstname, :lastname, :email, :password, :password_confirmation, :current_password, :accepts_post_payments, :time_zone
         ) }
     end
+
+  def flash_message
+    [:error, :warning, :notice].each do |type|
+      return flash[type] unless flash[type].blank?
+    end
+    nil
+  end
+
+  def flash_type
+    [:error, :warning, :notice].each do |type|
+      return type unless flash[type].blank?
+    end
+    nil
+  end
 end

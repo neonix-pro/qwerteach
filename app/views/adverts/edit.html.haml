@@ -3,4 +3,4 @@
   %h1= t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human, |
     :default => "Edit #{model_class.model_name.human}")
 
-= render partial: 'adverts/editAdvert', :locals => {advert: @advert}
+= render partial: 'adverts/edit_advert', :locals => {advert: @advert}
