@@ -17,7 +17,7 @@
       %div
         = ff.label ff.object.level.be
         = ff.number_field :price, min: 0, required: true
-        = link_to("Remove", advert_advert_price_path(f.object, ff.object), method: :delete, remote: true, class: "btn btn-mini please-wait")
+        = link_to("Remove", advert_advert_price_path(f.object, ff.object), method: :delete, remote: true, class: "btn btn-mini please-wait delete_level")
     %button#addlevel ajouter un niveau
 
     .form-actions
