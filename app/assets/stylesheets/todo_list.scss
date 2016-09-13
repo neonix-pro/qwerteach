@@ -1,0 +1,19 @@
+@import "global_variables";
+.todo_list_title{
+  margin:0px;
+  padding:20px 0px;
+  text-align:center;
+  color:$color_qwerteach_lightgrey;
+  background-color:$color_qwerteach_green;
+}
+
+.todo{
+  padding: 30px 0px;
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,1);
+  line-height:25px;
+  z-index: 2;
+  position: relative;
+  .todo_title{
+    margin:0;
+  }
+}

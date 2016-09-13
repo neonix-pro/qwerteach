@@ -1,31 +1,35 @@
-- lessons.each do |lesson|
-  .lesson
-    %tr
-      %td= lesson.id
-      %td
-        = lesson.teacher.firstname
-        = lesson.teacher.lastname
-      %td
-        = lesson.student.firstname
-        = lesson.student.lastname
-      %td= lesson.topic_group.title
-      %td= lesson.time_start
-      %td= lesson.time_end
-      %td= lesson.status.to_s
-      - if current_user.id == lesson.teacher.id && (lesson.pending_teacher? || lesson.pending_student?)
+-unless lesson.empty?
+  .row
+    .col-xs-12#upcoming_lessons
+
+  - lessons.each do |lesson|
+    .lesson
+      %tr
+        %td= lesson.id
         %td
-          = link_to t('.accept', :default => t("helpers.links.accept")),
-            lesson_accept_lesson_path(lesson), :class => 'btn btn-success'
-          = link_to t('.refuse', :default => t("helpers.links.refuse")),
-            lesson_refuse_lesson_path(lesson), :class => 'btn btn-danger'
-      - if current_user.id == lesson.teacher_id && lesson.created?
-        %td= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            lesson_cancel_lesson_path(lesson), :class => 'btn btn-warning'
-      - elsif current_user.id == lesson.student_id && lesson.pending_teacher?
+          = lesson.teacher.firstname
+          = lesson.teacher.lastname
         %td
-          = link_to t('.cancel', :default => t("helpers.links.cancel")),
-            lesson_cancel_lesson_path(lesson), :class => 'btn btn-danger'
-          = link_to t('.edit', :default => t("helpers.links.edit")),
-            edit_lesson_path(lesson), :class => 'btn btn-warning'
-      - else
-        %td
+          = lesson.student.firstname
+          = lesson.student.lastname
+        %td= lesson.topic_group.title
+        %td= lesson.time_start
+        %td= lesson.time_end
+        %td= lesson.status.to_s
+        - if current_user.id == lesson.teacher.id && (lesson.pending_teacher? || lesson.pending_student?)
+          %td
+            = link_to t('.accept', :default => t("helpers.links.accept")),
+              lesson_accept_lesson_path(lesson), :class => 'btn btn-success'
+            = link_to t('.refuse', :default => t("helpers.links.refuse")),
+              lesson_refuse_lesson_path(lesson), :class => 'btn btn-danger'
+        - if current_user.id == lesson.teacher_id && lesson.created?
+          %td= link_to t('.cancel', :default => t("helpers.links.cancel")),
+              lesson_cancel_lesson_path(lesson), :class => 'btn btn-warning'
+        - elsif current_user.id == lesson.student_id && lesson.pending_teacher?
+          %td
+            = link_to t('.cancel', :default => t("helpers.links.cancel")),
+              lesson_cancel_lesson_path(lesson), :class => 'btn btn-danger'
+            = link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_lesson_path(lesson), :class => 'btn btn-warning'
+        - else
+          %td

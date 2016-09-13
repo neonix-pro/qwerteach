@@ -1,0 +1,7 @@
+- unless user.profil_complete?
+  Parraînez un ami et gagnez du crédit!
+  .text-center
+    = link_to '#', class: 'bonus_credit' do
+      %i.fa.fa-long-arrow-right
+- else
+  Incomplet

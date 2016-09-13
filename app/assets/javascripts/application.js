@@ -46,3 +46,7 @@ $(document).ajaxSuccess(function(event, request) {
     var type = request.getResponseHeader('X-Message-Type');
     if (msg != 'null') show_ajax_message(msg, type);
 });
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})

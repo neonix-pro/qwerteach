@@ -1,14 +1,24 @@
-#todo_list
-  = render partial: 'todo_list', locals: {to_do_list: @to_do_list, user: @user}
-#upcoming_lessons
-  = render partial: 'upcoming_lessons', locals:{lessons: @upcoming_lessons}
-#past_lessons
-  = render partial: 'upcoming_lessons', locals:{lessons: @past_lessons}
-#wallet_overview
-  = render partial: 'wallet_overview', locals:{user: @user}
-#bonus
-  = render partial: 'bonus', locals:{user: @user}
-#topics.section-choix
-  = render partial: 'pages/topic_groups_list', locals:{topic_groups: @featured_topics}
-#featured_teachers
-  = render partial: 'featured_teachers', locals: {teachers: @featured_teachers}
+.container-fluid
+  -unless @to_do_list.empty?
+    .row
+      .col-xs-12#todo_list
+        = render partial: 'todo_list', locals: {to_do_list: @to_do_list, user: @user}
+  -unless @upcoming_lessons.empty?
+    .row
+      .col-xs-12#upcoming_lessons
+        = render partial: 'upcoming_lessons', locals:{lessons: @upcoming_lessons}
+  -unless @past_lessons.empty?
+    .row
+      .col-xs-12#past_lessons
+        = render partial: 'upcoming_lessons', locals:{lessons: @past_lessons}
+  .row
+    .col-xs-6#wallet_overview
+      = render partial: 'wallet_overview', locals:{user: @user}
+    .col-xs-6#bonus
+      = render partial: 'bonus', locals:{user: @user}
+  .row
+    .col-xs-12#topics.section-choix
+      = render partial: 'pages/topic_groups_list', locals:{topic_groups: @featured_topics}
+  .row
+    .col-xs-12#featured_teachers
+      = render partial: 'featured_teachers', locals: {teachers: @featured_teachers}

@@ -1,2 +1,12 @@
-%div.todo_review
-  %h3 Laisser une review à #{link_to lesson.teacher.name, user_path(lesson.teacher)}
+.todo.todo_review
+  .row
+    .col-sm-2.col-hidden-xs.text-center
+      = image_tag (lesson.teacher.avatar(:small), class: 'img img-circle todo_img')
+    .col-sm-7.col-xs-9
+      %h3.todo_title
+        Recommanderiez-vous #{lesson.teacher.firstname} ?
+      .todo_review
+        = render partial: 'shared/star_rating', locals:{note: lesson.teacher.avg_reviews}
+    .col-xs-3
+      = button_to 'Laisser un avis', '#', class: 'btn btn-mini btn-green'
+      = link_to 'Pas maintenant', '#', class: 'text-grey'

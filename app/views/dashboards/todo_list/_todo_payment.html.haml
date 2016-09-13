@@ -1,2 +1,18 @@
-%div.todo_payment
-  %h3 Payer votre cours avec #{link_to lesson.teacher.name, user_path(lesson.teacher)}
+.todo.todo_payment
+  .container-fluid
+    .row
+      .col-sm-2.col-hidden-xs.text-center
+        %i.fa.fa-credit-card.fa-4x.text-purple
+      .col-sm-7.col-xs-9
+        %h3.todo_title
+          Débloquer le payement du cours
+        .todo-details
+          #{distance_of_time_in_words(lesson.time_start, lesson.time_end)} de
+          #{link_to lesson.topic.title, profs_by_topic_path(lesson.topic.title), class: 'text-purple'} avec
+          #{link_to lesson.teacher.name, user_path(lesson.teacher), class: 'text-purple'}
+          %br
+          %span{data: {toggle: 'tooltip', placement: 'bottom'}, title: "#{lesson.time_start.strftime('Timezone: %Z')}"}
+            #{lesson.time_start.strftime('Le %d/%m/%Y à %R')}
+      .col-xs-3
+        = button_to 'Oui, payer le prof', lesson_debloquerpayment_path(lesson), class: 'btn btn-mini btn-green'
+        = link_to 'Signaler un problème', lesson_bloquerpayment_path(lesson), class: 'text-grey'

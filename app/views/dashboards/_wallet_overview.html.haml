@@ -1,11 +1,12 @@
--if user.mango_id.nil?
-  %h5 Portefeuille:
-  %div 0€
-  =link_to 'Configurez votre portefeuille virtuel!', edit_wallet_path(user)
--else
-  %h5 Portefeuille:
-  = "#{user.total_wallets_in_cents/100} €"
-  = link_to 'Charger', direct_debit_path(user)
-
-
-   
+.row
+  .col-xs-4.text-center
+    %i.fa.fa-4x.fa-credit-card.text-purple
+  .col-xs-8
+    %h3 Portefeuille
+    -if user.mango_id.nil?
+      %div 0€
+      =link_to 'Configurez votre portefeuille virtuel!', edit_wallet_path(user)
+    -else
+      #{user.total_wallets_in_cents/100} €
+      %br
+      = link_to 'Charger', direct_debit_path(user), class: 'text-grey'
