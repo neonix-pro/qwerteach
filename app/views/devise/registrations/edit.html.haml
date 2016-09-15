@@ -1,78 +1,103 @@
 .backgroundEdit.edit_profile
-  %h2
-    Modifier votre compte #{resource_name.to_s.humanize}
+  .col-md-2.menu
+    =image_tag "avatar.jpg", :class => "avatar"
+    %div.title
+      %h2 Modifier votre compte 
+    %div
+      =link_to "Modifier mot de passe", "#", :data => {:toggle => "collapse", :target => "#passcode"}
+    %div 
+      =link_to "Mes annonces", "#", :data => {:toggle => "collapse", :target => "#annonces"}
+    %div
+      =link_to "Favoris", "#", :data => {:toggle => "collapse", :target => "#favoris"}
+    %div
+      =link_to "Mon calendrier", "#", :data => {:toggle => "collapse", :target => "#calendear"}
+    %div 
+      =link_to "Aperçu de mon profil", :data => {:toggle => "collapse", :target => "#profil"}
+  .col-md-10.right
+    %div#passcode.collapse
+      %form
+        .from-group
+          %label Mot de passe actuel
+    %div#annonces.collapse
+      Annonces
+    %div#favoris.collapse
+      Favoris
+    %div#calendear.collapse
+      Calendrier
+    %div#profil.collapse
+-#  
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
     = devise_error_messages!
-    .containter.backgroundEdit
-      =link_to "1. Informations personnelles", "#", :data => {"link" => "#infos-perso"}, :class => "title", :id => "title1"
-      =link_to "2. Informations Scolaires", "#", :data => {"link" => "#infos-scol"}, :class => "title", :id => "title2"
-      =link_to "3. Informations du compte", "#", :data => {"link" => "#infos-compte"}, :class => "title", :id => "title3"
-      =link_to "4. Informations du compte", "#", :data => {"link" => "#annonces"}, :class => "title", :id => "title4"
-      .colonne1.colonne.in{:id => "infos-perso"}
-        %h4 Informations personnelles
-        .field
-          = f.text_field :lastname, class: 'form-control', :placeholder => :Nom
-        .field
-          = f.text_field :firstname, class: 'form-control', :placeholder => :Prénom
-        .field
-          = f.text_field:birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}, :placeholder => :Date_de_Naissance
-        .field
-          = f.text_area :description, :class => 'ckeditor', :placeholder => :Présentation
-        .field
-          = f.select :gender, User::GENDER_TYPES, :placeholder => :Sexe
-        %h3 Mes photos
-        - @gallery=Gallery.where(:user => current_user).last
-        = link_to "Gérer mes photos", gallery_path(@gallery),:class => "link opacity_hover"
-        %br
-        %br
-        %br
-        %br
-      .colonne2.colonne{:id => "infos-scol"}
-        %h4 Informations Scolaire
-        - if resource.type == "Student"
-          #type.field
-            = f.label :type
-            = f.select :type, User::ACCOUNT_TYPES
-        .field
-          - levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id)
-          = f.label :level_id
-          = f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }
-        / if teacher, cannot change account type anymore
-        - if resource.type == "Teacher"
+      .containter.backgroundEdit
+        =link_to "1. Informations personnelles", "#", :data => {"link" => "#infos-perso"}, :class => "title", :id => "title1"
+        =link_to "2. Informations Scolaires", "#", :data => {"link" => "#infos-scol"}, :class => "title", :id => "title2"
+        =link_to "3. Informations du compte", "#", :data => {"link" => "#infos-compte"}, :class => "title", :id => "title3"
+        =link_to "4. Informations du compte", "#", :data => {"link" => "#annonces"}, :class => "title", :id => "title4"
+        .colonne1.colonne.in{:id => "infos-perso"}
+          %h4 Informations personnelles
           .field
-            = f.label :occupation
-            = f.text_field :occupation
+            = f.text_field :lastname, class: 'form-control', :placeholder => :Nom
           .field
-            = f.label :accepts_post_payments
-            = f.check_box :accepts_post_payments
-        %h4 Mes diplomes
-        = link_to "Gérer mes diplomes", degrees_path, :class => "link opacity_hover"
-        %br
-        %br
-        %br
-        .field
-          = f.label :Téléphone
-          = f.text_field :phonenumber
+            = f.text_field :firstname, class: 'form-control', :placeholder => :Prénom
+          .field
+            = f.text_field:birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}, :placeholder => :Date_de_Naissance
+          .field
+            = f.text_area :description, :class => 'ckeditor', :placeholder => :Présentation
+          .field
+            = f.select :gender, User::GENDER_TYPES, :placeholder => :Sexe
+          %h3 Mes photos
+          - @gallery=Gallery.where(:user => current_user).last
+          = link_to "Gérer mes photos", gallery_path(@gallery),:class => "link opacity_hover"
           %br
           %br
           %br
-      .colonne3.colonne{:id => "infos-compte"}
-        %h4 Informations du compte
-        #avatar_select.field
-          - resource.crop_x=0
-          = f.label :avatar
-          = f.file_field :avatar
-        .actions
-          = f.submit "Update", :class => "submit opactiy_hover"
+          %br
+        .colonne2.colonne{:id => "infos-scol"}
+          %h4 Informations Scolaire
+          - if resource.type == "Student"
+            #type.field
+              = f.label :type
+              = f.select :type, User::ACCOUNT_TYPES
+          .field
+            - levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id)
+            = f.label :level_id
+            = f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }
+          / if teacher, cannot change account type anymore
+          - if resource.type == "Teacher"
+            .field
+              = f.label :occupation
+              = f.text_field :occupation
+            .field
+              = f.label :accepts_post_payments
+              = f.check_box :accepts_post_payments
+          %h4 Mes diplomes
+          = link_to "Gérer mes diplomes", degrees_path, :class => "link opacity_hover"
           %br
           %br
           %br
-      .case4.colonne.colonne4{:id => "annonces"}
-        %h3 Mes annonces
-        = link_to "Gérer mes annonces", adverts_path, :class => "link opacity_hover"
-        %br
-        %br
-        %br
+          .field
+            = f.label :Téléphone
+            = f.text_field :phonenumber
+            %br
+            %br
+            %br
+        .colonne3.colonne{:id => "infos-compte"}
+          %h4 Informations du compte
+          #avatar_select.field
+            - resource.crop_x=0
+            = f.label :avatar
+            = f.file_field :avatar
+          .actions
+            = f.submit "Update", :class => "submit opactiy_hover"
+            %br
+            %br
+            %br
+        .case4.colonne.colonne4{:id => "annonces"}
+          %h3 Mes annonces
+          = link_to "Gérer mes annonces", adverts_path, :class => "link opacity_hover"
+          %br
+          %br
+          %br
         
 /
   Utilité ?

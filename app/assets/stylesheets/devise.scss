@@ -2,120 +2,34 @@
 
 /***User registration edit ***/
 .edit_profile{
-  .title{
-    color: #fff;
-    text-align: center;
-    display: block;
-    float: left;
-    width: 100%;
-    font-size: 18px;
-    background: $color_qwerteach_navgrey;
-    font-weight: bold;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    width: 25%;
-  }
-  #title1{
-    background: $color_qwerteach_green;
-  }
-  #title2{
-    background: $color_qwerteach_pink;
-  }
-  #title3{
-    background: $color_qwerteach_purple;
-  }
-  #title4{
-    background: $color_qwerteach_yellow;
-  }
-  h2{
-    background: $color_qwerteach_darkgrey;
-    color: #fff;
-    text-align: center;
-    padding: 35px;
-    margin: 0;
-    font-weight: bold;
-  }
-  .colonne{
-    display: block;
-    width: 100%;
+  .menu{
     height: 100%;
-    margin: 0;
     text-align: center;
-    h4,h3{
-      text-align: center;
-      padding: 25px;
+    padding: 0;
+    position: fixed;
+    background: #191919;
+    .avatar{
+      width: 100%;
+    }
+    h2, a{
+      color: #C6C6C6;
+      font-size: 11px;
       margin: 0;
-      color: #fff;
-      font-size: 24px;
-      font-weight: bold;
     }
-    input{
-      width: 65%;
-      color: $color_qwerteach_green;
-      font-size: 18px;
-      text-align: center;
-      margin: 20px auto;
-      border-radius: 75px;
+    div{
+      padding: 5px 0px;
+      border-bottom: 1px solid #C6C6C6;
+    }
+    .title{
       border: none;
-      outline: none;
-      display: block;
-      height: 50px;
-    }
-    label{
-      text-align: center;
-      font-size: 18px;
-      display: block;
-      margin: auto auto 0px auto;
-    }
-    select{
-      width: 200px;
-      color: $color_qwerteach_green;
-      font-size: 18px;
-      text-align: center;
-      margin: 20px auto;
-      border: none;
-      outline: none;
-      display: block;
-      height: 50px;
-    }
-    iframe{
-      height: 300px;
-      margin: auto;
-    }
-    .submit{
-      background: $color_qwerteach_green;
-      width: 200px;
-      color: #fff;
-    }
-    .link{
-      width: 200px;
-      font-size: 18px;
-      color: #fff;
-      padding: 10px 25px;
-      background: $color_qwerteach_navgrey;
-      margin: auto;
-      margin-bottom: 45px;
-      border-radius: 75px;
+      background: #575756;
+      h2{
+        padding: 5px 0px;
+      }
     }
   }
-  #user_avatar{
-      color: #fff;
-      width: auto;
-      font-size: 16px;
-    }
-  .colonne1{
-    background: $color_qwerteach_green !important;
-  }
-  .colonne2{
-    background: $color_qwerteach_pink !important;
-    display: none;
-  }
-  .colonne3{
-    background: $color_qwerteach_purple !important;
-    display: none;
-  }
-  .colonne4{
-    background: $color_qwerteach_green !important;
-    display: none;
+  .right{
+    left: 16.66666666%;
+    position: relative;
   }
 }
