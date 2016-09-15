@@ -173,10 +173,11 @@ $(document).ready(ready);
 $(document).on("page:load", ready);
 
 
-//Collapse edit profil
+//Only one collapse edit profil
 
 $(document).ready(function(){
-   $(".edit_profile .menu .a").click(function(e) {
-       $(".collapse").hide();
-   }) 
+    var $myGroup = $('.edit_profile .right');
+    $myGroup.on('show.bs.collapse','.collapse', function() {
+        $myGroup.find('.collapse.in').collapse('hide');
+    });
 });
