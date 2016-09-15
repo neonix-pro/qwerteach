@@ -4,7 +4,7 @@
     %div.title
       %h2 Modifier votre compte 
     %div
-      =link_to "Modifier mot de passe", "#", :data => {:toggle => "collapse", :target => "#passcode"}
+      =link_to "Modifier mot de passe", "#", :data => {:toggle => "collapse", :target => "#passcode"}, :class => "active"
     %div 
       =link_to "Mes annonces", "#", :data => {:toggle => "collapse", :target => "#annonces"}
     %div
@@ -12,9 +12,9 @@
     %div
       =link_to "Mon calendrier", "#", :data => {:toggle => "collapse", :target => "#calendear"}
     %div 
-      =link_to "Aperçu de mon profil", :data => {:toggle => "collapse", :target => "#profil"}
+      =link_to "Aperçu de mon profil", "#", :data => {:toggle => "collapse", :target => "#profil"}
   .col-md-10.right
-    %div#passcode.collapse
+    %div#passcode.collapse.in
       %form
         .form-group
           %label Mot de passe actuel

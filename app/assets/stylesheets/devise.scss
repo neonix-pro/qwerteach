@@ -11,12 +11,20 @@
     .avatar{
       width: 100%;
     }
+    .active{
+      background: #21DE80;
+      border: 0px;
+      color: #191919;
+    }
     h2, a{
       color: #C6C6C6;
       font-size: 11px;
       margin: 0;
     }
-    div{
+    a{
+      height: 100%;
+      width: 100%;
+      display: block;
       padding: 5px 0px;
       border-bottom: 1px solid #C6C6C6;
     }

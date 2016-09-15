@@ -176,6 +176,10 @@ $(document).on("page:load", ready);
 //Only one collapse edit profil
 
 $(document).ready(function(){
+    $(".edit_profile .menu a").click(function(){
+        $(".edit_profile .menu a").removeClass("active");
+        $(this).addClass("active");
+    })
     var $myGroup = $('.edit_profile .right');
     $myGroup.on('show.bs.collapse','.collapse', function() {
         $myGroup.find('.collapse.in').collapse('hide');
