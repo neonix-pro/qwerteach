@@ -16,8 +16,18 @@
   .col-md-10.right
     %div#passcode.collapse
       %form
-        .from-group
+        .form-group
           %label Mot de passe actuel
+          %input
+        .form-group
+          %label Nouveau mot de passe
+          %input
+        .form-group
+          %label Confirmez nouveau mot de passe
+          %input
+        .form-actions
+          = submit_tag "Envoyer", :class => "action"
+          = link_to "Annuler", "#", :class => "action"
     %div#annonces.collapse
       Annonces
     %div#favoris.collapse
@@ -99,15 +109,15 @@
           %br
           %br
         
-/
-  Utilité ?
-  <h3>Cancel my account</h3>
-  <p>Unhappy? <haml_loud> button_to &quot;Cancel my account&quot;, registration_path(resource_name), data: {confirm: &quot;Are you sure?&quot;}, method: :delete </haml_loud></p>
-= link_to "Back", :back
-:javascript
-  $('.form-control').on('change', function () {
-    $.validate();
-    $.validate({
-      modules: 'security'
+-#
+    Utilité ?
+    <h3>Cancel my account</h3>
+    <p>Unhappy? <haml_loud> button_to &quot;Cancel my account&quot;, registration_path(resource_name), data: {confirm: &quot;Are you sure?&quot;}, method: :delete </haml_loud></p>
+  = link_to "Back", :back
+  :javascript
+    $('.form-control').on('change', function () {
+      $.validate();
+      $.validate({
+        modules: 'security'
+      });
     });
-  });
