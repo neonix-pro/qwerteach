@@ -63,11 +63,25 @@ form{
         color: #29B46C;
         background: #fff;
         width: 200px;
-        margin-top: 20px;
-        margin-bottom: 30px;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 6px;
+        padding: 5px 10px;
+    }
+    .form-actions{
+        a{
+            border-radius: 15px;
+            border-color: #D92D9B;
+            border: 1px solid;
+            color: #D92D9B;
+            background: #fff;
+            padding: 5px 10px;
+        }
+        a:hover{
+            border-radius: 15px;
+            border-color: #D92D9B;
+            border: 1px solid;
+            color: #D92D9B;
+            background: #fff;
+            padding: 5px 10px;
+        }
     }
 }
 

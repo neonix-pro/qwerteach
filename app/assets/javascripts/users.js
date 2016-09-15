@@ -172,3 +172,11 @@ var ready = function () {
 $(document).ready(ready);
 $(document).on("page:load", ready);
 
+
+//Collapse edit profil
+
+$(document).ready(function(){
+   $(".edit_profile .menu .a").click(function(e) {
+       $(".collapse").hide();
+   }) 
+});
