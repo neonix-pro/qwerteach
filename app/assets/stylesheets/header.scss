@@ -56,6 +56,13 @@ form{
         display: block;
         margin-top: 10px;
    }
+   textarea{
+        border-radius: 5px;
+        border: 1px solid #706F6F;
+        height: 300px;
+        width: 250px;
+        outline: none !important;
+    }
    .submit{
         border-radius: 15px;
         border-color: #29B46C;

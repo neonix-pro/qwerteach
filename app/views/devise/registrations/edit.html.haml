@@ -35,6 +35,61 @@
     %div#calendear.collapse
       Calendrier
     %div#profil.collapse
+      %form
+        .col-md-4.infos-general
+          .col-md-4
+            %table
+              %tr
+                %td
+                %td
+                  %h3 Infos générale
+              %tr
+                %td
+                  %label Nom
+                %td
+                  %input
+              %tr
+                %td
+                  %label Prénom
+                %td
+                  %input
+              %tr
+                %td
+                  %label Date de naissance
+                %td
+                  %input
+              %tr
+                %td
+                  %label Tél
+                %td
+                  %input
+              %tr
+                %td
+                  %label Genre
+                %td
+                  %input
+              %tr
+                %td
+                  %label e-mail
+                %td
+                  %input
+        .col-md-4
+          %h3 Formations/Expérience
+          .form-group
+            %label Quel est votre profession / votre branche d'études ?
+            %input
+          .form-group
+            %label Dans quelle école avez-vous étudié / étudiez-vous ?
+            %input
+          .form-group
+            %label Niveau de formation
+            %input
+        .col-md-4.description
+          %h3 Description
+          %textarea
+        .form-actions
+          =submit_tag "Envoyer", :class => "submit action"
+          =link_to "Annuler", "#", :class => "action"
 -#  
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
     = devise_error_messages!
