@@ -1,11 +1,11 @@
 .field
   = f.label :first_name, 'FirstName'
   %br/
-  = f.text_field :first_name, value: @account.first_name || @user.firstname, :required => true
+  = f.text_field :first_name, :required => true
 .field
   = f.label :last_name, 'LastName'
   %br/
-  = f.text_field :last_name, value: @account.last_name || @user.lastname, :required => true
+  = f.text_field :last_name, :required => true
 .field
   = f.label :street
   %br/

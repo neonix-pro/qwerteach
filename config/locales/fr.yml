@@ -45,4 +45,11 @@ fr:
     bank_account_creation_success: L'ajout de la carte a correctement été fait.
     bank_account_creation_error: Il y a eu un problème lors de l'enregistrement de la carte. %{message}
     payout_success: La transaction s'est correctement effectuée. Vous verrez votre solde sur votre compte de peu.
+    balance_is_insufficient: Votre solde est insuffisant. Il faut d'abord recharger votre compte.
+    transfering_success: Le transfert s'est correctement effectué. Votre réservation de cours est donc correctement enregistrée.
+    booking_fatal_error: Nous n'avons pas pu procéder à votre réservation, veuillez contacter l'équipe du site.
+    transaction_error: Il y a eu un problème lors de la transaction, veuillez réessayer.
+    creditcard_error: Il y a eu une erreur lors de l'enregistrement de votre carte de crédit. Veuillez vérifier les informations entrées.
+    booking_success: La transaction a correctement été effectuée, votre cours a bien été réservé.
+    booking_error: Il y a eu un problème lors de la réservation. Le cours n\'a pas été réservé.
 

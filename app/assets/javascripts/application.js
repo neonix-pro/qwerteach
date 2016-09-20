@@ -27,6 +27,7 @@
 //= require fullcalendar
 //= require fullcalendar/lang/fr.js
 //= require simpletextrotator
+//= require mangopay-kit.min
 
 $.validate({
     modules : 'security'

@@ -1,0 +1,51 @@
+= form_for @lession_request, as: :request, url: user_request_lesson_index_path(@teacher), method: :post, remote: true, html: {class: 'request-lession-form'} do |f|
+  = hidden_field_tag 'lesson[teacher_id]', @teacher.id
+  = render 'shared/errors', object: f.object
+  .form-group
+    - if @teacher.first_lesson_free == true && @free_lessons.empty?
+      = f.check_box :free_lesson, class: 'firstLessonFree', id: 'free_lesson'
+      = f.label :free_lesson, "Cours d'essai gratuit 30mn", for: 'free_lesson'
+      %br
+
+  .form-group
+    = f.label :time_start
+    #datetimepicker2.input-group.date
+      = f.text_field :time_start, class: 'form-control', :required => true
+      %span.input-group-addon
+        %span.glyphicon.glyphicon-calendar
+
+  .form-group
+    = label_tag :time, 'Durée', class: 'control-label'
+    .row
+      .col-xs-3= select_hour f.object.hours, {prefix: :request, field_name: :hours, start_hour: 0, :end_hour => 5}, {class: 'form-control hours-select', required: true}
+      .col-xs-3= select_minute f.object.minutes, {prefix: :request, field_name: :minutes, minute_step: 15}, {class: 'form-control minutes-select', required: true}
+
+  .form-group
+    = f.label :topic_group_id
+    - options = @teacher.adverts.map(&:topic).map(&:topic_group).uniq.compact.map{|tg| [tg.title, tg.id]}
+    = f.select :topic_group_id, options, {prompt: '-- sélecitonnez un niveau --'}, {class: 'form-control topic-group-select'}
+
+  .form-group
+    = f.label :topic_id
+    - if f.object.topic_group_id.present?
+      - options = @teacher.adverts.map(&:topic).select{|t| t.topic_group_id == f.object.topic_group_id}.uniq.compact.map{|tg| [tg.title, tg.id]}
+    - else
+      - options = []
+    = f.select :topic_id, options, {prompt: '-- sélecitonnez un niveau --'}, {class: 'form-control topic-select'}
+
+  .form-group
+    = f.label :level_id
+    - if f.object.topic_id.present?
+      - options = @teacher.adverts.includes(advert_prices: :level).where(topic_id: f.object.topic_id).uniq.pluck('levels.fr', 'levels.id')
+    - else
+      - options = []
+    = f.select :level_id, options, {prompt: '-- sélecitonnez un niveau --'}, {class: 'form-control level-select'}
+
+  .form-actions
+    %h4
+      %span#price_shown= f.object.try(:calculate_price) || 0
+      €
+    = submit_tag :enregistrer, :class => 'btn btn-primary btn-mini'
+
+
+

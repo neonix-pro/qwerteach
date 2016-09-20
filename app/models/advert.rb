@@ -3,12 +3,12 @@ class Advert < ActiveRecord::Base
   belongs_to :user
   belongs_to :topic
   belongs_to :topic_group
-  has_many :advert_prices
+  has_many :advert_prices, inverse_of: :advert
   accepts_nested_attributes_for :advert_prices,
                                 :allow_destroy => true,
                                 :reject_if => :all_blank
-  validates :user_id, presence: true
-  validates :topic_group_id, presence: true
+  validates :user, presence: true
+  validates :topic_group, presence: true
   validates_uniqueness_of :user_id, scope: :topic_id
 
   #after_create :create_price

@@ -38,7 +38,6 @@ Rails.application.routes.draw do
     put "direct_debit" => :load_wallet
     get "transactions" => :transactions_mangopay_wallet
     get "card_info" => :card_info
-    get "card_registration" => :card_registration
     put "send_card_info" => :send_card_info
     get 'bank_accounts' => :bank_accounts
     put 'update_bank_accounts' => :update_bank_accounts
@@ -55,8 +54,14 @@ Rails.application.routes.draw do
   resources :users, :only => [:show] do
     resources :require_lesson
     put '/request_lesson/payment' => 'request_lesson/payment'
-    get '/request_lesson/process_payin' => 'request_lesson/process_payin'
-    resources :request_lesson
+    resources :request_lesson, only: [:new, :create] do
+      get 'topics/:topic_group_id', action: :topics, on: :collection
+      get 'levels/:topic_id', action: :levels, on: :collection
+      post :calculate, on: :collection
+      get :credit_card_process, on: :collection
+      get :bancontact_process, on: :collection
+      post :create_account, on: :collection
+    end
     resources :reviews, only: [:index, :create, :new]
   end
   get '/both_users_online' => 'users#both_users_online', :as => 'both_users_online'

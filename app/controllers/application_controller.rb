@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+  rescue_from Mango::UserDoesNotHaveAccount do |exception|
+    redirect_to edit_wallet_path(redirect_to: request.fullpath), alert: t('notice.missing_account')
+  end
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
@@ -27,7 +31,7 @@ class ApplicationController < ActionController::Base
     Time.now.to_i
   end
 
-  helper_method :twelve_teacher
+  helper_method :twelve_teacher, :countries_list
 
   # Pour définir les permitted params dans les controllers en utilisant require
   protected
@@ -46,4 +50,15 @@ class ApplicationController < ActionController::Base
             :crop_x, :crop_y, :crop_w, :crop_h,:level, :pictures, :gallery, :avatar, :occupation, :level_id, :type, :birthdate, :description, :gender, :phonenumber, :firstname, :lastname, :email, :password, :password_confirmation, :current_password, :accepts_post_payments, :time_zone
         ) }
     end
+
+  private
+
+  def check_mangopay_account
+    raise Mango::UserDoesNotHaveAccount if current_user.mango_id.blank?
+  end
+
+  def countries_list
+    @list ||= ISO3166::Country.all.map{|c| [c.translations['fr'], c.alpha2] }
+  end
+
 end

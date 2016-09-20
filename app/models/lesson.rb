@@ -16,6 +16,8 @@ class Lesson < ActiveRecord::Base
 
   has_one :bbb_room
 
+  has_drafts
+
   validates :student_id, presence: true
   validates :teacher_id, presence: true
   validates :status, presence: true
@@ -46,17 +48,23 @@ class Lesson < ActiveRecord::Base
     Resque.enqueue(LessonsNotifierWorker)
   end
 
+  def duration
+    @duration ||= Duration.new((time_start || 0) - ((time_start and time_end) || 0))
+  end
+
   def expected_price
     if free_lesson
-      if price !=0
-        errors.add(:price, "Le prix d'un cours d'essai est toujours zéro!")
-      end
+      errors.add(:price, "Le prix d'un cours d'essai est toujours zéro!") if price !=0
     else
-      right_time = ((time_end.beginning_of_minute()  - time_start.beginning_of_minute() ) / 3600).to_f
-      right_price = Advert.get_price(User.find(teacher), Topic.find(topic), Level.find(level)) * right_time
-      if price.to_f != right_price
-        errors.add(:price, "Le prix n'est pas correct.")
-      end
+      right_price = CalculateLessonPrice.run({
+        teacher_id: teacher_id,
+        hours: duration.total_hours,
+        minutes: duration.minutes,
+        level_id: level_id,
+        topic_id: topic_id
+      }).result
+
+      errors.add(:price, "Le prix n'est pas correct.") if price.to_f != right_price
     end
 
   end

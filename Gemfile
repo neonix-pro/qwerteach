@@ -44,7 +44,7 @@ gem 'jquery-turbolinks'
 # droits d'accès
 gem "cancan"
 gem 'minitest'
-gem 'paper_trail'
+# gem 'paper_trail'
 # traductions
 gem 'globalize', '~> 5.0.0'
 gem 'rails-i18n'
@@ -119,6 +119,9 @@ gem "rails-erd"
 
 gem 'active_interaction'
 gem 'hashie'
+gem 'pluck_to_hash'
+gem 'drafting'
+gem 'ruby-duration'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -143,6 +146,7 @@ end
 
 group :test do
   gem 'capybara-screenshot'
+  gem 'sunspot-rails-tester'
 end
 
 group :development do
