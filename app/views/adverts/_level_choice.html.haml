@@ -1,13 +1,25 @@
-= label_tag 'Niveaux'
+= label_tag 'Pour quels niveaux enseignez vous cette matière?'
+%br
+%br
 - if @levels.nil?
   %p Aucun niveau disponible pour cette catégorie
 - else
   - @levels.each do |c|
-    = label_tag c[I18n.locale[0..3]]
-    = check_box_tag 'levels_chosen[]', c.id, nil, class: 'price_box'
-    = label_tag "Price"
-    = number_field_tag 'prices[]', nil, :id => c.id, min: 0, disabled: true
-    %br/
+    - if @advert.advert_prices.map(&:level_id).include?(c.id)
+      .row
+        .checkbox_left
+          = check_box_tag 'levels_chosen[]', c.id, 'checked', class: 'price_box'
+          = label_tag c[I18n.locale[0..3]]
+        .input_right.pull-right
+          = number_field_tag 'prices[]', nil, :id => c.id, min: 0, disabled: false, value: @advert.advert_prices.detect{|lp| lp.level_id == c.id}.price
+    - else
+      .row
+        .checkbox_left
+          = check_box_tag 'levels_chosen[]', c.id, nil, class: 'price_box'
+          = label_tag c[I18n.locale[0..3]]
+        .input_right.pull-right
+          = number_field_tag 'prices[]', nil, :id => c.id, min: 0, disabled: true, :placeholder => "tarif..."
+
 :javascript
   $('.price_box').on('click', function () {
     var a = $(this).val();

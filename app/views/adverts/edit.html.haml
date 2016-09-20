@@ -1,6 +1,6 @@
 - model_class = @advert.class
 .page-header
   %h1= t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human, |
-      :default => "Edit #{model_class.model_name.human}")                                      |
-= form_for @advert, :html => {:class => 'form-horizontal'} do |f|
-  = render partial: 'adverts/editAdvert', :locals => {:f => f}
+    :default => "Edit #{model_class.model_name.human}")
+
+= render partial: 'adverts/edit_advert', :locals => {advert: @advert}

@@ -169,7 +169,11 @@
 //maths
 .topic_1{
   background-color: $color_qwerteach_yellow;
-  color:$text_lightgrey!important;
+  color:#313131!important;
+  .font, .back, h4{
+    //dirty workaround
+    color:#313131!important;
+  }
 }
 //sciences
 .topic_2{

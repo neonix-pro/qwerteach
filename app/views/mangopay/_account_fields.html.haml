@@ -1,40 +1,42 @@
-.field
-  = f.label :first_name, 'FirstName'
-  %br/
-  = f.text_field :first_name, :required => true
-.field
-  = f.label :last_name, 'LastName'
-  %br/
-  = f.text_field :last_name, :required => true
-.field
-  = f.label :street
-  %br/
-  = f.text_field :address_line1, :required => true
-.field
-  = f.label :number
-  %br/
-  = f.text_field :address_line2, :required => true
-.field
-  = f.label :post_code
-  %br/
-  = f.number_field :postal_code, :required => true
-.field
-  = f.label :city
-  %br/
-  = f.text_field :city, :required => true
-.field
-  = f.label :region
-  %br/
-  = f.text_field :region, :required => true
-.field
-  = f.label :country
-  %br/
-  = f.select :country, options_for_select(countries_list, :selected => @account.country) , :required => true
-.field
-  = f.label :country_of_residence
-  %br/
-  = f.select :country_of_residence, options_for_select(countries_list, :selected => @account.country_of_residence), :required => true
-.field
-  = f.label :nationality
-  %br/
-  = f.select :nationality, options_for_select(countries_list, :selected => @user.nationality), :required => true
+.left
+  .field
+    = f.label :first_name, 'First Name'
+    %br/
+    = f.text_field :first_name, :required => true
+  .field
+    = f.label :last_name, 'Last Name'
+    %br/
+    = f.text_field :last_name, :required => true
+  .field
+    = f.label :street
+    %br/
+    = f.text_field :address_line1, :required => true
+  .field
+    = f.label :number
+    %br/
+    = f.text_field :address_line2, :required => true
+  .field
+    = f.label :country
+    %br/
+    = f.select :country, options_for_select(countries_list, :selected => @account.country) , :required => true
+.right
+  .field
+    = f.label :post_code
+    %br/
+    = f.number_field :postal_code, :required => true
+  .field
+    = f.label :city
+    %br/
+    = f.text_field :city, :required => true
+  .field
+    = f.label :region
+    %br/
+    = f.text_field :region, :required => true
+  .field
+    = f.label :country_of_residence
+    %br/
+    = f.select :country_of_residence, options_for_select(countries_list, :selected => @account.country_of_residence), :required => true
+  .field
+    = f.label :nationality
+    %br/
+    = f.select :nationality, options_for_select(countries_list, :selected => @user.nationality), :required => true

@@ -12,13 +12,9 @@ class ConversationsController < ApplicationController
     @unread_count = @mailbox.inbox({:read => false}).count
     case @mailbox_type
       when 'inbox'
-        @conversations = @mailbox.inbox.page(params[:page]).per(10)
-      when 'sentbox'
-        @conversations = @mailbox.sentbox.page(params[:page]).per(10)
-      when 'trash'
-        @conversations = @mailbox.trash.page(params[:page]).per(10)
+        @conversations = @mailbox.conversations
       else
-        @conversations = @mailbox.inbox.page(params[:page]).per(10)
+        @conversations = @mailbox.conversations
     end
     @recipient_options = []
     @mailbox.conversations.each do |conv|
@@ -73,16 +69,17 @@ class ConversationsController < ApplicationController
   end
 
   def reply
-    conversation = current_user.reply_to_conversation(@conversation, params[:body]).conversation
-    receiver = (conversation.participants - [current_user]).first
-    @path = reply_conversation_path(conversation)
-    @message = conversation.messages.last
+    conversation = @conversation
+    receipt = current_user.reply_to_conversation(conversation, params[:body])
+    receiver = (@conversation.participants - [current_user]).first
+    @path = reply_conversation_path(@conversation)
+    @message = @conversation.messages.last
     # notifie le gars qu'il a une conversation ==> permet d'ouvrir le chat automatiquement
     # Une fois qu'il a ouvert le chat, il subscribe au channel de la conversation
-    PrivatePub.publish_to "/chat", :conversation_id => conversation.id, :receiver_id => receiver
-    @conversation_id = conversation.id
+    PrivatePub.publish_to "/chat", :conversation_id => @conversation.id, :receiver_id => receiver
+    @conversation_id = @conversation.id
     respond_to do |format|
-      format.html {redirect_to conversation_path(conversation), notice: 'Reply sent'}
+      format.html {redirect_to conversation_path(@conversation), notice: 'Reply sent'}
       format.js
     end
   end

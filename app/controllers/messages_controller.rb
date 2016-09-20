@@ -7,22 +7,24 @@ class MessagesController < ApplicationController
   end
 
   def create
-    recipients = User.where(id: params['recipients'])
-    current_user.mailbox.conversations.each do |c|
-      if (c.participants - recipients - [current_user]).empty? && (recipients - c.participants).empty?
-        conversation = current_user.reply_to_conversation(c, params[:message][:body]).conversation
-        flash[:success] = "Votre message a bien été envoyé!"
-        respond_to do |format|
-          format.html {redirect_to messagerie_path}
-          format.js {}
-        end
-        return
-      end
+    recipients = User.find(params[:message][:recipient])
+    u1 = current_user
+    u2 = recipients
+    existing_conversation = Conversation.participant(u1).where('mailboxer_conversations.id in (?)', Conversation.participant(u2).collect(&:id))
+    unless existing_conversation.empty?
+      c = existing_conversation.first
+      receipt = current_user.reply_to_conversation(c, params[:message][:body])
+    else
+      receipt = current_user.send_message([recipients], params[:message][:body], params[:message][:subject])
     end
-    conversation = current_user.send_message(recipients, params[:message][:body], params[:message][:subject]).conversation
-    flash[:success] = "Votre message a bien été envoyé."
+    if receipt.successful_delivery?
+      flash[:success] = "Votre message a bien été envoyé!"
+    else
+      flash[:error] = "Votre message n'a pas pu être envoyé!"
+    end
     respond_to do |format|
-      format.html { redirect_to messagerie_path }
+      format.html {redirect_to messagerie_path}
+      format.js {}
     end
   end
 

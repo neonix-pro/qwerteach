@@ -1,6 +1,14 @@
 .section_recherche
-  = form_tag profs_path, :method => :get do
-    = select("post", ":q",TopicGroup.all.collect {|p| [ p.title, p.topic_group_id]}, {:class => 'form-control'})
-    = label_tag "Mot-clé"
-    = text_field_tag :q, params[:search]
-    = submit_tag "Search", :name => nil
+  = form_tag profs_path, method: :post, id: 'search-form', remote: false do
+    %button{type: "submit"}
+      %i.fa.fa-search
+    = autocomplete_field_tag 'topic', '', autocomplete_topic_title_pages_path, :size => 75
+    -#= text_field_tag("topic", params[:topic], id: 'search-topic-field', placeholder: "Dans quelle matière cherchez-vous un cours?")
+
+
+
+  -#= form_tag profs_path, :method => :get do
+  -#  = select("post", ":q",TopicGroup.all.collect {|p| [ p.title, p.topic_group_id]}, {:class => 'form-control'})
+  -#  = label_tag "Mot-clé"
+  -#  = text_field_tag :q, params[:search]
+  -#  = submit_tag "Search", :name => nil

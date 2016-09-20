@@ -2,56 +2,17 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/oauth/token
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/natural
     body:
       encoding: UTF-8
-      string: grant_type=client_credentials
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-      Authorization:
-      - Basic aXBhaTVhdjc3M3hoemh5ajpVTjQ5TVFDWUpYbVFVMlljcTRoc2ViN21vdG9HM1pCZ3hKdVQyU2JndUNDWlVhYjA4RA==
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Cache-Control:
-      - no-cache
-      Pragma:
-      - no-cache
-      Content-Type:
-      - application/json; charset=utf-8
-      Expires:
-      - "-1"
-      Server:
-      - Leetchi
-      Date:
-      - Tue, 20 Sep 2016 14:35:55 GMT
-      Content-Length:
-      - '91'
-    body:
-      encoding: UTF-8
-      string: '{"access_token":"8f2b38bd95f14aeeb34c2abddd578bd3","token_type":"Bearer","expires_in":1199}'
-    http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:35:56 GMT
-- request:
-    method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/natural
-    body:
-      encoding: UTF-8
-      string: '{"CountryOfResidence":"SM","Nationality":"CG","Address":{"AddressLine1":"Sporer
-        Gardens","AddressLine2":"461","PostalCode":"MD69 8DV","City":"New Annamae","Region":"Idaho","Country":"MO"},"FirstName":"Donnell","LastName":"Gleason","Birthday":685299600,"Email":"earl@fay.ca","PersonType":"NATURAL","Tag":"user
+      string: '{"CountryOfResidence":"ET","Nationality":"PH","Address":{"AddressLine1":"Feest
+        Highway","AddressLine2":"03862","PostalCode":"GT96 4GU","City":"Jayville","Region":"Florida","Country":"MN"},"FirstName":"Phyllis","LastName":"Schuster","Birthday":685299600,"Email":"sabina_fahey@halvorson.ca","PersonType":"NATURAL","Tag":"user
         5"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer 8f2b38bd95f14aeeb34c2abddd578bd3
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
@@ -78,42 +39,42 @@ http_interactions:
       Server:
       - Leetchi
       X-Ratelimit:
-      - '6'
-      - '6'
-      - '6'
-      - '98'
+      - '168'
+      - '169'
+      - '169'
+      - '169'
       X-Ratelimit-Remaining:
-      - '105502'
-      - '2294'
-      - '4494'
-      - '8794'
+      - '105431'
+      - '2132'
+      - '4331'
+      - '8631'
       X-Ratelimit-Reset:
-      - '1474383000'
-      - '1474383900'
-      - '1474385700'
-      - '1474468440'
+      - '1474392720'
+      - '1474393620'
+      - '1474395420'
+      - '1474478160'
       Date:
-      - Tue, 20 Sep 2016 14:35:58 GMT
+      - Tue, 20 Sep 2016 17:17:59 GMT
       Content-Length:
-      - '455'
+      - '470'
     body:
       encoding: UTF-8
-      string: '{"Address":{"AddressLine1":"Sporer Gardens","AddressLine2":"461","City":"New
-        Annamae","Region":"Idaho","PostalCode":"MD69 8DV","Country":"MO"},"FirstName":"Donnell","LastName":"Gleason","Birthday":685299600,"Nationality":"CG","CountryOfResidence":"SM","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"earl@fay.ca","KYCLevel":"LIGHT","Id":"16228250","Tag":"user
-        5","CreationDate":1474382156}'
+      string: '{"Address":{"AddressLine1":"Feest Highway","AddressLine2":"03862","City":"Jayville","Region":"Florida","PostalCode":"GT96
+        4GU","Country":"MN"},"FirstName":"Phyllis","LastName":"Schuster","Birthday":685299600,"Nationality":"PH","CountryOfResidence":"ET","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"sabina_fahey@halvorson.ca","KYCLevel":"LIGHT","Id":"16234912","Tag":"user
+        5","CreationDate":1474391878}'
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:35:59 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:00 GMT
 - request:
     method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/wallets
     body:
       encoding: UTF-8
-      string: '{"Owners":[16228250],"Currency":"EUR","Description":"wallet user 5"}'
+      string: '{"Owners":[16234912],"Currency":"EUR","Description":"wallet user 5"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer 8f2b38bd95f14aeeb34c2abddd578bd3
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
@@ -140,40 +101,40 @@ http_interactions:
       Server:
       - Leetchi
       X-Ratelimit:
-      - '7'
-      - '7'
-      - '7'
-      - '99'
+      - '169'
+      - '170'
+      - '170'
+      - '170'
       X-Ratelimit-Remaining:
-      - '105501'
-      - '2293'
-      - '4493'
-      - '8793'
+      - '105430'
+      - '2131'
+      - '4330'
+      - '8630'
       X-Ratelimit-Reset:
-      - '1474383000'
-      - '1474383900'
-      - '1474385700'
-      - '1474468440'
+      - '1474392780'
+      - '1474393680'
+      - '1474395480'
+      - '1474478220'
       Date:
-      - Tue, 20 Sep 2016 14:35:59 GMT
+      - Tue, 20 Sep 2016 17:17:59 GMT
       Content-Length:
       - '185'
     body:
       encoding: UTF-8
-      string: '{"Description":"wallet user 5","Owners":["16228250"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16228254","Tag":null,"CreationDate":1474382159}'
+      string: '{"Description":"wallet user 5","Owners":["16234912"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16234915","Tag":null,"CreationDate":1474391880}'
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:36:00 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:00 GMT
 - request:
     method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/wallets
     body:
       encoding: UTF-8
-      string: '{"Owners":[16228250],"Currency":"EUR","Description":"wallet bonus 5","Tag":"Bonus"}'
+      string: '{"Owners":[16234912],"Currency":"EUR","Description":"wallet bonus 5","Tag":"Bonus"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer 8f2b38bd95f14aeeb34c2abddd578bd3
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
@@ -200,41 +161,41 @@ http_interactions:
       Server:
       - Leetchi
       X-Ratelimit:
-      - '100'
-      - '8'
-      - '8'
-      - '8'
+      - '170'
+      - '171'
+      - '171'
+      - '171'
       X-Ratelimit-Remaining:
-      - '105500'
-      - '2292'
-      - '4492'
-      - '8792'
+      - '105429'
+      - '2130'
+      - '4329'
+      - '8629'
       X-Ratelimit-Reset:
-      - '1474383060'
-      - '1474383960'
-      - '1474385760'
-      - '1474468500'
+      - '1474392780'
+      - '1474393680'
+      - '1474395480'
+      - '1474478220'
       Date:
-      - Tue, 20 Sep 2016 14:36:00 GMT
+      - Tue, 20 Sep 2016 17:18:00 GMT
       Content-Length:
       - '189'
     body:
       encoding: UTF-8
-      string: '{"Description":"wallet bonus 5","Owners":["16228250"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16228257","Tag":"Bonus","CreationDate":1474382160}'
+      string: '{"Description":"wallet bonus 5","Owners":["16234912"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16234916","Tag":"Bonus","CreationDate":1474391880}'
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:36:00 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:01 GMT
 - request:
     method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/wallets
     body:
       encoding: UTF-8
-      string: '{"Owners":[16228250],"Currency":"EUR","Description":"wallet transfert
+      string: '{"Owners":[16234912],"Currency":"EUR","Description":"wallet transfert
         5","Tag":"Transfert"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer 8f2b38bd95f14aeeb34c2abddd578bd3
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
@@ -261,32 +222,32 @@ http_interactions:
       Server:
       - Leetchi
       X-Ratelimit:
-      - '101'
-      - '9'
-      - '9'
-      - '9'
+      - '171'
+      - '172'
+      - '172'
+      - '172'
       X-Ratelimit-Remaining:
-      - '105499'
-      - '2291'
-      - '4491'
-      - '8791'
+      - '105428'
+      - '2129'
+      - '4328'
+      - '8628'
       X-Ratelimit-Reset:
-      - '1474383060'
-      - '1474383960'
-      - '1474385760'
-      - '1474468500'
+      - '1474392780'
+      - '1474393680'
+      - '1474395480'
+      - '1474478220'
       Date:
-      - Tue, 20 Sep 2016 14:36:00 GMT
+      - Tue, 20 Sep 2016 17:18:00 GMT
       Content-Length:
       - '197'
     body:
       encoding: UTF-8
-      string: '{"Description":"wallet transfert 5","Owners":["16228250"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16228258","Tag":"Transfert","CreationDate":1474382160}'
+      string: '{"Description":"wallet transfert 5","Owners":["16234912"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16234917","Tag":"Transfert","CreationDate":1474391881}'
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:36:01 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:01 GMT
 - request:
     method: get
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/16228250/cards?per_page=100&sort=CreationDate:desc
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/16234912/cards?per_page=100&sort=CreationDate:desc
     body:
       encoding: UTF-8
       string: "{}"
@@ -294,7 +255,7 @@ http_interactions:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer 8f2b38bd95f14aeeb34c2abddd578bd3
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
@@ -321,48 +282,48 @@ http_interactions:
       Server:
       - Leetchi
       Link:
-      - <https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/16228250/cards?sort=CreationDate%3adesc&per_page=100&page=1>;
-        rel="first",<https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/16228250/cards?sort=CreationDate%3adesc&per_page=100&page=1>;
+      - <https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/16234912/cards?sort=CreationDate%3adesc&per_page=100&page=1>;
+        rel="first",<https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/16234912/cards?sort=CreationDate%3adesc&per_page=100&page=1>;
         rel="last"
       X-Number-Of-Pages:
       - '1'
       X-Number-Of-Items:
       - '0'
       X-Ratelimit:
-      - '10'
-      - '10'
-      - '10'
-      - '102'
+      - '172'
+      - '173'
+      - '173'
+      - '173'
       X-Ratelimit-Remaining:
-      - '105498'
-      - '2290'
-      - '4490'
-      - '8790'
+      - '105427'
+      - '2128'
+      - '4327'
+      - '8627'
       X-Ratelimit-Reset:
-      - '1474383060'
-      - '1474383960'
-      - '1474385760'
-      - '1474468500'
+      - '1474392780'
+      - '1474393680'
+      - '1474395480'
+      - '1474478220'
       Date:
-      - Tue, 20 Sep 2016 14:36:02 GMT
+      - Tue, 20 Sep 2016 17:18:01 GMT
       Content-Length:
       - '2'
     body:
       encoding: UTF-8
       string: "[]"
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:36:02 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:02 GMT
 - request:
     method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/cardregistrations
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/cardregistrations
     body:
       encoding: UTF-8
-      string: '{"UserId":16228250,"Currency":"EUR","CardType":"CB_VISA_MASTERCARD"}'
+      string: '{"UserId":16234912,"Currency":"EUR","CardType":"CB_VISA_MASTERCARD"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer 8f2b38bd95f14aeeb34c2abddd578bd3
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
@@ -389,35 +350,35 @@ http_interactions:
       Server:
       - Leetchi
       X-Ratelimit:
-      - '103'
-      - '11'
-      - '11'
-      - '11'
+      - '173'
+      - '174'
+      - '174'
+      - '174'
       X-Ratelimit-Remaining:
-      - '105497'
-      - '2289'
-      - '4489'
-      - '8789'
+      - '105426'
+      - '2127'
+      - '4326'
+      - '8626'
       X-Ratelimit-Reset:
-      - '1474383060'
-      - '1474383960'
-      - '1474385760'
-      - '1474468500'
+      - '1474392780'
+      - '1474393680'
+      - '1474395480'
+      - '1474478220'
       Date:
-      - Tue, 20 Sep 2016 14:36:02 GMT
+      - Tue, 20 Sep 2016 17:18:01 GMT
       Content-Length:
       - '453'
     body:
       encoding: UTF-8
-      string: '{"Id":"16228262","Tag":null,"CreationDate":1474382163,"UserId":"16228250","AccessKey":"1X0m87dmM2LiwFgxPLBJ","PreregistrationData":"dtxlzFRSvUcdNkJimn-i_En8KmVUkt1N2XfEBF-h_BDmAsbKDo91MsHHeERgGux3S4wCy-yiraxeE65tmxOe8A","RegistrationData":null,"CardId":null,"CardType":"CB_VISA_MASTERCARD","CardRegistrationURL":"https://homologation-webpayment.payline.com/webpayment/getToken","ResultCode":null,"ResultMessage":null,"Currency":"EUR","Status":"CREATED"}'
+      string: '{"Id":"16234920","Tag":null,"CreationDate":1474391882,"UserId":"16234912","AccessKey":"1X0m87dmM2LiwFgxPLBJ","PreregistrationData":"S8HjKhXaPXeNlzbaHMqIv9BP35NqtcbKfbhTfFIQcdAMgLupKANVNYiBYHVvnc9NS4wCy-yiraxeE65tmxOe8A","RegistrationData":null,"CardId":null,"CardType":"CB_VISA_MASTERCARD","CardRegistrationURL":"https://homologation-webpayment.payline.com/webpayment/getToken","ResultCode":null,"ResultMessage":null,"Currency":"EUR","Status":"CREATED"}'
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:36:03 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:02 GMT
 - request:
     method: post
     uri: https://homologation-webpayment.payline.com/webpayment/getToken
     body:
       encoding: US-ASCII
-      string: accessKeyRef=1X0m87dmM2LiwFgxPLBJ&cardNumber=4706750000000017&cardExpirationDate=1016&cardCvx=131&data=dtxlzFRSvUcdNkJimn-i_En8KmVUkt1N2XfEBF-h_BDmAsbKDo91MsHHeERgGux3S4wCy-yiraxeE65tmxOe8A
+      string: accessKeyRef=1X0m87dmM2LiwFgxPLBJ&cardNumber=4706750000000017&cardExpirationDate=1016&cardCvx=131&data=S8HjKhXaPXeNlzbaHMqIv9BP35NqtcbKfbhTfFIQcdAMgLupKANVNYiBYHVvnc9NS4wCy-yiraxeE65tmxOe8A
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -435,9 +396,9 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 20 Sep 2016 14:36:04 GMT
+      - Tue, 20 Sep 2016 17:18:03 GMT
       Set-Cookie:
-      - JSESSIONID=E713A053F1967C1226910326C40AB1F9; Path=/; Secure; HttpOnly
+      - JSESSIONID=1EA6D1D7112F8AA3FE1D11A01D73ED99; Path=/; Secure; HttpOnly
       Access-Control-Allow-Origin:
       - "*"
       Content-Length:
@@ -448,20 +409,20 @@ http_interactions:
       - text/plain; charset=UTF-8
     body:
       encoding: UTF-8
-      string: data=5RSy5qslgAQ7I5fkw79Lp9AiG8hKppzWw2uEMVemGxXt7QTWqOK6L28qzS_RMDsRBnmyXxOmfJtIXkQ2OjN3JbiQkJsB1djoV_s5eSP7WJ_NU9lYVd9_CMmPBIcIeQ_Z_uh-M22NjZ6dU5YsJBBYuA
+      string: data=WlFlNrFOZLxXvGO11QriKyY5oAaCsFTGNFVpAdoYCsOXFbXwGvaaiqdgu1hG0rzEeWIRspAKNbXDOIIVH4OErWKb4RCuEVGjJdpabsDSTM4R4RRecbCGzac-xXtOamGb0ftIYwFxOdfmDQ5GtM_cIg
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:36:04 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:03 GMT
 - request:
     method: put
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/cardregistrations/16228262
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/cardregistrations/16234920
     body:
       encoding: UTF-8
-      string: '{"RegistrationData":"data=data=5RSy5qslgAQ7I5fkw79Lp9AiG8hKppzWw2uEMVemGxXt7QTWqOK6L28qzS_RMDsRBnmyXxOmfJtIXkQ2OjN3JbiQkJsB1djoV_s5eSP7WJ_NU9lYVd9_CMmPBIcIeQ_Z_uh-M22NjZ6dU5YsJBBYuA"}'
+      string: '{"RegistrationData":"data=data=WlFlNrFOZLxXvGO11QriKyY5oAaCsFTGNFVpAdoYCsOXFbXwGvaaiqdgu1hG0rzEeWIRspAKNbXDOIIVH4OErWKb4RCuEVGjJdpabsDSTM4R4RRecbCGzac-xXtOamGb0ftIYwFxOdfmDQ5GtM_cIg"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer 8f2b38bd95f14aeeb34c2abddd578bd3
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
@@ -488,32 +449,32 @@ http_interactions:
       Server:
       - Leetchi
       X-Ratelimit:
-      - '104'
-      - '12'
-      - '12'
-      - '12'
+      - '174'
+      - '175'
+      - '175'
+      - '175'
       X-Ratelimit-Remaining:
-      - '105496'
-      - '2288'
-      - '4488'
-      - '8788'
+      - '105425'
+      - '2126'
+      - '4325'
+      - '8625'
       X-Ratelimit-Reset:
-      - '1474383060'
-      - '1474383960'
-      - '1474385760'
-      - '1474468500'
+      - '1474392780'
+      - '1474393680'
+      - '1474395480'
+      - '1474478220'
       Date:
-      - Tue, 20 Sep 2016 14:36:04 GMT
+      - Tue, 20 Sep 2016 17:18:03 GMT
       Content-Length:
       - '628'
     body:
       encoding: UTF-8
-      string: '{"Id":"16228262","Tag":null,"CreationDate":1474382163,"UserId":"16228250","AccessKey":"1X0m87dmM2LiwFgxPLBJ","PreregistrationData":"dtxlzFRSvUcdNkJimn-i_En8KmVUkt1N2XfEBF-h_BDmAsbKDo91MsHHeERgGux3S4wCy-yiraxeE65tmxOe8A","RegistrationData":"data=data=5RSy5qslgAQ7I5fkw79Lp9AiG8hKppzWw2uEMVemGxXt7QTWqOK6L28qzS_RMDsRBnmyXxOmfJtIXkQ2OjN3JbiQkJsB1djoV_s5eSP7WJ_NU9lYVd9_CMmPBIcIeQ_Z_uh-M22NjZ6dU5YsJBBYuA","CardId":"16228264","CardType":"CB_VISA_MASTERCARD","CardRegistrationURL":"https://homologation-webpayment.payline.com/webpayment/getToken","ResultCode":"000000","ResultMessage":"Success","Currency":"EUR","Status":"VALIDATED"}'
+      string: '{"Id":"16234920","Tag":null,"CreationDate":1474391882,"UserId":"16234912","AccessKey":"1X0m87dmM2LiwFgxPLBJ","PreregistrationData":"S8HjKhXaPXeNlzbaHMqIv9BP35NqtcbKfbhTfFIQcdAMgLupKANVNYiBYHVvnc9NS4wCy-yiraxeE65tmxOe8A","RegistrationData":"data=data=WlFlNrFOZLxXvGO11QriKyY5oAaCsFTGNFVpAdoYCsOXFbXwGvaaiqdgu1hG0rzEeWIRspAKNbXDOIIVH4OErWKb4RCuEVGjJdpabsDSTM4R4RRecbCGzac-xXtOamGb0ftIYwFxOdfmDQ5GtM_cIg","CardId":"16234921","CardType":"CB_VISA_MASTERCARD","CardRegistrationURL":"https://homologation-webpayment.payline.com/webpayment/getToken","ResultCode":"000000","ResultMessage":"Success","Currency":"EUR","Status":"VALIDATED"}'
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:36:04 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:04 GMT
 - request:
     method: get
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/16228250/wallets
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/16234912/wallets
     body:
       encoding: UTF-8
       string: "{}"
@@ -521,7 +482,7 @@ http_interactions:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer 8f2b38bd95f14aeeb34c2abddd578bd3
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
@@ -548,42 +509,42 @@ http_interactions:
       Server:
       - Leetchi
       Link:
-      - <https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/16228250/wallets?page=1&per_page=10>;
-        rel="first",<https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/16228250/wallets?page=1&per_page=10>;
+      - <https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/16234912/wallets?page=1&per_page=10>;
+        rel="first",<https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/16234912/wallets?page=1&per_page=10>;
         rel="last"
       X-Number-Of-Pages:
       - '1'
       X-Number-Of-Items:
       - '3'
       X-Ratelimit:
-      - '105'
-      - '13'
-      - '13'
-      - '13'
+      - '175'
+      - '176'
+      - '176'
+      - '176'
       X-Ratelimit-Remaining:
-      - '105495'
-      - '2287'
-      - '4487'
-      - '8787'
+      - '105424'
+      - '2125'
+      - '4324'
+      - '8624'
       X-Ratelimit-Reset:
-      - '1474383060'
-      - '1474383960'
-      - '1474385760'
-      - '1474468500'
+      - '1474392780'
+      - '1474393680'
+      - '1474395480'
+      - '1474478220'
       Date:
-      - Tue, 20 Sep 2016 14:36:05 GMT
+      - Tue, 20 Sep 2016 17:18:04 GMT
       Content-Length:
       - '575'
     body:
       encoding: UTF-8
-      string: '[{"Description":"wallet user 5","Owners":["16228250"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16228254","Tag":null,"CreationDate":1474382159},{"Description":"wallet
-        bonus 5","Owners":["16228250"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16228257","Tag":"Bonus","CreationDate":1474382160},{"Description":"wallet
-        transfert 5","Owners":["16228250"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16228258","Tag":"Transfert","CreationDate":1474382160}]'
+      string: '[{"Description":"wallet user 5","Owners":["16234912"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16234915","Tag":null,"CreationDate":1474391880},{"Description":"wallet
+        bonus 5","Owners":["16234912"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16234916","Tag":"Bonus","CreationDate":1474391880},{"Description":"wallet
+        transfert 5","Owners":["16234912"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16234917","Tag":"Transfert","CreationDate":1474391881}]'
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:36:06 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:05 GMT
 - request:
     method: get
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/cards/16228264
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/cards/16234921
     body:
       encoding: UTF-8
       string: "{}"
@@ -591,7 +552,7 @@ http_interactions:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer 8f2b38bd95f14aeeb34c2abddd578bd3
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
@@ -618,40 +579,40 @@ http_interactions:
       Server:
       - Leetchi
       X-Ratelimit:
-      - '106'
-      - '14'
-      - '14'
-      - '14'
+      - '176'
+      - '177'
+      - '177'
+      - '177'
       X-Ratelimit-Remaining:
-      - '105494'
-      - '2286'
-      - '4486'
-      - '8786'
+      - '105423'
+      - '2124'
+      - '4323'
+      - '8623'
       X-Ratelimit-Reset:
-      - '1474383060'
-      - '1474383960'
-      - '1474385760'
-      - '1474468500'
+      - '1474392780'
+      - '1474393680'
+      - '1474395480'
+      - '1474478220'
       Date:
-      - Tue, 20 Sep 2016 14:36:05 GMT
+      - Tue, 20 Sep 2016 17:18:04 GMT
       Content-Length:
       - '282'
     body:
       encoding: UTF-8
-      string: '{"ExpirationDate":"1016","Alias":"470675XXXXXX0017","CardType":"CB_VISA_MASTERCARD","CardProvider":"VISA","Country":"RUS","Product":"G","BankCode":"unknown","Active":true,"Currency":"EUR","Validity":"UNKNOWN","UserId":"16228250","Id":"16228264","Tag":null,"CreationDate":1474382164}'
+      string: '{"ExpirationDate":"1016","Alias":"470675XXXXXX0017","CardType":"CB_VISA_MASTERCARD","CardProvider":"VISA","Country":"RUS","Product":"G","BankCode":"unknown","Active":true,"Currency":"EUR","Validity":"UNKNOWN","UserId":"16234912","Id":"16234921","Tag":null,"CreationDate":1474391883}'
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:36:06 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:05 GMT
 - request:
     method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/payins/card/direct
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/payins/card/direct
     body:
       encoding: UTF-8
-      string: '{"AuthorId":16228250,"CreditedUserId":16228250,"DebitedFunds":{"Currency":"EUR","Amount":8000.0},"Fees":{"Currency":"EUR","Amount":0.0},"CreditedWalletId":"16228254","SecureModeReturnURL":"http://test.com","SecureMode":"FORCE","CardId":"16228264"}'
+      string: '{"AuthorId":16234912,"CreditedUserId":16234912,"DebitedFunds":{"Currency":"EUR","Amount":8000.0},"Fees":{"Currency":"EUR","Amount":0.0},"CreditedWalletId":"16234915","SecureModeReturnURL":"http://test.com","SecureMode":"FORCE","CardId":"16234921"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer 8f2b38bd95f14aeeb34c2abddd578bd3
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
@@ -678,41 +639,41 @@ http_interactions:
       Server:
       - Leetchi
       X-Ratelimit:
-      - '107'
-      - '15'
-      - '15'
-      - '15'
+      - '177'
+      - '178'
+      - '178'
+      - '178'
       X-Ratelimit-Remaining:
-      - '105493'
-      - '2285'
-      - '4485'
-      - '8785'
+      - '105422'
+      - '2123'
+      - '4322'
+      - '8622'
       X-Ratelimit-Reset:
-      - '1474383060'
-      - '1474383960'
-      - '1474385760'
-      - '1474468500'
+      - '1474392780'
+      - '1474393680'
+      - '1474395480'
+      - '1474478220'
       Date:
-      - Tue, 20 Sep 2016 14:36:08 GMT
+      - Tue, 20 Sep 2016 17:18:06 GMT
       Content-Length:
       - '650'
     body:
       encoding: UTF-8
-      string: '{"Id":"16228267","Tag":null,"CreationDate":1474382167,"AuthorId":"16228250","CreditedUserId":"16228250","DebitedFunds":{"Currency":"EUR","Amount":8000},"CreditedFunds":{"Currency":"EUR","Amount":8000},"Fees":{"Currency":"EUR","Amount":0},"Status":"FAILED","ResultCode":"101302","ResultMessage":"Secure
-        mode: The card is not enrolled with 3DSecure","ExecutionDate":null,"Type":"PAYIN","Nature":"REGULAR","CreditedWalletId":"16228254","DebitedWalletId":null,"PaymentType":"CARD","ExecutionType":"DIRECT","SecureMode":"FORCE","CardId":"16228264","SecureModeReturnURL":null,"SecureModeRedirectURL":null,"SecureModeNeeded":true,"StatementDescriptor":null}'
+      string: '{"Id":"16234924","Tag":null,"CreationDate":1474391885,"AuthorId":"16234912","CreditedUserId":"16234912","DebitedFunds":{"Currency":"EUR","Amount":8000},"CreditedFunds":{"Currency":"EUR","Amount":8000},"Fees":{"Currency":"EUR","Amount":0},"Status":"FAILED","ResultCode":"101302","ResultMessage":"Secure
+        mode: The card is not enrolled with 3DSecure","ExecutionDate":null,"Type":"PAYIN","Nature":"REGULAR","CreditedWalletId":"16234915","DebitedWalletId":null,"PaymentType":"CARD","ExecutionType":"DIRECT","SecureMode":"FORCE","CardId":"16234921","SecureModeReturnURL":null,"SecureModeRedirectURL":null,"SecureModeNeeded":true,"StatementDescriptor":null}'
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:36:09 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:07 GMT
 - request:
     method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/payins/card/direct
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/payins/card/direct
     body:
       encoding: UTF-8
-      string: '{"AuthorId":16228250,"CreditedUserId":16228250,"DebitedFunds":{"Currency":"EUR","Amount":8000.0},"Fees":{"Currency":"EUR","Amount":0.0},"CreditedWalletId":"16228254","SecureModeReturnURL":"http://test.com","SecureMode":"DEFAULT","CardId":"16228264"}'
+      string: '{"AuthorId":16234912,"CreditedUserId":16234912,"DebitedFunds":{"Currency":"EUR","Amount":8000.0},"Fees":{"Currency":"EUR","Amount":0.0},"CreditedWalletId":"16234915","SecureModeReturnURL":"http://test.com","SecureMode":"DEFAULT","CardId":"16234921"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer 8f2b38bd95f14aeeb34c2abddd578bd3
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
@@ -739,32 +700,32 @@ http_interactions:
       Server:
       - Leetchi
       X-Ratelimit:
-      - '108'
-      - '16'
-      - '16'
-      - '16'
+      - '178'
+      - '179'
+      - '179'
+      - '179'
       X-Ratelimit-Remaining:
-      - '105492'
-      - '2284'
-      - '4484'
-      - '8784'
+      - '105421'
+      - '2122'
+      - '4321'
+      - '8621'
       X-Ratelimit-Reset:
-      - '1474383060'
-      - '1474383960'
-      - '1474385760'
-      - '1474468500'
+      - '1474392780'
+      - '1474393680'
+      - '1474395480'
+      - '1474478220'
       Date:
-      - Tue, 20 Sep 2016 14:36:12 GMT
+      - Tue, 20 Sep 2016 17:18:08 GMT
       Content-Length:
       - '618'
     body:
       encoding: UTF-8
-      string: '{"Id":"16228273","Tag":null,"CreationDate":1474382169,"AuthorId":"16228250","CreditedUserId":"16228250","DebitedFunds":{"Currency":"EUR","Amount":8000},"CreditedFunds":{"Currency":"EUR","Amount":8000},"Fees":{"Currency":"EUR","Amount":0},"Status":"SUCCEEDED","ResultCode":"000000","ResultMessage":"Success","ExecutionDate":1474382171,"Type":"PAYIN","Nature":"REGULAR","CreditedWalletId":"16228254","DebitedWalletId":null,"PaymentType":"CARD","ExecutionType":"DIRECT","SecureMode":"DEFAULT","CardId":"16228264","SecureModeReturnURL":null,"SecureModeRedirectURL":null,"SecureModeNeeded":false,"StatementDescriptor":null}'
+      string: '{"Id":"16234926","Tag":null,"CreationDate":1474391887,"AuthorId":"16234912","CreditedUserId":"16234912","DebitedFunds":{"Currency":"EUR","Amount":8000},"CreditedFunds":{"Currency":"EUR","Amount":8000},"Fees":{"Currency":"EUR","Amount":0},"Status":"SUCCEEDED","ResultCode":"000000","ResultMessage":"Success","ExecutionDate":1474391888,"Type":"PAYIN","Nature":"REGULAR","CreditedWalletId":"16234915","DebitedWalletId":null,"PaymentType":"CARD","ExecutionType":"DIRECT","SecureMode":"DEFAULT","CardId":"16234921","SecureModeReturnURL":null,"SecureModeRedirectURL":null,"SecureModeNeeded":false,"StatementDescriptor":null}'
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:36:12 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:09 GMT
 - request:
     method: get
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/16228250/wallets
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/16234912/wallets
     body:
       encoding: UTF-8
       string: "{}"
@@ -772,7 +733,7 @@ http_interactions:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer 8f2b38bd95f14aeeb34c2abddd578bd3
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
@@ -799,50 +760,50 @@ http_interactions:
       Server:
       - Leetchi
       Link:
-      - <https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/16228250/wallets?page=1&per_page=10>;
-        rel="first",<https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/16228250/wallets?page=1&per_page=10>;
+      - <https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/16234912/wallets?page=1&per_page=10>;
+        rel="first",<https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/16234912/wallets?page=1&per_page=10>;
         rel="last"
       X-Number-Of-Pages:
       - '1'
       X-Number-Of-Items:
       - '3'
       X-Ratelimit:
-      - '109'
-      - '17'
-      - '17'
-      - '17'
+      - '179'
+      - '180'
+      - '180'
+      - '180'
       X-Ratelimit-Remaining:
-      - '105491'
-      - '2283'
-      - '4483'
-      - '8783'
+      - '105420'
+      - '2121'
+      - '4320'
+      - '8620'
       X-Ratelimit-Reset:
-      - '1474383060'
-      - '1474383960'
-      - '1474385760'
-      - '1474468500'
+      - '1474392780'
+      - '1474393680'
+      - '1474395480'
+      - '1474478220'
       Date:
-      - Tue, 20 Sep 2016 14:36:13 GMT
+      - Tue, 20 Sep 2016 17:18:10 GMT
       Content-Length:
       - '578'
     body:
       encoding: UTF-8
-      string: '[{"Description":"wallet user 5","Owners":["16228250"],"Balance":{"Currency":"EUR","Amount":8000},"Currency":"EUR","FundsType":"DEFAULT","Id":"16228254","Tag":null,"CreationDate":1474382159},{"Description":"wallet
-        bonus 5","Owners":["16228250"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16228257","Tag":"Bonus","CreationDate":1474382160},{"Description":"wallet
-        transfert 5","Owners":["16228250"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16228258","Tag":"Transfert","CreationDate":1474382160}]'
+      string: '[{"Description":"wallet user 5","Owners":["16234912"],"Balance":{"Currency":"EUR","Amount":8000},"Currency":"EUR","FundsType":"DEFAULT","Id":"16234915","Tag":null,"CreationDate":1474391880},{"Description":"wallet
+        bonus 5","Owners":["16234912"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16234916","Tag":"Bonus","CreationDate":1474391880},{"Description":"wallet
+        transfert 5","Owners":["16234912"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16234917","Tag":"Transfert","CreationDate":1474391881}]'
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:36:13 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:10 GMT
 - request:
     method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/transfers
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/transfers
     body:
       encoding: UTF-8
-      string: '{"AuthorId":16228250,"DebitedFunds":{"Currency":"EUR","Amount":2000.0},"Fees":{"Currency":"EUR","Amount":0.0},"DebitedWalletId":"16228254","CreditedWalletId":"16228258"}'
+      string: '{"AuthorId":16234912,"DebitedFunds":{"Currency":"EUR","Amount":2000.0},"Fees":{"Currency":"EUR","Amount":0.0},"DebitedWalletId":"16234915","CreditedWalletId":"16234917"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer 8f2b38bd95f14aeeb34c2abddd578bd3
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
@@ -869,27 +830,27 @@ http_interactions:
       Server:
       - Leetchi
       X-Ratelimit:
-      - '110'
-      - '18'
-      - '18'
-      - '18'
+      - '180'
+      - '181'
+      - '181'
+      - '181'
       X-Ratelimit-Remaining:
-      - '105490'
-      - '2282'
-      - '4482'
-      - '8782'
+      - '105419'
+      - '2120'
+      - '4319'
+      - '8619'
       X-Ratelimit-Reset:
-      - '1474383060'
-      - '1474383960'
-      - '1474385760'
-      - '1474468500'
+      - '1474392780'
+      - '1474393680'
+      - '1474395480'
+      - '1474478220'
       Date:
-      - Tue, 20 Sep 2016 14:36:14 GMT
+      - Tue, 20 Sep 2016 17:18:11 GMT
       Content-Length:
       - '430'
     body:
       encoding: UTF-8
-      string: '{"Id":"16228278","Tag":null,"CreationDate":1474382173,"AuthorId":"16228250","CreditedUserId":"16228250","DebitedFunds":{"Currency":"EUR","Amount":2000},"CreditedFunds":{"Currency":"EUR","Amount":2000},"Fees":{"Currency":"EUR","Amount":0},"Status":"SUCCEEDED","ResultCode":"000000","ResultMessage":"Success","ExecutionDate":1474382174,"Type":"TRANSFER","Nature":"REGULAR","DebitedWalletId":"16228254","CreditedWalletId":"16228258"}'
+      string: '{"Id":"16234930","Tag":null,"CreationDate":1474391890,"AuthorId":"16234912","CreditedUserId":"16234912","DebitedFunds":{"Currency":"EUR","Amount":2000},"CreditedFunds":{"Currency":"EUR","Amount":2000},"Fees":{"Currency":"EUR","Amount":0},"Status":"SUCCEEDED","ResultCode":"000000","ResultMessage":"Success","ExecutionDate":1474391890,"Type":"TRANSFER","Nature":"REGULAR","DebitedWalletId":"16234915","CreditedWalletId":"16234917"}'
     http_version: 
-  recorded_at: Tue, 20 Sep 2016 14:36:14 GMT
+  recorded_at: Tue, 20 Sep 2016 17:18:11 GMT
 recorded_with: VCR 3.0.3

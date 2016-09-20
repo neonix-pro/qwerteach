@@ -2,7 +2,7 @@ class WalletsController < ApplicationController
   before_filter :authenticate_user!
   after_filter { flash.discard if request.xhr? }
   before_action :set_user
-  before_action :check_mangopay_account, except: [:edit_mangopay_wallet, :update_mangopay_wallet]
+  before_action :check_mangopay_account, except: [:edit_mangopay_wallet, :update_mangopay_wallet, :index_mangopay_wallet]
 
 
   helper_method :countries_list #You can use it in view
@@ -47,7 +47,6 @@ class WalletsController < ApplicationController
     when 'BCMC'
       payin = Mango::PayinBancontact.run(user: current_user, amount: amount, return_url: return_url)
       if payin.valid?
-        logger.debug(payin.result)
         return redirect_to payin.result.redirect_url
       else
         #TODO: render direct_debit_mangopay_wallet with filled fields
@@ -56,7 +55,6 @@ class WalletsController < ApplicationController
 
     when 'CB_VISA_MASTERCARD'
       if card.blank?
-        logger.debug(params)
         redirect_to card_info_path(amount: params[:amount])
       else
         payin = Mango::PayinCreditCard.run(user: current_user, amount: amount, card_id: card, return_url: return_url)

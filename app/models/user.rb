@@ -33,6 +33,9 @@ class User < ActiveRecord::Base
   after_create :create_gallery
 
   acts_as_messageable
+  def mailboxer_email(messageable)
+    email
+  end
   validates_date :birthdate, :on_or_before => lambda { Date.current }
   has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"},
                     :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg",

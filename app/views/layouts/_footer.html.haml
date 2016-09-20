@@ -1,41 +1,47 @@
 #footer
     .inner
         =image_tag("logoQ.png", :class => "logo")
-        %hr
-        .col-md-3
-            %h3 A propos
-            %a{:href => "#"} 
-                L'équipe
-            %a{:href => "#"} 
-                Job & stage
-            %a{:href => "#"} 
-                Espace presse
-            %a{:href => "#"} 
-                Blog
-        .col-md-3
-            %h3 Infos Pratiques
-            %a{:href => "#"} 
-                Comment ça marche
-            %a{:href => "#"} 
-                Aide/FAQ
-            %a{:href => "#"} 
-                Plan du site
-            %a{:href => "#"} 
-                Paiement sécurisé
-        .col-md-3
-            %h3 Infos Pratiques
-            %p contacter nous : 
-            %p 
-                02 345 48 37
+        .cadre
+            .col
+                %h3 A propos
                 %br
-                lu-ve : 10h-19h
-            %a.green{:href => "#"}
-                Ouvrir le chat
-        .col-md-3.social_block
-            %h3 Une question ? 
-            %a.social{:href => "#", :target => "_blank"}
-                =image_tag("facebook.png")
-            %a.social{:href => "#", :target => "_blank"}
-                =image_tag("twitter.png")
-            %a.social{:href => "#", :target => "_blank"}
-                =image_tag("googleplus.png")
+                %a{:href => "#"} 
+                    L'équipe
+                %a{:href => "#"} 
+                    Job & stage
+                %a{:href => "#"} 
+                    Espace presse
+                %a{:href => "#"} 
+                    Blog
+            .col
+                %h3 Infos Pratiques
+                %br
+                %a{:href => "#"} 
+                    Comment ça marche
+                %a{:href => "#"} 
+                    Aide/FAQ
+                %a{:href => "#"} 
+                    Plan du site
+                %a{:href => "#"} 
+                    Paiement sécurisé
+            .col
+                %h3 Infos Pratiques
+                %br
+                %p contacter nous : 
+                %p 
+                    02 345 48 37
+                    %br
+                    lu-ve : 10h-19h
+                %a.green{:href => "#"}
+                    Ouvrir le chat
+            .col.social_block
+                %h3 Une question ? 
+                %br
+                %a.social{:href => "#", :target => "_blank"}
+                    =image_tag("facebook.png")
+                %a.social{:href => "#", :target => "_blank"}
+                    =image_tag("twitter.png")
+                %a.social{:href => "#", :target => "_blank"}
+                    =image_tag("googleplus.png")
+            .copyright
+                %p © 2013 Qwerteach • Conditions d'utilisation

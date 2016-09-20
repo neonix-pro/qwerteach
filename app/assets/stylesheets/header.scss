@@ -5,8 +5,12 @@ $color_link_grey: #b9b9b9;
 
 body, html{
     margin: 0;
-    font-family: "Source Sans Pro" !important;
+    font-family: SofiaProRegular;
     outline: none !important;
+}
+
+h1,h2,h3,h4,h5,p,span,a{
+    font-family: SofiaProRegular;
 }
 
 .container-fluid{
@@ -20,6 +24,53 @@ a, a:hover, a:active, a:focus{
     outline: 0;
     background: none;
 }
+
+form{
+    
+    input{
+        border-radius: 5px;
+        border: 1px solid #706F6F;
+        width: 250px;
+        padding-left: 10px;
+        color: #706F6F;
+        display: block;
+    }
+    select{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 250px;
+        height: 25px;
+        border-radius: 5px;
+        color: #706F6F;
+        border-color: #706F6F;
+        outline: none !important;
+        padding-left: 10px;
+        background: url('select_arrow.png') no-repeat 97% 50% #ffffff;
+        border: 1px solid;
+        pointer: cursor
+    }
+    label{
+        color: #3C3C3B;
+        padding-left: 5px;
+        display: block;
+        margin-top: 10px;
+   }
+   .submit{
+        border-radius: 15px;
+        border-color: #29B46C;
+        border: 1px solid;
+        color: #29B46C;
+        background: #fff;
+        width: 200px;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 6px;
+    }
+}
+
 button{
     outline: none !important;
 }
@@ -49,7 +100,10 @@ input{
  position: static !important;
  border: none !important;
 }
-    
+
+.navbar-nav{
+    float: right !important;
+}    
 
 .main-nav .navbar-nav a{
     color: $color_link_grey;
@@ -68,7 +122,11 @@ input{
 #footer{
      background: $color_qwerteach_navgrey;   
      color: $color_link_grey;
-     height: 400px;
+     height: 500px;
+     .cadre{
+         border-top: 1px solid #767676;
+         margin-top: 50px;
+     }
      .inner{
          position: relative;
          top: 50px;
@@ -76,10 +134,13 @@ input{
          display: block;
          margin: auto;
          height: 350px;
+         .col{
+             float: left;
+             width: 25%;
+         }
          .logo{
              display: block;
              margin: auto;
-             height: 100px;
          }
          a{
             padding-right: 10%;
@@ -90,6 +151,7 @@ input{
         h3{
             font-size: 18px;
             text-align: left;
+            font-weight: bold;
         }
         p{
             text-align: left;
@@ -101,6 +163,7 @@ input{
                 margin: 0;
                 padding: 0;
                 text-align: left;
+                width: auto;
                 img{
                     width: 25px;
                     margin: 10px;
@@ -110,7 +173,11 @@ input{
         .green{
             color: $color_qwerteach_green;
         }
-
-         
      }
+    .copyright{
+            clear: both;
+            bottom: 25px;
+            color: $color_link_grey;
+            margin-top: 280px;
+        }
 }

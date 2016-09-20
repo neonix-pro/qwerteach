@@ -2,5 +2,4 @@
 - if @topics.nil?
   %p Il n'y a aucune option pour cette catégorie
 - else
-  = label_tag "Topic"
   = select_tag :topic_id, options_for_select(@topics.map.collect { |p| [p.title, p.id] }), { include_blank: "Choisissez une sous-catégorie" , :required => true }

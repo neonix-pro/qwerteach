@@ -35,19 +35,7 @@
     .modal-footer
       .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
 
-#request-lesson.modal.fade
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
-        %h3.modal-title= "Réserver un cours avec #{@user.name}"
-      .modal-body
-        #lesson-details
-          %i.fa.fa-spin.fa-spinner.fa-2x
-        .modal-loader.hidden
-          %i.fa.fa-spin.fa-spinner.fa-2x
-      .modal-footer
-        %button.btn{"data-dismiss" => "modal", :type => "button"} Close
+= render partial: 'request_lesson/request_lesson_modal'
 
 :javascript
   new RequestLesson( $('#request-lesson'), {teacher_id: #{@user.id}} );
