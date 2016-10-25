@@ -1,7 +1,16 @@
 - unless user.profil_complete?
-  Parraînez un ami et gagnez du crédit!
+  %h3
+    Bonus 10€:
+  %h3.text-white
+    Parraînez un ami et gagnez du crédit!
   .text-center
     = link_to '#', class: 'bonus_credit' do
       %i.fa.fa-long-arrow-right
 - else
-  Incomplet
+  %h3
+    Bonus 10€:
+  %h3.text-white
+    Complétez votre profil et gagnez du crédit!
+  .text-center
+    = link_to '#', class: 'bonus_credit' do
+      %i.fa.fa-long-arrow-right

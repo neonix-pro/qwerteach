@@ -7,6 +7,15 @@
   position:relative;
   z-index:0;
   height:160px;
+  font-weight:400;
+  .wallet-icon{
+    line-height:100px;
+  }
+  h3{
+    margin-top:0px;
+    margin-bottom: 0px;
+    font-weight:400;
+  }
 }
 #bonus{
   height:160px;
@@ -22,7 +31,7 @@
   z-index:0;
   padding: 30px;
   .bonus_credit i {
-    margin-top:20px;
+    margin-top:5px;
     background-color: #F8E71C;
     color: #4A4A4A;
     border-radius:50%;
@@ -30,8 +39,27 @@
     width: 35px;
     line-height: 35px;
   }
+  h3{
+    margin-top:0px;
+  }
 }
 
+#topic-groups-list{
+  .topic-group{
+    width:16.666667%;
+    float:left;
+    height:150px;
+    line-height:100px;
+    text-align:center;
+    .topic-group-name{
+      color: $color_qwerteach_purple;
+      line-height:0px;
+    }
+  }
+  .topic-group:hover{
+    background-color:#FFF46E;
+  }
+}
 #featured_teachers{
   padding-left:0px;
   padding-right:0px;

@@ -1,12 +1,11 @@
 .row
-  .col-xs-4.text-center
-    %i.fa.fa-4x.fa-credit-card.text-purple
+  .col-xs-4.text-center.wallet-icon
+    = image_tag('credit_card.png', class: 'credit-card-icon')
   .col-xs-8
     %h3 Portefeuille
     -if user.mango_id.nil?
-      %div 0€
+      %h3.balance 0€
       =link_to 'Configurez votre portefeuille virtuel!', edit_wallet_path(user)
     -else
-      #{user.total_wallets_in_cents/100} €
-      %br
-      = link_to 'Charger', direct_debit_path(user), class: 'text-grey'
+      %h3.balance #{user.total_wallets_in_cents/100} €
+      = link_to 'Charger', direct_debit_path(user), class: 'text-black load-wallet'
