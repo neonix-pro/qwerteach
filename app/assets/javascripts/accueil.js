@@ -4,4 +4,8 @@ $(window).ready(function(e){
         $(this).addClass("item" + i)
     })
     
+    $(".toggleCCM").click(function(){
+        $(".section_commentmarche").toggle("slow");
+    })
+    
 })
