@@ -26,10 +26,6 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
 
-  resources :pages do
-    get :autocomplete_topic_title, :on => :collection
-  end
-
   scope '/user/mangopay', controller: :payments do
   end
 
@@ -89,6 +85,9 @@ Rails.application.routes.draw do
   get '/adverts_user/:user_id', to: 'adverts#get_all_adverts', as: 'get_all_adverts'
 
   get "/pages/*page" => "pages#show"
+  resources :pages do
+    get :autocomplete_topic_title, :on => :collection
+  end
   get '/become_teacher/accueil' => "pages#devenir-prof"
   get '/index' => "pages#index"
   resources :become_teacher
