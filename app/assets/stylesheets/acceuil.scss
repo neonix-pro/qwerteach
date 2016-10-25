@@ -610,3 +610,24 @@
         }
     }
 }
+
+.section_recherche{
+    height: 50px;
+    button{
+        height: 50px;
+        width: 50px;
+        border: none;
+        background: #F8E71C;
+        color: #fff;
+        display: inline;
+        font-size: 18px;
+    }
+    .recherche-bar{
+        height: 50px;
+        display: inline;
+        border: none;
+        border-radius: 0px;
+        background: #fff;
+        margin-left: -4px;
+    }
+}
