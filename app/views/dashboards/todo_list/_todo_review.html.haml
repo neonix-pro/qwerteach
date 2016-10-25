@@ -1,12 +1,12 @@
-.todo.todo_review
+.todo
   .row
-    .col-sm-2.col-hidden-xs.text-center
-      = image_tag (lesson.teacher.avatar(:small), class: 'img img-circle todo_img')
-    .col-sm-7.col-xs-9
+    .col-sm-2.col-hidden-xs
+      = image_tag (lesson.teacher.avatar(:medium)), class: 'img todo_review_img'
+    .col-sm-7.col-xs-9.todo_review
       %h3.todo_title
         Recommanderiez-vous #{lesson.teacher.firstname} ?
-      .todo_review
+      %div
         = render partial: 'shared/star_rating', locals:{note: lesson.teacher.avg_reviews}
-    .col-xs-3
-      = button_to 'Laisser un avis', '#', class: 'btn btn-mini btn-green'
+    .col-xs-3.todo_review.text-center.todo_action
+      = button_to 'Laisser un avis', '#', class: 'btn btn-qw btn-green btn-sm'
       = link_to 'Pas maintenant', '#', class: 'text-grey'

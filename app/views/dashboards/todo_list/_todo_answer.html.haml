@@ -1,7 +1,7 @@
 .todo.todo_answer
   .row
   .col-sm-2.col-hidden-xs.text-center
-    = image_tag (lesson.teacher.avatar(:small), class: 'img img-circle todo_img')
+    = image_tag lesson.teacher.avatar(:small), class: 'img img-circle todo_img'
   .col-sm-7.col-xs-9
     %h3.todo_title
       #{lesson.teacher.firstname} vous a fait une demande de cours!

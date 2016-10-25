@@ -7,13 +7,36 @@
   background-color:$color_qwerteach_green;
 }
 
-.todo{
-  padding: 30px 0px;
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,1);
-  line-height:25px;
+.todo {
+  overflow:hidden;
+  line-height: 25px;
   z-index: 2;
   position: relative;
+  height: 150px;
+  border-bottom: 1px solid #979797;
+
   .todo_title{
     margin:0;
   }
+  .todo_payment, .todo_review{
+    padding: 30px;
+    padding-bottom: 0px;
+  }
+  .todo_payment_img{
+    background: #313131;
+    height: 150px;
+    width: 150px;
+    line-height: 150px;
+  }
+  .todo_review_img{
+    height:150px;
+    float:left;
+  }
+  .todo_action{
+    margin-top:20px;
+  }
+}
+.todo:last-child{
+  border-botom: none;
+  //box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 1);
 }

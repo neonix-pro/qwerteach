@@ -17,11 +17,11 @@ class Student < User
   end
 
   def pending_lessons
-    Lesson.where('student_id=? OR teacher_id=?', id, id).where(status: ['pending_teacher', 'pending_student'] )
+    Lesson.upcoming.where('student_id=? OR teacher_id=?', id, id).where(status: ['pending_teacher', 'pending_student'] )
   end
 
   def pending_me_lessons
-    Lesson.where('(student_id=? AND status=?) OR (teacher_id=? AND status=?)', id, 'pending_student', id, 'pending_teacher')
+    Lesson.upcoming.where('(student_id=? AND status=?) OR (teacher_id=? AND status=?)', id, 1, id, 0)
   end
 
   def unpaid_lessons

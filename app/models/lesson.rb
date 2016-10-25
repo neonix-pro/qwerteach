@@ -16,6 +16,8 @@ class Lesson < ActiveRecord::Base
 
   has_one :bbb_room
 
+  scope :upcoming, ->{ where("time_start > ?", Time.now) }
+
   validates :student_id, presence: true
   validates :teacher_id, presence: true
   validates :status, presence: true
@@ -139,7 +141,7 @@ class Lesson < ActiveRecord::Base
     if pending?(user)
       return :confirm
     end
-    if past?
+    if past? && is_student?(user)
       if prepaid?
         return :unlock
       end
