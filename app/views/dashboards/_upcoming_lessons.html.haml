@@ -1,35 +1,56 @@
--unless lesson.empty?
+#upcoming_lessons
   .row
-    .col-xs-12#upcoming_lessons
+    %h2.text-center
+      #{lessons.count} cours à venir
 
-  - lessons.each do |lesson|
-    .lesson
-      %tr
-        %td= lesson.id
-        %td
-          = lesson.teacher.firstname
-          = lesson.teacher.lastname
-        %td
-          = lesson.student.firstname
-          = lesson.student.lastname
-        %td= lesson.topic_group.title
-        %td= lesson.time_start
-        %td= lesson.time_end
-        %td= lesson.status.to_s
-        - if current_user.id == lesson.teacher.id && (lesson.pending_teacher? || lesson.pending_student?)
-          %td
-            = link_to t('.accept', :default => t("helpers.links.accept")),
-              lesson_accept_lesson_path(lesson), :class => 'btn btn-success'
-            = link_to t('.refuse', :default => t("helpers.links.refuse")),
-              lesson_refuse_lesson_path(lesson), :class => 'btn btn-danger'
-        - if current_user.id == lesson.teacher_id && lesson.created?
-          %td= link_to t('.cancel', :default => t("helpers.links.cancel")),
-              lesson_cancel_lesson_path(lesson), :class => 'btn btn-warning'
-        - elsif current_user.id == lesson.student_id && lesson.pending_teacher?
-          %td
-            = link_to t('.cancel', :default => t("helpers.links.cancel")),
-              lesson_cancel_lesson_path(lesson), :class => 'btn btn-danger'
-            = link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_lesson_path(lesson), :class => 'btn btn-warning'
-        - else
-          %td
+- lessons.each do |lesson|
+  .row
+    .lesson-date.text-center
+      .lesson-day #{lesson.time_start.day}
+      .lesson-month #{lesson.time_start.strftime("%B")}
+    .lesson-partner
+      = image_tag lesson.other(current_user).avatar(:medium), class: 'lesson-partner-img'
+    .lesson-details
+      .pull-left
+        %span.time-start
+          = lesson.time_start.strftime("%H:%M")
+        %span.text-pink
+          = lesson.topic.title
+        %br
+        avec
+        = link_to lesson.other(current_user).firstname, user_path(lesson.other(current_user)), class: 'text-pink'
+        %br
+        = lesson_duration(lesson.time_start, lesson.time_end)
+      .pull-right.text-center
+        = image_tag lesson.topic.pictotype('medium'), class: 'lesson-picto'
+        %br
+        = link_to 'voir détails', lessons_path, class: 'text-pink see-more'
+    -#%tr
+    -#  %td= lesson.id
+    -#  %td
+    -#    = lesson.teacher.firstname
+    -#    = lesson.teacher.lastname
+    -#  %td
+    -#    = lesson.student.firstname
+    -#    = lesson.student.lastname
+    -#  %td= lesson.topic_group.title
+    -#  %td= lesson.time_start
+    -#  %td= lesson.time_end
+    -#  %td= lesson.status.to_s
+    -#  - if current_user.id == lesson.teacher.id && (lesson.pending_teacher? || lesson.pending_student?)
+    -#    %td
+    -#      = link_to t('.accept', :default => t("helpers.links.accept")),
+    -#        lesson_accept_lesson_path(lesson), :class => 'btn btn-success'
+    -#      = link_to t('.refuse', :default => t("helpers.links.refuse")),
+    -#        lesson_refuse_lesson_path(lesson), :class => 'btn btn-danger'
+    -#  - if current_user.id == lesson.teacher_id && lesson.created?
+    -#    %td= link_to t('.cancel', :default => t("helpers.links.cancel")),
+    -#        lesson_cancel_lesson_path(lesson), :class => 'btn btn-warning'
+    -#  - elsif current_user.id == lesson.student_id && lesson.pending_teacher?
+    -#    %td
+    -#      = link_to t('.cancel', :default => t("helpers.links.cancel")),
+    -#        lesson_cancel_lesson_path(lesson), :class => 'btn btn-danger'
+    -#      = link_to t('.edit', :default => t("helpers.links.edit")),
+    -#        edit_lesson_path(lesson), :class => 'btn btn-warning'
+    -#  - else
+    -#    %td
