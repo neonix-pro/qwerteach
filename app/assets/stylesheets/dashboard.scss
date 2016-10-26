@@ -64,6 +64,7 @@
   padding-left:0px;
   padding-right:0px;
   h2{
+    font-size: 24px;
     margin:0px;
     padding:30px;
   }
@@ -142,6 +143,57 @@
     .see-more{
       font-size:14px;
       letter-spacing: 0.2px;
+    }
+  }
+}
+
+#past_lessons{
+  h2{
+    font-size: 24px;
+    margin:0px;
+    padding:20px 0px;
+    text-align:center;
+    color:$color_qwerteach_lightgrey;
+    background-color:$color_qwerteach_green;
+  }
+  .preview-lesson{
+    background-image: url("dashboard/preview_cours.png");
+    background-size: cover;
+    height:170px;
+    font-weight:300;
+    padding: 20px;
+    .lesson-topic{
+      font-weight:200;
+      font-size:22px;
+      color: $color_qwerteach_yellow;
+      line-height:30px;
+    }
+    .lesson-partner{
+      font-weight:200;
+      font-size: 22px;
+      color:white;
+      line-height:30px;
+    }
+    .lesson-date{
+      margin-top:20px;
+      color:$color_qwerteach_yellow;
+      font-size: 16px;
+      line-height:20px;
+    }
+    .lesson-seemore{
+      color:white;
+      font-size: 12px;
+    }
+  }
+  .empty-lesson{
+    height:170px;
+    line-height:170px;
+    padding:7px 5px;
+    position:relative;
+    .border{
+      height:100%;
+      width:100%;
+      border: 1px dashed #9B9B9B;
     }
   }
 }

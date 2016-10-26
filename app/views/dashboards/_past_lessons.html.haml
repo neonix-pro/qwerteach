@@ -1,3 +1,14 @@
-- lessons.each do |lesson|
-  #{lesson.id} - #{lesson.status}
-  %br
+.row
+  %h2 Mes cours
+.row
+  - lessons.each do |lesson|
+    -unless lesson.nil?
+      .col-sm-4.preview-lesson
+        .lesson-topic #{lesson.topic.title}
+        .lesson-partner #{lesson.other(current_user).firstname}
+        .lesson-date #{lesson.time_start.strftime("%d %b %Y")}
+        .lesson-seemore voir le cours
+    - else
+      .col-sm-4.empty-lesson.text-center
+        .border
+          = image_tag('dashboard/camera.png')

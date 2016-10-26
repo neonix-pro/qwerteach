@@ -6,6 +6,10 @@ class DashboardsController < ApplicationController
     @upcoming_lessons = Lesson.where(:status => 2).where('time_start > ?', DateTime.now).where("student_id =#{@user.id}  OR teacher_id = #{@user.id}")
     @past_lessons = @user.past_lessons.limit(3).order(time_start: :desc)
 
+    while @past_lessons.length < 3
+      @past_lessons.append(nil)
+    end
+
     unless(@user.mango_id.nil?)
       @wallets = {normal: @user.wallets.first, bonus: @user.wallets.second, transfer: @user.wallets.third}
     end
