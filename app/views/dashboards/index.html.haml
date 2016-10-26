@@ -10,7 +10,7 @@
   -unless @past_lessons.empty?
     .row
       .col-xs-12#past_lessons
-        = render partial: 'upcoming_lessons', locals:{lessons: @past_lessons}
+        = render partial: 'past_lessons', locals:{lessons: @past_lessons}
   .row
     .col-xs-6#wallet_overview
       = render partial: 'wallet_overview', locals:{user: @user}

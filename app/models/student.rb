@@ -25,18 +25,22 @@ class Student < User
   end
 
   def unpaid_lessons
-    Lesson.joins(:payments).where(:student => id)
+    past_lessons.where(:student => id).joins(:payments)
         .where('payments.status = 0')
         .where('time_end < ?', DateTime.now)
         .where(status: 'created')
   end
 
   def noreview_lessons
-    Lesson.joins('LEFT OUTER JOIN reviews ON reviews.subject_id = lessons.teacher_id
+    past_lessons.joins('LEFT OUTER JOIN reviews ON reviews.subject_id = lessons.teacher_id
       AND reviews.sender_id = lessons.student_id')
         .where(:student => id)
         .where('reviews.id is NULL')
         .where('time_end < ?', DateTime.now)
         .group(:teacher)
+  end
+
+  def past_lessons
+    lessons_received.where('time_end < ?', DateTime.now).where(status: 2)
   end
 end
