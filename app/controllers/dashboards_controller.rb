@@ -6,8 +6,15 @@ class DashboardsController < ApplicationController
     @upcoming_lessons = Lesson.where(:status => 2).where('time_start > ?', DateTime.now).where("student_id =#{@user.id}  OR teacher_id = #{@user.id}")
     @past_lessons = @user.past_lessons.limit(3).order(time_start: :desc)
 
-    while @past_lessons.length < 3
-      @past_lessons.append(nil)
+    unless @past_lessons.empty?
+      @past_lessons.each do |lesson|
+        if lesson.student == current_user
+          @book_again_lesson = lesson
+        end
+      end
+      while @past_lessons.length < 3
+        @past_lessons.append(nil)
+      end
     end
 
     unless(@user.mango_id.nil?)

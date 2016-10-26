@@ -1,4 +1,8 @@
 .container-fluid
+  -if !@book_again_lesson.nil? && @to_do_list.empty?
+    .row
+      .col-xs-12#book_again
+        = render partial: 'book_again', locals: {lesson: @book_again_lesson}
   -unless @to_do_list.empty?
     .row
       .col-xs-12#todo_list
