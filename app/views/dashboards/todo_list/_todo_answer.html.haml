@@ -1,4 +1,18 @@
-%h3 #{link_to lesson.teacher.name, user_path(lesson.teacher) } attend votre réponse!
-%button.btn.btn-success accepter
-%button.btn.btn-warning modifier
-=link_to 'refuser', '#'
+.todo
+  .row
+    .col-sm-2.col-hidden-xs
+      = image_tag lesson.other(current_user).avatar(:medium), class: 'img todo_review_img'
+    .col-sm-7.col-xs-9.todo_answer
+      %h3.todo_title
+        #{lesson.other(current_user).firstname} vous a fait une demande de cours!
+      .todo-details
+        #{distance_of_time_in_words(lesson.time_start, lesson.time_end)} de
+        #{link_to lesson.topic.title, profs_by_topic_path(lesson.topic.title), class: 'text-purple'} avec
+        #{link_to lesson.teacher.name, user_path(lesson.teacher), class: 'text-purple'}
+        %br
+        %span{data: {toggle: 'tooltip', placement: 'bottom'}, title: "#{lesson.time_start.strftime('Timezone: %Z')}"}
+          #{lesson.time_start.strftime('Le %d/%m/%Y à %R')}
+    .col-xs-3.todo_answer.text-center.todo_action
+      = button_to 'Accepter', '#', class: 'btn btn-qw btn-green btn-sm'
+      = button_to 'Modifier', '#', class: 'btn btn-qw btn-orange btn-sm'
+      = link_to 'Décliner', '#', class: 'text-grey'

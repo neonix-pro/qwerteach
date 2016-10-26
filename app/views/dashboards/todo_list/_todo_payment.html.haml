@@ -1,2 +1,19 @@
-%div.todo_payment
-  %h3 Payer votre cours avec #{link_to lesson.teacher.name, user_path(lesson.teacher)}
+.todo
+  .row
+    .col-sm-2.col-hidden-xs
+      .text-center.todo_payment_img
+        #{lesson.id}
+        = image_tag('todo_payment.png')
+    .col-sm-7.col-xs-9.todo_payment
+      %h3.todo_title
+        Comment s'est passé votre cours ?
+      .todo-details
+        #{distance_of_time_in_words(lesson.time_start, lesson.time_end)} de
+        #{link_to lesson.topic.title, profs_by_topic_path(lesson.topic.title), class: 'text-purple'} avec
+        #{link_to lesson.teacher.name, user_path(lesson.teacher), class: 'text-purple'}
+        %br
+        %span{data: {toggle: 'tooltip', placement: 'bottom'}, title: "#{lesson.time_start.strftime('Timezone: %Z')}"}
+          #{lesson.time_start.strftime('Le %d/%m/%Y à %R')}
+    .col-xs-3.todo_payment.text-center.todo_action
+      = button_to 'Tout s\'est bien passé', lesson_debloquerpayment_path(lesson), class: 'btn btn-qw btn-green btn-sm'
+      = link_to 'Signaler un problème', lesson_bloquerpayment_path(lesson), class: 'text-grey'

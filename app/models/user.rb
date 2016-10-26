@@ -232,6 +232,10 @@ class User < ActiveRecord::Base
     super
   end
 
+  def profil_complete?
+    (firstname.nil? || lastname.nil? || avatar.nil? || phonenumber.nil? || mango_id.nil?)
+  end
+
   private
     def reprocess_avatar
       avatar.assign(avatar)

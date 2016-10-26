@@ -1,0 +1,199 @@
+@import "global_variables";
+#wallet_overview{
+  width:50%;
+  background-color: $color_qwerteach_green;
+  margin: 0;
+  padding: 30px;
+  position:relative;
+  z-index:0;
+  height:170px;
+  font-weight:400;
+  .wallet-icon{
+    line-height:100px;
+  }
+  h3{
+    margin-top:0px;
+    margin-bottom: 0px;
+    font-weight:400;
+  }
+}
+#bonus{
+  height:170px;
+  width:50%;
+  margin:0;
+  position:relative;
+  float:right;
+  background-color: #313131;
+  font-size: 22px;
+  color: #F8E71C;
+  letter-spacing: 0px;
+  position:relative;
+  z-index:0;
+  padding: 30px;
+  .bonus_credit i {
+    margin-top:5px;
+    background-color: #F8E71C;
+    color: #4A4A4A;
+    border-radius:50%;
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
+  }
+  h3{
+    margin-top:0px;
+  }
+}
+
+#topic-groups-list{
+  .topic-group{
+    width:16.666667%;
+    float:left;
+    height:120px;
+    line-height:80px;
+    text-align:center;
+    .topic-group-name{
+      color: $color_qwerteach_purple;
+      line-height:0px;
+    }
+  }
+  .topic-group:hover{
+    background-color:#FFF46E;
+  }
+}
+#featured_teachers{
+  padding-left:0px;
+  padding-right:0px;
+  h2{
+    font-size: 24px;
+    margin:0px;
+    padding:30px;
+  }
+  .featured_teacher{
+    float:left;
+    width:20%;
+    background: rgba(0,0,0,0.05);
+    height: 340px;
+    .picture img{
+      width:100%;
+    }
+    .min_price{
+      background-color: #222222;
+      font-size: 13.71px;
+      color: #FFFFFF;
+      letter-spacing: 0px;
+      text-align:center;
+      padding:5px;
+    }
+    .name, .topics{
+      padding:0px 10px;
+    }
+  }
+  .featured_teacher:nth-child(even) {
+    background: white;
+    .min_price {
+      background: #313131;
+    }
+  }
+}
+#upcoming_lessons{
+  h2{
+    margin:0px;
+    padding:20px;
+    background: #222222;
+    font-size: 24px;
+    color: #E5E5E5;
+    letter-spacing: 0px;
+    font-weight:400;
+  }
+  .lesson-date{
+    width:170px;
+    height:170px;
+    float:left;
+    background-color: $color_qwerteach_pink;
+    color: white;
+    .lesson-day{
+      font-size: 90px;
+    }
+    .lesson-month{
+      font-size: 24px;
+      font-weight:200;
+      margin-top:-25px;
+    }
+  }
+  .lesson-partner{
+    width:170px;
+    height:170px;
+    float:left;
+    img{
+      height:100%;
+    }
+  }
+  .lesson-details{
+    height:170px;
+    padding:45px;
+    margin-left:340px;
+    font-size: 22px;
+    font-weight:300;
+    .time-start{
+      font-weight:300 !important;
+    }
+    .lesson-picto{
+      height:75px;
+    }
+    .see-more{
+      font-size:14px;
+      letter-spacing: 0.2px;
+    }
+  }
+}
+
+#past_lessons{
+  h2{
+    font-size: 24px;
+    margin:0px;
+    padding:20px 0px;
+    text-align:center;
+    color:$color_qwerteach_lightgrey;
+    background-color:$color_qwerteach_green;
+  }
+  .preview-lesson{
+    background-image: url("dashboard/preview_cours.png");
+    background-size: cover;
+    height:170px;
+    font-weight:300;
+    padding: 20px;
+    .lesson-topic{
+      font-weight:200;
+      font-size:22px;
+      color: $color_qwerteach_yellow;
+      line-height:30px;
+    }
+    .lesson-partner{
+      font-weight:200;
+      font-size: 22px;
+      color:white;
+      line-height:30px;
+    }
+    .lesson-date{
+      margin-top:20px;
+      color:$color_qwerteach_yellow;
+      font-size: 16px;
+      line-height:20px;
+    }
+    .lesson-seemore{
+      color:white;
+      font-size: 12px;
+    }
+  }
+  .empty-lesson{
+    height:170px;
+    line-height:170px;
+    padding:7px 5px;
+    position:relative;
+    .border{
+      height:100%;
+      width:100%;
+      border: 1px dashed #9B9B9B;
+    }
+  }
+}

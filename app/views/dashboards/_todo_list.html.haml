@@ -1,8 +1,11 @@
-- to_do_list.each do |lesson|
-  %div
+.row
+  %h2.todo_list_title
+    To do list
+.row
+  - to_do_list.each do |lesson|
     -if lesson.pending?(user)
       = render partial: 'dashboards/todo_list/todo_answer', locals: {lesson: lesson}
-    -if lesson.paid?
-      = render partial: 'dashboards/todo_list/todo_review', locals: {lesson: lesson}
-    - else
+    -unless lesson.paid?
       = render partial: 'dashboards/todo_list/todo_payment', locals: {lesson: lesson}
+    -if lesson.review_needed?(user)
+      = render partial: 'dashboards/todo_list/todo_review', locals: {lesson: lesson}

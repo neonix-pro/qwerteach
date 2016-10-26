@@ -3,4 +3,5 @@
     .topic-group
       = link_to profs_by_topic_path(tg.title.downcase) do
         = image_tag(tg.picto)
-        = tg.title
+        .topic-group-name
+          = tg.title
