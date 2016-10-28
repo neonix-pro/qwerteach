@@ -12,7 +12,8 @@ class WalletsController < ApplicationController
 
 
   def index_mangopay_wallet
-    @transactions_on_way = @user.mangopay.transactions.sum do |t|
+    @transactions = @user.mangopay.transactions
+    @transactions_on_way = @transactions.sum do |t|
       t.status == "CREATED" ? t.debited_funds.amount/100.0 : 0
     end
 
@@ -22,11 +23,12 @@ class WalletsController < ApplicationController
 
     #@account =  @user.mangopay.user_data
     @account = Mango::SaveAccount.new(user: current_user)
+    @cards = @user.mangopay.cards
   end
 
-  def edit_mangopay_wallet
-    @account = Mango::SaveAccount.new(user: current_user)
-  end
+  # def edit_mangopay_wallet
+  #   @account = Mango::SaveAccount.new(user: current_user)
+  # end
 
   def update_mangopay_wallet
     saving = Mango::SaveAccount.run( mango_account_params.merge(user: current_user) )

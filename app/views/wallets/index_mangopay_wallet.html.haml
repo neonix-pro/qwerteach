@@ -65,38 +65,6 @@
             =image_tag("wallet/plus.png")
             %p Préférences de versement
   #option_historique.block_info
-    %table
-      %tr
-        %th.dark Date
-        %th Type
-        %th.dark Auteur
-        %th Utilisateur crédité
-        %th.dark Montant crédité
-        %th Montant débité
-        %th.dark Frais
-      %tr
-        %td 18/10/1970
-        %td A
-        %td Auteur
-        %td Moi
-        %td Trop
-        %td Beaucoup trop
-        %td Enormément trop
-      %tr
-        %td 18/10/1970
-        %td A
-        %td Auteur
-        %td Moi
-        %td Trop
-        %td Beaucoup trop
-        %td Enormément trop
-      %tr
-        %td 18/10/1970
-        %td A
-        %td Auteur
-        %td Moi
-        %td Trop
-        %td Beaucoup trop
-        %td Enormément trop
+    = render 'transactions_list', transactions: @transactions
   #option_option.block_info
     = render 'mangopay_form', :path => @path
