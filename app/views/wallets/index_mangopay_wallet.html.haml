@@ -44,26 +44,30 @@
       .cont
         .v-center.title
           %p Moyens de payements
-      .cont
-        .v-center.tile
-          %p Carte 1
-      .cont
-        .v-center.tile
-          %p Carte 2
-      .cont
-        .v-center.tile#plus
-          .center
-            =image_tag("wallet/plus.png")
-            %p Ajouter un moyen de paiement
-    .line
-      .cont
-        .v-center.title
-          %p Moyens de payements
-      .cont
-        .v-center.tile#plus
-          .center
-            =image_tag("wallet/plus.png")
-            %p Préférences de versement
+      - @cards.each do |c|
+        -if c.active
+          .cont
+            .v-center.tile{class: c.card_provider}
+              %p
+                .provider #{c.card_provider} (#{c.currency})
+                .alias #{c.alias}
+                .expiry expiration: #{c.expiration_date}
+                .validity #{c.validity}
+      -#.cont
+      -#  .v-center.tile#plus
+      -#    .center
+      -#      =image_tag("wallet/plus.png")
+      -#      %p Ajouter un moyen de paiement
+    -if @user.is_a?(Teacher)
+      .line
+        .cont
+          .v-center.title
+            %p Compte en banque
+        .cont
+          .v-center.tile#plus
+            .center
+              =image_tag("wallet/plus.png")
+              %p Préférences de versement
   #option_historique.block_info
     = render 'transactions_list', transactions: @transactions
   #option_option.block_info

@@ -21,14 +21,9 @@ class WalletsController < ApplicationController
     #   @transaction = Mango.normalize_response MangoPay::PayIn.fetch(params[:transactionId])
     # end
 
-    #@account =  @user.mangopay.user_data
     @account = Mango::SaveAccount.new(user: current_user)
     @cards = @user.mangopay.cards
   end
-
-  # def edit_mangopay_wallet
-  #   @account = Mango::SaveAccount.new(user: current_user)
-  # end
 
   def update_mangopay_wallet
     saving = Mango::SaveAccount.run( mango_account_params.merge(user: current_user) )
