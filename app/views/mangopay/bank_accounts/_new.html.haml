@@ -1,24 +1,26 @@
-= fields_for :bank_account do |bank_account_fields|
-  = render 'shared/errors', object: bank_account
-  %h4 Type de compte
-  = bank_account_fields.radio_button(:type, "iban", class: "bank_account_type")
-  = label_tag(:bank_account_type_iban, "IBAN")
-  = bank_account_fields.radio_button(:type, "gb", class: "bank_account_type")
-  = label_tag(:bank_account_type_gb, "Royaume Uni")
-  = bank_account_fields.radio_button(:type, "us", class: "bank_account_type")
-  = label_tag(:bank_account_type_us, "Etats Unis")
-  = bank_account_fields.radio_button(:type, "ca", class: "bank_account_type")
-  = label_tag(:bank_account_type_ca, "Canada")
-  = bank_account_fields.radio_button(:type, "other", class: "bank_account_type")
-  = label_tag(:bank_account_type_other, "Autre")
-#bank_account_fields
-  #account_iban.account_fields{:hidden => bank_account.type != 'iban' }
-    = render 'mangopay/bank_accounts/iban', :bank_account => bank_account
-  #account_gb.account_fields{:hidden => bank_account.type != 'gb'}
-    = render 'mangopay/bank_accounts/gb', :bank_account => bank_account
-  #account_us.account_fields{:hidden => bank_account.type != 'us'}
-    = render 'mangopay/bank_accounts/us', :bank_account => bank_account
-  #account_ca.account_fields{:hidden => bank_account.type != 'cs'}
-    = render 'mangopay/bank_accounts/ca', :bank_account => bank_account
-  #account_other.account_fields{:hidden => bank_account.type != 'other'}
-    = render 'mangopay/bank_accounts/other', :bank_account => bank_account
+= form_tag update_bank_accounts_path, method: :put do
+  = fields_for :bank_account do |bank_account_fields|
+    = render 'shared/errors', object: bank_account
+    %h4 Type de compte
+    = bank_account_fields.radio_button(:type, "iban", class: "bank_account_type")
+    = label_tag(:bank_account_type_iban, "IBAN")
+    = bank_account_fields.radio_button(:type, "gb", class: "bank_account_type")
+    = label_tag(:bank_account_type_gb, "Royaume Uni")
+    = bank_account_fields.radio_button(:type, "us", class: "bank_account_type")
+    = label_tag(:bank_account_type_us, "Etats Unis")
+    = bank_account_fields.radio_button(:type, "ca", class: "bank_account_type")
+    = label_tag(:bank_account_type_ca, "Canada")
+    = bank_account_fields.radio_button(:type, "other", class: "bank_account_type")
+    = label_tag(:bank_account_type_other, "Autre")
+  #bank_account_fields
+    #account_iban.account_fields{:hidden => bank_account.type != 'iban' }
+      = render 'mangopay/bank_accounts/iban', :bank_account => bank_account
+    #account_gb.account_fields{:hidden => bank_account.type != 'gb'}
+      = render 'mangopay/bank_accounts/gb', :bank_account => bank_account
+    #account_us.account_fields{:hidden => bank_account.type != 'us'}
+      = render 'mangopay/bank_accounts/us', :bank_account => bank_account
+    #account_ca.account_fields{:hidden => bank_account.type != 'cs'}
+      = render 'mangopay/bank_accounts/ca', :bank_account => bank_account
+    #account_other.account_fields{:hidden => bank_account.type != 'other'}
+      = render 'mangopay/bank_accounts/other', :bank_account => bank_account
+    = submit_tag :terminer, :class => 'btn btn-primary btn-mini'

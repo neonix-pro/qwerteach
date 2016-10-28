@@ -17,12 +17,15 @@ class WalletsController < ApplicationController
       t.status == "CREATED" ? t.debited_funds.amount/100.0 : 0
     end
 
+    @account = Mango::SaveAccount.new(user: current_user)
+    @cards = @user.mangopay.cards
+
+    @bank_accounts = @user.mangopay.bank_accounts
+    @bank_account = Mango::CreateBankAccount.new(user: current_user)
+
     # if params[:transactionId].present?
     #   @transaction = Mango.normalize_response MangoPay::PayIn.fetch(params[:transactionId])
     # end
-
-    @account = Mango::SaveAccount.new(user: current_user)
-    @cards = @user.mangopay.cards
   end
 
   def update_mangopay_wallet
@@ -137,7 +140,7 @@ class WalletsController < ApplicationController
     end
   rescue MangoPay::ResponseError => ex
     flash[:danger] = t('notice.bank_account_creation_error', message: ex.details["Message"].to_s)
-    redirect_to bank_accounts_path and return
+    redirect_to index_wallet_path and return
   end
 
   def payout

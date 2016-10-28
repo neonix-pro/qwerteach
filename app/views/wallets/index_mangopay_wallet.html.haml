@@ -43,7 +43,7 @@
     .line
       .cont
         .v-center.title
-          %p Moyens de payements
+          %p Moyens de payement enregistrés
       - @cards.each do |c|
         -if c.active
           .cont
@@ -58,16 +58,33 @@
       -#    .center
       -#      =image_tag("wallet/plus.png")
       -#      %p Ajouter un moyen de paiement
+      -# ==> Pas encore fonctionnel
+
     -if @user.is_a?(Teacher)
       .line
         .cont
           .v-center.title
             %p Compte en banque
+        -@bank_accounts.each do |ba|
+          .cont
+            .v-center.tile
+              %p
+                %b Type:
+                #{ba.type}
+                %br
+                %b Numéro:
+                #{ba.iban || ba.account_number }
+                %br
+                %b Propriétaire:
+                #{ba.owner_name}
         .cont
           .v-center.tile#plus
             .center
               =image_tag("wallet/plus.png")
-              %p Préférences de versement
+              %p Ajouter un compte bancaire
+      #add-bank-account
+        = render 'mangopay/bank_accounts/new', bank_account: @bank_account
+
   #option_historique.block_info
     = render 'transactions_list', transactions: @transactions
   #option_option.block_info
