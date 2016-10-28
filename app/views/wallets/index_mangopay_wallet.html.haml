@@ -1,19 +1,13 @@
-- if @transaction
-  - if @transaction.result_code == "000000"
-    .alert.alert-notice La transaction s'est correctement déroulée
-  - else
-    .alert.alert-danger
-      Il y a eu un problème avec la transaction. Veuillez réessayer. Erreur : #{@transaction.result_message}
-
 - if flash[:notice]
-  .notice= flash[:notice]
+  .notice = flash[:notice]
+
 .wallet_index
   .money.col-md-10
-    - user = local_assigns[:user] || current_user
+    - # user = local_assigns[:user] || current_user ==> ??
     %p
-      = wallet_balance(user.normal_wallet)
+      = wallet_balance(@user.normal_wallet)
     %span
-      \#{wallet_balance(user.bonus_wallet)} de crédit bonus
+      \#{wallet_balance(@user.bonus_wallet)} de crédit bonus
   .reload.col-md-2
     - if @user.is_a?(Teacher)
       .high
@@ -26,6 +20,7 @@
           %p Recharger
     - else
       .center
+        = link_to load_wallet_path
         =image_tag("wallet/reload.png")
         %p Recharger
   .threecol#info_bank.col-md-4
@@ -43,6 +38,7 @@
       =image_tag("wallet/option.png")
       %p Coordonnées
     .triangle
+
   #option_info_bank.block_info
     .line
       .cont
@@ -103,55 +99,4 @@
         %td Beaucoup trop
         %td Enormément trop
   #option_option.block_info
-    %form
-      .left.col-md-5
-        .form-section
-          %label Nom  
-          %input
-        .form-section
-          %label Prénom
-          %input
-        .form-section
-          %label Date de naissance
-          %input
-        .form-section
-          %label Nationalité
-          %select
-            %option tu n'as pas le choix
-      .left.col-md-5
-        .form-section
-          %label Adresse
-          %input
-        .form-section
-          %label Code postal
-          %input
-        .form-section
-          %label Région
-          %input
-        .form-section
-          %label Pays
-          %select
-            %option tu n'as pas le choix choix
-      .right.col-md-2  
-        .form-section-submit
-          = submit_tag :terminer, :class => 'submit'
-/
-  %p
-    = @user.mangopay.last_name
-    = @user.mangopay.first_name
-  %p
-    Adresse : #{ @user.address.values.select(&:present?).join(', ') }
-  %p
-    Résidence : #{ISO3166::Country[@user.country_of_residence]}
-  %p
-    Nationalité : #{ISO3166::Country[@user.nationality]}
-  %h2 Portefeuille
-  %p
-    = render 'contenu_wallet', user: @user
-  %p
-    En cours de transfert : #{@transactions_on_way}
-  %p troisième wallet: #{@user.transaction_wallet.to_hash.inspect}
-  %p
-    Date de création : #{Time.at(@user.normal_wallet.creation_date).to_date}
-    
-    
+    = render 'mangopay_form', :path => @path

@@ -16,9 +16,12 @@ class WalletsController < ApplicationController
       t.status == "CREATED" ? t.debited_funds.amount/100.0 : 0
     end
 
-    if params[:transactionId].present?
-      @transaction = Mango.normalize_response MangoPay::PayIn.fetch(params[:transactionId])
-    end
+    # if params[:transactionId].present?
+    #   @transaction = Mango.normalize_response MangoPay::PayIn.fetch(params[:transactionId])
+    # end
+
+    #@account =  @user.mangopay.user_data
+    @account = Mango::SaveAccount.new(user: current_user)
   end
 
   def edit_mangopay_wallet
@@ -87,6 +90,7 @@ class WalletsController < ApplicationController
     when 'BANK_WIRE'
       payin = Mango::SendMakeBankWire.run(user: current_user, amount: amount)
       if payin.valid?
+        # actually exists ??
         redirect_to index_wallet_path, notice: t('notice.processing_success') and return
       else
         #TODO: render direct_debit_mangopay_wallet with filled fields
@@ -94,15 +98,6 @@ class WalletsController < ApplicationController
       end
     end
   end
-
-  # def send_bank_wire_wallet
-  #   @amount = params[:amount]
-  #   payment_service = MangopayService.new(:user => current_user)
-  #   session = {}
-  #   payment_service.set_session(session)
-  #   h = {}
-  #   bank_wire = payment_service.send_bank_wire(h)
-  # end
 
   def card_info
     creation = Mango::CreateCardRegistration.run(user: current_user)
@@ -121,45 +116,6 @@ class WalletsController < ApplicationController
       redirect_to card_info_path(amount: params[:amount])
     end
   end
-
-  # def send_card_info
-  #   @user = current_user
-  #   card_number = params[:account]
-  #   expiration_month = params[:month]
-  #   expiration_year = params[:year]
-  #   csc = params[:csc]
-  #   amount = (params[:amount]).to_f
-
-  #   payment_service = MangopayService.new(:user => current_user)
-  #   session = {}
-  #   payment_service.set_session(session)
-
-  #   h = {:card_type => 'CB_VISA_MASTERCARD', :card_number => card_number, :expiration_month => expiration_month, :expiration_year => expiration_year, :card_csc => csc}
-  #   card_id = payment_service.send_make_card_registration(h)
-  #   if card_id == 1
-  #     flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
-  #     redirect_to wizard_path(:payment) and return
-  #   end
-  #   return_url = request.base_url + index_wallet_path
-  #   payin_params = {:amount => amount*100, :fees => amount*0, :beneficiary => @user, :card_id => card_id, :return_url => return_url}
-  #   r = payment_service.payin_creditcard(payin_params)
-  #   case r[:returncode]
-  #     when 0
-  #       flash[:alert] = "il y a eu une erreur! Veuillez vérifier les informations de votre carte de crédit."
-  #       redirect_to index_wallet_path and return
-  #     when 1
-  #       flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
-  #       render 'card_info'
-  #     when 2
-  #       flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
-  #       redirect_to edit_wallet_path and return
-  #     when 3
-  #       flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
-  #       redirect_to edit_wallet_path and return
-  #     else
-  #       redirect_to r[:transaction]["SecureModeRedirectURL"] and return
-  #   end
-  # end
 
   def transactions_mangopay_wallet
     @transactions = current_user.mangopay.wallet_transactions

@@ -1,14 +1,40 @@
-.account_fields
-  .header
-    =image_tag "wallet/option.png", :class => "option"
-    %h1 Mes informations bancaires
-    .triangle
-  - @user = current_user
-  - path = local_assigns[:path] || edit_wallet_path
-  = form_for @account, as: :account, url: path, method: :put do |f|
-    = hidden_field_tag :redirect_to, params[:redirect_to]
-    = render 'shared/errors', object: f.object
-    = render 'mangopay/account_fields', f: f
-    .field
-      = submit_tag :terminer, :class => 'btn btn-primary btn-mini'
-      %br/
+- path = local_assigns[:path] || edit_wallet_path
+= form_for @account, as: :account, url: path, method: :put do |f|
+  = #hidden_field_tag :redirect_to, params[:redirect_to]
+  = render 'shared/errors', object: f.object
+  .row
+    .left.col-md-5
+      .form-section
+        = f.label :first_name, 'Prénom'
+        = f.text_field :first_name, value: @account.first_name || @user.firstname, :required => true
+      .form-section
+        = f.label :last_name, 'Nom de famille'
+        = f.text_field :last_name, value: @account.last_name || @user.lastname, :required => true
+      .form-section
+        = f.label :street, 'Adresse: rue'
+        = f.text_field :address_line1, :required => true
+      .form-section
+        = f.label :number, 'N°'
+        = f.text_field :address_line2, :required => true
+      .form-section
+        = f.label :country, 'Pays'
+        = f.select :country, options_for_select(countries_list, :selected => @account.country) , :required => true
+    .left.col-md-5
+      .form-section
+        = f.label :post_code, 'Code postal'
+        = f.number_field :postal_code, :required => true
+      .form-section
+        = f.label :city, 'Ville'
+        = f.text_field :city, :required => true
+      .form-section
+        = f.label :region, 'Région'
+        = f.text_field :region, :required => true
+      .form-section
+        = f.label :country_of_residence, 'Pays de résidence'
+        = f.select :country_of_residence, options_for_select(countries_list, :selected => @account.country_of_residence), :required => true
+      .form-section
+        = f.label :nationality, 'Nationalité'
+        = f.select :nationality, options_for_select(countries_list, :selected => @user.nationality), :required => true
+    .right.col-md-2
+      .form-section-submit
+        = submit_tag :terminer, :class => 'submit'
