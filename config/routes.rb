@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
   as :user do
     get 'users/edit_pwd' => 'registrations#pwd_edit', :as => 'edit_pwd_user_registration'
   end
@@ -65,7 +66,7 @@ Rails.application.routes.draw do
   end
   get '/both_users_online' => 'users#both_users_online', :as => 'both_users_online'
   authenticated :user do
-    root 'pages#index'
+    root 'dashboards#index'
   end
 
   match "/profs/" => "users#profs_by_topic", as: :profs, via: :post

@@ -1,0 +1,14 @@
+=image_tag @user.avatar(:medium), :class => "avatar"
+%div
+  =link_to "Modifier mot de passe", "#", :data => {:toggle => "collapse", :target => "#passcode"}, :class => "active"
+%div
+  =link_to "Modifier mes informations", "#", :data => {:toggle => "collapse", :target => "#profil"}
+-if @user.is_a?(Teacher)
+  %div
+    =link_to "Mes annonces", "#", :data => {:toggle => "collapse", :target => "#annonces"}
+  -#%div
+  -#  =link_to "Mon calendrier", "#", :data => {:toggle => "collapse", :target => "#calendear"}
+  -#%div
+  -#  =link_to "Mes diplomes", "#", :data => {:toggle => "collapse", :target => "#degrees"}
+%div
+  =link_to "Voir mon profil", user_path(@user)
