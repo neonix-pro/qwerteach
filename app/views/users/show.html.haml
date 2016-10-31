@@ -6,7 +6,7 @@
       .minprice
         = "%g€/h" % (@user.min_price)
       %a{"data-toggle" => "modal", :href => "#myModTarif"} voir le tarif détaillé
-    = link_to 'Réserver un cours', new_user_request_lesson_path(@user),
+    = link_to 'Réserver un cours', new_user_lesson_request_path(@user),
       class: "btn btn-green", remote: true, "data-toggle" => "modal", 'data-target' => '#request-lesson'
   #user-contactform
     = render partial: 'users/profile/contactform', locals:{me: @me, user: @user}
@@ -35,7 +35,7 @@
     .modal-footer
       .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
 
-= render partial: 'request_lesson/request_lesson_modal'
+= render partial: 'lesson_requests/request_lesson_modal'
 
 :javascript
   new RequestLesson( $('#request-lesson'), {teacher_id: #{@user.id}} );

@@ -3,9 +3,9 @@ class window.RequestLesson
   $el: null
   options: null
 
-  topicsUrl: '/users/__TEACHER_ID__/request_lesson/topics/__TOPIC_GROUP_ID__'
-  levelsUrl: '/users/__TEACHER_ID__/request_lesson/levels/__TOPIC_ID__'
-  calculateUrl: '/users/__TEACHER_ID__/request_lesson/calculate'
+  topicsUrl: '/users/__TEACHER_ID__/lesson_requests/topics/__TOPIC_GROUP_ID__'
+  levelsUrl: '/users/__TEACHER_ID__/lesson_requests/levels/__TOPIC_ID__'
+  calculateUrl: '/users/__TEACHER_ID__/lesson_requests/calculate'
 
   constructor: (el, options = {}) ->
     @$el = $(el)

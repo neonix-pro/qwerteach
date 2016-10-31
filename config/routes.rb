@@ -56,8 +56,8 @@ Rails.application.routes.draw do
 
   resources :users, :only => [:show] do
     resources :require_lesson
-    put '/request_lesson/payment' => 'request_lesson/payment'
-    resources :request_lesson, only: [:new, :create] do
+    put '/lesson_requests/payment' => 'lesson_requests/payment'
+    resources :lesson_requests, only: [:new, :create] do
       get 'topics/:topic_group_id', action: :topics, on: :collection
       get 'levels/:topic_id', action: :levels, on: :collection
       post :calculate, on: :collection

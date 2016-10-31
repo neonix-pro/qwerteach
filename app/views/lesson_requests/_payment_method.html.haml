@@ -11,18 +11,18 @@
       Le montant du cours est de #{@lesson.price}€
       Après le transfer, il vous restera donc #{(@user.total_wallets_in_cents/100 - @lesson.price)}€.
 
-    = button_to 'Ok', user_request_lesson_payment_path(@teacher, mode: 'transfert'), remote: true, method: 'put'
-    = link_to 'retour', new_user_request_lesson_path(@teacher), remote: true
+    = button_to 'Ok', user_lesson_requests_payment_path(@teacher, mode: 'transfert'), remote: true, method: 'put'
+    = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
 
   #bancontact.tab-pane
     En cliquant sur 'ok', vous serez redirigé vers votre insitution bancaire pour procéder au payement.
-    = button_to 'Ok', user_request_lesson_payment_path(@teacher, mode: 'bancontact'), remote: true, method: 'put'
-    = link_to 'retour', new_user_request_lesson_path(@teacher), remote: true
+    = button_to 'Ok', user_lesson_requests_payment_path(@teacher, mode: 'bancontact'), remote: true, method: 'put'
+    = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
 
   #credit_card.tab-pane
     %p Paiement par carte de crédit.
     .field.credit_card_choice
-    = form_tag  user_request_lesson_payment_path(@teacher), :method => :put, remote: true do |f|
+    = form_tag  user_lesson_requests_payment_path(@teacher), :method => :put, remote: true do |f|
       = hidden_field :mode, 'cd'
       = label_tag "Choisir carte"
       = select_tag :card_id, options_for_select(current_user.mangopay.cards.map { |f| [f.alias, f.id] }), {include_blank: 'Nouvelle carte'}
@@ -30,6 +30,6 @@
       = render 'mangopay/card_form', remote: true, no_actions: true
     .actions
       = submit_tag "Envoyer"
-      = link_to 'retour', new_user_request_lesson_path(@teacher), remote: true
+      = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
 
 

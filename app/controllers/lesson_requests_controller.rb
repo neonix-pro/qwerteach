@@ -1,4 +1,4 @@
-class RequestLessonController < ApplicationController
+class LessonRequestsController < ApplicationController
   before_filter :authenticate_user!
   before_action :find_users
   before_action :check_mangopay_account, only: :payment
@@ -49,7 +49,7 @@ class RequestLessonController < ApplicationController
         end
 
       when 'bancontact'
-        return_url = bancontact_process_user_request_lesson_index_url(@teacher)
+        return_url = bancontact_process_user_lesson_requests_url(@teacher)
         payin = Mango::PayinBancontact.run(user: current_user, amount: @lesson.price,
           return_url: return_url, wallet: 'transaction')
         if payin.valid?
@@ -59,7 +59,7 @@ class RequestLessonController < ApplicationController
         end
 
       when 'cd'
-        return_url = credit_card_process_user_request_lesson_index_url(@teacher)
+        return_url = credit_card_process_user_lesson_requests_url(@teacher)
         payin = Mango::PayinCreditCard.run({user: current_user, amount: @lesson.price,
           card_id: params[:card_id], return_url: return_url, wallet: 'transaction'})
 
