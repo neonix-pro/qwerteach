@@ -8,7 +8,7 @@ class RequestLessonController < ApplicationController
 
   def new
     @free_lessons = @user.free_lessons_with(@teacher)
-    @lession_request = @lesson.present? ? CreateLessonRequest.from_lesson(@lesson) : CreateLessonRequest.new
+    @lesson_request = @lesson.present? ? CreateLessonRequest.from_lesson(@lesson) : CreateLessonRequest.new
   end
 
   def create

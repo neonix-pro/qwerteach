@@ -1,4 +1,4 @@
-= form_for @lession_request, as: :request, url: user_request_lesson_index_path(@teacher), method: :post, remote: true, html: {class: 'request-lession-form'} do |f|
+= form_for @lesson_request, as: :request, url: user_request_lesson_index_path(@teacher), method: :post, remote: true, html: {class: 'request-lession-form'} do |f|
   = hidden_field_tag 'lesson[teacher_id]', @teacher.id
   = render 'shared/errors', object: f.object
   .form-group
