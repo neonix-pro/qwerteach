@@ -1,52 +1,32 @@
 = form_for(@user, as: 'user', url: user_path(@user), html: {method: :put}) do |f|
   .row
-    .col-md-4.infos-general
-      .col-md-4
-        %table
-          %tr
-            %td
-            %td
-              %h3 Infos générale
-          %tr
-            %td
-              = f.label :lastname
-            %td
-              = f.text_field :lastname, :placeholder => :Nom
-          %tr
-            %td
-              = f.label :firstname
-            %td
-              = f.text_field :firstname, :placeholder => :Prénom
-          %tr
-            %td
-              = f.label :birthdate
-            %td
-              = f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}, :placeholder => :Date_de_Naissance
-          %tr
-            %td
-              = f.label :Téléphone
-            %td
-              = f.text_field :phonenumber
-          %tr
-            %td
-              = f.label :gender
-            %td
-              = f.select :gender, User::GENDER_TYPES, :placeholder => :Sexe
+    .col-md-8
+      %h3.text-center Infos générales
+      .row
+        .col-sm-6
+          = f.label :lastname
+          = f.text_field :lastname, :placeholder => :Nom
+          = f.label :firstname
+          = f.text_field :firstname, :placeholder => :Prénom
+          = f.label :birthdate
+          = f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}, :placeholder => :Date_de_Naissance
+        .col-sm-6
+          = f.label :Téléphone
+          = f.text_field :phonenumber
+          = f.label :gender
+          = f.select :gender, User::GENDER_TYPES, :placeholder => :Sexe
     .col-md-4
       %h3 Formations/Expérience
-      .form-group
-        = f.label :occupation, "Quel est votre profession / votre branche d'études"
-        = f.text_field :occupation
-      -#.form-group
-      -#  %label Dans quelle école avez-vous étudié / étudiez-vous ?
-      -#  %input
-      .form-group
-        = f.label :level, "Niveau de formation"
-        - levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id)
-        = f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }
-    .col-md-4.description
+      .row
+        .col-sm-12
+          = f.label :occupation, "Quelle est votre profession ?"
+          = f.text_field :occupation
+          = f.label :level, "Niveau de formation"
+          - levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id)
+          = f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }
+    .col-md-12
       %h3 Description
-      = f.text_area :description, :class => '', :placeholder => "Décrivez-vous en quelques lignes"
+      = f.text_area :description, :class => 'ckeditor', :placeholder => "Décrivez-vous en quelques lignes"
   .row
     .form-actions
       = submit_tag "Envoyer", :class => "submit action"

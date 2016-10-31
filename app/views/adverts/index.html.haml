@@ -9,17 +9,17 @@
       %label#label-cmn-toggle-4{for: "cmn-toggle-4"}
 .adverts-list.clearfix
   -c = 0
-  - layout = adverts_layout(@adverts.count+1)
+  - layout = adverts_layout(@user.adverts.count+1)
   -layout.each do |cl|
     -if cl == "br"
       .edit-advert.clearfix
     -else
-      - unless @adverts[c].nil?
-        .advert{class: "#{cl} topic_#{@adverts[c].topic_group.id}", id: "advert_#{@adverts[c].id}"}
-          %p #{@adverts[c].topic.title}
-          = link_to edit_advert_path(@adverts[c]), remote: true do
+      - unless @user.adverts[c].nil?
+        .advert{class: "#{cl} topic_#{@user.adverts[c].topic_group.id}", id: "advert_#{@user.adverts[c].id}"}
+          %p #{@user.adverts[c].topic.title}
+          = link_to edit_advert_path(@user.adverts[c]), remote: true do
             =image_tag "option.png", :class => "option"
-          =image_tag @adverts[c].topic.pictotype('medium'), :class => "icon"
+          =image_tag @user.adverts[c].topic.pictotype('medium'), :class => "icon"
         - c+=1
   .advert.add-new-advert{class: layout.last}
     = link_to new_advert_path, remote: true do

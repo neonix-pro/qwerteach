@@ -1,14 +1,16 @@
 .backgroundEdit.edit_profile
-  .col-md-2.menu
-    = render :partial => 'menu_edit_registrations'
-  .col-md-10.right
-    .container-fluid
-      = render :partial => 'password_form'
-      %div#annonces.collapse
-        Annonces
-      %div#calendear.collapse
-        Calendrier
-      %div#degrees.collapse
-        Diplômes
-      %div#profil.collapse
-        = render :partial => 'profile_form'
+  .container-fluid
+    .row
+      .col-md-2.menu
+        = render :partial => 'menu_edit_registrations'
+      .col-md-10.right
+        %div#passcode.collapse.in
+          = render :partial => 'password_form'
+        %div#annonces.collapse
+          = render :template => 'adverts/index'
+        %div#calendear.collapse
+          Calendrier
+        %div#degrees.collapse
+          Diplômes
+        %div#profil.collapse
+          = render :partial => 'profile_form'
