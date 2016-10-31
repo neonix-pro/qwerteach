@@ -99,7 +99,7 @@ class WalletsController < ApplicationController
       @card_registration = creation.result
     end
   end
-  
+
   def card_registration
     updating = Mango::UpdateCardRegistration.run(id: params[:card_registration_id], data: params[:data])
     if updating.valid?

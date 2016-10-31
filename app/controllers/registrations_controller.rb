@@ -19,11 +19,9 @@ class RegistrationsController < Devise::RegistrationsController
     if successfully_updated
       # Il ne faut pas cropper l'avatar
       if params[:user][:avatar].blank?
-
         set_flash_message :notice, :updated
         # Sign in the user bypassing validation in case their password changed
         sign_in @user, :bypass => true
-
         respond_to do |format|
           format.html {redirect_to after_update_path_for(@user)}
           format.js {}
