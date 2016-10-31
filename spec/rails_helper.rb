@@ -55,6 +55,17 @@ RSpec.configure do |config|
   #
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
+
+  config.before do
+    Sunspot.session = Sunspot::Rails::StubSessionProxy.new($original_sunspot_session)
+  end
+
+  config.before :each, :solr => true do
+    Sunspot::Rails::Tester.start_original_sunspot_session
+    Sunspot.session = $original_sunspot_session
+    Sunspot.remove_all!
+  end
+  
   config.infer_spec_type_from_file_location!
 
   # Filter lines from Rails gems in backtraces.

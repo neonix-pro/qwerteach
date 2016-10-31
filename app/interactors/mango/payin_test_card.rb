@@ -3,9 +3,12 @@ module Mango
   class PayinTestCard < BaseInteraction
     object :user, class: User
     float :amount
+    string :wallet, default: 'normal'
+
+    validates :wallet, inclusion: {in: %w(normal bonus transaction)}
 
     def execute
-      payin = Mango::PayinCreditCard.run(user: user, amount: amount, card_id: card_id, return_url: 'http://test.com')
+      payin = Mango::PayinCreditCard.run(user: user, amount: amount, card_id: card_id, wallet: wallet, return_url: 'http://test.com')
       self.errors.merge!(payin.errors) unless payin.valid?
       payin.result
     rescue MangoPay::ResponseError => error

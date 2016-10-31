@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728085900) do
+ActiveRecord::Schema.define(version: 20160918093508) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id",                                        null: false
@@ -180,6 +180,18 @@ ActiveRecord::Schema.define(version: 20160728085900) do
   add_index "degrees", ["level_id"], name: "index_degrees_on_level_id"
   add_index "degrees", ["user_id"], name: "index_degrees_on_user_id"
 
+  create_table "drafts", force: :cascade do |t|
+    t.string   "target_type", null: false
+    t.integer  "user_id"
+    t.integer  "parent_id"
+    t.string   "parent_type"
+    t.binary   "data",        null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "drafts", ["parent_type", "parent_id"], name: "index_drafts_on_parent_type_and_parent_id"
+  add_index "drafts", ["user_id", "target_type"], name: "index_drafts_on_user_id_and_target_type"
+
   create_table "galleries", force: :cascade do |t|
     t.integer  "cover"
     t.string   "token"
@@ -267,18 +279,20 @@ ActiveRecord::Schema.define(version: 20160728085900) do
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
 
   create_table "payments", force: :cascade do |t|
-    t.integer  "status",                                    default: 0,                     null: false
-    t.integer  "payment_type",                              default: 0,                     null: false
-    t.datetime "transfert_date",                            default: '2016-06-07 17:15:01', null: false
-    t.decimal  "price",             precision: 8, scale: 2,                                 null: false
-    t.integer  "lesson_id",                                                                 null: false
-    t.integer  "mangopay_payin_id"
+    t.integer  "status",                limit: 11
+    t.integer  "payment_type",          limit: 11
+    t.datetime "transfert_date"
+    t.float    "price"
+    t.integer  "lesson_id",             limit: 11
+    t.integer  "mangopay_payin_id",     limit: 11
     t.datetime "execution_date"
-    t.datetime "created_at",                                                                null: false
-    t.datetime "updated_at",                                                                null: false
-    t.integer  "payment_method",                            default: 3
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "payment_method",                   default: 3
     t.integer  "transfer_eleve_id"
     t.integer  "transfer_prof_id"
+    t.integer  "transfer_bonus_id"
+    t.float    "transfer_bonus_amount"
   end
 
   create_table "pictures", force: :cascade do |t|

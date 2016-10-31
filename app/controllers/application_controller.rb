@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+  rescue_from Mango::UserDoesNotHaveAccount do |exception|
+    redirect_to edit_wallet_path(redirect_to: request.fullpath), alert: t('notice.missing_account')
+  end
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
@@ -27,6 +31,8 @@ class ApplicationController < ActionController::Base
     Time.now.to_i
   end
 
+  helper_method :twelve_teacher, :countries_list
+
   def flash_to_headers
     return unless request.xhr?
     return if flash_message.nil?
@@ -35,8 +41,6 @@ class ApplicationController < ActionController::Base
 
     flash.discard  # discard flash messages after encoding so don't appear twice
   end
-
-  helper_method :twelve_teacher
 
   # Use require to define permitted params
   protected
@@ -56,6 +60,16 @@ class ApplicationController < ActionController::Base
         ) }
     end
 
+  private
+
+  def check_mangopay_account
+    raise Mango::UserDoesNotHaveAccount if current_user.mango_id.blank?
+  end
+
+  def countries_list
+    @list ||= ISO3166::Country.all.map{|c| [c.translations['fr'], c.alpha2] }
+  end
+
   def flash_message
     [:error, :warning, :notice].each do |type|
       return flash[type] unless flash[type].blank?
@@ -69,4 +83,5 @@ class ApplicationController < ActionController::Base
     end
     nil
   end
+
 end

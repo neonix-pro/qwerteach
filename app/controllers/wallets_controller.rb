@@ -7,7 +7,6 @@ class WalletsController < ApplicationController
 
   helper_method :countries_list #You can use it in view
 
-  rescue_from Mango::UserDoesNotHaveAccount, with: :handle_empty_mangopay_account
   rescue_from MangoPay::ResponseError, with: :set_error_flash
 
 
@@ -26,24 +25,17 @@ class WalletsController < ApplicationController
     # if params[:transactionId].present?
     #   @transaction = Mango.normalize_response MangoPay::PayIn.fetch(params[:transactionId])
     # end
+
+  end
+
+  def edit_mangopay_wallet
+    @account = Mango::SaveAccount.new(user: current_user, first_name: current_user.firstname, last_name: current_user.lastname)
   end
 
   def update_mangopay_wallet
     saving = Mango::SaveAccount.run( mango_account_params.merge(user: current_user) )
     if saving.valid?
-      if params[:reservation] #TODO: move below code block to request_lesson_controller and use Mango::SaveAccount there
-        if @user.mango_id.nil?
-          countries_list
-          render 'request_lesson/mango_wallet', locals: {error: 'Vérifiez les informations'}, :layout => false
-        else
-          @lesson = Lesson.new(session[:lesson])
-          @teacher = @lesson.teacher
-          @cards = @user.valid_cards
-          render 'request_lesson/payment_method', :layout=>false
-        end
-      else
-        redirect_to params[:redirect_to] || index_wallet_path #TODO: add success notice
-      end
+      redirect_to params[:redirect_to] || index_wallet_path #TODO: add success notice
     else
       @account = saving
       render 'edit_mangopay_wallet'
@@ -107,7 +99,7 @@ class WalletsController < ApplicationController
       @card_registration = creation.result
     end
   end
-
+  
   def card_registration
     updating = Mango::UpdateCardRegistration.run(id: params[:card_registration_id], data: params[:data])
     if updating.valid?
@@ -116,6 +108,7 @@ class WalletsController < ApplicationController
       redirect_to card_info_path(amount: params[:amount])
     end
   end
+
 
   def transactions_mangopay_wallet
     @transactions = current_user.mangopay.wallet_transactions
@@ -167,10 +160,6 @@ class WalletsController < ApplicationController
     @user = current_user
   end
 
-  def check_mangopay_account
-    raise Mango::UserDoesNotHaveAccount if current_user.mango_id.blank?
-  end
-
   def mango_account_params
     params.fetch(:account).permit!
   end
@@ -182,14 +171,6 @@ class WalletsController < ApplicationController
     else
       {}
     end
-  end
-
-  def handle_empty_mangopay_account
-    redirect_to edit_wallet_path(redirect_to: request.fullpath), alert: t('notice.missing_account')
-  end
-
-  def countries_list
-    @list ||= ISO3166::Country.all.map{|c| [c.translations['fr'], c.alpha2] }
   end
 
   def set_error_flash(error)
