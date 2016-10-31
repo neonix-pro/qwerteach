@@ -101,4 +101,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "Votre profil a bien été modifié"
+    else
+      flash[:error] = "La modification a échoué"
+    end
+    redirect_to edit_user_registration_path(@user)
+  end
+
+  private
+    def user_params
+      params.require(:user).permit(:firstname, :lastname, :birthdate, :phonenumber, :gender, :occupation, :description, :level)
+    end
+
 end

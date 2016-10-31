@@ -43,4 +43,5 @@ class Student < User
   def past_lessons
     lessons_received.where('time_end < ?', DateTime.now).where(status: 2)
   end
+
 end
