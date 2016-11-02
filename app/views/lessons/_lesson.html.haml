@@ -31,7 +31,7 @@
             .show-pending
               En attente de la confirmation de l'autre partie.
               %br
-              = link_to 'annuler', lesson_cancel_path(lesson), class: 'btn btn-qw btn-grey btn-sm'
+              = link_to 'annuler la demande', lesson_cancel_path(lesson), class: 'btn btn-qw btn-grey btn-sm'
           -when 'expired'
             .expired Cette propositionde cours a expiré!
           -when 'payment'
