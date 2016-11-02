@@ -66,12 +66,12 @@ class LessonsController < ApplicationController
     end
   end
 
-  def require_lesson
-    @student_id = current_user.id
-    @lesson = Lesson.new
-  end
+  # def require_lesson
+  #   @student_id = current_user.id
+  #   @lesson = Lesson.new
+  # end
 
-  def accept_lesson
+  def accept
     @lesson = Lesson.find(params[:lesson_id])
     @lesson.update_attributes(:status => 2)
     @lesson.save
@@ -83,33 +83,50 @@ class LessonsController < ApplicationController
     redirect_to dashboard_path
   end
 
-  def refuse_lesson
+  def refuse
     @lesson = Lesson.find(params[:lesson_id])
-    payment_service = MangopayService.new(:user => @lesson.student)
-    payment_service.set_session(session)
-    return_code = payment_service.make_prepayment_transfer_refund(
-        {:lesson_id => @lesson.id})
-    if return_code == 1
-      flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
-      redirect_to dashboard_path and return
-    elsif return_code == 0
-      @lesson.update_attributes(:status => 4)
-      @lesson.save
-      body = "#"
-      subject = "Le professeur #{@lesson.teacher.email} a refusé votre demande de cours."
-      @lesson.student.send_notification(subject, body, @lesson.teacher)
-      @lesson.payments.each { |payment| payment.update_attributes(:status => 2) }
-      PrivatePub.publish_to "/lessons/#{@lesson.student_id}", :lesson => @lesson
-      flash[:notice] = "Le cours a été refusé."
-      redirect_to dashboard_path
+    @lesson.status = 'refused'
+    refuse = RefundLesson.run(user: current_user, lesson: @lesson)
+
+    if refuse.valid?
+      flash[:success] = 'Cours refusé!'
+      redirect_to lessons_path
     else
-      flash[:alert] = "Il y a eu une erreur lors du refus. Veuillez réessayer."
-      redirect_to dashboard_path and return
+      flash[:error] = "Il y a eu un problème!<br />"
+      refuse.errors.full_messages.each do |e|
+        flash[:error] +=  e.html_safe
+      end
+      redirect_to lessons_path
     end
+
+    #test to make on refund object ==> see lesson-request_controller
+
+
+    # payment_service = MangopayService.new(:user => @lesson.student)
+    # payment_service.set_session(session)
+    # return_code = payment_service.make_prepayment_transfer_refund(
+    #     {:lesson_id => @lesson.id})
+    # if return_code == 1
+    #   flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+    #   redirect_to dashboard_path and return
+    # elsif return_code == 0
+    #   @lesson.update_attributes(:status => 4)
+    #   @lesson.save
+    #   body = "#"
+    #   subject = "Le professeur #{@lesson.teacher.email} a refusé votre demande de cours."
+    #   @lesson.student.send_notification(subject, body, @lesson.teacher)
+    #   @lesson.payments.each { |payment| payment.update_attributes(:status => 2) }
+    #   PrivatePub.publish_to "/lessons/#{@lesson.student_id}", :lesson => @lesson
+    #   flash[:notice] = "Le cours a été refusé."
+    #   redirect_to dashboard_path
+    # else
+    #   flash[:alert] = "Il y a eu une erreur lors du refus. Veuillez réessayer."
+    #   redirect_to dashboard_path and return
+    # end
 
   end
 
-  def cancel_lesson
+  def cancel
     @lesson = Lesson.find(params[:lesson_id])
     case current_user.id
       when @lesson.teacher_id

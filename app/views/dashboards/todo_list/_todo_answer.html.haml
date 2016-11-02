@@ -13,6 +13,6 @@
         %span{data: {toggle: 'tooltip', placement: 'bottom'}, title: "#{lesson.time_start.strftime('Timezone: %Z')}"}
           #{lesson.time_start.strftime('Le %d/%m/%Y à %R')}
     .col-xs-3.todo_answer.text-center.todo_action
-      = button_to 'Accepter', '#', class: 'btn btn-qw btn-green btn-sm'
+      = link_to 'Accepter', lesson_accept_path(lesson), class: 'btn btn-qw btn-green btn-sm'
       = button_to 'Modifier', '#', class: 'btn btn-qw btn-orange btn-sm'
-      = link_to 'Décliner', '#', class: 'text-grey'
+      = link_to 'Décliner', lesson_refuse_path(lesson), class: 'text-grey'

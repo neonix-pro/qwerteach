@@ -2,7 +2,7 @@ class LessonRequestsController < ApplicationController
   before_filter :authenticate_user!
   before_action :find_users
   before_action :check_mangopay_account, only: :payment
-  before_action :set_lession, expect: [:topics, :levels, :calculate]
+  before_action :set_lesson, expect: [:topics, :levels, :calculate]
 
   after_filter { flash.discard if request.xhr? }
 
@@ -138,7 +138,7 @@ class LessonRequestsController < ApplicationController
     @teacher = Teacher.find(params[:user_id])
   end
 
-  def set_lession
+  def set_lesson
     @lesson = Lesson.drafts(current_user).first.try(:restore)
   end
 
