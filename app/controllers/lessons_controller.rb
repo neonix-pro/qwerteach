@@ -3,14 +3,15 @@ class LessonsController < ApplicationController
   around_filter :user_time_zone, :if => :current_user
 
   def index
-    unless current_user.pending_lessons.empty?
-      redirect_to cours_pending_path and return
-    end
-    if current_user.is_a?(Teacher)
-      redirect_to cours_donnes_path and return
-    else
-      redirect_to cours_recus_path and return
-    end
+    # unless current_user.pending_lessons.empty?
+    #   redirect_to cours_pending_path and return
+    # end
+    # if current_user.is_a?(Teacher)
+    #   redirect_to cours_donnes_path and return
+    # else
+    #   redirect_to cours_recus_path and return
+    # end
+    @lessons = Lesson.involving(current_user).index
   end
 
   def given
@@ -47,6 +48,7 @@ class LessonsController < ApplicationController
   end
 
   def update
+    #reschedule a lesson
     @lesson = Lesson.find(params[:id])
     @hours = ((@lesson.time_end - @lesson.time_start) / 3600).to_i
     @minutes = ((@lesson.time_end - @lesson.time_start) / 60 ) % 60
@@ -65,11 +67,6 @@ class LessonsController < ApplicationController
       redirect_to dashboard_path and return
     end
   end
-
-  # def require_lesson
-  #   @student_id = current_user.id
-  #   @lesson = Lesson.new
-  # end
 
   def accept
     @lesson = Lesson.find(params[:lesson_id])

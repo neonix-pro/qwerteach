@@ -16,9 +16,19 @@ class Lesson < ActiveRecord::Base
 
   has_one :bbb_room
 
-  scope :upcoming, ->{ where("time_start > ?", Time.now) }
-  has_drafts
+  scope :involving, ->(user){where("teacher_id LIKE ? OR student_id LIKE ?", user.id, user.id)}
+  scope :active, ->{where.not("lessons.status IN(?)", [3, 4])}
+  scope :upcoming, ->{ active.where("time_start > ?", Time.now) }
+  scope :passed, ->{active.where("time_start < ?", Time.now)}
+  scope :to_be_paid, ->{passed.joins(:payments).where("payments.status LIKE ?", 'pending')} #assuming the "locked" status isn't used
+  scope :to_answer, ->{upcoming.where(status: [0, 1])}
+  scope :expired, ->{passed.where("lessons.status LIKE (?)", 2)}
 
+  #to show in index of lessons
+  scope :index, ->{joins(:payments).active.where("time_start > ? OR (lessons.status LIKE ? AND payments.status LIKE ? )", Time.now, 2, 0)}
+
+
+  has_drafts
 
   validates :student_id, presence: true
   validates :teacher_id, presence: true
