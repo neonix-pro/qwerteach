@@ -92,8 +92,7 @@ class LessonsController < ApplicationController
       flash[:success] = 'Vous avez décliné la demande de cours.'
       redirect_to lessons_path
     else
-      flash[:danger] = "Il y a eu un problème! Le cours n'a pas été refusé."
-      #todo: add error details to flash message
+      flash[:danger] = "Il y a eu un problème: #{refuse.errors.full_messages.to_sentence} <br />Le cours n'a pas été refusé".html_safe
       redirect_to lessons_path
     end
   end
@@ -108,8 +107,7 @@ class LessonsController < ApplicationController
         flash[:success] = 'Vous avez annulé la demande de cours.'
         redirect_to lessons_path
       else
-        flash[:danger] = "Il y a eu un problème! Le cours n'a pas été refusé."
-        #todo: add error details to flash message
+        flash[:danger] = "Il y a eu un problème: #{refuse.errors.full_messages.to_sentence}.<br /> Le cours n'a pas été annulé.".html_safe
         redirect_to lessons_path
       end
     else
