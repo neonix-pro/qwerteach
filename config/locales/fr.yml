@@ -53,3 +53,40 @@ fr:
     booking_success: La transaction a correctement été effectuée, votre cours a bien été réservé.
     booking_error: Il y a eu un problème lors de la réservation. Le cours n\'a pas été réservé.
 
+  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  datetime:
+    distance_in_words:
+      half_a_minute: "30 secondes"
+      less_than_x_seconds:
+        one:   "1 seconde" # default was: "less than 1 second"
+        other: "%{count} secondes" # default was: "less than %{count} seconds"
+      x_seconds:
+        one:   "1 seconde"
+        other: "%{count} secondes"
+      less_than_x_minutes:
+        one:   "une minute" # default was: "less than a minute"
+        other: "%{count} minutes" # default was: "less than %{count} minutes"
+      x_minutes:
+        one:   "1 minute"
+        other: "%{count} minutes"
+      about_x_hours:
+        one:   "1 heure" # default was: "about 1 hour"
+        other: "%{count} heures" # default was: "about %{count} hours"
+      x_days:
+        one:   "1 jour"
+        other: "%{count} jours"
+      about_x_months:
+        one:   "1 mois" # default was: "about 1 month"
+        other: "%{count} mois" # default was: "about %{count} months"
+      x_months:
+        one:   "1 mois"
+        other: "%{count} mois"
+      about_x_years:
+        one:   "1 an" # default was: "about 1 year"
+        other: "%{count} ans" # default was: "about %{count} years"
+      over_x_years:
+        one:   "1 an" # default was: "over 1 year"
+        other: "%{count} ans" # default was: "over %{count} years"
+      almost_x_years:
+        one:   "1 an" # default was: "almost 1 year"
+        other: "%{count} ans" # default was: "almost %{count} years"

@@ -7,9 +7,9 @@
     .lesson-details-left.pull-left
       .lesson-duration
         - if lesson.upcoming?
-          Prévu dans #{time_ago_in_words(lesson.time_start)}
+          Prévu dans #{distance_of_time_in_words(Time.now, lesson.time_start, include_seconds: true)}
         - else
-          Il y a #{time_ago_in_words(lesson.time_end)}
+          Il y a #{time_ago_in_words(lesson.time_end, include_seconds: true)}
         %small (le #{lesson.time_end.strftime('%d/%m/%Y')})
       .lesson-date
         #{lesson_duration(lesson.time_start, lesson.time_end)} de
@@ -76,3 +76,4 @@
             %i.fa.fa-dollar.text-orange
             %br
             %small non payé
+.lesson-details{id: "lesson-details-#{lesson.id}"}
