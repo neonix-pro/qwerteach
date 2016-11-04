@@ -3,29 +3,21 @@ class LessonsController < ApplicationController
   around_filter :user_time_zone, :if => :current_user
 
   def index
-    # unless current_user.pending_lessons.empty?
-    #   redirect_to cours_pending_path and return
-    # end
-    # if current_user.is_a?(Teacher)
-    #   redirect_to cours_donnes_path and return
-    # else
-    #   redirect_to cours_recus_path and return
-    # end
-    @lessons = Lesson.involving(current_user).index
+    @lessons = Lesson.involving(current_user)
   end
 
-  def given
-    @lessons = current_user.lessons_given.created.page(params[:page]).per(10).order(time_start: :desc, id: :desc)
-  end
-  def received
-    @lessons = current_user.lessons_received.created.page(params[:page]).per(10).order(time_start: :desc, id: :desc)
-  end
-  def history
-    @lessons = Lesson.where('student_id=? OR teacher_id=?', current_user.id, current_user.id).page(params[:page]).per(10).order(time_start: :desc, id: :desc)
-  end
-  def pending
-    @lessons = current_user.pending_lessons.page(params[:page]).per(10).order(time_start: :desc, id: :desc)
-  end
+  # def given
+  #   @lessons = current_user.lessons_given.created.page(params[:page]).per(10).order(time_start: :desc, id: :desc)
+  # end
+  # def received
+  #   @lessons = current_user.lessons_received.created.page(params[:page]).per(10).order(time_start: :desc, id: :desc)
+  # end
+  # def history
+  #   @lessons = Lesson.where('student_id=? OR teacher_id=?', current_user.id, current_user.id).page(params[:page]).per(10).order(time_start: :desc, id: :desc)
+  # end
+  # def pending
+  #   @lessons = current_user.pending_lessons.page(params[:page]).per(10).order(time_start: :desc, id: :desc)
+  # end
 
   def show
     @user = current_user
@@ -109,6 +101,30 @@ class LessonsController < ApplicationController
       end
     else
       flash[:danger]="Seul le professeur peut annuler un cours moins de 48h à l'avance."
+      redirect_to lessons_path
+    end
+  end
+
+  def pay_teacher
+    @lesson = Lesson.find(params[:lesson_id])
+    pay_teacher = PayTeacher.run(user: current_user, lesson: @lesson)
+    if pay_teacher.valid?
+      flash[:success] = 'Merci pour votre feedback! Le professeur a été payé.'
+      redirect_to lessons_path
+    else
+      flash[:danger] = "Il y a eu un problème: #{pay_teacher.errors.full_messages.to_sentence} <br />Nous n'avons pas pu procéder au payement du professeur".html_safe
+      redirect_to lessons_path
+    end
+  end
+
+  def dispute
+    @lesson = Lesson.find(params[:lesson_id])
+    dispute = DisputeLesson.run(user: current_user, lesson: @lesson)
+    if dispute.valid?
+      flash[:success] = "Merci pour votre feedback! Un administrateur prendra contact avec vous dans le splus brefs délais."
+      redirect_to root_path
+    else
+      flash[:danger] = "Il y a eu un problème: #{pay_teacher.errors.full_messages.to_sentence} <br />Prenez contact avec l'équipe du site".html_safe
       redirect_to lessons_path
     end
   end

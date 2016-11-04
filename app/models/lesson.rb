@@ -16,7 +16,7 @@ class Lesson < ActiveRecord::Base
 
   has_one :bbb_room
 
-  scope :involving, ->(user){where("teacher_id LIKE ? OR student_id LIKE ?", user.id, user.id)}
+  scope :involving, ->(user){where("teacher_id LIKE ? OR student_id LIKE ?", user.id, user.id).order(time_start: 'desc')}
   scope :active, ->{where.not("lessons.status IN(?)", [3, 4])}
   scope :upcoming, ->{ active.where("time_start > ?", Time.now) }
   scope :passed, ->{active.where("time_start < ?", Time.now)}
@@ -25,8 +25,7 @@ class Lesson < ActiveRecord::Base
   scope :expired, ->{passed.where("lessons.status LIKE (?)", 2)}
 
   #to show in index of lessons
-  scope :index, ->{joins(:payments).active.where("time_start > ? OR (lessons.status LIKE ? AND payments.status LIKE ? )", Time.now, 2, 0)}
-
+  scope :index, ->{joins(:payments).active.where("time_start > ? OR (lessons.status LIKE ? AND payments.status LIKE ? )", Time.now, 2, 1)}
 
   has_drafts
 
@@ -113,6 +112,14 @@ class Lesson < ActiveRecord::Base
     (teacher == user && status == 'pending_teacher') || (student == user && status == 'pending_student')
   end
 
+  def expired?
+    (status == 'pending_teacher' || status == 'pending_student') && time_start < Time.now
+  end
+
+  def active?
+    !(expired? || status == 'canceled' || status == 'refused')
+  end
+
   def other(user)
     if user.id == student.id
       teacher
@@ -154,8 +161,17 @@ class Lesson < ActiveRecord::Base
     user.id == student.id
   end
 
-  # defines if the user needs to do something with the lesson: confirm, unlock, pay, review
+  # defines if the user needs to do something with the lesson:
+  # inactive: the lesson is canceled, refused, or has expired
+  # wait: We're waiting for the other user to do something, or for the lesson to happen
+  # confirm: accept or decline the lesson request
+  # unlock: confirm that all went ok and pay the teacher
+  # pay: lesson is post paid and need to be paid
+  # review: please leave a review of this teacher
   def todo(user)
+    unless active?
+      return :inactive
+    end
     if pending?(user)
       return :confirm
     end
@@ -170,5 +186,6 @@ class Lesson < ActiveRecord::Base
     if review_needed?(user)
       return :review
     end
+    return :wait
   end
 end
