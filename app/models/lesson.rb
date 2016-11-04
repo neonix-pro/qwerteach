@@ -20,7 +20,7 @@ class Lesson < ActiveRecord::Base
   scope :active, ->{where.not("lessons.status IN(?)", [3, 4])}
   scope :upcoming, ->{ active.where("time_start > ?", Time.now) }
   scope :passed, ->{active.where("time_start < ?", Time.now)}
-  scope :to_be_paid, ->{passed.joins(:payments).where("payments.status LIKE ?", 'pending')} #assuming the "locked" status isn't used
+  scope :to_be_paid, ->{passed.joins(:payments).where("payments.status LIKE ?", 1)} # payments with 'locked' status
   scope :to_answer, ->{upcoming.where(status: [0, 1])}
   scope :expired, ->{passed.where("lessons.status LIKE (?)", 2)}
 
