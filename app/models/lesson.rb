@@ -116,6 +116,13 @@ class Lesson < ActiveRecord::Base
     (status == 'pending_teacher' || status == 'pending_student') && time_start < Time.now
   end
 
+  def canceled?
+    status == 'canceled'
+  end
+  def refused?
+    status == 'refused'
+  end
+
   def active?
     !(expired? || status == 'canceled' || status == 'refused')
   end
@@ -161,6 +168,15 @@ class Lesson < ActiveRecord::Base
     user.id == student.id
   end
 
+  def disputed?
+    payments.each do |p|
+      if p.disputed?
+        return true
+      end
+    end
+    return false
+  end
+
   # defines if the user needs to do something with the lesson:
   # inactive: the lesson is canceled, refused, or has expired
   # wait: We're waiting for the other user to do something, or for the lesson to happen
@@ -168,6 +184,7 @@ class Lesson < ActiveRecord::Base
   # unlock: confirm that all went ok and pay the teacher
   # pay: lesson is post paid and need to be paid
   # review: please leave a review of this teacher
+  # disputed: this lesson's payment is disputed
   def todo(user)
     unless active?
       return :inactive
@@ -176,6 +193,9 @@ class Lesson < ActiveRecord::Base
       return :confirm
     end
     if past? && is_student?(user)
+      if disputed?
+        return :disputed
+      end
       if prepaid?
         return :unlock
       end

@@ -1,0 +1,13 @@
+.lesson-details-left.pull-left
+  .lesson-duration
+    - unless lesson.expired?
+      - if lesson.upcoming?
+        Prévu dans #{distance_of_time_in_words(Time.now, lesson.time_start)}
+      - else
+        Il y a #{time_ago_in_words(lesson.time_end)}
+    %small (le #{lesson.time_end.strftime('%d/%m/%Y')})
+  .lesson-date
+    #{lesson_duration(lesson.time_start, lesson.time_end)} de
+    %span.text-purple
+      #{lesson.topic.title}
+    avec #{link_to lesson.other(current_user).name, user_path(lesson.other(current_user)), class:'text-purple'}

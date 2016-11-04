@@ -166,6 +166,13 @@
     }
   }
 }
+
+.lesson.inactive{
+  filter: grayscale(100%);
+  .lesson-details-left{
+    text-decoration:line-through;
+  }
+}
 //maths
 .topic_1{
   background-color: $color_qwerteach_yellow;

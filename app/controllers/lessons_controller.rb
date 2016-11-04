@@ -3,7 +3,8 @@ class LessonsController < ApplicationController
   around_filter :user_time_zone, :if => :current_user
 
   def index
-    @lessons = Lesson.involving(current_user)
+    @user = current_user
+    @lessons = Lesson.involving(@user).page(params[:page]).per(5)
   end
 
   # def given

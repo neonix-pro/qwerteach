@@ -1,0 +1,8 @@
+- if lesson.past?
+  -# Nothing here, lesson already happened
+- else
+  - if lesson.pending?
+    En attente de la réponse de l'autre partie
+  - else
+    Cours plannifié. Vous aurez automatiquement accès à la classe virtuelle 10mn avant le début de votre cours.
+  = link_to 'annuler le cours', lesson_cancel_path(lesson), class: 'btn btn-qw btn-grey btn-sm'
