@@ -5,7 +5,7 @@
         Prévu dans #{distance_of_time_in_words(Time.now, lesson.time_start)}
       - else
         Il y a #{time_ago_in_words(lesson.time_end)}
-    %small (le #{lesson.time_end.strftime('%d/%m/%Y')})
+    %small (le #{lesson.time_start.strftime('%d/%m/%Y à %H:%M')})
   .lesson-date
     #{lesson_duration(lesson.time_start, lesson.time_end)} de
     %span.text-purple

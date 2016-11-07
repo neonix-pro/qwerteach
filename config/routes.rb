@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     put 'make_payout' => :make_payout
   end
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations=> "registrations" }
   resources :users, only: [:update]
 
   as :user do

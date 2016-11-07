@@ -42,6 +42,10 @@ class ApplicationController < ActionController::Base
     flash.discard  # discard flash messages after encoding so don't appear twice
   end
 
+  def user_time_zone
+    Time.zone = current_user.time_zone || "Europe / Berlin"
+  end
+
   # Use require to define permitted params
   protected
     before_filter do
