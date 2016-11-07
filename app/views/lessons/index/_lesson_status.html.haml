@@ -14,6 +14,7 @@
       -when :disputed
         Ce cours est en litige. Si ce n'est pas déjà fait, un administrateur de Qwerteach prendra contact avec vous dans les plus brefs délais.
       -else
-        = render :partial => 'wait', locals:{lesson: lesson}
+        = render :partial => 'lessons/index/wait', locals:{lesson: lesson}
   .lesson-show-details
-    =link_to 'détails', lesson_path(lesson), class: 'text-pink'
+    =link_to 'détails', lesson_path(lesson), remote: true, class: 'text-pink'
+  = render :partial => 'lessons/index/lesson_cards', locals:{lesson: lesson, todo: todo}

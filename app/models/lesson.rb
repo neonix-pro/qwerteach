@@ -108,7 +108,10 @@ class Lesson < ActiveRecord::Base
   end
 
   # le user doit-il confirmer?
-  def pending?(user)
+  def pending?(user = nil)
+    if user.nil?
+      return pending_any?
+    end
     (teacher == user && status == 'pending_teacher') || (student == user && status == 'pending_student')
   end
 
@@ -146,7 +149,7 @@ class Lesson < ActiveRecord::Base
     if user.id != student_id
       return false
     else
-      Review.where('sender_id = ? AND subject_id = ?', student.id, teacher.id).empty?
+      Review.where('sender_id = ? AND subject_id = ?', student.id, teacher.id).empty? && past?
     end
   end
 
@@ -159,6 +162,10 @@ class Lesson < ActiveRecord::Base
 
   def pending_student?
     status == 'pending_student'
+  end
+
+  def pending_any?
+    pending_student? || pending_teacher?
   end
 
   def is_teacher?(user)

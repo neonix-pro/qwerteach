@@ -125,27 +125,58 @@
   }
   .lesson-details-right{
     width:60%;
-    padding-right:60px;
+    padding-right:200px;
     line-height:18px;
   }
+  $card-width : 150px;
+  $margin: 20px;
+  $margin-spread: -5px;
   .lesson-status {
-    width: 60px;
-    height: 150px;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    .confirmation-status, .payment-status{
-      height:50%;
-      width:100%;
-      text-align:center;
-      border-left: 1px solid #ddd;
-      padding-top:5px;
-      small{
-        font-size: 12px;
-      }
+
+    width:$card-width;
+    position:absolute;
+    top:0px;
+    right:0px;
+    img.lesson-card{
+      width:150px;
+      position:absolute;
+      box-shadow:  0px 2px 4px 0px rgba(0,0,0,1);
+      filter: grayscale(100%);
+      transition: right 0.7s;
     }
-    .confirmation-status{
-      border-bottom: 1px solid #ddd;
+
+    .lesson-card:first-child{
+      right:0px;
+    }
+    .lesson-card:nth-child(2){
+      right:$margin * 1;
+    }
+    .lesson-card:nth-child(3){
+      right:$margin*2;
+    }
+    .lesson-card:nth-child(4){
+      right:$margin*3;
+    }
+    .lesson-card:last-child{
+      filter:none!important;
+    }
+  }
+
+  .lesson-status:hover {
+    .lesson-card:first-child{
+      right:0px;
+    }
+    .lesson-card:nth-child(2){
+      right:($card-width + $margin-spread);
+    }
+    .lesson-card:nth-child(3){
+      right:($card-width + $margin-spread)*2;
+    }
+    .lesson-card:nth-child(4){
+      right:($card-width + $margin-spread)*3;
+    }
+    .lesson-card:last-child{
+      filter:none!important;
     }
   }
 
@@ -279,4 +310,7 @@
   h3{
     margin-top:0px;
   }
+}
+.show-lesson-details{
+  display:none;
 }
