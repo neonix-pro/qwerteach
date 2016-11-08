@@ -7,19 +7,6 @@ class LessonsController < ApplicationController
     @lessons = Lesson.involving(@user).page(params[:page]).per(5)
   end
 
-  # def given
-  #   @lessons = current_user.lessons_given.created.page(params[:page]).per(10).order(time_start: :desc, id: :desc)
-  # end
-  # def received
-  #   @lessons = current_user.lessons_received.created.page(params[:page]).per(10).order(time_start: :desc, id: :desc)
-  # end
-  # def history
-  #   @lessons = Lesson.where('student_id=? OR teacher_id=?', current_user.id, current_user.id).page(params[:page]).per(10).order(time_start: :desc, id: :desc)
-  # end
-  # def pending
-  #   @lessons = current_user.pending_lessons.page(params[:page]).per(10).order(time_start: :desc, id: :desc)
-  # end
-
   def show
     @user = current_user
     @lesson = Lesson.find(params[:id])

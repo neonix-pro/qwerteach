@@ -166,6 +166,10 @@ class User < ActiveRecord::Base
     self.admin=true
     self.save!
   end
+
+  def username
+    name
+  end
   
   def self.from_omniauth(auth)
     @provider = auth.provider
