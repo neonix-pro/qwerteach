@@ -28,7 +28,7 @@ class LessonsController < ApplicationController
   end
 
   def update
-    #reschedule a lesson
+    # reschedule a lesson
     @lesson = Lesson.find(params[:id])
     @hours = ((@lesson.time_end - @lesson.time_start) / 3600).to_i
     @minutes = ((@lesson.time_end - @lesson.time_start) / 60 ) % 60
@@ -38,7 +38,7 @@ class LessonsController < ApplicationController
     time_end = time_start + @hours.hours
     time_end += @minutes.minutes
 
-    @lesson.update_attributes(:time_start => time_start, :time_end => time_end)
+    @lesson.update_attributes(:time_start => time_start, :time_end => time_end, :status => @lesson.alternate_pending)
 
     if @lesson.save
       flash[:success] = "La modification s'est correctement déroulée."

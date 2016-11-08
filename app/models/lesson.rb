@@ -24,14 +24,14 @@ class Lesson < ActiveRecord::Base
   scope :past, ->{where("time_start < ? ", Time.now)}
   scope :future, ->{where("time_start > ? ", Time.now)}
   scope :involving, ->(user){where("teacher_id LIKE ? OR student_id LIKE ?", user.id, user.id).order(time_start: 'desc')}
-  scope :active, ->{where.not("lessons.status IN(?)", [3, 4])} # not canceled or refused
+  scope :active, ->{where.not("lessons.status IN(?)", [3, 4])} # not canceled or refused or expired
 
-  scope :upcoming, ->{ active.future }
-  scope :passed, ->{active.past}
+  scope :upcoming, ->{ active.future } #future and (created or pending)
+  scope :passed, ->{past.created} # lessons that already happened
   scope :expired, ->{pending.future}
-  scope :to_answer, ->{pending.locked.future}
-  scope :to_unlock, ->{created.locked.past}
-  scope :to_pay, ->{created.payment_pending.past}
+  scope :to_answer, ->{pending.locked.future} # lessons where we're waiting for an answer
+  scope :to_unlock, ->{created.locked.past} # lessons where we're waiting for student to unlock money
+  scope :to_pay, ->{created.payment_pending.past} # lessons that haven't been prepaid and student needs to pay
 
   scope :to_review, ->(user){created.locked_or_paid.past.joins('LEFT OUTER JOIN reviews ON reviews.subject_id = lessons.teacher_id
     AND reviews.sender_id = lessons.student_id')
@@ -227,5 +227,10 @@ class Lesson < ActiveRecord::Base
       return :review
     end
     return :wait
+  end
+
+  def alternate_pending
+    return 1 if pending_teacher? #pending_student
+    return 0 if pending_student? #pending_teacher
   end
 end
