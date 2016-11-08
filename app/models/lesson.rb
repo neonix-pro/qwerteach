@@ -16,16 +16,29 @@ class Lesson < ActiveRecord::Base
 
   has_one :bbb_room
 
+  scope :pending, ->{where("lessons.status IN (?) ", [0, 1])}
+  scope :created, ->{where("lessons.status LIKE ? ", 2)}
+  scope :locked, ->{joins(:payments).where("payments.status LIKE ?", 1)}
+  scope :locked_or_paid, ->{joins(:payments).where("payments.status IN (?)", [1, 2])}
+  scope :payment_pending, ->{joins(:payments).where("payments.status LIKE ?", 0)}
+  scope :past, ->{where("time_start < ? ", Time.now)}
+  scope :future, ->{where("time_start > ? ", Time.now)}
   scope :involving, ->(user){where("teacher_id LIKE ? OR student_id LIKE ?", user.id, user.id).order(time_start: 'desc')}
-  scope :active, ->{where.not("lessons.status IN(?)", [3, 4])}
-  scope :upcoming, ->{ active.where("time_start > ?", Time.now) }
-  scope :passed, ->{active.where("time_start < ?", Time.now)}
-  scope :to_be_paid, ->{passed.joins(:payments).where("payments.status LIKE ?", 1)} # payments with 'locked' status
-  scope :to_answer, ->{upcoming.where(status: [0, 1])}
-  scope :expired, ->{passed.where("lessons.status LIKE (?)", 2)}
+  scope :active, ->{where.not("lessons.status IN(?)", [3, 4])} # not canceled or refused
 
-  #to show in index of lessons
-  scope :index, ->{joins(:payments).active.where("time_start > ? OR (lessons.status LIKE ? AND payments.status LIKE ? )", Time.now, 2, 1)}
+  scope :upcoming, ->{ active.future }
+  scope :passed, ->{active.past}
+  scope :expired, ->{pending.future}
+  scope :to_answer, ->{pending.locked.future}
+  scope :to_unlock, ->{created.locked.past}
+  scope :to_pay, ->{created.payment_pending.past}
+
+  scope :to_review, ->(user){created.locked_or_paid.past.joins('LEFT OUTER JOIN reviews ON reviews.subject_id = lessons.teacher_id
+    AND reviews.sender_id = lessons.student_id')
+    .where(:student => user.id)
+    .where('reviews.id is NULL')
+    .where('time_end < ?', DateTime.now)
+    .group(:teacher)}
 
   has_drafts
 
@@ -203,10 +216,10 @@ class Lesson < ActiveRecord::Base
       if disputed?
         return :disputed
       end
-      if prepaid?
-        return :unlock
-      end
       unless paid?
+        if prepaid?
+          return :unlock
+        end
         return :pay
       end
     end

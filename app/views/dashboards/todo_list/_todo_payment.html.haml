@@ -15,5 +15,5 @@
         %span{data: {toggle: 'tooltip', placement: 'bottom'}, title: "#{lesson.time_start.strftime('Timezone: %Z')}"}
           #{lesson.time_start.strftime('Le %d/%m/%Y à %R')}
     .col-xs-3.todo_payment.text-center.todo_action
-      = button_to 'Tout s\'est bien passé', lesson_debloquerpayment_path(lesson), class: 'btn btn-qw btn-green btn-sm'
-      = link_to 'Signaler un problème', lesson_bloquerpayment_path(lesson), class: 'text-grey'
+      = button_to 'Tout s\'est bien passé', lesson_pay_teacher_path(lesson), class: 'btn btn-qw btn-green btn-sm'
+      = link_to 'Signaler un problème', lesson_dispute_path(lesson), class: 'text-grey'

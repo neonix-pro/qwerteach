@@ -129,8 +129,6 @@ Rails.application.routes.draw do
     get "edit_postpayment/:payment_id" => "payments#edit_postpayment", as: 'edit_postpayment'
     post "edit_postpayment/:payment_id" => "payments#send_edit_postpayment", as: 'send_edit_postpayment'
 
-    post "bloquerpayment" => "payments#bloquerpayment"
-    post "debloquerpayment" => "payments#debloquerpayment"
     post "payerfacture/:payment_id" => "payments#payerfacture", as: 'payerfacture'
   end
   match '/cours' =>'lessons#index', :as => 'cours', via: :get

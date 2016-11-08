@@ -21,10 +21,10 @@ class DashboardsController < ApplicationController
       @wallets = {normal: @user.wallets.first, bonus: @user.wallets.second, transfer: @user.wallets.third}
     end
 
-    lessons_without_review = @user.noreview_lessons
-    unpaid_lessons = @user.unpaid_lessons
-    pending_lessons = @user.pending_me_lessons
-    @to_do_list = ( unpaid_lessons + lessons_without_review + pending_lessons).sort_by &:created_at
+    # lessons_without_review = @user.noreview_lessons
+    # unpaid_lessons = @user.unpaid_lessons
+    # pending_lessons = @user.pending_me_lessons
+    @to_do_list =@user.todo_lessons.sort_by &:created_at
 
     @featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)
     @featured_teachers = Teacher.all.order(score: :desc).limit(5)
