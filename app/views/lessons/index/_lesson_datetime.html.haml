@@ -2,9 +2,9 @@
   .lesson-duration
     - unless lesson.expired?
       - if lesson.upcoming?
-        Prévu dans #{distance_of_time_in_words(Time.now, lesson.time_start)}
+        Prévu dans #{distance_of_time_in_words(Time.zone.now, lesson.time_start)}
       - else
-        Il y a #{time_ago_in_words(lesson.time_end)}
+        Il y a #{time_ago_in_words(lesson.time_start)}
     %small (le #{lesson.time_start.strftime('%d/%m/%Y à %H:%M')})
   .lesson-date
     #{lesson_duration(lesson.time_start, lesson.time_end)} de

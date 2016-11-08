@@ -30,15 +30,10 @@ class LessonsController < ApplicationController
   def update
     # reschedule a lesson
     @lesson = Lesson.find(params[:id])
-    @hours = ((@lesson.time_end - @lesson.time_start) / 3600).to_i
-    @minutes = ((@lesson.time_end - @lesson.time_start) / 60 ) % 60
-    # telling rails the received string is in the user's timezone
-    t = params[:lesson][:time_start]+' '+Time.zone.now.strftime('%Z')
-    time_start = DateTime.strptime(t, "le %d/%m/%Y - %H:%M %z")
-    time_end = time_start + @hours.hours
-    time_end += @minutes.minutes
-
-    @lesson.update_attributes(:time_start => time_start, :time_end => time_end, :status => @lesson.alternate_pending)
+    duration = @lesson.duration
+    @lesson.time_start =  params[:lesson][:time_start]
+    @lesson.time_end = @lesson.time_start + duration.total
+    @lesson.status = @lesson.alternate_pending
 
     if @lesson.save
       flash[:success] = "La modification s'est correctement déroulée."
