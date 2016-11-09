@@ -20,7 +20,7 @@ class Lesson < ActiveRecord::Base
   scope :created, ->{where("lessons.status LIKE ? ", 2)}
   scope :locked, ->{joins(:payments).where("payments.status LIKE ?", 1)}
   scope :locked_or_paid, ->{joins(:payments).where("payments.status IN (?)", [1, 2])}
-  scope :payment_pending, ->{joins(:payments).where("payments.status LIKE ?", 0)}
+  scope :payment_pending, ->{joins(:payments).where("payments.status LIKE ?", 0)} # money isn't locked. Postpay lesson
   scope :past, ->{where("time_start < ? ", Time.now)}
   scope :future, ->{where("time_start > ? ", Time.now)}
   scope :involving, ->(user){where("teacher_id LIKE ? OR student_id LIKE ?", user.id, user.id).order(time_start: 'desc')}

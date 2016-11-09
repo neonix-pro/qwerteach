@@ -36,3 +36,10 @@ expire_bookings:
   class: ExpireBookings
   queue: bookings
   description: "refund bookings that expire"
+
+pay_teachers:
+  every:
+    - "1m"
+  class: PayTeachers
+  queue: bookings
+  description: "Pay teachers 72hrs after end of lesson"
