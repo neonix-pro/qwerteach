@@ -45,11 +45,12 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations=> "registrations" }
-  resources :users, only: [:update]
 
-  as :user do
-    get 'users/edit_pwd' => 'registrations#pwd_edit', :as => 'edit_pwd_user_registration'
+  resources :users, only: [:update] do
+    patch 'crop' => 'users#crop'
+    post 'crop' => 'users#crop'
   end
+
   get 'dashboard' => 'dashboards#index', :as => 'dashboard'
 
   resources :users, :only => [:show] do
