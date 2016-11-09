@@ -2,8 +2,7 @@ class LessonsNotifierWorker
   @queue = :bigbluebutton_rails
 
   def self.perform(*args)
-    @beginning_lessons = Lesson.where(:time_start => (DateTime.now - 10.minutes)..(DateTime.now), :status => 2)
-    Rails.logger.debug('-----------------------')
+    @beginning_lessons = Lesson.where(:time_start => (DateTime.now)..(DateTime.now + 10.minutes), :status => 2)
    # @beginning_lessons = Lesson.all
     Resque.enqueue(LessonsNotifierWorker)
     @beginning_lessons.each do |bl|
@@ -31,12 +30,14 @@ class LessonsNotifierWorker
         # body = "/bigbluebutton/rooms/#{@room.param}/invite"
         # notifs
         bl.teacher.send_notification(subject, body, bl.student)
-        PrivatePub.publish_to "/lessons/#{bl.teacher_id}", :lesson => bl
+        PrivatePub.publish_to "/notifications/#{bl.teacher_id}", :lesson => bl
         bl.student.send_notification(subject, body, bl.teacher)
-        PrivatePub.publish_to "/lessons/#{bl.student_id}", :lesson => bl
+        PrivatePub.publish_to "/notifications/#{bl.student_id}", :lesson => bl
+      else
+        Rails.logger.debug(@room.errors.full_messages.to_sentence)
       end
     end
-    # Toutes les 1 mins
-    sleep 60
+    # Toutes les 10 secs
+    sleep 10
   end
 end

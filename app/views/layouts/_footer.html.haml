@@ -45,3 +45,9 @@
                     =image_tag("googleplus.png")
             .copyright
                 %p © 2013 Qwerteach • Conditions d'utilisation
+
+- if current_user
+    :javascript
+        PrivatePub.subscribe("/notifications/#{current_user.id}", function(data, channel) {
+            Notifications.numberOfUnreadNotifications();
+        });

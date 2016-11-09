@@ -90,3 +90,20 @@ fr:
       almost_x_years:
         one:   "1 an" # default was: "almost 1 year"
         other: "%{count} ans" # default was: "almost %{count} years"
+
+  views:
+    pagination:
+      first: " &laquo; "
+      last: " &raquo; "
+      previous: " &lsaquo; "
+      next: " &rsaquo; "
+      truncate: " &hellip; "
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "Pas de %{entry_name}"
+          one: "<b>1</b> %{entry_name}"
+          other: "<b>tous</b> les %{entry_name} (%{count})"
+      more_pages:
+        display_entries: "%{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> sur <b>%{total}</b> au total"

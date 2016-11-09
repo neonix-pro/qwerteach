@@ -1,11 +1,5 @@
 // le css est dans conversations.scss
 
--# barre de recherche
--#= form_tag mailbox_search_path, class: "mailbox-search form", remote: true do
--#  .input-append
--#    %input.form-control.sr-input{:placeholder => "Search Mail", :type => "text", :name => :q}
--#      %button.btn.sr-btn{:type => "submit"}
--#        %i.fa.fa-search
 .mail-box
   #mailbox-head
   #mailbox-content
@@ -39,21 +33,6 @@
             = label_tag 'message[body]', 'Message'
             = text_area_tag 'message[body]', nil, rows: 5, class: 'form-control', required: true
           = submit_tag 'Send', class: 'btn btn-primary'
-          -#.form-group
-          -#  .col-lg-offset-2.col-lg-10
-          -#    %span.btn.green.fileinput-button
-          -#      %i.fa.fa-plus.fa.fa-white
-          -#      %span Attachment
-          -#      %input{:multiple => "multiple", :name => "files[]", :type => "file"}
-          -#    %button.btn.btn-send{:type => "submit"} Send
+
 
 = render partial: 'lesson_requests/request_lesson_modal'
-
-:javascript
-  $('.main-content').css({position: 'relative', height:'100%'});
-  $(document).ready(function(){
-    $('.conversation-preview').first().addClass('active');
-    $('.conversation-preview').click(function(){
-       $('#mailbox_conversations').html('<i class="fa fa-spin fa-spinner text-green"></i>');
-    });
-  });

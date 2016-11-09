@@ -51,7 +51,7 @@ class LessonsController < ApplicationController
     body = "#"
     subject = "Le professeur #{@lesson.teacher.email} a accepté votre demande de cours."
     @lesson.student.send_notification(subject, body, @lesson.teacher)
-    PrivatePub.publish_to "/lessons/#{@lesson.student_id}", :lesson => @lesson
+    PrivatePub.publish_to "/notifications/#{@lesson.student_id}", :lesson => @lesson
     flash[:notice] = "Le cours a été accepté."
     redirect_to dashboard_path
   end
