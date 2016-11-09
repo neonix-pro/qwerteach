@@ -4,7 +4,7 @@ class LessonsNotifierWorker
   def self.perform(*args)
     @beginning_lessons = Lesson.where(:time_start => (DateTime.now)..(DateTime.now + 10.minutes), :status => 2)
    # @beginning_lessons = Lesson.all
-    Resque.enqueue(LessonsNotifierWorker)
+    #Resque.enqueue(LessonsNotifierWorker)
     @beginning_lessons.each do |bl|
       # bbb_room
       @interviewee = bl.teacher
@@ -37,7 +37,5 @@ class LessonsNotifierWorker
         Rails.logger.debug(@room.errors.full_messages.to_sentence)
       end
     end
-    # Toutes les 10 secs
-    sleep 10
   end
 end

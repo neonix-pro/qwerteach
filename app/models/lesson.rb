@@ -28,7 +28,7 @@ class Lesson < ActiveRecord::Base
 
   scope :upcoming, ->{ active.future } #future and (created or pending)
   scope :passed, ->{past.created} # lessons that already happened
-  scope :expired, ->{pending.future}
+  scope :expired, ->{pending.past}
   scope :to_answer, ->{pending.locked.future} # lessons where we're waiting for an answer
   scope :to_unlock, ->{created.locked.past} # lessons where we're waiting for student to unlock money
   scope :to_pay, ->{created.payment_pending.past} # lessons that haven't been prepaid and student needs to pay

@@ -8,7 +8,7 @@ class RefundLesson < ActiveInteraction::Base
 
     Lesson.transaction do
       return self.errors.merge!(lesson.errors) if !lesson.save
-      lesson.payments.each do |payment|
+      lesson.payments.locked.each do |payment|
         if payment.transfer_eleve_id.present?
           # do a refund (problem of bonus money that stays bonus)
           refund = Mango::RefundTransferBetweenWallets.run(user: user, transfer_id: payment.transfer_eleve_id.to_s)

@@ -23,6 +23,8 @@ class Payment < ActiveRecord::Base
   validates :transfert_date, presence: true
   validates :payment_method, presence: true
 
+  scope :locked, ->{where("status LIKE ? ", 1)}
+
   def pending?
     status == 'pending'
   end

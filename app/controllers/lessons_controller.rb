@@ -53,6 +53,7 @@ class LessonsController < ApplicationController
     @lesson.student.send_notification(subject, body, @lesson.teacher)
     PrivatePub.publish_to "/notifications/#{@lesson.student_id}", :lesson => @lesson
     flash[:notice] = "Le cours a été accepté."
+    LessonsNotifierWorker.perform() # check if new bbb is needed (right now)
     redirect_to dashboard_path
   end
 

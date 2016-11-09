@@ -22,3 +22,17 @@ stat_message:
   class: MessageStatWorker
   queue: message_stat
   description: "MaJ Stat UserMessage"
+
+lesson_notifier:
+  every:
+    - "1m"
+  class: LessonsNotifierWorker
+  queue: bigbluebutton_rails
+  description: "Notifies user is he's gt a lesson ready to begin"
+
+expire_bookings:
+  every:
+    - "1m"
+  class: ExpireBookings
+  queue: bookings
+  description: "refund bookings that expire"
