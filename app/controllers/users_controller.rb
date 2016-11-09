@@ -12,8 +12,8 @@ class UsersController < ApplicationController
       @reviews = @user.reviews_received
       @notes = @reviews.map { |r| r.note }
       @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size unless @notes.empty?
+      @profSimis = @user.similar_teachers(4)
     end
-    @profSimis = @user.similar_teachers(4)
     @me = current_user
   end
 
