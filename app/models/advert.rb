@@ -9,7 +9,7 @@ class Advert < ActiveRecord::Base
                                 :reject_if => :all_blank
   validates :user_id, presence: true
   validates :topic_group_id, presence: true
-  validates_uniqueness_of :user_id, scope: :topic_id
+  validates_uniqueness_of :user_id, scope: [:topic_id, :other_name]
 
   #after_create :create_price
   # Méthode permettant de récupérer le prix d'une annonce pour un topic, un level et un user donné

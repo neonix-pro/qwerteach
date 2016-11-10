@@ -238,3 +238,7 @@ class User < ActiveRecord::Base
       avatar.save
     end
 end
+
+def skip_confirmation!
+  self.confirmed_at = Time.now
+end

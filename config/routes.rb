@@ -1,4 +1,44 @@
 Rails.application.routes.draw do
+  
+  namespace :api do
+    get 'profiles' => 'profiles#index'
+    post 'profiles/show' => 'profiles#show'
+    post 'profiles/save' => 'profiles#save'
+    get 'profiles/find_level' => 'profiles#find_level'
+  end
+  
+  namespace :api do
+    get 'adverts' => 'adverts#index'
+    post 'adverts/create' => 'adverts#create'
+    post 'adverts/update' => 'adverts#update'
+    post 'adverts/show' => 'adverts#show'
+    post 'adverts/delete' => 'adverts#delete'
+    post 'adverts/find_advert_prices' => 'adverts#find_advert_prices'
+  end
+
+  namespace :api do
+    get 'find_topics' => 'find_topics#index'
+    post 'find_topics' => 'find_topics#show'
+  end
+
+  namespace :api do
+    get 'find_group_topics' => 'find_group_topics#show'
+  end
+
+  namespace :api do
+    devise_scope :user do
+      get 'session' => 'session#index'
+      post 'session' => 'session#login'
+    end
+  end
+
+  namespace :api do
+    devise_scope :user do
+      get 'registration' => 'registration#index'
+      post 'registration' => 'registration#create'
+    end
+  end
+
   namespace :admin do
     resources :users
     resources :students
