@@ -16,5 +16,5 @@
         #{ad.topic.title}
         = image_tag(ad.topic.pictotype("medium"))
   .participant-cta
-    = link_to 'Réserver un cours', new_user_request_lesson_path(user), remote: true, "data-toggle" => "modal", 'data-target' => '#request-lesson'
+    = link_to 'Réserver un cours', new_user_lesson_request_path(user), remote: true, "data-toggle" => "modal", 'data-target' => '#request-lesson'
 

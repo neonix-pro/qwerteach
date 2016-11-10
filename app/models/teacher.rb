@@ -71,4 +71,5 @@ class Teacher  < Student
     @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size
     return @avg
   end
+
 end

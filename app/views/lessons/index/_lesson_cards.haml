@@ -1,0 +1,19 @@
+.lesson-status
+  -if lesson.active?
+    - if lesson.review_needed?(current_user)
+      = image_tag('lesson_cards/leave_review.png', class: 'lesson-card')
+    - unless lesson.paid?
+      - if lesson.is_teacher?(current_user)
+        = image_tag('lesson_cards/wait.png', class: 'lesson-card')
+      - else
+        = image_tag('lesson_cards/unlock.png', class: 'lesson-card')
+    - if lesson.upcoming?
+      - if lesson.is_teacher?(current_user)
+        = image_tag('lesson_cards/give_lesson.png', class: 'lesson-card')
+      - else
+        = image_tag('lesson_cards/take_lesson.png', class: 'lesson-card')
+    - if lesson.pending?
+      - if lesson.pending?(current_user)
+        =image_tag('lesson_cards/answer.png', class: 'lesson-card')
+      - else
+        = image_tag('lesson_cards/wait.png', class: 'lesson-card')

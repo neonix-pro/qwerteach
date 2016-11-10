@@ -2,27 +2,21 @@ if (typeof(CKEDITOR) != 'undefined') {
 
     CKEDITOR.editorConfig = function( config ) {
         config.language = "fr";
-        config.width = '725';
-        config.height = '400';
+        config.width = '100%';
+        config.height = '33em';
         config.toolbar_Pure = [
-            {name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
-            {name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll', '-', 'SpellChecker', 'Scayt']},
-            {name: 'tools', items: ['Maximize', 'ShowBlocks', '-', 'About']},
-            '/',
+            {name: 'clipboard', items: ['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo']},
             {
                 name: 'basicstyles',
-                items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']
+                items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Link', '-', 'RemoveFormat']
             },
             {
                 name: 'paragraph',
-                items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
-                    'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl']
+                items: ['BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-',
+                    'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
             },
-            {name: 'links', items: ['Link', 'Unlink', 'Anchor']},
-            '/',
-            {name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize']},
-            {name: 'colors', items: ['TextColor', 'BGColor']},
-            {name: 'insert', items: ['Smiley', 'SpecialChar', 'PageBreak']}
+            {name: 'styles', items: ['TextColor', 'BGColor', 'Font', 'FontSize', 'PageBreak']},
+            {name: 'insert', items: ['Smiley']}
         ];
         config.toolbar = 'Pure';
     }

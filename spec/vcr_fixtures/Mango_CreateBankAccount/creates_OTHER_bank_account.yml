@@ -2,61 +2,22 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/oauth/token
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/natural
     body:
       encoding: UTF-8
-      string: grant_type=client_credentials
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-      Authorization:
-      - Basic aXBhaTVhdjc3M3hoemh5ajpVTjQ5TVFDWUpYbVFVMlljcTRoc2ViN21vdG9HM1pCZ3hKdVQyU2JndUNDWlVhYjA4RA==
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Cache-Control:
-      - no-cache
-      Pragma:
-      - no-cache
-      Content-Type:
-      - application/json; charset=utf-8
-      Expires:
-      - "-1"
-      Server:
-      - Leetchi
-      Date:
-      - Wed, 17 Aug 2016 15:59:07 GMT
-      Content-Length:
-      - '91'
-    body:
-      encoding: UTF-8
-      string: '{"access_token":"ae75cb79aeb947b1b466ce78650d6fee","token_type":"Bearer","expires_in":1199}'
-    http_version: 
-  recorded_at: Wed, 17 Aug 2016 15:59:09 GMT
-- request:
-    method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/natural
-    body:
-      encoding: UTF-8
-      string: '{"CountryOfResidence":"AD","Nationality":"NR","Address":{"AddressLine1":"Dicki
-        Key","AddressLine2":"9625","PostalCode":"FO5 0NB","City":"Rathburgh","Region":"Arizona","Country":"RE"},"FirstName":"Jefferey","LastName":"Cruickshank","Birthday":682362000,"Email":"katelyn.grimes@wolfdoyle.info","PersonType":"NATURAL","Tag":"user
+      string: '{"CountryOfResidence":"LI","Nationality":"TM","Address":{"AddressLine1":"Stacy
+        Parkway","AddressLine2":"6693","PostalCode":"HV97 2BN","City":"East Pete","Region":"Louisiana","Country":"PL"},"FirstName":"Geovanni","LastName":"Moen","Birthday":685299600,"Email":"gregory_sauer@kreiger.co.uk","PersonType":"NATURAL","Tag":"user
         5"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer ae75cb79aeb947b1b466ce78650d6fee
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
       - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
-        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        shredder-pc 4.4.0-36-generic #55-Ubuntu SMP Thu Aug 11 18:01:55 UTC 2016 x86_64
         x86_64 x86_64 GNU/Linux"}'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -77,33 +38,48 @@ http_interactions:
       - "-1"
       Server:
       - Leetchi
+      X-Ratelimit:
+      - '48'
+      - '49'
+      - '49'
+      - '49'
+      X-Ratelimit-Remaining:
+      - '105551'
+      - '2252'
+      - '4451'
+      - '8751'
+      X-Ratelimit-Reset:
+      - '1474392660'
+      - '1474393560'
+      - '1474395360'
+      - '1474478100'
       Date:
-      - Wed, 17 Aug 2016 15:59:09 GMT
+      - Tue, 20 Sep 2016 17:16:03 GMT
       Content-Length:
-      - '473'
+      - '471'
     body:
       encoding: UTF-8
-      string: '{"Address":{"AddressLine1":"Dicki Key","AddressLine2":"9625","City":"Rathburgh","Region":"Arizona","PostalCode":"FO5
-        0NB","Country":"RE"},"FirstName":"Jefferey","LastName":"Cruickshank","Birthday":682362000,"Nationality":"NR","CountryOfResidence":"AD","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"katelyn.grimes@wolfdoyle.info","KYCLevel":"LIGHT","Id":"15259925","Tag":"user
-        5","CreationDate":1471449548}'
+      string: '{"Address":{"AddressLine1":"Stacy Parkway","AddressLine2":"6693","City":"East
+        Pete","Region":"Louisiana","PostalCode":"HV97 2BN","Country":"PL"},"FirstName":"Geovanni","LastName":"Moen","Birthday":685299600,"Nationality":"TM","CountryOfResidence":"LI","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"gregory_sauer@kreiger.co.uk","KYCLevel":"LIGHT","Id":"16234770","Tag":"user
+        5","CreationDate":1474391763}'
     http_version: 
-  recorded_at: Wed, 17 Aug 2016 15:59:10 GMT
+  recorded_at: Tue, 20 Sep 2016 17:16:05 GMT
 - request:
     method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/wallets
     body:
       encoding: UTF-8
-      string: '{"Owners":[15259925],"Currency":"EUR","Description":"wallet user 5"}'
+      string: '{"Owners":[16234770],"Currency":"EUR","Description":"wallet user 5"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer ae75cb79aeb947b1b466ce78650d6fee
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
       - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
-        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        shredder-pc 4.4.0-36-generic #55-Ubuntu SMP Thu Aug 11 18:01:55 UTC 2016 x86_64
         x86_64 x86_64 GNU/Linux"}'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -124,31 +100,46 @@ http_interactions:
       - "-1"
       Server:
       - Leetchi
+      X-Ratelimit:
+      - '49'
+      - '50'
+      - '50'
+      - '50'
+      X-Ratelimit-Remaining:
+      - '105550'
+      - '2251'
+      - '4450'
+      - '8750'
+      X-Ratelimit-Reset:
+      - '1474392660'
+      - '1474393560'
+      - '1474395360'
+      - '1474478100'
       Date:
-      - Wed, 17 Aug 2016 15:59:09 GMT
+      - Tue, 20 Sep 2016 17:16:05 GMT
       Content-Length:
       - '185'
     body:
       encoding: UTF-8
-      string: '{"Description":"wallet user 5","Owners":["15259925"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"15259927","Tag":null,"CreationDate":1471449550}'
+      string: '{"Description":"wallet user 5","Owners":["16234770"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16234771","Tag":null,"CreationDate":1474391765}'
     http_version: 
-  recorded_at: Wed, 17 Aug 2016 15:59:11 GMT
+  recorded_at: Tue, 20 Sep 2016 17:16:05 GMT
 - request:
     method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/wallets
     body:
       encoding: UTF-8
-      string: '{"Owners":[15259925],"Currency":"EUR","Description":"wallet bonus 5","Tag":"Bonus"}'
+      string: '{"Owners":[16234770],"Currency":"EUR","Description":"wallet bonus 5","Tag":"Bonus"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer ae75cb79aeb947b1b466ce78650d6fee
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
       - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
-        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        shredder-pc 4.4.0-36-generic #55-Ubuntu SMP Thu Aug 11 18:01:55 UTC 2016 x86_64
         x86_64 x86_64 GNU/Linux"}'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -169,32 +160,47 @@ http_interactions:
       - "-1"
       Server:
       - Leetchi
+      X-Ratelimit:
+      - '50'
+      - '51'
+      - '51'
+      - '51'
+      X-Ratelimit-Remaining:
+      - '105549'
+      - '2250'
+      - '4449'
+      - '8749'
+      X-Ratelimit-Reset:
+      - '1474392660'
+      - '1474393560'
+      - '1474395360'
+      - '1474478100'
       Date:
-      - Wed, 17 Aug 2016 15:59:10 GMT
+      - Tue, 20 Sep 2016 17:16:05 GMT
       Content-Length:
       - '189'
     body:
       encoding: UTF-8
-      string: '{"Description":"wallet bonus 5","Owners":["15259925"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"15259928","Tag":"Bonus","CreationDate":1471449550}'
+      string: '{"Description":"wallet bonus 5","Owners":["16234770"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16234772","Tag":"Bonus","CreationDate":1474391765}'
     http_version: 
-  recorded_at: Wed, 17 Aug 2016 15:59:12 GMT
+  recorded_at: Tue, 20 Sep 2016 17:16:06 GMT
 - request:
     method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/wallets
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/wallets
     body:
       encoding: UTF-8
-      string: '{"Owners":[15259925],"Currency":"EUR","Description":"wallet transfert
+      string: '{"Owners":[16234770],"Currency":"EUR","Description":"wallet transfert
         5","Tag":"Transfert"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer ae75cb79aeb947b1b466ce78650d6fee
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
       - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
-        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        shredder-pc 4.4.0-36-generic #55-Ubuntu SMP Thu Aug 11 18:01:55 UTC 2016 x86_64
         x86_64 x86_64 GNU/Linux"}'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -215,18 +221,33 @@ http_interactions:
       - "-1"
       Server:
       - Leetchi
+      X-Ratelimit:
+      - '51'
+      - '52'
+      - '52'
+      - '52'
+      X-Ratelimit-Remaining:
+      - '105548'
+      - '2249'
+      - '4448'
+      - '8748'
+      X-Ratelimit-Reset:
+      - '1474392660'
+      - '1474393560'
+      - '1474395360'
+      - '1474478100'
       Date:
-      - Wed, 17 Aug 2016 15:59:10 GMT
+      - Tue, 20 Sep 2016 17:16:05 GMT
       Content-Length:
       - '197'
     body:
       encoding: UTF-8
-      string: '{"Description":"wallet transfert 5","Owners":["15259925"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"15259929","Tag":"Transfert","CreationDate":1471449551}'
+      string: '{"Description":"wallet transfert 5","Owners":["16234770"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"16234773","Tag":"Transfert","CreationDate":1474391766}'
     http_version: 
-  recorded_at: Wed, 17 Aug 2016 15:59:12 GMT
+  recorded_at: Tue, 20 Sep 2016 17:16:06 GMT
 - request:
     method: get
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/natural/15259925
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/natural/16234770
     body:
       encoding: UTF-8
       string: "{}"
@@ -234,12 +255,12 @@ http_interactions:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer ae75cb79aeb947b1b466ce78650d6fee
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
       - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
-        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        shredder-pc 4.4.0-36-generic #55-Ubuntu SMP Thu Aug 11 18:01:55 UTC 2016 x86_64
         x86_64 x86_64 GNU/Linux"}'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -260,34 +281,50 @@ http_interactions:
       - "-1"
       Server:
       - Leetchi
+      X-Ratelimit:
+      - '52'
+      - '53'
+      - '53'
+      - '53'
+      X-Ratelimit-Remaining:
+      - '105547'
+      - '2248'
+      - '4447'
+      - '8747'
+      X-Ratelimit-Reset:
+      - '1474392660'
+      - '1474393560'
+      - '1474395360'
+      - '1474478100'
       Date:
-      - Wed, 17 Aug 2016 15:59:11 GMT
+      - Tue, 20 Sep 2016 17:16:06 GMT
       Content-Length:
-      - '473'
+      - '471'
     body:
       encoding: UTF-8
-      string: '{"Address":{"AddressLine1":"Dicki Key","AddressLine2":"9625","City":"Rathburgh","Region":"Arizona","PostalCode":"FO5
-        0NB","Country":"RE"},"FirstName":"Jefferey","LastName":"Cruickshank","Birthday":682362000,"Nationality":"NR","CountryOfResidence":"AD","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"katelyn.grimes@wolfdoyle.info","KYCLevel":"LIGHT","Id":"15259925","Tag":"user
-        5","CreationDate":1471449548}'
+      string: '{"Address":{"AddressLine1":"Stacy Parkway","AddressLine2":"6693","City":"East
+        Pete","Region":"Louisiana","PostalCode":"HV97 2BN","Country":"PL"},"FirstName":"Geovanni","LastName":"Moen","Birthday":685299600,"Nationality":"TM","CountryOfResidence":"LI","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"gregory_sauer@kreiger.co.uk","KYCLevel":"LIGHT","Id":"16234770","Tag":"user
+        5","CreationDate":1474391763}'
     http_version: 
-  recorded_at: Wed, 17 Aug 2016 15:59:13 GMT
+  recorded_at: Tue, 20 Sep 2016 17:16:06 GMT
 - request:
     method: post
-    uri: https://api.sandbox.mangopay.com/v2.01/ipai5av773xhzhyj/users/15259925/bankaccounts/other
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/16234770/bankaccounts/other
     body:
       encoding: UTF-8
-      string: '{"OwnerName":"Kelley Wiza","OwnerAddress":{"AddressLine1":"Dicki Key","AddressLine2":"9625","City":"Rathburgh","Region":"Arizona","PostalCode":"FO5
-        0NB","Country":"RE"},"Type":"other","Country":"FR","AccountNumber":"11696419","BIC":"CRLYFRPP"}'
+      string: '{"OwnerName":"Marlen Mosciski","OwnerAddress":{"AddressLine1":"Stacy
+        Parkway","AddressLine2":"6693","City":"East Pete","Region":"Louisiana","PostalCode":"HV97
+        2BN","Country":"PL"},"Type":"other","Country":"FR","AccountNumber":"11696419","BIC":"CRLYFRPP"}'
     headers:
       User-Agent:
       - Ruby
       Authorization:
-      - Bearer ae75cb79aeb947b1b466ce78650d6fee
+      - Bearer f8c8004a898f4e7da919032d45bd2313
       Content-Type:
       - application/json
       X-Mangopay-Client-User-Agent:
       - '{"bindings_version":"3.0.21","lang":"ruby","lang_version":"2.2.4 p230 (2015-12-16)","platform":"x86_64-linux","uname":"Linux
-        shredder-pc 4.4.0-34-generic #53-Ubuntu SMP Wed Jul 27 16:06:39 UTC 2016 x86_64
+        shredder-pc 4.4.0-36-generic #55-Ubuntu SMP Thu Aug 11 18:01:55 UTC 2016 x86_64
         x86_64 x86_64 GNU/Linux"}'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -308,15 +345,30 @@ http_interactions:
       - "-1"
       Server:
       - Leetchi
+      X-Ratelimit:
+      - '53'
+      - '54'
+      - '54'
+      - '54'
+      X-Ratelimit-Remaining:
+      - '105546'
+      - '2247'
+      - '4446'
+      - '8746'
+      X-Ratelimit-Reset:
+      - '1474392660'
+      - '1474393560'
+      - '1474395360'
+      - '1474478100'
       Date:
-      - Wed, 17 Aug 2016 15:59:12 GMT
+      - Tue, 20 Sep 2016 17:16:06 GMT
       Content-Length:
-      - '330'
+      - '341'
     body:
       encoding: UTF-8
-      string: '{"OwnerAddress":{"AddressLine1":"Dicki Key","AddressLine2":"9625","City":"Rathburgh","Region":"Arizona","PostalCode":"FO5
-        0NB","Country":"RE"},"AccountNumber":"11696419","BIC":"CRLYFRPP","Country":"FR","UserId":"15259925","OwnerName":"Kelley
-        Wiza","Type":"OTHER","Id":"15259930","Tag":null,"CreationDate":1471449552,"Active":true}'
+      string: '{"OwnerAddress":{"AddressLine1":"Stacy Parkway","AddressLine2":"6693","City":"East
+        Pete","Region":"Louisiana","PostalCode":"HV97 2BN","Country":"PL"},"AccountNumber":"11696419","BIC":"CRLYFRPP","Country":"FR","UserId":"16234770","OwnerName":"Marlen
+        Mosciski","Type":"OTHER","Id":"16234774","Tag":null,"CreationDate":1474391767,"Active":true}'
     http_version: 
-  recorded_at: Wed, 17 Aug 2016 15:59:14 GMT
+  recorded_at: Tue, 20 Sep 2016 17:16:07 GMT
 recorded_with: VCR 3.0.3

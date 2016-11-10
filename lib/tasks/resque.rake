@@ -11,7 +11,9 @@ namespace :resque do
     
     # you probably already have this somewhere
     Resque.redis = 'localhost:6379'
+  end
 
+  task :setup_schedule => :setup do
     # If you want to be able to dynamically change the schedule,
     # uncomment this line.  A dynamic schedule can be updated via the
     # Resque::Scheduler.set_schedule (and remove_schedule) methods.
@@ -24,4 +26,6 @@ namespace :resque do
     # be a hash.  YAML is usually the easiest.
     Resque.schedule = YAML.load_file('config/workers_schedule.yml')
   end
+
+  task :scheduler => :setup_schedule
 end

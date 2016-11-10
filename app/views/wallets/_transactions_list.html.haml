@@ -1,0 +1,11 @@
+%table
+  %tr
+    %th.dark Date
+    %th Type
+    %th.dark Auteur
+    %th Utilisateur crédité
+    %th.dark Montant crédité
+    %th Montant débité
+    %th.dark Frais
+  - transactions.each do |t|
+    = render 'transaction', t: t

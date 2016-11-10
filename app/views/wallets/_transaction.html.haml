@@ -1,0 +1,12 @@
+%tr
+  %td #{Time.at(t.creation_date).strftime('%d/%m/%Y')}
+  %td #{t.type}
+  %td
+    - unless t.author_id.nil?
+      #{User.find_by(mango_id: t.author_id).name}
+  %td
+    - unless t.credited_user_id.nil?
+      #{User.find_by(mango_id: t.credited_user_id).name}
+  %td #{t.credited_funds.amount/100} #{t.credited_funds.currency}
+  %td #{t.debited_funds.amount/100} #{t.debited_funds.currency}
+  %td #{t.fees.amount/100} #{t.fees.currency}

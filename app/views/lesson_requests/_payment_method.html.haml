@@ -1,0 +1,35 @@
+%ul.nav.nav-tabs
+  %li.active= link_to('transfert', '#transfert', 'data-toggle' => 'tab')
+  %li= link_to('bancontact', '#bancontact', 'data-toggle' => 'tab')
+  %li= link_to('Credit Card', '#credit_card', 'data-toggle' => 'tab')
+.tab-content
+  #transfert.tab-pane.active
+    Il reste #{@user.total_wallets_in_cents/100}€ sur votre portefeuille virtuel.
+    - if(@lesson.price > @user.total_wallets_in_cents)
+      Ce montant n'est pas suffisant pour payer le cours. Veuillez sélectionner un autre mode de payement.
+    - else
+      Le montant du cours est de #{@lesson.price}€
+      Après le transfer, il vous restera donc #{(@user.total_wallets_in_cents/100 - @lesson.price)}€.
+
+    = button_to 'Ok', user_lesson_requests_payment_path(@teacher, mode: 'transfert'), remote: true, method: 'put'
+    = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
+
+  #bancontact.tab-pane
+    En cliquant sur 'ok', vous serez redirigé vers votre insitution bancaire pour procéder au payement.
+    = button_to 'Ok', user_lesson_requests_payment_path(@teacher, mode: 'bancontact'), remote: true, method: 'put'
+    = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
+
+  #credit_card.tab-pane
+    %p Paiement par carte de crédit.
+    .field.credit_card_choice
+    = form_tag  user_lesson_requests_payment_path(@teacher), :method => :put, remote: true do |f|
+      = hidden_field :mode, 'cd'
+      = label_tag "Choisir carte"
+      = select_tag :card_id, options_for_select(current_user.mangopay.cards.map { |f| [f.alias, f.id] }), {include_blank: 'Nouvelle carte'}
+    #new_card
+      = render 'mangopay/card_form', remote: true, no_actions: true
+    .actions
+      = submit_tag "Envoyer"
+      = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
+
+

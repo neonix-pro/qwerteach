@@ -4,7 +4,6 @@ module Mango
     private
 
     def handle_mango_error(error)
-      Rails.logger.debug(error)
       self.errors.add(:base, error.details['Message'])
       if error.details['errors']
         error.details['errors'].map do |name, val|

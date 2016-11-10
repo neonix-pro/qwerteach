@@ -1,5 +1,8 @@
 @import "global_variables";
 
+body, html, a{
+  font-weight:400;
+}
 #flash-messages{
   position: fixed;
   top: 50px;
@@ -50,7 +53,7 @@
   padding: 5px 12px;
 }
 
-.btn-green{
+.btn-green, .btn-success{
   background: $color_qwerteach_green;
   border-radius: 30px;
   font-size: 16px;
@@ -75,6 +78,9 @@
 .text-grey{
   color: $text_lightgrey;
 }
+.text-black{
+  color: #000;
+}
 .text-pink{
   color: $color_qwerteach_pink;
 }
@@ -86,6 +92,9 @@
 }
 .text-orange{
   color: $color_qwerteach_orange;
+}
+.text-white{
+  color:white;
 }
 
 a:hover {

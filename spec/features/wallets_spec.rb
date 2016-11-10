@@ -45,8 +45,10 @@ feature "Wallets" do
      within(".main-content") do
  
        fill_in 'cardNumber', with: '3569990000000132'
-       fill_in 'cardExpirationDate', with: '1020'
+       #fill_in 'cardExpirationDate', with: '1020'
        #fill_in 'year', with: 19
+       select 'juillet', from: 'date_month'
+       select 2020, from: 'year'
        fill_in 'cardCvx', with: '123'
 
        #find('input[type=submit]').click
