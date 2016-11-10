@@ -45,11 +45,24 @@ class User < ActiveRecord::Base
   delegate :wallets, :normal_wallet, :bonus_wallet, :transaction_wallet,
             :total_wallets_in_cents, :bank_accounts, to: :mangopay
 
+  # MANGOPAY
   def mangopay
     @mangopay ||= MangoUser.new(self)
   end
 
+  def is_solvable?(amount)
+    amount < total_wallets_in_cents/100
+  end
 
+  def address
+    self.mango_id.present? ? mangopay.address : Hashie::Mash.new({})
+  end
+
+  def country_of_residence
+    mangopay.country_of_residence if self.mango_id.present?
+  end
+
+  # GENERAL
   def online?
     last_seen > 10.minutes.ago unless last_seen.nil?
   end
@@ -65,85 +78,14 @@ class User < ActiveRecord::Base
   def name
     "#{firstname} #{lastname}".presence || email
   end
+  alias username name
 
   def level_max
     Degree.where(:user_id => self).map { |t| t.level }.max.try(:id)
   end
 
-  def is_solvable?(amount)
-    amount < total_wallets_in_cents/100
-  end
-
-
-  def mango_infos (params)
-    {
-        :FirstName => params[:FirstName] || self.firstname,
-        :LastName => params[:LastName] || self.lastname,
-        :Address => params[:Address],
-        :Birthday => self.birthdate.to_time.to_i,
-        :Nationality => params[:Nationality],
-        :CountryOfResidence => params[:CountryOfResidence],
-        :PersonType => "NATURAL",
-        :Email => self.email,
-        :Tag => "user "+ self.id.to_s,
-    }
-  end
-
-  def address
-    self.mango_id.present? ? mangopay.address : Hashie::Mash.new({})
-  end
-
-  def country_of_residence
-    mangopay.country_of_residence if self.mango_id.present?
-  end
-  #TODO: CamelCase isn't native naming for ruby variables. Need change in views
-  alias_method :countryOfResidence, :country_of_residence
-
   def nationality
     mangopay.nationality if self.mango_id.present?
-  end
-  #TODO: remove call to this method in controllers
-  def load_bank_accounts
-  end
-
-  def create_mango_user (params)
-    m = {}
-    if !(self.mango_id?)
-      m = MangoPay::NaturalUser.create(mango_infos(params))
-      self.mango_id = m['Id']
-      self.save!
-      MangoPay::Wallet.create({
-                                  :Owners => [self.mango_id],
-                                  :Description => "wallet user " + self.id.to_s,
-                                  :Currency => "EUR"
-                              })
-      MangoPay::Wallet.create({
-                                  :Owners => [self.mango_id],
-                                  :Description => "wallet bonus user " + self.id.to_s,
-                                  :Currency => "EUR",
-                                  :Tag => "Bonus"
-                              })
-      MangoPay::Wallet.create({
-                                  :Owners => [self.mango_id],
-                                  :Description => "wallet transfert user " + self.id.to_s,
-                                  :Currency => "EUR",
-                                  :Tag => "Transfert"
-                              })
-    else
-      m = MangoPay::NaturalUser.update(self.mango_id, mango_infos(params))
-    end
-    m
-  end
-
-  # Méthode liée au crop de l'avatar, elle permet de savoir si une modification a été faite
-  def cropping?
-    [crop_x, crop_y, crop_w, crop_h].all?(&:present?)
-  end
-
-  # Méthode liée au crop de l'avatar
-  def avatar_geometry(style = :original)
-    @geometry ||= {}
-    @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
   end
 
   # Methode permettant de faire passer un User à Student
@@ -163,10 +105,17 @@ class User < ActiveRecord::Base
     self.save!
   end
 
-  def username
-    name
+  # Méthode liée au crop de l'avatar, elle permet de savoir si une modification a été faite
+  def cropping?
+    [crop_x, crop_y, crop_w, crop_h].all?(&:present?)
   end
-  
+
+  # Méthode liée au crop de l'avatar
+  def avatar_geometry(style = :original)
+    @geometry ||= {}
+    @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
+  end
+
   def self.from_omniauth(auth)
     @provider = auth.provider
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

@@ -24,7 +24,6 @@ class PayPostpaymentsController < ApplicationController
             t = [c.translations['fr'], c.alpha2]
             @list.push(t)
           end
-          @user.load_bank_accounts
           render 'wallets/_mangopay_form' and return
         end
       when :bancontact
@@ -35,7 +34,6 @@ class PayPostpaymentsController < ApplicationController
             t = [c.translations['fr'], c.alpha2]
             @list.push(t)
           end
-          @user.load_bank_accounts
           render 'wallets/_mangopay_form' and return
         end
       when :cd
@@ -47,7 +45,6 @@ class PayPostpaymentsController < ApplicationController
             t = [c.translations['fr'], c.alpha2]
             @list.push(t)
           end
-          @user.load_bank_accounts
           render 'wallets/_mangopay_form' and return
         end
         @wallet = MangoPay::User.wallets(@user.mango_id).first
@@ -124,7 +121,6 @@ class PayPostpaymentsController < ApplicationController
               t = [c.translations['fr'], c.alpha2]
               @list.push(t)
             end
-            @user.load_bank_accounts
             render 'wallets/_mangopay_form' and return
           when 3
             flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
@@ -158,7 +154,6 @@ class PayPostpaymentsController < ApplicationController
               t = [c.translations['fr'], c.alpha2]
               @list.push(t)
             end
-            @user.load_bank_accounts
             render 'wallets/_mangopay_form' and return
           when 3
             flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
@@ -213,7 +208,6 @@ class PayPostpaymentsController < ApplicationController
               t = [c.translations['fr'], c.alpha2]
               @list.push(t)
             end
-            @user.load_bank_accounts
             render 'wallets/_mangopay_form' and return
           when 3
             flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."

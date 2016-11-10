@@ -22,7 +22,6 @@ class BecomeTeacherController < ApplicationController
           t = [c.translations['fr'], c.alpha2]
           @list.push(t)
         end
-        @user.load_bank_accounts
     end
     render_wizard
   end
