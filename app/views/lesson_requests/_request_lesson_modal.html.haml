@@ -1,0 +1,14 @@
+#request-lesson.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+      -# insert here teacher name
+      .modal-body
+        #lesson-details
+          %i.fa.fa-spin.fa-spinner.fa-2x
+        .modal-loader.hidden
+          %i.fa.fa-spin.fa-spinner.fa-2x
+        -# insert here lesson details
+        #cd
+      .modal-footer
+        %button.btn{"data-dismiss" => "modal", :type => "button"} Close

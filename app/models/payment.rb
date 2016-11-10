@@ -3,7 +3,7 @@ class Payment < ActiveRecord::Base
   enum payment_type: [:prepayment, :postpayment]
   # meme nom que dans DB sinon KO.
   # cf schéma etats de Payment
-  enum status: [:pending, :locked, :paid, :canceled, :disputed]
+  enum status: [:pending, :locked, :paid, :canceled, :disputed, :refunded]
 
   enum payment_method: [:creditcard, :bcmc, :wallet, :unknown]
   #pending: en attente
@@ -11,6 +11,7 @@ class Payment < ActiveRecord::Base
   #canceled: annulé
   #locked: détenu par Qwerteach
   #disputed: en litige
+  #refunded: remboursé
 
   belongs_to :lesson
 
@@ -21,6 +22,8 @@ class Payment < ActiveRecord::Base
   validates :lesson_id, presence: true
   validates :transfert_date, presence: true
   validates :payment_method, presence: true
+
+  scope :locked, ->{where("status LIKE ? ", 1)}
 
   def pending?
     status == 'pending'

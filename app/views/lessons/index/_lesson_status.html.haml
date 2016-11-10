@@ -1,0 +1,20 @@
+.lesson-details-right.pull-right
+  .lesson-actions
+    -case todo
+      -when :inactive
+        = render :partial => 'lessons/index/inactive_lesson', locals:{lesson: lesson}
+      -when :pay
+        = render :partial => 'lessons/index/postpay_lesson', locals:{lesson: lesson}
+      -when :review
+        please leave a review!
+      -when :confirm
+        = render :partial => 'lessons/index/answer_request', locals:{lesson: lesson}
+      -when :unlock
+        = render :partial => 'lessons/index/unlock_lesson', locals:{lesson: lesson}
+      -when :disputed
+        Ce cours est en litige. Si ce n'est pas déjà fait, un administrateur de Qwerteach prendra contact avec vous dans les plus brefs délais.
+      -else
+        = render :partial => 'lessons/index/wait', locals:{lesson: lesson}
+  .lesson-show-details
+    =link_to 'détails', lesson_path(lesson), remote: true, class: 'text-pink'
+  = render :partial => 'lessons/index/lesson_cards', locals:{lesson: lesson, todo: todo}

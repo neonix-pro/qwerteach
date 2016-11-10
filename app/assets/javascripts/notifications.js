@@ -1,6 +1,6 @@
 var limit = 3;  // limite initiale
 var offset = 0; // offset initial
-var shown = 0; // nombre de notificatiosn quie sont affichées ==> ré initialisé à "limit" si on ferme et rouvre le menu
+var shown = 0; // nombre de notificatiosn qui sont affichées ==> ré initialisé à "limit" si on ferme et rouvre le menu
 
 var NotificationsManager = function() {
 

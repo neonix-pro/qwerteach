@@ -7,40 +7,35 @@ class WalletsController < ApplicationController
 
   helper_method :countries_list #You can use it in view
 
-  rescue_from Mango::UserDoesNotHaveAccount, with: :handle_empty_mangopay_account
   rescue_from MangoPay::ResponseError, with: :set_error_flash
 
 
   def index_mangopay_wallet
-    @transactions_on_way = @user.mangopay.transactions.sum do |t|
+    @transactions = @user.mangopay.transactions
+    @transactions_on_way = @transactions.sum do |t|
       t.status == "CREATED" ? t.debited_funds.amount/100.0 : 0
     end
 
-    if params[:transactionId].present?
-      @transaction = Mango.normalize_response MangoPay::PayIn.fetch(params[:transactionId])
-    end
+    @account = Mango::SaveAccount.new(user: current_user)
+    @cards = @user.mangopay.cards
+
+    @bank_accounts = @user.mangopay.bank_accounts
+    @bank_account = Mango::CreateBankAccount.new(user: current_user)
+
+    # if params[:transactionId].present?
+    #   @transaction = Mango.normalize_response MangoPay::PayIn.fetch(params[:transactionId])
+    # end
+
   end
 
   def edit_mangopay_wallet
-    @account = Mango::SaveAccount.new(user: current_user)
+    @account = Mango::SaveAccount.new(user: current_user, first_name: current_user.firstname, last_name: current_user.lastname)
   end
 
   def update_mangopay_wallet
     saving = Mango::SaveAccount.run( mango_account_params.merge(user: current_user) )
     if saving.valid?
-      if params[:reservation] #TODO: move below code block to request_lesson_controller and use Mango::SaveAccount there
-        if @user.mango_id.nil?
-          countries_list
-          render 'request_lesson/mango_wallet', locals: {error: 'Vérifiez les informations'}, :layout => false
-        else
-          @lesson = Lesson.new(session[:lesson])
-          @teacher = @lesson.teacher
-          @cards = @user.valid_cards
-          render 'request_lesson/payment_method', :layout=>false
-        end
-      else
-        redirect_to params[:redirect_to] || index_wallet_path #TODO: add success notice
-      end
+      redirect_to params[:redirect_to] || index_wallet_path #TODO: add success notice
     else
       @account = saving
       render 'edit_mangopay_wallet'
@@ -87,6 +82,7 @@ class WalletsController < ApplicationController
     when 'BANK_WIRE'
       payin = Mango::SendMakeBankWire.run(user: current_user, amount: amount)
       if payin.valid?
+        # actually exists ??
         redirect_to index_wallet_path, notice: t('notice.processing_success') and return
       else
         #TODO: render direct_debit_mangopay_wallet with filled fields
@@ -94,15 +90,6 @@ class WalletsController < ApplicationController
       end
     end
   end
-
-  # def send_bank_wire_wallet
-  #   @amount = params[:amount]
-  #   payment_service = MangopayService.new(:user => current_user)
-  #   session = {}
-  #   payment_service.set_session(session)
-  #   h = {}
-  #   bank_wire = payment_service.send_bank_wire(h)
-  # end
 
   def card_info
     creation = Mango::CreateCardRegistration.run(user: current_user)
@@ -122,44 +109,6 @@ class WalletsController < ApplicationController
     end
   end
 
-  # def send_card_info
-  #   @user = current_user
-  #   card_number = params[:account]
-  #   expiration_month = params[:month]
-  #   expiration_year = params[:year]
-  #   csc = params[:csc]
-  #   amount = (params[:amount]).to_f
-
-  #   payment_service = MangopayService.new(:user => current_user)
-  #   session = {}
-  #   payment_service.set_session(session)
-
-  #   h = {:card_type => 'CB_VISA_MASTERCARD', :card_number => card_number, :expiration_month => expiration_month, :expiration_year => expiration_year, :card_csc => csc}
-  #   card_id = payment_service.send_make_card_registration(h)
-  #   if card_id == 1
-  #     flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
-  #     redirect_to wizard_path(:payment) and return
-  #   end
-  #   return_url = request.base_url + index_wallet_path
-  #   payin_params = {:amount => amount*100, :fees => amount*0, :beneficiary => @user, :card_id => card_id, :return_url => return_url}
-  #   r = payment_service.payin_creditcard(payin_params)
-  #   case r[:returncode]
-  #     when 0
-  #       flash[:alert] = "il y a eu une erreur! Veuillez vérifier les informations de votre carte de crédit."
-  #       redirect_to index_wallet_path and return
-  #     when 1
-  #       flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
-  #       render 'card_info'
-  #     when 2
-  #       flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
-  #       redirect_to edit_wallet_path and return
-  #     when 3
-  #       flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
-  #       redirect_to edit_wallet_path and return
-  #     else
-  #       redirect_to r[:transaction]["SecureModeRedirectURL"] and return
-  #   end
-  # end
 
   def transactions_mangopay_wallet
     @transactions = current_user.mangopay.wallet_transactions
@@ -184,7 +133,7 @@ class WalletsController < ApplicationController
     end
   rescue MangoPay::ResponseError => ex
     flash[:danger] = t('notice.bank_account_creation_error', message: ex.details["Message"].to_s)
-    redirect_to bank_accounts_path and return
+    redirect_to index_wallet_path and return
   end
 
   def payout
@@ -211,10 +160,6 @@ class WalletsController < ApplicationController
     @user = current_user
   end
 
-  def check_mangopay_account
-    raise Mango::UserDoesNotHaveAccount if current_user.mango_id.blank?
-  end
-
   def mango_account_params
     params.fetch(:account).permit!
   end
@@ -226,14 +171,6 @@ class WalletsController < ApplicationController
     else
       {}
     end
-  end
-
-  def handle_empty_mangopay_account
-    redirect_to edit_wallet_path(redirect_to: request.fullpath), alert: t('notice.missing_account')
-  end
-
-  def countries_list
-    @list ||= ISO3166::Country.all.map{|c| [c.translations['fr'], c.alpha2] }
   end
 
   def set_error_flash(error)

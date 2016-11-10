@@ -283,8 +283,8 @@
   .advert-flip-toggle {
     position: absolute;
     z-index: 2;
-    top: 15px;
-    right: 30px;
+    top: 20px;
+    right: 20px;
     height: 20px;
     width: 20px;
     cursor: pointer;
@@ -309,7 +309,7 @@
     transition: all 500ms ease-in-out;
   }
   .advert-flip-toggle.active span {
-    background-color: transparent;
+    background-color: transparent!important;
   }
   .advert-flip-toggle.active span:before, .advert-flip-toggle.active span:after {
     top: 0;
@@ -425,7 +425,7 @@
   height: 256px;
 }
 .profile-advert.hover{
-  overflow: auto;
+  overflow: hidden;
 }
 
 /* flip the pane when hovered */

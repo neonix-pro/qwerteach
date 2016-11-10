@@ -1,15 +1,5 @@
-%h1 Historique Cours
-%table{:border => "1", :style => "width:100%"}
-  %thead
-    %tr
-      %th Id
-      %th Professeur
-      %th Elève
-      %th Option
-      %th Début
-      %th Fin
-      %th Status
-      %th Action
-  %tbody
-    - @lesson.each do |lesson|
-      = render partial: 'lessons/lesson', :locals => {:lesson => lesson}
+#lessons-sorting
+- @lessons.each do |lesson|
+  = render partial: 'lessons/lesson', :locals => {:lesson => lesson, todo: lesson.todo(@user)}
+#lessons-pagination.text-center
+  = paginate @lessons

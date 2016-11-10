@@ -1,0 +1,10 @@
+.teacher-picture
+  = image_tag(lesson.teacher.avatar(:medium))
+.booking-details
+  Continuer
+  %span.text-green #{lesson.topic.title}
+  avec
+  %span.text-green #{lesson.teacher.firstname}
+.cta
+  Nouveau cours
+  %i.fa.fa-long-arrow-right

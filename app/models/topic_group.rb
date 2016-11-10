@@ -1,6 +1,6 @@
 class TopicGroup < ActiveRecord::Base
 
-  has_many :topics
+  has_many :topics, inverse_of: :topic_group
   has_many :lessons
 
   validates :title, presence: true

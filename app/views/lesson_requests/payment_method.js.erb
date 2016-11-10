@@ -1,0 +1,10 @@
+$('#lesson-details').html("<%= j render(:partial => '/lesson_requests/payment_method') %>").trigger('update');
+
+mangoPay.cardRegistration.baseURL = "<%= MangoPay.configuration.root_url %>";
+mangoPay.cardRegistration.clientId = "<%= MangoPay.configuration.client_id %>";
+
+new CardRegistrationForm( $('#credit_card'), {
+  card_registration_url: "<%= @card_registration.card_registration_url %>",
+  card_registration_id: "<%= @card_registration.id %>",
+  payment_url: "<%= user_lesson_requests_payment_path(@teacher, mode: 'cd', card_id: '__CARD_ID__').html_safe %>"
+});

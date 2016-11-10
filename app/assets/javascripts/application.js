@@ -29,6 +29,7 @@
 //= require fullcalendar
 //= require fullcalendar/lang/fr.js
 //= require simpletextrotator
+//= require mangopay-kit.min
 
 $.validate({
     modules : 'security'
@@ -45,4 +46,17 @@ $(document).ajaxSuccess(function(event, request) {
     var msg = decodeURIComponent(escape(request.getResponseHeader('X-Message')));
     var type = request.getResponseHeader('X-Message-Type');
     if (msg != 'null') show_ajax_message(msg, type);
+});
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
+function set_time_zone_offset() {
+    var tz = jstz.determine();
+    $.cookie('time_zone', tz.name());
+}
+
+$(document).ready(function(){
+    set_time_zone_offset();
 });
