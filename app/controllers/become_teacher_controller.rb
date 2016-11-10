@@ -2,7 +2,7 @@ class BecomeTeacherController < ApplicationController
   include Wicked::Wizard
   before_filter :authenticate_user!
 
-  steps :general_infos, :avatar, :crop, :pictures, :adverts, :banking_informations, :finish_postulation
+  steps :general_infos, :avatar, :crop, :adverts, :banking_informations, :finish_postulation
   def show
     @user = current_user
     case step
@@ -35,16 +35,16 @@ class BecomeTeacherController < ApplicationController
         @user.update_attributes(user_params)
       when :crop
         @user.update_attributes(user_params)
-      when :pictures
-        @gallery = Gallery.find_by user_id: @user.id
-        @gallery.update_attributes(gallery_params)
-        if params[:images]
-          # The magic is here ;)
-          params[:images].each { |image|
-            @gallery.pictures.create(image: image)
-            nb = @gallery.pictures.count
-          }
-        end
+      # when :pictures
+      #   @gallery = Gallery.find_by user_id: @user.id
+      #   @gallery.update_attributes(gallery_params)
+      #   if params[:images]
+      #     # The magic is here ;)
+      #     params[:images].each { |image|
+      #       @gallery.pictures.create(image: image)
+      #       nb = @gallery.pictures.count
+      #     }
+      #   end
       when :adverts
         @user.upgrade
       when :banking_informations
