@@ -43,7 +43,6 @@ class PaymentsController < ApplicationController
             t = [c.translations['fr'], c.alpha2]
             @list.push(t)
           end
-          @user.load_mango_infos
           @user.load_bank_accounts
           render 'wallets/_mangopay_form' and return
         when 3

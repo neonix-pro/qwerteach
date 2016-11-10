@@ -102,11 +102,7 @@ class User < ActiveRecord::Base
   def nationality
     mangopay.nationality if self.mango_id.present?
   end
-
-  #TODO: Remove call this method in controller
-  def load_mango_infos
-  end
-
+  #TODO: remove call to this method in controllers
   def load_bank_accounts
   end
 
