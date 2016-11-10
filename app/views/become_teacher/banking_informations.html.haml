@@ -1,68 +1,69 @@
 = tutorial_progress_bar
 %h1 Mes informations bancaires
-= form_for @user, as: :user, url: wizard_path, method: :put do |f|
-  = fields_for :address do |address_fields|
-    .field
-      = f.label :street
-      %br/
-      = address_fields.text_field :AddressLine1, :value => @user.address['AddressLine1'], :required => true
-    .field
-      = f.label :number
-      %br/
-      = address_fields.number_field :AddressLine2, :value => @user.address['AddressLine2'], :required => true
-    .field
-      = f.label :post_code
-      %br/
-      = address_fields.number_field :PostalCode, :value => @user.address['PostalCode'], :required => true
-    .field
-      = f.label :city
-      %br/
-      = address_fields.text_field :City, :value => @user.address['City'], :required => true
-    .field
-      = f.label :region
-      %br/
-      = address_fields.text_field :Region, :value => @user.address['Region'], :required => true
-    .field
-      = f.label :Country
-      %br/
-      = address_fields.select :Country, options_for_select(@list, :selected => @user.address['Country']),:required => true
-  .field
-    = label_tag 'Country_of_residence'
-    %br/
-    = select_tag :CountryOfResidence, options_for_select(@list, :selected => @user.countryOfResidence), :required => true
-  .field
-    = label_tag 'Nationality'
-    %br/
-    = select_tag :Nationality, options_for_select(@list, :selected => @user.nationality), :required => true
-  %hr/
-  - if(!@user.bank_accounts || @user.bank_accounts.empty?)
-    = render( :partial => '/mangopay/bank_accounts/new' )
-  - else
-    %h4 Vos comptes en banque:
-    - @user.bank_accounts.each do |bank_account|
-      - if bank_account['Type'] == 'IBAN'
-        %b> Type:
-        IBAN
-        %br/
-        %b Numéro:
-        = bank_account['IBAN']
-        %br/
-      - else
-        %b Type:
-        = bank_account['Type']
-        %br/
-        %b Numéro:
-        = bank_account['AccountNumber']
-        %br/
-      %b Owner:
-      = bank_account['OwnerName']
-      %br/
-      %br/
-    %br/
-    %button#addBankAcountButton.btn.btn-default{:type => "button"} Ajouter un compte en banque
-    #addBankAccount{:hidden => ""}
-      = render( :partial => '/mangopay/bank_accounts/new' )
-  %hr/
-  .field
-    = f.submit :terminer, :class => 'btn btn-primary btn-mini'
-    %br/
+= render partial: 'lesson_requests/mango_account'
+-#= form_for @user, as: :user, url: wizard_path, method: :put do |f|
+-#  = fields_for :address do |address_fields|
+-#    .field
+-#      = f.label :street
+-#      %br/
+-#      = address_fields.text_field :AddressLine1, :value => @user.address['AddressLine1'], :required => true
+-#    .field
+-#      = f.label :number
+-#      %br/
+-#      = address_fields.number_field :AddressLine2, :value => @user.address['AddressLine2'], :required => true
+-#    .field
+-#      = f.label :post_code
+-#      %br/
+-#      = address_fields.number_field :PostalCode, :value => @user.address['PostalCode'], :required => true
+-#    .field
+-#      = f.label :city
+-#      %br/
+-#      = address_fields.text_field :City, :value => @user.address['City'], :required => true
+-#    .field
+-#      = f.label :region
+-#      %br/
+-#      = address_fields.text_field :Region, :value => @user.address['Region'], :required => true
+-#    .field
+-#      = f.label :Country
+-#      %br/
+-#      = address_fields.select :Country, options_for_select(@list, :selected => @user.address['Country']),:required => true
+-#  .field
+-#    = label_tag 'Country_of_residence'
+-#    %br/
+-#    = select_tag :country_of_residence, options_for_select(@list, :selected => @user.country_of_residence), :required => true
+-#  .field
+-#    = label_tag 'Nationality'
+-#    %br/
+-#    = select_tag :Nationality, options_for_select(@list, :selected => @user.nationality), :required => true
+-#  %hr/
+-#  - if(!@user.bank_accounts || @user.bank_accounts.empty?)
+-#    = render( :partial => '/mangopay/bank_accounts/new' )
+-#  - else
+-#    %h4 Vos comptes en banque:
+-#    - @user.bank_accounts.each do |bank_account|
+-#      - if bank_account['Type'] == 'IBAN'
+-#        %b> Type:
+-#        IBAN
+-#        %br/
+-#        %b Numéro:
+-#        = bank_account['IBAN']
+-#        %br/
+-#      - else
+-#        %b Type:
+-#        = bank_account['Type']
+-#        %br/
+-#        %b Numéro:
+-#        = bank_account['AccountNumber']
+-#        %br/
+-#      %b Owner:
+-#      = bank_account['OwnerName']
+-#      %br/
+-#      %br/
+-#    %br/
+-#    %button#addBankAcountButton.btn.btn-default{:type => "button"} Ajouter un compte en banque
+-#    #addBankAccount{:hidden => ""}
+-#      = render( :partial => '/mangopay/bank_accounts/new' )
+-#  %hr/
+-#  .field
+-#    = f.submit :terminer, :class => 'btn btn-primary btn-mini'
+-#    %br/

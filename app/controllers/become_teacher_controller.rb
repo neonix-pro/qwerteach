@@ -16,12 +16,14 @@ class BecomeTeacherController < ApplicationController
         @advert = Advert.new
         @adverts = Advert.where(:user => current_user)
       when :banking_informations
-        list = ISO3166::Country.all
-        @list = []
-        list.each do |c|
-          t = [c.translations['fr'], c.alpha2]
-          @list.push(t)
-        end
+        @account = Mango::SaveAccount.new(user: current_user, first_name: current_user.firstname, last_name: current_user.lastname)
+        @teacher = current_user
+      # list = ISO3166::Country.all
+        # @list = []
+        # list.each do |c|
+        #   t = [c.translations['fr'], c.alpha2]
+        #   @list.push(t)
+        # end
     end
     render_wizard
   end
@@ -48,6 +50,7 @@ class BecomeTeacherController < ApplicationController
       when :adverts
         @user.upgrade
       when :banking_informations
+        logger.debug('------TRUC-----')
         mangoInfos = @user.mango_infos(params)
         begin
           if (!@user.mango_id)
