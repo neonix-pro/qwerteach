@@ -8,7 +8,7 @@ class RefundLesson < ActiveInteraction::Base
 
     Lesson.transaction do
       return self.errors.merge!(lesson.errors) if !lesson.save
-      lesson.payments.each do |payment|
+      lesson.payments.locked.each do |payment|
         if payment.transfer_eleve_id.present?
           # do a refund (problem of bonus money that stays bonus)
           refund = Mango::RefundTransferBetweenWallets.run(user: user, transfer_id: payment.transfer_eleve_id.to_s)
@@ -17,7 +17,7 @@ class RefundLesson < ActiveInteraction::Base
           end
         else
           # do a transfer of the amount that was paid in (credit card or bcmc)
-          refund = Mango::TransferBetweenWallets.run(transfer_params)
+          refund = Mango::TransferBetweenWallets.run(transfer_params(payment))
         end
 
         if refund_bonus.present? && !refund_bonus.valid?
@@ -41,18 +41,18 @@ class RefundLesson < ActiveInteraction::Base
 
   private
 
-  def amount
-    lesson.price
+  def amount(payment)
+    payment.price
   end
 
   def student
     lesson.student
   end
 
-  def transfer_params
+  def transfer_params(payment)
     {
       user: student,
-      amount: amount,
+      amount: amount(payment),
       debited_wallet_id: student.transaction_wallet.id,
       credited_wallet_id: student.normal_wallet.id
     }

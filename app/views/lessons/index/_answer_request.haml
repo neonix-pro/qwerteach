@@ -1,0 +1,6 @@
+.pending
+  Acceptez-vous cette demande de cours ?
+  %br
+  = link_to 'accepter', lesson_accept_path(lesson), class: 'btn btn-qw btn-green btn-sm'
+  = link_to 'modifier', edit_lesson_path(lesson), remote: true, class: 'btn btn-qw btn-orange btn-sm'
+  = link_to 'refuser', lesson_refuse_path(lesson), class: 'text-grey'

@@ -1,3 +1,15 @@
+class RegistrationsController < Devise::RegistrationsController
+  after_action :save_user_timezone, only: [:create]
+
+  private
+
+  def save_user_timezone
+    return unless resource.persisted?
+    resource.update(time_zone: cookies[:time_zone])
+  end
+end
+
+
 # # Controller pour Users (gérés par Devise)
 # require "uri"
 # require "net/http"

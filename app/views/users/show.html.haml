@@ -15,27 +15,28 @@
     =render partial: 'users/profile/profile_header', locals:{user: @user}
   .profile-description
     #{@user.description.html_safe}
-  #profile-adverts
-    =render partial: 'users/profile/profile_adverts', locals:{adverts: @adverts, adverts_single: @adverts_single}
-  #profile-calendar
-  #profile-reviews
-    = render partial: 'users/profile/profile_reviews', locals:{reviews: @reviews}
-  .similar-teachers
-  .clearfix
+  - if @user.is_a?(Teacher)
+    #profile-adverts
+      =render partial: 'users/profile/profile_adverts', locals:{adverts: @adverts, adverts_single: @adverts_single}
+    #profile-calendar
+    #profile-reviews
+      = render partial: 'users/profile/profile_reviews', locals:{reviews: @reviews}
+    .similar-teachers
+    .clearfix
+- if @user.is_a?(Teacher)
+  #myModTarif.modal.fade{:role => "dialog"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"data-dismiss" => "modal", :type => "button"} ×
+          %h4.modal-title Tarif(s) de #{@user.name}
+        .modal-body
+          - @adverts.each do |advert|
+            = render partial: "users/tarifs", :locals => {:advert => advert}
+      .modal-footer
+        .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
 
-#myModTarif.modal.fade{:role => "dialog"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{"data-dismiss" => "modal", :type => "button"} ×
-        %h4.modal-title Tarif(s) de #{@user.name}
-      .modal-body
-        - @adverts.each do |advert|
-          = render partial: "users/tarifs", :locals => {:advert => advert}
-    .modal-footer
-      .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
+  = render partial: 'lesson_requests/request_lesson_modal'
 
-= render partial: 'lesson_requests/request_lesson_modal'
-
-:javascript
-  new RequestLesson( $('#request-lesson'), {teacher_id: #{@user.id}} );
+  :javascript
+    new RequestLesson( $('#request-lesson'), {teacher_id: #{@user.id}} );

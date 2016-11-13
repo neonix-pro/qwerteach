@@ -16,9 +16,31 @@ class Lesson < ActiveRecord::Base
 
   has_one :bbb_room
 
-  scope :upcoming, ->{ where("time_start > ?", Time.now) }
-  has_drafts
+  scope :pending, ->{where("lessons.status IN (?) ", [0, 1])}
+  scope :created, ->{where("lessons.status LIKE ? ", 2)}
+  scope :locked, ->{joins(:payments).where("payments.status LIKE ?", 1)}
+  scope :locked_or_paid, ->{joins(:payments).where("payments.status IN (?)", [1, 2])}
+  scope :payment_pending, ->{joins(:payments).where("payments.status LIKE ?", 0)} # money isn't locked. Postpay lesson
+  scope :past, ->{where("time_start < ? ", Time.now)}
+  scope :future, ->{where("time_start > ? ", Time.now)}
+  scope :involving, ->(user){where("teacher_id LIKE ? OR student_id LIKE ?", user.id, user.id).order(time_start: 'desc')}
+  scope :active, ->{where.not("lessons.status IN(?)", [3, 4])} # not canceled or refused or expired
 
+  scope :upcoming, ->{ active.future } #future and (created or pending)
+  scope :passed, ->{past.created} # lessons that already happened
+  scope :expired, ->{pending.past}
+  scope :to_answer, ->{pending.locked.future} # lessons where we're waiting for an answer
+  scope :to_unlock, ->{created.locked.past} # lessons where we're waiting for student to unlock money
+  scope :to_pay, ->{created.payment_pending.past} # lessons that haven't been prepaid and student needs to pay
+
+  scope :to_review, ->(user){created.locked_or_paid.past.joins('LEFT OUTER JOIN reviews ON reviews.subject_id = lessons.teacher_id
+    AND reviews.sender_id = lessons.student_id')
+    .where(:student => user.id)
+    .where('reviews.id is NULL')
+    .where('time_end < ?', DateTime.now)
+    .group(:teacher)}
+
+  has_drafts
 
   validates :student_id, presence: true
   validates :teacher_id, presence: true
@@ -99,8 +121,26 @@ class Lesson < ActiveRecord::Base
   end
 
   # le user doit-il confirmer?
-  def pending?(user)
+  def pending?(user = nil)
+    if user.nil?
+      return pending_any?
+    end
     (teacher == user && status == 'pending_teacher') || (student == user && status == 'pending_student')
+  end
+
+  def expired?
+    (status == 'pending_teacher' || status == 'pending_student') && time_start < Time.now
+  end
+
+  def canceled?
+    status == 'canceled'
+  end
+  def refused?
+    status == 'refused'
+  end
+
+  def active?
+    !(expired? || status == 'canceled' || status == 'refused')
   end
 
   def other(user)
@@ -122,7 +162,7 @@ class Lesson < ActiveRecord::Base
     if user.id != student_id
       return false
     else
-      Review.where('sender_id = ? AND subject_id = ?', student.id, teacher.id).empty?
+      Review.where('sender_id = ? AND subject_id = ?', student.id, teacher.id).empty? && past?
     end
   end
 
@@ -137,6 +177,10 @@ class Lesson < ActiveRecord::Base
     status == 'pending_student'
   end
 
+  def pending_any?
+    pending_student? || pending_teacher?
+  end
+
   def is_teacher?(user)
     user.id == teacher.id
   end
@@ -144,21 +188,49 @@ class Lesson < ActiveRecord::Base
     user.id == student.id
   end
 
-  # defines if the user needs to do something with the lesson: confirm, unlock, pay, review
+  def disputed?
+    payments.each do |p|
+      if p.disputed?
+        return true
+      end
+    end
+    return false
+  end
+
+  # defines if the user needs to do something with the lesson:
+  # inactive: the lesson is canceled, refused, or has expired
+  # wait: We're waiting for the other user to do something, or for the lesson to happen
+  # confirm: accept or decline the lesson request
+  # unlock: confirm that all went ok and pay the teacher
+  # pay: lesson is post paid and need to be paid
+  # review: please leave a review of this teacher
+  # disputed: this lesson's payment is disputed
   def todo(user)
+    unless active?
+      return :inactive
+    end
     if pending?(user)
       return :confirm
     end
     if past? && is_student?(user)
-      if prepaid?
-        return :unlock
+      if disputed?
+        return :disputed
       end
       unless paid?
+        if prepaid?
+          return :unlock
+        end
         return :pay
       end
     end
     if review_needed?(user)
       return :review
     end
+    return :wait
+  end
+
+  def alternate_pending
+    return 1 if pending_teacher? #pending_student
+    return 0 if pending_student? #pending_teacher
   end
 end

@@ -3,6 +3,8 @@
   =link_to "Modifier mot de passe", "#", :data => {:toggle => "collapse", :target => "#passcode"}, :class => "active"
 %div
   =link_to "Modifier mes informations", "#", :data => {:toggle => "collapse", :target => "#profil"}
+%div
+  =link_to "Modifier ma photo", "#", :data => {:toggle => "collapse", :target => "#avatar"}
 -if @user.is_a?(Teacher)
   %div
     =link_to "Mes annonces", "#", :data => {:toggle => "collapse", :target => "#annonces"}

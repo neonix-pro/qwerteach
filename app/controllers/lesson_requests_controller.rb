@@ -3,6 +3,7 @@ class LessonRequestsController < ApplicationController
   before_action :find_users
   before_action :check_mangopay_account, only: :payment
   before_action :set_lesson, expect: [:topics, :levels, :calculate]
+  before_filter :user_time_zone, :if => :current_user
 
   after_filter { flash.discard if request.xhr? }
 

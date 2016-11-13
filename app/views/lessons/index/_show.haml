@@ -1,0 +1,30 @@
+.container-fluid
+  .row
+    .col-sm-6
+      %h3 Détails:
+      %dl.dl-horizontal
+        %dt Date:
+        %dd #{@lesson.time_start}
+        %dt Durée:
+        %dd #{@lesson.duration.hours}h#{@lesson.duration.minutes unless @lesson.duration.minutes == 0}
+        %dt Prix:
+        %dd #{@lesson.price}€
+    .col-sm-6
+      %h3
+        Payement du cours:
+        %small
+          #{@lesson.payments.count} payement
+      %table.table
+        %tr
+        - @lesson.payments.each do |p|
+          %tr
+            %td ID #{p.id}
+            %td #{p.price}€
+            %td #{p.status}
+
+:javascript
+  $(document).ready(function () {
+    $('#datetimepicker2').data("DateTimePicker").date(new Date(#{@lesson.time_start.to_f * 1000}));
+    $('.show-lesson-details').hide();
+    $('#lesson-details-'#{@lesson.id}).slideToggle('slow');
+  });

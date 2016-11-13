@@ -1,4 +1,9 @@
 module LessonsHelper
+
+  def date_for_display(date)
+    fsdate = (date == nil)? date :  I18n.l( DateTime.parse(date.localtime.to_s), :format => :short)
+  end
+
   def lesson_duration(starttime, endtime)
     d = endtime - starttime
     hours = (d / 3600).to_int

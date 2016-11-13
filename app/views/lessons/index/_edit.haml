@@ -1,0 +1,28 @@
+.container-fluid
+  .row
+    .col-sm-3
+    .col-sm-6
+      %h3 Modifier l'heure du cours
+      %small Vous pouvez modifier la date et l'heure prévue du cours. Si vous souaitez modifier d'autres éléments, vous devrez annuler ce cours et faire une nouvelle réservation.
+      = form_for @lesson, url: lesson_path(@lesson), method: :put do |f|
+        .form-group
+          = label_tag "heure de début"
+          .input-group.date.datetimepicker
+            = text_field_tag 'lesson[time_start]', nil, class: 'form-control', :required => true, :data => 'DateTimePicker'
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+        .form-actions
+          = submit_tag :modifier, :class => 'btn btn-primary btn-mini'
+
+
+:javascript
+  $(document).ready(function () {
+  var time_start = moment("#{@lesson.time_start.to_time}", 'YYYY-MM-DD HH:mm:ss Z');
+    console.log(time_start)
+    $('#lesson-details-#{@lesson.id} .datetimepicker input').datetimepicker(
+      {
+        defaultDate: time_start,
+        format: '[le] DD/MM/YYYY - HH:mm'
+      }
+    );
+  });

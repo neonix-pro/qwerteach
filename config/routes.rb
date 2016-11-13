@@ -44,12 +44,13 @@ Rails.application.routes.draw do
     put 'make_payout' => :make_payout
   end
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  resources :users, only: [:update]
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations=> "registrations" }
 
-  as :user do
-    get 'users/edit_pwd' => 'registrations#pwd_edit', :as => 'edit_pwd_user_registration'
+  resources :users, only: [:update] do
+    patch 'crop' => 'users#crop'
+    post 'crop' => 'users#crop'
   end
+
   get 'dashboard' => 'dashboards#index', :as => 'dashboard'
 
   resources :users, :only => [:show] do
@@ -119,6 +120,8 @@ Rails.application.routes.draw do
     get 'accept' => :accept
     get 'refuse' => :refuse
     get 'cancel' => :cancel
+    get 'pay_teacher'=>:pay_teacher
+    get 'dispute'=>:dispute
     
     resources :payments do
       resources :pay_postpayments
@@ -127,8 +130,6 @@ Rails.application.routes.draw do
     get "edit_postpayment/:payment_id" => "payments#edit_postpayment", as: 'edit_postpayment'
     post "edit_postpayment/:payment_id" => "payments#send_edit_postpayment", as: 'send_edit_postpayment'
 
-    post "bloquerpayment" => "payments#bloquerpayment"
-    post "debloquerpayment" => "payments#debloquerpayment"
     post "payerfacture/:payment_id" => "payments#payerfacture", as: 'payerfacture'
   end
   match '/cours' =>'lessons#index', :as => 'cours', via: :get

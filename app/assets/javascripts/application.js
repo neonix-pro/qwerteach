@@ -51,3 +51,12 @@ $(document).ajaxSuccess(function(event, request) {
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
+
+function set_time_zone_offset() {
+    var tz = jstz.determine();
+    $.cookie('time_zone', tz.name());
+}
+
+$(document).ready(function(){
+    set_time_zone_offset();
+});

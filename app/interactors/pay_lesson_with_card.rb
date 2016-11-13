@@ -32,7 +32,7 @@ class PayLessonWithCard < ActiveInteraction::Base
     {
       payment_type: 0,
       payment_method: :creditcard,
-      status: 0,
+      status: 1,
       lesson_id: lesson.id,
       transfert_date: DateTime.now,
       price: amount,

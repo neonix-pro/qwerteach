@@ -24,24 +24,8 @@ class Student < User
     Lesson.upcoming.where('(student_id=? AND status=?) OR (teacher_id=? AND status=?)', id, 1, id, 0)
   end
 
-  def unpaid_lessons
-    past_lessons.where(:student => id).joins(:payments)
-        .where('payments.status = 0')
-        .where('time_end < ?', DateTime.now)
-        .where(status: 'created')
-  end
-
-  def noreview_lessons
-    past_lessons.joins('LEFT OUTER JOIN reviews ON reviews.subject_id = lessons.teacher_id
-      AND reviews.sender_id = lessons.student_id')
-        .where(:student => id)
-        .where('reviews.id is NULL')
-        .where('time_end < ?', DateTime.now)
-        .group(:teacher)
-  end
-
-  def past_lessons
-    lessons_received.where('time_end < ?', DateTime.now).where(status: 2)
+  def todo_lessons
+    pending_me_lessons | lessons_received.to_unlock | lessons_received.to_review(self)
   end
 
 end

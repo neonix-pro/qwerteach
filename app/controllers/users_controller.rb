@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  #before_filter :authenticate_user!
+
+  before_filter :authenticate_user!, only: :update
 
   def show
     @user = User.find(params[:id])
@@ -11,8 +12,8 @@ class UsersController < ApplicationController
       @reviews = @user.reviews_received
       @notes = @reviews.map { |r| r.note }
       @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size unless @notes.empty?
+      @profSimis = @user.similar_teachers(4)
     end
-    @profSimis = @user.similar_teachers(4)
     @me = current_user
   end
 
@@ -111,9 +112,21 @@ class UsersController < ApplicationController
     redirect_to edit_user_registration_path(@user)
   end
 
+  def crop
+    @user = User.find(params[:user_id])
+    render 'users/registrations/crop'
+  end
+
+  def save_cropped
+    @user = User.find(params[:user_id])
+
+  end
+
   private
     def user_params
-      params.require(:user).permit(:firstname, :lastname, :birthdate, :phonenumber, :gender, :occupation, :description, :level_id)
+      params.require(:user).permit(:firstname, :lastname, :birthdate, :phonenumber,
+                                   :gender, :occupation, :description, :level_id,
+                                   :time_zone, :avatar, :crop_x, :crop_y, :crop_h, :crop_w)
     end
 
 end
