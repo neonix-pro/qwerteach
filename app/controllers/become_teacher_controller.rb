@@ -1,5 +1,7 @@
 class BecomeTeacherController < ApplicationController
   include Wicked::Wizard
+  include MangopayAccount
+
   before_filter :authenticate_user!
 
   steps :general_infos, :avatar, :crop, :adverts, :banking_informations, :finish_postulation
@@ -10,7 +12,7 @@ class BecomeTeacherController < ApplicationController
         @gallery = Gallery.find_by user_id: @user.id
       when :avatar
         if @user.avatar_file_name?
-          jump_to(:pictures)
+          jump_to(:adverts)
         end
       when :adverts
         @advert = Advert.new
@@ -18,12 +20,7 @@ class BecomeTeacherController < ApplicationController
       when :banking_informations
         @account = Mango::SaveAccount.new(user: current_user, first_name: current_user.firstname, last_name: current_user.lastname)
         @teacher = current_user
-      # list = ISO3166::Country.all
-        # @list = []
-        # list.each do |c|
-        #   t = [c.translations['fr'], c.alpha2]
-        #   @list.push(t)
-        # end
+        @path = wizard_path
     end
     render_wizard
   end
@@ -37,55 +34,13 @@ class BecomeTeacherController < ApplicationController
         @user.update_attributes(user_params)
       when :crop
         @user.update_attributes(user_params)
-      # when :pictures
-      #   @gallery = Gallery.find_by user_id: @user.id
-      #   @gallery.update_attributes(gallery_params)
-      #   if params[:images]
-      #     # The magic is here ;)
-      #     params[:images].each { |image|
-      #       @gallery.pictures.create(image: image)
-      #       nb = @gallery.pictures.count
-      #     }
-      #   end
       when :adverts
-        @user.upgrade
+
       when :banking_informations
-        logger.debug('------TRUC-----')
-        mangoInfos = @user.mango_infos(params)
-        begin
-          if (!@user.mango_id)
-            m = @user.create_mango_user(params)
-          else
-            m = MangoPay::NaturalUser.update(@user.mango_id, mangoInfos)
-          end
-          if params[:bank_account]
-            case params[:bank_account]['Type']
-              when 'iban'
-                params[:bank_account] = params[:iban_account]
-              when 'gb'
-                params[:bank_account] = params[:gb_account]
-              when 'us'
-                params[:bank_account] = params[:us_account]
-              when 'ca'
-                params[:bank_account] = params[:ca_account]
-              when 'other'
-                params[:bank_account] = params[:other_account]
-            end
-            params[:bank_account][:OwnerName]=@user.firstname + ' '+@user.lastname
-            params[:bank_account][:OwnerAddress] = m["Address"]
-
-            MangoPay::BankAccount.create(@user.mango_id, params[:bank_account])
-          end
-
-        rescue MangoPay::ResponseError => ex
-          #flash[:danger] = ex.details["Message"]
-          errors = []
-          ex.details['errors'].each do |name, val|
-            errors.push("#{name}: #{val}")
-          end
-          flash[:danger] = errors.join("<br />").html_safe
-          # jump_to(:banking_informations)
-          redirect_to wizard_path(:banking_informations) and return
+        saving = Mango::SaveAccount.run( mango_account_params.merge(user: current_user) )
+        unless saving.valid?
+          @account = saving
+          jump_to(:adverts)
         end
     end
     render_wizard @user

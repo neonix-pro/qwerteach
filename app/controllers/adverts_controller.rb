@@ -37,6 +37,9 @@ class AdvertsController < ApplicationController
   end
 
   def create
+    unless @user.is_a?(Teacher)
+      @user.upgrade
+    end
     if current_user.adverts.map(&:topic_id).include?(params[:topic_id].to_i)
       redirect_to adverts_path, notice: 'Une annonce pour cette catégorie existe déjà.' and return
     end

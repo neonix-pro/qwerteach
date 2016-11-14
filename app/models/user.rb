@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
          :lastseenable, :omniauthable, :omniauth_providers => [:twitter, :facebook, :google_oauth2]
 
   has_one :gallery
-  has_many :adverts
+  has_many :adverts, dependent: :destroy
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
   has_many :reviews_sent, :class_name => 'Review', :foreign_key => 'sender_id'
