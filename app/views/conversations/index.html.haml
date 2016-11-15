@@ -11,7 +11,10 @@
     %aside.lg-side
       -#contenu de la conversation
       #mailbox_conversations
-        = render partial: 'conversation', locals:{conversation: @conversations.first}
+        - if @conversations.empty?
+          = render partial: 'no_conversations'
+        - else
+          = render partial: 'conversation', locals:{conversation: @conversations.first}
     .clearfix
 
 
