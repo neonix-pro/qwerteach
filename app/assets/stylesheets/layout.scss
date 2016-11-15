@@ -3,6 +3,10 @@
 body, html, a{
   font-weight:400;
 }
+body{
+  padding-bottom:50px; // because of navbar
+  overflow-x: hidden;
+}
 #flash-messages{
   position: relative;
   width: 100%;
