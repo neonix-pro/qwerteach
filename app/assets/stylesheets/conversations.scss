@@ -19,7 +19,7 @@
       cursor:pointer;
     }
   }
-  form#compose-message{
+  #compose-message{
     display:none;
     width:80%;
     float:right;
@@ -27,6 +27,8 @@
       float:left;
       color: #a7a9ab;
       font-weight:400;
+      margin-top: 10px;
+      padding-left: 5px;
     }
     input#recipients{
       margin-top:3px;

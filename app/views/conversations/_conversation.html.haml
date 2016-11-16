@@ -5,7 +5,7 @@
     - conversation.messages.all[1..-1].each do |receipt|
       = render 'messages/message', message: receipt
   .conversation-reply
-    = form_tag reply_conversation_path(conversation), :remote => true, method: :post do
+    = form_tag reply_conversation_path(conversation), :remote => true, id: "conversation_form_#{conversation.id}", method: :post do
       = text_area_tag 'body', nil, cols: 3, class: 'form-control chatboxtextarea', placeholder: 'Type something...', required: true, "data-cid" => conversation.id
       = submit_tag "Envoyer", class: 'btn btn-primary'
 .mailbox-conversation-details
