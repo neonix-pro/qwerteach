@@ -2,10 +2,21 @@
 
 .mail-box
   #mailbox-head
+    .new-message
+      = image_tag('compose_message.png', class: 'compose-message')
+    = form_tag messages_path, method: :post, id: 'compose-message' do |f|
+      .form-group
+        = label_tag 'recipients', 'À:'
+        %input#recipients{:list => "recipients-list", :class => 'form-control',
+        :placeholder => 'Entrez le nom d\'une personne'}
+        %datalist#recipients-list
+          -@recipient_options.each do |o|
+            %option{value:o.name, userid: o.id}
   #mailbox-content
     %aside.sm-side
       -#liste des conversations
       #conversations-list
+        = render partial: 'new_conversation_preview'
         - @conversations.each do |conversation|
           = render partial: 'last_message', :locals=> {conversation: conversation, user: @user}
     %aside.lg-side
@@ -17,25 +28,44 @@
           = render partial: 'conversation', locals:{conversation: @conversations.first}
     .clearfix
 
-
-#modalCompose.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "Nouveau message", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-        %h4.modal-title Nouveau message
-      .modal-body
-        = form_tag messages_path, method: :post do
-          .form-group
-            = label_tag 'recipients', 'Envoyer à'
-            = select_tag 'recipients', options_for_select(@recipient_options.collect{|u| [u.name, u.id]}), class:'form-control', required: true
-          .form-group
-            = label_tag 'message[subject]', 'Sujet'
-            = text_field_tag 'message[subject]', nil, class: 'form-control', required: true
-          .form-group
-            = label_tag 'message[body]', 'Message'
-            = text_area_tag 'message[body]', nil, rows: 5, class: 'form-control', required: true
-          = submit_tag 'Send', class: 'btn btn-primary'
+-#
+-##modalCompose.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "Nouveau message", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
+-#  .modal-dialog
+-#    .modal-content
+-#      .modal-header
+-#        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+-#        %h4.modal-title Nouveau message
+-#      .modal-body
+-#        = form_tag messages_path, method: :post do
+-#          .form-group
+-#            = label_tag 'recipients', 'Envoyer à'
+-#            = select_tag 'recipients', options_for_select(@recipient_options.collect{|u| [u.name, u.id]}), class:'form-control', required: true
+-#          .form-group
+-#            = label_tag 'message[subject]', 'Sujet'
+-#            = text_field_tag 'message[subject]', nil, class: 'form-control', required: true
+-#          .form-group
+-#            = label_tag 'message[body]', 'Message'
+-#            = text_area_tag 'message[body]', nil, rows: 5, class: 'form-control', required: true
+-#          = submit_tag 'Send', class: 'btn btn-primary'
 
 
 = render partial: 'lesson_requests/request_lesson_modal'
+
+:javascript
+  $('.compose-message').click(function(){
+    $('#compose-message').toggle('slow');
+    $('.new-message.conversation-preview').toggle();
+    $('#mailbox_conversations').html("#{j render partial: 'new_conversation'}");
+  });
+  options = $('#recipients-list option');
+  $('#recipients').on('input', function(){
+    $('#new_message_recipient').val('');
+    var input = $(this);
+    options.each(function(){
+      if($(this).val() == input.val())
+      {
+        $('#new_message_recipient').val($(this).attr('userid'));
+        return;
+      }
+    });
+  });

@@ -2,6 +2,10 @@ $('#mailbox_conversations').html('<%= j render partial: 'conversation', locals:{
 $('#mailbox_navigation').html("<%= j render partial: 'mailbox_navigation',
                                             locals: {mailbox_type: @mailbox_type,
                                             unread_count: @unread_count}%>");
+//hide new message stuff if necessary
+$('.conversation-preview.new-message').hide();
+$('#compose-message').toggle('slow');
+//show which conversation is active
 $('.conversation-preview.active').removeClass('active');
 $('<%= "#conversation_#{@conversation.id}"%>').addClass('active');
 

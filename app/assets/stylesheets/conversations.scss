@@ -5,9 +5,45 @@
 @import 'global_variables';
 
 #mailbox-head{
-  height:0px;
+  height:40px;
   background-color:#222;
   border-top: 1px solid $color_qwerteach_darkgrey;
+  .new-message{
+    width:20%;
+    padding-right:20px;
+    float:left;
+    img{
+      height:20px;
+      margin-top:10px;
+      float:right;
+      cursor:pointer;
+    }
+  }
+  form#compose-message{
+    display:none;
+    width:80%;
+    float:right;
+    label{
+      float:left;
+      color: #a7a9ab;
+      font-weight:400;
+    }
+    input#recipients{
+      margin-top:3px;
+      display: inline-block;
+      width: 80%;
+      margin-left:5px;
+      border:none;
+      background-color:transparent;
+      color: #a7a9ab;
+    }
+    input#recipients:active, input#recipients:focus{
+      box-shadow: none;
+    }
+    .form-group{
+      margin-bottom: 0px;
+    }
+  }
 }
 
 .mail-box {
@@ -87,6 +123,18 @@
       bottom:0px;
       font-size: 0.7em;
       color: #b2B2B2;
+    }
+  }
+  .conversation-preview.new-message{
+    background-color: #58585b;
+    display:none;
+    .grey-circle{
+      width: 40px;
+      height:40px;
+      border-radius: 50%;
+      background-color: #404041;
+      float:left;
+      margin-right:10px;
     }
   }
   .conversation-preview.active{
@@ -197,7 +245,7 @@
       padding: 5px 0px;
       height:auto;
       img{
-        width:65%;
+        height:55px;
       }
     }
   }
