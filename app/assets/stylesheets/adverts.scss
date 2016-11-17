@@ -50,22 +50,24 @@
 }
 
 .first-lesson-free{
-  color: #36A9E1;
+  font-family: 'SofiaProRegular';
+  color: white;
   background: #3C3C3B;
   position: relative;
-  height: 170px;
+  padding:30px 60px;
   .info{
-    padding-bottom: 25px;
-    padding-left: 50px;
+    font-weight: 400;
   }
-  p{
-    padding: 30px 50px 15px 50px;
-    color: #36A9E1;
+  h3{
+    margin-top:0px;
+    margin-bottom: 30px;
+    font-size: 26px;
   }
   .switch{
-    position: absolute;
-    right: 100px;
-    bottom: 15px;
+    position:relative;
+    top:10px;
+    left:10px;
+    display:inline-block;
   }
 }
 

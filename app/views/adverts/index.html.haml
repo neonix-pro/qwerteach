@@ -1,12 +1,14 @@
 .first-lesson-free
   = form_for(@user, url: registration_path(@user), html: { method: :put }, remote: true) do |f|
+    %h3.text-green.text-center
+      Premier cours gratuit
+      .switch
+        = f.check_box(:first_lesson_free, id: 'cmn-toggle-4', class: 'cmn-toggle cmn-toggle-round-flat')
+        %label#label-cmn-toggle-4{for: "cmn-toggle-4"}
     %p
       Sur Qwerteach, nous offrons aux élève sla possibilité de réserver un premier cours gratuit d'une heure avec un professeur.
       Par défaut, tous les professeurs participent à ce mouvement. Si vous ne souhaitez pas proposer cette option aux élèves qui souhaitent prendre cours avec vous, vous pouvez ici changer ce paramètre.
     %label#cours_gratuit_info.info Pour le moment, les élèves ont la possibilité de réserver un premier cours gratuit avec vous.
-    .switch
-      = f.check_box(:first_lesson_free, id: 'cmn-toggle-4', class: 'cmn-toggle cmn-toggle-round-flat')
-      %label#label-cmn-toggle-4{for: "cmn-toggle-4"}
 .adverts-list.clearfix
   -c = 0
   - layout = adverts_layout(@user.adverts.count+1)
