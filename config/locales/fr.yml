@@ -1,11 +1,6 @@
 
 fr:
   hello: "Bonjour!!!"
-  activerecord:
-    attributes:
-      article:
-        title: "Titre"
-        body: "Body"
   forms:
     messages:
       success: "Operation réussie!"

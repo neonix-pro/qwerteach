@@ -1,0 +1,34 @@
+@import "global_variables";
+
+/* Reset password */
+.page-title-green {
+  color:white;
+  background-color: $color_qwerteach_green;
+  font-size:30px;
+  font-family: 'SofiaProRegular';
+  margin:0px;
+  padding-top:37px;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+form.reinit-password{
+  margin-top: 15px;
+  .form-group{
+    line-height:30px;
+  }
+}
+
+.sign_in_page{
+  form{
+    margin-top: 30px;
+    .form-group{
+      line-height:30px;
+    }
+  }
+}
+.devise-links{
+  margin-bottom: 20px;
+  a{
+    color: $color_qwerteach_green;
+  }
+}
