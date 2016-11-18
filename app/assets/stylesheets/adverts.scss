@@ -41,6 +41,9 @@
 .add-new-advert{
   padding: 30px;
   background: #1D1D1B;
+  border-color: #1D1D1B;
+  height:170px;
+  float:left;
   p{
     font-size: 20px;
     color: #fff;
@@ -203,6 +206,7 @@
 
 .with-arrow:after, .with-arrow:before {
   top: 100%;
+  left:50%;
   border: solid transparent;
   content: " ";
   position: absolute;
@@ -210,7 +214,7 @@
 
 .with-arrow:after {
   border-color: rgba(136, 183, 213, 0);
-  border-top-color: #1D1D1B;
+  border-top-color: inherit;
   border-width: 30px;
   margin-left: -30px;
 }

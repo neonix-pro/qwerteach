@@ -23,7 +23,7 @@
             = image_tag "option.png", :class => "option"
           = image_tag @user.adverts[c].topic.pictotype('medium'), :class => "icon"
         - c+=1
-  .add-new-advert.text-center{class: layout.last}
+  .add-new-advert.advert.text-center{class: layout.last}
     = link_to new_advert_path, remote: true do
       = image_tag("plus_annonce.png")
     %p Ajouter un annonce
