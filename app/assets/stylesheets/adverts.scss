@@ -3,18 +3,17 @@
   width:100%;
 }
 .advert{
-  padding: 50px;
+  padding: 30px;
   float:left;
   height: 170px;
   position: relative;
   box-shadow: inset 25px 0px 19px -17px rgba(0,0,0,0.75);
-  p{
-    position: absolute;
-    margin: auto;
-    bottom: 10px;
-    font-size: 18px;
-    left: 50%;
-    transform: translateX(-50%);
+  text-align:center;
+  h3{
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    margin: 10px;
   }
   .option{
     position: absolute;
@@ -22,10 +21,7 @@
     right: 10px;
   }
   .icon{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform:translate(-50%,-50%);
+    height:63px;
   }
 }
 .advert.simple{

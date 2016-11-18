@@ -18,10 +18,10 @@
     -else
       - unless @user.adverts[c].nil?
         .advert{class: "#{cl} topic_#{@user.adverts[c].topic_group.id}", id: "advert_#{@user.adverts[c].id}"}
-          %p #{@user.adverts[c].topic.title}
           = link_to edit_advert_path(@user.adverts[c]), remote: true do
             = image_tag "option.png", :class => "option"
           = image_tag @user.adverts[c].topic.pictotype('medium'), :class => "icon"
+          %h3 #{@user.adverts[c].topic.title}
         - c+=1
   .add-new-advert.advert.text-center{class: layout.last}
     = link_to new_advert_path, remote: true do
