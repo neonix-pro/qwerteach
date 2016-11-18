@@ -39,7 +39,7 @@
   }
   .right{
     padding: 0;
-    form{
+    form#edit_user{
       margin-top: 10%;
       text-align: center;
       .form-group{
@@ -97,7 +97,6 @@
     }
   }
   #annonces{
-    margin-top:-10%;
     #cmn-toggle-4{
       width:0px;
     }

@@ -103,7 +103,8 @@ a, a:hover, a:active, a:focus{
 
 form{
   .actions{
-    margin: 25px;
+    margin: 25px 0px;
+    text-align:right;
     input[type="submit"]{
       color:white;
       background-color: $color_qwerteach_green;
@@ -112,7 +113,20 @@ form{
       font-size: 14px;
       padding: 5px 12px;
       border-radius: 30px;
+      margin-left:10px;
     }
+  }
+  select, select.form-control{
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    background: url('select_arrow.png') no-repeat 97% 50% #ffffff;
+    background-image: url('select_arrow.png');
+  }
+  input[type="number"]{
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
   }
 }
 
