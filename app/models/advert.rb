@@ -5,8 +5,8 @@ class Advert < ActiveRecord::Base
   belongs_to :topic_group
   has_many :advert_prices, -> { order(:level_id) }, inverse_of: :advert
   accepts_nested_attributes_for :advert_prices,
-                                :allow_destroy => true
-                                #:reject_if => :all_blank
+                                :allow_destroy => true,
+                                :reject_if => :all_blank
   validates :user, presence: true
   validates :topic_group, presence: true
   validates_uniqueness_of :user_id, scope: :topic_id

@@ -5,12 +5,15 @@
   - @levels.each do |c|
 
     - if @advert.advert_prices.map(&:level_id).include?(c.id)
+      - a = @advert.advert_prices.find_by(level_id: c.id)
       .row.level-row
         .col-sm-8
-          = check_box_tag 'advert[advert_price_attributes][][level_id]', c.id, 'checked', class: 'price_box'
+          = hidden_field_tag "advert[advert_prices_attributes][][id]", a.id
+          = hidden_field_tag "advert[advert_prices_attributes][][_destroy]", false, id: "destroy_#{c.id}"
+          = check_box_tag "advert[advert_prices_attributes][][level_id]", c.id, 'checked', class: 'price_box'
           = label_tag c[I18n.locale[0..3]]
         .col-sm-4
-          = number_field_tag 'prices[]', nil, id: c.id, min: 0, disabled: false, value: @advert.advert_prices.detect{|lp| lp.level_id == c.id}.price, class: 'form-control'
+          = number_field_tag "advert[advert_prices_attributes][][price]", nil, id: c.id, min: 0, disabled: false, value: @advert.advert_prices.detect{|lp| lp.level_id == c.id}.price, class: 'form-control'
     - else
       .row.level-row
         .col-sm-8
@@ -27,11 +30,13 @@
       $('#'+a+'').attr({
         'required': 'required'
       });
+      $('#destroy_'+a).val(false);
     }
     else {
       $('#'+a+'').attr({
         'disabled': 'disabled'
       });
       $('#'+a+'').removeAttr('required');
+      $('#destroy_'+a).val(true);
     }
   });
