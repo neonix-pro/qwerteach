@@ -5,12 +5,16 @@
       .form-group
         = f.text_area :description, :class => 'form-control', :rows => 16, :placeholder => "Description ..."
     .col-sm-5
-      .form-group.group_choice
-        = f.select :topic_group_id, options_for_select(TopicGroup.all.collect { |p| [p.title, p.id] }),
-        {include_blank: "Choisissez une catégorie"}, class: 'form-control', :required => true
+      -if advert.advert_prices.empty?
+        .form-group.group_choice
+          = f.select :topic_group_id, options_for_select(TopicGroup.all.collect { |p| [p.title, p.id] }),
+          {include_blank: "Choisissez une catégorie"}, class: 'form-control', :required => true
       .form-group.topic_choice.group_choice_topic
       .field.other_name
       .form-group.level_choice_levels
+        -unless advert.advert_prices.empty?
+          =render partial: 'level_choice'
+          = hidden_field_tag(:topic_id, advert.topic.id)
       .actions
         = link_to 'Annuler', adverts_path, :class => 'text-grey'
         = f.submit 'Sauvegarder', :class => 'btn btn-primary btn-mini'

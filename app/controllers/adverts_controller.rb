@@ -32,7 +32,7 @@ class AdvertsController < ApplicationController
 
   def edit
     @advert = Advert.find(params[:id])
-    @levels = Level.where(:code => @advert.topic.topic_group.level_code).group(I18n.locale[0..3]).order(id: :asc) - @advert.advert_prices.map{|ap| ap.level}
+    @levels = Level.where(:code => @advert.topic.topic_group.level_code).group(I18n.locale[0..3]).order(id: :asc)
     @advert_price = AdvertPrice.new(advert_price_params)
   end
 
@@ -43,40 +43,23 @@ class AdvertsController < ApplicationController
     if current_user.adverts.map(&:topic_id).include?(params[:topic_id].to_i)
       redirect_to adverts_path, notice: 'Une annonce pour cette catégorie existe déjà.' and return
     end
-    if params[:levels_chosen]
-      @advert = Advert.new(advert_params)
-      respond_to do |format|
-        if @advert.save
-          @advert.topic = Topic.find(params[:topic_id])
-          cpt = 0;
-          p = params[:prices][cpt.to_i]
-          params[:levels_chosen].each { |level|
-            while (p.blank?)
-              cpt+=1
-              p = params[:prices][cpt.to_i]
-            end
-            @advert.advert_prices.create(level_id: level, advert_id: @advert.id, price: p)
-            cpt+=1
-            p = params[:prices][cpt.to_i]
-          }
-          format.html { redirect_to adverts_path, notice: 'Advert was successfully created.' }
-          format.json { head :no_content }
-          format.js {}
-        else
-          format.html { redirect_to @advert, notice: 'Advert not created.' }
-          format.json { render json: @advert.errors, status: :unprocessable_entity }
-        end
+    @advert = Advert.new(advert_params)
+    respond_to do |format|
+      if @advert.save
+        format.html { redirect_to adverts_path, notice: 'Advert was successfully created.' }
+        format.json { head :no_content }
+        format.js {}
+      else
+        logger.debug(puts @advert.errors.full_messages.to_sentence)
+        format.html { redirect_to @advert, notice: 'Advert not created.' }
+        format.json { render json: @advert.errors, status: :unprocessable_entity }
       end
-    else
-      flash[:danger] = 'Vous devez donner au moins un tarif pour créer une annonce.'
-      redirect_to adverts_path and return
     end
   end
 
   def update
     @advert = Advert.find(params[:id])
     @advert.topic = Topic.find(params[:topic_id])
-
     respond_to do |format|
       if @advert.update_attributes!(advert_params)
         flash[:notice] = 'Vos modifications ont été sauvegardées.'
@@ -127,7 +110,7 @@ class AdvertsController < ApplicationController
 
   private
   def advert_params
-    params.require(:advert).permit(:advert, :prices, :topic_group_id, :levels_chosen, :topic_id, :user_id, :other_name, :topic, :description, advert_prices_attributes: [:id, :level_id, :price, :_destroy]).merge(user_id: current_user.id, topic: Topic.find(params[:topic_id]))
+    params.require(:advert).permit(:description, :topic_id, :topic_group_id, advert_prices_attributes: [:id, :level_id, :price, :_destroy]).merge(user_id: current_user.id)
   end
 
   def advert_price_params
