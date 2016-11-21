@@ -1,10 +1,10 @@
 .backgroundEdit.edit_profile
   .container-fluid
-    .row
+    .row.flex
       .col-md-2.menu
         = render :partial => 'menu_edit_registrations'
       .col-md-10.right
-        %div#passcode.collapse.in
+        %div#passcode.collapse
           = render :partial => 'password_form'
         %div#annonces.collapse
           = render :template => 'adverts/index'
@@ -12,7 +12,5 @@
           Calendrier
         %div#degrees.collapse
           Diplômes
-        %div#avatar.collapse
-          = render :partial => 'avatar'
-        %div#profil.collapse
+        %div#profil.collapse.in
           = render :partial => 'profile_form'

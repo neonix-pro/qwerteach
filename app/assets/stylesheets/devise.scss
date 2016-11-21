@@ -3,9 +3,15 @@
 /***User registration edit ***/
 .edit_profile{
   font-family: SofiaProRegular !important;
+  height:100%;
+  .container-fluid{
+    height:100%;
+  }
+  .row.flex{
+    display:flex;
+    height:100%;
+  }
   .menu{
-    height: 100%;
-    min-height: 100vh;
     text-align: center;
     padding: 0;
     background: #191919;
@@ -29,6 +35,9 @@
       padding: 5px 0px;
       border-bottom: 1px solid #C6C6C6;
     }
+    a:hover{
+      background-color: $color_qwerteach_lightgrey;
+    }
     .title{
       border: none;
       background: #575756;
@@ -40,5 +49,38 @@
   form#edit_user{
     padding: 0px 30px;
   }
-
+  .user-avatar form input{
+    position:absolute;
+    width:0px;
+    height:0px;
+    z-index:-10;
+  }
+  .user-avatar:hover {
+    .edit-user-avatar {
+      display:block;
+      position: relative;
+      cursor:pointer;
+      .banner {
+        font-family: SofiaProLight;
+        color:white;
+        position: absolute;
+        height: 40px;
+        line-height:40px;
+        bottom: 0px;
+        width: 100%;
+        background-color: black;
+        opacity: 0.7;
+        i {
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
+          color: white;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+  .edit-user-avatar{
+    display:none;
+  }
 }
