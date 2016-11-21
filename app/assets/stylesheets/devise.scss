@@ -37,68 +37,8 @@
       }
     }
   }
-  .right{
-    padding: 0;
-    form#edit_user{
-      margin-top: 10%;
-      text-align: center;
-      .form-group{
-        margin-bottom: 20px;
-        text-align: center;
-        input{
-          margin: auto;
-          width: 300px;
-          text-align: center;
-        }
-        label{
-          font-size: 11px;
-          color: #3C3C3B;
-        }
-      } 
-      .form-actions{
-        text-align: center;
-        .action{
-          display: inline-block;
-        }
-      }
-    }
+  form#edit_user{
+    padding: 0px 30px;
   }
-  #profil{
-    form{
-      margin-top: 20px;
-      text-align: left;
-      .form-actions{
-        position: relative;
-        top: 35px;
-      }
-      h3{
-        margin-bottom: 25px;
-        text-align: left;
-      }
-      .form-group{
-        text-align: left;
-        label, input{
-          text-align: left;
-        }
-      }
-      .infos-general{
-        padding-left: 20px;
-        td{
-          vertical-align: middle;
-          padding: 5px;
-        }
-        input{
-          width: 180px;
-        }
-      }
-      .description{
-        padding-left: 50px;
-      }
-    }
-  }
-  #annonces{
-    #cmn-toggle-4{
-      width:0px;
-    }
-  }
+
 }

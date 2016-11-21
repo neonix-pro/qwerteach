@@ -1,41 +1,44 @@
-.container-fluid
+.row
+  %h2.page-title-green.text-center Modifier mon profil
   = form_for(@user, as: 'user', url: user_path(@user), html: {method: :put}) do |f|
     .row
       .col-md-8
         %h3.text-center Infos générales
+        %hr
         .row
           .col-sm-6
             = f.label :lastname
-            = f.text_field :lastname, :placeholder => :Nom
+            = f.text_field :lastname, :placeholder => :Dupond, class: 'form-control'
             = f.label :firstname
-            = f.text_field :firstname, :placeholder => :Prénom
+            = f.text_field :firstname, :placeholder => :Jean, class: 'form-control'
             = f.label :birthdate
-            = f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}, :placeholder => :Date_de_Naissance
+            = f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}, :placeholder => :Date_de_Naissance, class: 'form-control'
           .col-sm-6
             = f.label :Téléphone
-            = f.text_field :phonenumber
+            = f.text_field :phonenumber, class: 'form-control'
             = f.label :gender
-            = f.select :gender, User::GENDER_TYPES, :placeholder => :Sexe
+            = f.select :gender, User::GENDER_TYPES, {}, class: 'form-control'
+            = f.label :time_zone, "Quelle est votre fuseau horaire?"
+            = f.time_zone_select :time_zone, nil, {}, class: 'form-control'
       .col-md-4
-        %h3 Formations/Expérience
+        %h3.text-center Formations/Expérience
+        %hr
         .row
           .col-sm-12
             = f.label :occupation, "Quelle est votre profession ?"
-            = f.text_field :occupation
+            = f.text_field :occupation, class: 'form-control'
             = f.label :level, "Niveau de formation"
             - levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id)
-            = f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }
+            = f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }, {}, class: 'form-control'
+    .row
       .col-sm-12
-        %h3 Timezone
-        = f.label :time_zone, "Dans quelle timezone êtes-vous?"
-        = f.time_zone_select :time_zone
-      .col-md-12
-        %h3 Description
+        %h3.text-center Description
         = f.text_area :description, :class => 'ckeditor', :placeholder => "Décrivez-vous en quelques lignes"
     .row
-      .form-actions
-        = submit_tag "Envoyer", :class => "submit action"
-        =link_to "Annuler", "#", :class => "action"
+      .col-xs-10
+        .actions
+          = submit_tag "Envoyer", :class => "submit action"
+          =link_to "Annuler", "#", :class => "action"
 
 
 :javascript

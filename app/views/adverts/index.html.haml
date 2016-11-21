@@ -1,32 +1,33 @@
-.first-lesson-free
-  = form_for(@user, url: registration_path(@user), html: { method: :put }, remote: true) do |f|
-    %h3.text-green.text-center
-      Premier cours gratuit
-      .switch
-        = f.check_box(:first_lesson_free, id: 'cmn-toggle-4', class: 'cmn-toggle cmn-toggle-round-flat')
-        %label#label-cmn-toggle-4{for: "cmn-toggle-4"}
-    %p
-      Sur Qwerteach, nous offrons aux élève sla possibilité de réserver un premier cours gratuit d'une heure avec un professeur.
-      Par défaut, tous les professeurs participent à ce mouvement. Si vous ne souhaitez pas proposer cette option aux élèves qui souhaitent prendre cours avec vous, vous pouvez ici changer ce paramètre.
-    %label#cours_gratuit_info.info Pour le moment, les élèves ont la possibilité de réserver un premier cours gratuit avec vous.
-.adverts-list.clearfix
-  -c = 0
-  - layout = adverts_layout(@user.adverts.count+1)
-  - layout.each do |cl|
-    -if cl == "br"
-      .edit-advert.clearfix
-    -else
-      - unless @user.adverts[c].nil?
-        .advert{class: "#{cl} topic_#{@user.adverts[c].topic_group.id}", id: "advert_#{@user.adverts[c].id}"}
-          = link_to edit_advert_path(@user.adverts[c]), remote: true do
-            = image_tag "option.png", :class => "option"
-          = image_tag @user.adverts[c].topic.pictotype('medium'), :class => "icon"
-          %h3 #{@user.adverts[c].topic.title}
-        - c+=1
-  .add-new-advert.advert.text-center{class: layout.last}
-    = link_to new_advert_path, remote: true do
-      = image_tag("plus_annonce.png")
-    %p Ajouter un annonce
-  .edit-advert
-#new-advert
+.row
+  .first-lesson-free
+    = form_for(@user, url: registration_path(@user), html: { method: :put }, remote: true) do |f|
+      %h3.text-green.text-center
+        Premier cours gratuit
+        .switch
+          = f.check_box(:first_lesson_free, id: 'cmn-toggle-4', class: 'cmn-toggle cmn-toggle-round-flat')
+          %label#label-cmn-toggle-4{for: "cmn-toggle-4"}
+      %p
+        Sur Qwerteach, nous offrons aux élève sla possibilité de réserver un premier cours gratuit d'une heure avec un professeur.
+        Par défaut, tous les professeurs participent à ce mouvement. Si vous ne souhaitez pas proposer cette option aux élèves qui souhaitent prendre cours avec vous, vous pouvez ici changer ce paramètre.
+      %label#cours_gratuit_info.info Pour le moment, les élèves ont la possibilité de réserver un premier cours gratuit avec vous.
+  .adverts-list.clearfix
+    -c = 0
+    - layout = adverts_layout(@user.adverts.count+1)
+    - layout.each do |cl|
+      -if cl == "br"
+        .edit-advert.clearfix
+      -else
+        - unless @user.adverts[c].nil?
+          .advert{class: "#{cl} topic_#{@user.adverts[c].topic_group.id}", id: "advert_#{@user.adverts[c].id}"}
+            = link_to edit_advert_path(@user.adverts[c]), remote: true do
+              = image_tag "option.png", :class => "option"
+            = image_tag @user.adverts[c].topic.pictotype('medium'), :class => "icon"
+            %h3 #{@user.adverts[c].topic.title}
+          - c+=1
+    .add-new-advert.advert.text-center{class: layout.last}
+      = link_to new_advert_path, remote: true do
+        = image_tag("plus_annonce.png")
+      %p Ajouter un annonce
+    .edit-advert
+  #new-advert
 
