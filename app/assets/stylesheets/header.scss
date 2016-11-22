@@ -27,79 +27,6 @@ a, a:hover, a:active, a:focus{
     color:inherit;
 }
 
-//form{
-//
-//    input{
-//        border-radius: 5px;
-//        border: 1px solid #706F6F;
-//        width: 250px;
-//        padding-left: 10px;
-//        color: #706F6F;
-//        display: block;
-//    }
-//    select{
-//        -webkit-appearance: none;
-//        -moz-appearance: none;
-//        appearance: none;
-//        width: 250px;
-//        height: 25px;
-//        border-radius: 5px;
-//        color: #706F6F;
-//        border-color: #706F6F;
-//        outline: none !important;
-//        padding-left: 10px;
-//        background: url('select_arrow.png') no-repeat 97% 50% #ffffff;
-//        border: 1px solid;
-//        pointer: cursor
-//    }
-//    label{
-//        color: #3C3C3B;
-//        padding-left: 5px;
-//        display: block;
-//        margin-top: 10px;
-//   }
-//   textarea{
-//        border-radius: 5px;
-//        border: 1px solid #706F6F;
-//        height: 300px;
-//        width: 250px;
-//        outline: none !important;
-//    }
-//   .submit{
-//        border-radius: 15px;
-//        border-color: #29B46C;
-//        border: 1px solid;
-//        color: #29B46C;
-//        background: #fff;
-//        width: 200px;
-//        padding: 5px 10px;
-//    }
-//    .form-actions{
-//        a{
-//            border-radius: 15px;
-//            border-color: #D92D9B;
-//            border: 1px solid;
-//            color: #D92D9B;
-//            background: #fff;
-//            padding: 5px 10px;
-//        }
-//        a:hover{
-//            border-radius: 15px;
-//            border-color: #D92D9B;
-//            border: 1px solid;
-//            color: #D92D9B;
-//            background: #fff;
-//            padding: 5px 10px;
-//        }
-//    }
-//}
-//
-//button{
-//    outline: none !important;
-//}
-//input{
-//    outline: none !important;
-//}
 
 form{
   .actions{
@@ -134,13 +61,6 @@ form{
     opacity: 0.8;
 }
 
-//.main-content{
-//    display: block !important;
-//    width: 100% !important;
-//    margin: 0 auto !important;
-//    padding: 0 !important;
-//    overflow: hidden !important;
-//}
 
 .main-content{
   min-height: 50%;
