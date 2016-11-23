@@ -17,14 +17,16 @@ class MessagesController < ApplicationController
     else
       receipt = current_user.send_message([recipients], params[:message][:body], params[:message][:subject])
     end
-    if receipt.successful_delivery?
-      flash[:success] = "Votre message a bien été envoyé!"
+    if Mailboxer::Notification.successful_delivery?(receipt)
+      flash[:success] = "Votre message a bien été envoyé!" unless params[:mailbox]
     else
-      flash[:error] = "Votre message n'a pas pu être envoyé!"
+      flash[:danger] = "Votre message n'a pas pu être envoyé!"
     end
     respond_to do |format|
       format.html {redirect_to messagerie_path}
-      format.js {}
+      format.js {
+        redirect_to conversation_path(receipt.conversation)
+      }
     end
   end
 

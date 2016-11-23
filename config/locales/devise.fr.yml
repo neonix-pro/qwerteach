@@ -1,6 +1,16 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
 fr:
+  activerecord:
+    attributes:
+      user:
+        current_password: Mot de passe actuel
+        email: E-mail
+        password: Mot de passe
+        password_confirmation: Confirmation du mot de passe
+        remember_me: Se souvenir de moi
+    models:
+      user: Utilisateur
   devise:
     confirmations:
       confirmed: "Votre compte a été validé."
@@ -45,7 +55,9 @@ fr:
     sessions:
       signed_in: "Connecté."
       signed_out: "Déconnecté."
-      already_signed_out: "Déconnecté."
+      already_signed_out: "Déjà déconnecté."
+      new:
+        sign_in: "Connexion"
     unlocks:
       send_instructions: "Vous allez recevoir les instructions nécessaires au déverrouillage de votre compte dans quelques instants"
       send_paranoid_instructions: "Si votre compte existe, vous allez bientôt recevoir un email contenant les instructions pour le déverrouiller."

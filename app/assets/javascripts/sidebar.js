@@ -10,12 +10,15 @@ function bodySidebarHeight(){
     h1 = $('.main-content').innerHeight();
     h3 = $(body).height();
     h4 = $('.main-content div').innerHeight();
-    if(h1==h3){
+    console.log('h1: '+h1);
+    console.log('h3: '+h3);
+    console.log('h4: '+h4);
+    if(h1>h4){
         $('.main-content').css({position: 'relative', height: '100%'});
     }
-    /*if(h4>h1){
-        $('.main-content').css({position: 'relative', height: h4});
-    }*/
+    else{
+        $('.main-content').css({position: 'relative', height: 'auto'});
+    }
 }
 
 function footerScroll(){
