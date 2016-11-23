@@ -3,7 +3,6 @@ $(document).ready(function () {
     changeText();
     $("#cmn-toggle-4").on('change', function(){
         changeText();
-        //alert('truc');
         $(this).closest('form').submit();
     });
 });

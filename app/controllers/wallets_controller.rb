@@ -1,11 +1,13 @@
 class WalletsController < ApplicationController
+  include MangopayAccount
+
   before_filter :authenticate_user!
   after_filter { flash.discard if request.xhr? }
   before_action :set_user
   before_action :check_mangopay_account, except: [:edit_mangopay_wallet, :update_mangopay_wallet, :index_mangopay_wallet]
 
 
-  helper_method :countries_list #You can use it in view
+  helper_method :countries_list # You can use it in view
 
   rescue_from MangoPay::ResponseError, with: :set_error_flash
 
@@ -21,11 +23,6 @@ class WalletsController < ApplicationController
 
     @bank_accounts = @user.mangopay.bank_accounts
     @bank_account = Mango::CreateBankAccount.new(user: current_user)
-
-    # if params[:transactionId].present?
-    #   @transaction = Mango.normalize_response MangoPay::PayIn.fetch(params[:transactionId])
-    # end
-
   end
 
   def edit_mangopay_wallet
@@ -159,11 +156,6 @@ class WalletsController < ApplicationController
   def set_user
     @user = current_user
   end
-
-  def mango_account_params
-    params.fetch(:account).permit!
-  end
-
 
   def bank_account_params
     if %w(iban gb us ca other).include?( (params[:bank_account][:type] rescue nil) )

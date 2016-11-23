@@ -1,0 +1,14 @@
+%h2 Réserver un cours avec #{@teacher.name}
+#lesson-details
+  = render partial: 'form', locals: {remote: false}
+
+:javascript
+  $(document).ready(function(){
+    $('#lesson-details').trigger('update');
+    new RequestLesson( $('#lesson-details'), {teacher_id: #{@teacher.id}} );
+    $('#datetimepicker').datetimepicker({
+      locale: moment.locale(),
+      format: "L LT",
+      minDate: moment("#{Time.current.beginning_of_hour + ((Time.now.min / 15.0).ceil * 15).minutes}", 'L LT')
+    });
+  });

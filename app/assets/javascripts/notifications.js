@@ -51,3 +51,10 @@ var NotificationsManager = function() {
 }
 
 $(document).ready(NotificationsManager);
+
+// fadeUp of feedback messages
+$(document).ready(function(){
+    $("#flash-messages .alert button.close").click(function (e) {
+        $(this).parent().slideUp('slow');
+    });
+});

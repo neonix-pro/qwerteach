@@ -1,10 +1,22 @@
-%h2 Forgot your password?
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-  = devise_error_messages!
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true , class: 'form-control', :required => true
-  .actions
-    = f.submit "Send me reset password instructions"
-= render "devise/shared/links"
+.container-fluid
+  .row
+    %h2.page-title-green.text-center Ré-initialiser mon mot de passe
+    .col-md-6.col-md-offset-3.text-center
+      %p
+        Vous avez oublié votre mot de passe? Pas de problème!
+        %br
+        Entrez
+        %b l'adresse e-mail
+        que vous avez utilisée pour vous inscrire. Nous vous enverrons les informations de ré-initialisation par e-mail.
+  .row
+    .col-md-4.col-md-offset-4
+      = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class:'form form-horizontal reinit-password'}) do |f|
+        = devise_error_messages!
+        .form-group
+          = f.email_field :email, autofocus: true , class: 'form-control', required: true, placeholder: 'e-mail'
+        .actions.text-center
+          = f.submit "Ré-initialiser"
+  .row
+    .col-md-6.col-md-offset-3.text-right
+      .devise-links
+        =render partial: 'devise/shared/links'

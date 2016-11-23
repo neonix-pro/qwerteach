@@ -1,6 +1,7 @@
-.alert.alert-dismissible{:role => "alert", :class => "alert-#{type}"}
-  %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
-    %span{"aria-hidden" => "true"} &times;
+.alert.alert-dismissible{:role => "alert", :class => "alert-#{type} alert"}
+  %button.close{"aria-label" => "Close", :type => "button"}
+    %span{"aria-hidden" => "true"}
+      =image_tag 'close.png'
   #{content.html_safe}
 
-// types: info, error, warning, success
+// types: info, danger, warning, success

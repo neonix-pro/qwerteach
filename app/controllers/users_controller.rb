@@ -124,12 +124,8 @@ class UsersController < ApplicationController
 
   def crop
     @user = User.find(params[:user_id])
+    @user.update_attributes(user_params)
     render 'users/registrations/crop'
-  end
-
-  def save_cropped
-    @user = User.find(params[:user_id])
-
   end
 
   private

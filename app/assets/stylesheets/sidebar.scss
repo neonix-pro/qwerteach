@@ -41,8 +41,8 @@ nav.sidebar{
 
   /*Allow main-content to be next to Nav*/
   .main-content.logged-in{
-    width: calc(100% - 40px); /*keeps 100% minus nav size*/
-    margin-left: 40px;
+    width: 100%; /*keeps 100% minus nav size*/
+    padding-left: 40px;
     min-height: 100%;
   }
 

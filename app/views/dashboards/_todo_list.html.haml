@@ -2,6 +2,7 @@
   %h2.todo_list_title
     To do list
 .row
+  - review_asked = []
   - to_do_list.each do |lesson|
     -if lesson.pending?(user)
       = render partial: 'dashboards/todo_list/todo_answer', locals: {lesson: lesson}
@@ -11,5 +12,6 @@
           = render partial: 'dashboards/todo_list/todo_payment', locals: {lesson: lesson}
         - else
           To pay now!
-      -if lesson.review_needed?(user)
+      -if lesson.review_needed?(user) && !review_asked.include?(lesson.teacher.id)
+        - review_asked.push(lesson.teacher.id)
         = render partial: 'dashboards/todo_list/todo_review', locals: {lesson: lesson}

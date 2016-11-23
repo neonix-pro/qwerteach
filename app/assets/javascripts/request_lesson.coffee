@@ -1,5 +1,5 @@
 class window.RequestLesson
-  
+
   $el: null
   options: null
 
