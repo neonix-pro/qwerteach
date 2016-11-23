@@ -6,13 +6,12 @@
         %br le professeur
         qui vous  
         %br convient
-    - profs.each do |prof|
-      .prof{:style => "background-image: url(#{image_path prof.avatar.url(:large)})"}
+    - profs.each_with_index do |prof, index|
+      .prof{id: "prof#{index}", style: "background-image: url(#{image_path prof.avatar.url(:large)})"}
         %p
           %span.name
             = prof.firstname
             = prof.lastname
           %br
           - prof.adverts.each do |advert|
-            = advert.topic.title unless advert.topic.title == 'Other'
-    = render partial: 'topic_groups_list', locals:{topic_groups: topic_groups}
+            = link_to advert.topic.title, profs_by_topic_path(advert.topic.title) unless advert.topic.title == 'Other'
