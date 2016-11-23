@@ -11,7 +11,6 @@
 }
 
 .section_bigimage{
-    /*background: url(image_path("acceuil/bigimage.jpg"));*/
     background-size: cover;
     background-position: center center;
     text-align: center;  
@@ -20,37 +19,37 @@
         font-size: 16px;
     }
     .title{
-    padding-top: 120px;
-    padding-left: 150px;
+      padding-top: 10%;
+      padding-left:110px;
+      text-align:left;
+      font-family: SofiaProLight;
         h1,h2{
-            color: #fff;
-            text-align: left;
-            margin: 5px;
-            text-shadow: 0 1px 0;
+          color: #fff;
+          margin:0;
         }
         h2{
             font-size: 24px;
-            font-family: "SofiaProRegular";
         }
         h1{
             font-size: 42px;
-            font-family: SofiaProRegular;
+
         }
     }
 }
 .mode_emploi{
-  margin: 100px auto auto auto;
+  margin: 70px auto auto auto;
   width: 100%;
   text-align:center;
   a{
-    padding: 5px 20px;
     background: #313131;
+    letter-spacing: 0.26px;
+    padding: 8px 20px;
     border: 2px solid $color_qwerteach_green;
     border-radius: 25px;
     color: $color_qwerteach_green;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
-    font-weight:300;
+    font-family:SofiaProExtraLight;
   }
   a:hover{
     background: #414141;
@@ -59,112 +58,113 @@
   }
 }
 
-
 .section_recherche{
-    width: 100%;   
-    background: #000;
+  height: 50px;
+  width: 100%;
+  button{
     height: 50px;
+    width: 50px;
+    border: none;
+    background: $color_qwerteach_green;
+    display: inline;
+    color: #313131;
+    vertical-align:top;
+    font-size: 26px;
+  }
+  button:hover{
+    color: $color_qwerteach_green;
+    background: #313131;
+  }
+  .search-decoration{
+    vertical-align:top;
+    width:100px; /*2x carré de 100 px*/
+    .star, .calendar{
+      float:left;
+      width:50px;
+      line-height:50px;
+      text-align:center;
+    }
+  }
+  .recherche-bar{
+    vertical-align:top;
+    height: 50px;
+    display: inline;
+    border: none;
+    border-radius: 0;
+    background: #fff;
+    padding-left:30px;
+  }
 }
 
 
 .section_carrousel{
-    width: 100%;   
-    .slide{
-        background: $color_qwerteach_green;
+  width: 100%;
+  .slide{
+      background: $color_qwerteach_green;
+  }
+  .btn.btn-qw{
+    width:210px;
+  }
+  .item{
+    position: relative;
+    height: 100%;
+    img{
+      position: relative;
+      display: inline-block;
+      top: 50%;
+      right: 0;
+      width: 50%;
+      height: auto;
+      transform: translateY(-50%);
     }
-    .item{
-        position: relative;
-        height: 100%;
-        img{
-            position: relative;
-            display: inline-block;
-            top: 50%;
-            right: 0;
-            width: 50%;
-            height: auto;
-            transform: translateY(-50%);
-        }
-        .img_slide1{
-            float: right;
-        }
-        .right{
-            width: 45%;
-            right: 5%;
-            position: absolute;
-            top: 40%;
-            transform: translateY(-50%);
-            text-align: left;
-            h2{
-                width: 70%;
-                color: $color_qwerteach_darkgrey;
-                font-size: 38px;
-            }
-            .devenir_prof{
-                display: block;
-                background: $color_qwerteach_pink;
-                border-radius: 15px;
-                color: #fff;
-                font-size: 14px;
-                text-align: center;
-                width: 200px;
-                padding: 10px 20px;
-                margin-top: 70px;
-            }
-            .comment_ca_marche{
-                display: block;
-                padding: 10px 20px;
-                width: 210px;
-                font-size: 14px;
-                color: $color_qwerteach_darkgrey;
-                text-align: center;
-                margin-top: 2px;
-            }
-        }
-        .left{
-            width: 45%;
-            left: 15%;
-            position: absolute;
-            top: 40%;
-            transform: translateY(-50%);
-            text-align: left;
-            h2{
-                width: 70%;
-                color: #fff;
-                font-size: 38px;
-            }
-            .inscription{
-                display: block;
-                background: $color_qwerteach_purple;
-                border-radius: 15px;
-                color: #fff;
-                font-size: 14px;
-                text-align: center;
-                width: 200px;
-                padding: 10px 20px;
-                margin-top: 70px;
-            }
-            .comment_ca_marche{
-                display: block;
-                padding: 10px 20px;
-                width: 210px;
-                font-size: 14px;
-                color: $color_qwerteach_darkgrey;
-                text-align: center;
-                margin-top: 2px;
-            }
-        }
+    .img_slide1{
+      float: right;
     }
-    .carousel-control{
-        background: none !important;
-        opacity: 1;
-        img{
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 25px;
-            opacity: 1;
-        }
+    .right{
+      width: 45%;
+      right: 5%;
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      text-align: left;
     }
+    .left{
+      width: 45%;
+      left: 15%;
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      text-align: left;
+    }
+    .comment_ca_marche{
+      display: block;
+      padding: 10px 20px;
+      width: 210px;
+      font-size: 14px;
+      color: $color_qwerteach_darkgrey;
+      text-align: center;
+      margin-top: 2px;
+      cursor:pointer;
+    }
+    h2{
+      font-family: SofiaProLight;
+      width: 70%;
+      color: #fff;
+      font-size: 38px;
+      margin-bottom:30px;
+    }
+  }
+  .carousel-control{
+    background: none !important;
+    opacity: 1;
+    img{
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 25px;
+      opacity: 1;
+    }
+  }
 }
 
 
@@ -608,26 +608,5 @@
             padding: 10px 35px;
             border-radius: 15px;
         }
-    }
-}
-
-.section_recherche{
-    height: 50px;
-    button{
-        height: 50px;
-        width: 50px;
-        border: none;
-        background: #F8E71C;
-        color: #fff;
-        display: inline;
-        font-size: 18px;
-    }
-    .recherche-bar{
-        height: 50px;
-        display: inline;
-        border: none;
-        border-radius: 0px;
-        background: #fff;
-        margin-left: -4px;
     }
 }

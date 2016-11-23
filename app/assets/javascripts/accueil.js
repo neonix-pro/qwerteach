@@ -13,13 +13,13 @@ $(window).ready(function(e){
     })
     
     //largeur de la abr de recherche 
-    $(".recherche-bar").css("width", width - 50);
+    $(".recherche-bar").css("width", width - 300);
     window.addEventListener("resize", function(){
         width = $(window).width();
-        $(".recherche-bar").css("width", width -50);
+        $(".recherche-bar").css("width", width -300);
     });
     window.addEventListener("orientationchange", function(){
         width = $(window).width();
-        $(".recherche-bar").css("width", width -50);
+        $(".recherche-bar").css("width", width -300);
     });
 })
