@@ -1,15 +1,20 @@
-= form_for advert, :html => {:class => 'form-horizontal'}, :remote => remote do |f|
-  .center  
-    .left
-      .field.description
-        = f.text_area :description, :class => 'ckeditor', :placeholder => "Description ..."
-    .right  
-      .field.level_choice_levels
-      .field.group_choice
-        = f.select :topic_group_id, options_for_select(TopicGroup.all.collect { |p| [p.title, p.id] }), {include_blank: "Choisissez une catégorie"}, :required => true 
-      .field.topic_choice.group_choice_topic
+= form_for advert, :remote => remote do |f|
+  .row
+    .col-sm-1
+    .col-sm-5
+      .form-group
+        = f.text_area :description, :class => 'form-control', :rows => 16, :placeholder => "Description ..."
+    .col-sm-5
+      -if advert.advert_prices.empty?
+        .form-group.group_choice
+          = f.select :topic_group_id, options_for_select(TopicGroup.all.collect { |p| [p.title, p.id] }),
+          {include_blank: "Choisissez une catégorie"}, class: 'form-control', :required => true
+      .form-group.topic_choice.group_choice_topic
       .field.other_name
-      .form-actions
-        = f.submit nil, :class => 'btn btn-primary  btn-mini'
-        = link_to t('.cancel', :default => t("helpers.links.cancel")), |
-          adverts_path, :class => 'btn btn-mini'             |
+      .form-group.level_choice_levels
+        -unless advert.advert_prices.empty?
+          =render partial: 'level_choice'
+          = hidden_field_tag(:topic_id, advert.topic.id)
+      .actions
+        = link_to 'Annuler', adverts_path, :class => 'text-grey'
+        = f.submit 'Sauvegarder', :class => 'btn btn-primary btn-mini'

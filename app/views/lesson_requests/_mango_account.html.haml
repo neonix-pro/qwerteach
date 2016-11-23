@@ -1,5 +1,5 @@
 %h3 Informations de payement
-= form_for @account, as: :account, url:  create_account_user_request_lesson_index_path(@teacher), remote: true do |f|
+= form_for @account, as: :account, url:  create_account_user_lesson_requests_path(@teacher), remote: true do |f|
   = render 'mangopay/account_fields', f: f
   .field
     = submit_tag 'terminer', :class => 'btn btn-primary btn-mini'

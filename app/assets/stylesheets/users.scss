@@ -248,38 +248,6 @@
   .profile-advert.quadruple{
     width: calc(100% / 4);
   }
-  /*
-  .profile-advert:first-child{
-    background-color: $color_qwerteach_yellow;
-    .back {
-      color: $color_qwerteach_lightgrey;
-      .advert-title {
-        color: #313131;
-      }
-    }
-  }
-  .profile-advert:nth-child(2){
-    background-color: $color_qwerteach_pink;
-  }
-  .profile-advert:nth-child(3){
-    background-color: $color_qwerteach_purple;
-  }
-  .profile-advert:nth-child(4){
-    background-color: $color_qwerteach_green;
-  }
-  .profile-advert:nth-child(5){
-    background-color: $color_qwerteach_blue;
-  }
-  .profile-advert:nth-child(6){
-    background-color: $color_qwerteach_lightblack;
-  }
-  .profile-advert:nth-child(7){
-    background-color: $color_qwerteach_orange;
-  }
-  .profile-advert:nth-child(8){
-    background-color: $color_qwerteach_pink;
-  }
-  */
   .advert-flip-toggle {
     position: absolute;
     z-index: 2;
@@ -418,18 +386,18 @@
 }
 
 /*Flipping cards effect*/
-.profile-advert {
+.profile-advert, .press-article {
   perspective: 1000px;
   float:left;
   position:relative;
   height: 256px;
 }
-.profile-advert.hover{
+.profile-advert.hover, .press-article.hover{
   overflow: hidden;
 }
 
 /* flip the pane when hovered */
-.profile-advert.hover .flipper {
+.profile-advert.hover .flipper, .press-article.hover .flipper {
   transform: rotateY(180deg);
 }
 
@@ -460,7 +428,6 @@
   padding:20px 30px;
   transform: rotateY(180deg);
   font-size: 14px;
-
   letter-spacing: 0px;
   height: 226px;
   overflow: auto;

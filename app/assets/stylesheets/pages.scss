@@ -1,0 +1,94 @@
+@import "global_variables";
+
+/* Reset password */
+.page-title-green {
+  color:white;
+  background-color: $color_qwerteach_green;
+  font-size:30px;
+  font-family: 'SofiaProRegular';
+  margin:0px;
+  padding-top:37px;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+form.reinit-password{
+  margin-top: 15px;
+  .form-group{
+    line-height:30px;
+  }
+}
+
+.sign_in_page{
+  form{
+    margin-top: 30px;
+    .form-group{
+      line-height:30px;
+    }
+  }
+}
+.devise-links{
+  margin-bottom: 20px;
+  a{
+    color: $color_qwerteach_green;
+  }
+}
+
+
+/*presse*/
+.press-article{
+  padding: 0px!important;
+  .press-article-flip-toggle{
+    cursor:pointer;
+  }
+  .flipper{
+    height:100%;
+    padding:0px;
+  }
+  .front, .back{
+    text-align:center;
+    height:100%;
+    font: 0/0 a;
+    padding:0px;
+  }
+  .helper{
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+  }
+  img, p.press-article-flip-toggle {
+    width: auto;
+    max-width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    font: 16px/1 SofiaProLight, Helvetica, Arial;
+  }
+  p{
+    padding: 30px;
+  }
+}
+.press-article.hover{
+  .back{
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+#regional-it{
+  background-color: #e8e8e6;
+}
+#lesoir{
+  background-color: rgb(0,58,120);
+}
+#datanews{
+  background-color: #b8bcbf;
+}
+#trends{
+  background-color: #fff;
+}
+#educadis{
+  background-color: rgb(39,40,39);
+}
+#solutions{
+  background-color: rgb(158,34,56);
+}
+#belrtl{
+  background-color: rgb(190,10,0);
+}
