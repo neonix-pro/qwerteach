@@ -265,11 +265,12 @@
         width: 33.33333%;
     }
     .bigimage{
-        background: url(image_path("bg_commentaire.jpg"));
+        background: url(image_path("bg_testimonials.png"));
         background-size: cover;
         background-position: center center;
     }
     h4{
+      font-family: SofiaProLight;
         font-size: 38px;
         padding: 25px 50px;
         text-align: left;
@@ -367,7 +368,7 @@
     color: #E5E5E5;
     letter-spacing: 0px;
     line-height: 30px;
-    font-family: SofiaProExtraLight;
+    font-family: SofiaProLight;
   }
   h5{
     color: #797979;
@@ -421,7 +422,7 @@
       h3{
         font-size: 38px;
         padding: 50px 70px;
-        font-family: SofiaproLight;
+        font-family: SofiaProLight;
         line-height: 42px;
       }
     }
@@ -431,15 +432,19 @@
       position: absolute;
       color: $color_qwerteach_purple;
       p{
+        width:100%;
         position: absolute;
         left: 0px;
         bottom: 0px;
+        margin:0px;
+        padding:10px;
         font-size: 14px;
         color: #fff;
         font-family: SofiaProLight !important;
         background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 0%, #000000 100%);
         a{
           color:inherit!important;
+          font-family: SofiaProLight;
         }
       }
       .name{
@@ -500,11 +505,5 @@
         position: relative;
         top: 50%;
         transform: translateY(-50%);
-        a{
-            background: $color_qwerteach_pink;
-            color: #fff;
-            padding: 10px 35px;
-            border-radius: 15px;
-        }
     }
 }

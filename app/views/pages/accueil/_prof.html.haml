@@ -13,5 +13,4 @@
             = prof.firstname
             = prof.lastname
           %br
-          - prof.adverts.each do |advert|
-            = link_to advert.topic.title, profs_by_topic_path(advert.topic.title) unless advert.topic.title == 'Other'
+          = prof.adverts.map{|ad| link_to ad.title, profs_by_topic_path(ad.title)}.join(', ').html_safe
