@@ -1,36 +1,23 @@
-class Api::ProfilesController < ApplicationController
+class Api::ProfilesController < UsersController
   
   skip_before_filter :verify_authenticity_token
   respond_to :json
   
-  def index
-  end
-  
-  def show
+  def display
     id = params[:user]["id"]
     user = User.find_by(id: id)
     if user.nil?
       warden.custom_failure!
       render :json => {:success => "false"}
     else
-      render :json => {:success => "true", :user => user.as_json}
-    end
-  end
-  
-  def save
-    id = params[:user]["id"]
-    user = User.find_by(id: id)
-    if user.nil?
-      warden.custom_failure!
-      render :json => {:success => "false"}
-    else
-      user.update firstname: params[:user]["firstname"]
-      user.update lastname: params[:user]["lastname"]
-      user.update description: params[:user]["description"]
-      user.update birthdate: params[:user]["birthdate"]
-      user.update email: params[:user]["email"]
-      user.update phonenumber: params[:user]["phonenumber"]
-      render :json => {:success => "true", :user => user.as_json}
+      age = user.age
+      if not age.nil?
+        render :json => {:success => "true", :user => user.as_json, :age => age}
+        return
+      else
+        render :json => {:success => "true", :user => user.as_json}
+        return
+      end
     end
   end
   
@@ -38,6 +25,14 @@ class Api::ProfilesController < ApplicationController
     topic_group_level_code = "scolaire"
     level = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => topic_group_level_code).group(I18n.locale[0..3]).order(:id)
     render :json => {:level => level.as_json}
+  end
+  
+  def update
+    super
+  end
+  
+  def index
+    super
   end
   
 end

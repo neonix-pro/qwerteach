@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  # Include default devise modules.
   GENDER_TYPES = ["Not telling", "Male", "Female"]
   ACCOUNT_TYPES = ["Student", "Teacher"]
   devise
@@ -14,9 +15,13 @@ class User < ActiveRecord::Base
   #    validatable – Validates e-mail and password (custom validators can be used).
   #    confirmable – Users will have to confirm their e-mails after registration before being allowed to sign in.
   #    lockable – Users’ accounts will be locked out after a number of unsuccessful authentication attempts.
+  
+  acts_as_token_authenticatable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :confirmable, :lockable, :validatable,
          :lastseenable, :omniauthable, :omniauth_providers => [:twitter, :facebook, :google_oauth2]
+  
+  before_save -> { skip_confirmation! }
 
   has_one :gallery
   has_many :adverts
@@ -245,8 +250,9 @@ class User < ActiveRecord::Base
       avatar.assign(avatar)
       avatar.save
     end
-end
-
-def skip_confirmation!
-  self.confirmed_at = Time.now
+  
+  def skip_confirmation!
+    self.confirmed_at = Time.now
+  end
+  
 end

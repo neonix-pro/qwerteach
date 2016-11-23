@@ -125,6 +125,8 @@ gem 'pluck_to_hash'
 gem 'drafting'
 gem 'ruby-duration'
 
+gem 'simple_token_authentication', '~> 1.0'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

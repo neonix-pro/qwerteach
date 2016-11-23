@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
   
-  namespace :api do
-    get 'profiles' => 'profiles#index'
-    post 'profiles/show' => 'profiles#show'
-    post 'profiles/save' => 'profiles#save'
+  namespace :api, :defaults => { :format => 'json' } do
+    post 'profiles/display' => 'profiles#display'
     get 'profiles/find_level' => 'profiles#find_level'
+    put 'profiles/:id' => 'profiles#update'
+    get 'profiles' => 'profiles#index'
   end
   
-  namespace :api do
+  namespace :api, :defaults => { :format => 'json' } do
     get 'adverts' => 'adverts#index'
     post 'adverts/create' => 'adverts#create'
     post 'adverts/update' => 'adverts#update'
@@ -16,29 +16,25 @@ Rails.application.routes.draw do
     post 'adverts/find_advert_prices' => 'adverts#find_advert_prices'
   end
 
-  namespace :api do
+  namespace :api, :defaults => { :format => 'json' } do
     get 'find_topics' => 'find_topics#index'
     post 'find_topics' => 'find_topics#show'
+    post 'find_topics/find_levels' => 'find_topics#find_levels'
   end
 
   namespace :api do
     get 'find_group_topics' => 'find_group_topics#show'
   end
 
-  namespace :api do
+  namespace :api, :defaults => { :format => 'json' } do
     devise_scope :user do
-      get 'session' => 'session#index'
-      post 'session' => 'session#login'
+      get 'sessions' => 'sessions#new'
+      post 'sessions' => 'sessions#create'
+      delete 'sessions' => 'sessions#delete'
+      post 'registrations' => 'registrations#create'
     end
   end
-
-  namespace :api do
-    devise_scope :user do
-      get 'registration' => 'registration#index'
-      post 'registration' => 'registration#create'
-    end
-  end
-
+  
   namespace :admin do
     resources :users
     resources :students
@@ -77,7 +73,6 @@ Rails.application.routes.draw do
     put "direct_debit" => :load_wallet
     get "transactions" => :transactions_mangopay_wallet
     get "card_info" => :card_info
-    get "card_registration" => :card_registration
     put "send_card_info" => :send_card_info
     get 'bank_accounts' => :bank_accounts
     put 'update_bank_accounts' => :update_bank_accounts
@@ -85,22 +80,31 @@ Rails.application.routes.draw do
     put 'make_payout' => :make_payout
   end
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  as :user do
-    get 'users/edit_pwd' => 'registrations#pwd_edit', :as => 'edit_pwd_user_registration'
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations=> "registrations" }
+
+  resources :users, only: [:update] do
+    patch 'crop' => 'users#crop'
+    post 'crop' => 'users#crop'
   end
+
   get 'dashboard' => 'dashboards#index', :as => 'dashboard'
 
   resources :users, :only => [:show] do
     resources :require_lesson
-    put '/request_lesson/payment' => 'request_lesson/payment'
-    get '/request_lesson/process_payin' => 'request_lesson/process_payin'
-    resources :request_lesson
+    put '/lesson_requests/payment' => 'lesson_requests/payment'
+    resources :lesson_requests, only: [:new, :create] do
+      get 'topics/:topic_group_id', action: :topics, on: :collection
+      get 'levels/:topic_id', action: :levels, on: :collection
+      post :calculate, on: :collection
+      get :credit_card_process, on: :collection
+      get :bancontact_process, on: :collection
+      post :create_account, on: :collection
+    end
     resources :reviews, only: [:index, :create, :new]
   end
   get '/both_users_online' => 'users#both_users_online', :as => 'both_users_online'
   authenticated :user do
-    root 'pages#index'
+    root 'dashboards#index'
   end
 
   match "/profs/" => "users#profs_by_topic", as: :profs, via: :post
@@ -149,9 +153,11 @@ Rails.application.routes.draw do
   
   #post "lessons/:teacher_id/require_lesson", to: "lessons#require_lesson", as: 'require_lesson'
   resources :lessons do
-    get 'accept_lesson' => :accept_lesson
-    get 'refuse_lesson' => :refuse_lesson
-    get 'cancel_lesson' => :cancel_lesson
+    get 'accept' => :accept
+    get 'refuse' => :refuse
+    get 'cancel' => :cancel
+    get 'pay_teacher'=>:pay_teacher
+    get 'dispute'=>:dispute
     
     resources :payments do
       resources :pay_postpayments
@@ -160,8 +166,6 @@ Rails.application.routes.draw do
     get "edit_postpayment/:payment_id" => "payments#edit_postpayment", as: 'edit_postpayment'
     post "edit_postpayment/:payment_id" => "payments#send_edit_postpayment", as: 'send_edit_postpayment'
 
-    post "bloquerpayment" => "payments#bloquerpayment"
-    post "debloquerpayment" => "payments#debloquerpayment"
     post "payerfacture/:payment_id" => "payments#payerfacture", as: 'payerfacture'
   end
   match '/cours' =>'lessons#index', :as => 'cours', via: :get

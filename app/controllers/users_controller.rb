@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+  
   before_filter :authenticate_user!, only: :update
 
   def show
@@ -43,6 +43,11 @@ class UsersController < ApplicationController
         end
       end
       @pagin = Kaminari.paginate_array(@search, total_count: @total, topic: @search_text).page(params[:page]).per(12)
+    end
+    respond_to do |format|
+      format.html {}
+      format.json {render :json => {:pagin => @pagin.as_json, :search => @search.as_json}}
+      format.js
     end
   end
 
@@ -109,7 +114,12 @@ class UsersController < ApplicationController
     else
       flash[:error] = "La modification a échoué"
     end
-    redirect_to edit_user_registration_path(@user)
+    respond_to do |format|
+     format.html {redirect_to edit_user_registration_path(@user)}
+     format.json {render :json => {:success => "true"}}
+     format.js
+    end
+    
   end
 
   def crop
