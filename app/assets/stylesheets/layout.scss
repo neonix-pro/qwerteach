@@ -22,6 +22,13 @@ a{
   color: $color_qwerteach_green;
 }
 
+.toggle-content{
+  display:none;
+}
+.toggle-content.active{
+  display:block;
+}
+
 .main-content{
   min-height: 50%;
 }
@@ -116,6 +123,9 @@ a{
 }
 .text-orange{
   color: $color_qwerteach_orange;
+}
+.text-yellow{
+  color: $color_qwerteach_yellow;
 }
 .text-white{
   color:white;

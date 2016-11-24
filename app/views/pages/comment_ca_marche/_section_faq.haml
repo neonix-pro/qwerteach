@@ -1,0 +1,14 @@
+.section-faq
+  .row
+    .col-sm-6#general-faq
+      =image_tag('comment_ca_marche/bulle.png')
+      .text-yellow Visitez notre
+      = link_to 'Foire aux questions', pages_path('faq'), class: 'text-pink'
+    .col-sm-6#questions-faq
+      %h4 Sujets fréquents:
+      %ul.text-pink
+        %li Qui sont les profs ?
+        %li Garantie remboursement
+        %li Protection des données
+        %li Modes de payement
+      = link_to 'Voir plus', pages_path('faq'), class: 'text-pink'

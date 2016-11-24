@@ -1,4 +1,49 @@
-%div.section_comment_donner_cours
-    %div
-        %h2 Comment donner des cours
-        %a.arrow.opacity_hover &#10142;
+.section_comment_prendre_donner_cours
+  .section_title.give_lesson
+    %h2.text-left
+      Comment
+      %br donner un cours ?
+      %a.toggler.arrow-give-lesson{data:{toggle: '#give-lesson'}}
+        %i.fa.fa-long-arrow-right
+    = image_tag('comment_ca_marche/give_lesson.png', class:'give-lesson')
+  .toggle-content#give-lesson
+    .cont
+      .icone
+        =image_tag("comment_ca_marche/loupe.png", :alt => "Qwerteach rassemble une communauté de professeurs compétents dans plusieurs matières et prêts à vous aider à tout moment.")
+      .text
+        %h3 Publier son annonce
+        %p Nous vous invitons à enseigner tout type de matière sur Qwerteach, que ce soit de la géographie, des mathématiques ou du français. Dès que vous vous sentez prêt à donner cours, inscrivez-vous gratuitement et complétez votre profil en ligne afin de vous faire connaitre auprès des élèves.
+        %a.toggler.infos{:href => "#publish"} Plus d'infos
+        #publish.toggle-content
+          %p Ceux-ci recherchent souvent des professeurs qui puissent répondre à des besoins spécifiques. Une description minutieuse de vos formations, de vos expériences professionnelles et de vos centres d’intérêt permettra donc d’attirer les élèves qui vous conviennent le mieux. Mettez en évidence vos matières de prédilection, comme la chimie organique ou la résistance des matériaux, et ajoutez des informations utiles sur la façon dont vous donnerez cours dans chacune de ces matières.
+          %p Sur Qwerteach, nous vous laissons fixer vos propres tarifs. Vous pouvez choisir un prix unique ou bien le personnaliser selon la matière que vous enseignez et le niveau d’étude des élèves. Nous vous demandons également de tenir à jour votre calendrier pour qu’il reflète vos disponibilités.
+          %p La présence d’une photo de profil permet à chaque élève de visualiser précisément qui vous êtes. Téléchargez une photo depuis votre disque dur ou utilisez votre webcam pour vous photographier. Veillez à ce que votre photo soit lumineuse, nette et représente l’entièreté de votre visage.
+          %p Une fois votre profil entièrement complété et enregistré, un membre de notre équipe vous contactera par e-mail afin de vous proposer un entretien au sein de la Classe Virtuelle, notre outil d’enseignement à distance. Au cours de cet entretien, nous vérifierons vos connaissances pour chaque matière et niveau indiqués sur votre page de profil, ainsi que vos compétences pédagogiques. Dans le cas où nous jugerons vos connaissances insuffisantes pour une matière ou un niveau donnés, nous vous demanderons de les modifier voire de les supprimer. Au terme de cet entretien, nous validerons et publierons votre profil.
+    .cont
+      .icone
+        =image_tag("comment_ca_marche/calendrier.png", :alt => "Expliquez les raisons pour lesquelles vous sollicitez l'aide d'un professeur. Par exemple en précisant les points de matière qui vous posent difficulté ou encore en présentant les consignes d'un examen d'entrée")
+      .text
+        %h3 Donner des cours particuliers
+        %p Nous avons conçu un espace de visioconférence, que nous appelons Classe Virtuelle, et grâce auquel vous pourrez donner vos cours depuis chez vous.
+        %a.infos.toggler{:href => "#answer-request"} Plus d'infos
+        .toggle-content#answer-request
+          %h3 Répondre aux demandes
+          %p Les élèves, attirés par votre profil, voudront réserver auprès de vous un ou plusieurs cours en ligne. Nous vous enverrons un e-mail et/ou un sms chaque fois que vous recevrez de leur part des demandes de réservation. Endéans les 24h, confirmez leurs dates de rendez-vous ou faites de nouvelles propositions le cas échéant. En répondant le plus rapidement possible, vous aurez ainsi la possibilité d’enseigner le jour même, ce que souhaitent de nombreux élèves souvent à la recherche d’une aide en urgence.
+          %p Avant d’accepter une demande de réservation, assurez-vous d’avoir tous les éléments en main pour pouvoir enseigner. Précisez avec votre élève les différents points théoriques qu’il souhaite aborder avec vous. Cela vous permettra d’évaluer le degré de complexité de sa demande et d’estimer votre niveau de compétence en la matière. Si vous ne vous sentez pas capable de l’aider, parlez-en à votre élève et invitez-le à nous contacter. Nous lui recommanderons alors la ou les personnes adéquates.
+          %h3 Les cours particuliers dans la classe virtuelle
+          %p Au sein de cette classe, vous communiquerez en direct avec votre élève oralement et par écrit, en utilisant votre micro, votre webcam ainsi qu’un chat intégré. La présence d’un tableau blanc interactif vous permettra également de dessiner, avec l’aide de votre souris, des figures géométriques, des graphes ou des équations mathématiques. Sur ce même tableau, vous pourrez afficher vos propres exercices, ou tout autre document, que vous aurez préalablement scannés ou photographiés, et que vous ferez compléter par votre élève.
+          %p L’utilisation de la Classe Virtuelle ne nécessite l’installation d’aucun nouveau programme sur votre ordinateur. Pour y accéder, rien de plus simple. Connectez-vous au site quelques minutes avant le début de votre cours en ligne. Observez votre écran. Vous verrez affiché à gauche un message de rappel ainsi qu’un bouton bleu intitulé Ouvrir la Classe Virtuelle. En cliquant sur ce bouton, un nouvel onglet s’ouvrira dans votre navigateur. Il s’agit de votre classe où vous rejoindra bientôt votre élève.
+    .cont
+      .icone
+        =image_tag("comment_ca_marche/ordi.png", :alt => "Tout est prêt, il ne vous reste plus qu'à rejoindre votre professeur dans la classe virtuelle !")
+      .text
+        %h3 Recevoir ses honoraires
+        %p Sur Qwerteach, vous recevrez vos honoraires au terme de chaque cours en ligne. En cas de litige, notre équipe accèdera à l'enregistrement du cours, afin de trouver une solution entre votre élève et vous.
+        %a.infos.toggler{:href => "#get-paid"} Plus d'infos
+        .toggle-content#get-paid
+          %h3 Les paiements sur Qwerteach
+          %p Endéans un délai d’un à trois jours après la fin de chaque cours, les crédits seront automatiquement versés sur votre Portefeuille Virtuel. Vous pourrez à tout moment les transférer vers votre compte bancaire.
+          %p Le retrait de vos devises s’effectue par virement bancaire au moyen de notre système de paiement en ligne sécurisé. Lors de votre inscription, vous devrez introduire vos informations de paiement, à savoir le numéro et le nom du titulaire du compte bancaire sur lequel vous souhaiter verser vos honoraires. Nous protégeons étroitement vos données personnelles conformément à la Loi relative à la Vie Privée.
+          %p Pour chaque retrait effectué depuis votre Portefeuille Virtuel vers votre compte bancaire, nous appliquons des frais de service de 15%. Ces frais couvrent les coûts de traitement des paiements des élèves et du fonctionnement du site.
+          %h3 Revoir l'enregistrement d'un cours particulier
+          %p Chaque cours en ligne est enregistré et mis à votre disposition sous format vidéo. Vous pouvez les visionner sans limite de temps depuis la page Mes enregistrement. Vos vidéos ne seront visibles que par vous-même et vos élèves.
