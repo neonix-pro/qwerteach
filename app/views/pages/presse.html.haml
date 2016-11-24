@@ -1,0 +1,101 @@
+.container-fluid
+  .row
+    .col-sm-4.press-article#lesoir
+      .flipper
+        .front
+          .helper
+          =image_tag('press/lesoir.png', class: 'press-article-flip-toggle')
+        .back
+          .helper
+          %p.press-article-flip-toggle
+            "Si votre enfant ne jure que par son ordinateur et que le mot racine carrée lui fait davantage penser au dernier album de Stromae qu'à un nombre, il y a de fortes chances qu'il soit intéressé par Qwerteach. Oubliés les professeurs a domicile aux frais de déplacement exorbitants..."
+            %br
+            %br
+            = link_to "voir plus", 'https://qwerteach.com/Documents/leSoirQwerteach.pdf', class:'pull-right text-green'
+    .col-sm-4.press-article#belrtl
+      .flipper
+        .front
+          .helper
+          =image_tag('press/belrtl.png', class: 'press-article-flip-toggle')
+        .back
+          .helper
+          %p.press-article-flip-toggle
+            "Ca va vous changer la vie - Des cours particulier en ligne pour enfants, ado et adultes !"
+            %br
+            %br
+            = link_to "voir plus", 'http://www.rtl.be/videobelrtl/video/479330.aspx', class:'pull-right text-green'
+    .col-sm-4.press-article#trends
+      .flipper
+        .front
+          .helper
+          =image_tag('press/trends.jpg', class: 'press-article-flip-toggle')
+        .back
+          .helper
+          %p.press-article-flip-toggle
+            De Brusselse ondememers Stephane Panier en Aurelie Merckx lanceerden onlangs de betaversie van Qwerteach. Het gaat om een platform dat online lesgeven van persoon tot persoon wil vergemak- kelijken..."
+            %br
+            %br
+            = link_to "voir plus", 'https://qwerteach.com/Documents/trends.pdf', class:'pull-right text-green'
+  .row
+    .col-sm-4.press-article#regional-it
+      .flipper
+        .front
+          .helper
+          =image_tag('press/regional-it.png', class: 'press-article-flip-toggle')
+        .back
+          .helper
+          %p.press-article-flip-toggle
+            "La cinquième édition du MIC Boostcamp Bruxelles a livré, hier, son verdict. Le Grand Prix (doté d’un chèque de 3.000 euros) a été décerné à Qwerteach, jeune société fondée par Stéphane Panier et Aurélie Merckx. Constitué en sprl depuis l’automne dernier, le projet Qwerteach avait fait ses débuts..."
+            %br
+            %br
+            = link_to "voir plus", 'www.regional-it.be/2014/03/26/qwerteach-laureat-boostcamp-bruxelles/', class: 'text-green pull-right'
+    .col-sm-4.press-article#educadis
+      .flipper
+        .front
+          .helper
+          =image_tag('press/educadis.png', class: 'press-article-flip-toggle')
+        .back
+          .helper
+          %p.press-article-flip-toggle
+            "Il n'est pas toujours évident de rencontrer la bonne personne quand on cherche à avoir des cours de soutien personnalisés pour les jeunes. Si on veut des cours de soutien scolaire, il faut souvent payer cher, se motiver à aller dans un centre, et les cours ne seront pas toujours personnalisés et individualisés. Mais une solution innovante existe, Qwerteach, qui permet de ne plus bouger de chez soi pour recevoir des cours particuliers... "
+            %br
+            %br
+            = link_to "voir plus", 'http://www.educadis.fr/soutien-scolaire/news-soutien-scolaire-elearning/une-nouvelle-plateforme-de-soutien-scolaire-gratuit', class:'pull-right text-green'
+    .col-sm-4.press-article#solutions
+      .flipper
+        .front
+          .helper
+          =image_tag('press/solutions-magazine.png', class: 'press-article-flip-toggle')
+        .back
+          .helper
+          %p.press-article-flip-toggle
+            "Qwerteach, Trackmaestro et The Animal Monitoring Platform ont été nommés lors de la finale du 5ème Boostcamp du Microsoft Innovation Center Brussels qui a eu lieu aujourd’hui. Les lauréats à l’origine de ces projets ont été distingués sur les critères du potentiel business, la maturité du projet, ainsi que la qualité de la présentation. Pour le gagnant du Grand Prix, l’innovation du projet a également été récompensée..."
+            %br
+            %br
+            = link_to "voir plus", 'http://www.solutions-magazine.com/5eme-boostcamp-du-microsoft-innovation-center-brussels-and-the-winners-are/', class:'pull-right text-green'
+  .row
+    .col-sm-4.press-article#datanews
+      .flipper
+        .front
+          .helper
+          =image_tag('press/datanews.jpg', class: 'press-article-flip-toggle')
+        .back
+          .helper
+          %p.press-article-flip-toggle
+            Aurélie Mercxx et Stéphane Panier, respectivement diplômé en biotechnologies et en sciences économiques, ont eu l'occasion de donner des cours de maths ou de sciences pendant leurs études, notamment via la société Educadomo. Ils ont tellement apprécié l'expérience qu'ils ont décidé eux-mêmes de créer une plateforme web qui met en relation professeurs et élèves (essentiellement du secondaire pour l'heure) et permet d'organiser un cours en ligne, avec vidéoconférence et partage de documents. L'idée n'est pas neuve. En Belgique, des sites comme Rattrapage.be ou Altissia.be (pour les cours de langues) explorent ce potentiel.
+            %br
+            %br
+            = link_to "voir plus", 'http://datanews.levif.be/ict/centre-de-connaissance/jeunes-entreprises/qwerteach-en-quete-de-profs-pour-ses-cours-en-ligne/article-4000617351894.htm', class:'pull-right text-green'
+
+
+
+:javascript
+  $('.press-article-flip-toggle').click(function(){
+    $(this).toggleClass('active');
+    $(this).closest('.press-article').toggleClass('hover');
+  });
+  $(document).ready(function(){
+    var w = $('.press-article').width();
+    $('.press-article').height(w);
+    bodySidebarHeight();
+  });

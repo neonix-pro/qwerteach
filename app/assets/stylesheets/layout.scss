@@ -1,52 +1,72 @@
 @import "global_variables";
 
-body, html, a{
-  font-weight:400;
+body, html{
+  margin: 0;
+  font-family: SofiaProRegular;
 }
+body{
+  padding-bottom:50px; // because of navbar
+  overflow-x: hidden;
+}
+h1,h2,h3,h4,h5,p,span,a{
+  font-family: SofiaProRegular;
+}
+a, a:hover, a:active, a:focus{
+  text-decoration: underline;
+  border: none;
+  outline: 0;
+  background: none;
+  color:inherit;
+}
+a{
+  color: $color_qwerteach_green;
+}
+
+.main-content{
+  min-height: 50%;
+}
+
 #flash-messages{
-  position: fixed;
-  top: 50px;
+  position: relative;
   width: 100%;
-  z-index: 3;
+  z-index: 2;
   .alert{
     border-radius:0px;
     border:0px;
-    opacity:0.95;
-    padding-left:20%;
+    margin-bottom: 0px;
+    text-align:center;
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
     .close{
-      opacity:0.7;
+      opacity:0.9;
+      img{
+        height: 30px;
+        margin-top: 0px;
+      }
     }
   }
   .alert-notice{
-    background-color: $color_qwerteach_purple;
+    background-color: $color_qwerteach_blue;
     background-image:none;
-    color:white;
   }
   .alert-success{
     background-color: $color_qwerteach_green;
     background-image:none;
-    color:white;
   }
   .alert-danger{
     background-color: $color_qwerteach_pink;
     background-image:none;
-    color:white;
   }
-}
-
-#footer{
-  z-index:10;
-  position: absolute;
-  width: 100%;
 }
 
 .btn.btn-qw {
   border-radius: 30px;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 0.2px;
-  line-height: 20px;
   font-weight: 300;
-  padding: 8px 20px;
+  padding: 6px 30px;
+  font-family: SofiaProExtraLight;
 }
 .btn-sm.btn.btn-qw {
   font-size: 14px;
@@ -69,6 +89,10 @@ body, html, a{
 }
 .btn-orange{
   background: $color_qwerteach_orange;
+  color:white;
+}
+.btn-purple{
+  background: $color_qwerteach_purple;
   color:white;
 }
 
@@ -97,15 +121,6 @@ body, html, a{
   color:white;
 }
 
-a:hover {
-  color:$color_qwerteach_green;
-}
-a.btn:hover{
-  color:white;
-}
-
-
-
 .cmn-toggle
 {
   position: absolute;
@@ -128,8 +143,8 @@ a.btn:hover{
 input.cmn-toggle-round-flat + label
 {
   padding: 2px;
-  width: 75px;
-  height: 30px;
+  width: 60px;
+  height: 25px;
   background-color: #dddddd;
   -webkit-border-radius: 60px;
   -moz-border-radius: 60px;
@@ -151,10 +166,10 @@ input.cmn-toggle-round-flat + label:before, input.cmn-toggle-round-flat + label:
 
 input.cmn-toggle-round-flat + label:before
 {
-  top: 2px;
-  left: 2px;
-  bottom: 2px;
-  right: 2px;
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  right: 1px;
   background-color: #fff;
   -webkit-border-radius: 60px;
   -moz-border-radius: 60px;
@@ -172,7 +187,7 @@ input.cmn-toggle-round-flat + label:after
   top: 4px;
   left: 4px;
   bottom: 4px;
-  width: 22px;
+  width: 18px;
   background-color: #dddddd;
   -webkit-border-radius: 52px;
   -moz-border-radius: 52px;
@@ -192,6 +207,100 @@ input.cmn-toggle-round-flat:checked + label
 
 input.cmn-toggle-round-flat:checked + label:after
 {
-  margin-left: 45px;
+  margin-left: 32px;
   background-color: $color_qwerteach_green;
+}
+
+
+/*Navbar*/
+.main-nav{
+  border: 0 !important;
+  background: #222222 !important;
+  height: 30px !important;
+  outline: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: static !important;
+  border: none !important;
+  .navbar-nav a{
+    color: $color_link_grey;
+    text-shadow: none;
+  }
+  .navbar-nav a:hover{
+    background: none;
+    color: $color_qwerteach_green;
+  }
+  .navbar-header .navbar-brand{
+    padding: 10px;
+  }
+}
+.navbar-nav{
+  float: right !important;
+}
+
+/*footer*/
+#footer{
+  z-index:10;
+  position: absolute;
+  width: 100%;
+  background: $color_qwerteach_navgrey;
+  color: $color_link_grey;
+  height: 500px;
+  .cadre{
+    border-top: 1px solid #767676;
+    margin-top: 50px;
+  }
+  .inner{
+    position: relative;
+    top: 50px;
+    width: 80%;
+    display: block;
+    margin: auto;
+    height: 350px;
+    .col{
+      float: left;
+      width: 25%;
+    }
+    .logo{
+      display: block;
+      margin: auto;
+    }
+    a{
+      padding-right: 10%;
+      display: block;
+      text-align: left;
+      color: $color_link_grey;
+    }
+    h3{
+      font-size: 18px;
+      text-align: left;
+      font-weight: bold;
+    }
+    p{
+      text-align: left;
+    }
+    .social_block{
+      text-align: left;
+      .social{
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        width: auto;
+        img{
+          width: 25px;
+          margin: 10px;
+        }
+      }
+    }
+    .green{
+      color: $color_qwerteach_green;
+    }
+  }
+  .copyright{
+    clear: both;
+    bottom: 25px;
+    color: $color_link_grey;
+    margin-top: 280px;
+  }
 }

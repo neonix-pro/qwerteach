@@ -1,6 +1,8 @@
 var source = $('<%= "#advert_#{@advert.id}" %>');
+$('.with-arrow').removeClass('with-arrow');
 $('#new_advert').html('');
 $('.edit-advert').html('');
 source.nextAll('.edit-advert:first').html('<%= j render partial: 'edit_advert', locals: {advert: @advert, remote: true} %>');
 animateAdvertFields();
 $('.main-content').height('auto');
+source.addClass('with-arrow');

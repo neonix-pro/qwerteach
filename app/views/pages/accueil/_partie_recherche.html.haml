@@ -1,5 +1,10 @@
 .section_recherche
   = form_tag profs_path, method: :post, id: 'search-form', remote: false do
+    .search-decoration
+      .star
+        %i.fa.fa-star.text-green
+      .calendar
+        %i.fa.fa-calendar.text-green
     %button{type: "submit"}
       %i.fa.fa-search
     = autocomplete_field_tag 'topic', '', autocomplete_topic_title_pages_path, :size => 75, :class => "recherche-bar"

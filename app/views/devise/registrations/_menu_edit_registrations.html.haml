@@ -1,16 +1,36 @@
-=image_tag @user.avatar(:medium), :class => "avatar"
+.user-avatar
+  =image_tag @user.avatar(:medium), :class => "avatar"
+  = form_for @user, as: resource_name, url: user_crop_path(@user) do |f|
+    = f.file_field :avatar
+    = f.submit ''
+  .edit-user-avatar
+    .banner
+      modifier
+      %i.fa.fa-camera
 %div
-  =link_to "Modifier mot de passe", "#", :data => {:toggle => "collapse", :target => "#passcode"}, :class => "active"
+  =link_to "Modifier mes informations", "#", :data => {:toggle => "collapse", :target => "#profil"}, :class => "active"
 %div
-  =link_to "Modifier mes informations", "#", :data => {:toggle => "collapse", :target => "#profil"}
-%div
-  =link_to "Modifier ma photo", "#", :data => {:toggle => "collapse", :target => "#avatar"}
+  =link_to "Modifier mon mot de passe", "#", :data => {:toggle => "collapse", :target => "#passcode"}
 -if @user.is_a?(Teacher)
   %div
     =link_to "Mes annonces", "#", :data => {:toggle => "collapse", :target => "#annonces"}
-  -#%div
-  -#  =link_to "Mon calendrier", "#", :data => {:toggle => "collapse", :target => "#calendear"}
-  -#%div
-  -#  =link_to "Mes diplomes", "#", :data => {:toggle => "collapse", :target => "#degrees"}
 %div
   =link_to "Voir mon profil", user_path(@user)
+
+:javascript
+  $('.edit-user-avatar').on('click', function(){
+    $('#user_avatar').trigger('click');
+  });
+  $('#user_avatar').on('input', function(){
+    $(this).parent().submit();
+  });
+  $(document).ready(function(){
+    $('.collapse').on('show.bs.collapse', function(){
+      var h = $(body).height();
+      $('.menu').css({height:h});
+    });
+    $('.collapse').on('shown.bs.collapse', function(){
+      $('.menu').css({height:''});
+      bodySidebarHeight();
+    });
+  });

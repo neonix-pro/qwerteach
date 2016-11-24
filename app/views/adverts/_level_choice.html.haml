@@ -1,24 +1,26 @@
 = label_tag 'Pour quels niveaux enseignez vous cette matière?'
-%br
-%br
 - if @levels.nil?
   %p Aucun niveau disponible pour cette catégorie
 - else
   - @levels.each do |c|
+
     - if @advert.advert_prices.map(&:level_id).include?(c.id)
-      .row
-        .checkbox_left
-          = check_box_tag 'levels_chosen[]', c.id, 'checked', class: 'price_box'
+      - a = @advert.advert_prices.find_by(level_id: c.id)
+      .row.level-row
+        .col-sm-8
+          = hidden_field_tag "advert[advert_prices_attributes][][id]", a.id
+          = hidden_field_tag "advert[advert_prices_attributes][][_destroy]", false, id: "destroy_#{c.id}"
+          = check_box_tag "advert[advert_prices_attributes][][level_id]", c.id, 'checked', class: 'price_box'
           = label_tag c[I18n.locale[0..3]]
-        .input_right.pull-right
-          = number_field_tag 'prices[]', nil, :id => c.id, min: 0, disabled: false, value: @advert.advert_prices.detect{|lp| lp.level_id == c.id}.price
+        .col-sm-4
+          = number_field_tag "advert[advert_prices_attributes][][price]", nil, id: c.id, min: 0, disabled: false, value: @advert.advert_prices.detect{|lp| lp.level_id == c.id}.price, class: 'form-control'
     - else
-      .row
-        .checkbox_left
-          = check_box_tag 'levels_chosen[]', c.id, nil, class: 'price_box'
+      .row.level-row
+        .col-sm-8
+          = check_box_tag 'advert[advert_prices_attributes][][level_id]', c.id, nil, class: 'price_box'
           = label_tag c[I18n.locale[0..3]]
-        .input_right.pull-right
-          = number_field_tag 'prices[]', nil, :id => c.id, min: 0, disabled: true, :placeholder => "tarif..."
+        .col-sm-4
+          = number_field_tag 'advert[advert_prices_attributes][][price]', nil, id: c.id, min: 0, disabled: true, placeholder: "...€/h", class: 'form-control'
 
 :javascript
   $('.price_box').on('click', function () {
@@ -28,11 +30,13 @@
       $('#'+a+'').attr({
         'required': 'required'
       });
+      $('#destroy_'+a).val(false);
     }
     else {
       $('#'+a+'').attr({
         'disabled': 'disabled'
       });
       $('#'+a+'').removeAttr('required');
+      $('#destroy_'+a).val(true);
     }
   });

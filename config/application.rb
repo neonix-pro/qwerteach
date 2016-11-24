@@ -11,6 +11,7 @@ module Qwerteach
     I18n.available_locales = [:en, :fr, :be, :ch]
     I18n.default_locale = :fr
     config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/jobs)
     config.time_zone = 'Brussels'
     config.active_record.default_timezone = :local
     # Settings in config/environments/* take precedence over those specified here.

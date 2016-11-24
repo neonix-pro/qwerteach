@@ -1,44 +1,45 @@
-= form_for advert, :html => {:class => 'form-horizontal'}, remote:true do |f|
-  .left
-    .field.topic_choice
-      = hidden_field_tag :topic_id, @advert.topic.id
-    - if @advert.topic.title == "Other"
-      .field.other_name
-        %h2 Intitutlé
-        = f.label :other_name
-        = f.text_field :other_name, :required => true
-    .field.description
-      %h2 Description
-      = f.text_area :description, :placeholder => "Description ..."
-  .right
-    %h2 Prix
+-#= form_for advert, :html => {:class => 'form-horizontal'}, remote:true do |f|
+-#  .row
+-#    .col-sm-1
+-#    .col-sm-5
+-#      .form-group
+-#        = hidden_field_tag :topic_id, @advert.topic.id
+-#        = f.text_area :description, placeholder: "Description ...", class: 'form-control', rows: 16
+-#    .col-sm-5
+-#      = f.fields_for :advert_prices do |ff|
+-#        .row.level-row
+-#          .col-sm-6
+-#            = ff.label ff.object.level.be
+-#          .col-sm-4
+-#            = ff.number_field :price, min: 0, required: true, class: 'form-control'
+-#          .col-sm-2
+-#            = link_to advert_advert_price_path(f.object, ff.object), method: :delete, remote: true, class: "btn please-wait delete_level" do
+-#              %i.fa.fa-trash-o.text-grey
+-#      .row
+-#        .actions
+-#          %button#addlevel ajouter un niveau
+-#      .actions
+-#        = f.submit 'Enregistrer', class: 'btn btn-primary  btn-mini'
+-#        = link_to 'Supprimer', advert_path(@advert), method: :delete, class: 'text-grey'
+-#
+-##additional-levels.hidden
+-#  = form_for @advert_price, url: advert_advert_prices_path(@advert), method: :post, remote: true do |f|
+-#    .form-group
+-#      = f.select(:level_id, @levels.map{|l| [l[I18n.locale[0..3]], l.id]}, {}, {class: 'form-control'})
+-#    .form-group
+-#      = f.number_field :price, min: 0, required: true, class: 'form-control'
+-#    .actions
+-#      = f.submit('ajouter', class: 'please-wait')
+-#
+-#:javascript
+-#  $('#addlevel').click(function(e){
+-#    e.preventDefault();
+-#    //add form field
+-#    $('#additional-levels').removeClass('hidden');
+-#  });
+-#
+-#  $('.please-wait').click(function(e){
+-#    $(this).html('<i class="fa fa-spin fa-spinner"></i>');
+-#  });
 
-    = f.fields_for :advert_prices do |ff|
-      %div
-        = ff.label ff.object.level.be
-        = ff.number_field :price, min: 0, required: true
-        = link_to("Remove", advert_advert_price_path(f.object, ff.object), method: :delete, remote: true, class: "btn btn-mini please-wait delete_level")
-    %button#addlevel ajouter un niveau
-
-    .form-actions
-      = f.submit nil, class: 'btn btn-primary  btn-mini'
-      = link_to 'Supprimer', advert_path(@advert), method: :delete, class: 'btn btn-mini'
-      = link_to t('.cancel', default: t("helpers.links.cancel")),
-        adverts_path(@adverts), class: 'btn btn-mini'
-#additional-levels.hidden
-  = form_for @advert_price, url: advert_advert_prices_path(@advert), method: :post, remote: true do |f|
-    = f.select :level_id, @levels.map{|l| [l[I18n.locale[0..3]], l.id]}
-    = f.number_field :price, min: 0, required: true
-    = f.submit('ajouter', class: 'please-wait')
-
-
-:javascript
-  $('#addlevel').click(function(e){
-    e.preventDefault();
-    //add form field
-    $('#additional-levels').removeClass('hidden');
-  });
-
-  $('.please-wait').click(function(e){
-    $(this).html('<i class="fa fa-spin fa-spinner"></i>');
-  });
+=render partial: 'form', locals:{advert: advert, remote:false}

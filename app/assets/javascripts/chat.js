@@ -179,7 +179,6 @@ var ready = function () {
                     $('#conversation_form_' + conversation_id).submit();
                     $(chatboxtextarea).val('');
                     $(chatboxtextarea).focus();
-                    $(chatboxtextarea).css('height', '44px');
                 }
             }
             else {

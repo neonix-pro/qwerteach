@@ -24,8 +24,6 @@ class PayPostpaymentsController < ApplicationController
             t = [c.translations['fr'], c.alpha2]
             @list.push(t)
           end
-          @user.load_mango_infos
-          @user.load_bank_accounts
           render 'wallets/_mangopay_form' and return
         end
       when :bancontact
@@ -36,8 +34,6 @@ class PayPostpaymentsController < ApplicationController
             t = [c.translations['fr'], c.alpha2]
             @list.push(t)
           end
-          @user.load_mango_infos
-          @user.load_bank_accounts
           render 'wallets/_mangopay_form' and return
         end
       when :cd
@@ -49,11 +45,8 @@ class PayPostpaymentsController < ApplicationController
             t = [c.translations['fr'], c.alpha2]
             @list.push(t)
           end
-          @user.load_mango_infos
-          @user.load_bank_accounts
           render 'wallets/_mangopay_form' and return
         end
-        @user.load_mango_infos
         @wallet = MangoPay::User.wallets(@user.mango_id).first
         cards = MangoPay::User.cards(@user.mango_id, {'sort' => 'CreationDate:desc', 'per_page' => 100})
         @cards = []
@@ -128,8 +121,6 @@ class PayPostpaymentsController < ApplicationController
               t = [c.translations['fr'], c.alpha2]
               @list.push(t)
             end
-            @user.load_mango_infos
-            @user.load_bank_accounts
             render 'wallets/_mangopay_form' and return
           when 3
             flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
@@ -163,8 +154,6 @@ class PayPostpaymentsController < ApplicationController
               t = [c.translations['fr'], c.alpha2]
               @list.push(t)
             end
-            @user.load_mango_infos
-            @user.load_bank_accounts
             render 'wallets/_mangopay_form' and return
           when 3
             flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
@@ -219,8 +208,6 @@ class PayPostpaymentsController < ApplicationController
               t = [c.translations['fr'], c.alpha2]
               @list.push(t)
             end
-            @user.load_mango_infos
-            @user.load_bank_accounts
             render 'wallets/_mangopay_form' and return
           when 3
             flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
