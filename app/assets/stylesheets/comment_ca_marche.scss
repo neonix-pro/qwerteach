@@ -1,35 +1,12 @@
 @import "global_variables";
 
 .section_video{
-    height: 550px;
     .left{
         float: left;
         width: 33.3333333%;
         background: $color_qwerteach_yellow;
         color: $color_qwerteach_darkgrey;
         height: 100%;
-        h2{
-            font-size: 38px;
-            display: block;
-            margin-left: 35px;
-            margin-top: 50px;
-            width: 50%;
-            color: $color_qwerteach_pink;
-            font-weight: bold;
-        }
-        hr{
-            width: 35%;
-            text-align: left;
-            border: 1.5px solid $color_qwerteach_darkgrey;
-            margin-left: 35px;
-        }
-        p{
-            text-align: left;
-            display: block;
-            margin-left: 35px;
-            width: 60%;
-            font-size: 18px;
-        }
     }
     .right{
         float: left;
@@ -42,10 +19,42 @@
         }
     }
 }
+.section_test_classe, .section_video {
+  height:550px;
+  width: 100%;
+  h2 {
+    font-size: 38px;
+    display: block;
+    margin-left: 35px;
+    margin-top: 70px;
+    width: 60%;
+    font-family: SofiaProBold;
+    line-height: 42px;
+    margin-bottom: 100px;
+  }
+  hr {
+    width: 50%;
+    text-align: left;
+    border: 1.5px solid $color_qwerteach_darkgrey;
+    margin-left: 35px;
+    margin-bottom: 40px;
+  }
+  p{
+    text-align: left;
+    display: block;
+    margin-left: 35px;
+    width: 60%;
+    font-size: 18px;
+    line-height:20px;
+    font-family: SofiaProLight;
+    a{
+      color:inherit!important;
+      font-family: SofiaProLight;
+    }
+  }
+}
 
 .section_test_classe{
-    height: 500px;
-    width: 100%;
     .left{
         float: left;
         height: 100%;
@@ -61,28 +70,6 @@
         background: $color_qwerteach_green;
         height: 100%;
         width: 33.3333%;
-        h2{
-            font-size: 42px;
-            display: block;
-            margin-left: 35px;
-            margin-top: 50px;
-            width: 80%;
-            color: $color_qwerteach_purple;
-            font-weight: bold;
-        }
-        hr{
-            width: 50%;
-            text-align: left;
-            border: 1.5px solid $color_qwerteach_darkgrey;
-            margin-left: 35px;
-        }
-        p{
-            text-align: left;
-            display: block;
-            margin-left: 35px;
-            width: 80%;
-            font-size: 18px;
-        }
     }
 }
 
