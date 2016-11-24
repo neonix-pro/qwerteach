@@ -253,8 +253,7 @@
 
 
 .section_commentaire{
-    width: 100%;   
-    background: $color_qwerteach_purple;
+    width: 100%;
     color: #fff;
     position: relative;
     .left{
@@ -264,11 +263,14 @@
     .right{
         float: left;
         width: 33.33333%;
+        background: $color_qwerteach_purple;
+        height:100%;
     }
     .bigimage{
         background: url(image_path("bg_testimonials.png"));
         background-size: cover;
         background-position: center center;
+        height:100%;
     }
     h4{
       font-family: SofiaProLight;
@@ -278,6 +280,7 @@
         width: 80%;
         margin-top: 45px;
         margin-left: 15px;
+      line-height:42px;
     }
     .commentaires{
         position: absolute;

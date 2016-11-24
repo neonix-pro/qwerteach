@@ -4,3 +4,16 @@
   = render 'pages/comment_ca_marche/section_etapes'
   = render 'pages/comment_ca_marche/section_comment_prendre_cours'
   = render 'pages/comment_ca_marche/section_comment_donner_cours'
+  = render 'pages/comment_ca_marche/section_faq'
+
+:javascript
+  $('.arrow-give-lesson').click(function(){
+    $('#take-lesson').slideToggle();
+    $(this).fadeOut();
+    $('.arrow-take-lesson').fadeIn();
+  });
+  $('.arrow-take-lesson').click(function(){
+    $('#give-lesson').slideToggle();
+    $(this).fadeOut();
+    $('.arrow-give-lesson').fadeIn();
+  });
