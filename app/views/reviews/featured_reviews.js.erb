@@ -1,0 +1,14 @@
+$('.commentaire:first-child').animate({width: 0}, function(){
+  $(this).remove();
+  $('.commentaire:last').css({position:'relative', right:0, zIndex:1});
+  $('#more-comments').css({position:'relative'});
+});
+var w = $('.commentaire').width();
+$('#more-comments').css({position:'absolute', right:0});
+$('<%= j render partial: 'pages/accueil/featured_review', locals: {review: @reviews.last}%>').insertBefore('#more-comments')
+    .css({position:'absolute', right:'4%', Zindex:0, width:'32%'});
+var path = '<%= j featured_reviews_path({n: @n.to_i, offset: @offset.to_i+@n.to_i })%>';
+$('#more-comments a').attr('href', path);
+
+
+
