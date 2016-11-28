@@ -6,7 +6,7 @@
       %hr
       %p
       %h5 La communauté Qwerteach offre un large choix de professeurs motivés et compétents. Tous nos professeurs sont interviewés individuellement, évalués puis validés par notre équipe.
-      %a.text-orange{:href => ""} Plus d'info
+      =link_to "Plus d'info", pages_path('comment-ca-marche'), class:'text-orange'
   .col-sm-6.col-md-4.thumbnails
     .caption
       = image_tag("acceuil/horloge.png", :class => "image_presse img-responsive")
@@ -14,7 +14,7 @@
       %hr
       %p
       %h5 Opter pour des cours en ligne permet de module plus aisément les heures de cours, de s'adapter ç l'emloi du temps de l'élève et de respecter son rythme de travail.
-      %a.text-pink{:href => ""} Plus d'info
+      =link_to "Plus d'info", pages_path('comment-ca-marche'), class:'text-pink'
   .col-sm-6.col-md-4.thumbnails
     .caption
       = image_tag("acceuil/K7.png", :class => "image_presse img-responsive")
@@ -22,4 +22,4 @@
       %hr
       %p
       %h5 Afin de favoriser la concentration sur les explications du professeur plutôt que sur la prise de note, chaque leçon est enregistrée et accesisslbe par la suite
-      %a.text-green{:href => ""} Plus d'info
+      =link_to "Plus d'info", pages_path('comment-ca-marche'), class:'text-green'

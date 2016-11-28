@@ -1,6 +1,5 @@
-
 class PagesController < ApplicationController
-	autocomplete :topic, :title, :full => true
+
 	def show
 		render template: "pages/#{params[:page]}"
 	end

@@ -1,5 +1,5 @@
 .section_recherche
-  = form_tag profs_path, method: :post, id: 'search-form', remote: false do
+  = form_tag profs_path, method: :post, id: 'search-form', remote: false do |f|
     .search-decoration
       .star
         %i.fa.fa-star.text-green
@@ -7,7 +7,7 @@
         %i.fa.fa-calendar.text-green
     %button{type: "submit"}
       %i.fa.fa-search
-    = autocomplete_field_tag 'topic', '', autocomplete_topic_title_pages_path, :size => 75, :class => "recherche-bar"
+    = autocomplete_field_tag 'topic', '', autocomplete_topic_title_topics_path, :size => 75, :class => "recherche-bar"
     -#= text_field_tag("topic", params[:topic], id: 'search-topic-field', placeholder: "Dans quelle matière cherchez-vous un cours?")
 
 
