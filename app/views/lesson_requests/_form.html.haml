@@ -1,51 +1,65 @@
-= form_for @lesson_request, as: :request, url: user_lesson_requests_path(@teacher), method: :post, remote: true, html: {class: 'request-lession-form'} do |f|
-  = hidden_field_tag 'lesson[teacher_id]', @teacher.id
-  = render 'shared/errors', object: f.object
-  .form-group
-    - if @teacher.first_lesson_free == true && @free_lessons.empty?
-      = f.check_box :free_lesson, class: 'firstLessonFree', id: 'free_lesson'
-      = f.label :free_lesson, "Cours d'essai gratuit 30mn", for: 'free_lesson'
-      %br
-
-  .form-group
-    = f.label :time_start
-    #datetimepicker.input-group.date
-      = f.text_field :time_start, class: 'form-control', :required => true
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-
-  .form-group
-    = label_tag :time, 'Durée', class: 'control-label'
-    .row
-      .col-xs-3= select_hour f.object.hours, {prefix: :request, field_name: :hours, start_hour: 0, :end_hour => 5}, {class: 'form-control hours-select', required: true}
-      .col-xs-3= select_minute f.object.minutes, {prefix: :request, field_name: :minutes, minute_step: 15}, {class: 'form-control minutes-select', required: true}
-
-  .form-group
-    = f.label :topic_group_id
-    - options = @teacher.adverts.map(&:topic).map(&:topic_group).uniq.compact.map{|tg| [tg.title, tg.id]}
-    = f.select :topic_group_id, options, {prompt: '-- sélecitonnez un niveau --'}, {class: 'form-control topic-group-select'}
-
-  .form-group
-    = f.label :topic_id
-    - if f.object.topic_group_id.present?
-      - options = @teacher.adverts.map(&:topic).select{|t| t.topic_group_id == f.object.topic_group_id}.uniq.compact.map{|tg| [tg.title, tg.id]}
-    - else
-      - options = []
-    = f.select :topic_id, options, {prompt: '-- sélecitonnez un niveau --'}, {class: 'form-control topic-select'}
-
-  .form-group
-    = f.label :level_id
-    - if f.object.topic_id.present?
-      - options = @teacher.adverts.includes(advert_prices: :level).where(topic_id: f.object.topic_id).uniq.pluck('levels.fr', 'levels.id')
-    - else
-      - options = []
-    = f.select :level_id, options, {prompt: '-- sélecitonnez un niveau --'}, {class: 'form-control level-select'}
-
-  .form-actions
-    %h4
-      %span#price_shown= f.object.try(:calculate_price) || 0
-      €
-    = submit_tag :enregistrer, :class => 'btn btn-primary btn-mini'
+.row
+  .col-sm-6
+    = form_for @lesson_request, as: :request, url: user_lesson_requests_path(@teacher), method: :post, remote: true, html: {class: 'request-lession-form'} do |f|
+      = hidden_field_tag 'lesson[teacher_id]', @teacher.id
+      %h3#step1-title.change-booking-step{data:{toggle:'#step1'}} A propos du cours
+      = render 'shared/errors', object: f.object
+      #step1.booking-step
+        .form-group
+          = f.label :topic_id, 'Choisissez une matière'
+          - options = @teacher.adverts.map(&:topic).uniq.compact.map{|t| [t.title, t.id]}
+          = f.select :topic_id, options, {prompt: 'matière'}, {class: 'form-control topic-select'}
+        .form-group
+          = f.label :level_id, 'Choisissez le niveau'
+          - if f.object.topic_id.present?
+            - options = @teacher.adverts.includes(advert_prices: :level).where(topic_id: f.object.topic_id).uniq.pluck('levels.fr', 'levels.id')
+          - else
+            - options = []
+          = f.select :level_id, options, {prompt: 'niveau'}, {class: 'form-control level-select'}
+        - if @teacher.first_lesson_free == true && @free_lessons.empty?
+          .form-group
+            = f.check_box :free_lesson, class: 'firstLessonFree', id: 'free_lesson'
+            = f.label :free_lesson, "Cours d'essai gratuit (1/2h)", for: 'free_lesson'
+        .form-group
+          = label_tag :time, 'Durée', class: 'control-label'
+          .row
+            .col-xs-3= select_hour f.object.hours, {prefix: :request, field_name: :hours, start_hour: 0, :end_hour => 5}, {class: 'form-control hours-select', required: true}
+            .col-xs-3= select_minute f.object.minutes, {prefix: :request, field_name: :minutes, minute_step: 15}, {class: 'form-control minutes-select', required: true}
+        .form-group
+          = f.label :comment, 'Un détail à préciser à votre prof?'
+          = f.text_area :comment, class:'form-control', rows: "3", placeholder: "Ex: j'ai des difficultés avec la trigonométrie et les vecteurs."
+        .actions
+          %button.btn.btn-qw.btn-green.change-booking-step{type: 'button', data:{toggle:'#step2'}} Valider
+      %h3#step2-title.change-booking-step{data:{toggle:'#step2'}} Date et heure
+      #step2.booking-step
+        .form-group
+          = f.label :time_start, "Choisissez le jour et l'heure de votre cours"
+          #datetimepicker.input-group.date
+            = f.text_field :time_start, class: 'form-control', :required => true
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+        .actions
+          %button.btn.btn-qw.btn-green.change-booking-step{type: 'submit', data:{toggle:'#step3'}} Valider
+    %h3#step3-title Paiement
+    #step3.booking-step
 
 
+  -#.form-actions
+  -#  %h4
+  -#    %span#price_shown= f.object.try(:calculate_price) || 0
+  -#    €
+  -#  = submit_tag :enregistrer, :class => 'btn btn-primary btn-mini'
 
+:javascript
+  $(document).ready(function(){
+    $('#step1').addClass('active');
+    $('.change-booking-step').click(function(){
+      $('.booking-step').hide().removeClass('active');
+      $($(this).attr('data-toggle')).slideToggle(function(){
+        $(this).addClass('active');
+      });
+    });
+    $('form#new_request').on('submit', function(){
+    $('#step3').html('<div class="text-center"><i class="fa fa-spin fa-3x fa-spinner text-green"></i></div>');
+    });
+  })

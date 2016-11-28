@@ -1,0 +1,11 @@
+#lesson-details{
+  .booking-step{
+    display:none;
+  }
+  .booking-step.active{
+    display:block;
+  }
+  .change-booking-step{
+    cursor: pointer;
+  }
+}

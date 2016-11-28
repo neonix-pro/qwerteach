@@ -2,13 +2,14 @@ class CreateLessonRequest < ActiveInteraction::Base
   
   integer :teacher_id
   integer :student_id
-  time :time_start
+  date :time_start
   integer :hours
   integer :minutes, default: 0
   integer :topic_id
   integer :level_id
   boolean :free_lesson, default: false
   attr_reader :price
+  string :comment, default: nil
 
   validates :teacher_id, :student_id, :topic_id, :level_id, :time_start, presence: true
 
@@ -54,7 +55,7 @@ class CreateLessonRequest < ActiveInteraction::Base
   end
 
   def lesson_params
-    inputs.slice(:teacher_id, :student_id, :time_start, :topic_id, :level_id, :free_lession).merge({
+    inputs.slice(:teacher_id, :student_id, :topic_id, :level_id, :free_lession, :time_start).merge({
       time_end: time_end,
       price: price,
       topic_group_id: Topic.find_by(id: topic_id).try(:topic_group_id)

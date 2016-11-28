@@ -48,7 +48,7 @@ class Lesson < ActiveRecord::Base
   validates :time_start, presence: true
   #validates_datetime :time_start, :on_or_after => lambda { DateTime.current }
   validates :time_end, presence: true
-  #validates_datetime :time_end, :after => :time_start
+  validates_datetime :time_end, :after => :time_start
   validates :topic_group_id, presence: true
   validates :level_id, presence: true
   validates :price, presence: true
