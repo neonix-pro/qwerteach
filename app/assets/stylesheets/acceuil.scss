@@ -1,43 +1,44 @@
 @import "global_variables";
 .boutton{
-    display: block;
-    background: $color_qwerteach_purple;
-    border-radius: 25px;
-    font-size: 18px;
-    text-align: center;
-    width: 200px;
-    padding: 10px 20px;
-    margin-top: 70px;
+  display: block;
+  background: $color_qwerteach_purple;
+  border-radius: 25px;
+  font-size: 18px;
+  text-align: center;
+  width: 200px;
+  padding: 10px 20px;
+  margin-top: 70px;
 }
 
 .section_bigimage{
-    background-size: cover;
-    background-position: center center;
-    text-align: center;  
-    width: 100%;   
-    .open_mode_emploi{
-        font-size: 16px;
-    }
-    .title{
-      padding-top: 10%;
-      padding-left:110px;
-      text-align:left;
-      font-family: SofiaProLight;
-        h1,h2{
-          color: #fff;
-          margin:0;
-        }
-        h2{
-            font-size: 24px;
-        }
-        h1{
-            font-size: 42px;
+  background-size: cover;
+  background-position: center center;
+  text-align: center;
+  width: 100%;
+  .open_mode_emploi{
+    font-size: 16px;
+  }
+  .title{
+    padding-top: 10%;
+    padding-left:110px;
+    text-align:left;
+    font-family: SofiaProBold;
 
-        }
+    h1,h2{
+      color: #fff;
+      margin:0;
     }
+    h2{
+      font-size: 24px;
+    }
+    h1{
+      font-size: 42px;
+      line-height:42px;
+    }
+  }
 }
 .mode_emploi{
-  margin: 70px auto auto auto;
+  margin: 150px auto auto auto;
   width: 100%;
   text-align:center;
   a{
@@ -49,7 +50,7 @@
     color: $color_qwerteach_green;
     font-size: 16px;
     cursor: pointer;
-    font-family:SofiaProExtraLight;
+    font-family:SofiaProRegular;
   }
   a:hover{
     background: #414141;
@@ -100,7 +101,7 @@
 .section_carrousel{
   width: 100%;
   .slide{
-      background: $color_qwerteach_green;
+    background: $color_qwerteach_green;
   }
   .btn.btn-qw{
     width:210px;
@@ -169,183 +170,178 @@
 
 
 .section_commentmarche{
-    width: 100%;   
-    background: $color_qwerteach_navgrey;
-    height: 600px;
-    width: 100%;
-    display: none;
-    padding: 0;
-    padding-top: 50px;
-    margin-top: -50px;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    #ccm_guitar{
-        padding: 0 !important;
+  padding-top:30px;
+  width: 100%;
+  background: $color_qwerteach_navgrey;
+  display: none;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  vertical-align:middle;
+  #ccm_guitar{
+    padding: 0 !important;
+    height:100%;
+    position:relative;
+    img{
+      width:100%;
     }
-    .left{
-        position: relative;
-        img{
-            margin-top: 43px;
-        }
-        h3{
-            position: absolute;
-            left: 135px;
-            top: 35px;
-            color: $color_qwerteach_green;
-            width: 70px;
-            font-size: 32px;
-            font-weight: bold;
-        }
+    h3{
+      position: absolute;
+      left: 135px;
+      top: 35px;
+      color: $color_qwerteach_green;
+      font-size: 38px;
+      line-height:42px;
+      font-family: SofiaProBold;
     }
-    .point{
-        position: relative;
-        text-align: left;
-        margin-left: -125px;
-        span{
-            font-size: 32px;
-            color: $color_qwerteach_green;
-        }
-        h4{
-            font-size: 24px;
-            color: block;
-            display: inline-block;
-            color: #fff;
-            margin-left: 15px;
-        }
+  }
+  .point{
+    position:absolute;
+    text-align: left;
+    margin-left: 25px;
+    span{
+      font-size: 32px;
+      color: $color_qwerteach_green;
     }
-    .point1{
-        top: 40px;
+    h4{
+      font-size: 24px;
+      display: inline-block;
+      color: #fff;
+      margin-left: 15px;
     }
-    .point2{
-        top: 115px;
-    }
-    .point3{
-        top: 185px;
-    }
-    .plus_infos{
-        color: #fff;
-        background: $color_qwerteach_pink;
-        position: relative;
-        top: 150px;
-        display: block;
-        border-radius: 15px;
-        color: #fff;
-        font-size: 14px;
-        text-align: center;
-        width: 200px;
-        padding: 10px 20px;
-        margin-top: 100px;
-    }
-    .quit{
-        color: #fff;
-        position: absolute;
-        top: 40px;
-        right: 25px;
-        font-size: 32px;
-        cursor: pointer;
-    }
-    .quit:hover{
-        transform: rotate(360deg);
-        transition-duration: 0.5s;
-    }
+  }
+  .quit{
+    color: #fff;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 32px;
+    cursor: pointer;
+    transform-origin: 50% 50%;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+  }
+  .quit:hover{
+    transform: rotate(90deg);
+    transition-duration: 0.2s;
+  }
+  #guitar-more-info{
+    position:absolute;
+    top: 450px;
+    left: 40px;
+  }
+  #guitar-more-info:hover{
+    color:white;
+    background-color:$color_qwerteach_pink;
+    border: 1px solid $color_qwerteach_pink;
+  }
 }
 
 
 .section_commentaire{
-    width: 100%;   
+  width: 100%;
+  color: #fff;
+  position: relative;
+  .left{
+    float: left;
+    width: 66.66666%;
+  }
+  .right{
+    float: left;
+    width: 33.33333%;
     background: $color_qwerteach_purple;
-    color: #fff;
-    position: relative;
-    .left{
-        float: left;
-        width: 66.66666%;
-    }
-    .right{
-        float: left;
-        width: 33.33333%;
-    }
-    .bigimage{
-        background: url(image_path("bg_testimonials.png"));
-        background-size: cover;
-        background-position: center center;
-    }
-    h4{
-      font-family: SofiaProLight;
-        font-size: 38px;
-        padding: 25px 50px;
-        text-align: left;
-        width: 80%;
-        margin-top: 45px;
-        margin-left: 15px;
-    }
-    .commentaires{
+    height:100%;
+  }
+  .bigimage{
+    background: url(image_path("bg_testimonials.png"));
+    background-size: cover;
+    background-position: center center;
+    height:100%;
+  }
+  h4{
+    font-family: SofiaProLight;
+    font-size: 38px;
+    padding: 25px 50px;
+    text-align: left;
+    width: 80%;
+    margin-top: 45px;
+    margin-left: 15px;
+    line-height:42px;
+  }
+  .commentaires{
+    position: absolute;
+    height: 150px;
+    width: 100%;
+    bottom: 0;
+    display: block;
+    background: #fff;
+    text-align: left;
+    box-shadow: 0px 5px 5px grey;
+    .commentaire{
+      float: left;
+      width: 32%;
+      height: 150px;
+      margin-left: 0px;
+      position: relative;
+      background-color:white;
+      .triangle{
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 15px solid #fff;
         position: absolute;
-        height: 150px;
-        width: 100%;
-        bottom: 0;
-        display: block;
-        background: #fff;
+        left: 50%;
+        top: -15px;
+      }
+      p{
+        color: $color_qwerteach_darkgrey;
+        padding: 25px 50px 10px 50px;
         text-align: left;
-        box-shadow: 0px 5px 5px grey;
-        .commentaire{
-            border-right: 1px solid $color_qwerteach_green;
-            float: left;
-            width: 32%;
-            height: 150px;
-            margin-left: -1px;
-            position: relative;
-            .triangle{
-                width: 0; 
-                height: 0; 
-                border-left: 15px solid transparent;
-                border-right: 15px solid transparent;
-                border-bottom: 15px solid #fff;
-                position: absolute;
-                left: 50%;
-                top: -15px;
-            }
-            p{
-                color: $color_qwerteach_darkgrey;
-                padding: 25px 50px 10px 50px;
-                text-align: left;
-                margin: auto;
-                font-size: 14px;
-                line-height: 21px;
-            }
-            .avatar{
-                width: 45px;
-                border-radius: 50%;
-                margin-left: 50px;
-            }
-            .avatar_name{
-                display: inline;
-                text-align: left;
-                padding: 15px 25px;
-            }
-        }
-        .plus{
-            width: 4.199999%;
-            height: 150px;
-            background: $color_qwerteach_green;
-            display: inline-table;
-            color: #fff;
-            float: left;
-            margin-left: -1px;
-            div{
-                display: table-cell;
-                vertical-align: middle;
-                text-align: center;
-                width: 100%;
-                height: 150px;
-                a{
-                    color: #fff;
-                    font-size: 38px;
-                    margin: 0;
-                    padding: 0;
-                }
-            }
-        }
+        margin: auto;
+        font-size: 14px;
+        line-height: 21px;
+      }
+      .avatar{
+        width: 45px;
+        border-radius: 50%;
+        margin-left: 50px;
+      }
+      .avatar_name{
+        display: inline;
+        text-align: left;
+        padding: 15px 25px;
+      }
+      .wrapper{
+        height:100%;
+        overflow:hidden;
+        border-right: 1px solid $color_qwerteach_green;
+      }
     }
+    .plus{
+      width: 4%;
+      height: 150px;
+      background: $color_qwerteach_green;
+      display: inline-table;
+      color: #fff;
+      float: left;
+      margin-left: -1px;
+      div{
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        width: 100%;
+        height: 150px;
+        a{
+          color: #fff;
+          font-size: 38px;
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
 }
 
 
@@ -407,9 +403,9 @@
   text-align: left;
   position: relative;
   .inside{
-  position: absolute;
-  left: 0;
-  top: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
     width:100%;
     .title{
       background: $color_qwerteach_yellow;
@@ -459,51 +455,51 @@
 }
 
 .section_presse{
-    width: 100%;   
-    clear: both;
-    h3{
-        margin-top: 50px;
-        margin-bottom: 35px;
-        font-size: 38px;
-        text-align: center;
-    }
-    .presse_link{
-        margin-bottom: 50px;
-    }
+  width: 100%;
+  clear: both;
+  h3{
+    margin-top: 50px;
+    margin-bottom: 35px;
+    font-size: 38px;
+    text-align: center;
+  }
+  .presse_link{
+    margin-bottom: 50px;
+  }
 }
 
 .section_choix{
-    width: 100%;   
-    background: $color_qwerteach_yellow;
-    height: 150px;
-    .matiere{
-        float: left;
-        width: 12.5%;
-        text-align: center;
-        position: relative;
-        height: 100%;
-        cursor: pointer;
-        img{
-            margin: 10px auto auto auto;
-            height: 40px;
-            margin-top: 40px;
-        }
-        h3{
-            margin: auto;
-            color: $color_qwerteach_purple;
-            font-size: 14px;
-            margin-top: 10px;
-        }
+  width: 100%;
+  background: $color_qwerteach_yellow;
+  height: 150px;
+  .matiere{
+    float: left;
+    width: 12.5%;
+    text-align: center;
+    position: relative;
+    height: 100%;
+    cursor: pointer;
+    img{
+      margin: 10px auto auto auto;
+      height: 40px;
+      margin-top: 40px;
     }
-    .matiere:hover{
-        background: #fef46e;
+    h3{
+      margin: auto;
+      color: $color_qwerteach_purple;
+      font-size: 14px;
+      margin-top: 10px;
     }
-    .tous{
-        width: 25%;
-        text-align: center;
-        float: left;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+  }
+  .matiere:hover{
+    background: #fef46e;
+  }
+  .tous{
+    width: 25%;
+    text-align: center;
+    float: left;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }

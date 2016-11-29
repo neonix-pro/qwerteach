@@ -9,7 +9,7 @@ $(window).ready(function(e){
     //toggle CCM 
     
     $(".toggleCCM").click(function(){
-        $(".section_commentmarche").toggle("slow");
+        $(".section_commentmarche").slideToggle("slow");
     })
     
     //largeur de la abr de recherche 
@@ -41,4 +41,9 @@ $(window).ready(function(e){
         $('.section_profs #prof11').css({top:6*u, left:9*u, width: u*3, height: u*3});
         $('.section_profs').css({maxHeight: u*9});
     }
+
+    var guitarHeight = $(window).width() / 2 * 414/532;
+    $('.point1').css({top: guitarHeight * 1.5/100});
+    $('.point2').css({top: guitarHeight * 8/25});
+    $('.point3').css({top: guitarHeight * 31/50});
 })

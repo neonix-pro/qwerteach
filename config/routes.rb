@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   end
 
   get 'dashboard' => 'dashboards#index', :as => 'dashboard'
+  get 'featured_reviews' => 'reviews#featured_reviews'
 
   resources :users, :only => [:show] do
     resources :require_lesson
@@ -75,7 +76,9 @@ Rails.application.routes.draw do
   authenticated :user do
     root 'dashboards#index'
   end
-
+  resources :topics do
+    get :autocomplete_topic_title, :on => :collection
+  end
   match "/profs/" => "users#profs_by_topic", as: :profs, via: :post
   match "/profs/:topic" => "users#index", :as => :profs_by_topic, :via => [:get]
   get "/profs" => "users#index"
@@ -99,7 +102,7 @@ Rails.application.routes.draw do
 
   get "/pages/*page" => "pages#show"
   resources :pages do
-    get :autocomplete_topic_title, :on => :collection
+
   end
   get '/become_teacher/accueil' => "pages#devenir-prof"
   get '/index' => "pages#index"

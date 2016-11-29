@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user! unless :featured_reviews
   def index
     @user = User.find(params[:user_id])
     @reviews = @user.reviews_received
@@ -34,6 +34,15 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def featured_reviews
+    @n = params[:n]
+    @offset = params[:offset]
+    @reviews = Review.where('note >=  4 AND review_text IS NOT "" ').limit(@n).offset(@offset)
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
+  end
   private
   def review_params
     params.permit(:sender_id, :subject_id, :review_text, :note).merge(sender_id: current_user.id, subject_id: params[:user_id])
