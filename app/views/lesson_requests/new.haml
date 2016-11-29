@@ -5,7 +5,7 @@
 
 :javascript
   $(document).ready(function(){
-    $('#lesson-details').trigger('update');
+    //$('#lesson-details').trigger('update');
     new RequestLesson( $('#lesson-details'), {teacher_id: #{@teacher.id}} );
     $('#datetimepicker').datetimepicker({
       locale: moment.locale(),

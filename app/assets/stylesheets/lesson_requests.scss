@@ -1,3 +1,4 @@
+@import 'global_variables';
 #lesson-details{
   .booking-step{
     display:none;
@@ -8,4 +9,26 @@
   .change-booking-step{
     cursor: pointer;
   }
+  .payment_method{
+    display:none;
+    .actions{
+      margin: 25px 0px;
+      text-align:right;
+      input[type="submit"]{
+        color:white;
+        background-color: $color_qwerteach_green;
+        border-radius: 17px;
+        font-size: 14px;
+        padding: 6px 30px;
+        margin-left:10px;
+        border: 1px solid $color_qwerteach_green;
+        letter-spacing: 0.2px;
+        font-family: SofiaProLight;
+      }
+    }
+  }
+  .choose_payment_method.inactive{
+    opacity: 0.5;
+  }
 }
+
