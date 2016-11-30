@@ -38,4 +38,16 @@ $(document).ready(function(e){
       width = $(window).width();
       $(".100width").css("width", width);
     });
+
+    $('.toggler').click(function(e){
+        e.preventDefault();
+        $(this).toggleClass('active');
+        var t = $(this).attr('href');
+        if(t === false || typeof t === typeof undefined) {
+            t = $(this).attr('data-toggle');
+        }
+        $(t).slideToggle('slow', function(){
+            $(this).addClass('active');
+        });
+    });
 })

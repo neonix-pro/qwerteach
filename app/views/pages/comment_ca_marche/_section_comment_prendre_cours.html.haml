@@ -1,23 +1,47 @@
-.section_comment_prendre_cours
-    %h2 Comment prendre un cours
+.section_comment_prendre_donner_cours.comment_prendre
+  .section_title.take_lesson
+    %h2.text-left
+      Comment
+      %br prendre un cours ?
+      %a.toggler.arrow-take-lesson{data:{toggle: '#take-lesson'}}
+        %i.fa.fa-long-arrow-right
+    = image_tag('comment_ca_marche/take-lesson.png', class:'take-lesson')
+  .toggle-content.active#take-lesson
     .cont
-        .text
-            %h3 Choisir un prof
-            %p Qwerteach rassemble une communauté de professeurs compétents dans plusieurs matières et prêts à vous aider à tout moment.
-            %a.infos{:href => "#"} Plus d'infos
-        .icone
-            =image_tag("comment_ca_marche/loupe.png", :alt => "Qwerteach rassemble une communauté de professeurs compétents dans plusieurs matières et prêts à vous aider à tout moment.")
+      .icone
+        =image_tag("comment_ca_marche/loupe.png", :alt => "Qwerteach rassemble une communauté de professeurs compétents dans plusieurs matières et prêts à vous aider à tout moment.")
+      .text
+        %h3 Choisir un prof
+        %p Qwerteach rassemble une communauté de professeurs compétents dans plusieurs matières et prêts à vous aider à tout moment.
+        %a.toggler.infos{:href => "#choose-teacher"} Plus d'infos
+        %p#choose-teacher.toggle-content
+          Pour découvrir leur profil, saisissez une matière dans la barre de recherche et cliquez sur leur photo ou sur leur nom. De la sorte, vous accéderez à une description détaillée de leurs formations et de leurs centres d’intérêt. Grâce aux évaluations laissées par d’autres utilisateurs, vous avez une idée de leurs expériences passées sur Qwerteach. Nous avons également créé des filtres de recherche pour que vous puissiez affiner vos résultats par prix, par âge et par type de diplôme obtenu.
     .cont
-        .text
-            %h3 Réserver un cours
-            %p Expliquez les raisons pour lesquelles vous sollicitez l'aide d'un professeur. Par exemple en précisant les points de matière qui vous posent difficulté ou encore en présentant les consignes d'un examen d'entrée.
-            %a.infos{:href => "#"} Plus d'infos
-        .icone
-            =image_tag("comment_ca_marche/calendrier.png", :alt => "Expliquez les raisons pour lesquelles vous sollicitez l'aide d'un professeur. Par exemple en précisant les points de matière qui vous posent difficulté ou encore en présentant les consignes d'un examen d'entrée")
+      .icone
+        =image_tag("comment_ca_marche/calendrier.png", :alt => "Expliquez les raisons pour lesquelles vous sollicitez l'aide d'un professeur. Par exemple en précisant les points de matière qui vous posent difficulté ou encore en présentant les consignes d'un examen d'entrée")
+      .text
+        %h3 Réserver un cours
+        %p Expliquez les raisons pour lesquelles vous sollicitez l'aide d'un professeur. Par exemple en précisant les points de matière qui vous posent difficulté ou encore en présentant les consignes d'un examen d'entrée.
+        %a.infos.toggler{:href => "#make-booking"} Plus d'infos
+        .toggle-content#make-booking
+          %p Une fois que vous avez choisi votre professeur, vous pouvez directement réserver un cours en ligne en cliquant sur le bouton Réserver un cours. Dans la boîte de dialogue, spécifiez chaque détail du cours que vous souhaitez recevoir (la matière, la durée, votre niveau) et choisissez à votre convenance un jour et une heure de rendez-vous. Une fois votre demande de cours envoyée, votre professeur aura 24h pour l’accepter ou pour vous proposer de nouvelles dates. Lorsqu’un professeur vous répond, nous vous envoyons un e-mail et/ou un sms pour vous le faire savoir.
+          %p Au moment de réserver votre cours en ligne, vous pouvez expliquer plus en détails les raisons pour lesquelles vous sollicitez l’aide d’un professeur. Par exemple, en précisant les points de matière qui vous posent difficulté ou encore en présentant les consignes d’un examen d’entrée. Ces informations aideront votre professeur à évaluer le degré de complexité de votre demande. Si lui-même ne s’estime pas suffisamment compétent, il vous redirigera vers un membre de notre équipe. Le cas échéant, nous vous recommanderons la ou les personnes adéquates.
+          %h3 Paiement et confirmation
+          %p Sur Qwerteach, nous demandons à chaque élève de payer au moment de réserver ses cours en ligne. Deux modes de paiements sont possibles : par carte de crédit ou au moyen d’un Portefeuille Virtuel. Quel que soit le mode de paiement utilisé, votre compte ne sera débité qu’une fois votre demande de cours acceptée. En cas d’annulation plus de 48 heures avant le début de votre cours en ligne, nous vous remboursons automatiquement.
+          %p Chaque utilisateur possède par défaut un Portefeuille Virtuel grâce auquel il peut payer facilement et rapidement ses cours en ligne. A l’instar des comptes en banque traditionnels, vous pourrez à tout moment y verser des devises en prévision de vos futurs cours. Le dépôt de vos devises s’effectue sans frais au moyen de notre système de paiement en ligne sécurisé. Ce dernier accepte, en plus des virements bancaires classiques, l’usage des cartes de crédit de type Visa, MasterCard et Carte Bleue.
     .cont
-        .text
-            %h3 Profiter d'un cours particulier
-            %p Tout est prêt, il ne vous reste plus qu'à rejoindre votre professeur dans la classe virtuelle !
-            %a.infos{:href => "#"} Plus d'infos
-        .icone
-            =image_tag("comment_ca_marche/ordi.png", :alt => "Tout est prêt, il ne vous reste plus qu'à rejoindre votre professeur dans la classe virtuelle !")
+      .icone
+        =image_tag("comment_ca_marche/ordi.png", :alt => "Tout est prêt, il ne vous reste plus qu'à rejoindre votre professeur dans la classe virtuelle !")
+      .text
+        %h3 Profiter d'un cours particulier
+        %p Tout est prêt, il ne vous reste plus qu'à rejoindre votre professeur dans la classe virtuelle !
+        %a.infos.toggler{:href => "#have-lesson"} Plus d'infos
+        .toggle-content#have-lesson
+          %h3 La classe virtuelle
+          %p Nous avons conçu un espace de visioconférence, que nous appelons Classe Virtuelle, et grâce auquel vous pourrez recevoir vos cours depuis chez vous.
+          %p Au sein de cette classe, vous communiquerez en direct avec votre professeur oralement et par écrit, en utilisant votre micro, votre webcam ainsi qu’un chat intégré. La présence d’un tableau blanc interactif vous permettra également de dessiner, avec l’aide de votre souris, des figures géométriques, des graphes ou des équations mathématiques. Sur ce même tableau, vous pourrez afficher vos propres exercices que vous aurez préalablement scannés ou photographiés, et que vous compléterez avec l’aide de votre professeur.
+          %p L’utilisation de la Classe Virtuelle ne nécessite l’installation d’aucun nouveau programme sur votre ordinateur. Pour y accéder, rien de plus simple. Connectez-vous au site quelques minutes avant l’heure convenue pour votre cours en ligne. Observez votre écran. Vous trouverez à gauche un message de rappel ainsi qu’un bouton bleu intitulé Rejoindre la Classe Virtuelle. En cliquant sur ce bouton, un nouvel onglet s’ouvrira dans votre navigateur internet. Il s’agit de votre classe où vous attend déjà votre professeur.
+          %h3 Evaluer son cours particulier
+          %p Après votre cours en ligne, laissez une appréciation sur la page de profil de votre professeur. Sur une échelle allant jusqu’à 5, exprimez votre opinion au sujet de ses connaissances et compétences pédagogiques. Vous pouvez également détailler votre évaluation en laissant un commentaire. Nous accordons beaucoup d’importance aux appréciations laissées par les élèves car cela permet d’aider les nouveaux utilisateurs à choisir leur professeur en connaissance de cause.
+          %h3 Revoir son cours
+          %p Chaque cours en ligne est enregistré et mis à votre disposition sous format vidéo. Vous pouvez les visionner sans limite de temps depuis la page Mes enregistrement. Vos vidéos ne seront visibles que par vous-même et votre professeur.
