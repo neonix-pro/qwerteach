@@ -1,5 +1,5 @@
 @import 'global_variables';
-h2.booking-title, #lesson-details{
+h2.booking-title, #lesson-details, .additional-infos{
   color: #626262;
   font-family: SofiaProRegular;
 }
@@ -95,6 +95,43 @@ h2.booking-title{
           }
         }
       }
+    }
+    .teacher-topics{
+      line-height:25px;
+      border: 1px solid #e6e6e6;
+      border-top:none;
+      border-bottom: 1px solid $color_qwerteach_green;
+      .topics-list{
+        width:35%;
+        border-right: 1px solid #626262;
+        display: inline-block;
+        float: left;
+        padding: 0px 20px;
+        margin: 20px 0px;
+      }
+      .level-max-list{
+        width:65%;
+        float:right;
+        padding: 20px;
+        padding-bottom: 10px;
+      }
+      .tarifs{
+        margin-top:10px;
+      }
+    }
+    .teacher-references{
+      padding: 10px;
+      border: 1px solid #e6e6e6;
+      border-top:none;
+      img{
+        margin-right:10px;
+        width:30px;
+      }
+    }
+    .teacher-reactivity{
+      border: 1px solid #e6e6e6;
+      border-top:none;
+      padding:10px 20px;
     }
   }
 }

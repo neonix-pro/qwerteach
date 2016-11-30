@@ -23,6 +23,22 @@
                   %i.fa.fa-user
                 .occupation #{@teacher.occupation.humanize}
                 .degree Diplôme de #{@teacher.level.be}
+            .teacher-topics.clearfix
+              .topics-list
+                -@teacher.adverts.each do |ad|
+                  .topic #{ad.title}
+              .level-max-list
+                -@teacher.adverts.each do |ad|
+                  .level-max
+                    jusqu'au niveau
+                    %b #{ad.max_level.partition(" ").first}
+                .tarifs
+                  =link_to('voir le tarif détaillé', '#prices-detail', class:'text-green')
+            .teacher-references.text-center
+              = image_tag('booking/booking-plus.png')
+              #{@teacher.reviews_received.count} références
+            .teacher-reactivity
+              Réponse moyenne dans les 24h
         #step2-infos
         #step3-infos
 :javascript
