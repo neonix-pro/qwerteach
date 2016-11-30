@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     end
     respond_to do |format|
       format.html {}
-      format.json {render :json => {:pagin => @pagin.as_json, :search => @search.as_json}}
+      format.json {render :json => {:pagin => @pagin.as_json, :search => @search.as_json, :options => @sorting_options.as_json}}
       format.js
     end
   end

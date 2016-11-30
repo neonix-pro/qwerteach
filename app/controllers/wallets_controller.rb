@@ -32,10 +32,16 @@ class WalletsController < ApplicationController
   def update_mangopay_wallet
     saving = Mango::SaveAccount.run( mango_account_params.merge(user: current_user) )
     if saving.valid?
-      redirect_to params[:redirect_to] || index_wallet_path #TODO: add success notice
+      respond_to do |format|
+        format.html {redirect_to params[:redirect_to] || index_wallet_path
+          #TODO: add success notice
+          }
+        format.json {render :json => {:message => "true"}}
+        format.js
+      end
     else
       @account = saving
-      render 'edit_mangopay_wallet'
+      render 'edit_mangopay_wallet', :json => {:message => {:errors => saving.errors.as_json, :saving => saving.as_json}}
     end
   end
 

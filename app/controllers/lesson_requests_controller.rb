@@ -20,18 +20,18 @@ class LessonRequestsController < ApplicationController
       @lesson = saving.result
       if @lesson.free_lesson
         @lesson.save
-        render 'finish'
+        render 'finish', :json => {:message => "finish"}
       elsif check_mangopay_account
         creation = Mango::CreateCardRegistration.run(user: current_user)
         if !creation.valid?
-          render 'errors', :layout=>false, locals: {object: creation}
+          render 'errors', :layout=>false, locals: {object: creation}, :json => {:message => "false"}
         else
           @card_registration = creation.result
-          render 'payment_method'
+          render 'payment_method', :json => {:message => "true", :card_registration => @card_registration.as_json}
         end
       end
     else
-      render 'errors', :layout=>false, locals: {object: saving}
+      render 'errors', :layout=>false, locals: {object: saving}, :json => {:message => "false"}
     end
   end
 
@@ -161,7 +161,7 @@ class LessonRequestsController < ApplicationController
   def check_mangopay_account
     return true if current_user.mango_id.present?
     @account = Mango::SaveAccount.new(user: current_user, first_name: current_user.firstname, last_name: current_user.lastname)
-    render 'mango_account', :layout=>false and return false
+    render 'mango_account', :layout=>false, :json => {:message => "no account"} and return false
   end
 
 

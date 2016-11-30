@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     get 'profiles/find_level' => 'profiles#find_level'
     put 'profiles/:id' => 'profiles#update'
     get 'profiles' => 'profiles#index'
+    get 'users/:user_id/lesson_requests/new' => 'lesson_requests#new'
+    post 'users/:user_id/lesson_requests' => 'lesson_requests#create'
+    put 'user/mangopay/edit_wallet' => 'wallets#update_mangopay_wallet'
+    get 'user/mangopay/index_wallet' => 'wallets#index_mangopay_wallet'
   end
   
   namespace :api, :defaults => { :format => 'json' } do
@@ -17,9 +21,9 @@ Rails.application.routes.draw do
   end
 
   namespace :api, :defaults => { :format => 'json' } do
-    get 'find_topics' => 'find_topics#index'
     post 'find_topics' => 'find_topics#show'
     post 'find_topics/find_levels' => 'find_topics#find_levels'
+    get 'find_topics' => 'find_topics#get_all_topics'
   end
 
   namespace :api do

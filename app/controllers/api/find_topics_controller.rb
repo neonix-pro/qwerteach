@@ -24,4 +24,12 @@ class Api::FindTopicsController < ApplicationController
     render :json => {:levels => levels.as_json, :topic_group_title => topic_group.title}
   end
   
+  def get_all_topics
+    topics = Array.new
+    Topic.all.each do |tg|
+      topics.push tg
+    end
+    render :json => {:topics => topics.as_json}
+  end
+  
 end
