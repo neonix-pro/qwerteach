@@ -1,8 +1,30 @@
-%div
-  %h2.booking-title Réservation de votre cours avec #{@teacher.name}
-  #lesson-details
-    = render partial: 'form', locals: {remote: false}
-
+.container-fluid
+  .row
+    .col-md-offset-1
+      %h2.booking-title Réservation de votre cours avec #{@teacher.name}
+  .row
+    .col-sm-1
+    .col-sm-5
+      #lesson-details
+        = render partial: 'form', locals: {remote: false}
+    .col-sm-5
+      .additional-infos
+        #step1-infos
+          .teacher-recap
+            .teacher-infos
+              .teacher-avatar
+                = image_tag(@teacher.avatar(:medium))
+              .teacher-text
+                .name Prof: #{@teacher.name}
+                .reviews
+                  %span.stars
+                    = render partial: 'shared/star_rating', locals:{note: @teacher.avg_reviews}
+                  #{@teacher.reviews_received.count}
+                  %i.fa.fa-user
+                .occupation #{@teacher.occupation.humanize}
+                .degree Diplôme de #{@teacher.level.be}
+        #step2-infos
+        #step3-infos
 :javascript
   $(document).ready(function(){
     //$('#lesson-details').trigger('update');
