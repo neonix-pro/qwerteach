@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     
 
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
-    #contact form
+    
    
     # Gestion des serveurs BBB depuis l'admin
     resources :bigbluebutton_servers
@@ -28,7 +28,8 @@ Rails.application.routes.draw do
 
     root to: "users#index"
   end
-  resources "contacts", only: [:new, :create]
+  resources "contact", only: [:new, :create]
+    
 
 
   scope '/user/mangopay', controller: :payments do
