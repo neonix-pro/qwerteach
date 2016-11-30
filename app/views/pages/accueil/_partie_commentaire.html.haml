@@ -1,26 +1,29 @@
 .featurette.section.section_commentaire.100window
-  .left.bigimage.100window
+  .left.bigimage
   .right
     %h4#cadreBleu.txtCadreBleu Nos élèves adorent leurs cours en ligne.
   .commentaires
     .commentaire
       .triangle
-      %p « Connaît son sujet, polyvalent, clair et concis. Parfait pour corriger les imperfections avant une session d'examens! 
-      %div
-        %img.avatar{"src" => image_path("avatar.jpg")}
-        %p.avatar_name Francois, élève.
+      .wrapper
+        %p « Connaît son sujet, polyvalent, clair et concis. Parfait pour corriger les imperfections avant une session d'examens!
+        %div
+          %img.avatar{"src" => image_path("avatar.jpg")}
+          %p.avatar_name Francois, élève.
     .commentaire
       .triangle
-      %p « Super prof! très efficace et très À l'écoute. Bon contact humain, ce qui est très appréciable! »
-      %div
-        %img.avatar{"src" => image_path("avatar.jpg")}
-        %p.avatar_name Meir, élève.
+      .wrapper
+        %p « Super prof! très efficace et très À l'écoute. Bon contact humain, ce qui est très appréciable! »
+        %div
+          %img.avatar{"src" => image_path("avatar.jpg")}
+          %p.avatar_name Meir, élève.
     .commentaire
       .triangle
-      %p « Super prof super sympa qui maitrise très bien sa matière ! A conseiller à tout le monde :) »
+      .wrapper
+        %p « Super prof super sympa qui maitrise très bien sa matière ! A conseiller à tout le monde :) »
+        %div
+          %img.avatar{"src" => image_path("avatar.jpg")}
+          %p.avatar_name Kevin, élève.
+    .plus.opacity_hover#more-comments
       %div
-        %img.avatar{"src" => image_path("avatar.jpg")}
-        %p.avatar_name Kevin, élève.
-    .plus.opacity_hover
-      %div
-        %a{:href => "#"} +
+        = link_to '+', featured_reviews_path({n:1, offset:3}), id: 'more-reviews', remote: true

@@ -1,0 +1,9 @@
+.commentaire
+  .triangle
+  .wrapper
+    %p
+      = review.review_text.gsub(/(^[ ]*<p>[ ]*)|([ ]*<\/p>[ ]*$)/, '').html_safe
+    %div
+      %img.avatar{"src" => image_path(review.sender.avatar(:small))}
+      %p.avatar_name
+        = "#{review.sender.firstname}, élève " unless review.sender.firstname.empty?

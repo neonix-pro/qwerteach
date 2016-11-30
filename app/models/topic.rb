@@ -7,7 +7,6 @@ class Topic < ActiveRecord::Base
   validates :topic_group, presence: true
   validates :title, presence: true
 
-
   def pictotype(arg)
     if picto.nil?
       topic_group.pictotype(arg)

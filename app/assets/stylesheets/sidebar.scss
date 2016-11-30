@@ -9,6 +9,7 @@ nav.sidebar.navbar {
   border-radius: 0px;
   background-color:#222222;
   color:$text_lightgrey;
+  z-index: 1000;
 }
 
 nav.sidebar.navbar ul li a{

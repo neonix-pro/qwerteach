@@ -1,7 +1,7 @@
-.featurette.section_commentmarche
-  #ccm_guitar.col-md-6.left
+.featurette.section_commentmarche.100window
+  #ccm_guitar.col-md-6
     %h3 Mode d'emploi
-    = image_tag("guitare.png", :class => "img_love img-responsive")
+    = image_tag("guitare.png", :class => "img_love img-responsive", id: 'img-guitar')
   #ccm-points.col-md-6
     %div.point1.point
       %span 1.
@@ -12,5 +12,6 @@
     %div.point3.point
       %span 3.
       %h4 Recevez votre cours en ligne.
-    %a.boutton.plus_infos.opacity_hover{:href => "#"} Plus d'inforamtions
-  %span.quit.toggleCCM ✖
+    = link_to "Plus d'informations", pages_path('comment-ca-marche'), class: 'btn btn-qw btn-pink', id: 'guitar-more-info'
+  %span.quit.toggleCCM
+    =image_tag('acceuil/close.png')
