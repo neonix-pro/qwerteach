@@ -28,5 +28,20 @@ module Qwerteach
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    #configuring actionmailer to access mailserver
+    config.action_mailer.smtp_settings = {
+     address: "",
+     port: 587,
+     domain: "",
+     user_name:"" ,
+     password:"" ,
+     authentication: :plain,
+     enable_starttls_auto: true
+    }
+
+config.action_mailer.default_url_options = {
+    host: "qwerteach.com"
+}
   end
 end
+
