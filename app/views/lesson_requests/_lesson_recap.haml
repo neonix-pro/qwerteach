@@ -1,0 +1,34 @@
+.datetime
+  #recap-date.clearfix
+    .pull-left Date:
+    .col-middle
+    .pull-right
+  #recap-starttime.clearfix
+    .pull-left Début:
+    .col-middle
+    .pull-right
+  #recap-endtime.clearfix
+    .pull-left Fin:
+    .col-middle
+    .pull-right
+  #recap-topic.clearfix
+    .pull-left Matière:
+    .col-middle
+    .pull-right
+  #recap-level.clearfix
+    .pull-left Niveau:
+    .col-middle
+    .pull-right
+  #recap-duration.clearfix
+    .pull-left Durée:
+    .col-middle
+    .pull-right
+      %span#duration-hours
+      h
+      %span#duration-minutes
+  #precalculated-price
+    .pull-left
+      Montant:
+    .pull-right
+      %span#price_shown #{lesson_request.try(:calculate_price) || 0}
+      €

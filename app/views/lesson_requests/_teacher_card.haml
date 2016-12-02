@@ -1,0 +1,12 @@
+.teacher-infos
+  .teacher-avatar
+    = image_tag(teacher.avatar(:medium))
+  .teacher-text
+    .name Prof: #{teacher.name}
+    .reviews
+      %span.stars
+        = render partial: 'shared/star_rating', locals:{note: teacher.avg_reviews}
+      #{teacher.reviews_received.count}
+      %i.fa.fa-user
+    .occupation #{teacher.occupation.humanize}
+    .degree Diplôme de #{teacher.level.be}

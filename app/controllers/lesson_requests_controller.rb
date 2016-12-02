@@ -10,6 +10,7 @@ class LessonRequestsController < ApplicationController
   def new
     @free_lessons = @user.free_lessons_with(@teacher)
     @lesson_request = @lesson.present? ? CreateLessonRequest.from_lesson(@lesson) : CreateLessonRequest.new
+    @adverts = @teacher.adverts_by_level_code
   end
 
   def create

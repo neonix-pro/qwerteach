@@ -17,6 +17,9 @@ h2.booking-title{
   .change-booking-step{
     cursor: pointer;
   }
+  .change-booking-step.active small{
+    display:none;
+  }
   .payment_method{
     display:none;
     .actions{
@@ -36,12 +39,12 @@ h2.booking-title{
     }
   }
   h3{
-    opacity: 0.5;
+    color: #AFAFAF;
     font-size: 18px;
     margin-bottom: 20px;
   }
   h3.active{
-    opacity: 1;
+    color: #626262;
   }
   .choose_payment_method.inactive{
     opacity: 0.5;
@@ -58,81 +61,139 @@ h2.booking-title{
   }
 }
 .additional-infos{
+  .booking-infos{
+    display:none;
+  }
+  .booking-infos.active{
+    display:block;
+  }
   font-family: SofiaProRegular;
   padding-top: 20px;
-  #step1-infos{
-    .teacher-recap{
-      .teacher-infos{
-        background-color: #313131;
-        color: white;
-        .teacher-avatar{
-          display:inline-block;
-          width:35%;
-          img{
-            width:100%;
+  .teacher-recap {
+    .teacher-infos {
+      background-color: #313131;
+      color: white;
+      .teacher-avatar {
+        display: inline-block;
+        width: 35%;
+        img {
+          width: 100%;
+        }
+      }
+      .teacher-text {
+        width: 65%;
+        padding: 20px;
+        float: right;
+        font-family: SofiaProLight;
+        font-size: 14px;
+        letter-spacing: 0.2px;
+        line-height: 20px;
+        .name {
+          margin-bottom: 5px;
+        }
+        .reviews {
+          margin-bottom: 7px;
+          .stars {
+            color: $color_qwerteach_yellow;
           }
         }
-        .teacher-text{
-          width:65%;
-          padding:20px;
-          float: right;
-          font-family: SofiaProLight;
-          font-size: 14px;
-          letter-spacing: 0.2px;
-          line-height:20px;
-          .name{
-            margin-bottom:5px;
-          }
-          .reviews{
-            margin-bottom:7px;
-            .stars {
-              color: $color_qwerteach_yellow;
-            }
-          }
-          .occupation, .degree, .reviews{
-            color: #9d9d9d;
-            margin-bottom:5px;
-          }
+        .occupation, .degree, .reviews {
+          color: #9d9d9d;
+          margin-bottom: 5px;
         }
       }
     }
-    .teacher-topics{
-      line-height:25px;
+  }
+  #step1-infos {
+    .teacher-topics {
+      line-height: 25px;
       border: 1px solid #e6e6e6;
-      border-top:none;
+      border-top: none;
       border-bottom: 1px solid $color_qwerteach_green;
-      .topics-list{
-        width:35%;
+      .topics-list {
+        width: 35%;
         border-right: 1px solid #626262;
         display: inline-block;
         float: left;
         padding: 0px 20px;
         margin: 20px 0px;
       }
-      .level-max-list{
-        width:65%;
-        float:right;
+      .level-max-list {
+        width: 65%;
+        float: right;
         padding: 20px;
         padding-bottom: 10px;
       }
-      .tarifs{
-        margin-top:10px;
+      .tarifs {
+        margin-top: 10px;
       }
     }
-    .teacher-references{
+    .teacher-references {
       padding: 10px;
       border: 1px solid #e6e6e6;
-      border-top:none;
-      img{
-        margin-right:10px;
-        width:30px;
+      border-top: none;
+      img {
+        margin-right: 10px;
+        width: 30px;
       }
     }
-    .teacher-reactivity{
+    .teacher-reactivity {
       border: 1px solid #e6e6e6;
+      border-top: none;
+      padding: 10px 20px;
+    }
+    .additional-links{
+      padding: 20px;
+      line-height:20px;
+      a{
+        display:block;
+      }
+    }
+  }
+  #step2-infos{
+    .lesson-recap{
+      padding: 20px;
+      border: 1px solid #6e6e6e;
       border-top:none;
-      padding:10px 20px;
+      #recap-topic, #recap-level, #recap-duration{
+        height:20px;
+      }
+      .datetime{
+        margin-bottom: 20px;
+        div{
+          height:20px;
+        }
+      }
+      .col-middle{
+        border-bottom: 1px dotted #626262;
+        height:14px;
+      }
+      .pull-left, .pull-right{
+        background-color:white;
+        padding: 0px 10px;
+      }
+      .pull-right{
+        top: -14px;
+        position: relative;
+      }
+      #precalculated-price{
+        background-color: #f2f2f2;
+        margin: -20px;
+        margin-top:0px;
+        padding-left:20px;
+        height:40px;
+        line-height:40px;
+        clear:both;
+        .pull-right, .pull-left{
+          background-color:transparent;
+        }
+        .pull-right{
+          top:0px;
+          padding-right: 30px;
+        }
+      }
     }
   }
 }
+
 

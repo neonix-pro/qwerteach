@@ -55,6 +55,10 @@ class Advert < ActiveRecord::Base
     self.topic.title == 'Other' ? self.other_name : self.topic.title
   end
 
+  def price_for_level(level_id)
+    advert_prices.find_by(level_id: level_id)
+  end
+
   # Pour Sunspot, définition des champs sur lesquels les recherches sont faites et des champs sur lesquels les filtres sont réalisés
   searchable do
     text :other_name

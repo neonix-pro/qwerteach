@@ -1,0 +1,17 @@
+.teacher-topics.clearfix
+  .topics-list
+    -teacher.adverts.each do |ad|
+      .topic #{ad.title}
+  .level-max-list
+    -teacher.adverts.each do |ad|
+      .level-max
+        jusqu'au niveau
+        %b #{ad.max_level.partition(" ").first}
+    .tarifs
+      =link_to('voir le tarif détaillé', '#detailed-pricing', class:'text-green', data:{toggle: 'modal'})
+.teacher-references.text-center
+  = image_tag('booking/booking-plus.png')
+  #{teacher.reviews_received.count} références
+- if teacher.average_response_time > 0
+  .teacher-reactivity
+    Réponse moyenne dans les #{teacher.average_response_time}

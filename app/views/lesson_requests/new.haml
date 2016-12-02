@@ -9,45 +9,59 @@
         = render partial: 'form', locals: {remote: false}
     .col-sm-5
       .additional-infos
-        #step1-infos
+        #step1-infos.booking-infos.active
           .teacher-recap
-            .teacher-infos
-              .teacher-avatar
-                = image_tag(@teacher.avatar(:medium))
-              .teacher-text
-                .name Prof: #{@teacher.name}
-                .reviews
-                  %span.stars
-                    = render partial: 'shared/star_rating', locals:{note: @teacher.avg_reviews}
-                  #{@teacher.reviews_received.count}
-                  %i.fa.fa-user
-                .occupation #{@teacher.occupation.humanize}
-                .degree Diplôme de #{@teacher.level.be}
-            .teacher-topics.clearfix
-              .topics-list
-                -@teacher.adverts.each do |ad|
-                  .topic #{ad.title}
-              .level-max-list
-                -@teacher.adverts.each do |ad|
-                  .level-max
-                    jusqu'au niveau
-                    %b #{ad.max_level.partition(" ").first}
-                .tarifs
-                  =link_to('voir le tarif détaillé', '#prices-detail', class:'text-green')
-            .teacher-references.text-center
-              = image_tag('booking/booking-plus.png')
-              #{@teacher.reviews_received.count} références
-            .teacher-reactivity
-              Réponse moyenne dans les 24h
-        #step2-infos
-        #step3-infos
+            = render :partial => 'teacher_card', locals: {teacher: @teacher}
+            = render :partial => 'teacher_topics', locals: {teacher: @teacher}
+          .additional-links
+            Pour plus d'informations à propos de:
+            = link_to 'Garantie remboursement', pages_path('faq'), class: 'text-green', target: '_blank'
+            = link_to 'Protection des données', pages_path('faq'), class: 'text-green', target: '_blank'
+            = link_to 'Modes de payement sécurisés', pages_path('faq'), class: 'text-green', target: '_blank'
+        #step2-infos.booking-infos
+          .teacher-recap
+            = render :partial => 'teacher_card', locals: {teacher: @teacher}
+          .lesson-recap
+            = render partial: 'lesson_recap', locals: {lesson_request: @lesson_request}
+          .teacher-recap
+            - if @teacher.average_response_time > 0
+              .teacher-reactivity
+                Réponse moyenne dans les #{@teacher.average_response_time}
+        #step3-infos.booking-infos
+
+#detailed-pricing.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-body
+        - @adverts.keys.each do |key|
+          - unless @adverts[key].empty?
+            - levels = Level.where(code: key).group(:be).order(:level)
+            %h5 #{key}
+            %table
+              %thead
+                %tr
+                  %th tarifs €/h
+                  -levels.each do |level|
+                    %th #{level.be}
+              %tbody
+                - @adverts[key].each do |ad|
+                  %tr
+                    %th #{ad.topic.title}
+                    -levels.each do |level|
+                      %td #{ad.price_for_level(level.id).nil? ? '/' : ad.price_for_level(level.id).price}
+
+
 :javascript
   $(document).ready(function(){
-    //$('#lesson-details').trigger('update');
-    new RequestLesson( $('#lesson-details'), {teacher_id: #{@teacher.id}} );
+
     $('#datetimepicker').datetimepicker({
       locale: moment.locale(),
       format: "dddd DD MMMM [à] HH:mm",
       minDate: moment("#{Time.current.beginning_of_hour + ((Time.now.min / 15.0).ceil * 15).minutes}", 'L LT')
+    });
+    var r = new RequestLesson( $('#lesson-details'), {teacher_id: #{@teacher.id}} );
+    $('#datetimepicker').on('dp.change', function(){
+      $('#request_time_start').trigger('change');
+      $('#lesson-details').trigger('update');
     });
   });

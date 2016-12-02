@@ -1,6 +1,8 @@
 = form_for @lesson_request, as: :request, url: user_lesson_requests_path(@teacher), method: :post, remote: true, html: {class: 'request-lession-form'} do |f|
   = hidden_field_tag 'lesson[teacher_id]', @teacher.id
-  %h3#step1-title.change-booking-step.active{data:{toggle:'#step1'}} 1. A propos du cours
+  %h3#step1-title.change-booking-step.active{data:{toggle:'#step1'}}
+    1. A propos du cours
+    %small.pull-right.text-green modifier
   = render 'shared/errors', object: f.object
   #step1.booking-step.active
     .form-group
@@ -10,7 +12,7 @@
     .form-group
       = f.label :level_id, 'Choisissez le niveau'
       - if f.object.topic_id.present?
-        - options = @teacher.adverts.includes(advert_prices: :level).where(topic_id: f.object.topic_id).uniq.pluck('levels.fr', 'levels.id')
+        - options = @teacher.adverts.includes(advert_prices: :level).where(topic_id: f.object.topic_id).uniq.pluck('levels.be', 'levels.id')
       - else
         - options = []
       = f.select :level_id, options, {prompt: 'niveau'}, {class: 'form-control level-select'}
@@ -32,7 +34,9 @@
       = f.text_area :comment, class:'form-control', rows: "3", placeholder: "Ex: j'ai des difficultés avec la trigonométrie et les vecteurs."
     .actions
       %button.btn.btn-qw.btn-green.change-booking-step{type: 'button', data:{toggle:'#step2'}} Valider
-  %h3#step2-title.change-booking-step{data:{toggle:'#step2'}} 2. Date et heure
+  %h3#step2-title.change-booking-step{data:{toggle:'#step2'}}
+    2. Date et heure
+    %small.pull-right.text-green modifier
   #step2.booking-step
     .form-group
       = f.label :time_start, "Choisissez le jour et l'heure de votre cours"
@@ -42,7 +46,8 @@
           %span.glyphicon.glyphicon-calendar
     .actions
       %button.btn.btn-qw.btn-green.change-booking-step{type: 'submit', data:{toggle:'#step3'}} Valider
-%h3#step3-title 3. Paiement
+%h3#step3-title
+  3. Paiement
 #step3.booking-step
 
 
@@ -57,7 +62,9 @@
     $('.change-booking-step').click(function(){
       $('.booking-step').hide().removeClass('active');
       $('h3.change-booking-step').removeClass('active');
+      $('.booking-infos').removeClass('active');
       $('h3'+$(this).attr('data-toggle')+'-title').addClass('active');
+      $($(this).attr('data-toggle')+'-infos').addClass('active');
       $($(this).attr('data-toggle')).slideToggle(function(){
         $(this).addClass('active');
       });
