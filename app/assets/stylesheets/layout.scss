@@ -314,3 +314,48 @@ input.cmn-toggle-round-flat:checked + label:after
     margin-top: 280px;
   }
 }
+
+.modal-dialog{
+  font-family: SofiaProRegular;
+  .modal-content{
+    border-radius: 0px;
+    .modal-body{
+      h5{
+        font-size: 16px;
+        background-color: $color_qwerteach_green;
+        color: white;
+        margin: 0px -15px 10px -15px;
+        padding: 5px 15px;
+      }
+    }
+  }
+}
+table{
+  font-family: SofiaProRegular;
+  width:100%;
+  line-height:25px;
+  thead{
+    tr{
+      border-bottom: 1px solid #eee;
+      th:first-child{
+        border-right: 1px solid #eee;
+      }
+      th{
+        font-weight: 400;
+        padding-left: 5px;
+      }
+    }
+  }
+  tbody {
+    tr {
+      th {
+        border-right: 1px solid #eee;
+        padding-left:0px;
+        font-weight: 400;
+      }
+      td{
+        padding-left:5px;
+      }
+    }
+  }
+}

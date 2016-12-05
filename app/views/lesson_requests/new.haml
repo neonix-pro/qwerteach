@@ -36,19 +36,19 @@
         - @adverts.keys.each do |key|
           - unless @adverts[key].empty?
             - levels = Level.where(code: key).group(:be).order(:level)
-            %h5 #{key}
+            %h5.title-green.text-center #{key}
             %table
               %thead
                 %tr
                   %th tarifs €/h
                   -levels.each do |level|
-                    %th #{level.be}
+                    %th #{t level.be, locale: :abv}
               %tbody
                 - @adverts[key].each do |ad|
                   %tr
                     %th #{ad.topic.title}
                     -levels.each do |level|
-                      %td #{ad.price_for_level(level.id).nil? ? '/' : ad.price_for_level(level.id).price}
+                      %td #{ad.price_for_level(level.id).nil? ? '&mdash;'.html_safe : "%g" % ad.price_for_level(level.id).price}
 
 
 :javascript

@@ -8,7 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Qwerteach
   class Application < Rails::Application
-    I18n.available_locales = [:en, :fr, :be, :ch]
+    I18n.available_locales = [:en, :fr, :be, :ch, :abv] #abv = abréviations
     I18n.default_locale = :fr
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += %W(#{config.root}/jobs)
