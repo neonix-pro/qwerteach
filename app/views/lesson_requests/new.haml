@@ -13,6 +13,8 @@
           .teacher-recap
             = render :partial => 'teacher_card', locals: {teacher: @teacher}
             = render :partial => 'teacher_topics', locals: {teacher: @teacher}
+            = render :partial => 'teacher_references', locals:{teacher: @teacher}
+            = render :partial => 'teacher_reactivity', locals:{teacher: @teacher}
           .additional-links
             Pour plus d'informations à propos de:
             = link_to 'Garantie remboursement', pages_path('faq'), class: 'text-green', target: '_blank'
@@ -24,9 +26,13 @@
           .lesson-recap
             = render partial: 'lesson_recap', locals: {lesson_request: @lesson_request}
           .teacher-recap
-            - if @teacher.average_response_time > 0
-              .teacher-reactivity
-                Réponse moyenne dans les #{@teacher.average_response_time}
+            = render :partial => 'teacher_references', locals:{teacher: @teacher}
+            = render :partial => 'teacher_reactivity', locals:{teacher: @teacher}
+          .additional-links
+            Pour plus d'informations à propos de:
+            = link_to 'Garantie remboursement', pages_path('faq'), class: 'text-green', target: '_blank'
+            = link_to 'Protection des données', pages_path('faq'), class: 'text-green', target: '_blank'
+            = link_to 'Modes de payement sécurisés', pages_path('faq'), class: 'text-green', target: '_blank'
         #step3-infos.booking-infos
 
 #detailed-pricing.modal.fade
