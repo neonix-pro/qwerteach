@@ -42,13 +42,14 @@
                 %tr
                   %th tarifs €/h
                   -levels.each do |level|
-                    %th #{t level.be, locale: :abv}
+                    %th{class: "level_col_#{level.id}"} #{t level.be, locale: :abv}
               %tbody
                 - @adverts[key].each do |ad|
-                  %tr
+                  %tr.topic_row{id: "topic_row_#{ad.topic.id}"}
                     %th #{ad.topic.title}
                     -levels.each do |level|
-                      %td #{ad.price_for_level(level.id).nil? ? '&mdash;'.html_safe : "%g" % ad.price_for_level(level.id).price}
+                      %td.level_col{class: "level_col_#{level.id}"}
+                        #{ad.price_for_level(level.id).nil? ? '&mdash;'.html_safe : "%g" % ad.price_for_level(level.id).price}
 
 
 :javascript

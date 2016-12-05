@@ -357,5 +357,14 @@ table{
         padding-left:5px;
       }
     }
+    tr.active{
+      background-color:$color_qwerteach_green;
+      td.active{
+        color:white;
+      }
+    }
+    td.active, th.active{
+      background-color:$color_qwerteach_green;
+    }
   }
 }

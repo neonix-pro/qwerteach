@@ -47,12 +47,18 @@ class window.RequestLesson
       $.get @getLevelsUrl(topicId), (data)=>
         $levelSelect = @$('.level-select')
         $levelSelect.append  $('<option>').attr(value: group.id).text(group.title) for group in data
+    $('.topic_row').removeClass('active');
+    $('#topic_row_'+topicId).addClass('active');
+
 
   getLevelsUrl: (topicId)->
     @levelsUrl.replace('__TEACHER_ID__', @options.teacher_id).replace('__TOPIC_ID__', topicId)
 
-  onLevelChange: ->
+  onLevelChange: (e)->
     @calculatePrice()
+    levelId = $(e.currentTarget).val()
+    $('.level_col').removeClass('active');
+    $('.level_col_'+levelId).addClass('active');
 
   calculatePrice: ->
     return if !@isReadyForCalculating()
