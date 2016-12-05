@@ -10,8 +10,9 @@
     .tarifs
       =link_to('voir le tarif détaillé', '#detailed-pricing', class:'text-green', data:{toggle: 'modal'})
 .teacher-references.text-center
-  = image_tag('booking/booking-plus.png')
-  #{teacher.reviews_received.count} références
+  = link_to '#detailed-reviews', data:{toggle: 'modal'} do
+    = image_tag('booking/booking-plus.png')
+    #{teacher.reviews_received.count} références
 - if teacher.average_response_time > 0
   .teacher-reactivity
     Réponse moyenne dans les #{teacher.average_response_time}

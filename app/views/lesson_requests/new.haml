@@ -51,6 +51,12 @@
                       %td.level_col{class: "level_col_#{level.id}"}
                         #{ad.price_for_level(level.id).nil? ? '&mdash;'.html_safe : "%g" % ad.price_for_level(level.id).price}
 
+#detailed-reviews.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-body
+        = render partial: 'users/profile/profile_reviews', locals:{reviews: @teacher.reviews_received}
+
 
 :javascript
   $(document).ready(function(){
