@@ -31,7 +31,7 @@
         = submit_tag "Finaliser la demande de cours"
   .payment_method.payment_by_wallet
     .actions
-      = button_to 'Finaliser la demande de cours', user_lesson_requests_payment_path(@teacher, mode: 'transfert'), remote: true, method: 'put'
+      = button_to 'Finaliser la demande de cours', user_lesson_requests_payment_path(@teacher, mode: 'transfert'), remote: false, method: 'put'
 
 = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
 

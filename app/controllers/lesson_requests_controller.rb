@@ -17,6 +17,7 @@ class LessonRequestsController < ApplicationController
     Lesson.drafts(current_user).destroy_all
     @free_lessons = @user.free_lessons_with(@teacher)
     saving = CreateLessonRequest.run(request_params)
+    logger.debug(saving.inspect)
     if saving.valid?
       @lesson = saving.result
       if @lesson.free_lesson
@@ -44,7 +45,10 @@ class LessonRequestsController < ApplicationController
       when 'transfert'
         paying = PayLessonByTransfert.run(user: current_user, lesson: @lesson)
         if paying.valid?
-          render 'finish', :layout => false
+          respond_to do |format|
+            format.html {redirect_to lessons_path}
+          end
+          #render 'finish', :layout => false
         else
           @card_registration = Mango::CreateCardRegistration.run(user: current_user).result
           render 'errors', :layout=>false, locals: {object: paying}

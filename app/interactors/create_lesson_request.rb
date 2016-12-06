@@ -2,7 +2,7 @@ class CreateLessonRequest < ActiveInteraction::Base
   
   integer :teacher_id
   integer :student_id
-  date :time_start
+  time :time_start
   integer :hours
   integer :minutes, default: 0
   integer :topic_id
