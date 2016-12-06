@@ -12,7 +12,8 @@
 #payment-methods
   %hr
   .choose_payment_method
-    ou
+    .or.text-center
+      ou
     - options = {'Carte de crédit' => :creditcard, 'Carte de débit / direct banking' => :bcmc}
     = select_tag('payment_method', options_for_select(options), prompt: 'Choisissez votre mode de payement', class:'form-control')
   .payment_method.payment_by_bcmc
@@ -20,12 +21,13 @@
     .actions
       = button_to 'Finaliser la demande de cours', user_lesson_requests_payment_path(@teacher, mode: 'bancontact'), remote: true, method: 'put'
   .payment_method.payment_by_creditcard
-    .field.credit_card_choice
+    #credit_card.field.credit_card_choice
       = form_tag  user_lesson_requests_payment_path(@teacher), :method => :put, remote: true do |f|
         = hidden_field :mode, 'cd'
         = label_tag "Choisir carte"
-        = select_tag :card_id, options_for_select(current_user.mangopay.cards.map { |f| [f.alias, f.id] }), {include_blank: 'Nouvelle carte', class:'form-control'}
-      #new_card
+        - options = options_for_select(current_user.mangopay.cards.map { |f| [f.alias, f.id] }, (current_user.mangopay.cards.first.id unless current_user.mangopay.cards.empty?))
+        = select_tag :card_id, options, {include_blank: 'Nouvelle carte', class:'form-control'}
+      #new_card{class: ('hidden' unless current_user.mangopay.cards.empty?)}
         = render 'mangopay/card_form', remote: true, no_actions: true
       .actions
         = submit_tag "Finaliser la demande de cours"

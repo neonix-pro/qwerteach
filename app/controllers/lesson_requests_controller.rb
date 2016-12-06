@@ -17,7 +17,6 @@ class LessonRequestsController < ApplicationController
     Lesson.drafts(current_user).destroy_all
     @free_lessons = @user.free_lessons_with(@teacher)
     saving = CreateLessonRequest.run(request_params)
-    logger.debug(saving.inspect)
     if saving.valid?
       @lesson = saving.result
       if @lesson.free_lesson
