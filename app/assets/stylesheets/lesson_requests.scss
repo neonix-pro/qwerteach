@@ -60,7 +60,7 @@ h2.booking-title{
     }
   }
 }
-.additional-infos{
+.additional-infos {
   .teacher-references {
     padding: 10px;
     border: 1px solid #e6e6e6;
@@ -69,8 +69,8 @@ h2.booking-title{
       margin-right: 10px;
       width: 30px;
     }
-    a{
-      color:inherit!important;
+    a {
+      color: inherit !important;
     }
   }
   .teacher-reactivity {
@@ -78,18 +78,18 @@ h2.booking-title{
     border-top: none;
     padding: 10px 20px;
   }
-  .additional-links{
+  .additional-links {
     padding: 20px;
-    line-height:20px;
-    a{
-      display:block;
+    line-height: 20px;
+    a {
+      display: block;
     }
   }
-  .booking-infos{
-    display:none;
+  .booking-infos {
+    display: none;
   }
-  .booking-infos.active{
-    display:block;
+  .booking-infos.active {
+    display: block;
   }
   font-family: SofiaProRegular;
   padding-top: 20px;
@@ -133,6 +133,7 @@ h2.booking-title{
       line-height: 25px;
       border: 1px solid #e6e6e6;
       border-top: none;
+      display: none;
       .topics-list {
         width: 35%;
         border-right: 1px solid #626262;
@@ -146,55 +147,57 @@ h2.booking-title{
         float: right;
         padding: 20px;
         padding-bottom: 10px;
-      }
-      .tarifs {
-        margin-top: 10px;
-      }
-    }
-  }
-  #step2-infos{
-    .lesson-recap{
-      padding: 20px;
-      border: 1px solid #e6e6e6;
-      border-top:none;
-      border-bottom: none;
-      #recap-topic, #recap-level, #recap-duration{
-        height:20px;
-      }
-      .datetime{
-        margin-bottom: 20px;
-        div{
-          height:20px;
+        .tarifs {
+          margin-top: 10px;
         }
       }
-      .col-middle{
-        border-bottom: 1px dotted #626262;
-        height:14px;
+    }
+    .lesson-recap {
+      display: none;
+      padding: 20px;
+      border: 1px solid #e6e6e6;
+      border-top: none;
+      border-bottom: none;
+      #recap-topic, #recap-level, #recap-duration {
+        height: 20px;
       }
-      .pull-left, .pull-right{
-        background-color:white;
+      .datetime {
+        margin-bottom: 20px;
+        div {
+          height: 20px;
+        }
+      }
+      .col-middle {
+        border-bottom: 1px dotted #626262;
+        height: 14px;
+      }
+      .pull-left, .pull-right {
+        background-color: white;
         padding: 0px 10px;
       }
-      .pull-right{
+      .pull-right {
         top: -14px;
         position: relative;
       }
-      #precalculated-price{
+      #precalculated-price {
         background-color: #f2f2f2;
         margin: -20px;
-        margin-top:0px;
-        padding-left:20px;
-        height:40px;
-        line-height:40px;
-        clear:both;
-        .pull-right, .pull-left{
-          background-color:transparent;
+        margin-top: 0px;
+        padding-left: 20px;
+        height: 40px;
+        line-height: 40px;
+        clear: both;
+        .pull-right, .pull-left {
+          background-color: transparent;
         }
-        .pull-right{
-          top:0px;
+        .pull-right {
+          top: 0px;
           padding-right: 30px;
         }
       }
+    }
+    .teacher-topics.active, .lesson-recap.active {
+      display: block;
     }
   }
 }

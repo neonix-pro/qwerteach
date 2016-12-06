@@ -13,19 +13,7 @@
           .teacher-recap
             = render :partial => 'teacher_card', locals: {teacher: @teacher}
             = render :partial => 'teacher_topics', locals: {teacher: @teacher}
-            = render :partial => 'teacher_references', locals:{teacher: @teacher}
-            = render :partial => 'teacher_reactivity', locals:{teacher: @teacher}
-          .additional-links
-            Pour plus d'informations à propos de:
-            = link_to 'Garantie remboursement', pages_path('faq'), class: 'text-green', target: '_blank'
-            = link_to 'Protection des données', pages_path('faq'), class: 'text-green', target: '_blank'
-            = link_to 'Modes de payement sécurisés', pages_path('faq'), class: 'text-green', target: '_blank'
-        #step2-infos.booking-infos
-          .teacher-recap
-            = render :partial => 'teacher_card', locals: {teacher: @teacher}
-          .lesson-recap
             = render partial: 'lesson_recap', locals: {lesson_request: @lesson_request}
-          .teacher-recap
             = render :partial => 'teacher_references', locals:{teacher: @teacher}
             = render :partial => 'teacher_reactivity', locals:{teacher: @teacher}
           .additional-links
@@ -33,7 +21,6 @@
             = link_to 'Garantie remboursement', pages_path('faq'), class: 'text-green', target: '_blank'
             = link_to 'Protection des données', pages_path('faq'), class: 'text-green', target: '_blank'
             = link_to 'Modes de payement sécurisés', pages_path('faq'), class: 'text-green', target: '_blank'
-        #step3-infos.booking-infos
 
 #detailed-pricing.modal.fade
   .modal-dialog
@@ -73,6 +60,7 @@
       minDate: moment("#{Time.current.beginning_of_hour + ((Time.now.min / 15.0).ceil * 15).minutes}", 'L LT')
     });
     var r = new RequestLesson( $('#lesson-details'), {teacher_id: #{@teacher.id}} );
+    $('#lesson-details').trigger('update');
     $('#datetimepicker').on('dp.change', function(){
       $('#request_time_start').trigger('change');
       $('#lesson-details').trigger('update');
