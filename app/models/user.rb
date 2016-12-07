@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   #    lockable – Users’ accounts will be locked out after a number of unsuccessful authentication attempts.
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :confirmable, :lockable, :validatable,
-         :lastseenable, :omniauthable, :omniauth_providers => [:twitter, :facebook, :google_oauth2]
+         :lastseenable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
 
   has_one :gallery
   has_many :adverts, dependent: :destroy

@@ -7,19 +7,19 @@ body, html{
 body{
   padding-bottom:50px; // because of navbar
   overflow-x: hidden;
+  a{
+    color: $color_qwerteach_green;
+  }
+  a:hover, a:active, a:focus{
+    text-decoration: underline;
+    border: none;
+    outline: 0;
+    background: none;
+    color:inherit;
+  }
 }
 h1,h2,h3,h4,h5,p,span,a{
   font-family: SofiaProRegular;
-}
-a, a:hover, a:active, a:focus{
-  text-decoration: underline;
-  border: none;
-  outline: 0;
-  background: none;
-  color:inherit;
-}
-a{
-  color: $color_qwerteach_green;
 }
 
 .toggle-content{
@@ -103,7 +103,7 @@ a{
   color:white;
 }
 
-.text-green{
+.text-green, .text-green:hover{
   color:$color_qwerteach_green!important;
 }
 .text-grey{

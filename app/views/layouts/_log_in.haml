@@ -1,0 +1,13 @@
+#login-modal.modal.fade{:role => "dialog"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close.text-white{"data-dismiss" => "modal", :type => "button"} ×
+        %h4.modal-title Connexion
+      .modal-body
+        = render "users/sessions/new.html.haml"
+      .modal-footer
+        .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#signup-modal", "data-toggle" => "modal"}
+          %a{:href => "#signup-modal"}
+            Pas encore membre?
+            %br/
