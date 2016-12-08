@@ -1,18 +1,65 @@
-%h2 Charger mon portefeuille
-= form_for @user, as: :user, url: direct_debit_path, method: :put do |f|
-  = hidden_field_tag 'beneficiary', @user.id
-  .field
-    = f.label "Montant"
-    = number_field_tag "amount", params[:amount] || '50', :min => 0 , :step => 0.1 , :required => true
-  .field.type_choice
-    = f.label "Type de carte"
-    = select_tag "card_type", options_for_select(["BCMC","CB_VISA_MASTERCARD", "BANK_WIRE"], "CB_VISA_MASTERCARD"), :required => true
-  .field.credit_card_choice
-    = f.label "Carte existante"
-    = select_tag "card", options_for_select(@cards.map{|c| [c.alias, c.id]}), {:include_blank => 'Nouvelle'}
-  .actions
-    = f.submit "ok"
+%div.load-wallet
+  %h2.page-title-green.text-center Charger mon portefeuille
+  .row
+    .col-sm-2
+    .col-sm-8
+      #mangopay-account
+        %h3 Données de payement
+        #edit-account-form.hidden
+          = render partial: 'mangopay_form'
+      #load-wallet-form
+        = form_for @user, as: :user, url: direct_debit_path, method: :put do |f|
+          = hidden_field_tag 'beneficiary', @user.id
+          .form-group
+            = f.label "Montant"
+            = select_tag('amount', options_for_select(@amounts, params[:amount]), required: true, class:"form-control")
+          #payment-method
+            %h3 Mode de payement
+            .form-group.easy-pay
+              %h5 Easy-payment
+              = check_box_tag('easy_pay', @cards.last.id)
+              %label{for: 'easy_pay'} #{@cards.last.alias}
+            .or
+              %h5 ou payer par
+            .form-group.clearfix
+              .col-sm-6
+                = radio_button_tag('payment-method', 'cc_visa')
+                %label{for: 'payment-method_cc_visa'} VISA
+                %br
+                = radio_button_tag('payment-method', 'cc_mastercard')
+                %label{for: 'payment-method_cc_mastercard'} Mastercard
+                %br
+                = radio_button_tag('payment-method', 'cc_cb')
+                %label{for: 'payment-method_cc_cb'} Carte Bleue
+              .col-sm-6
+                = radio_button_tag('payment-method', 'BCMC')
+                %label{for: 'payment-method_BCMC'} Bancontact
+                %br
+                = radio_button_tag('payment-method', 'BANKWIRE')
+                %label{for: 'payment-method_BANKWIRE'} Virement
+                = hidden_field_tag(:card_type)
+            .form-group.type_choice
+              = #select_tag "card_type", options_for_select(["BCMC","CB_VISA_MASTERCARD", "BANK_WIRE"], "CB_VISA_MASTERCARD"), :required => true, class: 'form-control'
+            .form-group.credit_card_choice
+              = f.label "Carte existante"
+              = select_tag "card", options_for_select(@cards.map{|c| [c.alias, c.id]}), {:include_blank => 'Nouvelle'}
+          #load-wallet-recap
+          .actions
+            = f.submit "ok"
 :javascript
+  $('.credit_card_choice').hide();
+  updateCardType();
+  $('input[name=payment-method]').on('change',function(){
+     updateCardType();
+  });
+  function updateCardType(){
+    var t = $('input[name=payment-method]:checked').val();
+    if(t.substring(0, 2) == 'cc'){
+      t = 'CB_VISA_MASTERCARD';
+    }
+    $('#card_type').val(t);
+  }
+
   $('.type_choice').on('change', function () {
     var choice = $('.credit_card_choice');
     if ($('.type_choice option:selected').text() == "CB_VISA_MASTERCARD"){

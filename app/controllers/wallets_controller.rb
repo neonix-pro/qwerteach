@@ -40,7 +40,9 @@ class WalletsController < ApplicationController
   end
 
   def direct_debit_mangopay_wallet
+    @account = Mango::SaveAccount.new(user: current_user)
     @cards = @user.mangopay.cards
+    @amounts = [20, 50, 100, "autre montant"]
   end
 
   def load_wallet

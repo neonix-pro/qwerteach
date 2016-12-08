@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     get "edit_wallet" => :edit_mangopay_wallet
     put "edit_wallet" => :update_mangopay_wallet
     get "index_wallet" => :index_mangopay_wallet
-    get "direct_debit" => :direct_debit_mangopay_wallet
+    get "load-wallet" => :direct_debit_mangopay_wallet
     put "direct_debit" => :load_wallet
     get "transactions" => :transactions_mangopay_wallet
     get "card_info" => :card_info
