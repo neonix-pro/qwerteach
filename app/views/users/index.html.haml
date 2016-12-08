@@ -1,22 +1,23 @@
-= render partial: 'users/search/header'
-= render partial: 'users/search/search_options', locals: {topics_options: search_topic_options, sorting_options: @sorting_options}
-.search-wrapper
-  = render partial: 'users/search/search_filters'
-  #search-results.clearfix
-    %h4.noresult
-      #{search_total_results(@pagin)}
-      %b.text-green
-        &laquo; #{@search_text} &raquo;
-    - unless @search.empty?
-      - @search.each do |u|
-        = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
-    - else
-      =render partial: 'users/search/noresults', locals:{popular_topics: popular_topics}
-- unless @search.empty?
-  #more-results
-    .more-results-button
-      = link_to_next_page @pagin, 'voir plus', params: params, remote: true
-.container-fluid
-  = render 'pages/accueil/partie_commentaire'
-  = render 'pages/accueil/tri_colonne'
-  = render 'pages/accueil/presse'
+%div
+  = render partial: 'users/search/header'
+  = render partial: 'users/search/search_options', locals: {topics_options: search_topic_options, sorting_options: @sorting_options}
+  .search-wrapper
+    = render partial: 'users/search/search_filters'
+    #search-results.clearfix
+      %h4.noresult
+        #{search_total_results(@pagin)}
+        %b.text-green
+          &laquo; #{@search_text} &raquo;
+      - unless @search.empty?
+        - @search.each do |u|
+          = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
+      - else
+        =render partial: 'users/search/noresults', locals:{popular_topics: popular_topics}
+  - unless @search.empty?
+    #more-results
+      .more-results-button
+        = link_to_next_page @pagin, 'voir plus', params: params, remote: true
+  .container-fluid
+    = render 'pages/accueil/partie_commentaire'
+    = render 'pages/accueil/tri_colonne'
+    = render 'pages/accueil/presse'

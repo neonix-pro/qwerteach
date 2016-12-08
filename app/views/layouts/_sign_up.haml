@@ -9,10 +9,11 @@
           .col-sm-2
           .col-sm-8
             .signup-step#step1.active
-              = render :partial => 'users/registrations/choose_role'
+              = render partial: 'users/registrations/choose_role'
             .signup-step#register-student
               = render "users/registrations/new.html.haml"
             .signup-step#register-teacher
+              = render partial: "users/registrations/new_teacher"
       .modal-footer
         .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
           %a{:href => "#signup-modal"}

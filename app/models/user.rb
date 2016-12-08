@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   #    confirmable – Users will have to confirm their e-mails after registration before being allowed to sign in.
   #    lockable – Users’ accounts will be locked out after a number of unsuccessful authentication attempts.
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :confirmable, :lockable, :validatable,
+         :recoverable, :rememberable, :trackable, :lockable, :validatable,
          :lastseenable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
 
   has_one :gallery
