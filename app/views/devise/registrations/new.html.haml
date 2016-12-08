@@ -19,8 +19,7 @@
   .field
     = f.label :password_confirmation
     %br/
-    = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', :required => true, data: {     |
-      :validation => "confirmation", 'validation-confirm' => 'user[password]', "validation-error-msg" => "Not the same."} |
+    = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', :required => true |
   .actions
     = f.submit "Sign up"
 = render "devise/shared/links"

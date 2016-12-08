@@ -49,8 +49,9 @@ Rails.application.routes.draw do
     get 'payout' => :payout
     put 'make_payout' => :make_payout
   end
-
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations=> "registrations" }
+  # :omniauth_callbacks => "users/omniauth_callbacks",
+  devise_for :users, :controllers => { :registrations=> "registrations"}
+  devise_for :teachers, :controllers => {:registrations => "registrations"}
 
   resources :users, only: [:update] do
     patch 'crop' => 'users#crop'

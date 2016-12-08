@@ -81,5 +81,4 @@ class Teacher  < Student
     end
     result
   end
-
 end
