@@ -52,6 +52,11 @@ Rails.application.routes.draw do
   # :omniauth_callbacks => "users/omniauth_callbacks",
   devise_for :users, :controllers => { :registrations=> "registrations"}
   devise_for :teachers, :controllers => {:registrations => "registrations"}
+  get "/auth/:action/callback",
+      :to => "users/omniauth_callbacks",
+      :constraints => { :action => /google_oauth2|facebook/ }
+
+
 
   resources :users, only: [:update] do
     patch 'crop' => 'users#crop'
