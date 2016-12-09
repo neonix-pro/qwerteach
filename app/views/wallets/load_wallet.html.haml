@@ -1,27 +1,33 @@
-- if(@bank_wire)
-  %h2 Charger mon portefeuille par virement
-  %div
-    Pour charger votre portefeuille, effectuez un virement bancaire aux coordonnées suivantes:
-    %br/
-    Montant:
-    %b
-      = (@bank_wire['DeclaredDebitedFunds']['Amount']/100).to_s
-      €
-    %br/
-    = @bank_wire['BankAccount']['OwnerName']
-    ,
-    \#{@bank_wire['BankAccount']['OwnerAddress']['AddressLine1'] + ' '+ @bank_wire['BankAccount']['OwnerAddress']['City'] + ' '+ @bank_wire['BankAccount']['OwnerAddress']['PostalCode'] +' '+@bank_wire['BankAccount']['OwnerAddress']['Country']}
-    %br/
-    IBAN:
-    %b
-      = @bank_wire['BankAccount']['IBAN'].to_s
-    %br/
-    BIC:
-    %b
-      = @bank_wire['BankAccount']['BIC'].to_s
-    %br/
-    Avec la communication suivante:
-    %b
-      = @bank_wire['WireReference'].to_s
-    %br/
-    = link_to('retour', index_wallet_path )
+%div.load-wallet
+  %h2.page-title-green.text-center Charger mon portefeuille par virement
+  .row
+    .col-sm-2
+    .col-sm-8
+      %p
+        Pour charger votre portefeuille, effectuez un virement bancaire aux coordonnées suivantes:
+      %table.table.table-striped
+        %tr
+          %td Bénéficiaire
+          %td #{@bank_wire.result.bank_account.owner_name}
+        %tr
+          %td Adresse
+          %td #{@bank_wire.result.bank_account.owner_address.map{|k, v| "#{v}" unless v.blank?}.join(', ')}
+        %tr
+          %td IBAN
+          %td #{@bank_wire.result.bank_account.iban}
+        %tr
+          %td BIC
+          %td #{@bank_wire.result.bank_account.bic}
+        %tr
+          %td Montant
+          %td #{@bank_wire.amount}
+        %tr
+          %td Communication
+          %td #{@bank_wire.result.wire_reference}
+      %h5.text-green
+        Cette communication est nécessaire et n'est valable que pour un seul virement, du montant indiqué ci-dessus.
+      %div.actions.text-center
+        = link_to 'Télécharger', '#', class:'btn btn-qw btn-green'
+        = link_to 'Imprimer', '#', class:'btn btn-qw btn-green'
+
+      = link_to('retour', index_wallet_path )

@@ -42,7 +42,14 @@ class WalletsController < ApplicationController
   def direct_debit_mangopay_wallet
     @account = Mango::SaveAccount.new(user: current_user)
     @cards = @user.mangopay.cards
-    @amounts = [20, 50, 100, "autre montant"]
+    @amounts = [["20", 20], ["50", 50], ["100", 100], ["autre montant", nil]]
+    # create card registration, in case
+    creation = Mango::CreateCardRegistration.run(user: current_user)
+    if !creation.valid?
+      redirect_to load_wallet_path, notice: t('notice.processing_error') and return
+    else
+      @card_registration = creation.result
+    end
   end
 
   def load_wallet
@@ -57,7 +64,7 @@ class WalletsController < ApplicationController
         return redirect_to payin.result.redirect_url
       else
         #TODO: render direct_debit_mangopay_wallet with filled fields
-        redirect_to direct_debit_path, alert: payin.errors.full_messages.join(' ') and return
+        redirect_to load_wallet_path, alert: payin.errors.full_messages.join(' ') and return
       end
 
     when 'CB_VISA_MASTERCARD'
@@ -74,18 +81,17 @@ class WalletsController < ApplicationController
           end
         else
           #TODO: render direct_debit_mangopay_wallet with filled fields
-          redirect_to direct_debit_path, alert: payin.errors.full_messages.join(' ') and return
+          redirect_to load_wallet_path, alert: payin.errors.full_messages.join(' ') and return
         end
       end
 
     when 'BANK_WIRE'
-      payin = Mango::SendMakeBankWire.run(user: current_user, amount: amount)
-      if payin.valid?
-        # actually exists ??
-        redirect_to index_wallet_path, notice: t('notice.processing_success') and return
+      @bank_wire = Mango::SendMakeBankWire.run(user: current_user, amount: amount)
+      if @bank_wire.valid?
+        render :load_wallet
       else
         #TODO: render direct_debit_mangopay_wallet with filled fields
-        redirect_to direct_debit_path, alert: payin.errors.full_messages.join(' ') and return
+        redirect_to load_wallet_path, alert: payin.errors.full_messages.join(' ') and return
       end
     end
   end
@@ -93,7 +99,7 @@ class WalletsController < ApplicationController
   def card_info
     creation = Mango::CreateCardRegistration.run(user: current_user)
     if !creation.valid?
-      redirect_to direct_debit_path, notice: t('notice.processing_error') and return
+      redirect_to load_wallet_path, notice: t('notice.processing_error') and return
     else
       @card_registration = creation.result
     end
@@ -102,7 +108,7 @@ class WalletsController < ApplicationController
   def card_registration
     updating = Mango::UpdateCardRegistration.run(id: params[:card_registration_id], data: params[:data])
     if updating.valid?
-      redirect_to direct_debit_path amount: params[:amount]
+      redirect_to load_wallet_path amount: params[:amount]
     else
       redirect_to card_info_path(amount: params[:amount])
     end
