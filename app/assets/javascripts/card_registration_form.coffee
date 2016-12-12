@@ -59,9 +59,13 @@ class window.CardRegistrationForm
   payWithCard: (cardId)->
     if @$('input[name$=returnURL]').val()
       window.location = @$('input[name$=returnURL]').val()
-    else
+    else if @options.payment_url
       paymentUrl = @options.payment_url.replace('__CARD_ID__', cardId)
       $.ajax url: paymentUrl, type: 'PUT', dataType: 'script'
+    else
+      @$('#card_id').prepend('<option value="'+cardId+'"></option>').val(cardId);
+      @$('#card_id').trigger('input');
+      $('#edit_user').submit();
 
   registrationError: (res)->
     alert "Error occured while registering the card: ResultCode: #{res.ResultCode} , ResultMessage: #{res.ResultMessage}"

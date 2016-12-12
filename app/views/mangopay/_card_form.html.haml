@@ -7,7 +7,7 @@
   - if return_url.present?
     = hidden_field_tag :returnURL, return_url
   .field.form-group
-    = label_tag "Numero"
+    = label_tag "Numéro de la carte"
     = number_field_tag :cardNumber, nil, class: 'form-control', :required => true, data: {     |
           :validation => "required creditcard", 'validation-allowing' => "visa, mastercard", |
           "validation-error-msg" => "This card number is invalid."                           |
@@ -19,7 +19,7 @@
       .col-xs-3= select_tag :year, options_for_select((Time.now.year..Time.now.year + 50).to_a), class: 'form-control'
     = hidden_field_tag 'cardExpirationDate'
   .field.form-group
-    = label_tag "Code de sécurité"
+    = label_tag "Cryptogramme de sécurité"
     = password_field_tag 'cardCvx', nil, class: 'form-control', :required => true , data: { |
           :validation => "required cvv",                                                |
           "validation-error-msg" => "This code number is invalid."                      |

@@ -12,12 +12,14 @@
     - if @user.is_a?(Teacher)
       .high
         .center
-          =image_tag("wallet/deload.png")
-          %p Décharger
+          =link_to payout_path do
+            =image_tag("wallet/deload.png")
+            %p Décharger
       .high
         .center
-          =image_tag("wallet/reload.png")
-          %p Recharger
+          =link_to load_wallet_path do
+            =image_tag("wallet/reload.png")
+            %p Recharger
     - else
       .center
         = link_to direct_debit_path
@@ -52,14 +54,6 @@
                 .provider #{c.card_provider} (#{c.currency})
                 .alias #{c.alias}
                 .expiry expiration: #{c.expiration_date}
-                .validity #{c.validity}
-      -#.cont
-      -#  .v-center.tile#plus
-      -#    .center
-      -#      =image_tag("wallet/plus.png")
-      -#      %p Ajouter un moyen de paiement
-      -# ==> Pas encore fonctionnel
-
     -if @user.is_a?(Teacher)
       .line
         .cont

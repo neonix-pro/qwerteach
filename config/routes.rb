@@ -65,8 +65,11 @@ Rails.application.routes.draw do
     resources :adverts
     resources :payments
 
-    get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
+    
 
+    get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
+    
+   
     # Gestion des serveurs BBB depuis l'admin
     resources :bigbluebutton_servers
     resources :bigbluebutton_recordings
@@ -74,6 +77,9 @@ Rails.application.routes.draw do
 
     root to: "users#index"
   end
+  resources "contact", only: [:new, :create]
+    
+
 
   scope '/user/mangopay', controller: :payments do
   end
@@ -82,7 +88,7 @@ Rails.application.routes.draw do
     get "edit_wallet" => :edit_mangopay_wallet
     put "edit_wallet" => :update_mangopay_wallet
     get "index_wallet" => :index_mangopay_wallet
-    get "direct_debit" => :direct_debit_mangopay_wallet
+    get "load-wallet" => :direct_debit_mangopay_wallet
     put "direct_debit" => :load_wallet
     get "transactions" => :transactions_mangopay_wallet
     get "card_info" => :card_info
@@ -92,9 +98,12 @@ Rails.application.routes.draw do
     get 'payout' => :payout
     put 'make_payout' => :make_payout
   end
-
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations=> "registrations" }
-
+  # :omniauth_callbacks => "users/omniauth_callbacks",
+  devise_for :users, :controllers => { :registrations=> "registrations"}
+  devise_for :teachers, :controllers => {:registrations => "registrations"}
+  get "/auth/:action/callback",
+      :to => "users/omniauth_callbacks",
+      :constraints => { :action => /google_oauth2|facebook/ }
   resources :users, only: [:update] do
     patch 'crop' => 'users#crop'
     post 'crop' => 'users#crop'

@@ -1,18 +1,22 @@
 @import "global_variables";
 
 form{
+  a{
+    font-family: SofiaProLight;
+  }
   .actions{
     margin: 25px 0px;
     text-align:right;
     input[type="submit"]{
-      color:white;
+      color:#313131;
       background-color: $color_qwerteach_green;
-      border-radius: 5px;
       border:none;
       font-size: 14px;
-      padding: 5px 12px;
-      border-radius: 30px;
+      padding: 6px 30px;
+      border-radius: 17px;
       margin-left:10px;
+      font-family: SofiaProLight;
+      margin-bottom: 10px;
     }
   }
   select, select.form-control{

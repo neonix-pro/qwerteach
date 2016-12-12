@@ -1,0 +1,29 @@
+#contact
+    .container1.text-center
+        .wrapper
+            .contact CONTACT
+            .hello HELLO!
+            .phone
+                %label.text-white Phone: 
+                %number +32 2 345 48 37
+
+            .email 
+                %label.text-white Email:
+                %adress hello@qwerteach.com
+    .container2
+        = simple_form_for @contact,:url=>new_contact_path, :html => {:class => 'form-inline text-center' } do |f|
+            .item{:class=>'form-group'}
+                .item{:class=>'form-group'}
+                    =f.input :name ,:label=>false, :placeholder=>"Entrez votre nom ici",:required => true, :class=> 'form-control'
+                .item{:class=>'form-group'}
+                    =f.input :email ,:label=>false, :placeholder=>"Entrez votre e-mail ici",:required => true, :class=> 'form-control'
+                .item{:class=>'form-group'}
+                    =f.input :subject ,:label=>false, :placeholder=>"Tapez ici l'objet",:required => false, :class=> 'form-control'
+                .message
+                    =f.text_area :message ,:label=>false, :placeholder=>"Tapez le message ici",:rows=>6,:cols=>73,:as => 'text',:required => false, :class=> 'form-control'
+            .hidden
+                = f.input :nickname, :hint => 'Leave this field blank!'
+            
+            .form-action
+                = f.button :submit, 'Envoyer!' , :class=> "btn btn-green btn-qw"
+            

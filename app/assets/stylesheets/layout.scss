@@ -7,19 +7,19 @@ body, html{
 body{
   padding-bottom:50px; // because of navbar
   overflow-x: hidden;
+  a{
+    color: $color_qwerteach_green;
+  }
+  a:hover, a:active, a:focus{
+    text-decoration: underline;
+    border: none;
+    outline: 0;
+    background: none;
+    color:inherit;
+  }
 }
 h1,h2,h3,h4,h5,p,span,a{
   font-family: SofiaProRegular;
-}
-a, a:hover, a:active, a:focus{
-  text-decoration: underline;
-  border: none;
-  outline: 0;
-  background: none;
-  color:inherit;
-}
-a{
-  color: $color_qwerteach_green;
 }
 
 .toggle-content{
@@ -73,7 +73,7 @@ a{
   letter-spacing: 0.2px;
   font-weight: 300;
   padding: 6px 30px;
-  font-family: SofiaProExtraLight;
+  font-family: SofiaProLight;
 }
 .btn-sm.btn.btn-qw {
   font-size: 14px;
@@ -103,8 +103,11 @@ a{
   color:white;
 }
 
-.text-green{
+.text-green, .text-green:hover{
   color:$color_qwerteach_green!important;
+}
+.text-white{
+    color:white;
 }
 .text-grey{
   color: $text_lightgrey;
@@ -313,4 +316,62 @@ input.cmn-toggle-round-flat:checked + label:after
     color: $color_link_grey;
     margin-top: 280px;
   }
+}
+
+.modal-dialog{
+  font-family: SofiaProRegular;
+  .modal-content{
+    border-radius: 0px;
+    .modal-body{
+      h5{
+        font-size: 16px;
+        background-color: $color_qwerteach_green;
+        color: white;
+        margin: 0px -15px 10px -15px;
+        padding: 5px 15px;
+      }
+    }
+  }
+}
+table{
+  font-family: SofiaProRegular;
+  width:100%;
+  line-height:25px;
+  thead{
+    tr{
+      border-bottom: 1px solid #eee;
+      th:first-child{
+        border-right: 1px solid #eee;
+      }
+      th{
+        font-weight: 400;
+        padding-left: 5px;
+      }
+    }
+  }
+  tbody {
+    tr {
+      th {
+        border-right: 1px solid #eee;
+        padding-left:0px;
+        font-weight: 400;
+      }
+      td{
+        padding-left:5px;
+      }
+    }
+    tr.active{
+      background-color:$color_qwerteach_green;
+      td.active{
+        color:white;
+      }
+    }
+    td.active, th.active{
+      background-color:$color_qwerteach_green;
+    }
+  }
+}
+
+.toggler{
+  cursor:pointer;
 }

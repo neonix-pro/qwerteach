@@ -41,13 +41,22 @@ $(document).ready(function(e){
 
     $('.toggler').click(function(e){
         e.preventDefault();
-        $(this).toggleClass('active');
         var t = $(this).attr('href');
         if(t === false || typeof t === typeof undefined) {
             t = $(this).attr('data-toggle');
         }
+        if($(this).hasClass('fa')){
+            $(this).toggleClass('fa-angle-up').toggleClass('fa-angle-down');
+        }
+        if($(t).hasClass('hidden')){
+            $(t).toggleClass('hidden').hide();
+        }
+        else{
+            $(t).toggleClass('hidden');
+        }
+
         $(t).slideToggle('slow', function(){
-            $(this).addClass('active');
+            $(this).toggleClass('active');
         });
     });
 })

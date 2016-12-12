@@ -1,5 +1,4 @@
 be:
-
   hello: "Bonjour!!!"
   activerecord:
     attributes:

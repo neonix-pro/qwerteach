@@ -18,9 +18,9 @@ class User < ActiveRecord::Base
   
   acts_as_token_authenticatable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :confirmable, :lockable, :validatable,
-         :lastseenable, :omniauthable, :omniauth_providers => [:twitter, :facebook, :google_oauth2]
-  
+         :recoverable, :rememberable, :trackable, :lockable, :validatable,
+         :lastseenable, :confirmable
+          #, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
   before_save -> { skip_confirmation! }
 
   has_one :gallery
@@ -188,6 +188,11 @@ class User < ActiveRecord::Base
 
   def profil_complete?
     (firstname.nil? || lastname.nil? || avatar.nil? || phonenumber.nil? || mango_id.nil?)
+  end
+
+  protected
+  def confirmation_required?
+    false
   end
 
   private
