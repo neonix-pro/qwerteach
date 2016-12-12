@@ -7,7 +7,7 @@
         %h3
           Coordonnées
           .pull-right
-            %i.fa.fa-angle-down
+            %i.fa.fa-angle-down.toggler{data: {toggle:'#edit-account-form'}}
         #edit-account-form.hidden
           = render partial: 'mangopay_form'
       #load-wallet-form
