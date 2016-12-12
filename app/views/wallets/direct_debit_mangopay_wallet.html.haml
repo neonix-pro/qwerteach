@@ -1,25 +1,149 @@
-%h2 Charger mon portefeuille
-= form_for @user, as: :user, url: direct_debit_path, method: :put do |f|
-  = hidden_field_tag 'beneficiary', @user.id
-  .field
-    = f.label "Montant"
-    = number_field_tag "amount", params[:amount] || '50', :min => 0 , :step => 0.1 , :required => true
-  .field.type_choice
-    = f.label "Type de carte"
-    = select_tag "card_type", options_for_select(["BCMC","CB_VISA_MASTERCARD", "BANK_WIRE"], "CB_VISA_MASTERCARD"), :required => true
-  .field.credit_card_choice
-    = f.label "Carte existante"
-    = select_tag "card", options_for_select(@cards.map{|c| [c.alias, c.id]}), {:include_blank => 'Nouvelle'}
-  .actions
-    = f.submit "ok"
+%div.load-wallet
+  %h2.page-title-green.text-center Charger mon portefeuille
+  .row
+    .col-sm-2
+    .col-sm-8
+      #mangopay-account
+        %h3
+          Coordonnées
+          .pull-right
+            %i.fa.fa-angle-down.toggler{data: {toggle:'#edit-account-form'}}
+        #edit-account-form.hidden
+          = render partial: 'mangopay_form'
+      #load-wallet-form
+        %h3 Montant
+        .form-group
+          = select_tag('amount_select', options_for_select(@amounts, params[:amount]), required: true, class:"form-control")
+          = number_field(:amount, '', class:'form-control', id: 'amount')
+        #payment-method
+          %h3 Mode de payement
+          .form-group.easy-pay
+            %h5 Easy-payment
+            = check_box_tag('easy_pay', @cards.last.id)
+            %label{for: 'easy_pay'} #{@cards.first.card_provider} - #{@cards.first.alias} - #{@cards.first.expiration_date.insert(2, "/20")}
+          .separation
+            %hr
+            .or
+              %h5 ou payer par
+          .form-group.clearfix.choose-payment-method
+            .col-sm-6
+              = radio_button_tag('payment-method', 'cc_visa', false,data:{text:'VISA'})
+              = image_tag('payment_methods/visa.png')
+              %label{for: 'payment-method_cc_visa'} VISA
+              %br
+              = radio_button_tag('payment-method', 'cc_mastercard', false, data:{text:'Mastercard'})
+              = image_tag('payment_methods/mastercard.png')
+              %label{for: 'payment-method_cc_mastercard'} Mastercard
+              %br
+              = radio_button_tag('payment-method', 'cc_cb', false, data:{text:'Carte Bleue'})
+              = image_tag('payment_methods/cb.png')
+              %label{for: 'payment-method_cc_cb'} Carte Bleue
+            .col-sm-6
+              = radio_button_tag('payment-method', 'BCMC', false, data:{text:'Bancontact'})
+              = image_tag('payment_methods/bcmc.png')
+              %label{for: 'payment-method_BCMC'} Bancontact
+              %br
+              = radio_button_tag('payment-method', 'BANK_WIRE', false, data:{text:'Virement Bancaire'})
+              = image_tag('payment_methods/bank-wire.png')
+              %label{for: 'payment-method_BANK_WIRE'} Virement
+              = hidden_field_tag(:card_type)
+        #credit_card
+          = label_tag "Sélectionner la carte de crédit"
+          = select_tag "card_id", options_for_select(@cards.map{|c| [c.alias, c.id]}), {:include_blank => 'Nouvelle', class: 'form-control'}
+          #new_card{class: ('hidden' unless current_user.mangopay.cards.empty?)}
+            = render 'mangopay/card_form', remote: true, no_actions: true
+      #load-wallet-recap
+        %h3 Récapitulatif
+        %dl.dl-horizontal
+          %dt Montant (EUR)
+          %dd.amount
+          %dt Mode de payement
+          %dd.method
+      #load-wallet-action
+        .actions
+          = form_for @user, as: :user, url: direct_debit_path, method: :put do |f|
+            = hidden_field_tag :amount, '', id: "submit-amount"
+            = hidden_field_tag :card, '', id: "submit-card-id"
+            = hidden_field_tag :card_type, '', id: "submit-payment-method"
+            .actions
+              = submit_tag('Valider')
+
 :javascript
-  $('.type_choice').on('change', function () {
-    var choice = $('.credit_card_choice');
-    if ($('.type_choice option:selected').text() == "CB_VISA_MASTERCARD"){
-      choice.show();
-    }else if ($('.type_choice option:selected').text() == "BCMC"){
-      choice.hide();
-    }else if ($('.type_choice option:selected').text() == "BANK_WIRE"){
-      choice.hide();
+  updateCardType();
+  updateAmount();
+  updateCardId();
+  checkEasyPay();
+  mangoPay.cardRegistration.baseURL = "#{ MangoPay.configuration.root_url }";
+  mangoPay.cardRegistration.clientId = "#{ MangoPay.configuration.client_id }";
+  var registration = new CardRegistrationForm( $('#credit_card'), {
+    card_registration_url: "#{ @card_registration.card_registration_url }",
+    card_registration_id: "#{ @card_registration.id }"
+  });
+  $('input[name=payment-method]').on('change',function(){
+     updateCardType();
+  });
+  $('select#amount_select').on('input', function(){
+    updateAmount();
+  });
+  $('#amount').on('input', function(){
+    $('#load-wallet-recap .amount').text($(this).val());
+    $('#submit-amount').val($(this).val());
+  });
+  $('select#card_id').on('input', function(){
+    updateCardId();
+  });
+  $('#edit_user').on('submit', function(e){
+    if($('#card_id').val() == '' && $('#submit-payment-method').val() == 'CB_VISA_MASTERCARD'){
+      e.preventDefault();
+      registration.perform();
     }
   });
+  $('#easy_pay').on('input', function(){
+    checkEasyPay();
+  });
+  function checkEasyPay(){
+    if($('#easy_pay').prop('checked')){
+      $('#credit_card').slideUp();
+      $('#payment-method input[type=radio]').removeProp('checked');
+      $('#submit-card-id').val($('#easy_pay').val());
+      $('.choose-payment-method').css({opacity: 0.5});
+      $('#load-wallet-recap .method').text('Easy payment');
+    }
+    else{
+      $('#submit-card-id').val('');
+      $('.choose-payment-method').css({opacity: 1});
+      updateCardType();
+    }
+  }
+
+  function updateCardType(){
+    var t = $('input[name=payment-method]:checked').val() || '';
+    if(t.substring(0, 2) == 'cc'){
+      t = 'CB_VISA_MASTERCARD';
+      $('#credit_card').show();
+    }
+    else{
+      $('#credit_card').hide();
+    }
+    $('#card_type').val(t);
+    $('#load-wallet-recap .method').text($('input[name=payment-method]:checked').attr('data-text'));
+    $('#submit-payment-method').val(t);
+  }
+  function updateAmount(){
+    var a=$('select#amount_select').val();
+    if (a!='' ){
+      $('#amount').hide().val(a);
+      $('#load-wallet-recap .amount').text(a);
+      $('#submit-amount').val(a);
+    }
+    else{
+      $('#amount').show().val('');
+      $('#submit-amount').val(0);
+    }
+  }
+  function updateCardId(){
+    var c =$('#card_id').val();
+    if (c!= ''){
+      $('#submit-card-id').val(c);
+    }
+  }
