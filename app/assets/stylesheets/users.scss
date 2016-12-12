@@ -326,65 +326,6 @@
   }
 }
 
-/*Inscription & connexion*/
-.conin{
-    text-align: center;
-    .modal-header{
-      border: none;
-      font-size: 32px;
-      .close{
-        color: #fff;
-        text-shadow: none;
-        opacity: 1;
-      }
-    }
-    .modal-content{
-        background: $color_qwerteach_green !important;
-        color: #fff;
-        outline: none !important;
-        .provider_signin{
-          display: block;
-          margin: auto;
-          padding: 5px;
-          img{
-            width: 250px;
-          }
-        }
-        form{
-          margin-bottom: 35px;
-        }
-        .field{
-          margin: 20px;
-          input{
-            width: 80%;
-            text-align: center;
-            margin: auto;
-            border-radius: 75px;
-            height: 35px;
-            color: $color_qwerteach_green;
-            border: none;
-            font-size: 16px;
-          }
-        }
-        .actions{
-          input{
-            padding: 5px 70px;
-            background: $color_qwerteach_purple;
-            border-radius: 75px;
-            border: none;
-            border-style: none;
-          }
-        }
-        a{
-          color: #fff;
-          margin-top: 5px;
-        }
-    }
-    .modal-footer{
-      border: none;
-    }
-}
-
 /*Flipping cards effect*/
 .profile-advert, .press-article {
   perspective: 1000px;

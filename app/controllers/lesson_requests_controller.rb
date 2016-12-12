@@ -10,6 +10,7 @@ class LessonRequestsController < ApplicationController
   def new
     @free_lessons = @user.free_lessons_with(@teacher)
     @lesson_request = @lesson.present? ? CreateLessonRequest.from_lesson(@lesson) : CreateLessonRequest.new
+    @adverts = @teacher.adverts_by_level_code
   end
 
   def create
@@ -43,7 +44,10 @@ class LessonRequestsController < ApplicationController
       when 'transfert'
         paying = PayLessonByTransfert.run(user: current_user, lesson: @lesson)
         if paying.valid?
-          render 'finish', :layout => false
+          respond_to do |format|
+            format.html {redirect_to lessons_path}
+          end
+          #render 'finish', :layout => false
         else
           @card_registration = Mango::CreateCardRegistration.run(user: current_user).result
           render 'errors', :layout=>false, locals: {object: paying}
@@ -148,7 +152,7 @@ class LessonRequestsController < ApplicationController
   end
 
   def request_params
-    params.require(:request).permit(:student_id, :level_id, :topic_id, :time_start, :hours, :minutes, :free_lesson).merge({
+    params.require(:request).permit(:student_id, :level_id, :topic_id, :time_start, :hours, :minutes, :free_lesson, 'start_at(4i)').merge({
       :student_id => current_user.id,
       :teacher_id => @teacher.id
     })

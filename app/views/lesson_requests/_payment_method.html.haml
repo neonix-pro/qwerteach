@@ -1,35 +1,91 @@
-%ul.nav.nav-tabs
-  %li.active= link_to('transfert', '#transfert', 'data-toggle' => 'tab')
-  %li= link_to('bancontact', '#bancontact', 'data-toggle' => 'tab')
-  %li= link_to('Credit Card', '#credit_card', 'data-toggle' => 'tab')
-.tab-content
-  #transfert.tab-pane.active
-    Il reste #{@user.total_wallets_in_cents/100}€ sur votre portefeuille virtuel.
-    - if(@lesson.price > @user.total_wallets_in_cents)
-      Ce montant n'est pas suffisant pour payer le cours. Veuillez sélectionner un autre mode de payement.
-    - else
-      Le montant du cours est de #{@lesson.price}€
-      Après le transfer, il vous restera donc #{(@user.total_wallets_in_cents/100 - @lesson.price)}€.
-
-    = button_to 'Ok', user_lesson_requests_payment_path(@teacher, mode: 'transfert'), remote: true, method: 'put'
-    = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
-
-  #bancontact.tab-pane
+#pay-by-wallet
+  - if @lesson.price > @user.total_wallets_in_cents
+    Mon portefeuille: #{@user.total_wallets_in_cents/100}€
+    Montant insuffisant
+  - else
+    .checkbox
+      %label
+        = check_box_tag('pay_by_wallet', '')
+        Payer avec mon portefeuille virtuel
+        %br
+        Mon portefeuille: #{@user.total_wallets_in_cents/100}€
+#payment-methods
+  %hr
+  .choose_payment_method
+    .or.text-center
+      ou
+    - options = {'Carte de crédit' => :creditcard, 'Carte de débit / direct banking' => :bcmc}
+    = select_tag('payment_method', options_for_select(options), prompt: 'Choisissez votre mode de payement', class:'form-control')
+  .payment_method.payment_by_bcmc
     En cliquant sur 'ok', vous serez redirigé vers votre insitution bancaire pour procéder au payement.
-    = button_to 'Ok', user_lesson_requests_payment_path(@teacher, mode: 'bancontact'), remote: true, method: 'put'
-    = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
-
-  #credit_card.tab-pane
-    %p Paiement par carte de crédit.
-    .field.credit_card_choice
-    = form_tag  user_lesson_requests_payment_path(@teacher), :method => :put, remote: true do |f|
-      = hidden_field :mode, 'cd'
-      = label_tag "Choisir carte"
-      = select_tag :card_id, options_for_select(current_user.mangopay.cards.map { |f| [f.alias, f.id] }), {include_blank: 'Nouvelle carte'}
-    #new_card
-      = render 'mangopay/card_form', remote: true, no_actions: true
     .actions
-      = submit_tag "Envoyer"
-      = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
+      = button_to 'Finaliser la demande de cours', user_lesson_requests_payment_path(@teacher, mode: 'bancontact'), remote: true, method: 'put'
+  .payment_method.payment_by_creditcard
+    #credit_card.field.credit_card_choice
+      = form_tag  user_lesson_requests_payment_path(@teacher), :method => :put, remote: true do |f|
+        = hidden_field :mode, 'cd'
+        = label_tag "Choisir carte"
+        - options = options_for_select(current_user.mangopay.cards.map { |f| [f.alias, f.id] }, (current_user.mangopay.cards.first.id unless current_user.mangopay.cards.empty?))
+        = select_tag :card_id, options, {include_blank: 'Nouvelle carte', class:'form-control'}
+      #new_card{class: ('hidden' unless current_user.mangopay.cards.empty?)}
+        = render 'mangopay/card_form', remote: true, no_actions: true
+      .actions
+        = submit_tag "Finaliser la demande de cours"
+  .payment_method.payment_by_wallet
+    .actions
+      = button_to 'Finaliser la demande de cours', user_lesson_requests_payment_path(@teacher, mode: 'transfert'), remote: false, method: 'put'
 
+= link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
 
+-#%ul.nav.nav-tabs
+-#  %li.active= link_to('transfert', '#transfert', 'data-toggle' => 'tab')
+-#  %li= link_to('bancontact', '#bancontact', 'data-toggle' => 'tab')
+-#  %li= link_to('Credit Card', '#credit_card', 'data-toggle' => 'tab')
+-#.tab-content
+-#  #transfert.tab-pane.active
+-#    Il reste #{@user.total_wallets_in_cents/100}€ sur votre portefeuille virtuel.
+-#    - if(@lesson.price > @user.total_wallets_in_cents)
+-#      Ce montant n'est pas suffisant pour payer le cours. Veuillez sélectionner un autre mode de payement.
+-#    - else
+-#      Le montant du cours est de #{@lesson.price}€
+-#      Après le transfer, il vous restera donc #{(@user.total_wallets_in_cents/100 - @lesson.price)}€.
+-#
+-#    = button_to 'Ok', user_lesson_requests_payment_path(@teacher, mode: 'transfert'), remote: true, method: 'put'
+-#    = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
+-#
+-#  #bancontact.tab-pane
+-#    En cliquant sur 'ok', vous serez redirigé vers votre insitution bancaire pour procéder au payement.
+-#    = button_to 'Ok', user_lesson_requests_payment_path(@teacher, mode: 'bancontact'), remote: true, method: 'put'
+-#    = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
+-#
+-#  #credit_card.tab-pane
+-#    %p Paiement par carte de crédit.
+-#    .field.credit_card_choice
+-#    = form_tag  user_lesson_requests_payment_path(@teacher), :method => :put, remote: true do |f|
+-#      = hidden_field :mode, 'cd'
+-#      = label_tag "Choisir carte"
+-#      = select_tag :card_id, options_for_select(current_user.mangopay.cards.map { |f| [f.alias, f.id] }), {include_blank: 'Nouvelle carte'}
+-#    #new_card
+-#      = render 'mangopay/card_form', remote: true, no_actions: true
+-#    .actions
+-#      = submit_tag "Envoyer"
+-#      = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
+
+:javascript
+  $('#payment_method').on('input', function(){
+    $('.payment_method').hide();
+    $('.payment_by_'+$(this).val()).slideDown();
+  });
+  $('#pay_by_wallet').on('input', function(){
+    $('.payment_method').hide();
+    if($(this).prop('checked')){
+      $('.payment_by_wallet').slideDown();
+      $('.choose_payment_method').addClass('inactive');
+      $('#payment_method').prop('disabled', 'disabled');
+    }
+    else{
+      $('.choose_payment_method').removeClass('inactive');
+      $('#payment_method').prop('disabled', '');
+    }
+
+  });

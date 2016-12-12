@@ -35,7 +35,9 @@ class RegistrationsController < Devise::RegistrationsController
     else
       render "edit"
     end
-
+  
+  def sign_up(resource_name, resource)
+    sign_in(:user, resource)
   end
 
   def pwd_edit
@@ -48,5 +50,13 @@ class RegistrationsController < Devise::RegistrationsController
   def needs_password?(user, params)
     (params[:user].has_key?(:email) && user.email != params[:user][:email]) || !params[:user][:password].blank?
   end
-
+  
+  def after_sign_up_path_for(resource)
+    if resource.is_a?(Teacher)
+      become_teacher_path(:general_infos)
+    else
+      dashboard_path
+    end
+  end
+  
 end
