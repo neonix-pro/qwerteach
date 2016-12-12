@@ -41,7 +41,10 @@ class WalletsController < ApplicationController
       end
     else
       @account = saving
-      render 'edit_mangopay_wallet', :json => {:message => {:errors => saving.errors.as_json, :saving => saving.as_json}}
+      respond_to do |format|
+        format.js {render 'edit_mangopay_wallet'}
+        format.json {render :json => {:message => {:errors => saving.errors.as_json, :saving => saving.as_json}}}
+      end
     end
   end
 

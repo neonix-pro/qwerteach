@@ -14,4 +14,16 @@ class Api::LessonRequestsController < LessonRequestsController
     super
   end
   
+  def payment
+    super
+  end
+  
+  def bancontact_process
+    super
+  end
+  
+  def credit_card_process
+    super
+  end
+  
 end

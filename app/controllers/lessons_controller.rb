@@ -79,14 +79,23 @@ class LessonsController < ApplicationController
 
       if refuse.valid?
         flash[:success] = 'Vous avez annulé la demande de cours.'
-        redirect_to lessons_path
+        respond_to do |format|
+          format.html {redirect_to lessons_path}
+          format.json {render :json => {:success => "true", :message => "Vous avez annulé la demande de cours.", :lesson => @lesson.as_json}}
+        end
       else
         flash[:danger] = "Il y a eu un problème: #{refuse.errors.full_messages.to_sentence}.<br /> Le cours n'a pas été annulé.".html_safe
-        redirect_to lessons_path
+        respond_to do |format|
+          format.html {redirect_to lessons_path}
+          format.json {render :json => {:success => "false", :message => "Il y a eu un problème. Le cours n'a pas été annulé."}}
+        end
       end
     else
       flash[:danger]="Seul le professeur peut annuler un cours moins de 48h à l'avance."
-      redirect_to lessons_path
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format.json {render :json => {:success => "false", :message => "Seul le professeur peut annuler un cours moins de 48h à l'avance."}}
+      end
     end
   end
 

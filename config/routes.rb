@@ -7,8 +7,17 @@ Rails.application.routes.draw do
     get 'profiles' => 'profiles#index'
     get 'users/:user_id/lesson_requests/new' => 'lesson_requests#new'
     post 'users/:user_id/lesson_requests' => 'lesson_requests#create'
+    put 'users/:user_id/lesson_requests/payment' => 'lesson_requests#payment'
+    get 'users/:user_id/lesson_requests/bancontact_process' => 'lesson_requests#bancontact_process'
+    get '/users/:user_id/lesson_requests/credit_card_process' => 'lesson_requests#credit_card_process'
     put 'user/mangopay/edit_wallet' => 'wallets#update_mangopay_wallet'
     get 'user/mangopay/index_wallet' => 'wallets#index_mangopay_wallet'
+    post 'wallets/get_total_wallet' => 'wallets#get_total_wallet'
+    get 'wallets/check_mangopay_id' => 'wallets#check_mangopay_id'
+    post 'wallets/find_users_by_mango_id' => 'wallets#find_users_by_mango_id'
+    get 'cours' => 'lessons#index'
+    post 'lessons/find_topic_and_teacher' => 'lessons#find_topic_and_teacher'
+    get 'lessons/:lesson_id/cancel' => 'lessons#cancel'
   end
   
   namespace :api, :defaults => { :format => 'json' } do
