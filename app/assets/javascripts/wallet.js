@@ -6,7 +6,9 @@ $(document).ready(function(){
         $(".block_info").hide("slow");
         $(".triangle").hide();
         $("#" + $(this).attr("id") + " .triangle").slideToggle("slow");
-        $("#option_" + $(this).attr("id")).toggle("slow", bodySidebarHeight());
+        $("#option_" + $(this).attr("id")).toggle("slow", function(){
+            bodySidebarHeight();
+        });
     })
     
     //table varie couleur

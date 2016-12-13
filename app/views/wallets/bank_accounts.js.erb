@@ -1,0 +1,6 @@
+$('#add-bank-account-modal .modal-body').html("<%= j render 'mangopay/bank_accounts/new', bank_account: @bank_account %>");
+$('#add-bank-account-modal').modal('show');
+$('input.bank_account_type').on('input', function(){
+  $('.account_fields').hide();
+  $('#account_'+$(this).val()).show();
+});

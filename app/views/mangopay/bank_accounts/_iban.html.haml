@@ -1,9 +1,7 @@
 = fields_for :iban_account, bank_account do |bank_account_fields|
-  .field
-    = bank_account_fields.label :iban
-    %br/
-    = bank_account_fields.text_field :iban, :require => true
-  .field
-    = bank_account_fields.label :bic
-    %br/
-    = bank_account_fields.text_field :bic, :require => true
+  .form-group
+    = bank_account_fields.label :iban, 'IBAN'
+    = bank_account_fields.text_field :iban, :require => true, class: 'form-control'
+  .form-group
+    = bank_account_fields.label :bic, 'BIC'
+    = bank_account_fields.text_field :bic, :require => true, class: 'form-control'

@@ -1,13 +1,10 @@
 = fields_for :other_account, bank_account do |bank_account_fields|
-  .field
-    = bank_account_fields.label :country
-    %br/
-    = bank_account_fields.text_field :country, :require => true
-  .field
+  .form-group
+    = bank_account_fields.label :country, 'Pays'
+    = bank_account_fields.text_field :country, :require => true, class: 'form-control'
+  .form-group
     = bank_account_fields.label :BIC
-    %br/
-    = bank_account_fields.text_field :bic, :require => true
-  .field
-    = bank_account_fields.label :account_number
-    %br/
-    = bank_account_fields.number_field :account_number, :require => true
+    = bank_account_fields.text_field :bic, :require => true, class: 'form-control'
+  .form-group
+    = bank_account_fields.label :account_number, 'Numéro de compte'
+    = bank_account_fields.number_field :account_number, :require => true, class: 'form-control'
