@@ -282,7 +282,7 @@
           position: absolute;
           margin-left:10%;
         }
-        .owner, .number{
+        .owner, .number, .delete{
           width: 100%;
           position: absolute;
           text-align: center;
@@ -292,6 +292,15 @@
         }
         .number{
           bottom: 45px;
+        }
+        .delete{
+          bottom: 0px;
+          button[type=submit]{
+            background-color:$color_qwerteach_blue;
+            border:none;
+            border-radius: 5px;
+            padding: 3px 10px;
+          }
         }
         .add{
           position:absolute;

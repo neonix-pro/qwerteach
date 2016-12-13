@@ -1,6 +1,3 @@
-- if flash[:notice]
-  .notice = flash[:notice]
-
 .wallet_index
   .row
     .money.col-md-10
@@ -63,6 +60,9 @@
               =image_tag('wallet/bank-account-background.png', class: 'bank-account-background')
               .owner #{ba.owner_name}
               .number #{ba.iban || ba.account_number}
+              .delete.pull-right
+                = button_to desactivate_bank_account_path(ba.id), method: :put do
+                  .fa.fa-trash-o
           .bank-account
             .add
               =link_to bank_accounts_path, remote: true do
