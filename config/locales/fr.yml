@@ -50,6 +50,14 @@ fr:
     mango_account:
       update_success: Vos coordonnées ont été mises à jour avec succès.
       update_error: Vos coordonnées n'ont pas pu être mises à jour. %{message}
+  review:
+    creation:
+      success: Votre avis a bien été enregistré
+      error: Il y a eu un problème lors de l'enregistrement de votre avis sur ce professeur. %{message}
+    update:
+      success: Votre avis a été mis à jour
+      error: Il y a eu un problème. %{message}
+
 
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:

@@ -1,22 +1,7 @@
 -if user.confirmed?
   - unless user.profil_complete?
-    %h3
-      Bonus 10€:
-    %h3.text-white
-      Parraînez un ami et gagnez du crédit!
-    .text-center
-      = link_to '#', class: 'bonus_credit' do
-        %i.fa.fa-long-arrow-right
+    = render partial: 'dashboards/bonus/referral'
   - else
-    %h3
-      Bonus 10€:
-    %h3.text-white
-      Complétez votre profil et gagnez du crédit!
-    .text-center
-      = link_to '#', class: 'bonus_credit' do
-        %i.fa.fa-long-arrow-right
+    = render partial: 'dashboards/bonus/complete_profil'
 - else
-  %h3
-    Contact
-  %h3.text-white
-    Confirmez votre e-mail et ajouter un n° de téléphone
+  = render partial: 'dashboards/bonus/contact'

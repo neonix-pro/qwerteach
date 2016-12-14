@@ -8,7 +8,7 @@ class ReviewsController < ApplicationController
   end
 
   def new
-
+    @review = Review.new(new_review_params)
   end
 
   def create
@@ -17,18 +17,20 @@ class ReviewsController < ApplicationController
       @review = Review.new(review_params)
       respond_to do |format|
         if @review.save
-          format.html { redirect_to user_path(User.find(params[:user_id])), notice: 'Review was successfully created.' }
+          format.html { redirect_to user_path(User.find(params[:user_id])), notice: t('review.creation.success') }
         else
-          format.html { redirect_to user_path(User.find(params[:user_id])), notice: 'Review was not created.' }
+          flash[:danger]=t('review.creation.error', message: @review.errors.full_messages.to_sentence)
+          format.html { redirect_to user_path(User.find(params[:user_id])) }
         end
       end
     else
       old.first.update(review_params)
       respond_to do |format|
         if old.first.save
-          format.html { redirect_to user_path(User.find(params[:user_id])), notice: 'Review was successfully updated.' }
+          format.html { redirect_to user_path(User.find(params[:user_id])),notice: t('review.update.success') }
         else
-          format.html { redirect_to user_path(User.find(params[:user_id])), notice: 'Review was not updated.' }
+          flash[:danger]=t('review.update.error', message: @review.errors.full_messages.to_sentence)
+          format.html { redirect_to user_path(User.find(params[:user_id]))}
         end
       end
     end
@@ -44,7 +46,10 @@ class ReviewsController < ApplicationController
     end
   end
   private
+  def new_review_params
+    params.permit(:sender_id, :subject_id, :note, :review_text).merge(sender_id: current_user.id, subject_id: params[:user_id])
+  end
   def review_params
-    params.permit(:sender_id, :subject_id, :review_text, :note).merge(sender_id: current_user.id, subject_id: params[:user_id])
+    params.require(:review).permit(:sender_id, :subject_id, :note, :review_text).merge(sender_id: current_user.id, subject_id: params[:user_id])
   end
 end
