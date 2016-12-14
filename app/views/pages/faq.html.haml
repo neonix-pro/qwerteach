@@ -1,70 +1,246 @@
-.faq.faq-template
+%div
+  .faq.faq-template
     .header
-        %h1 Foire aux questions
+      %h1 Questions fréquemment posées
+      %ul#user-type-toggle
+        %li
+          %a.active{data: {target: '#students'}} Élèves
+        %li
+          %a{data: {target: '#teachers'}} Professeurs
+        %li
+          %a{data: {target: '#parents'}} Parents
+    .user-type.active#students
+      .unav
         %ul
-            %li
-                %a.active Alpha
-            %li
-                %a Beta
-            %li
-                %a Gamma
-    .unav
+          %li
+            %a.active{data: {toggle: '#student-generalites'}} Généralités
+          %li
+            %a{data: {toggle: '#student-takelessons'}} Prendre des cours
+          %li
+            %a{data: {toggle: '#student-videoconference'}} Vidéo-conférence
+          %li
+            %a{data: {toggle: '#student-payments'}} Paiements sécurisés
+          %li
+            %a{data: {toggle: '#student-technical'}} Problèmes techniques
+      .panel-group{:id => "student-generalites"}
+        .panel.panel-default
+          %a{:href => "#student-generalites-one", :data => {:toggle => "collapse", :parent => "#student-generalites"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.generalites.question.one')
+          .panel-collapse.collapse{:id=>"student-generalites-one"}
+            %div
+              %p= t('faq.generalites.answer.one')
+        .panel.panel-default
+          %a{:href => "#student-generalites-two", :data => {:toggle => "collapse", :parent => "#student-generalites"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.generalites.question.two')
+          .panel-collapse.collapse{:id=>"student-generalites-two"}
+            %div
+              %p= t('faq.generalites.answer.two')
+        .panel.panel-default
+          %a{:href => "#student-generalites-three", :data => {:toggle => "collapse", :parent => "#student-generalites"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.generalites.question.three')
+          .panel-collapse.collapse{:id=>"student-generalites-three"}
+            %div
+              %p= t('faq.generalites.answer.three')
+      .panel-group{:id => "student-takelessons", hidden: true}
+        .panel.panel-default
+          %a{:href => "#student-takelessons-one", :data => {:toggle => "collapse", :parent => "#student-takelessons"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.takelessons.question.one')
+          .panel-collapse.collapse{:id=>"student-takelessons-one"}
+            %div
+              %p= t('faq.takelessons.answer.one')
+        .panel.panel-default
+          %a{:href => "#student-takelessons-two", :data => {:toggle => "collapse", :parent => "#student-takelessons"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.takelessons.question.two')
+          .panel-collapse.collapse{:id=>"student-takelessons-two"}
+            %div
+              %p= t('faq.takelessons.answer.two')
+        .panel.panel-default
+          %a{:href => "#student-takelessons-three", :data => {:toggle => "collapse", :parent => "#student-takelessons"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.takelessons.question.three')
+          .panel-collapse.collapse{:id=>"student-takelessons-three"}
+            %div
+              %p= t('faq.takelessons.answer.three')
+      .panel-group{:id => "student-videoconference", hidden: true}
+        .panel.panel-default
+          %a{:href => "#student-videoconference-one", :data => {:toggle => "collapse", :parent => "#student-videoconference"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.videoconference.question.one')
+          .panel-collapse.collapse{:id=>"student-videoconference-one"}
+            %div
+              %p= t('faq.videoconference.answer.one')
+        .panel.panel-default
+          %a{:href => "#student-videoconference-two", :data => {:toggle => "collapse", :parent => "#student-videoconference"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.videoconference.question.two')
+          .panel-collapse.collapse{:id=>"student-videoconference-two"}
+            %div
+              %p= t('faq.videoconference.answer.two')
+      .panel-group{id: "student-payments", hidden: true}
+        .panel.panel-default
+          %a{href: "#student-payments-one", :data => {:toggle => "collapse", :parent => "#student-payments"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.payments.question.one')
+          .panel-collapse.collapse{:id=>"student-payments-one"}
+            %div
+              %p= t('faq.payments.answer.one')
+        .panel.panel-default
+          %a{href: "#student-payments-two", :data => {:toggle => "collapse", :parent => "#student-payments"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.payments.question.two')
+          .panel-collapse.collapse{:id=>"student-payments-two"}
+            %div
+              %p= t('faq.payments.answer.two')
+        .panel.panel-default
+          %a{href: "#student-payments-three", :data => {:toggle => "collapse", :parent => "#student-payments"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.payments.question.three')
+          .panel-collapse.collapse{:id=>"student-payments-three"}
+            %div
+              %p= t('faq.payments.answer.three')
+        .panel.panel-default
+          %a{href: "#student-payments-four", :data => {:toggle => "collapse", :parent => "#student-payments"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.payments.question.four')
+          .panel-collapse.collapse{:id=>"student-payments-four"}
+            %div
+              %p= t('faq.payments.answer.four')
+      .panel-group{id: "student-technical", hidden: true}
+        .panel.panel-default
+          %a{href: "#student-technical-one", :data => {:toggle => "collapse", :parent => "#student-technical"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.technical.question.one')
+          .panel-collapse.collapse{:id=>"student-technical-one"}
+            %div
+              %p= t('faq.technical.answer.one')
+        .panel.panel-default
+          %a{href: "#student-technical-two", :data => {:toggle => "collapse", :parent => "#student-technical"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.technical.question.two')
+          .panel-collapse.collapse{:id=>"student-technical-two"}
+            %div
+              %p= t('faq.technical.answer.two')
+        .panel.panel-default
+          %a{href: "#student-technical-three", :data => {:toggle => "collapse", :parent => "#student-technical"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.technical.question.three')
+          .panel-collapse.collapse{:id=>"student-technical-three"}
+            %div
+              %p= t('faq.technical.answer.three')
+        .panel.panel-default
+          %a{href: "#student-technical-four", :data => {:toggle => "collapse", :parent => "#student-technical"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.technical.question.four')
+          .panel-collapse.collapse{:id=>"student-technical-four"}
+            %div
+              %p= t('faq.technical.answer.four')
+
+    #teachers.user-type{hidden: true}
+      .unav
         %ul
-            %li
-                %a One
-            %li 
-                %a Two
-            %li
-                %a Three
-            %li
-                %a Four
-    .panel-group{:id => "accordion"}
+          %li
+            %a.active Généralités
+          %li
+            %a Donner des cours
+          %li
+            %a Vidéo-conférence
+          %li
+            %a Paiements
+          %li
+            %a Problèmes techniques
+      .panel-group{:id => "accordion"}
         .panel.panel-default
-            %a{:href => "#collapseOne", :data => {:toggle => "collapse", :parent => "#accordion"}}
-                .panel-heading
-                    %div
-                        %h4.panel-title This is my first question
-            .panel-collapse.collapse{:id=>"collapseOne"}
-                %div
-                    %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+          %a{:href => "#collapseOne", :data => {:toggle => "collapse", :parent => "#accordion"}}
+            .panel-heading
+              %div
+                %h4.panel-title This is my first question
+          .panel-collapse.collapse{:id=>"collapseOne"}
+            %div
+              %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
         .panel.panel-default
-            %a{:href => "#collapseTwo", :data => {:toggle => "collapse", :parent => "#accordion"}}
-                .panel-heading
-                    %div
-                        %h4.panel-title What is the sense of life, 42 ?
-            .panel-collapse.collapse{:id=>"collapseTwo"}
-                %div
-                    %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+          %a{:href => "#collapseTwo", :data => {:toggle => "collapse", :parent => "#accordion"}}
+            .panel-heading
+              %div
+                %h4.panel-title What is the sense of life, 42 ?
+          .panel-collapse.collapse{:id=>"collapseTwo"}
+            %div
+              %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
         .panel.panel-default
-            %a{:href => "#collapseThree", :data => {:toggle => "collapse", :parent => "#accordion"}}
-                .panel-heading
-                    %div
-                        %h4.panel-title When do we eat ?
-            .panel-collapse.collapse.in{:id=>"collapseThree"}
-                %div
-                    %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+          %a{:href => "#collapseThree", :data => {:toggle => "collapse", :parent => "#accordion"}}
+            .panel-heading
+              %div
+                %h4.panel-title When do we eat ?
+          .panel-collapse.collapse.in{:id=>"collapseThree"}
+            %div
+              %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
         .panel.panel-default
-            %a{:href => "#collapseFour", :data => {:toggle => "collapse", :parent => "#accordion"}}
-                .panel-heading
-                    %div
-                        %h4.panel-title Can I be a bee ?
-            .panel-collapse.collapse{:id=>"collapseFour"}
-                %div
-                    %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+          %a{:href => "#collapseFour", :data => {:toggle => "collapse", :parent => "#accordion"}}
+            .panel-heading
+              %div
+                %h4.panel-title Can I be a bee ?
+          .panel-collapse.collapse{:id=>"collapseFour"}
+            %div
+              %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
         .panel.panel-default
-            %a{:href => "#collapseFive", :data => {:toggle => "collapse", :parent => "#accordion"}}
-                .panel-heading
-                    %div
-                        %h4.panel-title I don't know what to ask...
-            .panel-collapse.collapse{:id=>"collapseFive"}
-                %div
-                    %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+          %a{:href => "#collapseFive", :data => {:toggle => "collapse", :parent => "#accordion"}}
+            .panel-heading
+              %div
+                %h4.panel-title I don't know what to ask...
+          .panel-collapse.collapse{:id=>"collapseFive"}
+            %div
+              %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
         .panel.panel-default
-            %a{:href => "#collapseSix", :data => {:toggle => "collapse", :parent => "#accordion"}}
-                .panel-heading
-                    %div
-                        %h4.panel-title Where can I find the FAQ?
-            .panel-collapse.collapse{:id=>"collapseSix"}
-                %div    
-                    %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
-        
+          %a{:href => "#collapseSix", :data => {:toggle => "collapse", :parent => "#accordion"}}
+            .panel-heading
+              %div
+                %h4.panel-title Where can I find the FAQ?
+          .panel-collapse.collapse{:id=>"collapseSix"}
+            %div
+              %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+
+
+  :javascript
+    $('ul#user-type-toggle li a').on('click', function(){
+      var origin = $(this);
+      toggleUserType($(this));
+    });
+
+    $('.unav ul li a').on('click', function(){
+      var origin = $(this);
+      toggleQuestionsSection(origin);
+    });
+
+    function toggleUserType(origin) {
+      $('ul#user-type-toggle li a').removeClass('active');
+      origin.addClass('active');
+      $('.user-type').hide();
+      $(origin.attr('data-target')).show("slide", { direction: "left" }, 350);
+    }
+
+    function toggleQuestionsSection(origin){
+      $('.unav ul li a').removeClass('active');
+      origin.addClass('active');
+      origin.closest('.user-type').find('.panel-group').hide();
+      $(origin.attr('data-toggle')).fadeIn(350);
+    }

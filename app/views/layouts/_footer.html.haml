@@ -5,24 +5,24 @@
             .col
                 %h3 A propos
                 %br
-                %a{:href => "#"} 
+                %a{:href => pages_path('team')}
                     L'équipe
                 %a{:href => "#"} 
                     Job & stage
-                %a{:href => "#"} 
+                %a{:href => pages_path('presse')}
                     Espace presse
-                %a{:href => "#"} 
-                    Blog
+                -#%a{:href => "#"}
+                -#    Blog
             .col
                 %h3 Infos Pratiques
                 %br
-                %a{:href => "#"} 
+                %a{:href =>pages_path('comment-ca-marche')}
                     Comment ça marche
-                %a{:href => "#"} 
+                %a{:href => pages_path('faq')}
                     Aide/FAQ
                 %a{:href => "#"} 
                     Plan du site
-                %a{:href => "#"} 
+                %a{:href => pages_path('faq')}
                     Paiement sécurisé
             .col
                 %h3 Infos Pratiques
@@ -37,11 +37,11 @@
             .col.social_block
                 %h3 Une question ? 
                 %br
-                %a.social{:href => "#", :target => "_blank"}
+                %a.social{:href => "https://facebook.com/qwerteach", :target => "_blank"}
                     =image_tag("facebook.png")
-                %a.social{:href => "#", :target => "_blank"}
+                %a.social{:href => "https://twitter.com/qwerteach", :target => "_blank"}
                     =image_tag("twitter.png")
-                %a.social{:href => "#", :target => "_blank"}
+                %a.social{:href => "https://plus.google.com/+Qwerteach", :target => "_blank"}
                     =image_tag("googleplus.png")
             .copyright
                 %p © 2013 Qwerteach • Conditions d'utilisation

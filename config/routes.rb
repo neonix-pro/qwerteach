@@ -108,10 +108,8 @@ Rails.application.routes.draw do
 
   get '/adverts_user/:user_id', to: 'adverts#get_all_adverts', as: 'get_all_adverts'
 
-  get "/pages/*page" => "pages#show"
-  resources :pages do
+  get "/pages/*page" => "pages#show", as: :pages
 
-  end
   get '/become_teacher/accueil' => "pages#devenir-prof"
   get '/index' => "pages#index"
   resources :become_teacher
