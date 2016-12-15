@@ -1,5 +1,6 @@
-#lessons-sorting
-- @lessons.each do |lesson|
-  = render partial: 'lessons/lesson', :locals => {:lesson => lesson, todo: lesson.todo(@user)}
-#lessons-pagination.text-center
-  = paginate @lessons
+%div
+  #lessons-sorting
+  - @lessons.each do |lesson|
+    = render partial: 'lessons/lesson', :locals => {:lesson => lesson, todo: lesson.todo(@user)}
+  #lessons-pagination.text-center
+    = paginate @lessons

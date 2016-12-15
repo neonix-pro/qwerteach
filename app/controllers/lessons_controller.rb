@@ -29,18 +29,20 @@ class LessonsController < ApplicationController
 
   def update
     # reschedule a lesson
-    @lesson = Lesson.find(params[:id])
-    duration = @lesson.duration
-    @lesson.time_start =  params[:lesson][:time_start]
-    @lesson.time_end = @lesson.time_start + duration.total
-    @lesson.status = @lesson.alternate_pending
+    if @lesson.pending_any?
+      @lesson = Lesson.find(params[:id])
+      duration = @lesson.duration
+      @lesson.time_start =  params[:lesson][:time_start]
+      @lesson.time_end = @lesson.time_start + duration.total
+      @lesson.status = @lesson.alternate_pending
 
-    if @lesson.save
-      flash[:success] = "La modification s'est correctement déroulée."
-      redirect_to lessons_path and return
-    else
-      flash[:alert] = "Il y a eu un problème lors de la modification. Veuillez réessayer."
-      redirect_to dashboard_path and return
+      if @lesson.save
+        flash[:success] = "La modification s'est correctement déroulée."
+        redirect_to lessons_path and return
+      else
+        flash[:alert] = "Il y a eu un problème lors de la modification. Veuillez réessayer."
+        redirect_to dashboard_path and return
+      end
     end
   end
 

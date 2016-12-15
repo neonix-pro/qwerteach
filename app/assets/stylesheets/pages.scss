@@ -10,6 +10,7 @@
   padding-top:37px;
   padding-bottom: 20px;
   margin-bottom: 30px;
+  padding-left: 30px;
 }
 form.reinit-password{
   margin-top: 15px;
@@ -91,4 +92,34 @@ form.reinit-password{
 }
 #belrtl{
   background-color: rgb(190,10,0);
+}
+
+/*team*/
+.team-member{
+  font-family: SofiaProLight;
+  .team-member-picture{
+    img{
+      width:100%;
+      border-radius: 5px;
+      border: 1px solid $color_qwerteach_navgrey;
+    }
+  }
+  .team-member-infos{
+    text-align:center;
+    color: $color_qwerteach_lightgrey;
+    padding: 15px 0px;
+    .name{
+      font-size: 24px;
+    }
+    .role{
+      color: $color_qwerteach_green;
+      font-Family: SofiaProRegular;
+    }
+    .social a{
+      color:inherit;
+    }
+    .social a:hover{
+      color: $color_qwerteach_green;
+    }
+  }
 }
