@@ -101,6 +101,7 @@ Rails.application.routes.draw do
     put 'update_bank_accounts' => :update_bank_accounts
     get 'payout' => :payout
     put 'make_payout' => :make_payout
+    put 'desactivate_bank_account/:id' => :desactivate_bank_account, as: 'desactivate_bank_account'
   end
   # :omniauth_callbacks => "users/omniauth_callbacks",
   devise_for :users, :controllers => { :registrations=> "registrations"}
@@ -157,10 +158,8 @@ Rails.application.routes.draw do
 
   get '/adverts_user/:user_id', to: 'adverts#get_all_adverts', as: 'get_all_adverts'
 
-  get "/pages/*page" => "pages#show"
-  resources :pages do
+  get "/pages/*page" => "pages#show", as: :pages
 
-  end
   get '/become_teacher/accueil' => "pages#devenir-prof"
   get '/index' => "pages#index"
   resources :become_teacher

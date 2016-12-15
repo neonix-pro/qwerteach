@@ -13,6 +13,7 @@
       = yield
     = render "layouts/footer"
     - if (current_user)
+      = render partial: 'layouts/signed_in_modals'
       = subscribe_to "/chat"
       = subscribe_to "/notifications/"+current_user.id.to_s
 

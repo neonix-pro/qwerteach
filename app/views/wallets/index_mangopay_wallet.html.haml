@@ -1,85 +1,82 @@
-- if flash[:notice]
-  .notice = flash[:notice]
-
 .wallet_index
-  .money.col-md-10
-    - # user = local_assigns[:user] || current_user ==> ??
-    %p
-      = wallet_balance(@user.normal_wallet)
-    %span
-      \#{wallet_balance(@user.bonus_wallet)} de crédit bonus
-  .reload.col-md-2
-    - if @user.is_a?(Teacher)
-      .high
+  .row
+    .money.col-md-10
+      - # user = local_assigns[:user] || current_user ==> ??
+      %p
+        = wallet_balance(@user.normal_wallet)
+      %span
+        \#{wallet_balance(@user.bonus_wallet)} de crédit bonus
+    .reload.col-md-2
+      - if @user.is_a?(Teacher)
+        .high
+          .center
+            =link_to payout_path do
+              =image_tag("wallet/deload.png")
+              %p Décharger
+        .high
+          .center
+            =link_to load_wallet_path do
+              =image_tag("wallet/reload.png")
+              %p Recharger
+      - else
         .center
-          =link_to payout_path do
-            =image_tag("wallet/deload.png")
-            %p Décharger
-      .high
-        .center
-          =link_to load_wallet_path do
-            =image_tag("wallet/reload.png")
-            %p Recharger
-    - else
+          = link_to direct_debit_path
+          =image_tag("wallet/reload.png")
+          %p Recharger
+  .row
+    .threecol#info_bank.col-md-4
       .center
-        = link_to direct_debit_path
-        =image_tag("wallet/reload.png")
-        %p Recharger
-  .threecol#info_bank.col-md-4
-    .center
-      =image_tag("wallet/info_bank.png")
-      %p Information bancaires
-    .triangle
-  .threecol#historique.col-md-4
-    .center
-      =image_tag("wallet/historique.png")
-      %p Historique
-    .triangle
-  .threecol#option.col-md-4
-    .center
-      =image_tag("wallet/option.png")
-      %p Coordonnées
-    .triangle
+        =image_tag("wallet/info_bank.png")
+        %p Information bancaires
+      .triangle
+    .threecol#historique.col-md-4
+      .center
+        =image_tag("wallet/historique.png")
+        %p Historique
+      .triangle
+    .threecol#option.col-md-4
+      .center
+        =image_tag("wallet/option.png")
+        %p Coordonnées
+      .triangle
+  .row
+    #option_info_bank.block_info
+      .cards-list.clearfix
+        .title
+          Moyens de payement enregistrés
+        - @cards.each do |c|
+          -if c.active
+            .card{class: c.card_provider}
+              .provider
+                = image_tag("wallet/card-#{c.card_provider}.png")
+              .alias #{c.alias}
+              .expiry.text-right #{c.expiration_date.insert(2, "/20")}
+      -if @user.is_a?(Teacher)
+        .bank-accounts-list
+          .title
+            Compte bancaire
+          -@bank_accounts.each do |ba|
+            .bank-account
+              =image_tag('wallet/bank-account-background.png', class: 'bank-account-background')
+              .owner #{ba.owner_name}
+              .number #{ba.iban || ba.account_number}
+              .delete.pull-right
+                = button_to desactivate_bank_account_path(ba.id), method: :put do
+                  .fa.fa-trash-o
+          .bank-account
+            .add
+              =link_to bank_accounts_path, remote: true do
+                .title Ajouter un compte bancaire
+                =image_tag("wallet/plus.png")
 
-  #option_info_bank.block_info
-    .line
-      .cont
-        .v-center.title
-          %p Moyens de payement enregistrés
-      - @cards.each do |c|
-        -if c.active
-          .cont
-            .v-center.tile{class: c.card_provider}
-              %p
-                .provider #{c.card_provider} (#{c.currency})
-                .alias #{c.alias}
-                .expiry expiration: #{c.expiration_date}
-    -if @user.is_a?(Teacher)
-      .line
-        .cont
-          .v-center.title
-            %p Compte en banque
-        -@bank_accounts.each do |ba|
-          .cont
-            .v-center.tile
-              %p
-                %b Type:
-                #{ba.type}
-                %br
-                %b Numéro:
-                #{ba.iban || ba.account_number }
-                %br
-                %b Propriétaire:
-                #{ba.owner_name}
-        .cont
-          .v-center.tile#plus
-            .center
-              =image_tag("wallet/plus.png")
-              %p Ajouter un compte bancaire
-      #add-bank-account
-        = render 'mangopay/bank_accounts/new', bank_account: @bank_account
+    #option_historique.block_info
+      = render 'transactions_list', transactions: @transactions
+    #option_option.block_info
+      = render 'mangopay_form', :path => @path
 
-  #option_historique.block_info
-    = render 'transactions_list', transactions: @transactions
-  #option_option.block_info
-    = render 'mangopay_form', :path => @path
+.modal.fade#add-bank-account-modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h4 Ajouter un compte en banque
+      .modal-body

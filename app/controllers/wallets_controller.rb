@@ -21,7 +21,7 @@ class WalletsController < ApplicationController
     @account = Mango::SaveAccount.new(user: current_user)
     @cards = @user.mangopay.cards
 
-    @bank_accounts = @user.mangopay.bank_accounts
+    @bank_accounts = @user.mangopay.bank_accounts.select{|ba| ba if ba.active}
     @bank_account = Mango::CreateBankAccount.new(user: current_user)
   end
 
@@ -33,17 +33,17 @@ class WalletsController < ApplicationController
     saving = Mango::SaveAccount.run( mango_account_params.merge(user: current_user) )
     if saving.valid?
       respond_to do |format|
-        format.html {redirect_to params[:redirect_to] || index_wallet_path
-          #TODO: add success notice
-          }
+        format.html {redirect_to params[:redirect_to] || index_wallet_path, notice: t('notice.mango_account.update_success')}
         format.json {render :json => {:message => "true"}}
         format.js
       end
     else
       @account = saving
+      flash[:danger] = t('notice.mango_account.update_error', message: saving.errors.full_messages.to_sentence)
       respond_to do |format|
         format.js {render 'edit_mangopay_wallet'}
         format.json {render :json => {:message => {:errors => saving.errors.as_json, :saving => saving.as_json}}}
+        format.html {redirect_to index_wallet_path}
       end
     end
   end
@@ -165,14 +165,22 @@ class WalletsController < ApplicationController
     @bank_account = Mango::CreateBankAccount.new(user: current_user)
   end
 
+  def desactivate_bank_account
+    desactivation = Mango::DesactivateBankAccount.run id: params[:id], user: current_user
+    if desactivation.valid?
+      redirect_to index_wallet_path, notice: 'Le compte en banque a été supprimé'
+    else
+      redirect_to index_wallet_path, danger: 'Il y a eu un problème: '+desactivation.errors.full_messages.to_sentence
+    end
+  end
+
   def update_bank_accounts
     creation = Mango::CreateBankAccount.run bank_account_params.merge(user: @user)
     if creation.valid?
-      redirect_to bank_accounts_path, notice: t('notice.bank_account_creation_success')
+      redirect_to index_wallet_path, notice:t('notice.bank_account_creation_success')
     else
-      @bank_accounts = @user.mangopay.bank_accounts
-      @bank_account = creation
-      render 'bank_accounts', flash: {danger: t('notice.bank_account_creation_error')}
+      flash[:danger] = t('notice.bank_account_creation_error', message: creation.errors.full_messages.to_sentence)
+      redirect_to index_wallet_path
     end
   rescue MangoPay::ResponseError => ex
     flash[:danger] = t('notice.bank_account_creation_error', message: ex.details["Message"].to_s)

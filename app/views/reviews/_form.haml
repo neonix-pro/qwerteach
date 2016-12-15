@@ -1,0 +1,9 @@
+= form_for @review, url: user_reviews_path(@review.subject_id) do |f|
+  .form-group
+    = f.label :note
+    = f.select :note, options_for_select((0..5).step(1)), {}, class: 'form-control'
+  .form-group
+    = f.label :review_text, 'Commentaire'
+    = f.text_area :review_text, class: 'form-control'
+  .actions
+    = f.submit :valider

@@ -1,14 +1,11 @@
 = fields_for :us_account, bank_account do |bank_account_fields|
-  .field
-    = bank_account_fields.label :number
-    %br/
-    = bank_account_fields.number_field :account_number, :require => true
-  .field
-    = bank_account_fields.label :ABA
-    %br/
-    = bank_account_fields.number_field :aba, :require => true
-  .field
-    = bank_account_fields.label :deposit_account_type
-    %br/
-    = bank_account_fields.text_field :deposit_account_type, :require => true
+  .form-group
+    = bank_account_fields.label :number, 'Numéro du compte'
+    = bank_account_fields.number_field :account_number, :require => true, class: 'form-control'
+  .form-group
+    = bank_account_fields.label :ABA, 'ABA'
+    = bank_account_fields.number_field :aba, :require => true, class: 'form-control'
+  .form-group
+    = bank_account_fields.label :deposit_account_type, 'Type de compte'
+    = bank_account_fields.text_field :deposit_account_type, :require => true, class: 'form-control'
 

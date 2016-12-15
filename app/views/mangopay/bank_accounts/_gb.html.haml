@@ -1,9 +1,7 @@
 = fields_for :gb_account, bank_account do |bank_account_fields|
-  .field
-    = bank_account_fields.label :number
-    %br/
-    = bank_account_fields.number_field :account_number, :require => true
-  .field
-    = bank_account_fields.label :sort_code
-    %br/
-    = bank_account_fields.number_field :sort_code, :require => true
+  .form-group
+    = bank_account_fields.label :number, 'Numéro de compte'
+    = bank_account_fields.number_field :account_number, :require => true, class: 'form-control'
+  .form-group
+    = bank_account_fields.label :sort_code, 'Code'
+    = bank_account_fields.number_field :sort_code, :require => true, class: 'form-control'

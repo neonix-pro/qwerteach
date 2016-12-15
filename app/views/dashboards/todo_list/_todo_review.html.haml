@@ -8,5 +8,5 @@
       %div
         = render partial: 'shared/star_rating', locals:{note: lesson.teacher.avg_reviews}
     .col-xs-3.todo_review.text-center.todo_action
-      = button_to 'Laisser un avis', '#', class: 'btn btn-qw btn-green btn-sm'
-      = link_to 'Pas maintenant', '#', class: 'text-grey'
+      = button_to 'Laisser un avis', new_user_review_path(lesson.teacher.id), remote: true, method: :get, class: 'btn btn-qw btn-green btn-sm'
+      = #link_to 'Pas maintenant', '#', class: 'text-grey'

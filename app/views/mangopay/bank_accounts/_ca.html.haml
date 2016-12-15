@@ -1,17 +1,13 @@
 = fields_for :ca_account, bank_account do |bank_account_fields|
-  .field
-    = bank_account_fields.label :bank_name
-    %br/
-    = bank_account_fields.text_field :bank_name,:require => true
-  .field
-    = bank_account_fields.label :institution_number
-    %br/
-    = bank_account_fields.text_field :institution_number,:require => true
-  .field
-    = bank_account_fields.label :branch_code
-    %br/
-    = bank_account_fields.text_field :branch_code,:require => true
-  .field
-    = bank_account_fields.label :account_number
-    %br/
-    = bank_account_fields.number_field :account_number,:require => true
+  .form-group
+    = bank_account_fields.label :bank_name, 'Nom de la banque'
+    = bank_account_fields.text_field :bank_name,:require => true, class: 'form-control'
+  .form-group
+    = bank_account_fields.label :institution_number, 'Numéro de la banque'
+    = bank_account_fields.text_field :institution_number,:require => true, class: 'form-control'
+  .form-group
+    = bank_account_fields.label :branch_code, 'Code de branche'
+    = bank_account_fields.text_field :branch_code,:require => true, class: 'form-control'
+  .form-group
+    = bank_account_fields.label :account_number, 'Numéro de compte'
+    = bank_account_fields.number_field :account_number,:require => true, class: 'form-control'
