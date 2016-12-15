@@ -13,6 +13,10 @@ class Api::LessonsController < LessonsController
     super
   end
   
+  def update
+    super
+  end
+  
   def find_topic_and_teacher
     topic = Topic.find_by_id(params[:topic_id])
     teacher = User.find_by_id(params[:teacher_id])

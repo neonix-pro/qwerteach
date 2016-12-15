@@ -1,13 +1,26 @@
 class Api::WalletsController < WalletsController
   
   skip_before_filter :verify_authenticity_token
+  respond_to :json
   
   def index_mangopay_wallet
     super
-    render :json => {:account => @account.as_json, :transactions => @transactions.as_json, :cards => @cards.as_json}
+    render :json => {:success => "loaded", :account => @account.as_json, :transactions => @transactions.as_json, :cards => @cards.as_json}
   end
   
   def update_mangopay_wallet
+    super
+  end
+  
+  def direct_debit_mangopay_wallet
+    super
+  end
+  
+  def load_wallet
+    super
+  end
+  
+  def card_info
     super
   end
   
@@ -17,12 +30,17 @@ class Api::WalletsController < WalletsController
     render :json => {:total_wallet => total_wallet.as_json}
   end
   
-  def check_mangopay_id
+  def check_user_wallet
     if current_user.mango_id.present?
-      render :json => {:message => "true"}
-      return
+      respond_to do |format|
+        format.html {}
+        format.json {render :json => {:message => "true"}}
+      end and return
     else
-      render :json => {:message => "false"}
+      respond_to do |format|
+        format.html {}
+        format.json {render :json => {:message => "false"}}
+      end and return
     end
   end
   

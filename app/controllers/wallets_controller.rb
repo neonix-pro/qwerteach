@@ -55,9 +55,16 @@ class WalletsController < ApplicationController
     # create card registration, in case
     creation = Mango::CreateCardRegistration.run(user: current_user)
     if !creation.valid?
-      redirect_to load_wallet_path, notice: t('notice.processing_error') and return
+      respond_to do |format|
+        format.html {redirect_to load_wallet_path, notice: t('notice.processing_error')}
+        format.json {render :json => {:message => "error"}}
+      end and return
     else
       @card_registration = creation.result
+      respond_to do |format|
+        format.json {render :json => {:message => @card_registration}}
+        format.html {}
+      end
     end
   end
 
@@ -70,10 +77,16 @@ class WalletsController < ApplicationController
     when 'BCMC'
       payin = Mango::PayinBancontact.run(user: current_user, amount: amount, return_url: return_url)
       if payin.valid?
-        return redirect_to payin.result.redirect_url
+        respond_to do |format|
+          format.html {redirect_to payin.result.redirect_url}
+          format.json {render :json => {:message => "redirect url", :url => payin.result.redirect_url}}
+        end and return
       else
         #TODO: render direct_debit_mangopay_wallet with filled fields
-        redirect_to load_wallet_path, alert: payin.errors.full_messages.join(' ') and return
+        respond_to do |format|
+          format.html {redirect_to load_wallet_path, alert: payin.errors.full_messages.join(' ')}
+          format.json {render :json => {:message => "error", :errors => payin.errors.full_messages}}
+        end and return
       end
 
     when 'CB_VISA_MASTERCARD'
@@ -84,13 +97,22 @@ class WalletsController < ApplicationController
         if payin.valid?
           result = payin.result
           if result.secure_mode == 'FORCE' and result.secure_mode_redirect_url.present?
-            redirect_to result.secure_mode_redirect_url
+            respond_to do |format|
+              format.html {redirect_to result.secure_mode_redirect_url}
+              format.json {render :json => {:message => "secure mode", :url => result.secure_mode_redirect_url}}
+            end
           else
-            redirect_to index_wallet_path, notice: t('notice.processing_success') and return
+            respond_to do |format|
+              format.html {redirect_to index_wallet_path, notice: t('notice.processing_success')}
+              format.json {render :json => {:message => "true"}}
+            end and return
           end
         else
           #TODO: render direct_debit_mangopay_wallet with filled fields
-          redirect_to load_wallet_path, alert: payin.errors.full_messages.join(' ') and return
+          respond_to do |format|
+            format.html {redirect_to load_wallet_path, alert: payin.errors.full_messages.join(' ')}
+            format.json {render :json => {:message => "error", :errors => payin.errors.full_messages}}
+          end and return
         end
       end
 
@@ -108,9 +130,16 @@ class WalletsController < ApplicationController
   def card_info
     creation = Mango::CreateCardRegistration.run(user: current_user)
     if !creation.valid?
-      redirect_to load_wallet_path, notice: t('notice.processing_error') and return
+      respond_to do |format|
+        format.html {redirect_to load_wallet_path, notice: t('notice.processing_error')}
+        format.json {render :json => {:message => "error"}}
+      end and return
     else
       @card_registration = creation.result
+      respond_to do |format|
+        format.html {}
+        format.json {render :json => {:card_registration => @card_registration.as_json}}
+      end
     end
   end
 

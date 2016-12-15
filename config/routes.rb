@@ -13,11 +13,15 @@ Rails.application.routes.draw do
     put 'user/mangopay/edit_wallet' => 'wallets#update_mangopay_wallet'
     get 'user/mangopay/index_wallet' => 'wallets#index_mangopay_wallet'
     post 'wallets/get_total_wallet' => 'wallets#get_total_wallet'
-    get 'wallets/check_mangopay_id' => 'wallets#check_mangopay_id'
+    get 'wallets/check_user_wallet' => 'wallets#check_user_wallet'
     post 'wallets/find_users_by_mango_id' => 'wallets#find_users_by_mango_id'
+    get 'user/mangopay/load-wallet' => 'wallets#direct_debit_mangopay_wallet'
+    put 'user/mangopay/direct_debit' => 'wallets#load_wallet'
+    get 'user/mangopay/card_info' => 'wallets#card_info'
     get 'cours' => 'lessons#index'
     post 'lessons/find_topic_and_teacher' => 'lessons#find_topic_and_teacher'
     get 'lessons/:lesson_id/cancel' => 'lessons#cancel'
+    put 'lessons/:id' => 'lessons#update'
   end
   
   namespace :api, :defaults => { :format => 'json' } do
@@ -102,7 +106,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations=> "registrations"}
   devise_for :teachers, :controllers => {:registrations => "registrations"}
   get "/auth/:action/callback",
-      :to => "users/omniauth_callbacks",
+      :controller => "users/omniauth_callbacks",
       :constraints => { :action => /google_oauth2|facebook/ }
   resources :users, only: [:update] do
     patch 'crop' => 'users#crop'

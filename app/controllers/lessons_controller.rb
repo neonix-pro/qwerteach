@@ -37,10 +37,16 @@ class LessonsController < ApplicationController
 
     if @lesson.save
       flash[:success] = "La modification s'est correctement déroulée."
-      redirect_to lessons_path and return
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format.json {render :json => {:success => "true"}}
+      end and return
     else
       flash[:alert] = "Il y a eu un problème lors de la modification. Veuillez réessayer."
-      redirect_to dashboard_path and return
+      respond_to do |format|
+        format.html {redirect_to dashboard_path}
+        format.json {render :json => {:success => "false"}}
+      end and return
     end
   end
 

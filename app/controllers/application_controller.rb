@@ -8,7 +8,10 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from Mango::UserDoesNotHaveAccount do |exception|
-    redirect_to edit_wallet_path(redirect_to: request.fullpath), alert: t('notice.missing_account')
+    respond_to do |format|
+      format.html {redirect_to edit_wallet_path(redirect_to: request.fullpath), alert: t('notice.missing_account')}
+      format.json {render :json => {:message => "no wallet"}}
+    end
   end
 
   # Prevent CSRF attacks by raising an exception.

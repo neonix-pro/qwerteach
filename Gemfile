@@ -60,6 +60,8 @@ gem 'bootstrap-datepicker-rails'
 #interface admin
 gem "administrate", "~> 0.1.4"
 
+gem 'bourbon'
+
 # autocomplete search
 gem 'rails-jquery-autocomplete'
 # seed dump
