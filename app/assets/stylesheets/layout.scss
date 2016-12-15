@@ -12,10 +12,10 @@ body{
   }
   a:hover, a:active, a:focus{
     text-decoration: underline;
-    border: none;
     outline: 0;
-    background: none;
-    color:inherit;
+  }
+  a.btn:hover{
+    text-decoration:none;
   }
 }
 h1,h2,h3,h4,h5,p,span,a{
@@ -80,7 +80,7 @@ h1,h2,h3,h4,h5,p,span,a{
   padding: 5px 12px;
 }
 
-.btn-green, .btn-success{
+.btn-green, .btn-success, .btn-green:hover, .btn-success:hover{
   background: $color_qwerteach_green;
   border-radius: 30px;
   font-size: 16px;
@@ -90,15 +90,15 @@ h1,h2,h3,h4,h5,p,span,a{
     margin-top: 400px;
   }
 }
-.btn-pink{
+.btn-pink, .btn-pink:hover{
   background: $color_qwerteach_pink;
   color:white;
 }
-.btn-orange{
+.btn-orange, .btn-orange:hover{
   background: $color_qwerteach_orange;
   color:white;
 }
-.btn-purple{
+.btn-purple, .btn-purple:hover{
   background: $color_qwerteach_purple;
   color:white;
 }

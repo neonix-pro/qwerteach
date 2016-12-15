@@ -21,14 +21,20 @@
             %br/
 
 :javascript
-  $('#signup-modal').on('show.bs.modal', function(){
-    $('.signup-step').hide().removeClass('active');
-    $('#step1').show();
-  });
   $('#step1 .change-step').click(function(){
     var t = $(this).attr('data-toggle');
     $('.signup-step').hide().removeClass('active');
     $(t).slideDown(function(){
         $(this).addClass('active');
     });
+  });
+  $('#signup-modal').on('show.bs.modal', function(e){
+    if($(e.relatedTarget).hasClass('signup-teacher')){
+      $('.signup-step').hide().removeClass('active');
+      $('#register-teacher').show();
+    }
+    else{
+      $('.signup-step').hide().removeClass('active');
+      $('#step1').show();
+    }
   });
