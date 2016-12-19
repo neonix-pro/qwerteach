@@ -1,0 +1,17 @@
+.avatar-uploaded-view {
+  display: inline-block;
+  max-width: 800px;
+  vertical-align: top;
+  img {
+    max-width: 100%;
+  }
+}
+
+.avatar-uploaded-preview {
+  display: inline-block;
+  vertical-align: top;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
