@@ -3,6 +3,7 @@
   max-width: 800px;
   vertical-align: top;
   img {
+    width: 100%;
     max-width: 100%;
   }
 }
@@ -14,4 +15,18 @@
   height: 200px;
   position: relative;
   overflow: hidden;
+}
+
+.modal-body-avatar {
+  display: flex;
+  .col-view {
+    flex-grow: 1;
+    margin-right: 15px;
+    .avatar-uploaded-view {
+      display: block;
+    }
+  }
+  .avatar-uploaded-preview {
+    flex-shrink: 0;
+  }
 }

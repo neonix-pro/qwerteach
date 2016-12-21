@@ -17,6 +17,7 @@ class window.AvatarUploader
 
   initEvents: ->
     @$el.on 'change', '#user_avatar', => @onFileSelected()
+    @$el.on 'click', '.btn-avatar-save', => @submitForm()
 
   onFileSelected: ->
     file = $('#user_avatar').get(0).files[0]
@@ -33,7 +34,7 @@ class window.AvatarUploader
         .prop('src', reader.result)
         .appendTo('.avatar-uploaded-preview')
 
-      this.initCrop()
+      setTimeout((=> @initCrop()), 200)
     reader.readAsDataURL(file);
 
 
@@ -60,3 +61,6 @@ class window.AvatarUploader
     $('#crop_y').val(Math.round(coords.y * ratio))
     $('#crop_w').val(Math.round(coords.w * ratio))
     $('#crop_h').val(Math.round(coords.h * ratio))
+
+  submitForm: ->
+    @$el.get(0).submit()
