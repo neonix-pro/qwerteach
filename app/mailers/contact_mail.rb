@@ -1,2 +1,0 @@
-class ContactMail < ApplicationMailer
-end
