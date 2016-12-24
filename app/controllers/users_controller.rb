@@ -112,12 +112,6 @@ class UsersController < ApplicationController
     redirect_to edit_user_registration_path(@user)
   end
 
-  def crop
-    @user = User.find(params[:user_id])
-    @user.update_attributes(user_params)
-    render 'users/registrations/crop'
-  end
-
   private
     def user_params
       params.require(:user).permit(:firstname, :lastname, :birthdate, :phonenumber,
