@@ -4,7 +4,7 @@ class BecomeTeacherController < ApplicationController
 
   before_filter :authenticate_user!
 
-  steps :general_infos, :avatar, :crop, :adverts, :banking_informations, :finish_postulation
+  steps :general_infos, :avatar, :adverts, :banking_informations, :finish_postulation
   def show
     @user = current_user
     case step
@@ -31,8 +31,6 @@ class BecomeTeacherController < ApplicationController
       when :general_infos
         @user.update_attributes(user_params)
       when :avatar
-        @user.update_attributes(user_params)
-      when :crop
         @user.update_attributes(user_params)
       when :adverts
 

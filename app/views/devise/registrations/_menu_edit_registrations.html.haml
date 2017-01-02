@@ -1,8 +1,29 @@
 .user-avatar
   =image_tag @user.avatar(:medium), :class => "avatar"
-  = form_for @user, as: resource_name, url: user_crop_path(@user) do |f|
+  = form_for @user, as: resource_name, url: user_path(@user), html: {class: 'avatar-uploader'} do |f|
     = f.file_field :avatar
     = f.submit ''
+    = f.hidden_field :crop_x, :id => 'crop_x'
+    = f.hidden_field :crop_y, :id => 'crop_y'
+    = f.hidden_field :crop_w, :id => 'crop_w'
+    = f.hidden_field :crop_h, :id => 'crop_h'
+
+    #avatar-crop-modal.modal.fade{'aria-hidden'=>'true', 'aria-labelledby'=>'myModalLabel', 'role'=>'dialog', 'tabindex'=>-1}
+      .modal-dialog.modal-lg
+        .modal-content
+          .modal-header
+            %button.close{'aria-hidden'=>'true', 'data-dismiss'=>'modal', 'type'=>"button"} &times;
+            %h4#myModalLabel.modal-title Title
+          .modal-body.modal-body-avatar
+            .col-view
+              .avatar-uploaded-view
+                %img.avatar-uploaded-view-image
+            .avatar-uploaded-preview
+              %img.avatar-uploaded-preview-image
+          .modal-footer
+            %button.btn.btn-default{'data-dismiss'=>'modal', 'type'=>'button'} Close
+            %button.btn.btn-primary.btn-avatar-save{'type'=>'button'} Save
+
   .edit-user-avatar
     .banner
       modifier
@@ -18,11 +39,16 @@
   =link_to "Voir mon profil", user_path(@user)
 
 :javascript
+  new AvatarUploader();
+
+:javascript
   $('.edit-user-avatar').on('click', function(){
     $('#user_avatar').trigger('click');
   });
-  $('#user_avatar').on('input', function(){
-    $(this).parent().submit();
+  $('#user_avatar').on('change', function(){
+    if ( $('#user_avatar').get(0).files[0] ) {
+      $('#avatar-crop-modal').modal('show');
+    }
   });
   $(document).ready(function(){
     $('.collapse').on('show.bs.collapse', function(){

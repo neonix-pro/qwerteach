@@ -115,12 +115,6 @@ class User < ActiveRecord::Base
     [crop_x, crop_y, crop_w, crop_h].all?(&:present?)
   end
 
-  # Méthode liée au crop de l'avatar
-  def avatar_geometry(style = :original)
-    @geometry ||= {}
-    @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
-  end
-
   def self.from_omniauth(auth)
     @provider = auth.provider
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
