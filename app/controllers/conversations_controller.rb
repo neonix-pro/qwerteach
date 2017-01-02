@@ -81,6 +81,7 @@ class ConversationsController < ApplicationController
     respond_to do |format|
       format.html {redirect_to conversation_path(@conversation), notice: 'Reply sent'}
       format.js
+      format.json {render :json => {:success => "true"}}
     end
   end
 

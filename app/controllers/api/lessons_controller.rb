@@ -6,7 +6,7 @@ class Api::LessonsController < LessonsController
   def index
     super
     lesson = Lesson.involving(@user)
-    render :json => {:lessons => lesson.as_json}
+    render :json => {:lessons => lesson}
   end
   
   def cancel
@@ -17,18 +17,24 @@ class Api::LessonsController < LessonsController
     super
   end
   
-  def find_topic_and_teacher
+  def refuse
+    super
+  end
+  
+  def accept
+    super
+  end
+  
+  def find_lesson_infos
     topic = Topic.find_by_id(params[:topic_id])
-    teacher = User.find_by_id(params[:teacher_id])
-    lesson_id = params[:lesson_id]
-    lesson = Lesson.find_by_id(lesson_id)
-    duration = lesson.duration
-    expired = lesson.expired?
-    canceled = lesson.canceled?
-    time_start = lesson.time_start.strftime('%d/%m/%Y à %H:%M')
-    render :json => {:topic => topic.as_json, :teacher => teacher.as_json, 
-      :lesson => {:lesson_id => lesson_id.as_json, :duration => duration.as_json, 
-        :time_start => time_start.as_json, :expired => expired.as_json, :canceled => canceled.as_json}}
+    topic_group = TopicGroup.find_by_id(params[:topic_group_id])
+    level = Level.find_by_id(params[:level_id])
+    lesson = Lesson.find_by_id(params[:lesson_id])
+    user = User.find_by_id(params[:user_id])
+    
+    render :json => {:topic => topic.title, :topic_group => topic_group.title, :level => level.fr, 
+      :duration => lesson.duration, :expired => lesson.expired?, :lesson_id => lesson.id, 
+      :user => {:firstname => user.firstname, :lastname => user.lastname}}
   end
   
 end

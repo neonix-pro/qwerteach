@@ -27,6 +27,11 @@ class Api::ProfilesController < UsersController
     render :json => {:level => level.as_json}
   end
   
+  def find_type
+    user = User.find_by_id(params[:user]["id"])
+    render :json => {:type => user.type}
+  end
+  
   def update
     super
   end

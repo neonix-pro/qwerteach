@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
   
   namespace :api, :defaults => { :format => 'json' } do
+    get 'dashboard' => 'dashboards#index'
     post 'profiles/display' => 'profiles#display'
     get 'profiles/find_level' => 'profiles#find_level'
     put 'profiles/:id' => 'profiles#update'
     get 'profiles' => 'profiles#index'
+    post 'profiles/find_type' => 'profiles#find_type'
     get 'users/:user_id/lesson_requests/new' => 'lesson_requests#new'
     post 'users/:user_id/lesson_requests' => 'lesson_requests#create'
     put 'users/:user_id/lesson_requests/payment' => 'lesson_requests#payment'
     get 'users/:user_id/lesson_requests/bancontact_process' => 'lesson_requests#bancontact_process'
-    get '/users/:user_id/lesson_requests/credit_card_process' => 'lesson_requests#credit_card_process'
+    get 'users/:user_id/lesson_requests/credit_card_process' => 'lesson_requests#credit_card_process'
     put 'user/mangopay/edit_wallet' => 'wallets#update_mangopay_wallet'
     get 'user/mangopay/index_wallet' => 'wallets#index_mangopay_wallet'
     post 'wallets/get_total_wallet' => 'wallets#get_total_wallet'
@@ -19,9 +21,15 @@ Rails.application.routes.draw do
     put 'user/mangopay/direct_debit' => 'wallets#load_wallet'
     get 'user/mangopay/card_info' => 'wallets#card_info'
     get 'cours' => 'lessons#index'
-    post 'lessons/find_topic_and_teacher' => 'lessons#find_topic_and_teacher'
+    post 'lessons/find_lesson_infos' => 'lessons#find_lesson_infos'
     get 'lessons/:lesson_id/cancel' => 'lessons#cancel'
     put 'lessons/:id' => 'lessons#update'
+    get 'lessons/:lesson_id/refuse' => 'lessons#refuse'
+    get 'lessons/:lesson_id/accept' => 'lessons#accept'
+    post 'messages' => 'messages#create'
+    get 'mailbox/:mailbox' => 'conversations#index'
+    post 'conversations/:id/reply' => 'conversations#reply'
+    get 'conversations/:id' => 'conversations#show'
   end
   
   namespace :api, :defaults => { :format => 'json' } do

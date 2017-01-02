@@ -29,8 +29,8 @@ class LessonsController < ApplicationController
 
   def update
     # reschedule a lesson
+    @lesson = Lesson.find(params[:id])
     if @lesson.pending_any?
-      @lesson = Lesson.find(params[:id])
       duration = @lesson.duration
       @lesson.time_start =  params[:lesson][:time_start]
       @lesson.time_end = @lesson.time_start + duration.total
@@ -40,13 +40,13 @@ class LessonsController < ApplicationController
         flash[:success] = "La modification s'est correctement déroulée."
         respond_to do |format|
           format.html {redirect_to lessons_path}
-          format.json {render :json => {:success => "true"}}
+          format.json {render :json => {:success => "true", :message => "La modification s'est correctement déroulée."}}
         end and return
       else
         flash[:alert] = "Il y a eu un problème lors de la modification. Veuillez réessayer."
         respond_to do |format|
           format.html {redirect_to dashboard_path}
-          format.json {render :json => {:success => "false"}}
+          format.json {render :json => {:success => "error", :message => "Il y a eu un problème lors de la modification. Veuillez réessayer."}}
         end and return
       end
     end
@@ -62,7 +62,11 @@ class LessonsController < ApplicationController
     PrivatePub.publish_to "/notifications/#{@lesson.student_id}", :lesson => @lesson
     flash[:notice] = "Le cours a été accepté."
     LessonsNotifierWorker.perform() # check if new bbb is needed (right now)
-    redirect_to dashboard_path
+    respond_to do |format|
+      format.html {redirect_to dashboard_path}
+      format.json {render :json => {:success => "true", 
+        :message => "Le cours a été accepté.", :lesson => @lesson}}
+    end
   end
 
   def refuse
@@ -72,10 +76,18 @@ class LessonsController < ApplicationController
 
     if refuse.valid?
       flash[:success] = 'Vous avez décliné la demande de cours.'
-      redirect_to lessons_path
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format.json {render :json => {:success => "true", 
+          :message => "Vous avez décliné la demande de cours.", :lesson => @lesson}}
+      end
     else
       flash[:danger] = "Il y a eu un problème: #{refuse.errors.full_messages.to_sentence} <br />Le cours n'a pas été refusé".html_safe
-      redirect_to lessons_path
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format.json {render :json => {:success => "false", 
+          :message => "Il y a eu un problème. Le cours n'a pas été refusé."}}
+      end
     end
   end
 
@@ -89,20 +101,23 @@ class LessonsController < ApplicationController
         flash[:success] = 'Vous avez annulé la demande de cours.'
         respond_to do |format|
           format.html {redirect_to lessons_path}
-          format.json {render :json => {:success => "true", :message => "Vous avez annulé la demande de cours.", :lesson => @lesson.as_json}}
+          format.json {render :json => {:success => "true", 
+            :message => "Vous avez annulé la demande de cours.", :lesson => @lesson}}
         end
       else
         flash[:danger] = "Il y a eu un problème: #{refuse.errors.full_messages.to_sentence}.<br /> Le cours n'a pas été annulé.".html_safe
         respond_to do |format|
           format.html {redirect_to lessons_path}
-          format.json {render :json => {:success => "false", :message => "Il y a eu un problème. Le cours n'a pas été annulé."}}
+          format.json {render :json => {:success => "false", 
+            :message => "Il y a eu un problème. Le cours n'a pas été annulé."}}
         end
       end
     else
       flash[:danger]="Seul le professeur peut annuler un cours moins de 48h à l'avance."
       respond_to do |format|
         format.html {redirect_to lessons_path}
-        format.json {render :json => {:success => "false", :message => "Seul le professeur peut annuler un cours moins de 48h à l'avance."}}
+        format.json {render :json => {:success => "false", 
+          :message => "Seul le professeur peut annuler un cours moins de 48h à l'avance."}}
       end
     end
   end

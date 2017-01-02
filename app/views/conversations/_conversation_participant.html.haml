@@ -12,7 +12,7 @@
     %i.fa.fa-angle-down
   .participant-adverts.clearfix
     - user.adverts.each do |ad|
-      .advert{class: "topic_#{ad.topic_group.id}"}
+      .advert{class: "topic_#{ad.topic_group_id}"}
         #{ad.topic.title}
         = image_tag(ad.topic.pictotype("medium"))
   .participant-cta

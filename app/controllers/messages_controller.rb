@@ -24,9 +24,8 @@ class MessagesController < ApplicationController
     end
     respond_to do |format|
       format.html {redirect_to messagerie_path}
-      format.js {
-        redirect_to conversation_path(receipt.conversation)
-      }
+      format.js {redirect_to conversation_path(receipt.conversation)}
+      format.json {render :json => {:message => "Votre message a bien été envoyé!"}}
     end
   end
 

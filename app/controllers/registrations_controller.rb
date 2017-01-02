@@ -35,6 +35,7 @@ class RegistrationsController < Devise::RegistrationsController
     else
       render "edit"
     end
+end
   
   def sign_up(resource_name, resource)
     sign_in(:user, resource)

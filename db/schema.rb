@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161128140055) do
+ActiveRecord::Schema.define(version: 20161222135951) do
 
   create_table "advert_prices", force: :cascade do |t|
     t.integer  "advert_id",                                        null: false
@@ -274,6 +274,9 @@ ActiveRecord::Schema.define(version: 20161128140055) do
     t.string   "mailbox_type",    limit: 25
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
+    t.boolean  "is_delivered",               default: false
+    t.string   "delivery_method"
+    t.string   "message_id"
   end
 
   add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"

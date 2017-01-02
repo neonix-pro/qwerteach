@@ -116,7 +116,7 @@ class UsersController < ApplicationController
     end
     respond_to do |format|
      format.html {redirect_to edit_user_registration_path(@user)}
-     format.json {render :json => {:success => "true"}}
+     format.json {render :json => {:success => "true", :user => @user}}
      format.js
     end
     
