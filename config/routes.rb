@@ -97,11 +97,9 @@ Rails.application.routes.draw do
   get "/auth/:action/callback",
       :to => "users/omniauth_callbacks",
       :constraints => { :action => /google_oauth2|facebook/ }
-
-  resources :users, only: [:update] do
-    patch 'crop' => 'users#crop'
-    post 'crop' => 'users#crop'
-  end
+  
+  resources :users, only: [:update]
+  
   get 'dashboard' => 'dashboards#index', :as => 'dashboard'
   get 'featured_reviews' => 'reviews#featured_reviews'
 

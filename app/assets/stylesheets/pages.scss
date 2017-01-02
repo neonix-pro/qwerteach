@@ -123,3 +123,20 @@ form.reinit-password{
     }
   }
 }
+
+/*devenir prof*/
+.become-teacher-page{
+  .section_video{
+    .left{
+      background-color: $color_qwerteach_green;
+    }
+  }
+  .section_test_classe{
+    img{
+      height:100%;
+    }
+    .right{
+      background-color: $color_qwerteach_blue;
+    }
+  }
+}

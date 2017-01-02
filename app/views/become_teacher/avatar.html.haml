@@ -1,28 +1,25 @@
 = tutorial_progress_bar
 %h2 Choisissez votre avatar
-= form_for(resource, as: resource_name, url: wizard_path, html: { method: :put }) do |f|
+= form_for(resource, as: resource_name, url: wizard_path, html: { method: :put, class: 'avatar-uploader' }) do |f|
   #avatar_select.field
     - resource.crop_x=0
     = f.label 'Sélectionnez un fichier'
     = f.file_field :avatar, :required => true
-  #preview-uploaded-avatar
+
+  .form-group
+    = f.hidden_field :crop_x, :id => 'crop_x'
+    = f.hidden_field :crop_y, :id => 'crop_y'
+    = f.hidden_field :crop_w, :id => 'crop_w'
+    = f.hidden_field :crop_h, :id => 'crop_h'
+
+  .avatar-uploaded-view
+    %img.avatar-uploaded-view-image
+  .avatar-uploaded-preview
+    %img.avatar-uploaded-preview-image
+
   .actions
     = f.submit "Enregistrer"
 
 
 :javascript
-  $(function() {
-    $('#user_avatar').on('change', function(event) {
-      var files = event.target.files;
-      var image = files[0]
-      var reader = new FileReader();
-      reader.onload = function(file) {
-        var img = new Image();
-        console.log(file);
-        img.src = file.target.result;
-        $('#preview-uploaded-avatar').html(img);
-      }
-      reader.readAsDataURL(image);
-      console.log(files);
-    });
-  });
+  new AvatarUploader()

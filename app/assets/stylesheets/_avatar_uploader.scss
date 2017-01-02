@@ -1,0 +1,32 @@
+.avatar-uploaded-view {
+  display: inline-block;
+  max-width: 800px;
+  vertical-align: top;
+  img {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.avatar-uploaded-preview {
+  display: inline-block;
+  vertical-align: top;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-body-avatar {
+  display: flex;
+  .col-view {
+    flex-grow: 1;
+    margin-right: 15px;
+    .avatar-uploaded-view {
+      display: block;
+    }
+  }
+  .avatar-uploaded-preview {
+    flex-shrink: 0;
+  }
+}

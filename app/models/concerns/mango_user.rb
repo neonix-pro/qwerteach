@@ -18,7 +18,7 @@ class MangoUser
   end
 
   def wallets
-    @wallets ||= Mango.normalize_response(MangoPay::User.wallets(id_for_api))
+    @wallets ||= Mango.normalize_response(MangoPay::User.wallets(id_for_api)) rescue []
   end
 
   def normal_wallet
@@ -34,7 +34,7 @@ class MangoUser
   end
 
   def total_wallets_in_cents
-    normal_wallet.balance.amount + bonus_wallet.balance.amount
+    (normal_wallet.balance.amount + bonus_wallet.balance.amount) rescue 0
   end
 
   def user_data
