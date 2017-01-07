@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :lockable, :validatable,
          :lastseenable, :confirmable
           #, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
+  def confirmation_required?
+    false
+  end
 
   has_one :gallery
   has_many :adverts, dependent: :destroy

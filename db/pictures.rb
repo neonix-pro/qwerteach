@@ -1,4 +1,4 @@
-User.where('id>25 AND avatar_file_name != ""').each do |user|
+User.where('id>26 AND avatar_file_name != ""').each do |user|
   if File.file?("#{Rails.root}/public/system/avatars/QWPICS/#{user.avatar_file_name}")
     File.open("#{Rails.root}/public/system/avatars/QWPICS/#{user.avatar_file_name}") do |f|
       user.avatar = f
