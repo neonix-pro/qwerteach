@@ -166,24 +166,24 @@ class Mailboxer::Receipt < ActiveRecord::Base
     end
   end
 
-  if Mailboxer.search_enabled
-    searchable do
-      text :subject, :boost => 5 do
-        message.subject if message
-      end
-      text :body do
-        message.body if message
-      end
-      integer :receiver_id
-
-      text :sender_name do
-        message.sender.name if message && message.sender
-      end
-      text :receiver_name do
-        receiver.name if receiver
-      end
-      boolean :trashed
-      boolean :deleted
-    end
-  end
+  # if Mailboxer.search_enabled
+  #   searchable do
+  #     text :subject, :boost => 5 do
+  #       message.subject if message
+  #     end
+  #     text :body do
+  #       message.body if message
+  #     end
+  #     integer :receiver_id
+  #
+  #     text :sender_name do
+  #       message.sender.name if message && message.sender
+  #     end
+  #     text :receiver_name do
+  #       receiver.name if receiver
+  #     end
+  #     boolean :trashed
+  #     boolean :deleted
+  #   end
+  # end
 end

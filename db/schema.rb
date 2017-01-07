@@ -14,403 +14,407 @@
 ActiveRecord::Schema.define(version: 20161128140055) do
 
   create_table "advert_prices", force: :cascade do |t|
-    t.integer  "advert_id",                                        null: false
-    t.integer  "level_id",                                         null: false
-    t.decimal  "price",      precision: 8, scale: 2, default: 0.0, null: false
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.integer  "advert_id",  limit: 4,                                       null: false
+    t.integer  "level_id",   limit: 4,                                       null: false
+    t.decimal  "price",                precision: 8, scale: 2, default: 0.0, null: false
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
   end
 
   create_table "adverts", force: :cascade do |t|
-    t.integer  "user_id",                     null: false
-    t.integer  "topic_id"
-    t.integer  "topic_group_id",              null: false
-    t.string   "other_name"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.text     "description",    default: ""
+    t.integer  "user_id",        limit: 4,                null: false
+    t.integer  "topic_id",       limit: 4
+    t.integer  "topic_group_id", limit: 4,                null: false
+    t.string   "other_name",     limit: 255
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "description",    limit: 255, default: ""
   end
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
-    t.integer  "server_id"
-    t.integer  "room_id"
-    t.string   "meetingid"
-    t.string   "name"
+    t.integer  "server_id",    limit: 4
+    t.integer  "room_id",      limit: 4
+    t.string   "meetingid",    limit: 255
+    t.string   "name",         limit: 255
     t.datetime "start_time"
-    t.boolean  "running",      default: false
-    t.boolean  "recorded",     default: false
-    t.integer  "creator_id"
-    t.string   "creator_name"
+    t.boolean  "running",                  default: false
+    t.boolean  "recorded",                 default: false
+    t.integer  "creator_id",   limit: 4
+    t.string   "creator_name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "bigbluebutton_meetings", ["meetingid", "start_time"], name: "index_bigbluebutton_meetings_on_meetingid_and_start_time", unique: true
+  add_index "bigbluebutton_meetings", ["meetingid", "start_time"], name: "index_bigbluebutton_meetings_on_meetingid_and_start_time", unique: true, using: :btree
 
   create_table "bigbluebutton_metadata", force: :cascade do |t|
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.string   "name"
-    t.text     "content"
+    t.integer  "owner_id",   limit: 4
+    t.string   "owner_type", limit: 255
+    t.string   "name",       limit: 255
+    t.text     "content",    limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "bigbluebutton_playback_formats", force: :cascade do |t|
-    t.integer  "recording_id"
-    t.integer  "playback_type_id"
-    t.string   "url"
-    t.integer  "length"
+    t.integer  "recording_id",     limit: 4
+    t.integer  "playback_type_id", limit: 4
+    t.string   "url",              limit: 255
+    t.integer  "length",           limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "bigbluebutton_playback_types", force: :cascade do |t|
-    t.string   "identifier"
-    t.boolean  "visible",    default: false
-    t.boolean  "default",    default: false
+    t.string   "identifier", limit: 255
+    t.boolean  "visible",                default: false
+    t.boolean  "default",                default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "bigbluebutton_recordings", force: :cascade do |t|
-    t.integer  "server_id"
-    t.integer  "room_id"
-    t.integer  "meeting_id"
-    t.string   "recordid"
-    t.string   "meetingid"
-    t.string   "name"
-    t.boolean  "published",             default: false
+    t.integer  "server_id",   limit: 4
+    t.integer  "room_id",     limit: 4
+    t.integer  "meeting_id",  limit: 4
+    t.string   "recordid",    limit: 255
+    t.string   "meetingid",   limit: 255
+    t.string   "name",        limit: 255
+    t.boolean  "published",               default: false
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "available",             default: true
-    t.string   "description"
-    t.integer  "size",        limit: 8, default: 0
+    t.boolean  "available",               default: true
+    t.string   "description", limit: 255
+    t.integer  "size",        limit: 8,   default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "bigbluebutton_recordings", ["recordid"], name: "index_bigbluebutton_recordings_on_recordid", unique: true
-  add_index "bigbluebutton_recordings", ["room_id"], name: "index_bigbluebutton_recordings_on_room_id"
+  add_index "bigbluebutton_recordings", ["recordid"], name: "index_bigbluebutton_recordings_on_recordid", unique: true, using: :btree
+  add_index "bigbluebutton_recordings", ["room_id"], name: "index_bigbluebutton_recordings_on_room_id", using: :btree
 
   create_table "bigbluebutton_room_options", force: :cascade do |t|
-    t.integer  "room_id"
-    t.string   "default_layout"
+    t.integer  "room_id",              limit: 4
+    t.string   "default_layout",       limit: 255
     t.boolean  "presenter_share_only"
     t.boolean  "auto_start_video"
     t.boolean  "auto_start_audio"
-    t.string   "background"
+    t.string   "background",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "bigbluebutton_room_options", ["room_id"], name: "index_bigbluebutton_room_options_on_room_id"
+  add_index "bigbluebutton_room_options", ["room_id"], name: "index_bigbluebutton_room_options_on_room_id", using: :btree
 
   create_table "bigbluebutton_rooms", force: :cascade do |t|
-    t.integer  "server_id"
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.string   "meetingid"
-    t.string   "name"
-    t.string   "attendee_key"
-    t.string   "moderator_key"
-    t.string   "welcome_msg"
-    t.string   "logout_url"
-    t.string   "voice_bridge"
-    t.string   "dial_number"
-    t.integer  "max_participants"
-    t.boolean  "private",                                   default: false
-    t.boolean  "external",                                  default: false
-    t.string   "param"
-    t.boolean  "record_meeting",                            default: false
-    t.integer  "duration",                                  default: 0
-    t.string   "attendee_api_password"
-    t.string   "moderator_api_password"
-    t.decimal  "create_time",                precision: 14
-    t.string   "moderator_only_message"
-    t.boolean  "auto_start_recording",                      default: false
-    t.boolean  "allow_start_stop_recording",                default: true
+    t.integer  "server_id",                  limit: 4
+    t.integer  "owner_id",                   limit: 4
+    t.string   "owner_type",                 limit: 255
+    t.string   "meetingid",                  limit: 255
+    t.string   "name",                       limit: 255
+    t.string   "attendee_key",               limit: 255
+    t.string   "moderator_key",              limit: 255
+    t.string   "welcome_msg",                limit: 255
+    t.string   "logout_url",                 limit: 255
+    t.string   "voice_bridge",               limit: 255
+    t.string   "dial_number",                limit: 255
+    t.integer  "max_participants",           limit: 4
+    t.boolean  "private",                                               default: false
+    t.boolean  "external",                                              default: false
+    t.string   "param",                      limit: 255
+    t.boolean  "record_meeting",                                        default: false
+    t.integer  "duration",                   limit: 4,                  default: 0
+    t.string   "attendee_api_password",      limit: 255
+    t.string   "moderator_api_password",     limit: 255
+    t.decimal  "create_time",                            precision: 14
+    t.string   "moderator_only_message",     limit: 255
+    t.boolean  "auto_start_recording",                                  default: false
+    t.boolean  "allow_start_stop_recording",                            default: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "lesson_id"
+    t.integer  "lesson_id",                  limit: 4
   end
 
-  add_index "bigbluebutton_rooms", ["meetingid"], name: "index_bigbluebutton_rooms_on_meetingid", unique: true
-  add_index "bigbluebutton_rooms", ["server_id"], name: "index_bigbluebutton_rooms_on_server_id"
+  add_index "bigbluebutton_rooms", ["meetingid"], name: "index_bigbluebutton_rooms_on_meetingid", unique: true, using: :btree
+  add_index "bigbluebutton_rooms", ["server_id"], name: "index_bigbluebutton_rooms_on_server_id", using: :btree
 
   create_table "bigbluebutton_server_configs", force: :cascade do |t|
-    t.integer  "server_id"
-    t.text     "available_layouts"
+    t.integer  "server_id",         limit: 4
+    t.text     "available_layouts", limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "bigbluebutton_servers", force: :cascade do |t|
-    t.string   "name"
-    t.string   "url"
-    t.string   "salt"
-    t.string   "version"
-    t.string   "param"
+    t.string   "name",       limit: 255
+    t.string   "url",        limit: 255
+    t.string   "salt",       limit: 255
+    t.string   "version",    limit: 255
+    t.string   "param",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer  "sender_id",    null: false
-    t.integer  "subject_id",   null: false
-    t.text     "comment_text", null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "sender_id",    limit: 4,     null: false
+    t.integer  "subject_id",   limit: 4,     null: false
+    t.text     "comment_text", limit: 65535, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "degrees", force: :cascade do |t|
-    t.string   "title",           null: false
-    t.string   "institution",     null: false
-    t.integer  "completion_year"
-    t.integer  "user_id",         null: false
-    t.integer  "level_id",        null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "adress"
-    t.integer  "postalCode"
-    t.string   "city"
-    t.string   "country"
+    t.string   "title",           limit: 255, null: false
+    t.string   "institution",     limit: 255, null: false
+    t.integer  "completion_year", limit: 4
+    t.integer  "user_id",         limit: 4,   null: false
+    t.integer  "level_id",        limit: 4,   null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "adress",          limit: 255
+    t.integer  "postalCode",      limit: 4
+    t.string   "city",            limit: 255
+    t.string   "country",         limit: 255
   end
 
-  add_index "degrees", ["level_id"], name: "index_degrees_on_level_id"
-  add_index "degrees", ["user_id"], name: "index_degrees_on_user_id"
+  add_index "degrees", ["level_id"], name: "index_degrees_on_level_id", using: :btree
+  add_index "degrees", ["user_id"], name: "index_degrees_on_user_id", using: :btree
 
   create_table "drafts", force: :cascade do |t|
-    t.string   "target_type", null: false
-    t.integer  "user_id"
-    t.integer  "parent_id"
-    t.string   "parent_type"
-    t.binary   "data",        null: false
-    t.datetime "updated_at",  null: false
+    t.string   "target_type", limit: 255,      null: false
+    t.integer  "user_id",     limit: 4
+    t.integer  "parent_id",   limit: 4
+    t.string   "parent_type", limit: 255
+    t.binary   "data",        limit: 16777215, null: false
+    t.datetime "updated_at",                   null: false
   end
 
-  add_index "drafts", ["parent_type", "parent_id"], name: "index_drafts_on_parent_type_and_parent_id"
-  add_index "drafts", ["user_id", "target_type"], name: "index_drafts_on_user_id_and_target_type"
+  add_index "drafts", ["parent_type", "parent_id"], name: "index_drafts_on_parent_type_and_parent_id", using: :btree
+  add_index "drafts", ["user_id", "target_type"], name: "index_drafts_on_user_id_and_target_type", using: :btree
 
   create_table "galleries", force: :cascade do |t|
-    t.integer  "cover"
-    t.string   "token"
-    t.integer  "user_id",    null: false
+    t.integer  "cover",      limit: 4
+    t.string   "token",      limit: 255
+    t.integer  "user_id",    limit: 4,   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "lessons", force: :cascade do |t|
-    t.integer  "student_id",                                             null: false
-    t.integer  "teacher_id",                                             null: false
-    t.integer  "status",                                 default: 0,     null: false
-    t.datetime "time_start",                                             null: false
-    t.datetime "time_end",                                               null: false
-    t.integer  "topic_id"
-    t.integer  "topic_group_id",                                         null: false
-    t.integer  "level_id",                                               null: false
-    t.decimal  "price",          precision: 8, scale: 2,                 null: false
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
-    t.boolean  "free_lesson",                            default: false
-    t.text     "comment"
+    t.integer  "student_id",     limit: 4,                                             null: false
+    t.integer  "teacher_id",     limit: 4,                                             null: false
+    t.integer  "status",         limit: 4,                             default: 0,     null: false
+    t.datetime "time_start",                                                           null: false
+    t.datetime "time_end",                                                             null: false
+    t.integer  "topic_id",       limit: 4
+    t.integer  "topic_group_id", limit: 4,                                             null: false
+    t.integer  "level_id",       limit: 4,                                             null: false
+    t.decimal  "price",                        precision: 8, scale: 2,                 null: false
+    t.datetime "created_at",                                                           null: false
+    t.datetime "updated_at",                                                           null: false
+    t.boolean  "free_lesson",                                          default: false
+    t.text     "comment",        limit: 65535
   end
 
   create_table "levels", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "level",      default: 1, null: false
-    t.string   "code",                   null: false
-    t.string   "be",                     null: false
-    t.string   "fr",                     null: false
-    t.string   "ch",                     null: false
+    t.integer  "level",      limit: 4,   default: 1, null: false
+    t.string   "code",       limit: 255,             null: false
+    t.string   "be",         limit: 255,             null: false
+    t.string   "fr",         limit: 255,             null: false
+    t.string   "ch",         limit: 255,             null: false
   end
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
-    t.integer "unsubscriber_id"
-    t.string  "unsubscriber_type"
-    t.integer "conversation_id"
+    t.integer "unsubscriber_id",   limit: 4
+    t.string  "unsubscriber_type", limit: 255
+    t.integer "conversation_id",   limit: 4
   end
 
-  add_index "mailboxer_conversation_opt_outs", ["conversation_id"], name: "index_mailboxer_conversation_opt_outs_on_conversation_id"
-  add_index "mailboxer_conversation_opt_outs", ["unsubscriber_id", "unsubscriber_type"], name: "index_mailboxer_conversation_opt_outs_on_unsubscriber_id_type"
+  add_index "mailboxer_conversation_opt_outs", ["conversation_id"], name: "index_mailboxer_conversation_opt_outs_on_conversation_id", using: :btree
+  add_index "mailboxer_conversation_opt_outs", ["unsubscriber_id", "unsubscriber_type"], name: "index_mailboxer_conversation_opt_outs_on_unsubscriber_id_type", using: :btree
 
   create_table "mailboxer_conversations", force: :cascade do |t|
-    t.string   "subject",    default: ""
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-  end
-
-  create_table "mailboxer_notifications", force: :cascade do |t|
-    t.string   "type"
-    t.text     "body"
-    t.string   "subject",              default: ""
-    t.integer  "sender_id"
-    t.string   "sender_type"
-    t.integer  "conversation_id"
-    t.boolean  "draft",                default: false
-    t.string   "notification_code"
-    t.integer  "notified_object_id"
-    t.string   "notified_object_type"
-    t.string   "attachment"
-    t.datetime "updated_at",                           null: false
-    t.datetime "created_at",                           null: false
-    t.boolean  "global",               default: false
-    t.datetime "expires"
-  end
-
-  add_index "mailboxer_notifications", ["conversation_id"], name: "index_mailboxer_notifications_on_conversation_id"
-  add_index "mailboxer_notifications", ["notified_object_id", "notified_object_type"], name: "index_mailboxer_notifications_on_notified_object_id_and_type"
-  add_index "mailboxer_notifications", ["sender_id", "sender_type"], name: "index_mailboxer_notifications_on_sender_id_and_sender_type"
-  add_index "mailboxer_notifications", ["type"], name: "index_mailboxer_notifications_on_type"
-
-  create_table "mailboxer_receipts", force: :cascade do |t|
-    t.integer  "receiver_id"
-    t.string   "receiver_type"
-    t.integer  "notification_id",                            null: false
-    t.boolean  "is_read",                    default: false
-    t.boolean  "trashed",                    default: false
-    t.boolean  "deleted",                    default: false
-    t.string   "mailbox_type",    limit: 25
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-  end
-
-  add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
-  add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
-
-  create_table "payments", force: :cascade do |t|
-    t.integer  "status",                limit: 11
-    t.integer  "payment_type",          limit: 11
-    t.datetime "transfert_date"
-    t.float    "price"
-    t.integer  "lesson_id",             limit: 11
-    t.integer  "mangopay_payin_id",     limit: 11
-    t.datetime "execution_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "payment_method",                   default: 3
-    t.integer  "transfer_eleve_id"
-    t.integer  "transfer_prof_id"
-    t.integer  "transfer_bonus_id"
-    t.float    "transfer_bonus_amount"
-  end
-
-  create_table "pictures", force: :cascade do |t|
-    t.string   "description"
-    t.string   "image"
-    t.integer  "gallery_id",         null: false
-    t.string   "gallery_token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-  end
-
-  create_table "postulations", force: :cascade do |t|
-    t.boolean  "interview_ok",        default: false
-    t.boolean  "avatar_ok",           default: false
-    t.boolean  "gen_informations_ok", default: false
-    t.boolean  "advert_ok",           default: false
-    t.integer  "user_id",                             null: false
+    t.string   "subject",    limit: 255, default: ""
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
 
+  create_table "mailboxer_notifications", force: :cascade do |t|
+    t.string   "type",                 limit: 255
+    t.text     "body",                 limit: 65535
+    t.string   "subject",              limit: 255,   default: ""
+    t.integer  "sender_id",            limit: 4
+    t.string   "sender_type",          limit: 255
+    t.integer  "conversation_id",      limit: 4
+    t.boolean  "draft",                              default: false
+    t.string   "notification_code",    limit: 255
+    t.integer  "notified_object_id",   limit: 4
+    t.string   "notified_object_type", limit: 255
+    t.string   "attachment",           limit: 255
+    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                                         null: false
+    t.boolean  "global",                             default: false
+    t.datetime "expires"
+  end
+
+  add_index "mailboxer_notifications", ["conversation_id"], name: "index_mailboxer_notifications_on_conversation_id", using: :btree
+  add_index "mailboxer_notifications", ["notified_object_id", "notified_object_type"], name: "index_mailboxer_notifications_on_notified_object_id_and_type", using: :btree
+  add_index "mailboxer_notifications", ["sender_id", "sender_type"], name: "index_mailboxer_notifications_on_sender_id_and_sender_type", using: :btree
+  add_index "mailboxer_notifications", ["type"], name: "index_mailboxer_notifications_on_type", using: :btree
+
+  create_table "mailboxer_receipts", force: :cascade do |t|
+    t.integer  "receiver_id",     limit: 4
+    t.string   "receiver_type",   limit: 255
+    t.integer  "notification_id", limit: 4,                   null: false
+    t.boolean  "is_read",                     default: false
+    t.boolean  "trashed",                     default: false
+    t.boolean  "deleted",                     default: false
+    t.string   "mailbox_type",    limit: 25
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+  end
+
+  add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id", using: :btree
+  add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type", using: :btree
+
+  create_table "payments", force: :cascade do |t|
+    t.integer  "status",                limit: 4,                          default: 0,                     null: false
+    t.integer  "payment_type",          limit: 4,                          default: 0,                     null: false
+    t.datetime "transfert_date",                                           default: '2017-01-05 16:24:34', null: false
+    t.decimal  "price",                            precision: 8, scale: 2,                                 null: false
+    t.integer  "lesson_id",             limit: 4,                                                          null: false
+    t.integer  "mangopay_payin_id",     limit: 4
+    t.datetime "execution_date"
+    t.datetime "created_at",                                                                               null: false
+    t.datetime "updated_at",                                                                               null: false
+    t.integer  "payment_method",        limit: 4,                          default: 3
+    t.integer  "transfer_eleve_id",     limit: 4
+    t.integer  "transfer_prof_id",      limit: 4
+    t.integer  "transfer_bonus_id",     limit: 4
+    t.float    "transfer_bonus_amount", limit: 24
+  end
+
+  create_table "pictures", force: :cascade do |t|
+    t.string   "description",        limit: 255
+    t.string   "image",              limit: 255
+    t.integer  "gallery_id",         limit: 4,   null: false
+    t.string   "gallery_token",      limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+  end
+
+  create_table "postulations", force: :cascade do |t|
+    t.boolean  "interview_ok",                  default: false
+    t.boolean  "avatar_ok",                     default: false
+    t.boolean  "gen_informations_ok",           default: false
+    t.boolean  "advert_ok",                     default: false
+    t.integer  "user_id",             limit: 4,                 null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+  end
+
   create_table "read_marks", force: :cascade do |t|
-    t.integer  "readable_id"
-    t.string   "readable_type", null: false
-    t.integer  "reader_id"
-    t.string   "reader_type",   null: false
+    t.integer  "readable_id",   limit: 4
+    t.string   "readable_type", limit: 255, null: false
+    t.integer  "reader_id",     limit: 4
+    t.string   "reader_type",   limit: 255, null: false
     t.datetime "timestamp"
   end
 
-  add_index "read_marks", ["reader_id", "reader_type", "readable_type", "readable_id"], name: "read_marks_reader_readable_index"
+  add_index "read_marks", ["reader_id", "reader_type", "readable_type", "readable_id"], name: "read_marks_reader_readable_index", using: :btree
 
   create_table "reviews", force: :cascade do |t|
-    t.integer  "sender_id"
-    t.integer  "subject_id"
-    t.text     "review_text"
-    t.integer  "note"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "sender_id",   limit: 4
+    t.integer  "subject_id",  limit: 4
+    t.text     "review_text", limit: 65535
+    t.integer  "note",        limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "topic_groups", force: :cascade do |t|
-    t.string   "title",                          null: false
-    t.string   "level_code",                     null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "topic_group_id"
-    t.boolean  "featured",       default: false
-    t.string   "picto"
+    t.string   "title",      limit: 255,                 null: false
+    t.string   "level_code", limit: 255,                 null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "featured",               default: false
+    t.string   "picto",      limit: 255
   end
 
   create_table "topics", force: :cascade do |t|
-    t.string   "title",                          null: false
-    t.integer  "topic_group_id",                 null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "topics_id"
-    t.boolean  "featured",       default: false
-    t.string   "picto"
+    t.string   "title",          limit: 255,                 null: false
+    t.integer  "topic_group_id", limit: 4,                   null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "topics_id",      limit: 4
+    t.boolean  "featured",                   default: false
+    t.string   "picto",          limit: 255
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "login",                  default: "",            null: false
-    t.string   "firstname",              default: "",            null: false
-    t.string   "lastname",               default: "",            null: false
-    t.date     "birthdate",              default: '2016-01-01',  null: false
-    t.text     "description",            default: "",            null: false
-    t.string   "gender",                 default: "Not telling", null: false
-    t.string   "phonenumber",            default: "",            null: false
-    t.string   "type",                   default: "Student",     null: false
-    t.integer  "level_id",               default: 1
-    t.boolean  "first_lesson_free",      default: false
-    t.boolean  "accepts_post_payments",  default: false
-    t.string   "occupation",             default: "student"
-    t.boolean  "postulance_accepted",    default: false,         null: false
-    t.string   "teacher_status",         default: "Actif"
-    t.string   "email",                  default: "",            null: false
-    t.string   "encrypted_password",     default: "",            null: false
-    t.string   "reset_password_token"
+    t.string   "login",                  limit: 255,   default: "",            null: false
+    t.string   "firstname",              limit: 255,   default: "",            null: false
+    t.string   "lastname",               limit: 255,   default: "",            null: false
+    t.date     "birthdate",                            default: '2016-01-01',  null: false
+    t.text     "description",            limit: 65535
+    t.string   "gender",                 limit: 255,   default: "Not telling", null: false
+    t.string   "phonenumber",            limit: 255,   default: "",            null: false
+    t.string   "type",                   limit: 255,   default: "Student",     null: false
+    t.integer  "level_id",               limit: 4,     default: 1
+    t.boolean  "first_lesson_free",                    default: false
+    t.boolean  "accepts_post_payments",                default: false
+    t.string   "occupation",             limit: 255,   default: "student"
+    t.boolean  "postulance_accepted",                  default: false,         null: false
+    t.string   "teacher_status",         limit: 255,   default: "Actif"
+    t.string   "email",                  limit: 255,   default: "",            null: false
+    t.string   "encrypted_password",     limit: 255,   default: "",            null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,             null: false
+    t.integer  "sign_in_count",          limit: 4,     default: 0,             null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        default: 0,             null: false
-    t.string   "unlock_token"
+    t.string   "unconfirmed_email",      limit: 255
+    t.integer  "failed_attempts",        limit: 4,     default: 0,             null: false
+    t.string   "unlock_token",           limit: 255
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",                  default: false
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
+    t.boolean  "admin",                                default: false
+    t.string   "avatar_file_name",       limit: 255
+    t.string   "avatar_content_type",    limit: 255
+    t.integer  "avatar_file_size",       limit: 4
     t.datetime "avatar_updated_at"
-    t.integer  "mango_id"
+    t.integer  "mango_id",               limit: 4
     t.datetime "last_seen"
-    t.string   "time_zone",              default: "UTC"
-    t.string   "provider"
-    t.string   "uid"
-    t.integer  "score",                  default: 0
-    t.integer  "response_rate",          default: 0
-    t.integer  "response_time",          default: 0
-    t.integer  "average_response_time",  default: 0
+    t.string   "time_zone",              limit: 255,   default: "UTC"
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
+    t.integer  "score",                  limit: 4,     default: 0
+    t.integer  "response_rate",          limit: 4,     default: 0
+    t.integer  "response_time",          limit: 4,     default: 0
+    t.integer  "average_response_time",  limit: 4,     default: 0
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
+  add_foreign_key "degrees", "levels"
+  add_foreign_key "degrees", "users"
+  add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", column: "conversation_id", name: "mb_opt_outs_on_conversations_id"
+  add_foreign_key "mailboxer_notifications", "mailboxer_conversations", column: "conversation_id", name: "notifications_on_conversation_id"
+  add_foreign_key "mailboxer_receipts", "mailboxer_notifications", column: "notification_id", name: "receipts_on_notification_id"
 end

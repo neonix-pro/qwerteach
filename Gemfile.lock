@@ -266,6 +266,8 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    mysql2 (0.4.5)
+    mysql2 (0.4.5-x86-mingw32)
     neat (1.7.4)
       bourbon (>= 4.0)
       sass (>= 3.3)
@@ -308,8 +310,6 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
-    pg (0.17.1)
-    pg (0.17.1-x86-mingw32)
     pluck_to_hash (1.0.0)
       activerecord (>= 4.0.2)
       activesupport (>= 4.0.2)
@@ -545,12 +545,12 @@ DEPENDENCIES
   mangopay
   minitest
   momentjs-rails (~> 2.10.6)
+  mysql2
   omniauth
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-twitter
   paperclip (~> 4.3)
-  pg (= 0.17.1)
   pluck_to_hash
   private_pub
   progress_bar
@@ -585,4 +585,4 @@ DEPENDENCIES
   wicked
 
 BUNDLED WITH
-   1.13.6
+   1.13.7

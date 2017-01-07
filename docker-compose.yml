@@ -1,17 +1,48 @@
-app:
-  build: .
-  command: rails server -p 3000 -b '0.0.0.0'
-  volumes:
-    - .:/app
-  ports:
-    - "3000:3000"
-redis:
-  image: redis:3.2.4-alpine
-  ports:
-    # We'll bind our host's port 6379 to redis's port 6379, so we can use
-    # Redis Desktop Manager (or other tools) with it:
-    - 6379:6379
-  volumes:
-    # We'll mount the 'redis-data' volume into the location redis stores it's data:
-    - redis-data:/var/lib/redis
-  command: redis-server --appendonly yes
+version: "2"
+services:
+  web:
+    build: .
+    command: rails server -e production -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    links:
+     - solr:solr
+     - mariadb
+    depends_on:
+      - solr
+    env_file:
+      - .env
+  solr:
+    image: solr
+    ports:
+     - "8983:8983"
+    volumes:
+      - data:/opt/solr/server/solr/mycores
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - qwerteach
+  mariadb:
+    image: mariadb
+    volumes:
+      - mariadb:/var/lib/mysql
+    env_file:
+      - .env
+    ports:
+      - "13306:3306"
+
+volumes:
+  data:
+  mariadb:
+
+# copy solr config:
+## docker cp solr/configsets/sunspot/conf/schema.xml qwerteach_solr_1:/opt/solr/server/solr/mycores/qwerteach/conf
+## docker cp solr/configsets/sunspot/conf/solrconfig.xml qwerteach_solr_1:/opt/solr/server/solr/mycores/qwerteach/conf
+# reload solr core:
+## curl "http://localhost:8983/solr/admin/cores?action=RELOAD&core=qwerteach"
+# re-index & start sunspot
+
+
+

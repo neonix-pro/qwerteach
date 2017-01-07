@@ -38,7 +38,7 @@ class Lesson < ActiveRecord::Base
     .where(:student => user.id)
     .where('reviews.id is NULL')
     .where('time_end < ?', DateTime.now)
-    .group(:teacher)}
+    .group(:teacher_id)}
 
   has_drafts
 
