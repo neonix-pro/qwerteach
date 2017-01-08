@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_time_zone
-    Time.zone = current_user.time_zone || "Europe / Berlin"
+    Time.zone = current_user.time_zone || "Europe/Berlin"
   end
 
   # Use require to define permitted params
