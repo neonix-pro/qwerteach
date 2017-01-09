@@ -18,7 +18,7 @@ class ConversationsController < ApplicationController
     end
     @recipient_options = []
     @mailbox.conversations.each do |conv|
-      conv.participants.map{|u| @recipient_options.push(u) unless u.id == @user.id}
+      conv.participants.map{|u| @recipient_options.push(u) unless u.nil? || u.id == @user.id}
     end
     @online_buddies = User.where(:id=>@recipient_options.map(&:id)).where(last_seen: (Time.now - 1.hour)..Time.now).order(last_seen: :desc).limit(10)
   end

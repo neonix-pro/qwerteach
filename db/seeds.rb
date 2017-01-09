@@ -63,7 +63,6 @@ Topic.create!([
   {title: "finance", topic_group_id:5},
   {title: "economie", topic_group_id:5},
   {title: "bureautique", topic_group_id:6},
-  {title: "informatique", topic_group_id:6},
   {title: "programmation", topic_group_id:6},
   {title: "reseaux", topic_group_id:6},
   {title: "base de donnees", topic_group_id:6}
