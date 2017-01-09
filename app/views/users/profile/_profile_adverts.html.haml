@@ -5,10 +5,10 @@
         .flipper
           .front
             = image_tag(advert.topic.pictotype('medium'), :class => 'advert-picto')
-            %h4.advert-title
+            %h4.a-title
               #{advert.title}
           .back
-            .advert-title
+            .a-title
               #{advert.title}
               %br
               %small Jusqu'au niveau #{advert.max_level}
@@ -21,10 +21,10 @@
       .flipper
         .front
           = image_tag(advert.topic.pictotype('medium'), :class => 'advert-picto')
-          %h4.advert-title
+          %h4.a-title
             #{advert.title}
         .back
-          .advert-title
+          .a-title
             #{advert.title}
             %br
             %small Jusqu'au niveau #{advert.max_level}

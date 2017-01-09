@@ -4,6 +4,7 @@
   background-color:#222222;
   padding-top:30px;
   float:left;
+  width:100%;
   .fc-toolbar{
     color: $color_qwerteach_green;
     padding-left:30px;
@@ -24,6 +25,8 @@
       padding: 0px;
       margin: 0px 7px;
       margin-top: 5px;
+      border:0px;
+
     }
     .fc-icon{
       margin:0;
@@ -32,23 +35,25 @@
       content: '';
     }
     .fc-icon-left-single-arrow{
-      border-bottom: 7px solid transparent;
+      font-size:0px;
+      border-bottom: 12px solid transparent;
       position: relative;
-      right: 2px;
-      border-right: 7px solid black;
-      border-top: 7px solid transparent;
-      top: -2px;
+      right: 3px;
+      border-right: 12px solid black;
+      border-top: 12px solid transparent;
+      top: -5px;
     }
     .fc-icon-right-single-arrow::after{
       content: '';
     }
     .fc-icon-right-single-arrow{
-      border-bottom: 7px solid transparent;
+      font-size:0px;
+      border-bottom: 12px solid transparent;
       position: relative;
-      right: 2px;
-      border-left: 7px solid black;
-      border-top: 7px solid transparent;
-      top: -2px;
+      right: -3px;
+      border-left: 12px solid black;
+      border-top: 12px solid transparent;
+      top: -5px;
     }
     .fc-right{
       margin-right:30px;
