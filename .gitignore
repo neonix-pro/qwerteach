@@ -48,6 +48,9 @@ public/system/avatars/*
 
 public/system/*
 app/assets/videos/*
+public/assets/*.mp4
+public/assets/*.webm
+public/assets/*.mov
 
 .env
 
