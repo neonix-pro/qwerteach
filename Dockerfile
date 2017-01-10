@@ -24,8 +24,8 @@ RUN gem install bundler && bundle install --jobs 20 --retry 5
 # Copy the main application.
 COPY . ./
 
-ENV RAILS_ENV production
-RUN RAILS_ENV=production bundle exec rake assets:precompile
+#ENV RAILS_ENV production
+#RUN RAILS_ENV=production bundle exec rake assets:precompile
 
 # Expose port 3000 to the Docker host, so we can access it 
 # from the outside.
