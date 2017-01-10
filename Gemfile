@@ -134,7 +134,6 @@ gem 'ruby-duration'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   #gem 'byebug'
-  gem 'sqlite3', '1.3.11'
   gem 'byebug',      '3.4.0'
   gem 'ffaker'
   gem 'webmock'
@@ -147,6 +146,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'sqlite3', '1.3.11'
   gem 'capybara-screenshot'
   gem 'sunspot-rails-tester'
 end
@@ -154,6 +154,7 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  gem 'mysql2'
 end
 
 group :production do

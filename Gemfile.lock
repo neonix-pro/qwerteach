@@ -445,7 +445,6 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.3.11)
-    sqlite3 (1.3.11-x86-mingw32)
     sunspot (2.2.5)
       pr_geohash (~> 1.0)
       rsolr (~> 1.1.1)
