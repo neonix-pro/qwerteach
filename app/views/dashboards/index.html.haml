@@ -1,4 +1,11 @@
 .container-fluid
+  -if @user.lessons_received.empty? && @user.is_a?(Student)
+    .row
+      .col-xs-12#welcome
+        =render partial: 'welcome', locals:{user: @user}
+      .col-xs-12#topics.section-choix
+        = render partial: 'pages/topic_groups_list', locals:{topic_groups: @featured_topics}
+      =render partial: 'help_request_lesson', locals:{}
   -if !@book_again_lesson.nil? && @to_do_list.empty?
     .row
       .col-xs-12#book_again
@@ -20,9 +27,8 @@
       = render partial: 'wallet_overview', locals:{user: @user}
     .col-xs-6#bonus
       = render partial: 'bonus', locals:{user: @user}
-  .row
-    .col-xs-12#topics.section-choix
-      = render partial: 'pages/topic_groups_list', locals:{topic_groups: @featured_topics}
-  .row
-    .col-xs-12#featured_teachers
-      = render partial: 'featured_teachers', locals: {teachers: @featured_teachers}
+  -unless @user.lessons_received.empty? && @user.is_a?(Student)
+    .row
+      .col-xs-12#topics.section-choix
+        = render partial: 'pages/topic_groups_list', locals:{topic_groups: @featured_topics}
+    = render partial: 'featured_teachers', locals: {teachers: @featured_teachers}

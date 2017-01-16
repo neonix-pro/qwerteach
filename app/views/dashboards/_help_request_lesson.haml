@@ -1,0 +1,12 @@
+.col-xs-12#help_request_lesson
+  .help.text-center.text-white
+    Aide:
+  %h3.text-center.text-white
+    Comment réserver un cours ?
+    %br
+    = link_to '#help-request-lesson-modal', class: 'text-center', data:{toggle:'modal'} do
+      %i.fa.fa-long-arrow-right
+
+  #help-request-lesson-modal.modal.fade{:role => "dialog"}
+    .modal-dialog
+      %iframe{:allowscriptaccess => "always", :allowFullScreen => "true", :frameborder => "0", :height => "430", :src => "http://www.youtube.com/embed/iGPBqqFtdK0", :title => "YouTube video player", :width => "640"}

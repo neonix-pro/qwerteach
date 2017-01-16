@@ -13,16 +13,20 @@ class WalletsController < ApplicationController
 
 
   def index_mangopay_wallet
-    @transactions = @user.mangopay.transactions
-    @transactions_on_way = @transactions.sum do |t|
-      t.status == "CREATED" ? t.debited_funds.amount/100.0 : 0
+    if current_user.mango_id.blank?
+      redirect_to edit_wallet_path(redirect_to: request.fullpath)
+    else
+      @transactions = @user.mangopay.transactions
+      @transactions_on_way = @transactions.sum do |t|
+        t.status == "CREATED" ? t.debited_funds.amount/100.0 : 0
+      end
+
+      @account = Mango::SaveAccount.new(user: current_user)
+      @cards = @user.mangopay.cards
+
+      @bank_accounts = @user.mangopay.bank_accounts.select{|ba| ba if ba.active}
+      @bank_account = Mango::CreateBankAccount.new(user: current_user)
     end
-
-    @account = Mango::SaveAccount.new(user: current_user)
-    @cards = @user.mangopay.cards
-
-    @bank_accounts = @user.mangopay.bank_accounts.select{|ba| ba if ba.active}
-    @bank_account = Mango::CreateBankAccount.new(user: current_user)
   end
 
   def edit_mangopay_wallet

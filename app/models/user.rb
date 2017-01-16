@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
                     :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg",
                     url: "/system/avatars/:hash.:extension", hash_secret: "laVieEstBelllllee", :hash_data => "/:attachment/:id/:style"
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :message => 'file type is not allowed (only jpeg/png/gif images)'
+  before_avatar_post_process :reset_avatar_score
 
   delegate :wallets, :normal_wallet, :bonus_wallet, :transaction_wallet,
             :total_wallets_in_cents, :bank_accounts, to: :mangopay
@@ -192,5 +193,8 @@ class User < ActiveRecord::Base
     def reprocess_avatar
       avatar.assign(avatar)
       avatar.save
+    end
+    def reset_avatar_score
+      self.avatar_score = 0
     end
 end

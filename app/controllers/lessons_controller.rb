@@ -5,6 +5,9 @@ class LessonsController < ApplicationController
   def index
     @user = current_user
     @lessons = Lesson.involving(@user).page(params[:page]).per(5)
+    if @lessons.empty?
+      @teachers = Teacher.all.order(score: :desc).limit(5)
+    end
   end
 
   def show

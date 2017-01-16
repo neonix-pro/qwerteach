@@ -50,6 +50,8 @@ class UserDashboard < Administrate::BaseDashboard
       avatar_file_name: Field::String,
       avatar_content_type: Field::String,
       avatar_file_size: Field::Number,
+      avatar_score: Field::Number,
+      score: Field::Number,
   }
 
   # COLLECTION_ATTRIBUTES
@@ -63,6 +65,8 @@ class UserDashboard < Administrate::BaseDashboard
       :type,
       :confirmed_at,
       :sign_in_count,
+      :score,
+      :avatar_score,
   ]
 
   # SHOW_PAGE_ATTRIBUTES
@@ -111,6 +115,7 @@ class UserDashboard < Administrate::BaseDashboard
       :avatar_content_type,
       :avatar_file_size,
       :avatar_updated_at,
+      :avatar_score,
   ]
 
   # FORM_ATTRIBUTES
@@ -153,6 +158,7 @@ class UserDashboard < Administrate::BaseDashboard
       :unlock_token,
       :locked_at,
       :admin,
+      :avatar_score,
   ]
 
   # Overwrite this method to customize how users are displayed

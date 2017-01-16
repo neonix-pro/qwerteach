@@ -198,6 +198,38 @@
   }
 }
 
+#welcome{
+  background-color: $color_qwerteach_green;
+  padding: 40px 0px;
+  h3{
+    line-height:40px;
+  }
+}
+#help_request_lesson{
+  padding: 100px 0px 50px 0px;
+  background-image: url("dashboard/help_request_lesson.jpg");
+  background-size: cover;
+  .help{
+    font-size: 24px;
+    font-family: SofiaProExtraLight;
+  }
+  h3{
+    font-size: 32px;
+    font-family: SofiaProExtraLight;
+    i{
+      border-radius: 50%;
+      height:30px;
+      width:30px;
+      text-align:center;
+      line-height:30px;
+      background-color: white;
+      color: $color_qwerteach_lightblack;
+      margin-top:20px;
+      font-size: 24px;
+    }
+  }
+}
+
 #book_again{
   background: #313131;
   height: 170px;

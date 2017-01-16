@@ -1,13 +1,15 @@
-%h2.text-center
-  Quelques profs qui pourraient vous intéresser
--teachers.each do |teacher|
-  = link_to user_path(teacher) do
-    .featured_teacher
-      .picture
-        =image_tag(teacher.avatar.url(:medium))
-      .min_price
-        #{"%g" % (teacher.min_price)} €/h
-      .name
-        %b #{teacher.name.humanize}
-      .topics
-        = teacher.adverts.first(3).map(&:title).join(', ')
+.row
+  .col-xs-12#featured_teachers
+    %h2.text-center
+      Quelques profs qui pourraient vous intéresser
+    -teachers.each do |teacher|
+      = link_to user_path(teacher) do
+        .featured_teacher
+          .picture
+            =image_tag(teacher.avatar.url(:medium))
+          .min_price
+            #{"%g" % (teacher.min_price)} €/h
+          .name
+            %b #{teacher.name.humanize}
+          .topics
+            = teacher.adverts.first(3).map(&:title).join(', ')

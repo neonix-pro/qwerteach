@@ -2,10 +2,10 @@
 
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
-Rails.application.config.assets.precompile += %w( jquery.Jcrop.min.css )
-Rails.application.config.assets.precompile += %w( jquery.Jcrop.min.js )
-Rails.application.config.assets.precompile += %w( flat-ui.css.bak )
-Rails.application.config.assets.precompile += %w( bootsrap.css.map)
+# Rails.application.config.assets.precompile += %w( jquery.Jcrop.min.scss )
+# Rails.application.config.assets.precompile += %w( jquery.Jcrop.min.js )
+# Rails.application.config.assets.precompile += %w( flat-ui.css.bak )
+# Rails.application.config.assets.precompile += %w( bootsrap.css.map)
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
 

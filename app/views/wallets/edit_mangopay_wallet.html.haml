@@ -1,1 +1,12 @@
-= render 'mangopay_form', :path => @path
+%div
+  .row
+    %h2.page-title-green
+      Configurer mon portefeuille virtuel
+    .col-sm-2
+    .col-sm-8
+      %p.alert.alert-info
+        Afin de pouvoir procéder à des payements sur le site, vous devez configurer votre portefeuille virtuel.
+        %br
+        Pour ce faire, remplissez le formulaire ci-dessous.
+        Ces informations sont confidentielles et ne seront pas communiquées à des tiers.
+      = render 'mangopay_form', :path => @path

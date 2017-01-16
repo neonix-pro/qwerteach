@@ -1,5 +1,5 @@
 module Mango
-  class SendMakeBankWire < BaseInteraction
+  class RegisterCreditCard < BaseInteraction
     object :user, class: User
     string :number, :month, :year, :csc
     string :card_type, default: 'CB_VISA_MASTERCARD'

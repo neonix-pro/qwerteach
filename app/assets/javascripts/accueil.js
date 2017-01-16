@@ -25,7 +25,7 @@ $(window).ready(function(e){
     resizeTeachers();
 
     function resizeTeachers(){
-        var u = $(body).width() / 12;
+        var u = $('.section_profs').width() / 12;
         $('.section_profs .title').css({top:0, width:u*4, height: u*4});
         $('.section_profs #prof0').css({top:0, left:u*4, width: u*5, height: u*5});
         $('.section_profs #prof1').css({top:0, left:u*9, width: u*3, height:u*3});
