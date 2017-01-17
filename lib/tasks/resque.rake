@@ -10,7 +10,8 @@ namespace :resque do
     require 'resque-scheduler'
     
     # you probably already have this somewhere
-    Resque.redis = 'localhost:6379'
+    #Resque.redis = 'localhost:6379'
+    Resque.redis = 'redis:6379'
   end
 
   task :setup_schedule => :setup do
@@ -28,4 +29,4 @@ namespace :resque do
   end
 
   task :scheduler => :setup_schedule
-end
+

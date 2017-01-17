@@ -44,6 +44,9 @@ db/schema.rb
 
 solr/
 config/database.yml
+config/sunspot.yml
+config/resque.yml
+
 public/system/avatars/*
 
 public/system/*

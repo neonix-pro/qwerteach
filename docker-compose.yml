@@ -10,6 +10,7 @@ services:
     links:
      - solr:solr
      - mariadb
+     - redis
     depends_on:
       - solr
     env_file:
@@ -32,6 +33,10 @@ services:
       - .env
     ports:
       - "13306:3306"
+  redis:
+    image: redis:latest
+    ports:
+      - "6379"
 
 volumes:
   data:
