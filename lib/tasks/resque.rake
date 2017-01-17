@@ -29,4 +29,4 @@ namespace :resque do
   end
 
   task :scheduler => :setup_schedule
-
+end
