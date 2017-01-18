@@ -37,6 +37,17 @@ services:
     image: redis:latest
     ports:
       - "6379"
+  faye:
+    image: nickjj/faye
+    links:
+      - redis
+    ports:
+      - "9292:9292"
+    environment:
+      FAYE_PUSH_TOKEN: "secret"
+      FAYE_PORT: 9292
+      FAYE_MOUNT: "/faye"
+      FAYE_LOGGING: 1
 
 volumes:
   data:

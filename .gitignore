@@ -46,6 +46,7 @@ solr/
 config/database.yml
 config/sunspot.yml
 config/resque.yml
+config/private_pub.yml
 
 public/system/avatars/*
 

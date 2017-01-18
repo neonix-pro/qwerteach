@@ -54,7 +54,7 @@ class LessonsController < ApplicationController
     @lesson.update_attributes(:status => 2)
     @lesson.save
     body = "#"
-    subject = "Le professeur #{@lesson.teacher.email} a accepté votre demande de cours."
+    subject = "Le professeur #{@lesson.teacher.name} a accepté votre demande de cours."
     @lesson.student.send_notification(subject, body, @lesson.teacher)
     PrivatePub.publish_to "/notifications/#{@lesson.student_id}", :lesson => @lesson
     flash[:notice] = "Le cours a été accepté."
@@ -68,6 +68,9 @@ class LessonsController < ApplicationController
     refuse = RefundLesson.run(user: current_user, lesson: @lesson)
 
     if refuse.valid?
+      body = "#"
+      subject = "#{current_user.name} a refusé votre demande de cours."
+      @lesson.other(current_user).send_notification(subject, body, current_user)
       flash[:success] = 'Vous avez décliné la demande de cours.'
       redirect_to lessons_path
     else
@@ -83,6 +86,9 @@ class LessonsController < ApplicationController
       refuse = RefundLesson.run(user: current_user, lesson: @lesson)
 
       if refuse.valid?
+        body = "#"
+        subject = "#{current_user.name} a annulé la demande de cours."
+        @lesson.other(current_user).send_notification(subject, body, current_user)
         flash[:success] = 'Vous avez annulé la demande de cours.'
         redirect_to lessons_path
       else
@@ -99,6 +105,8 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:lesson_id])
     pay_teacher = PayTeacher.run(user: current_user, lesson: @lesson)
     if pay_teacher.valid?
+      subject = "Le payement de votre cours avec #{current_user.name} a été débloqué!"
+      @lesson.other(current_user).send_notification(subject, '#', current_user)
       flash[:success] = 'Merci pour votre feedback! Le professeur a été payé.'
       redirect_to lessons_path
     else
