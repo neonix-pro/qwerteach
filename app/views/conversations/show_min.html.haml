@@ -26,7 +26,9 @@
   = form_tag reply_conversation_path(@conversation), :id => "conversation_form_#{@conversation.id}", :remote => true, method: :post do
     = text_area_tag 'body', nil, cols: 3, class: 'form-control chatboxtextarea', placeholder: 'Type something...', required: true, "data-cid" => @conversation.id
     = submit_tag "Send Message", class: 'btn btn-primary'
+
 = subscribe_to reply_conversation_path(@conversation)
+
 :javascript
   $('#chatbox_#{@conversation.id} .chatboxinput').click(function () {
     $.ajax({
