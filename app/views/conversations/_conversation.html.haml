@@ -1,9 +1,10 @@
 .mailbox-conversation{:id => "chatbox_#{conversation.id}", data: {id: conversation.id}}
+  .loader.text-center
+    %i.fa.fa-spinner.fa-spin.fa-3x.text-green
   .conversation-content
-    - if conversation.messages.first.body != "init_conv_via_chat"
-      = render 'messages/message', message: conversation.messages.first
-    - conversation.messages.all[1..-1].each do |receipt|
-      = render 'messages/message', message: receipt
+    .show-more.text-center
+      = link_to 'voir plus', conversation_show_page_path(conversation, page+1), remote:true, data:{toggle:'loader'}
+    = render 'conversations/messages', messages: messages
   .conversation-reply
     = form_tag reply_conversation_path(conversation), :remote => true, id: "conversation_form_#{conversation.id}", method: :post do
       = text_area_tag 'body', nil, cols: 3, class: 'form-control chatboxtextarea', placeholder: 'Type something...', required: true, "data-cid" => conversation.id

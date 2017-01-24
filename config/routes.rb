@@ -152,6 +152,7 @@ Rails.application.routes.draw do
   resources :messages, only: [:new, :create, ]
   post "/typing" => "messages#typing"
   post "/seen" => "messages#seen"
+  get "/conversation/show_more/:id/:page" => "conversations#show_more", as: 'conversation_show_page'
   get "/level_choice" => "adverts#choice"
   get "/topic_choice" => "adverts#choice_group"
   post "conversation/show_min" => "conversations#find"

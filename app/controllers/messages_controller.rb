@@ -22,12 +22,12 @@ class MessagesController < ApplicationController
     else
       flash[:danger] = "Votre message n'a pas pu être envoyé!"
     end
-    respond_to do |format|
-      format.html {redirect_to messagerie_path}
-      format.js {
-        redirect_to conversation_path(receipt.conversation)
-      }
-    end
+    # respond_to do |format|
+    #   format.html {redirect_to messagerie_path}
+    #   format.js {
+    #     redirect_to conversation_path(receipt.conversation)
+    #   }
+    # end
   end
 
   def typing

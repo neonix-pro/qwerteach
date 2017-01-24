@@ -5,6 +5,7 @@ class ConversationsController < ApplicationController
   after_filter { flash.discard if request.xhr? }
 
   include Mailboxer
+  MESSAGES_PER_PAGE = 20
 
   def index
     @user = current_user
@@ -21,6 +22,8 @@ class ConversationsController < ApplicationController
       conv.participants.map{|u| @recipient_options.push(u) unless u.nil? || u.id == @user.id}
     end
     @online_buddies = User.where(:id=>@recipient_options.map(&:id)).where(last_seen: (Time.now - 1.hour)..Time.now).order(last_seen: :desc).limit(10)
+    @page = 1
+    @messages =@conversations.first.messages.page(@page).per(MESSAGES_PER_PAGE).order(id: :desc)
   end
 
   def trash
@@ -56,11 +59,17 @@ class ConversationsController < ApplicationController
   def show
     @conversation.mark_as_read(current_user)
     @reciever = @conversation.participants - [current_user]
-    @messages = @conversation.messages
+    @page = params[:page] || 1
+    @messages = @conversation.messages.page(@page).per(MESSAGES_PER_PAGE).order(id: :desc)
     @last_message = @messages.last
     @message = Mailboxer::Message.new
     Resque.enqueue(MessageStatWorker, current_user.id)
     @unread_count = @mailbox.inbox({:read => false}).count
+  end
+
+  def show_more
+    @page = params[:page] || 1
+    @messages = @conversation.messages.page(@page).per(MESSAGES_PER_PAGE).order(id: :desc)
   end
 
   def search
@@ -128,6 +137,7 @@ class ConversationsController < ApplicationController
 
   private
   def get_conversation
+    logger.debug(params)
     @conversation ||= @mailbox.conversations.find(params[:id])
     @conversation.mark_as_read(current_user)
   end

@@ -67,6 +67,8 @@ class Advert < ActiveRecord::Base
     text :user do
       user.email
       user.description
+      user.firstname
+      user.lastname
     end
     text :topic do
       self.topic_title
@@ -78,6 +80,9 @@ class Advert < ActiveRecord::Base
     string(:user_id_str) { |p| p.user_id.to_s }
     string :user_email do
       self.user.email
+    end
+    string :user_name do
+      user.firstname
     end
     boolean :postulance_accepted do
       self.user.postulance_accepted

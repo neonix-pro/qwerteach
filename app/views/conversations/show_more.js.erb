@@ -1,0 +1,3 @@
+$('<%= "#chatbox_#{@conversation.id} .conversation-content .show-more"%>').after('<%= j render 'conversations/messages', messages: @messages %>');
+$('<%= "#chatbox_#{@conversation.id} .conversation-content .show-more a"%>').attr('href', '<%= conversation_show_page_path(@conversation, @page.to_i+1) %>')
+$('<%= "#chatbox_#{@conversation.id} .loader" %>').hide();

@@ -1,5 +1,5 @@
 .conversation-preview.clearfix{id: "conversation_#{conversation.id}"}
-  = link_to conversation_path(conversation), class: 'text-grey', remote: true do
+  = link_to conversation_path(conversation), class: 'text-grey', remote: true, data:{toggle:'loader'} do
     .avatars
       - conversation.recipients.select{|participant| !participant.nil? && user.id != participant.id}.each do |p|
         = image_tag(p.avatar.url(:small), class: 'img img-circle')

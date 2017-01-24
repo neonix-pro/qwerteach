@@ -1,4 +1,5 @@
-$('#mailbox_conversations').html('<%= j render partial: 'conversation', locals:{conversation: @conversation} %>');
+
+$('#mailbox_conversations').html('<%= j render partial: 'conversation', locals:{conversation: @conversation, messages: @messages, page: @page} %>');
 $('#mailbox_navigation').html("<%= j render partial: 'mailbox_navigation',
                                             locals: {mailbox_type: @mailbox_type,
                                             unread_count: @unread_count}%>");
@@ -9,9 +10,10 @@ $('#compose-message').toggle('slow');
 $('.conversation-preview.active').removeClass('active');
 $('<%= "#conversation_#{@conversation.id}"%>').addClass('active');
 
-var chatbox = $("#chatbox_"+<%= @conversation.id %>+" .chatboxcontent");
+var chatbox = $("#chatbox_"+<%= @conversation.id %>+" .conversation-content");
 chatbox.scrollTop(chatbox[0].scrollHeight);
 
+$('<%= "#chatbox_#{@conversation.id} .loader" %>').hide();
 
 $('#chatbox_#{@conversation.id} .chatboxinput').click(function () {
   $.ajax({
