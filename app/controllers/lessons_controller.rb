@@ -127,10 +127,16 @@ class LessonsController < ApplicationController
     pay_teacher = PayTeacher.run(user: current_user, lesson: @lesson)
     if pay_teacher.valid?
       flash[:success] = 'Merci pour votre feedback! Le professeur a été payé.'
-      redirect_to lessons_path
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format.json {render :json => {:success => "true", :message => "Merci pour votre feedback! Le professeur a été payé."}}
+      end
     else
       flash[:danger] = "Il y a eu un problème: #{pay_teacher.errors.full_messages.to_sentence} <br />Nous n'avons pas pu procéder au payement du professeur".html_safe
-      redirect_to lessons_path
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format.json {render :json => {:success => "false", :message => "Il y a eu un problème. Nous n'avons pas pu procéder au payement du professeur"}}
+      end
     end
   end
 
@@ -138,11 +144,19 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:lesson_id])
     dispute = DisputeLesson.run(user: current_user, lesson: @lesson)
     if dispute.valid?
-      flash[:success] = "Merci pour votre feedback! Un administrateur prendra contact avec vous dans le splus brefs délais."
-      redirect_to root_path
+      flash[:success] = "Merci pour votre feedback! Un administrateur prendra contact avec vous dans les plus brefs délais."
+      respond_to do |format|
+        format.html {redirect_to root_path}
+        format .json {render :json => {:success => "true", 
+          :message => "Merci pour votre feedback! Un administrateur prendra contact avec vous dans les plus brefs délais."}}
+      end
     else
       flash[:danger] = "Il y a eu un problème: #{pay_teacher.errors.full_messages.to_sentence} <br />Prenez contact avec l'équipe du site".html_safe
-      redirect_to lessons_path
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format .json {render :json => {:success => "false", 
+          :message => "Il y a eu un problème. Prenez contact avec l'équipe du site."}}
+      end
     end
   end
 

@@ -13,8 +13,40 @@ class UsersController < ApplicationController
       @notes = @reviews.map { |r| r.note }
       @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size unless @notes.empty?
       @profSimis = @user.similar_teachers(4)
+      
+      #Autres informations nécessaires pour l'application
+      topics = Array.new
+      advert_prices = Array.new
+      @adverts.each do |ad|
+        if ad.topic.title == "Other"
+          topic_title = ad.other_name
+        else
+          topic_title = ad.topic.title
+        end
+        topics.push(topic_title)
+        advert_prices.push(ad.advert_prices)
+      end
+      
+      review_sender_names = Array.new
+      @reviews.each do |review|
+        sender_name = review.sender.firstname
+        review_sender_names.push(sender_name)
+      end
+          
+      respond_to do |format|
+        format.html {}
+        format.json {render :json => {:avatar => @user.avatar.url(:medium), :adverts => @adverts, :advert_prices => advert_prices,
+          :reviews => @reviews, :notes => @notes, :avg => @avg, :user => @user, 
+          :min_price => @user.min_price, :topic_titles => topics, 
+          :review_sender_names => review_sender_names}}
+      end
+    else
+      @me = current_user
+      respond_to do |format|
+        format.html {}
+        format.json {render :json => {:user => @me, :avatar => @me.avatar.url(:medium)}}
+      end
     end
-    @me = current_user
   end
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
@@ -43,11 +75,6 @@ class UsersController < ApplicationController
         end
       end
       @pagin = Kaminari.paginate_array(@search, total_count: @total, topic: @search_text).page(params[:page]).per(12)
-    end
-    respond_to do |format|
-      format.html {}
-      format.json {render :json => {:pagin => @pagin.as_json, :search => @search.as_json, :options => @sorting_options.as_json}}
-      format.js
     end
   end
 
@@ -111,13 +138,18 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "Votre profil a bien été modifié"
+      respond_to do |format|
+        format.html {redirect_to edit_user_registration_path(@user)}
+        format.json {render :json => {:user => @user, :success => "true", 
+          :message => "Votre profil a bien été modifié."}}
+      end and return
     else
       flash[:error] = "La modification a échoué"
-    end
-    respond_to do |format|
-     format.html {redirect_to edit_user_registration_path(@user)}
-     format.json {render :json => {:success => "true", :user => @user}}
-     format.js
+      respond_to do |format|
+        format.html {redirect_to edit_user_registration_path(@user)}
+        format.json {render :json => {:user => @user, :success => "false", 
+          :message => "La modification a échoué."}}
+      end
     end
     
   end

@@ -6,18 +6,36 @@ class AdvertsController < ApplicationController
 
   def index
     @adverts = Advert.where(:user => current_user)
+    
+    #Other informations for Qwerteach application
+    topics = Array.new
+    advert_prices = Array.new
+    @adverts.each do |ad|
+      if ad.topic.title == "Other"
+        topic_title = ad.other_name
+      else
+        topic_title = ad.topic.title
+      end
+      topics.push(topic_title)
+      advert_prices.push(ad.advert_prices)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @adverts }
+      format.json {render :json => {:adverts => @adverts, :topic_titles => topics, 
+        :advert_prices => advert_prices}}
     end
   end
 
   def show
     @advert = Advert.find(params[:id])
+    
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @advert }
+      format.json {render :json => {:advert => @advert, 
+        :topic => @advert.topic.title, 
+        :topic_group => @advert.topic.topic_group.title,
+        :levels => find_levels(@advert.topic.topic_group.level_code)}}
     end
   end
 
@@ -60,18 +78,20 @@ class AdvertsController < ApplicationController
   def update
     @advert = Advert.find(params[:id])
     @advert.topic = Topic.find(params[:topic_id])
-    respond_to do |format|
       if @advert.update_attributes!(advert_params)
         flash[:notice] = 'Vos modifications ont été sauvegardées.'
-
-        format.html { redirect_to adverts_path, notice: 'Advert was successfully updated.' }
-        format.json { head :no_content }
-        format.js {}
+        
+        respond_to do |format|
+          format.html {redirect_to adverts_path, notice: 'Advert was successfully updated.'}
+          format.json {render head => :no_content}
+          format.js {}
+        end and return
       else
-        format.html { render action: "edit" }
-        format.json { render json: @advert.errors, status: :unprocessable_entity }
+        respond_to do |format|
+          format.html {render action: "edit"}
+          format.json {render json: @advert.errors, status: :unprocessable_entity}
+        end
       end
-    end
   end
 
   def destroy
@@ -80,16 +100,15 @@ class AdvertsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to adverts_url }
-      format.json {}
+      format.json {render :json => {:success => "true"}}
       format.js {}
     end
   end
 
   def choice
     topic = Topic.find(params[:topic_id])
-    level_choice = topic.topic_group.level_code
     @advert = Advert.find_by(user_id: current_user.id, topic_id: topic.id) || Advert.new()
-    @levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => level_choice).group(I18n.locale[0..3]).order(:id)
+    @levels = find_levels(topic.topic_group.level_code)
     respond_to do |format|
       format.js {}
     end
@@ -119,5 +138,10 @@ class AdvertsController < ApplicationController
 
   def find_user
     @user = current_user
+  end
+  
+  def find_levels(level_code)
+    return Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '')
+      .where(:code => level_code).group(I18n.locale[0..3]).order(:id)
   end
 end

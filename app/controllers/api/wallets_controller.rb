@@ -5,7 +5,9 @@ class Api::WalletsController < WalletsController
   
   def index_mangopay_wallet
     super
-    render :json => {:success => "loaded", :account => @account.as_json, :transactions => @transactions.as_json, :cards => @cards.as_json}
+    transactions = Kaminari.paginate_array(@transactions).page(params[:page]).per(5)
+    render :json => {:success => "loaded", :account => @account, :bank_accounts => @bank_accounts, 
+      :transactions => transactions, :cards => @cards}
   end
   
   def update_mangopay_wallet
@@ -21,6 +23,22 @@ class Api::WalletsController < WalletsController
   end
   
   def card_info
+    super
+  end
+  
+  def update_bank_accounts
+    super
+  end
+  
+  def desactivate_bank_account
+    super 
+  end
+  
+  def make_payout
+    super
+  end
+  
+  def payout
     super
   end
   

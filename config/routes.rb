@@ -4,9 +4,10 @@ Rails.application.routes.draw do
     get 'dashboard' => 'dashboards#index'
     post 'profiles/display' => 'profiles#display'
     get 'profiles/find_level' => 'profiles#find_level'
-    put 'profiles/:id' => 'profiles#update'
+    put 'users/:id' => 'profiles#update'
     get 'profiles' => 'profiles#index'
     post 'profiles/find_type' => 'profiles#find_type'
+    get 'users/:id' => 'profiles#show'
     get 'users/:user_id/lesson_requests/new' => 'lesson_requests#new'
     post 'users/:user_id/lesson_requests' => 'lesson_requests#create'
     put 'users/:user_id/lesson_requests/payment' => 'lesson_requests#payment'
@@ -20,35 +21,41 @@ Rails.application.routes.draw do
     get 'user/mangopay/load-wallet' => 'wallets#direct_debit_mangopay_wallet'
     put 'user/mangopay/direct_debit' => 'wallets#load_wallet'
     get 'user/mangopay/card_info' => 'wallets#card_info'
+    put 'user/mangopay/update_bank_accounts' => 'wallets#update_bank_accounts'
+    put 'user/mangopay/desactivate_bank_account/:id' => 'wallets#desactivate_bank_account'
+    put 'user/mangopay/make_payout' => 'wallets#make_payout'
+    get 'user/mangopay/payout' => 'wallets#payout'
     get 'cours' => 'lessons#index'
     post 'lessons/find_lesson_infos' => 'lessons#find_lesson_infos'
     get 'lessons/:lesson_id/cancel' => 'lessons#cancel'
     put 'lessons/:id' => 'lessons#update'
     get 'lessons/:lesson_id/refuse' => 'lessons#refuse'
     get 'lessons/:lesson_id/accept' => 'lessons#accept'
+    get 'lessons/:lesson_id/pay_teacher' => 'lessons#pay_teacher'
+    get 'lessons/:lesson_id/dispute' => 'lessons#dispute'
     post 'messages' => 'messages#create'
     get 'mailbox/:mailbox' => 'conversations#index'
     post 'conversations/:id/reply' => 'conversations#reply'
     get 'conversations/:id' => 'conversations#show'
+    post 'users/:user_id/reviews' => 'reviews#create'
   end
   
   namespace :api, :defaults => { :format => 'json' } do
     get 'adverts' => 'adverts#index'
+    get 'adverts/:id' => 'adverts#show'
     post 'adverts/create' => 'adverts#create'
-    post 'adverts/update' => 'adverts#update'
-    post 'adverts/show' => 'adverts#show'
-    post 'adverts/delete' => 'adverts#delete'
-    post 'adverts/find_advert_prices' => 'adverts#find_advert_prices'
+    patch 'adverts/:id' => 'adverts#update'
+    delete 'adverts/:id' => 'adverts#destroy'
   end
 
   namespace :api, :defaults => { :format => 'json' } do
-    post 'find_topics' => 'find_topics#show'
-    post 'find_topics/find_levels' => 'find_topics#find_levels'
-    get 'find_topics' => 'find_topics#get_all_topics'
+    get 'topics/:id' => 'topics#show'
+    post 'topics/find_levels' => 'topics#find_levels'
+    get 'topics' => 'topics#get_all_topics'
   end
 
   namespace :api do
-    get 'find_group_topics' => 'find_group_topics#show'
+    get 'group_topics' => 'group_topics#show'
   end
 
   namespace :api, :defaults => { :format => 'json' } do
