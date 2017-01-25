@@ -184,6 +184,22 @@ class User < ActiveRecord::Base
     (firstname.nil? || lastname.nil? || avatar.nil? || phonenumber.nil? || mango_id.nil?)
   end
 
+  def reply(conversation, recipients, reply_body, subject=nil, sanitize_text=true, attachment=nil)
+    subject = subject || "#{conversation.subject}"
+    response = Mailboxer::MessageBuilder.new({
+                                                 :sender       => self,
+                                                 :conversation => conversation,
+                                                 :recipients   => recipients,
+                                                 :body         => reply_body,
+                                                 :subject      => subject,
+                                                 :attachment   => attachment
+                                             }).build
+
+    response.recipients.delete(self)
+    logger.debug(response.deliver.errors.full_messages.to_sentence)
+    response.deliver true, sanitize_text
+  end
+
   protected
   def confirmation_required?
     false

@@ -40,7 +40,7 @@ class Advert < ActiveRecord::Base
   end
 
   def topic_group_title
-    topic.topic_group.title
+    topic_group.title
   end
 
   def topic_title
@@ -51,8 +51,12 @@ class Advert < ActiveRecord::Base
     advert_prices.create
   end
 
+  def custom_name
+    other_name || 'Autre'
+  end
+
   def title
-    self.topic.title == 'Other' ? self.other_name : self.topic.title
+    self.topic.title == 'Other' ? self.custom_name : self.topic.title
   end
 
   def price_for_level(level_id)
@@ -74,7 +78,7 @@ class Advert < ActiveRecord::Base
       self.topic_title
     end
     text :topic_group do
-      self.topic_group_title
+      self.topic_group.title
     end
     integer :topic_id, :references => Topic
     string(:user_id_str) { |p| p.user_id.to_s }

@@ -4,7 +4,8 @@ TopicGroup.create!([
   {title: "Lettres", level_code: "scolaire", featured: false, picto: nil},
   {title: "Langues", level_code: "langue", featured: false, picto: nil},
   {title: "Economie", level_code: "scolaire", featured: false, picto: nil},
-  {title: "Informatique", level_code: "scolaire", featured: true, picto: "matieres/informatique.png"}
+  {title: "Informatique", level_code: "scolaire", featured: true, picto: "matieres/informatique.png"},
+  {title: "Autre", level_code: "scolaire", feature: false, picto: nil}
 ])
 
 Level.create!([
@@ -65,5 +66,6 @@ Topic.create!([
   {title: "bureautique", topic_group_id:6},
   {title: "programmation", topic_group_id:6},
   {title: "reseaux", topic_group_id:6},
-  {title: "base de donnees", topic_group_id:6}
+  {title: "base de donnees", topic_group_id:6},
+  {title: "Other", topic_group_id:nil}
 ])

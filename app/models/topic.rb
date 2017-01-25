@@ -4,7 +4,7 @@ class Topic < ActiveRecord::Base
   has_many :adverts
   has_many :lessons
 
-  validates :topic_group, presence: true
+  #validates :topic_group, presence: true ==> commented out so enables only one topic "Other"
   validates :title, presence: true
 
   def pictotype(arg)

@@ -79,7 +79,9 @@ class ConversationsController < ApplicationController
 
   def reply
     conversation = @conversation
+    logger.debug('----------------------------')
     receipt = current_user.reply_to_conversation(conversation, params[:body])
+    logger.debug('----------------------------')
     receiver = (@conversation.participants - [current_user]).first
     @path = reply_conversation_path(@conversation)
     @message = @conversation.messages.last
