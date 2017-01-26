@@ -67,7 +67,7 @@ h1,h2,h3,h4,h5,p,span,a{
   }
 }
 
-.btn.btn-qw {
+.btn.btn-qw, .btn.btn-qw:hover {
   border-radius: 30px;
   font-size: 14px;
   letter-spacing: 0.2px;
@@ -75,12 +75,12 @@ h1,h2,h3,h4,h5,p,span,a{
   padding: 6px 30px;
   font-family: SofiaProLight;
 }
-.btn-sm.btn.btn-qw {
+.btn-sm.btn.btn-qw, .btn-sm.btn.btn-qw:hover {
   font-size: 14px;
   padding: 5px 12px;
 }
 
-.btn-green, .btn-success, .btn-green:hover, .btn-success:hover{
+.btn.btn-green, .btn.btn-success, .btn.btn-green:hover, .btn.btn-success:hover{
   background: $color_qwerteach_green;
   border-radius: 30px;
   font-size: 16px;
@@ -374,4 +374,20 @@ table{
 
 .toggler{
   cursor:pointer;
+}
+
+.main-content{
+  .alert{
+    border-radius:0px;
+  }
+  .alert.alert-info{
+    background-color: $color_qwerteach_blue;
+    color:white;
+    padding: 20px;
+    border:none;
+    background-image:none;
+    p{
+      font-family: SofiaProLight;
+    }
+  }
 }

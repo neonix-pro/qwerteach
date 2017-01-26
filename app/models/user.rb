@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
     false
   end
 
+  phony_normalize :phonenumber, default_country_code: 'FR'
+
   has_one :gallery
   has_many :offers, dependent: :destroy
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'

@@ -1,35 +1,44 @@
-= tutorial_progress_bar
-
-= form_for @user, as: :user, url: wizard_path, method: :put do |f|
-  .field
-    = f.label :lastname
-    %br/
-    = f.text_field :lastname, :required => true
-  .field
-    = f.label :firstname
-    %br/
-    = f.text_field :firstname, :required => true
-  .field
-    = f.label :birthdate
-    %br/
-    = f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd'}, :required => true
-  .field
-    = f.label :description
-    %br/
-    = f.text_area :description, :required => true
-  .field
-    = f.label :gender
-    %br/
-    = f.select :gender, User::GENDER_TYPES, :required => true
-  .field
-    = f.label :phonenumber
-    %br/
-    = f.telephone_field :phonenumber, :required => true
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, :required => true
-  - if devise_mapping.confirmable? && @user.pending_reconfirmation?
-    %div
-      Currently waiting confirmation for: #{@user.unconfirmed_email}
-  = f.submit "Mon profil est complet!", class: 'end'
+.become-teacher-general-infos
+  .row
+    %h2.page-title-green.text-center Informations générales
+    .col-sm-2
+    .col-sm-8
+      .alert.alert-info
+        %p Complétez  ici  les  informations  concernant  votre  identité,  votre  formation  et  vos  expériences éventuelles.
+      = form_for @user, as: :user, url: wizard_path, method: :put do |f|
+        .form-group
+          = f.label :firstname
+          = f.text_field :firstname, :required => true, class: 'form-control'
+        .form-group
+          = f.label :lastname
+          = f.text_field :lastname, :required => true, class: 'form-control'
+        .form-group
+          = f.label :birthdate
+          = f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd'}, :required => true, class: 'form-control'
+        .form-group
+          = f.label :level_id, "Niveau de formation atteint"
+          = f.select :level_id, options_for_select(@levels, selected: @user.level), {}, required: true, class:'form-control'
+        .form-group
+          = f.label :gender
+          = f.select :gender, User::GENDER_TYPES, {}, class: 'form-control'
+        .form-group
+          = f.label :phonenumber
+          .row
+            .col-xs-3
+              = select_tag :phonenumber_prefix, options_for_select(international_prefix_list, :selected => @user.nationality), :required => true, class:'form-control'
+            .col-xs-9
+              = f.telephone_field :phonenumber, value: '', class: 'form-control'
+        .form-group
+          = f.label :occupation, "Profession / branche d'études"
+          = f.text_field :occupation, value: '', :required => true, class: 'form-control'
+        - @description_questions.each_with_index do |question, index|
+          .form-group
+            = label_tag "description_#{index}", question
+            = text_area_tag "description_#{index}", '', class: 'form-control'
+        - if devise_mapping.confirmable? && @user.pending_reconfirmation?
+          %div
+            Currently waiting confirmation for: #{@user.unconfirmed_email}
+        .actions
+          = f.submit "Mon profil est complet!", class: 'submit action'
+  .text-center
+    = tutorial_progress_bar

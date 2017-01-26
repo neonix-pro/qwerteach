@@ -124,6 +124,7 @@ gem 'hashie'
 gem 'pluck_to_hash'
 gem 'drafting'
 gem 'ruby-duration'
+gem 'phony_rails'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

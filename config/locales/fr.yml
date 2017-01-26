@@ -113,6 +113,15 @@ fr:
           other: "<b>tous</b> les %{entry_name} (%{count})"
       more_pages:
         display_entries: "%{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> sur <b>%{total}</b> au total"
+    label:
+      user:
+        firstname: 'Prénom'
+        lastname: 'Nom de famille'
+        birthdate: 'Date de naissance'
+        description: 'Description'
+        gender: 'Sexe'
+        phonenumber: 'Numéro de téléphone'
+        email: 'E-mail'
   faq:
     generalites:
       answer:

@@ -8,18 +8,25 @@ class window.AvatarUploader
 
   constructor: (options = {}) ->
     @$el = $('form.avatar-uploader')
+    @$placeholder = $('.avatar-uploaded-preview')
+    @$submit = $('.edit-user-avatar input[type=submit]')
+    @$browse = $('.edit-user-avatar button[type=button]')
     @jcrop = null
     @options = options
     @initialize()
 
   initialize: ->
     @initEvents()
+    @$submit.hide()
 
   initEvents: ->
     @$el.on 'change', '#user_avatar', => @onFileSelected()
     @$el.on 'click', '.btn-avatar-save', => @submitForm()
+    @$el.on 'click', 'button.browse', => @onClickBrowse()
 
   onFileSelected: ->
+    @$placeholder.hide()
+    @$submit.show()
     file = $('#user_avatar').get(0).files[0]
     return unless file
 
@@ -64,3 +71,6 @@ class window.AvatarUploader
 
   submitForm: ->
     @$el.get(0).submit()
+
+  onClickBrowse: ->
+    $('#avatar_select input').trigger('click');
