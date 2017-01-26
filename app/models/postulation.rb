@@ -9,7 +9,7 @@ class Postulation < ActiveRecord::Base
       :interview =>self.interview_ok,
       :avatar=>self.avatar_ok,
       :general_informations=>self.gen_informations_ok,
-      :adverts=>self.advert_ok,
+      :offers=>self.offer_ok,
       :mangopay => !self.teacher.mango_id.nil?,
       :email => !self.teacher.confirmed_at.nil?,
       :test_classe => !self.teacher.lessons_received.nil? #TODO: ajuster pour prendre en compte ttes les classes virtuelles

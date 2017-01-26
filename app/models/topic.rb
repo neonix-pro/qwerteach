@@ -1,7 +1,7 @@
 class Topic < ActiveRecord::Base
 
   belongs_to :topic_group
-  has_many :adverts
+  has_many :offers
   has_many :lessons
 
   #validates :topic_group, presence: true ==> commented out so enables only one topic "Other"

@@ -7,12 +7,12 @@
   #step1.booking-step.active
     .form-group
       = f.label :topic_id, 'Choisissez une matière'
-      - options = @teacher.adverts.map(&:topic).uniq.compact.map{|t| [t.title, t.id]}
+      - options = @teacher.offers.map(&:topic).uniq.compact.map{|t| [t.title, t.id]}
       = f.select :topic_id, options, {prompt: 'matière'}, {class: 'form-control topic-select'}
     .form-group
       = f.label :level_id, 'Choisissez le niveau'
       - if f.object.topic_id.present?
-        - options = @teacher.adverts.includes(advert_prices: :level).where(topic_id: f.object.topic_id).uniq.pluck('levels.be', 'levels.id')
+        - options = @teacher.offers.includes(offer_prices: :level).where(topic_id: f.object.topic_id).uniq.pluck('levels.be', 'levels.id')
       - else
         - options = []
       = f.select :level_id, options, {prompt: 'niveau'}, {class: 'form-control level-select'}

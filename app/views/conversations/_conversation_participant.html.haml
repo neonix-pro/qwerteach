@@ -7,12 +7,12 @@
       %br
       %small Professeur
 - if user.is_a?(Teacher)
-  .participant-adverts-title
+  .participant-offers-title
     Cours
     %i.fa.fa-angle-down
-  .participant-adverts.clearfix
-    - user.adverts.each do |ad|
-      .advert{class: "topic_#{ad.topic_group.id}"}
+  .participant-offers.clearfix
+    - user.offers.each do |ad|
+      .offer{class: "topic_#{ad.topic_group.id}"}
         #{ad.topic.title}
         = image_tag(ad.topic.pictotype("medium"))
   .participant-cta

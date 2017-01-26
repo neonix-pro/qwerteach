@@ -17,8 +17,8 @@
     .profile-description
       #{@user.description.html_safe}
     - if @user.is_a?(Teacher)
-      #profile-adverts
-        =render partial: 'users/profile/profile_adverts', locals:{adverts: @adverts, adverts_single: @adverts_single}
+      #profile-offers
+        =render partial: 'users/profile/profile_offers', locals:{offers: @offers, offers_single: @offers_single}
       #profile-calendar
       #profile-reviews
         = render partial: 'users/profile/profile_reviews', locals:{reviews: @reviews}
@@ -32,8 +32,8 @@
             %button.close{"data-dismiss" => "modal", :type => "button"} ×
             %h4.modal-title Tarif(s) de #{@user.name}
           .modal-body
-            - @adverts.each do |advert|
-              = render partial: "users/tarifs", :locals => {:advert => advert}
+            - @offers.each do |offer|
+              = render partial: "users/tarifs", :locals => {:offer => offer}
         .modal-footer
           .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
 

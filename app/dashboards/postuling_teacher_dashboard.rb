@@ -9,7 +9,7 @@ class PostulingTeacherDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
       gallery: Field::HasOne,
-      adverts: Field::HasMany,
+      offers: Field::HasMany,
       postulation: Field::HasOne,
       #   conversations: Field::HasMany,
       sent_comment: Field::HasMany.with_options(class_name: "Comment"),
@@ -64,7 +64,7 @@ class PostulingTeacherDashboard < Administrate::BaseDashboard
       :id,
       :firstname,
       :lastname,
-      :adverts,
+      :offers,
       :postulation,
   ]
 
@@ -72,7 +72,7 @@ class PostulingTeacherDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
       :gallery,
-      :adverts,
+      :offers,
       #   :conversations,
       :sent_comment,
       :received_comment,
@@ -123,7 +123,7 @@ class PostulingTeacherDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
       :gallery,
-      :adverts,
+      :offers,
       #   :conversations,
       :sent_comment,
       :received_comment,

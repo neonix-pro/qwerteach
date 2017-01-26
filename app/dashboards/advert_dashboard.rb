@@ -10,7 +10,7 @@ class AdvertDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     user: Field::BelongsTo,
     topic: Field::BelongsTo,
-    advert_prices: Field::HasMany,
+    offer_prices: Field::HasMany,
     id: Field::Number,
     topic_group_id: Field::Number,
     topic_group: Field::BelongsTo,
@@ -28,7 +28,7 @@ class AdvertDashboard < Administrate::BaseDashboard
     #:user,
     :topic_group,
     :topic,
-    :advert_prices,
+    :offer_prices,
     :id,
   ]
 
@@ -37,7 +37,7 @@ class AdvertDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :user,
     :topic,
-    :advert_prices,
+    :offer_prices,
     :id,
     :topic_group_id,
     :other_name,
@@ -51,15 +51,15 @@ class AdvertDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :user,
     :topic,
-    :advert_prices,
+    :offer_prices,
     :topic_group_id,
     :other_name,
   ]
 
-  # Overwrite this method to customize how adverts are displayed
+  # Overwrite this method to customize how offers are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(advert)
-    "#{advert.topic.topic_group.title}: #{advert.topic.title}"
+  def display_resource(offer)
+    "#{offer.topic.topic_group.title}: #{offer.topic.title}"
   end
 end

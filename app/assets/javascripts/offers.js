@@ -17,15 +17,15 @@ function animateAdvertFields() {
         choice.empty();
         if ($('.topic_choice option:selected').text() == "Other") {
             var l = '<label for="other_name">Autre matière</label>';
-            var f = '<input type="text" name="advert[other_name]" id="advert[other_name]" class="form-control" required="required"/>';
+            var f = '<input type="text" name="offer[other_name]" id="offer[other_name]" class="form-control" required="required"/>';
             choice.append(l + f);
         }
     });
 
-    $('#advert_topic_group_id').on('change', function () {
+    $('#offer_topic_group_id').on('change', function () {
         $.ajax({
             url: "/topic_choice",
-            data: {group_id: $('#advert_topic_group_id option:selected').val()}
+            data: {group_id: $('#offer_topic_group_id option:selected').val()}
         })
     });
 }

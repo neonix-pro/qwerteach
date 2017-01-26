@@ -1,0 +1,5 @@
+- @topics
+- if @topics.nil?
+  %p Il n'y a aucune option pour cette catégorie
+- else
+  = select_tag 'offer[topic_id]', options_for_select(@topics.map.collect { |p| [p.title, p.id] }), { include_blank: "Choisissez une sous-catégorie" , required: true, class: "form-control" }

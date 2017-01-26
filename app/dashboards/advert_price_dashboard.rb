@@ -9,7 +9,7 @@ class AdvertPriceDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     level: Field::BelongsTo,
-    advert: Field::BelongsTo,
+    offer: Field::BelongsTo,
     id: Field::Number,
     price: Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
@@ -22,7 +22,7 @@ class AdvertPriceDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    #:advert,
+    #:offer,
     :level,
     #:id,
     :price,
@@ -32,7 +32,7 @@ class AdvertPriceDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :level,
-    :advert,
+    :offer,
     :id,
     :price,
     :created_at,
@@ -44,14 +44,14 @@ class AdvertPriceDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :level,
-    :advert,
+    :offer,
     :price,
   ]
 
-  # Overwrite this method to customize how advert prices are displayed
+  # Overwrite this method to customize how offer prices are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(advert_price)
-    "#{advert_price.price}"
+  def display_resource(offer_price)
+    "#{offer_price.price}"
   end
 end

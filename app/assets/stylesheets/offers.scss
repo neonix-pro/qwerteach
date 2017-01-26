@@ -1,8 +1,8 @@
-.adverts-list{
+.offers-list{
   position:relative;
   width:100%;
 }
-.advert{
+.offer{
   padding: 30px;
   float:left;
   height: 170px;
@@ -24,17 +24,17 @@
     height:63px;
   }
 }
-.advert.simple{
+.offer.simple{
   width:100%;
 }
-.advert.double{
+.offer.double{
   width:50%;
 }
-.advert.triple{
+.offer.triple{
   width:33.3333333%;
 }
 
-.add-new-advert{
+.add-new-offer{
   padding: 30px;
   background: #1D1D1B;
   border-color: #1D1D1B;
@@ -70,10 +70,10 @@
   }
 }
 
-#new-advert{
+#new-offer{
   padding: 30px;
 }
-.edit-advert form .col-sm-5{
+.edit-offer form .col-sm-5{
   padding-top:30px
 }
 #additional-levels{

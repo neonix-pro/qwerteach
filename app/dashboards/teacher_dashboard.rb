@@ -9,7 +9,7 @@ class TeacherDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
       gallery: Field::HasOne,
-      adverts: Field::HasMany,
+      offers: Field::HasMany,
       postulation: Field::HasOne,
       #   conversations: Field::HasMany,
       sent_comment: Field::HasMany.with_options(class_name: "Comment"),
@@ -73,7 +73,7 @@ class TeacherDashboard < Administrate::BaseDashboard
       :login,
       :postulance_accepted,
       :teacher_status,
-      :adverts,
+      :offers,
       :score,
       :avatar_score,
   ]
@@ -96,7 +96,7 @@ class TeacherDashboard < Administrate::BaseDashboard
 
       :postulation,
       :gallery,
-      :adverts,
+      :offers,
       :degrees,
       :received_comment,
       # #   :conversations,
@@ -139,7 +139,7 @@ class TeacherDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
       :gallery,
-      :adverts,
+      :offers,
       #   :conversations,
       :sent_comment,
       :received_comment,

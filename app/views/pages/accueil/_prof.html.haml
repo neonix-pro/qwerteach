@@ -13,4 +13,4 @@
             = prof.firstname
             = prof.lastname
           %br
-          = prof.adverts.map{|ad| link_to ad.title, profs_by_topic_path(ad.title)}.join(', ').html_safe
+          = prof.offers.map{|ad| link_to ad.title, profs_by_topic_path(ad.title)}.join(', ').html_safe

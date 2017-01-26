@@ -1,4 +1,4 @@
-= form_for advert_advert_price_path, html: {method: :put} do |f|
+= form_for offer_offer_price_path, html: {method: :put} do |f|
   .field
     = f.label :level_id
     %br/
@@ -11,7 +11,7 @@
   .actions
     = f.submit "Update"
 :javascript
-  var val = document.getElementById("advert_advert_prices_attributes_1_id").val;
+  var val = document.getElementById("offer_offer_prices_attributes_1_id").val;
   
   if (val < 0) {
     alert ("Vous avez entrer un prix inférieur à 0€");

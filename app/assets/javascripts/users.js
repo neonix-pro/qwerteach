@@ -75,7 +75,7 @@ var ready = function () {
         $('#sidebar-profile').height(height);
     };
 
-    $('#profile-content .advert-flip-toggle').click(function(){
+    $('#profile-content .offer-flip-toggle').click(function(){
         $(this).toggleClass('active');
         $(this).parent().toggleClass('hover');
     })

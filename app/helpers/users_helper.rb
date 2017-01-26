@@ -1,5 +1,5 @@
 module UsersHelper
-  def profile_advert_classes n
+  def profile_offer_classes n
     case n
       when 1
         'simple'
@@ -15,7 +15,7 @@ module UsersHelper
   end
 
   def popular_topics
-    @popular_topics ||= Advert.group(:topic).order('count_id DESC').limit(5).count(:id).map{|topic| topic.first}
+    @popular_topics ||= Offer.group(:topic).order('count_id DESC').limit(5).count(:id).map{|topic| topic.first}
   end
 
   def search_total_results(pagin)

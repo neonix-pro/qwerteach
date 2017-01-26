@@ -1,12 +1,12 @@
 .price
-  %h4= advert.topic.topic_group.title
-  - if (advert.topic.title=="Autre")
+  %h4= offer.topic.topic_group.title
+  - if (offer.topic.title=="Autre")
     %p
-      #{advert.other_name}
+      #{offer.other_name}
   - else
     %p
-      #{advert.topic.title}
-  - prices = advert.advert_prices
+      #{offer.topic.title}
+  - prices = offer.offer_prices
   - prices.each { |p|
   %dd
     = p.level.fr

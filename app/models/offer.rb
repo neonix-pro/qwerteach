@@ -1,10 +1,10 @@
-class Advert < ActiveRecord::Base
+class Offer < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :topic
   belongs_to :topic_group
-  has_many :advert_prices, -> { order(:level_id) }, inverse_of: :advert
-  accepts_nested_attributes_for :advert_prices,
+  has_many :offer_prices, -> { order(:level_id) }, inverse_of: :offer
+  accepts_nested_attributes_for :offer_prices,
                                 :allow_destroy => true,
                                 :reject_if => :all_blank
   validates :user, presence: true
@@ -14,29 +14,29 @@ class Advert < ActiveRecord::Base
   #after_create :create_price
   # Méthode permettant de récupérer le prix d'une annonce pour un topic, un level et un user donné
   def self.get_price(user, topic, level)
-    Advert.where(:user => user, :topic => topic).first.advert_prices.where(:level => level).first.price
+    Offer.where(:user => user, :topic => topic).first.offer_prices.where(:level => level).first.price
   end
 
   # Méthode permettant de récupérer le prix d'une annonce pour un topic, un level et un user donné
   def self.get_levels(user, topic)
-    advert_topic = Advert.where(:user => user, :topic_id => topic).first
-    unless advert_topic.nil?
-      return advert_topic.advert_prices.map(&:level_id)
+    offer_topic = Offer.where(:user => user, :topic_id => topic).first
+    unless offer_topic.nil?
+      return offer_topic.offer_prices.map(&:level_id)
     else
       return []
     end
   end
 
   def min_price
-    @min_price ||= advert_prices.order('price DESC').last.price
+    @min_price ||= offer_prices.order('price DESC').last.price
   end
 
   def max_price
-    @max_price ||= advert_prices.order('price DESC').first.price
+    @max_price ||= offer_prices.order('price DESC').first.price
   end
 
   def max_level
-    @max_level ||= advert_prices.order('level_id DESC').first.level.be
+    @max_level ||= offer_prices.order('level_id DESC').first.level.be
   end
 
   def topic_group_title
@@ -48,7 +48,7 @@ class Advert < ActiveRecord::Base
   end
 
   def create_price
-    advert_prices.create
+    offer_prices.create
   end
 
   def custom_name
@@ -60,7 +60,7 @@ class Advert < ActiveRecord::Base
   end
 
   def price_for_level(level_id)
-    advert_prices.find_by(level_id: level_id)
+    offer_prices.find_by(level_id: level_id)
   end
 
   # Pour Sunspot, définition des champs sur lesquels les recherches sont faites et des champs sur lesquels les filtres sont réalisés
@@ -104,8 +104,8 @@ class Advert < ActiveRecord::Base
       Time.now.year - self.user.birthdate.year
     end
     
-    string :advert_prices_search, :multiple => true do
-      advert_prices.map(&:price)
+    string :offer_prices_search, :multiple => true do
+      offer_prices.map(&:price)
     end
     integer(:min_price) {|a| a.user.min_price if a.user.is_a?(Teacher)}
     time(:last_seen){|a| a.user.last_seen}

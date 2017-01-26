@@ -28,16 +28,16 @@ class Teacher  < Student
 
 
   def min_price
-    adverts.empty? ? 0 : @prices = self.adverts.map { |d| d.advert_prices.map { |l| l.price } }.min.first
+    offers.empty? ? 0 : @prices = self.offers.map { |d| d.offer_prices.map { |l| l.price } }.min.first
   end
 
   def similar_teachers(n)
     ids_user = []
     idsProfSimi = []
-    a = Advert.where(user_id: id) #Get Advert from User
+    a = Offer.where(user_id: id) #Get Advert from User
     ids = a.map{|ad| ad.topic_id }  #Get Topic from User
-    adverts = Advert.where(topic_id: ids) #Check advert where Topic = Topic
-    ids_user = adverts.map{|adv|adv.user_id} #Get User.id from advert
+    offers = Offer.where(topic_id: ids) #Check offer where Topic = Topic
+    ids_user = offers.map{|adv|adv.user_id} #Get User.id from offer
     
     ids_user.each{|id| #Récup idTeacher Double 
       if ids_user.include?(id) == true
@@ -72,12 +72,12 @@ class Teacher  < Student
     return @avg
   end
 
-  def adverts_by_level_code
+  def offers_by_level_code
     level_codes = TopicGroup.uniq.pluck(:level_code)
     result = {}
     level_codes.each do |lc|
       logger.debug('topic_groups.level_code LIKE "'+lc+'"')
-      result[lc] =  self.adverts.joins(:topic_group).where('topic_groups.level_code LIKE "'+lc+'"')
+      result[lc] =  self.offers.joins(:topic_group).where('topic_groups.level_code LIKE "'+lc+'"')
     end
     result
   end

@@ -9,7 +9,7 @@ class StudentDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
       gallery: Field::HasOne,
-      adverts: Field::HasMany,
+      offers: Field::HasMany,
       #conversations: Field::HasMany,
       sent_comment: Field::HasMany.with_options(class_name: "Comment"),
       received_comment: Field::HasMany.with_options(class_name: "Comment"),
@@ -64,7 +64,7 @@ class StudentDashboard < Administrate::BaseDashboard
       :level,
       :email,
       :phonenumber,
-      :adverts,
+      :offers,
       #:login,
       #:gallery,
       #:conversations,
@@ -89,7 +89,7 @@ class StudentDashboard < Administrate::BaseDashboard
       :admin,
       #:gallery,
       #:conversations,
-      #:adverts,
+      #:offers,
       :sent_comment,
       :received_comment,
       #:level,
@@ -127,7 +127,7 @@ class StudentDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
       :gallery,
       #   :conversations,
-      :adverts,
+      :offers,
       :sent_comment,
       :received_comment,
       :level,

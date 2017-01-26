@@ -47,18 +47,18 @@ class Ability
       cannot :create, Degree if user.type != "Teacher"
 
     
-      can :create, Advert 
-      can :create, AdvertPrice
-      can :read, Advert 
-      can :choice, Advert
-      can :choice_group, Advert
-      can :get_all_adverts, Advert
+      can :create, Offer
+      can :create, OfferPrice
+      can :read, Offer
+      can :choice, Offer
+      can :choice_group, Offer
+      can :get_all_offers, Offer
 
-      can :read, AdvertPrice
-      can :destroy, Advert, :user_id => user.id
-      can :destroy, AdvertPrice, :advert => {:user_id => user.id}
-      can :update, Advert, :user_id => user.id
-      can :update, AdvertPrice, :advert => {:user_id => user.id}
+      can :read, OfferPrice
+      can :destroy, Offer, :user_id => user.id
+      can :destroy, OfferPrice, :offer => {:user_id => user.id}
+      can :update, Offer, :user_id => user.id
+      can :update, OfferPrice, :offer => {:user_id => user.id}
       can :create, Degree if user.is_a? Teacher
       can :read, Degree, :user_id => user.id
       can :update, Degree, :user_id => user.id

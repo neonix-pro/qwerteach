@@ -3,7 +3,7 @@
   %h2 #{user.name}
   - if @user.is_a?(Teacher)
     .topics
-      #{user.adverts.map{|ad| "#{link_to ad.title, profs_by_topic_path(ad.title)}"}.join(", ").html_safe}
+      #{user.offers.map{|ad| "#{link_to ad.title, profs_by_topic_path(ad.title)}"}.join(", ").html_safe}
     #rating
       = render partial: "shared/star_rating", locals: {note: user.avg_reviews}
       %span.number-of-reviews

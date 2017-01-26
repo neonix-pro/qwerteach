@@ -14,7 +14,7 @@ class PostulationDashboard < Administrate::BaseDashboard
       interview_ok: Field::Boolean,
       avatar_ok: Field::Boolean,
       gen_informations_ok: Field::Boolean,
-      advert_ok: Field::Boolean,
+      offer_ok: Field::Boolean,
       user_id: Field::Number,
       created_at: Field::DateTime,
       updated_at: Field::DateTime,
@@ -31,7 +31,7 @@ class PostulationDashboard < Administrate::BaseDashboard
       :interview_ok,
       :avatar_ok,
       :gen_informations_ok,
-      :advert_ok
+      :offer_ok
   ]
 
   # SHOW_PAGE_ATTRIBUTES
@@ -43,7 +43,7 @@ class PostulationDashboard < Administrate::BaseDashboard
       :interview_ok,
       :avatar_ok,
       :gen_informations_ok,
-      :advert_ok,
+      :offer_ok,
       :created_at,
       :updated_at,
   ]
@@ -56,7 +56,7 @@ class PostulationDashboard < Administrate::BaseDashboard
       :interview_ok,
       :avatar_ok,
       :gen_informations_ok,
-      :advert_ok,
+      :offer_ok,
   ]
 
   # Overwrite this method to customize how postulations are displayed

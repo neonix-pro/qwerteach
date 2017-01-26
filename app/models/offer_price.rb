@@ -1,12 +1,12 @@
-class AdvertPrice < ActiveRecord::Base
+class OfferPrice < ActiveRecord::Base
 
   belongs_to :level
-  belongs_to :advert
+  belongs_to :offer
 
-  validates :advert, presence: true
+  validates :offer, presence: true
   validates :level, presence: true
   validates :price, presence: true
   validates :price, :numericality => { :greater_than_or_equal_to => 0 }
-  validates_uniqueness_of :advert_id, scope: :level_id
+  validates_uniqueness_of :offer_id, scope: :level_id
 
 end

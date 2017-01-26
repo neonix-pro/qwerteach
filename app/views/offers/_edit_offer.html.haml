@@ -1,29 +1,29 @@
--#= form_for advert, :html => {:class => 'form-horizontal'}, remote:true do |f|
+-#= form_for offer, :html => {:class => 'form-horizontal'}, remote:true do |f|
 -#  .row
 -#    .col-sm-1
 -#    .col-sm-5
 -#      .form-group
--#        = hidden_field_tag :topic_id, @advert.topic.id
+-#        = hidden_field_tag :topic_id, @offer.topic.id
 -#        = f.text_area :description, placeholder: "Description ...", class: 'form-control', rows: 16
 -#    .col-sm-5
--#      = f.fields_for :advert_prices do |ff|
+-#      = f.fields_for :offer_prices do |ff|
 -#        .row.level-row
 -#          .col-sm-6
 -#            = ff.label ff.object.level.be
 -#          .col-sm-4
 -#            = ff.number_field :price, min: 0, required: true, class: 'form-control'
 -#          .col-sm-2
--#            = link_to advert_advert_price_path(f.object, ff.object), method: :delete, remote: true, class: "btn please-wait delete_level" do
+-#            = link_to offer_offer_price_path(f.object, ff.object), method: :delete, remote: true, class: "btn please-wait delete_level" do
 -#              %i.fa.fa-trash-o.text-grey
 -#      .row
 -#        .actions
 -#          %button#addlevel ajouter un niveau
 -#      .actions
 -#        = f.submit 'Enregistrer', class: 'btn btn-primary  btn-mini'
--#        = link_to 'Supprimer', advert_path(@advert), method: :delete, class: 'text-grey'
+-#        = link_to 'Supprimer', offer_path(@offer), method: :delete, class: 'text-grey'
 -#
 -##additional-levels.hidden
--#  = form_for @advert_price, url: advert_advert_prices_path(@advert), method: :post, remote: true do |f|
+-#  = form_for @offer_price, url: offer_offer_prices_path(@offer), method: :post, remote: true do |f|
 -#    .form-group
 -#      = f.select(:level_id, @levels.map{|l| [l[I18n.locale[0..3]], l.id]}, {}, {class: 'form-control'})
 -#    .form-group
@@ -42,4 +42,4 @@
 -#    $(this).html('<i class="fa fa-spin fa-spinner"></i>');
 -#  });
 
-=render partial: 'form', locals:{advert: advert, remote:false}
+=render partial: 'form', locals:{offer: offer, remote:false}

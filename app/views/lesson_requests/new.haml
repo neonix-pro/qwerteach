@@ -26,8 +26,8 @@
   .modal-dialog
     .modal-content
       .modal-body
-        - @adverts.keys.each do |key|
-          - unless @adverts[key].empty?
+        - @offers.keys.each do |key|
+          - unless @offers[key].empty?
             - levels = Level.where(code: key).group(:be).order(:level)
             %h5.title-green.text-center #{key}
             %table
@@ -37,7 +37,7 @@
                   -levels.each do |level|
                     %th{class: "level_col_#{level.id}"} #{t level.be, locale: :abv}
               %tbody
-                - @adverts[key].each do |ad|
+                - @offers[key].each do |ad|
                   %tr.topic_row{id: "topic_row_#{ad.topic.id}"}
                     %th #{ad.topic.title}
                     -levels.each do |level|

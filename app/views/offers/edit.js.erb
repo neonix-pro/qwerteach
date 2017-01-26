@@ -1,0 +1,8 @@
+var source = $('<%= "#offer_#{@offer.id}" %>');
+$('.with-arrow').removeClass('with-arrow');
+$('#new_offer').html('');
+$('.edit-offer').html('');
+source.nextAll('.edit-offer:first').html('<%= j render partial: 'edit_offer', locals: {offer: @offer, remote: true} %>');
+animateAdvertFields();
+$('.main-content').height('auto');
+source.addClass('with-arrow');

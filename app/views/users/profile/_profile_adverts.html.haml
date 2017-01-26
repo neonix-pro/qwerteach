@@ -1,33 +1,33 @@
-- adverts.group_by(&:topic_group_id).each do |topic_group, adverts|
-  - adverts.each do |advert|
-    -unless adverts.count == 1
-      .profile-advert{:class=>"#{profile_advert_classes(adverts.count)} topic_#{topic_group}"}
+- offers.group_by(&:topic_group_id).each do |topic_group, offers|
+  - offers.each do |offer|
+    -unless offers.count == 1
+      .profile-offer{:class=>"#{profile_offer_classes(offers.count)} topic_#{topic_group}"}
         .flipper
           .front
-            = image_tag(advert.topic.pictotype('medium'), :class => 'advert-picto')
+            = image_tag(offer.topic.pictotype('medium'), :class => 'offer-picto')
             %h4.a-title
-              #{advert.title}
+              #{offer.title}
           .back
             .a-title
-              #{advert.title}
+              #{offer.title}
               %br
-              %small Jusqu'au niveau #{advert.max_level}
-            .advert-description #{advert.description}
-        %span.advert-flip-toggle
+              %small Jusqu'au niveau #{offer.max_level}
+            .offer-description #{offer.description}
+        %span.offer-flip-toggle
           %span
-- adverts_single.each do |advert|
-  - unless advert.nil?
-    .profile-advert{:class=>"#{(advert == adverts_single.last && adverts_single.length % 2 == 1)  ? 'simple': 'double'} topic_#{advert.topic_group_id}"}
+- offers_single.each do |offer|
+  - unless offer.nil?
+    .profile-offer{:class=>"#{(offer == offers_single.last && offers_single.length % 2 == 1)  ? 'simple': 'double'} topic_#{offer.topic_group_id}"}
       .flipper
         .front
-          = image_tag(advert.topic.pictotype('medium'), :class => 'advert-picto')
+          = image_tag(offer.topic.pictotype('medium'), :class => 'offer-picto')
           %h4.a-title
-            #{advert.title}
+            #{offer.title}
         .back
           .a-title
-            #{advert.title}
+            #{offer.title}
             %br
-            %small Jusqu'au niveau #{advert.max_level}
-          .advert-description #{advert.description}
-      %span.advert-flip-toggle
+            %small Jusqu'au niveau #{offer.max_level}
+          .offer-description #{offer.description}
+      %span.offer-flip-toggle
         %span

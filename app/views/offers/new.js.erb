@@ -1,0 +1,6 @@
+$('.with-arrow').removeClass('with-arrow');
+$('.edit-offer').html('');
+$('#new-offer').html('<%= j render partial: 'form', locals: {offer: @offer, remote: false} %>');
+animateAdvertFields();
+$('.main-content').height('auto');
+$('.add-new-offer').addClass('with-arrow');

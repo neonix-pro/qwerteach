@@ -1,5 +1,5 @@
-- model_class = @advert.class
-- if can? :read, @advert
+- model_class = @offer.class
+- if can? :read, @offer
   .page-header
     %h1= t '.title', :default => model_class.model_name.human
   %dl.dl-horizontal
@@ -7,17 +7,17 @@
       %strong
         = model_class.human_attribute_name(:title)
         \:
-    %dd= @advert.topic.topic_group.title
+    %dd= @offer.topic.topic_group.title
     %dt
       %strong
         = model_class.human_attribute_name(:topic)
         \:
-    - if (@advert.topic.title=="Other")
-      %dd= @advert.other_name
+    - if (@offer.topic.title=="Other")
+      %dd= @offer.other_name
     - else
       %dd
-        = @advert.topic.title
-    - prices = @advert.advert_prices
+        = @offer.topic.title
+    - prices = @offer.offer_prices
     - prices.each { |p|
     %dd
       = p.level.fr
@@ -25,11 +25,11 @@
     - }
 .form-actions
   = link_to t('.back', :default => t("helpers.links.back")), |
-    adverts_path, :class => 'btn'                            |
+    offers_path, :class => 'btn'                            |
   = link_to t('.edit', :default => t("helpers.links.edit")), |
-    edit_advert_path(@advert), :class => 'btn'               |
+    edit_offer_path(@offer), :class => 'btn'               |
   = link_to t('.destroy', :default => t("helpers.links.destroy")),                                  |
-    advert_path(@advert),                                                                           |
+    offer_path(@offer),                                                                           |
     :method => 'delete',                                                                            |
     :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), |
     :class => 'btn btn-danger'                                                                      |

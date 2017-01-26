@@ -215,13 +215,13 @@
   }
 }
 
-#profile-adverts{
+#profile-offers{
   position:relative;
   width:100%;
-  .profile-advert{
+  .profile-offer{
     box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
   }
-  .profile-advert .front{
+  .profile-offer .front{
     padding-top:50px;
     color:white;
     text-align:center;
@@ -232,23 +232,23 @@
       line-height: 35px;
     }
   }
-  .profile-advert .back{
+  .profile-offer .back{
     text-align:left;
     color:white;
   }
-  .profile-advert.simple{
+  .profile-offer.simple{
     width: 100%;
   }
-  .profile-advert.double{
+  .profile-offer.double{
     width: 50%;
   }
-  .profile-advert.triple{
+  .profile-offer.triple{
     width: calc(100% / 3);
   }
-  .profile-advert.quadruple{
+  .profile-offer.quadruple{
     width: calc(100% / 4);
   }
-  .advert-flip-toggle {
+  .offer-flip-toggle {
     position: absolute;
     z-index: 2;
     top: 20px;
@@ -257,7 +257,7 @@
     width: 20px;
     cursor: pointer;
   }
-  .advert-flip-toggle span, .advert-flip-toggle span:before, .advert-flip-toggle span:after {
+  .offer-flip-toggle span, .offer-flip-toggle span:before, .offer-flip-toggle span:after {
     cursor: pointer;
     border-radius: 1px;
     height: 2px;
@@ -267,25 +267,25 @@
     display: block;
     content: '';
   }
-  .advert-flip-toggle span:before {
+  .offer-flip-toggle span:before {
     top: 14px;
   }
-  .advert-flip-toggle span:after {
+  .offer-flip-toggle span:after {
     bottom: -7px;
   }
-  .advert-flip-toggle span, .advert-flip-toggle span:before, .advert-flip-toggle span:after {
+  .offer-flip-toggle span, .offer-flip-toggle span:before, .offer-flip-toggle span:after {
     transition: all 500ms ease-in-out;
   }
-  .advert-flip-toggle.active span {
+  .offer-flip-toggle.active span {
     background-color: transparent!important;
   }
-  .advert-flip-toggle.active span:before, .advert-flip-toggle.active span:after {
+  .offer-flip-toggle.active span:before, .offer-flip-toggle.active span:after {
     top: 0;
   }
-  .advert-flip-toggle.active span:before {
+  .offer-flip-toggle.active span:before {
     transform: rotate(45deg);
   }
-  .advert-flip-toggle.active span:after {
+  .offer-flip-toggle.active span:after {
     transform: rotate(-45deg);
   }
 }
@@ -327,18 +327,18 @@
 }
 
 /*Flipping cards effect*/
-.profile-advert, .press-article {
+.profile-offer, .press-article {
   perspective: 1000px;
   float:left;
   position:relative;
   height: 256px;
 }
-.profile-advert.hover, .press-article.hover{
+.profile-offer.hover, .press-article.hover{
   overflow: hidden;
 }
 
 /* flip the pane when hovered */
-.profile-advert.hover .flipper, .press-article.hover .flipper {
+.profile-offer.hover .flipper, .press-article.hover .flipper {
   transform: rotateY(180deg);
 }
 

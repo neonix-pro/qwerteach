@@ -1,9 +1,9 @@
-- model_class = @advert.class
+- model_class = @offer.class
 = tutorial_progress_bar
 %h1 Vos annonces
-#adverts
-  - @adverts.each do |advert|
-    = render( :partial => '/become_teacher/advert', :locals=>{:advert => advert}, :required => true )
-= render( :partial => '/adverts/form', :locals=>{:advert=> @advert, :remote => true} )
+#offers
+  - @offers.each do |offer|
+    = render( :partial => '/become_teacher/offer', :locals=>{:offer => offer}, :required => true )
+= render( :partial => '/offers/form', :locals=>{:offer=> @offer, :remote => true} )
 %nav
   = link_to 'Continuer', next_wizard_path

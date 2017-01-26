@@ -10,7 +10,7 @@ class LessonRequestsController < ApplicationController
   def new
     @free_lessons = @user.free_lessons_with(@teacher)
     @lesson_request = @lesson.present? ? CreateLessonRequest.from_lesson(@lesson) : CreateLessonRequest.new
-    @adverts = @teacher.adverts_by_level_code
+    @offers = @teacher.offers_by_level_code
   end
 
   def create
@@ -106,13 +106,13 @@ class LessonRequestsController < ApplicationController
   end
 
   def topics
-    @topics = @teacher.adverts.includes(:topic).where(topics: params.slice(:topic_group_id)).uniq
+    @topics = @teacher.offers.includes(:topic).where(topics: params.slice(:topic_group_id)).uniq
       .pluck_to_hash('topics.id as id', 'topics.title as title')
     render json: @topics
   end
 
   def levels
-    @levels = @teacher.adverts.includes(advert_prices: :level).where(topic_id: params[:topic_id]).uniq
+    @levels = @teacher.offers.includes(offer_prices: :level).where(topic_id: params[:topic_id]).uniq
       .pluck_to_hash('levels.id as id', 'levels.fr as title')
     render json: @levels
   end

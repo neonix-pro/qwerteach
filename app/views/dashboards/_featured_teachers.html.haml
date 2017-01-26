@@ -12,4 +12,4 @@
           .name
             %b #{teacher.name.humanize}
           .topics
-            = teacher.adverts.first(3).map(&:title).join(', ')
+            = teacher.offers.first(3).map(&:title).join(', ')

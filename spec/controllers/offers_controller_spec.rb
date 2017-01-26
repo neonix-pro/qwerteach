@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe AdvertsController, type: :controller do
+RSpec.describe OffersController, type: :controller do
     login_admin
   
-    describe AdvertsController do
+    describe OffersController do
         before :each do
        request.env['devise.mapping'] = Devise.mappings[:user]
      end
      
         it "nombreAdvert" do
-            assert_equal 4, Advert.count
+            assert_equal 4, Offer.count
         end
         
         it "user" do
@@ -17,37 +17,37 @@ RSpec.describe AdvertsController, type: :controller do
         end
         
         it "show" do
-            get 'show', :id => Advert.last.id
+            get 'show', :id => Offer.last.id
             expect(response).to be_success
         end
         
         it "edit" do
-            get 'edit', :id => Advert.first.id
+            get 'edit', :id => Offer.first.id
             expect(response).to be_success
         end
         
         it "delete" do
-            get "destroy", :id => Advert.first.id 
-            expect(response).to redirect_to adverts_path
+            get "destroy", :id => Offer.first.id
+            expect(response).to redirect_to offers_path
         end
         
         it "nombreAdvert-1" do
-            assert_equal 4, Advert.count
+            assert_equal 4, Offer.count
         end
     
    end
 end 
 
 
-RSpec.describe AdvertsController, type: :controller do
-    describe AdvertsController do
+RSpec.describe OffersController, type: :controller do
+    describe OffersController do
         it "show" do
-            get 'show', :id => Advert.first.id
+            get 'show', :id => Offer.first.id
             expect(response).to_not be_success
         end
         
         it "edit" do
-            get 'edit', :id => Advert.first.id
+            get 'edit', :id => Offer.first.id
             expect(response).to_not be_success
         end
     end

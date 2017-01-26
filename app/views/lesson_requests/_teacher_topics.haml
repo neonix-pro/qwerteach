@@ -1,9 +1,9 @@
 .teacher-topics.clearfix.active.booking-info#step1-booking-info
   .topics-list
-    -teacher.adverts.each do |ad|
+    -teacher.offers.each do |ad|
       .topic #{ad.title}
   .level-max-list
-    -teacher.adverts.each do |ad|
+    -teacher.offers.each do |ad|
       .level-max
         jusqu'au niveau
         %b #{ad.max_level.partition(" ").first}

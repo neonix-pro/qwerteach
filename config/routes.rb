@@ -12,8 +12,8 @@ Rails.application.routes.draw do
     resources :topics
     resources :topic_groups
     resources :level
-    resources :advert_prices
-    resources :adverts
+    resources :offer_prices
+    resources :offers
     resources :payments
 
     
@@ -99,11 +99,11 @@ Rails.application.routes.draw do
   resources :notifications
   get "/notifications/unread/" => "notifications#number_of_unread"
 
-  resources :adverts do
-    resources :advert_prices
+  resources :offers do
+    resources :offer_prices
   end
 
-  get '/adverts_user/:user_id', to: 'adverts#get_all_adverts', as: 'get_all_adverts'
+  get '/offers_user/:user_id', to: 'offers#get_all_offers', as: 'get_all_offers'
 
   get "/pages/*page" => "pages#show", as: :pages
 
@@ -153,8 +153,8 @@ Rails.application.routes.draw do
   post "/typing" => "messages#typing"
   post "/seen" => "messages#seen"
   get "/conversation/show_more/:id/:page" => "conversations#show_more", as: 'conversation_show_page'
-  get "/level_choice" => "adverts#choice"
-  get "/topic_choice" => "adverts#choice_group"
+  get "/level_choice" => "offers#choice"
+  get "/topic_choice" => "offers#choice_group"
   post "conversation/show_min" => "conversations#find"
   get "conversation/show_min/:conversation_id" => "conversations#show_min"
 

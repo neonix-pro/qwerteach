@@ -8,15 +8,15 @@ class TopicDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    topic_group: Field::BelongsTo,
-    adverts: Field::HasMany,
-    lessons: Field::HasMany,
-    id: Field::Number,
-    title: Field::String,
-    featured: Field::Boolean,
-    picto: Field::String,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+      topic_group: Field::BelongsTo,
+      offers: Field::HasMany,
+      lessons: Field::HasMany,
+      id: Field::Number,
+      title: Field::String,
+      featured: Field::Boolean,
+      picto: Field::String,
+      created_at: Field::DateTime,
+      updated_at: Field::DateTime,
   }
 
   # COLLECTION_ATTRIBUTES
@@ -29,7 +29,7 @@ class TopicDashboard < Administrate::BaseDashboard
     :topic_group,
     :featured,
     :picto,
-    :adverts,
+    :offers,
     :lessons,
     :id,
   ]
@@ -38,7 +38,7 @@ class TopicDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :topic_group,
-    :adverts,
+    :offers,
     :lessons,
     :id,
     :title,

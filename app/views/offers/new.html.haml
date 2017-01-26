@@ -1,0 +1,4 @@
+- model_class = @offer.class
+.page-header
+  %h1 Créer une annonce
+= render :partial => 'form' , :locals => {:offer => @offer, :remote => false}
