@@ -1,0 +1,12 @@
+.offer-edit-form
+  %h3.offer-title #{offer.title}
+  = form_for offer, remote: true do |f|
+    = hidden_field_tag :origin, 'become_teacher'
+    = hidden_field_tag(:topic_id, offer.topic.id)
+    = hidden_field_tag(:topic_group_id, offer.topic_group.id)
+    .form-group.level_choice_levels
+      = render partial: 'offers/level_choice', locals:{offer: offer, levels: offer.possible_levels}
+    .actions
+      = f.submit :enregistrer
+      = link_to 'supprimer', offer_path(offer, origin: :become_teacher), method: :delete, remote:false
+

@@ -1,21 +1,17 @@
-.offer
-  %p= offer.topic.topic_group.title
-  - if (offer.topic.title=="Other")
-    %p
-      Topic: #{offer.other_name}
-  - else
-    %p
-      Topic : #{offer.topic.title}
-  - prices = offer.offer_prices
-  - prices.each { |p|
-  %dd
-    = p.level.fr
-    \: #{ActionController::Base.helpers.number_to_currency(p.price)}
-  - }
-  = link_to t('.destroy', :default => t("helpers.links.destroy")),                                  |
-    offer_path(offer),                                                                            |
-    :method => :delete,                                                                             |
-    :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), |
-    :class => 'btn btn-mini btn-danger delete-offer',                                              |
-    :remote => true                                                                                 |
-  %br/
+.offer-form{id: "offer-form-#{id}"}
+  %h3.offer-title Cours #{id}
+  = form_for offer, remote: true do |f|
+    = hidden_field_tag :origin, 'become_teacher'
+    .fom-group
+      = f.label :topic_group_id, 'Type de matière'
+      = f.select :topic_group_id, options_for_select(TopicGroup.all.map{|t| [t.title, t.id]}), {}, class:'form-control topic-group-select'
+    .form-group
+      = f.label :topic_id, 'Sous-catégorie'
+      .group_choice_topic
+        = f.select :topic_id, {}, {}, class: 'topic-select form-control'
+    .form-group.level_choice_levels
+    .actions
+      = f.submit :enregistrer
+
+:javascript
+  new OffersManager("#{id}")

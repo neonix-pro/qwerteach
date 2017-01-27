@@ -9,7 +9,7 @@ class Offer < ActiveRecord::Base
                                 :reject_if => :all_blank
   validates :user, presence: true
   validates :topic_group, presence: true
-  validates_uniqueness_of :user_id, scope: :topic_id
+  validates_uniqueness_of :user_id, scope: :topic_id, unless: :topic_is_other?
 
   #after_create :create_price
   # Méthode permettant de récupérer le prix d'une annonce pour un topic, un level et un user donné
@@ -25,6 +25,10 @@ class Offer < ActiveRecord::Base
     else
       return []
     end
+  end
+
+  def topic_is_other?
+    topic.title == 'Other'
   end
 
   def min_price
@@ -61,6 +65,10 @@ class Offer < ActiveRecord::Base
 
   def price_for_level(level_id)
     offer_prices.find_by(level_id: level_id)
+  end
+
+  def possible_levels
+    Level.where(:code => self.topic.topic_group.level_code).group(I18n.locale[0..3]).order(id: :asc)
   end
 
   # Pour Sunspot, définition des champs sur lesquels les recherches sont faites et des champs sur lesquels les filtres sont réalisés

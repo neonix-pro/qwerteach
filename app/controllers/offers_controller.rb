@@ -40,19 +40,29 @@ class OffersController < ApplicationController
     unless @user.is_a?(Teacher)
       @user.upgrade
     end
-    if current_user.offers.map(&:topic_id).include?(params[:topic_id].to_i)
-      redirect_to offers_path, notice: 'Une annonce pour cette catégorie existe déjà.' and return
+    if current_user.offers.map(&:topic_id).include?(params[:offer][:topic_id].to_i)
+      respond_to do |format|
+        flash[:notice]='Une annonce pour cette catégorie existe déjà.'
+        format.html {redirect_to offers_path}
+        format.json {}
+        format.js {}
+        return
+      end
     end
+
     @offer = Offer.new(offer_params)
     respond_to do |format|
       if @offer.save
         format.html { redirect_to offers_path, notice: 'Advert was successfully created.' }
         format.json { head :no_content }
-        format.js {}
+        format.js {
+          render partial: "#{params[:origin]}/create_offer", locals: {offer: @offer} if params[:origin]
+        }
       else
-        logger.debug(puts @offer.errors.full_messages.to_sentence)
+        #logger.debug(puts @offer.errors.full_messages.to_sentence)
         format.html { redirect_to @offer, notice: 'Advert not created.' }
         format.json { render json: @offer.errors, status: :unprocessable_entity }
+        format.js {flash[:danger]=@offer.errors.full_messages.to_sentence}
       end
     end
   end
@@ -79,7 +89,7 @@ class OffersController < ApplicationController
     Offer.destroy(@offer.id)
 
     respond_to do |format|
-      format.html { redirect_to offers_url }
+      format.html { redirect_to params[:origin].nil? ? offers_url : "/#{params[:origin]}/offers"}
       format.json {}
       format.js {}
     end
@@ -97,7 +107,7 @@ class OffersController < ApplicationController
 
   def choice_group
     group = TopicGroup.find(params[:group_id])
-    @topics = Topic.where(:topic_group_id => group.id) - current_user.offers.map(&:topic)
+    @topics = Topic.where(:topic_group_id => group.id) - current_user.offers_except_other.map(&:topic)
     respond_to do |format|
       format.js {}
     end

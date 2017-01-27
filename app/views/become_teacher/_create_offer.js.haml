@@ -1,0 +1,5 @@
+// Insert offer edit form
+$('.become-teacher-offers .offers-list .offer-form').remove();
+$('.become-teacher-offers .offers-list').append("#{j render partial: 'become_teacher/edit_offer', locals:{offer: @offer}}");
+// insert new offer form with correct id
+$('.become-teacher-offers .offers-list').append("#{j render partial: 'become_teacher/offer', locals:{offer: Offer.new(), id: (@user.offers.count +1)}}");

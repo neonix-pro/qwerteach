@@ -1,3 +1,9 @@
+if($('#new_offer').length > 0){
+var choice = $('#new_offer .level_choice_levels');
+}
+else{
 var choice = $('.level_choice_levels');
+}
+
 choice.empty();
-choice.append("#{j render :partial => 'level_choice'}");
+choice.append("#{j render :partial => 'level_choice', locals:{offer: @offer, levels:@levels}}");

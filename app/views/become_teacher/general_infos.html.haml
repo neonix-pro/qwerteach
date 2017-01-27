@@ -30,7 +30,7 @@
               = f.telephone_field :phonenumber, value: '', class: 'form-control'
         .form-group
           = f.label :occupation, "Profession / branche d'études"
-          = f.text_field :occupation, value: '', :required => true, class: 'form-control'
+          = f.text_field :occupation, :required => true, class: 'form-control'
         - @description_questions.each_with_index do |question, index|
           .form-group
             = label_tag "description_#{index}", question
