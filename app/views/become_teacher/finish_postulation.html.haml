@@ -1,6 +1,28 @@
-= tutorial_progress_bar
-%h1 Super, c'est fini!
-%p
-  Notre équipe vous contactera aussi vite que possible!
-  \#{link_to("Voir mon profil", '/users/'+current_user.id.to_s, html_options = {class: "btn btn-default"})}
-  \#{link_to("Accueil", root_path, html_options = {class: "btn btn-default"})}
+.become_teacher_finish
+  %h2.page-title-green.text-center Félicitations, votre candidature est complète!
+  .row
+    .col-sm-2
+    .col-sm-8
+      .alert.alert-info
+        %h4 Nous sommes convaincus que vous ferez un(e) prof fantastique.
+        Cependant, votre annonce et votre profil ne sont
+        %b pas encore visibles
+        par les élèves.
+      %h4 Pourquoi mon annonce n'est-elle pas visible?
+      %p
+        Nous examinons votre demande, afin de nous assurer de la qualité de vos annonces et de votre profil. En effet, il est important pour nous que les élèves trouvent sur notre site des professeurs compétents et motivés.
+      %p
+        Un e-mail vous a été envoyé, récapitulant l'ensemble de la procédure. Surveillez bien votre courrier, car c'est par ce biais que notre équipe vous contactera pour fixer une interview!
+        Si ce n'est déjà le cas, profitez de ce délai pour vous familiariser avec Qwerteach.
+      %p
+        D'ici là, nous vous souhaitons une agréable expérience sur le site!
+      .text-green.pull-right - L'équipe
+    %hr
+  .row
+    .col-sm-2
+    .col-sm-8.text-center
+      %br
+      =link_to("Voir mon profil", '/users/'+current_user.id.to_s, html_options = {class: "btn btn-sm btn-qw btn-green"})
+      = link_to("Tableau de bord", dashboard_path, html_options = {class: "btn btn-sm btn-qw btn-green"})
+
+  = tutorial_progress_bar

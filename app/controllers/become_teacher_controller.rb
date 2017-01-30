@@ -32,6 +32,7 @@ class BecomeTeacherController < ApplicationController
         @account = Mango::SaveAccount.new(user: current_user, first_name: current_user.firstname, last_name: current_user.lastname)
         @teacher = current_user
         @path = wizard_path
+        @bank_account = Mango::CreateBankAccount.new(user: current_user)
     end
     render_wizard
   end
@@ -53,8 +54,11 @@ class BecomeTeacherController < ApplicationController
           @account = saving
           jump_to(:offers)
         end
+        creation = Mango::CreateBankAccount.run bank_account_params.merge(user: @user)
     end
     render_wizard @user
+  rescue MangoPay::ResponseError => ex
+    flash[:danger] = t('notice.general_error', message: ex.details["Message"].to_s)
   end
 
   private
@@ -75,6 +79,13 @@ class BecomeTeacherController < ApplicationController
     DESCRIPTION_QUESTIONS.each_with_index do |question, index|
       params[:user][:description] += "#{question}\n" unless (index == 0 || params["description_#{index}"].empty?)
       params[:user][:description] += "#{params["description_#{index}"]}\r\n" unless params["description_#{index}"].empty?
+    end
+  end
+  def bank_account_params
+    if %w(iban gb us ca other).include?( (params[:bank_account][:type] rescue nil) )
+      params.fetch("#{params[:bank_account][:type]}_account").permit!.merge( params[:bank_account] )
+    else
+      {}
     end
   end
 end

@@ -1,3 +1,16 @@
-= tutorial_progress_bar
-%h1 Mes informations bancaires
-= render partial: 'wallets/mangopay_form', locals: {:path => @path}
+.become-teacher-banking-informations
+  %h2.page-title-green.text-center Mes informations bancaires
+  .row
+    .col-sm-2
+    .col-sm-8
+
+      = form_tag @path, method: :put do
+        = render partial: 'mangopay_account'
+        %hr
+        .alert.alert-info
+          %h4 Comment souhaitez-vous être payé ?
+          %p Les coordonnées bancaires que vous introduirez ici correspondent à celles auxquelles nous verserons le solde de votre portefeuille virtuel. Ces coordonnées sont strictement confidentielles et n'apparaîtront nulle part sur le site.
+        = render partial: 'bank_account', locals:{bank_account: @bank_account}
+        .actions
+          = submit_tag 'Terminer', :class => 'btn btn-qw btn-sm btn-green'
+  = tutorial_progress_bar

@@ -34,6 +34,7 @@ fr:
     banking_informations: "Informations bancaires"
     finish_postulation: "c'est fini!!!"
   notice:
+    general_error: Il y a eu un problème lors de l'opération. Veuillez vérifier que vous avez bien complété tous les champs.
     processing_error: Il y a eu une erreur lors de la transaction. Veuillez réessayer.
     processing_success: La transaction s'est correctement déroulée.
     missing_account: Vous devez d'abord correctement compléter vos informations de paiement.
