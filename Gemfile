@@ -58,7 +58,7 @@ gem 'jcrop-rails-v2'
 # datepicker calendar
 gem 'bootstrap-datepicker-rails'
 #interface admin
-gem "administrate", "~> 0.1.4"
+gem "administrate", github: 'thoughtbot/administrate'
 
 # autocomplete search
 gem 'rails-jquery-autocomplete'

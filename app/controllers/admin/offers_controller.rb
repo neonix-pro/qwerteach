@@ -1,5 +1,5 @@
 module Admin
-  class AdvertsController < Admin::ApplicationController
+  class OffersController < Admin::ApplicationController
     # To customize the behavior of this controller,
     # simply overwrite any of the RESTful actions. For example:
     #

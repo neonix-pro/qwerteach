@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170125173048) do
+ActiveRecord::Schema.define(version: 20170130151405) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -313,7 +313,7 @@ ActiveRecord::Schema.define(version: 20170125173048) do
     t.boolean  "interview_ok",        default: false
     t.boolean  "avatar_ok",           default: false
     t.boolean  "gen_informations_ok", default: false
-    t.boolean  "advert_ok",           default: false
+    t.boolean  "offer_ok",            default: false
     t.integer  "user_id",                             null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false

@@ -15,8 +15,9 @@ Rails.application.routes.draw do
     resources :offer_prices
     resources :offers
     resources :payments
-
-    
+    resources :reviews
+    resources :conversations
+    resources :mailboxer_messages
 
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
     
