@@ -17,10 +17,10 @@
       %p
         D'ici là, nous vous souhaitons une agréable expérience sur le site!
       .text-green.pull-right - L'équipe
-    %hr
   .row
     .col-sm-2
     .col-sm-8.text-center
+      %hr
       %br
       =link_to("Voir mon profil", '/users/'+current_user.id.to_s, html_options = {class: "btn btn-sm btn-qw btn-green"})
       = link_to("Tableau de bord", dashboard_path, html_options = {class: "btn btn-sm btn-qw btn-green"})

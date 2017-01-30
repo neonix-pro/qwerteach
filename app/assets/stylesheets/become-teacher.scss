@@ -1,0 +1,65 @@
+@import "global_variables";
+.become-teacher-progress-bar{
+  height:100px;
+  margin:40px 0px;
+  padding: 0px;
+  ul{
+    padding: 0px;
+  }
+  .become-teacher-step{
+    display: inline-block;
+    margin: 5px 0px;
+    text-align:center;
+    width:20%;
+  }
+  ul li:first-child:before{
+    border-color:transparent;
+  }
+  ul li:before{
+    content:'';
+    width:100%;
+    height:2px;
+    border: 2px solid $color_qwerteach_green;
+    display: block;
+    position: relative;
+    top: 13px;
+    z-index: -1;
+    right: 50%;
+  }
+  .step-name{
+    display:block;
+    text-align:center;
+  }
+  .step-number{
+    display:inline-block;
+    width:25px;
+    padding-top: 2px;
+    height:25px;
+    border: 1px solid;
+    border-radius:50%;
+    background-color:white;
+  }
+  .finished{
+    .step-number {
+      color:white;
+      background-color: $color_qwerteach_green;
+      border:none;
+    }
+  }
+  .current{
+    .step-number{
+
+    }
+  }
+  .unfinished{
+    .step-number, a .step-name{
+      color: $color_link_grey;
+      border-color: $color_link_grey;
+    }
+  }
+  ul li.unfinished:before{
+    border: 2px solid $color_link_grey;
+
+  }
+
+}
