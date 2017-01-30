@@ -7,7 +7,9 @@
       - @user.offers.each do |offer|
         = render partial: 'edit_offer', locals:{offer: offer}
       = render partial: 'offer', locals:{offer: @offer, id: 1}
-
+  .row
+    .col-sm-2
+    .col-sm-8
       %nav.text-right
         = link_to 'Continuer', next_wizard_path, class:'btn btn-qw btn-sm btn-green'
   .row

@@ -22,6 +22,7 @@ class window.OffersManager
       url: "/topic_choice",
       data: {group_id: $(e.currentTarget).val() }
     })
+    @$title.addClass('topic_'+$(e.currentTarget).val());
 
   onTopicSelect: (e)->
     $.ajax({
