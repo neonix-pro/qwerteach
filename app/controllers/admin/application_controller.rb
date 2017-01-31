@@ -7,6 +7,12 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     before_filter :authenticate_admin
+    before_filter :default_params
+
+    def default_params
+      params[:order] ||= "id"
+      params[:direction] ||= "desc"
+    end
 
     def authenticate_admin
       if (current_user.blank?)

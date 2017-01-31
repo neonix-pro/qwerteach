@@ -9,9 +9,9 @@ class MessageDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     conversation: Field::BelongsTo,
-    user: Field::BelongsTo,
+    sender: Field::BelongsTo.with_options(class_name: "User"),
     id: Field::Number,
-    body: Field::Text,
+    body: Field::Text.with_options(truncate: 1000),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }
@@ -22,9 +22,8 @@ class MessageDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :conversation,
-    :user,
     :id,
+    :sender,
     :body,
   ]
 

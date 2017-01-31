@@ -10,10 +10,10 @@ class ConversationDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     sender: Field::BelongsTo.with_options(class_name: "User"),
     recipient: Field::BelongsTo.with_options(class_name: "User"),
-    messages: Field::HasMany,
+    #messages: Field::MailboxerMessageField.with_options(class_name: "Message"),
+    messages: Field::HasMany.with_options(limit: 10),
     id: Field::Number,
-    sender_id: Field::Number,
-    recipient_id: Field::Number,
+    originator: Field::HasOne.with_options(class_name: "User"),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }
@@ -24,21 +24,17 @@ class ConversationDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :sender,
-    :recipient,
-    :messages,
     :id,
+    :originator,
+    :messages,
   ]
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :sender,
-    :recipient,
-    :messages,
     :id,
-    :sender_id,
-    :recipient_id,
+    :originator,
+    :messages,
     :created_at,
     :updated_at,
   ]
