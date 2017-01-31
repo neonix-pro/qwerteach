@@ -202,7 +202,7 @@ class User < ActiveRecord::Base
                                              }).build
 
     response.recipients.delete(self)
-    logger.debug(response.deliver.errors.full_messages.to_sentence)
+    #logger.debug(response.deliver.errors.full_messages.to_sentence)
     response.deliver true, sanitize_text
   end
 

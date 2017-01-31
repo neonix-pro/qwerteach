@@ -1,7 +1,30 @@
 //commentaire
+@import 'conversations';
+.conversation-admin{
+  .show-more, .mailbox-conversation-details{
+    display:none;
+  }
+  .mailbox-conversation{
+    border: 1px solid lightgrey;
+  }
+  .conversation-content{
+    height:400px;
+    overflow:scroll;
+  }
+}
+.clearfix{
+  clear:both;
+}
 .cell-data--text{
   white-space: inherit;
 }
 .preserve-whitespace {
   white-space: inherit;
+}
+
+.bg-green{
+  background-color: lightgreen;
+}
+.bg-blue{
+  background-color: lightblue;
 }

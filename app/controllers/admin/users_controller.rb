@@ -18,8 +18,7 @@ module Admin
 
     def show_conversation
       @conversation = Mailboxer::Conversation.find(params[:id])
-      @first = @conversation.participants.first.id
-      @second = @conversation.participants.last.id
+      @messages = @conversation.messages.page(params[:page]).per(20)
       render 'fields/mailboxer_conversation_field/show'
     end
 

@@ -32,6 +32,12 @@ module Admin
     def show
       @user = User.find(params[:id])
       @conversations = @user.mailbox.conversations.page(params[:page]).per(10)
+      @admins = User.where(admin: true)
+      @conversation_admin = Conversation.participant(current_user).participant(@user).first
+      if @conversation_admin.nil?
+        @conversation_admin = Mailboxer::Conversation.new()
+      end
+      @messages_admin = @conversation_admin.messages.order(id: :desc)
       super
     end
 

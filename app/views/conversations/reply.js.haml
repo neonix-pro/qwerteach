@@ -1,6 +1,17 @@
 \// Ajoute le nouveau message
 \// Publie le message dans le channel de la conversation (sur lequel l'interlocuteur écoute)
 
+\//admin: empty chatbox
+
+if($('.conversation-admin').length >0)
+{
+$('.conversation-admin textarea').val('');
+var chatbox = $("#chatbox_#{@conversation.id} .conversation-content");
+chatbox.append("#{j render 'messages/message_sent', message: @message}");
+chatbox.scrollTop(chatbox[0].scrollHeight)
+}
+
+
 - publish_to @path do
   var id = "#{@conversation.id}";
   var chatbox = $("#chatbox_" + id + " .conversation-content");
@@ -18,3 +29,5 @@
   $("#chatbox_"+ id +" .chatboxtextarea").val("");
   }
   chatbox.scrollTop(chatbox[0].scrollHeight);
+
+

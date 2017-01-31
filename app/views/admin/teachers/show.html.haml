@@ -22,7 +22,13 @@
           = render_field attribute
         - else
           ="-"
-
+  %div
+    %h2 Discuter avec #{page.resource.name}
+    .conversation-admin
+      -if @conversation_admin.id.nil?
+        = render partial: 'users/profile/contactform', locals:{me: current_user, user: @user}
+      -else
+        = render partial: 'conversations/conversation', locals:{conversation: @conversation_admin, page: 0, messages: @messages_admin}
 
   %div
     %h2 Conversations (#{@conversations.total_count})
