@@ -4,7 +4,7 @@
     %h1.header__heading
       = content_for(:title)
       %small= page.resource.postulance_accepted ? '(Teacher)' : '(Postuling teacher)'
-    =image_tag page.resource.avatar.url(:small)
+    =image_tag page.resource.avatar.url(:medium)
     .header__actions
       = link_to(                             |
           "Edit",                            |
@@ -23,3 +23,23 @@
         - else
           ="-"
 
+
+  %div
+    %h2 Conversations (#{@conversations.total_count})
+    - unless @conversations.empty?
+      %table
+        %thead
+          %tr
+            %th ID
+            %th partner
+            %th messages
+          - @conversations.each do |c|
+            - c.recipients.delete(@user)
+            %tr
+              %td #{link_to c.id, admin_show_conversation_path(c)}
+              %td #{link_to c.recipients.last.name, admin_student_path(c.recipients.last)}
+              %td #{c.messages.count}
+
+      = paginate @conversations
+    - else
+      Pas encore de conversations!

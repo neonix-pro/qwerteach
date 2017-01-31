@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170130151405) do
+ActiveRecord::Schema.define(version: 20170131150426) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20170130151405) do
     t.string   "creator_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "ended"
   end
 
   add_index "bigbluebutton_meetings", ["meetingid", "start_time"], name: "index_bigbluebutton_meetings_on_meetingid_and_start_time", unique: true

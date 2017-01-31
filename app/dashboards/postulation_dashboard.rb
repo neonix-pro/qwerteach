@@ -27,7 +27,6 @@ class PostulationDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
       :teacher,
-      :id,
       :interview_ok,
       :avatar_ok,
       :gen_informations_ok,

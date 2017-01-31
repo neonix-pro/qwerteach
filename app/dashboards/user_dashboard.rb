@@ -9,7 +9,7 @@ class UserDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
       gallery: Field::HasOne,
-      #conversations: Field::HasMany,
+      conversations: Field::HasMany.with_options(class_name: 'Conversation'),
       offers: Field::HasMany,
       sent_comment: Field::HasMany.with_options(class_name: "Comment"),
       received_comment: Field::HasMany.with_options(class_name: "Comment"),
@@ -50,6 +50,7 @@ class UserDashboard < Administrate::BaseDashboard
       avatar_file_name: Field::String,
       avatar_content_type: Field::String,
       avatar_file_size: Field::Number,
+      avatar_updated_at: Field::DateTime,
       avatar_score: Field::Number,
       score: Field::Number,
   }
@@ -72,20 +73,20 @@ class UserDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-      :gallery,
-      :offers,
-      # :conversations,
-      :sent_comment,
-      :received_comment,
-      :level,
       :id,
-      :login,
+      :email,
       :firstname,
       :lastname,
       :birthdate,
-      :description,
-      :gender,
       :phonenumber,
+      :gender,
+      :offers,
+      #:conversations,
+      :sent_comment,
+      # :received_comment,
+      :level,
+      :login,
+      :description,
       :type,
       :first_lesson_free,
       :occupation,

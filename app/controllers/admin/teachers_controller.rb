@@ -29,6 +29,12 @@ module Admin
       }
     end
 
+    def show
+      @user = User.find(params[:id])
+      @conversations = @user.mailbox.conversations.page(params[:page]).per(10)
+      super
+    end
+
     def nav_link_state(resource)
       if params[:id] && !requested_resource.postulance_accepted
         resource_name = :postuling_teacher

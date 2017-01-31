@@ -10,10 +10,23 @@ class Postulation < ActiveRecord::Base
       :avatar=>self.avatar_ok,
       :general_informations=>self.gen_informations_ok,
       :offers=>self.offer_ok,
-      :mangopay => !self.teacher.mango_id.nil?,
-      :email => !self.teacher.confirmed_at.nil?,
-      :test_classe => !self.teacher.lessons_received.nil? #TODO: ajuster pour prendre en compte ttes les classes virtuelles
+      :mangopay => mangopay,
+      :email => email,
+      :test_classe => test_classe
     }
+  end
+
+  def mangopay
+    !self.teacher.mango_id.nil?
+  end
+
+  def email
+    !self.teacher.confirmed_at.nil?
+  end
+
+  def test_classe
+    #TODO: ajuster pour prendre en compte ttes les classes virtuelles
+    !self.teacher.lessons_received.nil?
   end
 
   def dashboard_fields
