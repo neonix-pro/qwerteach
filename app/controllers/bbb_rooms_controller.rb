@@ -15,7 +15,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
         :name => "Interview "+@interviewee.id.to_s+'_'+current_timestamp.to_s,
         :param => @interviewee.id.to_s+'_'+current_timestamp.to_s,
         :record_meeting => 1,
-        :logout_url => 'http://localhost:3000/',
+        :logout_url => 'http://localhost:3000/', #TODO: make dynamic
         :duration => 0,
         :auto_start_recording => 1,
         :allow_start_stop_recording => 0,
@@ -38,7 +38,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     respond_with @room do |format|
       if @room.save
         message = t('bigbluebutton_rails.rooms.notice.create.success')
-        subject = @interviewee.firstname + " vous invite dans une classe."
+        subject = current_user.firstname + " vous invite dans une classe."
         body = "" + join_bigbluebutton_room_path(@room).to_s
         @interviewee.send_notification(subject, body, current_user)
         format.html {

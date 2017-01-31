@@ -199,7 +199,7 @@ class BbbServersController < Bigbluebutton::ServersController
   end
 
   def server_allowed_params
-    [ :name, :url, :salt, :param ]
+    [ :name, :url, :secret, :param ]
   end
 
 end

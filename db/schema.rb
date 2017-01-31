@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131170028) do
+ActiveRecord::Schema.define(version: 20170131214326) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -19,16 +19,19 @@ ActiveRecord::Schema.define(version: 20170131170028) do
     t.string   "meetingid"
     t.string   "name"
     t.datetime "start_time"
-    t.boolean  "running",      default: false
-    t.boolean  "recorded",     default: false
+    t.boolean  "running",                      default: false
+    t.boolean  "recorded",                     default: false
     t.integer  "creator_id"
     t.string   "creator_name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "ended"
+    t.string   "server_url"
+    t.string   "server_secret"
+    t.decimal  "create_time",   precision: 14
   end
 
-  add_index "bigbluebutton_meetings", ["meetingid", "start_time"], name: "index_bigbluebutton_meetings_on_meetingid_and_start_time", unique: true
+  add_index "bigbluebutton_meetings", ["meetingid", "create_time"], name: "index_bigbluebutton_meetings_on_meetingid_and_create_time", unique: true
 
   create_table "bigbluebutton_metadata", force: :cascade do |t|
     t.integer  "owner_id"
@@ -131,7 +134,7 @@ ActiveRecord::Schema.define(version: 20170131170028) do
   create_table "bigbluebutton_servers", force: :cascade do |t|
     t.string   "name"
     t.string   "url"
-    t.string   "salt"
+    t.string   "secret"
     t.string   "version"
     t.string   "param"
     t.datetime "created_at"

@@ -29,7 +29,7 @@
         = render partial: 'users/profile/contactform', locals:{me: current_user, user: @user}
       -else
         = render partial: 'conversations/conversation', locals:{conversation: @conversation_admin, page: 0, messages: @messages_admin}
-
+      = link_to 'Interview', room_invite_bbb_rooms_path(@user)
   %div
     %h2 Conversations (#{@conversations.total_count})
     - unless @conversations.empty?
