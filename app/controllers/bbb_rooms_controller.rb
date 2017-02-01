@@ -1,6 +1,13 @@
 class BbbRoomsController < Bigbluebutton::RoomsController
   before_filter :authenticate_user!
 
+  def join
+    super
+    # logging that the user joined a room
+    meeting = BbbMeeting.find_by(meetingid: @room.meetingid)
+    meeting.users << current_user
+    meeting.save
+  end
   def invite_to_room
 
   end

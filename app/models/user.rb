@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   has_many :reviews_received, :class_name => 'Review', :foreign_key => 'subject_id'
   has_many :levels, through: :degrees
   belongs_to :level
+  has_and_belongs_to_many :bbb_meetings
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 

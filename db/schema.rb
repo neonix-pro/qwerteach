@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131214326) do
+ActiveRecord::Schema.define(version: 20170201100136) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -32,6 +32,11 @@ ActiveRecord::Schema.define(version: 20170131214326) do
   end
 
   add_index "bigbluebutton_meetings", ["meetingid", "create_time"], name: "index_bigbluebutton_meetings_on_meetingid_and_create_time", unique: true
+
+  create_table "bigbluebutton_meetings_users", force: :cascade do |t|
+    t.integer "bbb_meeting_id"
+    t.integer "user_id"
+  end
 
   create_table "bigbluebutton_metadata", force: :cascade do |t|
     t.integer  "owner_id"
