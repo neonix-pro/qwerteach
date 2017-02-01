@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     resources :teachers
     resources :pictures
     resources :galleries
-    resources :postulations
+    resources :postulations do
+      get "generate_text" => :generate_text
+    end
     resources :comments
     resources :postuling_teachers
     resources :lessons

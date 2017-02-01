@@ -25,12 +25,16 @@
           ="-"
   %div
     %h2 Discuter avec #{page.resource.name}
+    #generated-text
+    .actions.pull-right
+      = link_to 'Interview', room_invite_bbb_rooms_path(@user), class:'button btn-default'
+      %br
+      = link_to 'generate text', admin_postulation_generate_text_path(page.resource.postulation), remote:true, class:'button btn-default'
     .conversation-admin
       -if @conversation_admin.id.nil?
         = render partial: 'users/profile/contactform', locals:{me: current_user, user: @user}
       -else
         = render partial: 'conversations/conversation', locals:{conversation: @conversation_admin, page: 0, messages: @messages_admin}
-      = link_to 'Interview', room_invite_bbb_rooms_path(@user)
   %div
     %h2 Conversations (#{@conversations.total_count})
     - unless @conversations.empty?
