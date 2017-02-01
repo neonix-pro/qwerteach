@@ -8,7 +8,5 @@
           [:edit, namespace, page.resource], |
           class: "button",                   |
         )                                    |
-  %dl
-    - page.attributes.each do |attribute|
-      %dt.attribute-label= attribute.name.titleize
-      %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}= render_field attribute
+  = render :partial => 'postulation', locals:{postulation: page.resource}
+  = link_to 'back to user', admin_teacher_path(page.resource.teacher)

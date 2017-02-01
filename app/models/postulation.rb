@@ -25,8 +25,7 @@ class Postulation < ActiveRecord::Base
   end
 
   def test_classe
-    #TODO: ajuster pour prendre en compte ttes les classes virtuelles
-    !self.teacher.lessons_received.nil?
+    teacher.bbb_meetings.count > 0
   end
 
   def dashboard_fields
