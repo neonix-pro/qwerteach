@@ -54,11 +54,8 @@ Rails.application.configure do
   config.web_console.whitelisted_ips = '0.0.0.0/0.0.0.0'
 
   config.action_mailer.smtp_settings = {
-      #:user_name => ENV['SENDGRID_USERNAME'],
-      #:password => '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',
-      #:password => ENV['SENDGRID_PASSWORD'],
-      :user_name => 'qwerteach',
-      :password => '***REMOVED***',
+      :user_name => ENV['SENDGRID_USERNAME'],
+      :password => ENV['SENDGRID_PASSWORD'],
       :domain => 'localhost',
       :address => 'smtp.sendgrid.net',
       :port => 587,
