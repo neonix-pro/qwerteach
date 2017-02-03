@@ -61,3 +61,6 @@ public/assets/*.mov
 .DS_Store
 .idea/*
 sendgrid.env
+
+# Ignore application configuration
+/config/application.yml

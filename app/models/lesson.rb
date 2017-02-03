@@ -246,7 +246,7 @@ class Lesson < ActiveRecord::Base
     # send sms
     if @other.can_send_sms?
       client = Nexmo::Client.new()
-      response = client.send_message(from: 'Qwerteach', to: @other.phonenumber, text: @notification_text)
+      response = client.send_message(from: 'Qwerteach', to: @other.full_number, text: @notification_text)
     end
     LessonMailer.new_lesson(@other, @lesson, @notification_text).deliver
   end

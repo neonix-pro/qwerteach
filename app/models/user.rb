@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
   #   false
   # end
 
+  phony_normalize :phone_number, as: :full_number, default_country_code: :phone_country_code
+
   has_one :gallery
   has_many :offers, dependent: :destroy
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
@@ -32,8 +34,7 @@ class User < ActiveRecord::Base
   belongs_to :level
   has_and_belongs_to_many :bbb_meetings
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-  attr_accessor :full_number
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :full_number
 
   after_update :reprocess_avatar, :if => :cropping?
   after_create :create_gallery
@@ -210,7 +211,12 @@ class User < ActiveRecord::Base
   end
 
   def can_send_sms?
+    # to do: add user preference to sms sending
     self.valid_number?
+  end
+
+  def valid_number?
+    Phony.plausible?(full_number)
   end
 
   protected
