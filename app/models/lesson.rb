@@ -1,4 +1,5 @@
 class Lesson < ActiveRecord::Base
+  require 'nexmo'
   # meme nom que dans DB sinon KO.
   # cf schéma etats de Lesson
   enum status: [:pending_teacher, :pending_student, :created, :canceled, :refused]
@@ -233,4 +234,23 @@ class Lesson < ActiveRecord::Base
     return 1 if pending_teacher? #pending_student
     return 0 if pending_student? #pending_teacher
   end
+
+  #notifies other that he's got a new request
+  def notify_user(user)
+    @user = user
+    @other = self.other(@user)
+    @notification_text = "#{@other.name} vous adresse une demande de cours."
+    @other.send_notification(@notification_text, '#', @user)
+    Rails.logger.debug(@notification_text)
+    @lesson = self
+    # send sms
+    if @other.can_send_sms?
+      client = Nexmo::Client.new()
+      response = client.send_message(from: 'Qwerteach', to: @other.phonenumber, text: @notification_text)
+    end
+    LessonMailer.new_lesson(@other, @lesson, @notification_text).deliver
+  end
+
+  private
+
 end

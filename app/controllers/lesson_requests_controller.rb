@@ -47,7 +47,6 @@ class LessonRequestsController < ApplicationController
           respond_to do |format|
             format.html {redirect_to lessons_path}
           end
-          #render 'finish', :layout => false
         else
           @card_registration = Mango::CreateCardRegistration.run(user: current_user).result
           render 'errors', :layout=>false, locals: {object: paying}

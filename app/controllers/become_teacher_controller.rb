@@ -41,7 +41,6 @@ class BecomeTeacherController < ApplicationController
     @user = current_user
     case step
       when :general_infos
-        merge_phonenumber
         merge_description
         @user.update_attributes(user_params)
       when :avatar
@@ -63,15 +62,11 @@ class BecomeTeacherController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:mango_id, :crop_x, :crop_y, :crop_w, :crop_h, :firstname, :lastname, :email, :birthdate, :description, :gender, :avatar, :phonenumber, :level_id, :occupation)
+    params.require(:user).permit(:mango_id, :crop_x, :crop_y, :crop_w, :crop_h, :firstname, :lastname, :email, :birthdate, :description, :gender, :avatar, :phonenumber, :level_id, :occupation, :phone_number, :phone_country_code)
   end
 
   def gallery_params
     params.permit(:pictures, :user_id).merge(user_id: current_user.id)
-  end
-
-  def merge_phonenumber
-    params[:user][:phonenumber] = "#{params[:phonenumber_prefix]}#{params[:user][:phonenumber]}"
   end
 
   def merge_description

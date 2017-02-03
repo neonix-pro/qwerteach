@@ -19,6 +19,7 @@ class PayLessonByBancontact < ActiveInteraction::Base
         raise ActiveRecord::Rollback
       end
     end
+    lesson.notify_user(user)
     return mango_transaction
   end
 

@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      = @subject
+    %p
+      = @text
+    %blockquote
+    %dl
+      %dt ID:
+      %dd #{@lesson.id}
+      %dt date:
+      %dd le #{@lesson.time_start.strftime("%d/%m/%Y à %H:%M")}
+      %dt Matière:
+      %dd #{@lesson.topic.title}
+      %dt Durée:
+      %dd #{@lesson.duration.hours}h#{@lesson.duration.minutes}
+    %p
+      #{link_to 'Consulter la liste de mes cours', lessons_path } pour plus d'informations

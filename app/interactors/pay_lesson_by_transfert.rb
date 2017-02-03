@@ -15,6 +15,7 @@ class PayLessonByTransfert < ActiveInteraction::Base
         self.errors.merge! payment.errors
         raise ActiveRecord::Rollback
       end
+      lesson.notify_user(user)
       return transfering.result
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170201100136) do
+ActiveRecord::Schema.define(version: 20170203114259) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -377,7 +377,7 @@ ActiveRecord::Schema.define(version: 20170201100136) do
     t.date     "birthdate",              default: '2016-01-01',  null: false
     t.text     "description",            default: "",            null: false
     t.string   "gender",                 default: "Not telling", null: false
-    t.string   "phonenumber",            default: "",            null: false
+    t.string   "phone_number",           default: "",            null: false
     t.string   "type",                   default: "Student",     null: false
     t.integer  "level_id",               default: 1
     t.boolean  "first_lesson_free",      default: false
@@ -419,6 +419,7 @@ ActiveRecord::Schema.define(version: 20170201100136) do
     t.integer  "response_time",          default: 0
     t.integer  "average_response_time",  default: 0
     t.integer  "avatar_score"
+    t.string   "phone_country_code"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

@@ -125,6 +125,7 @@ gem 'pluck_to_hash'
 gem 'drafting'
 gem 'ruby-duration'
 gem 'phony_rails'
+gem 'nexmo'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

@@ -18,11 +18,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :lockable, :validatable,
          :lastseenable, :confirmable
           #, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
-  def confirmation_required?
-    false
-  end
-
-  phony_normalize :phonenumber, default_country_code: 'FR'
+  # def confirmation_required?
+  #   false
+  # end
 
   has_one :gallery
   has_many :offers, dependent: :destroy
@@ -35,6 +33,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :bbb_meetings
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessor :full_number
 
   after_update :reprocess_avatar, :if => :cropping?
   after_create :create_gallery
@@ -186,9 +185,12 @@ class User < ActiveRecord::Base
     @mangopay = nil
     super
   end
+  def full_number
+    "#{phone_country_code}#{phone_number}"
+  end
 
   def profil_complete?
-    (firstname.nil? || lastname.nil? || avatar.nil? || phonenumber.nil? || mango_id.nil?)
+    (firstname.nil? || lastname.nil? || avatar.nil? || full_number.nil? || mango_id.nil?)
   end
 
   def reply(conversation, recipients, reply_body, subject=nil, sanitize_text=true, attachment=nil)
@@ -207,10 +209,14 @@ class User < ActiveRecord::Base
     response.deliver true, sanitize_text
   end
 
-  protected
-  def confirmation_required?
-    false
+  def can_send_sms?
+    self.valid_number?
   end
+
+  protected
+  # def confirmation_required?
+  #   false
+  # end
 
   private
     def reprocess_avatar

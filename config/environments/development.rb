@@ -15,7 +15,7 @@ Rails.application.configure do
   config.reload_classes_only_on_change = true
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  ##config.action_mailer.raise_delivery_errors = false
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -43,16 +43,27 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: '127.0.0.1', port: 3000 }
   # email sending process
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.delivery_method = :test
+  config.action_mailer.delivery_method = :smtp
   # Defaults to:
   # config.action_mailer.sendmail_settings = {
   #   location: '/usr/sbin/sendmail',
   #   arguments: '-i -t'
   # }
-  config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: 'no-reply@example.com'}
+  config.action_mailer.default_options = {from: 'hello@qwerteach.com'}
   config.web_console.whitelisted_ips = '0.0.0.0/0.0.0.0'
 
+  config.action_mailer.smtp_settings = {
+      #:user_name => ENV['SENDGRID_USERNAME'],
+      #:password => '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',
+      #:password => ENV['SENDGRID_PASSWORD'],
+      :user_name => 'qwerteach',
+      :password => '***REMOVED***',
+      :domain => 'localhost',
+      :address => 'smtp.sendgrid.net',
+      :port => 587,
+      :authentication => :plain,
+      :enable_starttls_auto => true
+  }
 
 end

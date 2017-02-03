@@ -14,8 +14,12 @@
             = f.label :birthdate
             = f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => true, 'date-end-date' => "0d"}, :placeholder => :Date_de_Naissance, class: 'form-control'
           .col-sm-6
-            = f.label :Téléphone
-            = f.text_field :phonenumber, class: 'form-control'
+            = f.label :phone_number
+            .row
+              .col-xs-3
+                = f.select :phone_country_code, options_for_select(international_prefix_list, :selected => @user.phone_country_code ), {}, :required => true, class:'form-control'
+              .col-xs-9
+                = f.telephone_field :phone_number, class: 'form-control'
             = f.label :gender
             = f.select :gender, User::GENDER_TYPES, {}, class: 'form-control'
             = f.label :time_zone, "Quelle est votre fuseau horaire?"

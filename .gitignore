@@ -60,3 +60,4 @@ public/assets/*.mov
 
 .DS_Store
 .idea/*
+sendgrid.env

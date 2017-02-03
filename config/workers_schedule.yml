@@ -43,3 +43,10 @@ pay_teachers:
   class: PayTeachers
   queue: bookings
   description: "Pay teachers 72hrs after end of lesson"
+
+schedule_notification:
+  every:
+    - "1m"
+  class: ScheduleNotifications
+  queue: messages
+  description: "Notifies users that they have unread messages"

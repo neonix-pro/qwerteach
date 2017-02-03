@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      = @subject
+    %p
+      = @text + "\n#{link_to 'Connectez-vous', dashboard_path} pour les lire et y répondre."
+    %hr
+    %p
+      #{link_to 'Consulter la liste de mes cours', lessons_path } pour plus d'informations

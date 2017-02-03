@@ -22,12 +22,12 @@
           = f.label :gender
           = f.select :gender, User::GENDER_TYPES, {}, class: 'form-control'
         .form-group
-          = f.label :phonenumber
+          = f.label :phone_number
           .row
             .col-xs-3
-              = select_tag :phonenumber_prefix, options_for_select(international_prefix_list, :selected => @user.nationality), :required => true, class:'form-control'
+              = f.select :phone_country_code, options_for_select(international_prefix_list, :selected => @user.phone_country_code), {}, :required => true, class:'form-control'
             .col-xs-9
-              = f.telephone_field :phonenumber, value: '', class: 'form-control'
+              = f.telephone_field :phone_number, class: 'form-control'
         .form-group
           = f.label :occupation, "Profession / branche d'études"
           = f.text_field :occupation, :required => true, class: 'form-control'
