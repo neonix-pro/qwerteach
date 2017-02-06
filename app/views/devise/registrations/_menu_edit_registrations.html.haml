@@ -13,16 +13,16 @@
         .modal-content
           .modal-header
             %button.close{'aria-hidden'=>'true', 'data-dismiss'=>'modal', 'type'=>"button"} &times;
-            %h4#myModalLabel.modal-title Title
+            %h4#myModalLabel.modal-title Recadrer la photo
           .modal-body.modal-body-avatar
             .col-view
               .avatar-uploaded-view
                 %img.avatar-uploaded-view-image
             .avatar-uploaded-preview
               %img.avatar-uploaded-preview-image
-          .modal-footer
-            %button.btn.btn-default{'data-dismiss'=>'modal', 'type'=>'button'} Close
-            %button.btn.btn-primary.btn-avatar-save{'type'=>'button'} Save
+          .modal-footer.text-center
+            %button.btn.btn-qw.btn-sm.btn-default{'data-dismiss'=>'modal', 'type'=>'button'} Annuler
+            %button.btn.btn-success.btn-qw.btn-sm.btn-avatar-save{'type'=>'button'} Sauver
 
   .edit-user-avatar
     .banner

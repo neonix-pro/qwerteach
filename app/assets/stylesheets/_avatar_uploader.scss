@@ -1,6 +1,6 @@
 .avatar-uploaded-view {
   display: inline-block;
-  max-width: 800px;
+  max-width: 100%;
   vertical-align: top;
   img {
     width: 100%;
@@ -8,23 +8,21 @@
   }
 }
 
-.avatar-uploaded-preview {
-  display: inline-block;
-  vertical-align: top;
-  width: 200px;
-  height: 200px;
-  position: relative;
-  overflow: hidden;
-  margin-bottom:20px;
-}
+//.avatar-uploaded-preview {
+//  display: inline-block;
+//  vertical-align: top;
+//  width: 200px;
+//  height: 200px;
+//  position: relative;
+//  overflow: hidden;
+//  margin-bottom:20px;
+//}
 
 .modal-body-avatar {
-  display: flex;
+  text-align:center;
   .col-view {
-    flex-grow: 1;
-    margin-right: 15px;
     .avatar-uploaded-view {
-      display: block;
+      display: inline-block;
     }
   }
   .avatar-uploaded-preview {
