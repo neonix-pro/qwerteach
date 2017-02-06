@@ -20,7 +20,7 @@
       .form-group
         = f.check_box :free_lesson, class: 'firstLessonFree', id: 'free_lesson'
         = f.label :free_lesson, "Cours d'essai gratuit (1/2h)", for: 'free_lesson'
-    .form-group.hours-select
+    .form-group.lesson-duration
       = label_tag :time, 'Choisissez la durée du cours', class: 'control-label'
       .row
         .col-xs-2= select_hour f.object.hours, {prefix: :request, field_name: :hours, start_hour: 0, :end_hour => 5}, {class: 'form-control hours-select', required: true}

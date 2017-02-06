@@ -54,7 +54,7 @@ h2.booking-title{
       font-family: SofiaProRegular;
       font-weight:500;
     }
-    .hours-select .col-xs-1 label{
+    .lesson-duration .col-xs-1 label{
       line-height:29px;
       margin-left:-20px;
     }
@@ -211,4 +211,14 @@ h2.booking-title{
     margin-bottom: 5px;
   }
 
+}
+
+#detailed-reviews{
+  .review{
+    .review-sender{
+      .sender-picture{
+        width:100%;
+      }
+    }
+  }
 }
