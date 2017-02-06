@@ -47,7 +47,7 @@ class BbbServersController < Bigbluebutton::ServersController
       # we return/render the fetched meetings even in case of error
       # but we set the error message in the response
       if error
-        flash[:error] = message
+        flash[:danger] = message
         format.html { render :activity }
         format.json {
           array = @server.meetings
@@ -146,7 +146,7 @@ class BbbServersController < Bigbluebutton::ServersController
 
     respond_with do |format|
       format.html {
-        flash[error ? :error : :notice] = message
+        flash[error ? :danger : :notice] = message
         redirect_to bigbluebutton_server_path(@server)
       }
       format.json {
@@ -182,7 +182,7 @@ class BbbServersController < Bigbluebutton::ServersController
     rescue BigBlueButton::BigBlueButtonException => e
       respond_with do |format|
         format.html {
-          flash[:error] = e.to_s[0..200]
+          flash[:danger] = e.to_s[0..200]
           redirect_to_using_params recordings_bigbluebutton_server_path(@server)
         }
         format.json { render :json => e.to_s, :status => :error }

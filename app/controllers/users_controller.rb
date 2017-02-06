@@ -107,7 +107,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(user_params)
       flash[:success] = "Votre profil a bien été modifié"
     else
-      flash[:error] = "La modification a échoué"
+      flash[:danger] = "La modification a échoué"
     end
     redirect_to edit_user_registration_path(@user)
   end

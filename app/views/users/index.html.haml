@@ -17,7 +17,7 @@
     #more-results
       .more-results-button
         = link_to_next_page @pagin, 'voir plus', params: params, remote: true
-  .container-fluid
+  %div
     = render 'pages/accueil/partie_commentaire'
     = render 'pages/accueil/tri_colonne'
     = render 'pages/accueil/presse'

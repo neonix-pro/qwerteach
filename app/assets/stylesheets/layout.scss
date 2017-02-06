@@ -45,6 +45,8 @@ h1,h2,h3,h4,h5,p,span,a{
     font-size: 16px;
     font-weight: 300;
     color: rgba(255, 255, 255, 0.9);
+    background-color: $color_qwerteach_blue;
+    background-image: none;
     .close{
       opacity:0.9;
       img{
@@ -63,6 +65,10 @@ h1,h2,h3,h4,h5,p,span,a{
   }
   .alert-danger{
     background-color: $color_qwerteach_pink;
+    background-image:none;
+  }
+  .alert-warning{
+    background-color: $color_qwerteach_orange;
     background-image:none;
   }
 }

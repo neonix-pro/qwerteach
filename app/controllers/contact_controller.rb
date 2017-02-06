@@ -12,11 +12,11 @@ class ContactController < ApplicationController
         flash[:notice] = 'Thank you fo your message!'
     
     elsif ScriptError
-        flash[:error] = 'Sorry, this message appears to be spam and was not delivered.'
+        flash[:danger] = 'Sorry, this message appears to be spam and was not delivered.'
 
     else
         
-        flash[:error] = 'Cannot send message.'
+        flash[:danger] = 'Cannot send message.'
     render :new
     end
   

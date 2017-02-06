@@ -46,7 +46,7 @@ class LessonsController < ApplicationController
         flash[:success] = "La modification s'est correctement déroulée."
         redirect_to lessons_path and return
       else
-        flash[:alert] = "Il y a eu un problème lors de la modification. Veuillez réessayer."
+        flash[:danger] = "Il y a eu un problème lors de la modification. Veuillez réessayer."
         redirect_to dashboard_path and return
       end
     end

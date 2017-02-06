@@ -111,10 +111,10 @@ class PayPostpaymentsController < ApplicationController
             flash[:notice] = "Le transfert s'est correctement effectué. Votre réservation de cours est donc correctement enregistrée."
             redirect_to wizard_path(:finish_payment) and return
           when 1
-            flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+            flash[:danger] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
             redirect_to wizard_path(:payment_choice) and return
           when 2
-            flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+            flash[:danger] = "Vous devez d'abord correctement compléter vos informations de paiement."
             list = ISO3166::Country.all
             @list = []
             list.each do |c|
@@ -123,13 +123,13 @@ class PayPostpaymentsController < ApplicationController
             end
             render 'wallets/_mangopay_form' and return
           when 3
-            flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
+            flash[:danger] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
             redirect_to root_path and return
           when 4
-            flash[:alert] = "Votre solde est insuffisant. Il faut d'abord recharger votre compte."
+            flash[:danger] = "Votre solde est insuffisant. Il faut d'abord recharger votre compte."
             redirect_to direct_debit_path and return
           else
-            flash[:alert] = "Erreur inconnue."
+            flash[:danger] = "Erreur inconnue."
             redirect_to root_path and return
         end
 
@@ -144,10 +144,10 @@ class PayPostpaymentsController < ApplicationController
             {:amount => @amount, :beneficiary => @other, :return_url => @return_path})
         case redirect_url
           when 1
-            flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+            flash[:danger] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
             redirect_to wizard_path(:payment_choice) and return
           when 2
-            flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+            flash[:danger] = "Vous devez d'abord correctement compléter vos informations de paiement."
             list = ISO3166::Country.all
             @list = []
             list.each do |c|
@@ -156,7 +156,7 @@ class PayPostpaymentsController < ApplicationController
             end
             render 'wallets/_mangopay_form' and return
           when 3
-            flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
+            flash[:danger] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
             redirect_to root_path and return
           else
             # 3DS
@@ -183,7 +183,7 @@ class PayPostpaymentsController < ApplicationController
                                                                 })
           case card_id
             when 1
-              flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+              flash[:danger] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
               redirect_to wizard_path(:payment_choice) and return
             else
               # Card created
@@ -198,10 +198,10 @@ class PayPostpaymentsController < ApplicationController
           when 0
             redirect_to wizard_path(:finish_payment) and return
           when 1
-            flash[:alert] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
+            flash[:danger] = "Il y a eu une erreur lors de la transaction. Veuillez réessayer."
             redirect_to wizard_path(:payment_choice) and return
           when 2
-            flash[:alert] = "Vous devez d'abord correctement compléter vos informations de paiement."
+            flash[:danger] = "Vous devez d'abord correctement compléter vos informations de paiement."
             list = ISO3166::Country.all
             @list = []
             list.each do |c|
@@ -210,7 +210,7 @@ class PayPostpaymentsController < ApplicationController
             end
             render 'wallets/_mangopay_form' and return
           when 3
-            flash[:alert] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
+            flash[:danger] = "Votre bénéficiaire n'a pas encore complété ses informations de paiement. Il faudra réessayer plus tard."
             redirect_to root_path and return
           else
             # 3DS
