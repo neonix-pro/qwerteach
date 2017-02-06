@@ -212,11 +212,15 @@ class User < ActiveRecord::Base
 
   def can_send_sms?
     # to do: add user preference to sms sending
-    self.valid_number?
+    valid_number? && sms_allowed?
   end
 
   def valid_number?
     Phony.plausible?(full_number)
+  end
+
+  def sms_allowed?
+    sms_allowed
   end
 
   protected
