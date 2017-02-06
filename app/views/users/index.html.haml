@@ -1,7 +1,7 @@
 %div
   = render partial: 'users/search/header'
   = render partial: 'users/search/search_options', locals: {topics_options: search_topic_options, sorting_options: @sorting_options}
-  .search-wrapper
+  .search-wrapper.clearfix
     = render partial: 'users/search/search_filters'
     #search-results.clearfix
       %h4.noresult
