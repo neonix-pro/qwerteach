@@ -2,6 +2,6 @@
 %a.content{:href => "#{notification.body}"}
   .notification-item
     %h4.item-title
-    %li.round-image-50= image_tag(emetteur.avatar.url(:small))
+    .item-image= image_tag(emetteur.avatar.url(:small), class:'img img-circle')
     = notification.subject
-    / <p class="item-info">Rejoindre</p>
+    .item-date= notification_date notification.created_at

@@ -68,11 +68,46 @@
     a.dropdown-toggle{
       margin:0px;
     }
-    .notification-heading h4{
-      margin:0px;
-      color:$color_qwerteach_green;
+    #notifications-wrapper{
+      a:first-child .notification-item{
+        border-top: none;
+      }
+      a:hover{
+        color:$color_link_grey;
+        text-decoration:none;
+        .item-date{
+          color:$color_qwerteach_green;
+        }
+      }
+      a{
+        margin:0px;
+        .notification-item{
+          border-top: 1px solid $color_qwerteach_darkgrey;
+          padding: 10px 0px;
+          h4{
+
+          }
+          .item-image{
+            float:left;
+            margin-right:4px;
+            img {
+              width: 50px;
+            }
+          }
+          .item-date{
+            color: #bababa;
+            font-size: 11px;
+            text-align:right;
+          }
+          .item-date:hover{
+            color:$color_qwerteach_green;
+          }
+        }
+      }
+    }
+    .notification-footer{
+      text-align:center;
     }
   }
-
 
 }
