@@ -1,3 +1,3 @@
-- if teacher.average_response_time > 0
+- if teacher.average_response_time > 0 && teacher.average_response_time < (24*2*3600)
   .teacher-reactivity
-    Réponse moyenne dans les #{teacher.average_response_time}
+    Réponse moyenne dans les #{distance_of_time_in_words(teacher.average_response_time)}

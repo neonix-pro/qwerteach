@@ -23,7 +23,7 @@ class ConversationsController < ApplicationController
     end
     @online_buddies = User.where(:id=>@recipient_options.map(&:id)).where(last_seen: (Time.now - 1.hour)..Time.now).order(last_seen: :desc).limit(10)
     @page = 1
-    @messages =@conversations.first.messages.page(@page).per(MESSAGES_PER_PAGE).order(id: :desc)
+    @messages = @conversations.first.messages.page(@page).per(MESSAGES_PER_PAGE).order(id: :desc) unless @conversations.empty?
   end
 
   def trash

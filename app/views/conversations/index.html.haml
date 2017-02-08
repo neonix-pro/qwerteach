@@ -30,28 +30,28 @@
 
 = render partial: 'lesson_requests/request_lesson_modal'
 
-:javascript
-  $('.compose-message').click(function(){
-    $('.conversation-preview.active').removeClass('active');
-    $('#compose-message').toggle('slow');
-    $('.new-message.conversation-preview').toggle();
-    $('#mailbox_conversations').html("#{j render partial: 'new_conversation'}");
-  });
-  options = $('#recipients-list option');
-  $('#recipients').on('input', function(){
-    $('#new_message_recipient').val('');
-    var input = $(this);
-    options.each(function(){
-      if($(this).val() == input.val())
-      {
-        $('#new_message_recipient').val($(this).attr('userid'));
-        return;
-      }
+- unless @conversations.empty?
+  :javascript
+    $('.compose-message').click(function(){
+      $('.conversation-preview.active').removeClass('active');
+      $('#compose-message').toggle('slow');
+      $('.new-message.conversation-preview').toggle();
+      $('#mailbox_conversations').html("#{j render partial: 'new_conversation'}");
     });
-  });
-  var chatbox = $("#chatbox_#{@conversations.first.id} .conversation-content");
-  chatbox.scrollTop(chatbox[0].scrollHeight);
-  $('body').on('click', '[data-toggle="loader"]', function(){
-    $('.loader').fadeIn('slow');
-  });
-
+    options = $('#recipients-list option');
+    $('#recipients').on('input', function(){
+      $('#new_message_recipient').val('');
+      var input = $(this);
+      options.each(function(){
+        if($(this).val() == input.val())
+        {
+          $('#new_message_recipient').val($(this).attr('userid'));
+          return;
+        }
+      });
+    });
+    var chatbox = $("#chatbox_#{@conversations.first.id} .conversation-content");
+    chatbox.scrollTop(chatbox[0].scrollHeight);
+    $('body').on('click', '[data-toggle="loader"]', function(){
+      $('.loader').fadeIn('slow');
+    });
