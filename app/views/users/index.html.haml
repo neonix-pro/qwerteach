@@ -8,6 +8,8 @@
         #{search_total_results(@pagin)}
         %b.text-green
           &laquo; #{@search_text} &raquo;
+        - unless @filter.nil?
+          , #{t("search.filters.#{@filter}")}
       - unless @search.empty?
         - @search.each do |u|
           = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}

@@ -39,4 +39,5 @@ module UsersHelper
     end
     @search_sorting_name ||= "pertinence"
   end
+
 end

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_filter :authenticate_user!, only: :update
+  before_action :filter_param, only: :index
 
   def show
     @user = User.find(params[:id])
@@ -117,6 +118,10 @@ class UsersController < ApplicationController
       params.require(:user).permit(:firstname, :lastname, :birthdate, :phonenumber,
                                    :gender, :occupation, :description, :level_id,
                                    :time_zone, :avatar, :crop_x, :crop_y, :crop_h, :crop_w)
+    end
+
+    def filter_param
+      @filter = params[:filter]
     end
 
 end
