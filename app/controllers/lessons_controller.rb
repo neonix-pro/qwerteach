@@ -16,7 +16,7 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     @other = @lesson.other(current_user)
     @room = BbbRoom.where(lesson_id = @lesson.id).first
-    @recordings = BigbluebuttonRecording.where(room_id = @room.id) unless @room.nil?
+    @recordings = @lesson.bbb_room.recordings
     @todo = @lesson.todo(@user)
   end
 

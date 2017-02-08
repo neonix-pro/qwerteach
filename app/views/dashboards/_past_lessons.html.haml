@@ -7,7 +7,7 @@
         .lesson-topic #{lesson.topic.title}
         .lesson-partner #{lesson.other(current_user).firstname}
         .lesson-date #{lesson.time_start.strftime("%d %b %Y")}
-        .lesson-seemore voir le cours
+        .lesson-seemore #{link_to 'voir le cours', lesson_path(lesson), class: 'text-white'}
     - else
       .col-sm-4.empty-lesson.text-center
         .border

@@ -77,9 +77,7 @@
 }
 
 #lessons-list{
-  width:80%;
   border-left:1px solid #ddd;
-  display:inline-block;
 }
 
 .lesson{
@@ -256,20 +254,30 @@
 
 /*SHOW*/
 .show-lesson-details{
-  padding:30px 0px;
-  padding-right:70px;
+  padding-right:0px;
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,1);
   h3{
     margin-top:0px;
   }
   .lesson-picture{
-    height: 200px;
-    position: absolute;
-    right: 0px;
-    bottom: 191px;
-    z-index:-1;
-    text-align: center;
-    line-height: 200px;
+    text-align:center;
+    img{
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .lesson-picture:before{
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+  }
+  .lesson-infos{
+    padding: 20px 0px;
+    .dl-horizontal{
+      margin-bottom:0px;
+    }
   }
 }
 .show-lesson-status {
@@ -318,6 +326,8 @@
     margin-top:0px;
   }
 }
-.show-lesson-details{
-  display:none;
+#lessons-index{
+  .show-lesson-details{
+    display:none;
+  }
 }

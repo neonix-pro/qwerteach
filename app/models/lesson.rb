@@ -206,6 +206,7 @@ class Lesson < ActiveRecord::Base
   # pay: lesson is post paid and need to be paid
   # review: please leave a review of this teacher
   # disputed: this lesson's payment is disputed
+  # nil return nil if the leson is passed and everything is OK
   def todo(user)
     unless active?
       return :inactive
@@ -226,6 +227,9 @@ class Lesson < ActiveRecord::Base
     end
     if review_needed?(user)
       return :review
+    end
+    if past? && paid?
+      return nil
     end
     return :wait
   end

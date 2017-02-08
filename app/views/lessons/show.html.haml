@@ -1,112 +1,114 @@
-.section-head
-  %h2
-    = image_tag(@other.avatar(:small), class: 'img-circle')
-    Cours de
-    #{link_to @lesson.topic.title, profs_by_topic_path(@lesson.topic.title), class: 'text-purple'}
-    du #{@lesson.time_start.strftime('%d/%m/%Y')}
-    .pull-right.show-lesson-status
-      - if @lesson.created?
-        .lesson-created
-          Cours confirmé
-          %i.fa.fa-check
-      -else
-        - if @lesson.upcoming?
-          - if @lesson.pending_student? || @lesson.pending_teacher?
-            .lesson-pending
-              Cours en attente...
-          - else
-            .lesson-canceled
-              Cours annulé
-              %i.fa.fa-times
-        - else
-          .lesson-expired
-            Cours expiré
-            %i.fa.fa-times
-#lessons-content.clearfix
-  = render partial: 'lessons_navigation'
-  #lessons-list
-    - if @lesson.todo(@user)
-      .lesson-todo
-        .todo-title
-          %h3 To do
-        - case @lesson.todo(@user)
-          - when :confirm
-            .row.todo
-              .col-sm-6
-                %h4.text-center Accepter cette proposition de cours?
-              .col-sm-6
-                %button.btn.btn-qw.btn-green.btn-sm accepter
-                %button.btn.btn-qw.btn-orange.btn-sm modifier
-                %a.text-grey refuser
-          - when :unlock
-            .row.todo
-              .col-sm-6
-                %h4.text-center Votre cours s'est-il bien passé?
-              .col-sm-6
-                %button.btn.btn-qw.btn-green.btn-sm Oui!
-                %a.text-grey non
-          - when :pay
-            .row.todo
-              .col-sm-6
-                %h4.text-center Procéder au payement
-              .col-sm-6
-                %button.btn.btn-qw.btn-green.btn-sm payer
-                %a.text-grey contester
-          -when :review
-            .row.todo
-              .col-sm-6
-                %h4.text-center Laisser une appréciation à #{@lesson.teacher.name} ?
-              .col-sm-6
-                %button.btn.btn-qw.btn-green.btn-sm donner mon avis
-                %a.text-grey plus tard
-    .show-lesson-details
-      .row
-        .col-sm-5
-          %dl.dl-horizontal
-            %dt Prof:
-            %dd #{link_to @lesson.teacher.name, user_path(@lesson.teacher), class:'text-purple'}
-            %dt Élève:
-            %dd #{link_to @lesson.student.name, user_path(@lesson.student), class:'text-purple'}
-            %dt Matière:
-            %dd #{@lesson.topic.title}
-            %dt Date:
-            %dd #{@lesson.time_start.strftime('le %d/%m/%Y à %H:%M')}
-            %dt Durée:
-            %dd #{lesson_duration(@lesson.time_start, @lesson.time_end)}
-            %dt Prix
-            %dd #{@lesson.price}€
-        .col-sm-4
-          - if @recordings.nil?
-            %i.fa.fa-warning.fa-2x
-            Pas d'enregistrement disponible pour ce cours !
-          -else
-            - @recordings.each do |recording|
-              = link_to "recording #{recording.id}", recording.playback_formats.first.url
-            %br/
-        .col-sm-3.lesson-picture{class: lesson_topic_class(@lesson)}
-          #{image_tag(@lesson.topic.pictotype("medium"))}
-    .lesson-payments
-      %h3 Payement
-      - if @lesson.free_lesson
-        Cours d'essai gratuit - rien à payer!
-      - else
-        - if @lesson.payments.empty?
-          Aucun payement associé à ce cours.
+%div
+  .section-head
+    %h2
+      = image_tag(@other.avatar(:small), class: 'img-circle')
+      Cours de
+      #{link_to @lesson.topic.title, profs_by_topic_path(@lesson.topic.title), class: 'text-purple'}
+      du #{@lesson.time_start.strftime('%d/%m/%Y')}
+      .pull-right.show-lesson-status
+        - if @lesson.created?
+          .lesson-created
+            Cours confirmé
+            %i.fa.fa-check
         -else
-          - @lesson.payments.each do |payment|
-            %table.table
-              %thead
-                %th Référence
-                %th Montant
-                %th Statut
-                %th #{ "Méthode de payement" if @lesson.is_student?(@user)}
-                %th Date de création
-                %th Dernière modification
-              %tbody
-                %tr
-                  %td #{payment.id}
-                  %td #{payment.price}
-                  %td #{payment.status}
-                  %td #{payment.payment_method if @lesson.is_student?(@user)}
-                  %td #{payment.created_at.strftime('%d/%m/%Y')}
-                  %td #{payment.updated_at.strftime('%d/%m/%Y')}
+          - if @lesson.upcoming?
+            - if @lesson.pending_student? || @lesson.pending_teacher?
+              .lesson-pending
+                Cours en attente...
+            - else
+              .lesson-canceled
+                Cours annulé
+                %i.fa.fa-times
+          - else
+            .lesson-expired
+              Cours expiré
+              %i.fa.fa-times
+  #lessons-content.clearfix
+    #lessons-list
+      - if @lesson.todo(@user)
+        .lesson-todo
+          .todo-title
+            %h3 To do
+          - case @lesson.todo(@user)
+            - when :confirm
+              .row.todo
+                .col-sm-6
+                  %h4.text-center Accepter cette proposition de cours?
+                .col-sm-6
+                  %button.btn.btn-qw.btn-green.btn-sm accepter
+                  %button.btn.btn-qw.btn-orange.btn-sm modifier
+                  %a.text-grey refuser
+            - when :unlock
+              .row.todo
+                .col-sm-6
+                  %h4.text-center Votre cours s'est-il bien passé?
+                .col-sm-6
+                  %button.btn.btn-qw.btn-green.btn-sm Oui!
+                  %a.text-grey non
+            - when :pay
+              .row.todo
+                .col-sm-6
+                  %h4.text-center Procéder au payement
+                .col-sm-6
+                  %button.btn.btn-qw.btn-green.btn-sm payer
+                  %a.text-grey contester
+            -when :review
+              .row.todo
+                .col-sm-6
+                  %h4.text-center Laisser une appréciation à #{@lesson.teacher.name} ?
+                .col-sm-6
+                  %button.btn.btn-qw.btn-green.btn-sm donner mon avis
+                  %a.text-grey plus tard
+      .show-lesson-details
+        .row
+          .col-sm-5
+            .lesson-infos
+              %dl.dl-horizontal
+                %dt Prof:
+                %dd #{link_to @lesson.teacher.name, user_path(@lesson.teacher), class:'text-purple'}
+                %dt Élève:
+                %dd #{link_to @lesson.student.name, user_path(@lesson.student), class:'text-purple'}
+                %dt Matière:
+                %dd #{@lesson.topic.title}
+                %dt Date:
+                %dd #{@lesson.time_start.strftime('le %d/%m/%Y à %H:%M')}
+                %dt Durée:
+                %dd #{lesson_duration(@lesson.time_start, @lesson.time_end)}
+                %dt Prix
+                %dd #{@lesson.price}€
+          .col-sm-4
+            .lesson-infos
+              - if @recordings.nil? || @recordings.empty?
+                %i.fa.fa-warning.fa-2x
+                Pas d'enregistrement disponible pour ce cours !
+              -else
+                - @recordings.each do |recording|
+                  = link_to "recording #{recording.id}", recording.playback_formats.first.url
+                %br/
+          .col-sm-3.lesson-picture.lesson-infos{class: lesson_topic_class(@lesson)}
+            #{image_tag(@lesson.topic.pictotype("medium"))}
+      .lesson-payments
+        %h3 Payement
+        - if @lesson.free_lesson
+          Cours d'essai gratuit - rien à payer!
+        - else
+          - if @lesson.payments.empty?
+            Aucun payement associé à ce cours.
+          -else
+            - @lesson.payments.each do |payment|
+              %table.table
+                %thead
+                  %th Référence
+                  %th Montant
+                  %th Statut
+                  %th #{ "Méthode de payement" if @lesson.is_student?(@user)}
+                  %th Date de création
+                  %th Dernière modification
+                %tbody
+                  %tr
+                    %td #{payment.id}
+                    %td #{payment.price}
+                    %td #{payment.status}
+                    %td #{payment.payment_method if @lesson.is_student?(@user)}
+                    %td #{payment.created_at.strftime('%d/%m/%Y')}
+                    %td #{payment.updated_at.strftime('%d/%m/%Y')}

@@ -1,18 +1,16 @@
 $(document).ready(function () {
-    footerScroll();
-    bodySidebarHeight();
+    var h1 = $('.main-content').innerHeight();
+    var h4 = $('.main-content div').innerHeight();
+    var h2 = $('#footer').offset().top - $(window).height();
+    footerScroll(h2);
+    bodySidebarHeight(h1, h4);
     $( window ).scroll(function() {
-        footerScroll();
+        var h1 = $('#footer').offset().top - $(window).height();
+        footerScroll(h1);
     });
 });
 
-function bodySidebarHeight(){
-    h1 = $('.main-content').innerHeight();
-    h3 = $(body).height();
-    h4 = $('.main-content div').innerHeight();
-    console.log('h1: '+h1);
-    console.log('h3: '+h3);
-    console.log('h4: '+h4);
+function bodySidebarHeight(h1, h4){
     if(h1>h4){
         $('.main-content').css({position: 'relative', height: '100%'});
     }
@@ -21,8 +19,8 @@ function bodySidebarHeight(){
     }
 }
 
-function footerScroll(){
-    h1 = $('#footer').offset().top - $(body).height();
+function footerScroll(h1){
+
     if($(window).scrollTop() > h1 )
     {
         // Footer visible
@@ -32,11 +30,11 @@ function footerScroll(){
         });
         $('#sidebar-profile').css({
             position: 'absolute',
-            top: h1,
+            top: h1 - 50,
             width:256
         });
     }
-    else  if($(window).scrollTop() <= 50)
+    else  if($(window).scrollTop() <= (50 + $('#flash-messages').height()))
     {
         //navbar visible
         $('nav.sidebar').css({
@@ -50,8 +48,9 @@ function footerScroll(){
             width: 256
         });
     }
-else
+    else
     {
+
         // footer et navbar invisibles
         $('nav.sidebar').css({
             position: 'fixed',
