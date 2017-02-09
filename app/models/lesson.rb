@@ -244,7 +244,7 @@ class Lesson < ActiveRecord::Base
     @user = user
     @other = self.other(@user)
     @notification_text = "#{@other.name} vous adresse une demande de cours."
-    @other.send_notification(@notification_text, '#', @user)
+    @other.send_notification(@notification_text, '#', @user, self)
     Rails.logger.debug(@notification_text)
     @lesson = self
     # send sms

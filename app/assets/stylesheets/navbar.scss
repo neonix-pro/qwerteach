@@ -69,17 +69,18 @@
       margin:0px;
     }
     #notifications-wrapper{
-      a:first-child .notification-item{
+      .content:first-child .notification-item{
         border-top: none;
       }
-      a:hover{
+      .content:hover{
         color:$color_link_grey;
         text-decoration:none;
         .item-date{
           color:$color_qwerteach_green;
         }
       }
-      a{
+      .content{
+        color:$color_link_grey;
         margin:0px;
         .notification-item{
           border-top: 1px solid $color_qwerteach_darkgrey;

@@ -99,6 +99,7 @@ class WalletsController < ApplicationController
         redirect_to load_wallet_path, alert: payin.errors.full_messages.join(' ') and return
       end
     end
+
   end
 
   def card_info

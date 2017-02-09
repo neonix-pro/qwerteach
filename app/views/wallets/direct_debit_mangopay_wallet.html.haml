@@ -108,6 +108,10 @@
       $('#submit-card-id').val($('#easy_pay').val());
       $('.choose-payment-method').css({opacity: 0.5});
       $('#load-wallet-recap .method').text('Easy payment');
+      var t = 'CB_VISA_MASTERCARD';
+      $('#card_type').val(t);
+      $('#submit-payment-method').val(t);
+      $('select[name="card_id"]').val($('#easy_pay').val());
     }
     else{
       $('#submit-card-id').val('');

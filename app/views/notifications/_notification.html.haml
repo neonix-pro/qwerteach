@@ -1,7 +1,10 @@
 - emetteur = User.find(notification.sender_id)
-%a.content{:href => "#{notification.body}"}
+.content
   .notification-item
     %h4.item-title
     .item-image= image_tag(emetteur.avatar.url(:small), class:'img img-circle')
     = notification.subject
+    -if notification.notified_object_type == 'Lesson'
+      .text-right
+        = link_to 'voir plus', lessons_path
     .item-date= notification_date notification.created_at
