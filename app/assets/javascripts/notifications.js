@@ -16,19 +16,25 @@ var NotificationsManager = function() {
 
     numberOfUnreadNotifications: function(){
       $.get('/notifications/unread/', function(answer){
-        $('#unread-notifications').html(answer);
+
         if(answer != 0)
         {
+          var oldValue = parseInt($('#unread-messages').text().replace('(', '').replace(')', ''));
           document.title = '('+answer+') Qwerteach' ;
+          if(oldValue < answer)
+          {
+            Notifications.sound.play();
+          }
         }
         else
         {
           document.title = Notifications.originalTitle;
         }
+        $('#unread-notifications').html(answer);
       });
     },
 
-    sound: new Audio('/assets/blop.mp3'),
+    sound: new Audio($('#notification_sound_path').text()),
 
     originalTitle: document.title
     }

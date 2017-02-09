@@ -1,4 +1,4 @@
-%p
-  Welcome #{@email}!
-%p You can confirm your account email through the link below:
-%p= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token)
+%h3
+  Bonjour, et bienvenus sur Qwerteach!
+%p Nous sommes ravis de vous accueillir dans la communauté. Afin de profiter pleinement de nos services, veuillez confirmer la validité de votre e-mail, en cliquant sur le lien suivant:
+%p= link_to 'Confirmer mon e-mail', confirmation_url(@resource, confirmation_token: @token)

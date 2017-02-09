@@ -1,0 +1,58 @@
+@import 'global_variables.scss';
+#jobs.container-fluid{
+  padding: 0px;
+  .jobs-titlebox{
+    padding: 50px 80px;
+  }
+  .jobs-image {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .section-yellow{
+    background-color: $color_qwerteach_yellow;
+    padding: 0px;
+    height: 400px;
+    overflow:hidden;
+  }
+  .section-green{
+    background-color: $color_qwerteach_green;
+    padding: 0px;
+    height: 400px;
+    overflow:hidden;
+  }
+  .section-purple {
+    background-color: $color_qwerteach_purple;
+    padding: 0px;
+    height: 250px;
+    overflow: hidden;
+  }
+  .motivation{
+    padding: 50px 30px;
+    font-size: 20px;
+    font-family: SofiaProExtraLight;
+  }
+  .section-white{
+    h3{
+      padding: 0px 30px;
+    }
+    p{
+      padding: 30px;
+      font-size: 16px;
+      font-family: SofiaProLight;
+    }
+  }
+  #general-faq{
+    h4{
+      font-size: 26px;
+      font-family: SofiaProExtraLight;
+    }
+    form{
+      .btn-yellow{
+        background-color: $color_qwerteach_yellow;
+      }
+    }
+  }
+
+}

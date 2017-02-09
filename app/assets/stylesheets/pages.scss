@@ -38,6 +38,12 @@ form.reinit-password{
 /*presse*/
 .press-article{
   padding: 0px!important;
+  color:transparent;
+  a{
+    color:transparent!important;
+    transition: color 0.5s;
+    -webkit-transition: color 0.5s;
+  }
   .press-article-flip-toggle{
     cursor:pointer;
   }
@@ -68,8 +74,15 @@ form.reinit-password{
   }
 }
 .press-article.hover{
+  color:inherit;
+  a{
+    color:$color_qwerteach_green!important;
+  }
   .back{
     background-color: rgba(255, 255, 255, 0.5);
+  }
+  img{
+    display:none;
   }
 }
 #regional-it{

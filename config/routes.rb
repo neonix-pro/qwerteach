@@ -153,6 +153,7 @@ Rails.application.routes.draw do
   match '/cours/pending'=>'lessons#pending', :as => 'cours_pending', via: :get
 
   resources :messages, only: [:new, :create, ]
+  get "messages/count" => "messages#count"
   post "/typing" => "messages#typing"
   post "/seen" => "messages#seen"
   get "/conversation/show_more/:id/:page" => "conversations#show_more", as: 'conversation_show_page'

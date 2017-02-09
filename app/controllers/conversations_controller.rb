@@ -79,15 +79,13 @@ class ConversationsController < ApplicationController
 
   def reply
     conversation = @conversation
-    logger.debug('----------------------------')
     receipt = current_user.reply_to_conversation(conversation, params[:body])
-    logger.debug('----------------------------')
     receiver = (@conversation.participants - [current_user]).first
     @path = reply_conversation_path(@conversation)
     @message = @conversation.messages.last
     # notifie le gars qu'il a une conversation ==> permet d'ouvrir le chat automatiquement
     # Une fois qu'il a ouvert le chat, il subscribe au channel de la conversation
-    PrivatePub.publish_to "/chat", :conversation_id => @conversation.id, :receiver_id => receiver
+    PrivatePub.publish_to "/chat/#{receiver.id}", :conversation_id => @conversation.id, :receiver_id => receiver
     @conversation_id = @conversation.id
     respond_to do |format|
       format.html {redirect_to conversation_path(@conversation), notice: 'Reply sent'}
@@ -133,8 +131,13 @@ class ConversationsController < ApplicationController
 
   def mark_as_read
     @conversation.mark_as_read(current_user)
-    flash[:success] = 'The conversation was marked as read.'
-    redirect_to conversations_path
+    respond_to do |format|
+      format.html{
+        flash[:success] = 'The conversation was marked as read.'
+        redirect_to conversations_path
+      }
+      format.js{}
+    end
   end
 
   private

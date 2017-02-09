@@ -38,6 +38,10 @@ class MessagesController < ApplicationController
   def seen
     @conversation =  Mailboxer::Conversation.find(params[:conversation_id])
     @path = reply_conversation_path(@conversation)
-end
+  end
+
+  def count
+    render :json => current_user.mailbox.inbox({:read => false}).count
+  end
 end
 

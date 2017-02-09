@@ -1,0 +1,75 @@
+#jobs.container-fluid
+  .section-yellow
+    .row
+      .col-sm-4.jobs-titlebox
+        %h2.text-pink Travailler chez Qwerteach
+        %hr
+        %p
+          Vous admirez la réussite d'Über, Air bnb et Blablacar? Alors ne ratez pas l'occasion de contribuer au démarrage d'une nouvelle start-up de l'économie du partage.
+      .col-sm-8.jobs-image
+        = image_tag('jobs3.jpg', class:'background-image')
+  .section-green
+    .row
+      .col-sm-8.jobs-image
+        = image_tag('jobs2.jpg', class:'background-image')
+      .col-sm-4.jobs-titlebox
+        %h2.text-purple Le monde a besoin de vous !
+        %hr
+        %p
+          Nous cherchons des jeunes, créatifs et motivés qui, comme nous, ont envie de changer les choses dans le monde.
+  .section-purple
+    .row
+      %p.motivation.text-white
+        Nous avons besoin de votre
+        %b créativité
+        et de votre
+        %b talent:
+        Vos idées seront réellement écoutées et nous serons à vos côtés pour leurs exécutions concrètes.
+        %br
+        %br
+        En échange, Qwerteach vous propose: Des horaires flexibles, une ambiance décontractée et tout notre soutien pour la réalisation de vos idées. D'un point de vue matériel, des snacks, le lunch à midi, et des parties de tekken 2 sur écran géant.
+  .section-white
+    %h2.page-title-green Emplois disponibles
+    .row
+      .col-xs-12
+        %p.motivation.lead
+          Nous n'avons aucun poste fixe à pourvoir pour l'instant... Cependant si vous souhaitez participer au dévelopement du projet Qwerteach, n'hésitez surtout pas à nous contacter !
+  .section-white
+    %h2.page-title-green Stages disponibles
+    .row
+      .col-xs-12
+        %h3 Web marketing
+        %p
+          Votre mission, si vous l'acceptez, sera de développer une communauté d'early adopters pour Qwerteach. Votre arme principale: le web marketing (SEA / SEO , Google analytics, Facebook ads...)
+        %h3 Développement web
+        %p
+          Qwerteach.com est encore en version bêta... Mais nous cherchons à développer une version 1.0 stable, robuste et fiable. En effet, jusqu'ici, fidèles au modèle lean startup, nous avons développé le produit en étroite collaboration avec une petite base de clients. Aujourd'hui, nous voulons que qwerteach.com puisse passer à la vitesse supérieure.
+  .section-faq
+    .row
+      .col-sm-6#questions-faq
+        %h4 Coordonnées
+        %address.text-pink
+          %strong Qwerteach asbl
+          %br
+          67 Av. Winston Churchill
+          %br
+          1180 Bruxelles
+          %br
+          %br
+          %i.fa.fa-phone
+          %abbr{title: "telephone"} +32 345 48 37
+          %br
+          %i.fa.fa-envelope
+          hello@qwerteach.com
+      .col-sm-6#general-faq
+        %h4.text-pink
+          Contactez-nous!
+        = form_for @contact,:url=>new_contact_path, :html => {:class => 'form', :id =>'job-contact-form' } do |f|
+          .form-group
+            = f.text_field :name, placeholder: "Votre nom", required: true, class: 'form-control'
+          .form-group
+            = f.email_field :email, placeholder: "E-mail", required: true, class: 'form-control'
+          .form-group
+            = f.text_area :message, placeholder: "Bonjour, je vousrdais travailler avec vous!", required: true, class: 'form-control', rows: 5
+          .actions
+            = f.submit 'Envoyer!' , :class=> "btn btn-yellow btn-sm btn-qw"

@@ -45,9 +45,13 @@
                     =image_tag("googleplus.png")
             .copyright
                 %p © 2013 Qwerteach • Conditions d'utilisation
+            #notification_sound_path.hidden= asset_path('blop.mp3')
 
 - if current_user
     :javascript
         PrivatePub.subscribe("/notifications/#{current_user.id}", function(data, channel) {
             Notifications.numberOfUnreadNotifications();
+        });
+        PrivatePub.subscribe("/chat/#{current_user.id}", function(data, channel) {
+            Messages.numberOfUnreadMessages();
         });

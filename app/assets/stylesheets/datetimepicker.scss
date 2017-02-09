@@ -1,0 +1,17 @@
+@import "global_variables";
+.bootstrap-datetimepicker-widget{
+  .datepicker{
+    .active{
+      background-color:$color_qwerteach_green!important;
+    }
+    .active:hover{
+      background-coor:$color_qwerteach_green;
+      color: #313131;
+    }
+  }
+  .picker-switch{
+    a:hover{
+      color:$color_qwerteach_green;
+    }
+  }
+}

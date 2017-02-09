@@ -4,7 +4,8 @@
     $.ajax({
       url: "/seen",
       data: {conversation_id: "#{@conversation.id}"},
-      method: 'post'
+      method: 'post',
+      success:  Messages.numberOfUnreadMessages()
     });
   });
 :javascript

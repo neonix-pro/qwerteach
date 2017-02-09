@@ -1,5 +1,5 @@
 %p
-  Hello #{@resource.email}!
-%p Your account has been locked due to an excessive number of unsuccessful sign in attempts.
-%p Click the link below to unlock your account:
-%p= link_to 'Unlock my account', unlock_url(@resource, unlock_token: @token)
+  Bonjour #{@resource.firstname}!
+%p Votre compte Qwerteach a été bloqué suite à un trop grand nombre de tentatives de connexion infructueuses.
+%p Cliquez ci-dessous pour débloquer votre compte:
+%p= link_to 'Débloquer mon compte', unlock_url(@resource, unlock_token: @token)

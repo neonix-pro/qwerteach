@@ -44,6 +44,8 @@
         = f.text_field :time_start, class: 'form-control', :required => true
         %span.input-group-addon
           %span.glyphicon.glyphicon-calendar
+      %small
+        Toutes les heures sont affichées dans votre timezone ("#{t @user.time_zone}")
     .actions
       %button.btn.btn-qw.btn-green.change-booking-step{type: 'submit', data:{toggle:'#step3'}} Valider
 %h3#step3-title

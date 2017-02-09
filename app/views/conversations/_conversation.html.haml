@@ -15,3 +15,15 @@
       = render 'conversations/conversation_participant', user: p unless p == current_user
 
 = subscribe_to reply_conversation_path(conversation)
+:javascript
+  $('#chatbox_#{conversation.id} .chatboxtextarea').click(function () {
+    $.ajax({
+      dataType: 'text/html',
+      url: "#{mark_as_read_conversation_path(conversation.id)}",
+      data: {conversation_id: "#{conversation.id}"},
+      method: 'post'
+    })
+    .always(function(){
+      Messages.numberOfUnreadMessages();
+    });
+  });
