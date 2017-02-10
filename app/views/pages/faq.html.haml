@@ -4,12 +4,12 @@
       %h1 Questions fréquemment posées
       %ul#user-type-toggle
         %li
-          %a.active{data: {target: '#students'}} Élèves
+          %a{class: ('active' if @target == 'students'), data: {target: '#students'}} Élèves
         %li
-          %a{data: {target: '#teachers'}} Professeurs
+          %a{class: ('active' if @target == 'teachers'), data: {target: '#teachers'}} Professeurs
         %li
-          %a{data: {target: '#parents'}} Parents
-    .user-type.active#students
+          %a{class: ('active' if @target == 'parents'), data: {target: '#parents'}} Parents
+    .user-type#students{class: ('active' if @target == 'students'),  hidden: (true unless @target == 'students')}
       .unav
         %ul
           %li
@@ -27,197 +27,277 @@
           %a{:href => "#student-generalites-one", :data => {:toggle => "collapse", :parent => "#student-generalites"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.generalites.question.one')
+                %h4.panel-title= t('faq.student.generalites.question.one')
           .panel-collapse.collapse{:id=>"student-generalites-one"}
             %div
-              %p= t('faq.generalites.answer.one')
+              %p= t('faq.studentgeneralites.answer.one')
         .panel.panel-default
           %a{:href => "#student-generalites-two", :data => {:toggle => "collapse", :parent => "#student-generalites"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.generalites.question.two')
+                %h4.panel-title= t('faq.student.generalites.question.two')
           .panel-collapse.collapse{:id=>"student-generalites-two"}
             %div
-              %p= t('faq.generalites.answer.two')
+              %p= t('faq.student.generalites.answer.two')
         .panel.panel-default
           %a{:href => "#student-generalites-three", :data => {:toggle => "collapse", :parent => "#student-generalites"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.generalites.question.three')
+                %h4.panel-title= t('faq.student.generalites.question.three')
           .panel-collapse.collapse{:id=>"student-generalites-three"}
             %div
-              %p= t('faq.generalites.answer.three')
+              %p= t('faq.student.generalites.answer.three')
       .panel-group{:id => "student-takelessons", hidden: true}
         .panel.panel-default
           %a{:href => "#student-takelessons-one", :data => {:toggle => "collapse", :parent => "#student-takelessons"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.takelessons.question.one')
+                %h4.panel-title= t('faq.student.takelessons.question.one')
           .panel-collapse.collapse{:id=>"student-takelessons-one"}
             %div
-              %p= t('faq.takelessons.answer.one')
+              %p= t('faq.student.takelessons.answer.one')
         .panel.panel-default
           %a{:href => "#student-takelessons-two", :data => {:toggle => "collapse", :parent => "#student-takelessons"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.takelessons.question.two')
+                %h4.panel-title= t('faq.student.takelessons.question.two')
           .panel-collapse.collapse{:id=>"student-takelessons-two"}
             %div
-              %p= t('faq.takelessons.answer.two')
+              %p= t('faq.student.takelessons.answer.two')
         .panel.panel-default
           %a{:href => "#student-takelessons-three", :data => {:toggle => "collapse", :parent => "#student-takelessons"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.takelessons.question.three')
+                %h4.panel-title= t('faq.student.takelessons.question.three')
           .panel-collapse.collapse{:id=>"student-takelessons-three"}
             %div
-              %p= t('faq.takelessons.answer.three')
+              %p= t('faq.student.takelessons.answer.three')
       .panel-group{:id => "student-videoconference", hidden: true}
         .panel.panel-default
           %a{:href => "#student-videoconference-one", :data => {:toggle => "collapse", :parent => "#student-videoconference"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.videoconference.question.one')
+                %h4.panel-title= t('faq.student.videoconference.question.one')
           .panel-collapse.collapse{:id=>"student-videoconference-one"}
             %div
-              %p= t('faq.videoconference.answer.one')
+              %p= t('faq.student.videoconference.answer.one')
         .panel.panel-default
           %a{:href => "#student-videoconference-two", :data => {:toggle => "collapse", :parent => "#student-videoconference"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.videoconference.question.two')
+                %h4.panel-title= t('faq.student.videoconference.question.two')
           .panel-collapse.collapse{:id=>"student-videoconference-two"}
             %div
-              %p= t('faq.videoconference.answer.two')
+              %p= t('faq.student.videoconference.answer.two')
       .panel-group{id: "student-payments", hidden: true}
         .panel.panel-default
           %a{href: "#student-payments-one", :data => {:toggle => "collapse", :parent => "#student-payments"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.payments.question.one')
+                %h4.panel-title= t('faq.student.payments.question.one')
           .panel-collapse.collapse{:id=>"student-payments-one"}
             %div
-              %p= t('faq.payments.answer.one')
+              %p= t('faq.student.payments.answer.one')
         .panel.panel-default
           %a{href: "#student-payments-two", :data => {:toggle => "collapse", :parent => "#student-payments"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.payments.question.two')
+                %h4.panel-title= t('faq.student.payments.question.two')
           .panel-collapse.collapse{:id=>"student-payments-two"}
             %div
-              %p= t('faq.payments.answer.two')
+              %p= t('faq.student.payments.answer.two')
         .panel.panel-default
           %a{href: "#student-payments-three", :data => {:toggle => "collapse", :parent => "#student-payments"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.payments.question.three')
+                %h4.panel-title= t('faq.student.payments.question.three')
           .panel-collapse.collapse{:id=>"student-payments-three"}
             %div
-              %p= t('faq.payments.answer.three')
+              %p= t('faq.student.payments.answer.three')
         .panel.panel-default
           %a{href: "#student-payments-four", :data => {:toggle => "collapse", :parent => "#student-payments"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.payments.question.four')
+                %h4.panel-title= t('faq.student.payments.question.four')
           .panel-collapse.collapse{:id=>"student-payments-four"}
             %div
-              %p= t('faq.payments.answer.four')
+              %p= t('faq.student.payments.answer.four')
       .panel-group{id: "student-technical", hidden: true}
         .panel.panel-default
           %a{href: "#student-technical-one", :data => {:toggle => "collapse", :parent => "#student-technical"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.technical.question.one')
+                %h4.panel-title= t('faq.student.technical.question.one')
           .panel-collapse.collapse{:id=>"student-technical-one"}
             %div
-              %p= t('faq.technical.answer.one')
+              %p= t('faq.student.technical.answer.one')
         .panel.panel-default
           %a{href: "#student-technical-two", :data => {:toggle => "collapse", :parent => "#student-technical"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.technical.question.two')
+                %h4.panel-title= t('faq.student.technical.question.two')
           .panel-collapse.collapse{:id=>"student-technical-two"}
             %div
-              %p= t('faq.technical.answer.two')
+              %p= t('faq.student.technical.answer.two')
         .panel.panel-default
           %a{href: "#student-technical-three", :data => {:toggle => "collapse", :parent => "#student-technical"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.technical.question.three')
+                %h4.panel-title= t('faq.student.technical.question.three')
           .panel-collapse.collapse{:id=>"student-technical-three"}
             %div
-              %p= t('faq.technical.answer.three')
+              %p= t('faq.student.technical.answer.three')
         .panel.panel-default
           %a{href: "#student-technical-four", :data => {:toggle => "collapse", :parent => "#student-technical"}}
             .panel-heading
               %div
-                %h4.panel-title= t('faq.technical.question.four')
+                %h4.panel-title= t('faq.student.technical.question.four')
           .panel-collapse.collapse{:id=>"student-technical-four"}
             %div
-              %p= t('faq.technical.answer.four')
+              %p= t('faq.student.technical.answer.four')
 
-    #teachers.user-type{hidden: true}
+    #teachers.user-type{class: ('active' if @target == 'teachers'), hidden: (true unless @target == 'teachers')}
       .unav
         %ul
           %li
-            %a.active Généralités
+            %a.active{data: {toggle: '#teacher-generalites'}} Généralités
           %li
-            %a Donner des cours
+            %a{data: {toggle: '#teacher-givelesson'}} Donner des cours
           %li
-            %a Vidéo-conférence
+            %a{data: {toggle: '#teacher-videoconference'}} Vidéo-conférence
           %li
-            %a Paiements
+            %a{data: {toggle: '#teacher-payments'}} Paiements
           %li
-            %a Problèmes techniques
-      .panel-group{:id => "accordion"}
+            %a{data: {toggle: '#teacher-technical'}} Problèmes techniques
+      .panel-group{:id => "teacher-generalites"}
         .panel.panel-default
-          %a{:href => "#collapseOne", :data => {:toggle => "collapse", :parent => "#accordion"}}
+          %a{:href => "#teacher-generalites-one", :data => {:toggle => "collapse", :parent => "#teacher-generalites"}}
             .panel-heading
               %div
-                %h4.panel-title This is my first question
-          .panel-collapse.collapse{:id=>"collapseOne"}
+                %h4.panel-title= t('faq.teacher.gereralites.questions.one')
+          .panel-collapse.collapse{:id=>"teacher-generalites-one"}
             %div
-              %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+              %p= t('faq.teacher.gereralites.answers.one')
         .panel.panel-default
-          %a{:href => "#collapseTwo", :data => {:toggle => "collapse", :parent => "#accordion"}}
+          %a{:href => "#teacher-generalites-two", :data => {:toggle => "collapse", :parent => "#teacher-generalites"}}
             .panel-heading
               %div
-                %h4.panel-title What is the sense of life, 42 ?
-          .panel-collapse.collapse{:id=>"collapseTwo"}
+                %h4.panel-title= t('faq.teacher.gereralites.questions.two')
+          .panel-collapse.collapse{:id=>"teacher-generalites-two"}
             %div
-              %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+              %p= t('faq.teacher.gereralites.answers.two')
+      .panel-group{:id => "teacher-givelesson", hidden: true}
         .panel.panel-default
-          %a{:href => "#collapseThree", :data => {:toggle => "collapse", :parent => "#accordion"}}
+          %a{:href => "#teacher-givelesson-one", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
             .panel-heading
               %div
-                %h4.panel-title When do we eat ?
-          .panel-collapse.collapse.in{:id=>"collapseThree"}
+                %h4.panel-title= t('faq.teacher.givelesson.questions.one')
+          .panel-collapse.collapse{:id=>"teacher-givelesson-one"}
             %div
-              %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+              %p= t('faq.teacher.givelesson.answers.one')
         .panel.panel-default
-          %a{:href => "#collapseFour", :data => {:toggle => "collapse", :parent => "#accordion"}}
+          %a{:href => "#teacher-givelesson-two", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
             .panel-heading
               %div
-                %h4.panel-title Can I be a bee ?
-          .panel-collapse.collapse{:id=>"collapseFour"}
+                %h4.panel-title= t('faq.teacher.givelesson.questions.two')
+          .panel-collapse.collapse{:id=>"teacher-givelesson-two"}
             %div
-              %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+              %p= t('faq.teacher.givelesson.answers.two')
         .panel.panel-default
-          %a{:href => "#collapseFive", :data => {:toggle => "collapse", :parent => "#accordion"}}
+          %a{:href => "#teacher-givelesson-three", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
             .panel-heading
               %div
-                %h4.panel-title I don't know what to ask...
-          .panel-collapse.collapse{:id=>"collapseFive"}
+                %h4.panel-title= t('faq.teacher.givelesson.questions.three')
+          .panel-collapse.collapse{:id=>"teacher-givelesson-three"}
             %div
-              %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+              %p
+                = t('faq.teacher.givelesson.answers.three.part1')
+                %br= t('faq.teacher.givelesson.answers.three.part2')
+                %br= t('faq.teacher.givelesson.answers.three.part3')
+                %br= t('faq.teacher.givelesson.answers.three.part4')
         .panel.panel-default
-          %a{:href => "#collapseSix", :data => {:toggle => "collapse", :parent => "#accordion"}}
+          %a{:href => "#teacher-givelesson-four", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
             .panel-heading
               %div
-                %h4.panel-title Where can I find the FAQ?
-          .panel-collapse.collapse{:id=>"collapseSix"}
+                %h4.panel-title= t('faq.teacher.givelesson.questions.four')
+          .panel-collapse.collapse{:id=>"teacher-givelesson-four"}
             %div
-              %p Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+              %p= t('faq.teacher.givelesson.answers.four')
+        .panel.panel-default
+          %a{:href => "#teacher-givelesson-five", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.teacher.givelesson.questions.five')
+          .panel-collapse.collapse{:id=>"teacher-givelesson-five"}
+            %div
+              %p= t('faq.teacher.givelesson.answers.five')
+
+
+      .panel-group{:id => "teacher-videoconference", hidden: true}
+        .panel.panel-default
+          %a{:href => "#teacher-videoconference-one", :data => {:toggle => "collapse", :parent => "#teacher-videoconference"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.teacher.videoconference.questions.one')
+          .panel-collapse.collapse{:id=>"teacher-videoconference-one"}
+            %div
+              %p= t('faq.teacher.videoconference.answers.one.part1')
+              = image_tag('faq/videoconference/interfaceClasse.png')
+              %p= t('faq.teacher.videoconference.answers.one.part2')
+        .panel.panel-default
+          %a{:href => "#teacher-videoconference-two", :data => {:toggle => "collapse", :parent => "#teacher-videoconference"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.teacher.videoconference.questions.two')
+          .panel-collapse.collapse{:id=>"teacher-videoconference-two"}
+            %div
+              %p= t('faq.teacher.videoconference.answers.two')
+
+
+      .panel-group{:id => "teacher-payments", hidden: true}
+        .panel.panel-default
+          %a{:href => "#teacher-payments-one", :data => {:toggle => "collapse", :parent => "#teacher-payments"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.teacher.payments.questions.one')
+          .panel-collapse.collapse{:id=>"teacher-payments-one"}
+            %div
+              %p= t('faq.teacher.payments.answers.one')
+        .panel.panel-default
+          %a{:href => "#teacher-payments-two", :data => {:toggle => "collapse", :parent => "#teacher-payments"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.teacher.payments.questions.two')
+          .panel-collapse.collapse{:id=>"teacher-payments-two"}
+            %div
+              %p= t('faq.teacher.payments.answers.two')
+
+      .panel-group{:id => "teacher-technical", hidden: true}
+        .panel.panel-default
+          %a{:href => "#teacher-technical-one", :data => {:toggle => "collapse", :parent => "#teacher-technical"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.teacher.technical.questions.one')
+          .panel-collapse.collapse{:id=>"teacher-technical-one"}
+            %div
+              %p= t('faq.teacher.technical.answers.one')
+        .panel.panel-default
+          %a{:href => "#teacher-technical-two", :data => {:toggle => "collapse", :parent => "#teacher-technical"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.teacher.technical.questions.two')
+          .panel-collapse.collapse{:id=>"teacher-technical-two"}
+            %div
+              %p= t('faq.teacher.technical.answers.two')
+        .panel.panel-default
+          %a{:href => "#teacher-technical-three", :data => {:toggle => "collapse", :parent => "#teacher-technical"}}
+            .panel-heading
+              %div
+                %h4.panel-title= t('faq.teacher.technical.questions.three')
+          .panel-collapse.collapse{:id=>"teacher-technical-three"}
+            %div
+              %p= t('faq.teacher.technical.answers.three')
+
 
 
   :javascript

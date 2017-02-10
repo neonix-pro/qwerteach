@@ -129,59 +129,149 @@ fr:
         phonenumber: 'Numéro de téléphone'
         email: 'E-mail'
   faq:
-    generalites:
-      answer:
-        one: "Sur Qwerteach, vous pouvez consulter les petites annonces selon différents critères de recherche : par matière, par niveau, par ordre de prix croissant, etc. En cliquant sur une petite annonce, vous accédez au profil complet du professeur, joignable facilement grâce à notre système de messagerie interne. Proposez-lui directement un jour et une heure de rendez-vous. Après votre cours en ligne, n’hésitez pas à laisser, sur la page de profil de votre professeur, un commentaire sur ce que vous en avez pensé. Par ailleurs, tous les cours sont enregistrés. En cas de doute, vous pourrez toujours retrouver en ligne les explications de votre professeur."
-        two: "Sans vous inscrire, vous avez accès aux petites annonces ainsi qu'au profil complet des professeurs. Cependant, pour contacter ces derniers, recevoir vos cours en ligne et accéder aux liens des enregistrements, vous devez posséder un compte actif sur notre site."
-        three: "Sur Qwerteach, les professeurs sont des particuliers désireux de consacrer une partie de leur temps au soutien scolaire et à l’aide aux devoirs. Parce que nous souhaitons que l’expérience Qwerteach soit la plus positive possible, nous nous assurons continuellement de la qualité des nouveaux professeurs. Au moment de l’inscription d’un professeur sur Qwerteach, notre équipe vérifie son profil, teste ses connaissances et compétences pédagogiques à l’occasion d’une simulation de cours en ligne."
-      question:
-        one: "Que puis-je faire sur Qwerteach ?"
-        two: "Dois-je me connecter sur Qwerteach pour rechercher et contacter mon professeur, ainsi que recevoir mes cours et accéder à mes enregistrements ?"
-        three: "Qui sont les professeurs ?"
-    takelessons:
-      question:
-        one: "Comment prendre un cours sur Qwerteach ?"
-        two: "Combien coûte un cours ?"
-        three: "Quand et comment dois-je payer?"
-      answer:
-        one: "Insérer ici une description étape par étape."
-        two: "Chaque professeur inscrit sur Qwerteach fixe lui-même ses propres honoraires. Cependant, nous conseillons fortement à chaque professeur de pratiquer les prix du marché, qui varient selon qu’il s’adresse à des élèves du primaire, du secondaire ou du supérieur."
-        three: "Il vous revient de fixer avec votre professeur la fréquence des versements. Par exemple, avant ou après chaque cours, au début ou à la fin de la semaine ou du mois. Comme pour des cours particuliers classiques!              Pour chaque versement à effectuer, vous recevrez de la part de votre professeur une facture récapitulant le type, la durée ainsi que le coût du ou des cours commandés auprès de lui. Vous retrouverez l'ensemble de vos factures sur la page « Mes factures ». Chaque facture reçue est accompagnée d'un bouton « Payer ». En cliquant sur ce bouton, vous accéderez à notre système de paiement sécurisé.Comme pour des cours particuliers classiques! "
-    videoconference:
-      question:
-        one: "Comment fonctionne un cours en ligne ?"
-        two: "Le professeur est-il en ligne en même temps que moi ?"
-      answer:
-        one: "Connectez-vous à Qwerteach au jour et à l'heure prévue pour votre cours. De là, notre système vous invitera automatiquement à rejoindre la classe virtuelle. En cliquant sur ce bouton, une nouvelle page s'ouvrira dans votre navigateur. Il s’agit d’un espace de visio-conférence avec tchat, micro et webcam intégrés. Au centre, vous trouverez un tableau virtuel où dessiner, tracer et écrire. Il vous sera également possible d’afficher des documents et photos ainsi que de les modifier. Tout ce que vous écrirez et afficherez, sera directement visible par votre professeur."
-        two: "Oui! Sur Qwerteach, vous serez en communication directe avec votre professeur. Vous pouvez vous voir, parler, et échanger des documents. Vous pourrez aussi annoter ces derniers, ou écrire sur le tableau blanc partagé."
-    payments:
-      question:
-        one: "Puis-je payer dans une autre devise que l'Euro?"
-        two: "Quels modes de paiement puis-je utiliser sur Qwerteach?"
-        three: "Quelle garrantie offre Qwerteach sur les transactions ?"
-        four: "Que se passe-t-il si je ne suis pas satisfait d'un professeur ?"
-      answer:
-        one: "Non. Pour le moment Qwerteach est configuré de manière à n'accepter que les Euros."
-        two: "Notre système de paiement sécurisé vous permet d'effectuer vos transactions de deux manières différentes : par carte de crédit (Visa, Mastercard, Carte Bleue) ou via votre portefeuille virtuel.
-            \n
-             Ce portefeuille virtuel vous permet de vous constituer à l'avance une réserve de crédits, que vous débitez au fur et à mesure de vos activités sur Qwerteach. Ce mécanisme présente l'avantage de permettre à des élèves mineurs de payer directement leur(s) professeur(s) sans recourir à la carte de crédit de leurs parents.
-             \n
-             Vous pouvez à tout moment charger ou vider votre portefeuille virtuel, c'est-à-dire transférer son solde sur votre compte bancaire. Au moment de vider votre portefeuille, nous prélevons une commission de 15 %."
-        three: "Lorsque vous effectuez une réservation pour un cours sur Qwerteach, l'argent correspondant à ce cours est débité du moyen de payement que vous avez choisi. Ce montant est détenu par Qwerteach, qui joue le rôle de garrant. Si le cours n'est pas accepté par le professeur, vous serez intégralement remboursé. Idem si celui-ci est annulé.\n
-              Si le professeur accepte le cours, l'argent reste détenu par Qwerteach jusqu'à la fin programmée du cours. A ce moment, nous vous demanderons de confirmer que tout s'est bien passé. Une fois cette confirmation reçue, nous débloquons le spayement et créditons le professeur. En l'abence de réponse de votre part, l'argent est automatiquement versé sur le compte du professeur 72h après la fin prévue du cours.\n\n
-              En ce qui concerne les payements qui ot lieu en dehors des réservations, Qwerteach ne peut pas offrire de ganrantie ni effectuer de remboursements."
-        four: "Après la fin prévue du cours, vous aurez 72h pour nous le signaler. Si vous nous signalez un problème, le payement du cours est automatiquement bloqué.\n\n
-              Un administrateur prendra contact avec vous et avec le professeur afin d'éclaircir la situation. Si besoin, il accèdera aussi à l'enregistrement du cours concerné. Sur base de ces informatiosn, il prendra la décision appropriée: vous rembourser, créditer le professeur, ou répartir le montant entre vous."
-    technical:
-      question:
-        one: Quel est le matériel requis ?
-        two: Quel logiciel dois-je installer?
-        three: Puis-je travailler avec une tablette?
-        four: Que puis-je faire en cas de problème?
-      answer:
-        one: "Afin que vos cours se déroulent dans les meilleures conditions possibles, il est nécessaire de posséder un micro et une webcam. Par ailleurs, de sorte à assurer une connexion internet stable, nous vous conseillons de brancher votre ordinateur via un câble réseau et non en wi-fi."
-        two: "Aucun,\n
-              Tout a été conçu pour que vous puissiez travailler uniquement via votre navigateur internet : Internet Explorer, Chrome ou Firefox. Cependant, notre espace de visio-conférence nécessite l’installation de Flash sur votre ordinateur. Dès lors, nous vous invitons à vérifier, avant le début de votre premier cours, que vous possédiez bien la dernière version d’Adobe Flash."
-        three: "Oui, excepté sur les tablettes de marque Apple.
-                Etant donné que notre espace de visio-conférence nécessite l’utilisation de Flash, vous pourrez travailler sur n’importe quel support multimédia de type ordinateur ou tablette, excepté sur les tablettes de marque Apple. "
-        four: "Signalez-nous immédiatement tout comportement inapproprié de la part de votre professeur! Pour ce faire, rendez-vous sur la page de profil du professeur et cliquez sur «! Signaler cet utilisateur» (juste en dessous de la photo). Un espace de texte apparaîtra alors où vous pourrez décrire l'objet de votre plainte. Une fois envoyée, cette dernière sera pris en charge par un membre de notre équipe. En signalant un utilisateur, vous autorisez notre équipe à accéder aux enregistrements de vos cours, de sorte que nous puissions établir objectivement la preuve du délit. En cas de délit affirmé, nous mettrons tout en œuvre pour rétablir le tort. Selon la nature et l’intensité de la faute, nous déterminerons les mesures à prendre et le cas échéant, ordonnerons la clôture du compte du professeur incriminé. "
+    teacher:
+      gereralites:
+        questions:
+          one: "Ques puise-je faire sur Qwerteach"
+          two: "Qui peut donner des cours sur Qwerteach?"
+        answers:
+          one: "En tant que professeur, vous pouvez publier votre petite annonce sur Qwerteach, en y indiquant les matières que vous donnez, pour quel public cible et à quel prix. Une fois celle-ci visible, vous recevrez directement, via notre système de messagerie interne, des demandes de cours. A vous de convenir d’un jour et d’une heure de rendez-vous avec vos futurs élèves. Après chacun de vos cours en ligne, vos élèves pourront laisser leurs appréciations sur la page de votre profil. Par ailleurs, chaque leçon est enregistrée. Selon votre convenance, vous pourrez sauvegarder ou supprimer vos vidéos, les rendre publiques ou non. "
+          two: "Tout particulier, qui souhaite consacrer une partie de son temps au soutien scolaire et à l’aide aux devoirs, est libre de s’inscrire sur Qwerteach et d’y publier une petite annonce. L’inscription est gratuite et ne nécessite aucun engagement : chaque professeur garde la possibilité de supprimer son compte."
+      givelesson:
+        questions:
+          one: "Une fois enregistrée, mon annonce sera-t-elle directement visible? "
+          two: "Quels tarifs dois-je afficher? "
+          three: "Quand et comment suis-je payé? "
+          four: "Que puis-je faire en cas de problème"
+          five: "Pourquoi dois-je fournir mon numéro de téléphone?"
+        answers:
+          one: "Non, après vérification du contenu de votre profil, notre équipe prendra directement contact avec vous et vous invitera à simuler un cours dans le but d’évaluer vos compétences pédagogiques. A cette occasion également, nous veillerons à ce que vous acquerriez, au terme de notre entrevue, une maîtrise suffisante de notre outil. Par cette démarche nous nous assurons de la qualité des prestations de service fournies sur notre site."
+          two: "Vous êtes libre d’afficher vos propres tarifs. Cependant, afin de vous aider, nous vous indiquons quelques prix de référence : 15 €/h pour les élèves du primaire, 20 €/h pour les élèves du secondaire, 25 €/h pour les étudiants du supérieur. Ces barèmes ne sont que des indicateurs et varient selon votre expérience de professeur particulier."
+          three:
+            part1: "Afin de vous laisser un maximum de flexibilité, vous êtes seul maître en la matière."
+            part2: "A vous de convenir, avec votre élève, du moment du payement, ainsi que de la fréquence (dans le cadre de cours réguliers). Certains professeurs souhaitent être payés avant le cours, d'autres après... Comme pour des cours particuliers classiques!"
+            part3: "Lorsque vous désirez être payé, conformément à ce que vous aurez convenu avec votre élève, transmettez-lui, via la page « Mes factures », une facture récapitulant le type, la durée et le coût du ou des cours commandés."
+            part4: "Les montants des transactions seront immédiatement versés dans votre portefeuille virtuel. Pour transférer vos honoraires vers votre compte bancaire, il vous suffira de cliquer sur le bouton « Vider mon portefeuille ». Pour chaque transfert, du portefeuille virtuel vers un compte en banque, nous prélevons une commission de 15 %. "
+          four: "Signalez-nous immédiatement tout comportement inapproprié de la part des autres utilisateurs! Pour ce faire, rendez-vous sur la page de profil de l'élève et cliquez sur «! Signaler cet utilisateur» (juste en dessous de la photo). Un espace de texte apparaîtra alors où vous pourrez décrire l'objet de votre plainte. Une fois envoyée, cette dernière sera pris en charge par un membre de notre équipe. En signalant un utilisateur, vous autorisez notre équipe à accéder aux enregistrements de vos cours, de sorte que nous puissions établir objectivement la preuve du délit. En cas de délit affirmé, nous mettrons tout en œuvre pour rétablir le tort. Selon la nature et l’intensité de la faute, nous déterminerons les mesures à prendre et le cas échéant, ordonnerons la clôture du compte de l'élève concerné. "
+          five: "Tout d'abord, il est important de préciser que le numéro est confidentiel et ne sera pas divulgué aux autres utilisateurs. Si nous vous demandons de renseigner un numéro de téléphone c'est avant tout pour vous prévenir de vos cours."
+      videoconference:
+        questions:
+          one: "Comment fonctionne un cours en ligne? "
+          two: "Que se passe-t-il si mon élève ne se connecte pas comme prévu?"
+        answers:
+          one:
+            part1: "Après avoir convenu avec votre élève d’un jour et d’une heure de cours, vous lui transmettrez, via notre système de messagerie interne, une invitation à venir rejoindre votre classe. Une nouvelle page dans votre navigateur s’ouvrira alors "
+            part2: "Il s’agit d’un espace de visio-conférence avec tchat, micro et webcam intégrés. Au centre, vous trouverez un tableau virtuel où dessiner, tracer et écrire. Il vous sera également possible d’afficher des documents et photos ainsi que de les modifier. Tout ce que vous écrirez et afficherez, sera directement visible par votre élève."
+          two: "Le professeur particulier court toujours le risque de voir son élève lui faire faux bond lors d’un rendez-vous. Il incombe au professeur d’adopter ses propres démarches d’avertissement et de sanction (financière ou non) à l’égard de son élève."
+      payments:
+        questions:
+          one: "Puis-je être payé dans une autre devise que l'Euro? "
+          two: "Dois-je déclarer mes revenus? "
+        answers:
+          one: "Non. Pour le moment Qwerteach est configuré de manière à n'accepter que les Euros."
+          two: "Selon la législation belge, toute personne physique qui exerce une activité contre rémunération doit déclarer ses revenus dans sa déclaration d’impôt annuelle. Si vous donnez des cours particuliers de façon occasionnelle, à côté d’une activité principale, vous devrez indiquer les revenus qui en découleront dans la catégorie « revenus divers ». A l’inverse, si vous donnez des cours particuliers dans le cadre d’une activité professionnelle, en tant qu’indépendant à titre principal ou complémentaire, vous devrez déclarer vos revenus dans la catégorie « revenus professionnels »."
+      technical:
+        questions:
+          one: "Quel est le matériel requis? "
+          two: "Quel logiciel dois-je installer? "
+          three: "Puis-je travailler avec une tablette?"
+        answers:
+          one: "Afin que vos cours se déroulent dans les meilleures conditions possibles, il est nécessaire de posséder un micro et une webcam. Par ailleurs, de sorte à assurer une connexion internet stable, nous vous conseillons de brancher votre ordinateur à un câble réseau."
+          two: "Aucun,
+                Tout a été conçu pour que vous puissiez travailler uniquement via votre navigateur internet : Internet Explorer, Chrome ou Firefox. Cependant, notre espace de visio-conférence nécessite l’installation de Flash sur votre ordinateur. Dès lors, nous vous invitons à vérifier, avant le début de votre premier cours, que vous possédiez bien la dernière version d’Adobe Flash."
+          three: "Oui, excepté sur les tablettes de marque Apple.
+                  Etant donné que notre espace de visio-conférence nécessite l’utilisation de Flash, vous pourrez travailler sur n’importe quel support multimédia de type ordinateur ou tablette, excepté sur les tablettes de marque Apple."
+    student:
+      generalites:
+        answers:
+          one: "Sur Qwerteach, vous pouvez consulter les petites annonces selon différents critères de recherche : par matière, par niveau, par ordre de prix croissant, etc. En cliquant sur une petite annonce, vous accédez au profil complet du professeur, joignable facilement grâce à notre système de messagerie interne. Proposez-lui directement un jour et une heure de rendez-vous. Après votre cours en ligne, n’hésitez pas à laisser, sur la page de profil de votre professeur, un commentaire sur ce que vous en avez pensé. Par ailleurs, tous les cours sont enregistrés. En cas de doute, vous pourrez toujours retrouver en ligne les explications de votre professeur."
+          two: "Sans vous inscrire, vous avez accès aux petites annonces ainsi qu'au profil complet des professeurs. Cependant, pour contacter ces derniers, recevoir vos cours en ligne et accéder aux liens des enregistrements, vous devez posséder un compte actif sur notre site."
+          three: "Sur Qwerteach, les professeurs sont des particuliers désireux de consacrer une partie de leur temps au soutien scolaire et à l’aide aux devoirs. Parce que nous souhaitons que l’expérience Qwerteach soit la plus positive possible, nous nous assurons continuellement de la qualité des nouveaux professeurs. Au moment de l’inscription d’un professeur sur Qwerteach, notre équipe vérifie son profil, teste ses connaissances et compétences pédagogiques à l’occasion d’une simulation de cours en ligne."
+        questions:
+          one: "Que puis-je faire sur Qwerteach ?"
+          two: "Dois-je me connecter sur Qwerteach pour rechercher et contacter mon professeur, ainsi que recevoir mes cours et accéder à mes enregistrements ?"
+          three: "Qui sont les professeurs ?"
+      takelessons:
+        question:
+          one: "Comment prendre un cours sur Qwerteach ?"
+          two: "Combien coûte un cours ?"
+          three: "Quand et comment dois-je payer?"
+        answer:
+          one: "Insérer ici une description étape par étape."
+          two: "Chaque professeur inscrit sur Qwerteach fixe lui-même ses propres honoraires. Cependant, nous conseillons fortement à chaque professeur de pratiquer les prix du marché, qui varient selon qu’il s’adresse à des élèves du primaire, du secondaire ou du supérieur."
+          three: "Il vous revient de fixer avec votre professeur la fréquence des versements. Par exemple, avant ou après chaque cours, au début ou à la fin de la semaine ou du mois. Comme pour des cours particuliers classiques!              Pour chaque versement à effectuer, vous recevrez de la part de votre professeur une facture récapitulant le type, la durée ainsi que le coût du ou des cours commandés auprès de lui. Vous retrouverez l'ensemble de vos factures sur la page « Mes factures ». Chaque facture reçue est accompagnée d'un bouton « Payer ». En cliquant sur ce bouton, vous accéderez à notre système de paiement sécurisé.Comme pour des cours particuliers classiques! "
+      videoconference:
+        question:
+          one: "Comment fonctionne un cours en ligne ?"
+          two: "Le professeur est-il en ligne en même temps que moi ?"
+        answer:
+          one: "Connectez-vous à Qwerteach au jour et à l'heure prévue pour votre cours. De là, notre système vous invitera automatiquement à rejoindre la classe virtuelle. En cliquant sur ce bouton, une nouvelle page s'ouvrira dans votre navigateur. Il s’agit d’un espace de visio-conférence avec tchat, micro et webcam intégrés. Au centre, vous trouverez un tableau virtuel où dessiner, tracer et écrire. Il vous sera également possible d’afficher des documents et photos ainsi que de les modifier. Tout ce que vous écrirez et afficherez, sera directement visible par votre professeur."
+          two: "Oui! Sur Qwerteach, vous serez en communication directe avec votre professeur. Vous pouvez vous voir, parler, et échanger des documents. Vous pourrez aussi annoter ces derniers, ou écrire sur le tableau blanc partagé."
+      payments:
+        question:
+          one: "Puis-je payer dans une autre devise que l'Euro?"
+          two: "Quels modes de paiement puis-je utiliser sur Qwerteach?"
+          three: "Quelle garrantie offre Qwerteach sur les transactions ?"
+          four: "Que se passe-t-il si je ne suis pas satisfait d'un professeur ?"
+        answer:
+          one: "Non. Pour le moment Qwerteach est configuré de manière à n'accepter que les Euros."
+          two: "Notre système de paiement sécurisé vous permet d'effectuer vos transactions de deux manières différentes : par carte de crédit (Visa, Mastercard, Carte Bleue) ou via votre portefeuille virtuel.
+              \n
+               Ce portefeuille virtuel vous permet de vous constituer à l'avance une réserve de crédits, que vous débitez au fur et à mesure de vos activités sur Qwerteach. Ce mécanisme présente l'avantage de permettre à des élèves mineurs de payer directement leur(s) professeur(s) sans recourir à la carte de crédit de leurs parents.
+               \n
+               Vous pouvez à tout moment charger ou vider votre portefeuille virtuel, c'est-à-dire transférer son solde sur votre compte bancaire. Au moment de vider votre portefeuille, nous prélevons une commission de 15 %."
+          three: "Lorsque vous effectuez une réservation pour un cours sur Qwerteach, l'argent correspondant à ce cours est débité du moyen de payement que vous avez choisi. Ce montant est détenu par Qwerteach, qui joue le rôle de garrant. Si le cours n'est pas accepté par le professeur, vous serez intégralement remboursé. Idem si celui-ci est annulé.\n
+                Si le professeur accepte le cours, l'argent reste détenu par Qwerteach jusqu'à la fin programmée du cours. A ce moment, nous vous demanderons de confirmer que tout s'est bien passé. Une fois cette confirmation reçue, nous débloquons le spayement et créditons le professeur. En l'abence de réponse de votre part, l'argent est automatiquement versé sur le compte du professeur 72h après la fin prévue du cours.\n\n
+                En ce qui concerne les payements qui ot lieu en dehors des réservations, Qwerteach ne peut pas offrire de ganrantie ni effectuer de remboursements."
+          four: "Après la fin prévue du cours, vous aurez 72h pour nous le signaler. Si vous nous signalez un problème, le payement du cours est automatiquement bloqué.\n\n
+                Un administrateur prendra contact avec vous et avec le professeur afin d'éclaircir la situation. Si besoin, il accèdera aussi à l'enregistrement du cours concerné. Sur base de ces informatiosn, il prendra la décision appropriée: vous rembourser, créditer le professeur, ou répartir le montant entre vous."
+      technical:
+        question:
+          one: Quel est le matériel requis ?
+          two: Quel logiciel dois-je installer?
+          three: Puis-je travailler avec une tablette?
+          four: Que puis-je faire en cas de problème?
+        answer:
+          one: "Afin que vos cours se déroulent dans les meilleures conditions possibles, il est nécessaire de posséder un micro et une webcam. Par ailleurs, de sorte à assurer une connexion internet stable, nous vous conseillons de brancher votre ordinateur via un câble réseau et non en wi-fi."
+          two: "Aucun,\n
+                Tout a été conçu pour que vous puissiez travailler uniquement via votre navigateur internet : Internet Explorer, Chrome ou Firefox. Cependant, notre espace de visio-conférence nécessite l’installation de Flash sur votre ordinateur. Dès lors, nous vous invitons à vérifier, avant le début de votre premier cours, que vous possédiez bien la dernière version d’Adobe Flash."
+          three: "Oui, excepté sur les tablettes de marque Apple.
+                  Etant donné que notre espace de visio-conférence nécessite l’utilisation de Flash, vous pourrez travailler sur n’importe quel support multimédia de type ordinateur ou tablette, excepté sur les tablettes de marque Apple. "
+          four: "Signalez-nous immédiatement tout comportement inapproprié de la part de votre professeur! Pour ce faire, rendez-vous sur la page de profil du professeur et cliquez sur «! Signaler cet utilisateur» (juste en dessous de la photo). Un espace de texte apparaîtra alors où vous pourrez décrire l'objet de votre plainte. Une fois envoyée, cette dernière sera pris en charge par un membre de notre équipe. En signalant un utilisateur, vous autorisez notre équipe à accéder aux enregistrements de vos cours, de sorte que nous puissions établir objectivement la preuve du délit. En cas de délit affirmé, nous mettrons tout en œuvre pour rétablir le tort. Selon la nature et l’intensité de la faute, nous déterminerons les mesures à prendre et le cas échéant, ordonnerons la clôture du compte du professeur incriminé. "
+    parents:
+      generalites:
+        questions:
+          one: "Qu'est-ce que Qwerteach?"
+          two: "Pourquoi la vidéo-conférence?"
+          three: "Dois-je créer un compte pour mon enfant?"
+          four: "Qui a accès à mes informations personnelles?"
+      professeurs:
+        questions:
+          one: "Qui sont les professeurs?"
+          two: "Comment les professeurs sont-ils recrutés?"
+          three: "Puis-je changer de professeur?"
+      bookings:
+        questions:
+          one: "Comment réserver un cours?"
+          two: "Puis-je réserver un cours au nom d'un autre utilisateur de Qwerteach?"
+          three: "Que dois-je faire entre le moment de la réservation et le début de mon cours?"
+          four: "Puis-je modifier ma réservation?"
+          five: "Puis-je réserver un cours pour tout de suite?"
+          six: "En quoi consiste le premier cours gratuit?"
+          seven: "Que faire si je ne peux pas être présent pour le rendez-vous?"
+          eight: "Que faire en cas de problème avec le professeur?"
+      lessons:
+        questions:
+          one: "Comment se déroule un cours en vidéo-conférence?"
+          two: "Quels sont les avantages?"
+          three: "Pendant combien de temps ais-je accès à l'enregistrement vidéo de mes cours?"
+          four: "Qui a accès à l'enregistrement vidéo du cours?"
+      payments:
+        questions:
+          one: "Quels moyens de payements puis-je utiliser?"
+          two: "A quel moment dois-je payer?"
+          three: "A quel moment le professeur es-t-il payé?"
+          four: "Que faire si je suis insatisfait du service du'n professeur?"
+          five: "Quelles sont les conditions d'annulation et de remboursment?"
+          six: "Puis-je charger de l'argent sur un autre compte Qwerteach?"
+          seven: "Je souhaite fermer mon compte et récupérer le solde de mon portefeuille virtuel."

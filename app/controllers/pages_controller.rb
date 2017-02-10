@@ -12,4 +12,9 @@ class PagesController < ApplicationController
     @featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)
 	end
 
+  def faq
+		@target = params[:target] || 'students'
+
+	end
+
 end
