@@ -14,7 +14,6 @@ class PagesController < ApplicationController
 
   def faq
 		@target = params[:target] || 'students'
-
 	end
 
 end

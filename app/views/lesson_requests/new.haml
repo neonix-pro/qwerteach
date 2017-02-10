@@ -18,9 +18,9 @@
             = render :partial => 'teacher_reactivity', locals:{teacher: @teacher}
           .additional-links
             Pour plus d'informations à propos de:
-            = link_to 'Garantie remboursement', pages_path('faq'), class: 'text-green', target: '_blank'
-            = link_to 'Protection des données', pages_path('faq'), class: 'text-green', target: '_blank'
-            = link_to 'Modes de payement sécurisés', pages_path('faq'), class: 'text-green', target: '_blank'
+            = link_to 'Garantie remboursement', faq_path, class: 'text-green', target: '_blank'
+            = link_to 'Protection des données', faq_path, class: 'text-green', target: '_blank'
+            = link_to 'Modes de payement sécurisés', faq_path, class: 'text-green', target: '_blank'
 
 #detailed-pricing.modal.fade
   .modal-dialog
