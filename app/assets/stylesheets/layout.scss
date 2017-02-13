@@ -396,4 +396,11 @@ table{
       font-family: SofiaProLight;
     }
   }
+  .alert.alert-danger{
+    background-color: $color_qwerteach_pink;
+    color: white;
+    padding: 20px;
+    border: none;
+    background-image: none;
+  }
 }

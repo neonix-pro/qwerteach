@@ -1,28 +1,34 @@
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = devise_error_messages!
-  .field
-    = f.hidden_field :time_zone
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, class: 'form-control', :required => true, id: "user_email"
-  .field
-    = f.label :password
-    - if @validatable
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br/
-    = f.password_field :password, autocomplete: "off", class: 'form-control', :required => true, data: { |
-      :validation => "length", 'validation-length' => "min8",                                            |
-      "validation-error-msg" => "Too short."}                                                            |
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', :required => true |
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+.container-fluid.sign_in_page
+  .row
+    %h2.page-title-green.text-center Inscription
+    .col-md-6.col-md-offset-3
+      = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = devise_error_messages!
+        .field
+          = f.hidden_field :time_zone
+        .field
+          = f.label :email
+          %br/
+          = f.email_field :email, autofocus: true, class: 'form-control', :required => true, id: "user_email"
+        .field
+          = f.label :password
+          - if @validatable
+            %em
+              (#{@minimum_password_length} characters minimum)
+          %br/
+          = f.password_field :password, autocomplete: "off", class: 'form-control', :required => true, data: { |
+            :validation => "length", 'validation-length' => "min8",                                            |
+            "validation-error-msg" => "Too short."}                                                            |
+        .field
+          = f.label :password_confirmation
+          %br/
+          = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', :required => true |
+        .actions
+          = f.submit "Sign up"
+  .row
+    .col-md-6.col-md-offset-3
+      = render "devise/shared/links"
+      %hr
 :javascript
   a = jstz.determine();
   $('#user_time_zone').val(a.name());
