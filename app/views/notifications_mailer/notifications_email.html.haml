@@ -6,7 +6,7 @@
     %h1
       = @subject
     %p
-      = @text + "\n#{link_to 'Connectez-vous', dashboard_path} pour les lire et y répondre."
+      = @text + "\n#{link_to 'Connectez-vous', dashboard_path} pour les lire et y répondre.".html_safe
     %hr
     %p
       #{link_to 'Consulter la liste de mes cours', lessons_path } pour plus d'informations

@@ -8,12 +8,14 @@
 
 :javascript
   $('.arrow-give-lesson').click(function(){
-    $('#take-lesson').slideToggle();
+    $('#take-lesson').slideUp();
+    $('#give-lesson').slideDown();
     $(this).fadeOut();
     $('.arrow-take-lesson').fadeIn();
   });
   $('.arrow-take-lesson').click(function(){
-    $('#give-lesson').slideToggle();
+    $('#give-lesson').slideUp();
+    $('#take-lesson').slideDown();
     $(this).fadeOut();
     $('.arrow-give-lesson').fadeIn();
   });
