@@ -16,7 +16,7 @@
               = render partial: "users/registrations/new_teacher"
       .modal-footer
         .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
-          %a{:href => "#signup-modal"}
+          %a{:href => "#login-modal", :data => {:toggle=>"modal"}}
             Déjà inscrit?
             %br/
 

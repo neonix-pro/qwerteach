@@ -39,7 +39,7 @@ class ReviewsController < ApplicationController
   def featured_reviews
     @n = params[:n]
     @offset = params[:offset]
-    @reviews = Review.where('note >=  4 AND review_text IS NOT NULL ').limit(@n).offset(@offset)
+    @reviews = Review.where('note >=  4 AND review_text IS NOT NULL AND review_text != "" ').limit(@n).offset(@offset)
     respond_to do |format|
       format.html {}
       format.js {}
