@@ -109,7 +109,7 @@ Rails.application.routes.draw do
   get '/offers_user/:user_id', to: 'offers#get_all_offers', as: 'get_all_offers'
 
   get "/pages/*page" => "pages#show", as: :pages
-  get "faq/(:target/:section)" => "pages#faq", as: :faq
+  get "faq(/:target(/:section))/" => "pages#faq", as: :faq
 
   get '/become_teacher/accueil' => "pages#devenir-prof"
   get '/index' => "pages#index"

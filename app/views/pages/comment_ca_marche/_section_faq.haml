@@ -7,8 +7,8 @@
     .col-sm-6#questions-faq
       %h4 Sujets fréquents:
       %ul.text-pink
-        %li Qui sont les profs ?
-        %li Garantie remboursement
-        %li Protection des données
-        %li Modes de payement
-      = link_to 'Voir plus', faq_path, class: 'text-pink'
+        %li= link_to 'Qui sont les profs ?', faq_path('parents', 'teachers')
+        %li= link_to 'Garantie remboursement', faq_path('students', 'paiements')
+        %li= link_to 'Protection des données', faq_path('parents', 'lessons')
+        %li= link_to 'Modes de payement', faq_path('students', 'paiements')
+      = link_to 'Voir plus', faq_path, class: 'text-pink see-more'

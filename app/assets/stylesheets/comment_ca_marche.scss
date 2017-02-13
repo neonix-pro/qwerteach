@@ -215,7 +215,7 @@
     h4{
       font-size: 26px;
     }
-    a{
+    a.see-more{
       position: absolute;
       font-size: 14px;
       bottom: 80px;
@@ -223,6 +223,10 @@
     }
     a:hover{
       color: $color_qwerteach_pink;
+    }
+    ul.text-pink li a{
+      font-family: SofiaProLight;
+      color:$color_qwerteach_pink;
     }
   }
 }
