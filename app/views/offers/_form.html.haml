@@ -1,4 +1,5 @@
 = form_for offer, :remote => remote do |f|
+  = f.hidden_field(:id) unless offer.id.nil?
   .row
     .col-sm-1
     .col-sm-5
@@ -13,7 +14,7 @@
       .field.other_name
       .form-group.level_choice_levels
         -unless offer.offer_prices.empty?
-          =render partial: 'level_choice'
+          =render partial: 'level_choice', locals:{levels: @levels, offer: @offer}
           = hidden_field_tag(:topic_id, offer.topic.id)
       .actions
         = link_to 'Annuler', offers_path, :class => 'text-grey'

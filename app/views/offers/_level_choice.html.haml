@@ -18,6 +18,8 @@
       - else
         .row.level-row
           .col-sm-8
+            = hidden_field_tag "offer[offer_prices_attributes][][id]", nil
+            = hidden_field_tag "offer[offer_prices_attributes][][_destroy]", false
             = check_box_tag 'offer[offer_prices_attributes][][level_id]', c.id, nil, class: 'price_box'
             = label_tag c[I18n.locale[0..3]]
           .col-sm-4

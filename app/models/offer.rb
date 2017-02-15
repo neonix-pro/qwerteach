@@ -28,7 +28,7 @@ class Offer < ActiveRecord::Base
   end
 
   def topic_is_other?
-    topic.title == 'Other'
+    topic.title == 'Autre'
   end
 
   def min_price
@@ -60,7 +60,7 @@ class Offer < ActiveRecord::Base
   end
 
   def title
-    self.topic.title == 'Other' ? self.custom_name : self.topic.title
+    self.topic.title == 'Autre' ? self.custom_name : self.topic.title
   end
 
   def price_for_level(level_id)

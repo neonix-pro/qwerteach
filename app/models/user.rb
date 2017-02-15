@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
   end
 
   def offers_except_other
-    Offer.joins(:topic).where(user_id: id).where.not(topics:{title: 'Other'})
+    Offer.joins(:topic).where(user_id: id).where.not(topics:{title: 'Autre'})
   end
 
   # Méthode liée au crop de l'avatar, elle permet de savoir si une modification a été faite

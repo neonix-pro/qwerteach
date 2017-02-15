@@ -40,7 +40,7 @@ class OffersController < ApplicationController
     unless @user.is_a?(Teacher)
       @user.upgrade
     end
-    if current_user.offers.map(&:topic_id).include?(params[:offer][:topic_id].to_i)
+    if current_user.offers_except_other.map(&:topic_id).include?(params[:offer][:topic_id].to_i)
       respond_to do |format|
         flash[:notice]='Une annonce pour cette catégorie existe déjà.'
         format.html {redirect_to offers_path}
@@ -53,14 +53,13 @@ class OffersController < ApplicationController
     @offer = Offer.new(offer_params)
     respond_to do |format|
       if @offer.save
-        format.html { redirect_to offers_path, notice: 'Advert was successfully created.' }
+        format.html { redirect_to offers_path, notice: 'Votre annonce a bien été enregistrée.' }
         format.json { head :no_content }
         format.js {
           render partial: "#{params[:origin]}/create_offer", locals: {offer: @offer} if params[:origin]
         }
       else
-        #logger.debug(puts @offer.errors.full_messages.to_sentence)
-        format.html { redirect_to @offer, notice: 'Advert not created.' }
+        format.html { redirect_to @offer, danger: 'Il y a eu un problème, votre annonce, n\'a pas été mise à jour' }
         format.json { render json: @offer.errors, status: :unprocessable_entity }
         format.js {flash[:danger]=@offer.errors.full_messages.to_sentence}
       end
@@ -74,7 +73,7 @@ class OffersController < ApplicationController
       if @offer.update_attributes!(offer_params)
         flash[:notice] = 'Vos modifications ont été sauvegardées.'
 
-        format.html { redirect_to offers_path, notice: 'Advert was successfully updated.' }
+        format.html { redirect_to offers_path}
         format.json { head :no_content }
         format.js {}
       else
@@ -98,7 +97,7 @@ class OffersController < ApplicationController
   def choice
     topic = Topic.find(params[:topic_id])
     level_choice = topic.topic_group.level_code
-    @offer = Offer.find_by(user_id: current_user.id, topic_id: topic.id) || Offer.new()
+    params.has_key?(:id) ? @offer = Offer.find_by(user_id: current_user.id, topic_id: topic.id) : @offer = Offer.new()
     @levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => level_choice).group(I18n.locale[0..3]).order(:id)
     respond_to do |format|
       format.js {}
@@ -120,7 +119,7 @@ class OffersController < ApplicationController
 
   private
   def offer_params
-    params.require(:offer).permit(:description, :topic_id, :topic_group_id, offer_prices_attributes: [:id, :level_id, :price, :_destroy]).merge(user_id: current_user.id)
+    params.require(:offer).permit(:description, :topic_id, :topic_group_id, :other_name, offer_prices_attributes: [:id, :level_id, :price, :_destroy]).merge(user_id: current_user.id)
   end
 
   def offer_price_params

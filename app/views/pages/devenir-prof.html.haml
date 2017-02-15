@@ -7,9 +7,14 @@
         Rejoignez la communauté et partagez vos connaissances!
         %br
         %br
-        = link_to '#signup-modal', class: 'btn btn-qw btn-pink signup-teacher', data: {toggle: 'modal'} do
-          %i.fa.fa-long-arrow-right
-          C'est parti!
+        - if current_user
+          = link_to become_teacher_path(:general_infos), class: 'btn btn-qw btn-pink signup-teacher' do
+            %i.fa.fa-long-arrow-right
+            C'est parti!
+        - else
+          = link_to '#signup-modal', class: 'btn btn-qw btn-pink signup-teacher', data: {toggle: 'modal'} do
+            %i.fa.fa-long-arrow-right
+            C'est parti!
     .right
       %iframe{:src => "https://www.youtube.com/embed/kAPEzIuIg94"}
   .section_test_classe
@@ -22,8 +27,12 @@
         Dans un environnement flexible, apportez votre soutien à des élèves issus du monde entier !
         %br
         %br
-        = link_to '#signup-modal', class: 'btn btn-qw btn-pink', data: {toggle: 'modal'} do
-          Poser ma candidature
+        -if current_user
+          = link_to become_teacher_path(:general_infos), class: 'btn btn-qw btn-pink' do
+            Poser ma candidature
+        -else
+          = link_to '#signup-modal', class: 'btn btn-qw btn-pink', data: {toggle: 'modal'} do
+            Poser ma candidature
   .section_etapes
     .col
       =image_tag("comment_ca_marche/ico_com.png", :alt => "Communiquez en direct avec votre professeur.")
