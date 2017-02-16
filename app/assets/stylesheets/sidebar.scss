@@ -125,6 +125,7 @@ nav.sidebar{
   .main-content.logged-in{
     width: calc(100% - 200px); /*keeps 100% minus nav size*/
     margin-left: 200px;
+    padding-left:0px;
   }
 
   /*Show all nav*/
