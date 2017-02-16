@@ -8,7 +8,7 @@
         #{search_total_results(@pagin)}
         %b.text-green
           &laquo; #{@search_text} &raquo;
-        - unless @filter.nil?
+        - unless @filter.nil? || @filter == ''
           , #{t("search.filters.#{@filter}")}
       - unless @search.empty?
         - @search.each do |u|

@@ -15,7 +15,7 @@
     .profile-header
       =render partial: 'users/profile/profile_header', locals:{user: @user}
     .profile-description
-      #{@user.description.html_safe}
+      #{@user.description.html_safe unless @user.description.nil?}
     - if @user.is_a?(Teacher)
       #profile-offers
         =render partial: 'users/profile/profile_offers', locals:{offers: @offers, offers_single: @offers_single}

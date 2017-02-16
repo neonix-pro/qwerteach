@@ -10,7 +10,6 @@
       .prof{id: "prof#{index}", style: "background-image: url(#{image_path prof.avatar.url(:large)})"}
         %p
           %span.name
-            = prof.firstname
-            = prof.lastname
+            = link_to "#{prof.firstname} #{prof.lastname}", user_path(prof)
           %br
           = prof.offers.map{|ad| link_to ad.title, profs_by_topic_path(ad.title)}.join(', ').html_safe
