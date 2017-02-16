@@ -14,7 +14,7 @@
             = render :partial => 'teacher_card', locals: {teacher: @teacher}
             = render :partial => 'teacher_topics', locals: {teacher: @teacher}
             = render partial: 'lesson_recap', locals: {lesson_request: @lesson_request}
-            = render :partial => 'teacher_references', locals:{teacher: @teacher}
+            = render :partial => 'teacher_references', locals:{teacher: @teacher} unless @teacher.reviews_received.empty?
             = render :partial => 'teacher_reactivity', locals:{teacher: @teacher}
           .additional-links
             Pour plus d'informations à propos de:
@@ -28,7 +28,7 @@
       .modal-body
         - @offers.keys.each do |key|
           - unless @offers[key].empty?
-            - levels = Level.where(code: key).group(:be).order(:level)
+            - levels = Level.where(code: :scolaire).group_by{|l| l.be}.collect{|k,v| v.last}
             %h5.title-green.text-center #{key}
             %table
               %thead
