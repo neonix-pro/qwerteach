@@ -18,9 +18,7 @@
         #payment-method
           %h3 Mode de payement
           .form-group.easy-pay
-            %h5 Easy-payment
-            = check_box_tag('easy_pay', @cards.last.id)
-            %label{for: 'easy_pay'} #{@cards.first.card_provider} - #{@cards.first.alias} - #{@cards.first.expiration_date.insert(2, "/20")}
+            = render :partial => 'easy_pay' unless @cards.empty?
           .separation
             %hr
             .or

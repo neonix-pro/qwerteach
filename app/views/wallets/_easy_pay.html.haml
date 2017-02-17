@@ -1,0 +1,3 @@
+%h5 Easy-payment
+= check_box_tag('easy_pay', @cards.first.id)
+%label{for: 'easy_pay'} #{@cards.first.card_provider} - #{@cards.first.alias} - #{@cards.first.expiration_date.insert(2, "/20")}
