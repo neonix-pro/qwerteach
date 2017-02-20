@@ -15,13 +15,14 @@
     .profile-header
       =render partial: 'users/profile/profile_header', locals:{user: @user}
     .profile-description
-      #{@user.description.html_safe unless @user.description.nil?}
+      #{@user.description.gsub(/\n/, '<br />').html_safe unless @user.description.nil?}
     - if @user.is_a?(Teacher)
       #profile-offers
         =render partial: 'users/profile/profile_offers', locals:{offers: @offers, offers_single: @offers_single}
       #profile-calendar
-      #profile-reviews
-        = render partial: 'users/profile/profile_reviews', locals:{reviews: @reviews}
+      - unless @reviews.empty?
+        #profile-reviews
+          = render partial: 'users/profile/profile_reviews', locals:{reviews: @reviews}
       .similar-teachers
       .clearfix
   - if @user.is_a?(Teacher)

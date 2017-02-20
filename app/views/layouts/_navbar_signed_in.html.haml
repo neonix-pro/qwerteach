@@ -8,6 +8,7 @@
       %button
         %i.fa.fa-search.text-green
 %ul.nav.navbar-nav.pull-right
+  %li= link_to 'Comment ça marche ?', pages_path('comment-ca-marche'), class: 'text-green'
   - unless current_user.postulance_accepted
     %li= link_to 'Devenir Prof', become_teacher_accueil_path
   %li

@@ -89,7 +89,7 @@ Rails.application.routes.draw do
   end
   match "/profs/" => "users#profs_by_topic", as: :profs, via: :post
   match "/profs/:topic" => "users#index", :as => :profs_by_topic, :via => [:get]
-  get "/profs" => "users#index"
+  get "/profs" => "users#index", as: :all_teachers
 
   unauthenticated :user do
     devise_scope :user do

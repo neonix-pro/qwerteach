@@ -13,9 +13,6 @@ $(document).ready(function() {
         dayClick: function(date, jsEvent, view) {
             $('#request-lesson').modal('show');
         },
-        columnFormat:{
-            week: 'ddd D'
-        },
         events:[
             {
                 title: 'test',

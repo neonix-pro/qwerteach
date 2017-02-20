@@ -1,17 +1,15 @@
-// le css est dans conversations.scss
-
 .mail-box
-  #mailbox-head
-    .new-message
-      = image_tag('compose_message.png', class: 'compose-message')
-    #compose-message
-      .form-group
-        = label_tag 'recipients', 'À:'
-        %input#recipients{:list => "recipients-list", :class => 'form-control',
-        :placeholder => 'Entrez le nom d\'une personne'}
-        %datalist#recipients-list
-          -@recipient_options.each do |o|
-            %option{value:o.name, userid: o.id}
+  -##mailbox-head
+  -#  .new-message
+  -#    = image_tag('compose_message.png', class: 'compose-message')
+  -#  #compose-message
+  -#    .form-group
+  -#      = label_tag 'recipients', 'À:'
+  -#      %input#recipients{:list => "recipients-list", :class => 'form-control',
+  -#      :placeholder => 'Entrez le nom d\'une personne'}
+  -#      %datalist#recipients-list
+  -#        -@recipient_options.each do |o|
+  -#          %option{value:o.name, userid: o.id}
   #mailbox-content
     %aside.sm-side
       -#liste des conversations
@@ -19,6 +17,10 @@
         = render partial: 'new_conversation_preview'
         - @conversations.each do |conversation|
           = render partial: 'last_message', :locals=> {conversation: conversation, user: @user}
+        - if @conversations.empty?
+          %p.text-white.text-center
+            %br
+            0 conversations
     %aside.lg-side
       -#contenu de la conversation
       #mailbox_conversations

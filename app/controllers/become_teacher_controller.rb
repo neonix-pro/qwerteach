@@ -72,8 +72,8 @@ class BecomeTeacherController < ApplicationController
   def merge_description
     params[:user][:description]=""
     DESCRIPTION_QUESTIONS.each_with_index do |question, index|
-      params[:user][:description] += "#{question}\n" unless (index == 0 || params["description_#{index}"].empty?)
-      params[:user][:description] += "#{params["description_#{index}"]}\r\n" unless params["description_#{index}"].empty?
+      params[:user][:description] += "<h3>#{question}\n</h3>" unless (index == 0 || params["description_#{index}"].empty?)
+      params[:user][:description] += "#{params["description_#{index}"]}\r\n\r\n" unless params["description_#{index}"].empty?
     end
   end
   def bank_account_params

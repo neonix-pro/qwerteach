@@ -149,6 +149,9 @@
 }
 
 #mailbox_conversations{
+  p.no-conversations{
+    padding: 50px;
+  }
   .loader{
     background-color: rgba(0, 0, 0, 0.5);
     width: 80%;
