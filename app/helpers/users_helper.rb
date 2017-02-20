@@ -30,7 +30,7 @@ module UsersHelper
   end
 
   def search_topic_options
-    @topic_options = Topic.where.not(:title=> "Other").map{|p| [p.title.downcase]}
+    @topic_options = Topic.where.not(:title=> "Autre").map{|p| [p.title.downcase]}
   end
 
   def search_sorting_name
