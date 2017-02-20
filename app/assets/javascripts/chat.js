@@ -29,3 +29,4 @@ $(document).ready(function(){
     var m = new MessagesManager();
     Messages.numberOfUnreadMessages();
 })
+

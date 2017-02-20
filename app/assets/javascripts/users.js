@@ -87,10 +87,10 @@ var ready = function () {
     });
 
     //search
-    $('.more-results-button').click(function(){
-        $(this).hide();
-        $(this).parent().append('<i class="fa fa-spin fa-spinner"></i>');
-    });
+    // $('.more-results-button').click(function(){
+    //     $(this).hide();
+    //     $(this).parent().append('<i class="fa fa-spin fa-spinner"></i>');
+    // });
 
     $('#search-topic').click(function(){
         $('#search-topics').show();
@@ -185,3 +185,27 @@ $(document).ready(function(){
         $myGroup.find('.collapse.in').collapse('hide');
     });
 });
+
+var ready = function () {
+
+    chatBox = {
+        checkInputKey: function (event, chatboxtextarea, conversation_id) {
+            if (event.keyCode == 13 && event.shiftKey == 0) {
+                event.preventDefault();
+
+                message = chatboxtextarea.val();
+                message = message.replace(/^\s+|\s+$/g, "");
+
+                if (message != '') {
+                    $('#conversation_form_' + conversation_id).submit();
+                    $(chatboxtextarea).val('');
+                    $(chatboxtextarea).focus();
+                }
+            }
+
+        },
+    }
+}
+
+$(document).ready(ready);
+$(document).on("page:load", ready);
