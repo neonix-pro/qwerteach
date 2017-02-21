@@ -6,7 +6,7 @@
     %span.text-green
       cours particulier en ligne.
   .mode_emploi
-    %a.open_mode_emploi Mode d'emploi
+    %a.open_mode_emploi.toggleCCM{href: '#'} Mode d'emploi
   .search-controls
     = form_tag profs_path, method: :post, id: 'search-form', remote: false do
       - if params[:topic].nil?
