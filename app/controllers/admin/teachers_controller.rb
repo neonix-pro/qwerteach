@@ -33,7 +33,9 @@ module Admin
       @user = User.find(params[:id])
       @conversations = @user.mailbox.conversations.page(params[:page]).per(10)
       @admins = User.where(admin: true)
-      @conversation_admin = Conversation.participant(current_user).participant(@user).first
+      conv_check_1 = Conversation.participant(@user)
+      conv_check_2 = Conversation.participant(current_user)
+      @conversation_admin = (conv_check_1 & conv_check_2).first
       if @conversation_admin.nil?
         @conversation_admin = Mailboxer::Conversation.new()
       end
