@@ -13,7 +13,7 @@ class Postulation < ActiveRecord::Base
       email: CORRECTION_EMAIL,
       test_classe: CORRECTION_TEST_CLASSE,
       offers: CORRECTION_OFFERS,
-      general_informatiosn: CORRECTION_GENERAL_INFORMATIONS,
+      general_informations: CORRECTION_GENERAL_INFORMATIONS,
       avatar: CORRECTION_AVATAR,
       interview: CORRECTION_INTERVIEW,
   }
@@ -68,6 +68,7 @@ class Postulation < ActiveRecord::Base
     admin_fields.each do |key, value|
       corr << key unless value
     end
+    logger.debug(corr)
     corr
   end
 
