@@ -8,12 +8,12 @@ body,html{
 nav.sidebar.navbar {
   border-radius: 0px;
   background-color:#222222;
-  color:$text_lightgrey;
+  color:$medium_grey;
   z-index: 1000;
 }
 
 nav.sidebar.navbar ul li a{
-  color: $text_lightgrey;
+  color: $medium_grey;
 }
 
 nav.sidebar{

@@ -53,12 +53,12 @@
   }
   .unfinished{
     .step-number, a .step-name{
-      color: $color_link_grey;
-      border-color: $color_link_grey;
+      color: $text_grey;
+      border-color: $text_grey;
     }
   }
   ul li.unfinished:before{
-    border: 2px solid $color_link_grey;
+    border: 2px solid $text_grey;
   }
 
 }

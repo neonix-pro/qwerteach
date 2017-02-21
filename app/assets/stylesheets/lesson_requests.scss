@@ -1,6 +1,6 @@
 @import 'global_variables';
 h2.booking-title, #lesson-details, .additional-infos{
-  color: #626262;
+  color: $medium_grey;
   font-family: SofiaProRegular;
 }
 h2.booking-title{
@@ -26,7 +26,7 @@ h2.booking-title{
       margin: 25px 0px;
       text-align:right;
       input[type="submit"]{
-        color:#313131;
+        color:$dark_grey;
         background-color: $color_qwerteach_green;
         border-radius: 17px;
         font-size: 14px;
@@ -44,7 +44,7 @@ h2.booking-title{
     margin-bottom: 20px;
   }
   h3.active{
-    color: #626262;
+    color: $medium_grey;
   }
   .choose_payment_method.inactive{
     opacity: 0.5;
@@ -95,7 +95,7 @@ h2.booking-title{
   padding-top: 20px;
   .teacher-recap {
     .teacher-infos {
-      background-color: #313131;
+      background-color: $dark_grey;
       color: white;
       .teacher-avatar {
         display: inline-block;
@@ -136,7 +136,7 @@ h2.booking-title{
       display: none;
       .topics-list {
         width: 35%;
-        border-right: 1px solid #626262;
+        border-right: 1px solid $medium_grey;
         display: inline-block;
         float: left;
         padding: 0px 20px;
@@ -168,7 +168,7 @@ h2.booking-title{
         }
       }
       .col-middle {
-        border-bottom: 1px dotted #626262;
+        border-bottom: 1px dotted $medium_grey;
         height: 14px;
       }
       .pull-left, .pull-right {

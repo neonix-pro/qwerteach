@@ -25,7 +25,7 @@
     font-family: SofiaProBold;
 
     h1,h2{
-      color: #fff;
+      color: white;
       margin:0;
     }
     h2{
@@ -42,7 +42,7 @@
   width: 100%;
   text-align:center;
   a{
-    background: #313131;
+    background: $dark_grey;
     letter-spacing: 0.26px;
     padding: 8px 20px;
     border: 2px solid $color_qwerteach_green;
@@ -53,7 +53,7 @@
     font-family:SofiaProRegular;
   }
   a:hover{
-    background: #414141;
+    background: $qwerteach_black;
     color:$color_qwerteach_green;
     border: 2px solid $color_qwerteach_green;
   }
@@ -68,13 +68,13 @@
     border: none;
     background: $color_qwerteach_green;
     display: inline;
-    color: #313131;
+    color: $dark_grey;
     vertical-align:top;
     font-size: 26px;
   }
   button:hover{
     color: $color_qwerteach_green;
-    background: #313131;
+    background: $dark_grey;
   }
   .search-decoration{
     vertical-align:top;
@@ -92,7 +92,7 @@
     display: inline;
     border: none;
     border-radius: 0;
-    background: #fff;
+    background: white;
     padding-left:30px;
   }
 }
@@ -142,7 +142,7 @@
       padding: 10px 20px;
       width: 210px;
       font-size: 14px;
-      color: $color_qwerteach_darkgrey;
+      color: $medium_grey;
       text-align: center;
       margin-top: 2px;
       cursor:pointer;
@@ -172,7 +172,7 @@
 .section_commentmarche{
   padding-top:30px;
   width: 100%;
-  background: $color_qwerteach_navgrey;
+  background: $qwerteach_black;
   display: none;
   margin-left: 0 !important;
   margin-right: 0 !important;
@@ -296,7 +296,7 @@
         top: -15px;
       }
       p{
-        color: $color_qwerteach_darkgrey;
+        color: $medium_grey;
         padding: 25px 50px 10px 50px;
         text-align: left;
         margin: auto;
@@ -361,13 +361,13 @@
     text-align: left;
     font-size: 30px;
     margin: 25px 0px;
-    color: #E5E5E5;
+    color: $text_light_grey;
     letter-spacing: 0px;
     line-height: 30px;
     font-family: SofiaProLight;
   }
   h5{
-    color: #797979;
+    color: $text_grey;
     font-size: 16px;
     line-height: 30px;
     text-align: left;
@@ -390,10 +390,10 @@
     height:600px;
   }
   .thumbnails:nth-child(odd){
-    background: $color_qwerteach_navgrey;
+    background: $qwerteach_black;
   }
   .thumbnails:nth-child(even){
-    background: $color_qwerteach_lightblack;
+    background: $qwerteach_black;
   }
 }
 

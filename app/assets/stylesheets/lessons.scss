@@ -108,7 +108,7 @@
   .lesson-details{
     height: 150px;
     background-color: white;
-    color: #313131;
+    color: $dark_grey;
     margin-left:300px;
     padding-left:10px;
     padding-top:15px;
@@ -206,13 +206,13 @@
 .topic_1{
   border-color: $color_qwerteach_yellow;
   background-color: $color_qwerteach_yellow;
-  color:#313131!important;
+  color:$dark_grey!important;
   .font, .back, h4{
     //dirty workaround
-    color:#313131!important;
+    color:$dark_grey!important;
   }
   .offer-flip-toggle span, .offer-flip-toggle span::before, .offer-flip-toggle span::after{
-    background-color: #313131!important;
+    background-color: $dark_grey!important;
   }
 }
 //sciences
@@ -286,14 +286,14 @@
     padding:0px 30px;
   }
   .lesson-expired {
-    background-color: $color_link_grey;
+    background-color: $text_grey;
     color: white;
   }
   .lesson-created {
     background-color: $color_qwerteach_green;
   }
   .lesson-canceled {
-    background-color: $color_link_grey;
+    background-color: $text_grey;
   }
   .lesson-pending {
     background-color: $color_qwerteach_purple;
@@ -301,7 +301,7 @@
 }
 
 .lesson-todo{
-  background-color: $color_qwerteach_lightgrey;
+  background-color: $dark_grey;
   color:white;
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
   .todo-title{

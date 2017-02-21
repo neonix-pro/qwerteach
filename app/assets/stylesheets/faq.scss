@@ -1,6 +1,5 @@
 @import 'global_variables.scss';
 .faq-template{
-  background: #F6F6F6;
   display:block;
   .header{
     display: block;
@@ -17,7 +16,7 @@
         padding-right: 25px;
         a{
           cursor: pointer;
-          color: #3C3C3B;
+          color: $dark_grey;
           font-size: 14px;
         }
         a:hover{
@@ -42,7 +41,7 @@
         padding-right: 25px;
         a{
           cursor: pointer;
-          color: #fff;
+          color: white;
           font-size: 14px;
         }
         a.active, a:hover{
@@ -55,18 +54,18 @@
     }
   }
   #accordion{
-    background: #F6F6F6;
+    background: white;
   }
   .panel{
     background-image: none !important;
-    margin: 0 !important;
     border: none !important;
-    box-shadow: inset 0px 10px 38px -24px rgba(0,0,0,0.75);
+    margin: 10px 0px !important;
+    box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.5);
     border-radius: 0 !important;
-    background: #F6F6F6;
+    background: white;
     a,p,h4{
       font-size: 12px !important;
-      color: #3C3C3B !important;
+      color: $dark_grey !important;
     }
     .panel-heading{
       padding: 0 !important;

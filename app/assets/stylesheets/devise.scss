@@ -14,17 +14,17 @@
   .menu{
     text-align: center;
     padding: 0;
-    background: #191919;
+    background: $qwerteach_black;
     .avatar{
       width: 100%;
     }
     .active{
-      background: #21DE80;
+      background: $color_qwerteach_green;
       border: 0px;
-      color: #191919;
+      color: $qwerteach_black;
     }
     h2, a{
-      color: #C6C6C6;
+      color: $text_light_grey;
       font-size: 11px;
       margin: 0;
     }
@@ -33,14 +33,14 @@
       width: 100%;
       display: block;
       padding: 5px 0px;
-      border-bottom: 1px solid #C6C6C6;
+      border-bottom: 1px solid $text_light_grey;
     }
     a:hover{
-      background-color: $color_qwerteach_lightgrey;
+      background-color: $dark_grey;
     }
     .title{
       border: none;
-      background: #575756;
+      background: $medium_grey;
       h2{
         padding: 5px 0px;
       }

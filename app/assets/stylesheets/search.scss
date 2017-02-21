@@ -44,7 +44,7 @@
     li{
       cursor:pointer;
       font-size: 12px;
-      color: #626262;
+      color: $medium_grey;
       padding: 10px 20px;
       border-bottom: 1px solid #4A4A4A;
     }
@@ -136,12 +136,12 @@
     overflow: hidden;
     .user-name{
       font-size: 16px;
-      color: #313131;
+      color: $dark_grey;
       letter-spacing: 0.2px;
     }
     .user-rating{
       font-size: 14px;
-      color: #9B9B9B;
+      color: $text_grey;
     }
     .user-topics a{
       font-size: 13px;
@@ -157,7 +157,7 @@
   }
   .user-description-excerpt{
     font-size: 13px;
-    color: #626262;
+    color: $medium_grey;
     letter-spacing: 0px;
   }
 
@@ -168,7 +168,7 @@
     width:100%;
     text-align:center;
     font-size: 14px;
-    color: #313131;
+    color: $dark_grey;
     line-height: 60px;
     overflow: hidden;
     .footer-review{

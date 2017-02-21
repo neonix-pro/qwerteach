@@ -39,7 +39,7 @@
   }
 }
 .navbar-form .input-group input.form-control{
-  background: #313131;
+  background: $dark_grey;
   box-shadow: inset 1px 4px 3px 0px rgba(0,0,0,0.50);
   border-radius: 40px;
   font-size: 12px;
@@ -57,7 +57,7 @@
     left:-200%;
     top:49px;
     border-radius:0px;
-    background-color: #313131;
+    background-color: $dark_grey;
     li a{
       padding: 6px 20px;
     }
@@ -73,17 +73,17 @@
         border-top: none;
       }
       .content:hover{
-        color:$color_link_grey;
+        color:$text_grey;
         text-decoration:none;
         .item-date{
           color:$color_qwerteach_green;
         }
       }
       .content{
-        color:$color_link_grey;
+        color:$text_grey;
         margin:0px;
         .notification-item{
-          border-top: 1px solid $color_qwerteach_darkgrey;
+          border-top: 1px solid $medium_grey;
           padding: 10px 0px;
           h4{
 

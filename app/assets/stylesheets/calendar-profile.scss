@@ -1,7 +1,7 @@
 @import "global_variables";
 
 #profile-calendar{
-  background-color:#222222;
+  background-color:$qwerteach_black;
   padding-top:30px;
   float:left;
   width:100%;
@@ -60,7 +60,7 @@
     }
   }
   .fc-view{
-    color: #979797;
+    color: $text_grey;
     table td, .fc th, .fc-day-header, .fc-axis{
       border:none;
       border-width:0px;
@@ -74,7 +74,7 @@
       line-height:33px;
     }
     .fc-slats table tbody tr td.fc-widget-content{
-      border-top:1px dashed #424242;
+      border-top:1px dashed $medium_grey;
     }
     .fc-slats table tbody tr td:first-child{
       border-top: none;
@@ -98,6 +98,6 @@
     }
   }
   .fc-today {
-    background: #383838;
+    background: $dark_grey;
   }
 }

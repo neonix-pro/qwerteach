@@ -5,7 +5,7 @@
     float: left;
     width: 33.3333333%;
     background: $color_qwerteach_yellow;
-    color: $color_qwerteach_darkgrey;
+    color: $medium_grey;
     height: 100%;
   }
   .right{
@@ -35,7 +35,7 @@
   hr {
     width: 50%;
     text-align: left;
-    border: 1.5px solid $color_qwerteach_darkgrey;
+    border: 1.5px solid $medium_grey;
     margin-left: 35px;
     margin-bottom: 40px;
   }
@@ -75,7 +75,7 @@
 .section_etapes{
   width: 100%;
   color: #fff;
-  background: #313131;
+  background: $dark_grey;
   height: 250px;
   .col{
     float: left;
@@ -101,7 +101,7 @@
     background: $color_qwerteach_green;
     margin: 0;
     h2{
-      color: #313637;
+      color: $dark_grey;
       padding-left:10%;
       font-size: 38px;
       line-height:42px;
@@ -110,7 +110,7 @@
     }
     a.arrow-give-lesson, a.arrow-take-lesson{
       background-color:white;
-      color: #313637;
+      color: $dark_grey;
       border-radius:50%;
       width:40px;
       height:40px;
@@ -191,7 +191,7 @@
 .section-faq{
   #general-faq{
     height:450px;
-    background-color: #313637;
+    background-color: $dark_grey;
     padding: 80px;
     font-size: 38px;
     font-family: SofiaProRegular;
@@ -206,7 +206,7 @@
   }
   #questions-faq{
     padding: 80px;
-    color: #313637;
+    color: $dark_grey;
     height:450px;
     background-color: $color_qwerteach_yellow;
     font-family: SofiaProLight;

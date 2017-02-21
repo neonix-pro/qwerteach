@@ -1,4 +1,4 @@
-%div
+%div.container-fluid
   #lessons-sorting
   #lessons-index
     - @lessons.each do |lesson|
@@ -10,6 +10,5 @@
       Vous n'avez pas encore pris de cours sur Qwerteach!
     .row
       = render partial: 'dashboards/help_request_lesson', locals:{user: @user}
-    .row
-      = render partial: 'dashboards/featured_teachers', locals:{teachers: @teachers}
+    = render partial: 'dashboards/featured_teachers', locals:{teachers: @teachers}
 

@@ -116,7 +116,7 @@ h1,h2,h3,h4,h5,p,span,a{
     color:white;
 }
 .text-grey{
-  color: $text_lightgrey;
+  color: $medium_grey;
 }
 .text-black{
   color: #000;
@@ -164,7 +164,7 @@ input.cmn-toggle-round-flat + label
   padding: 2px;
   width: 60px;
   height: 25px;
-  background-color: #dddddd;
+  background-color: $text_light_grey;
   -webkit-border-radius: 60px;
   -moz-border-radius: 60px;
   -ms-border-radius: 60px;
@@ -207,7 +207,7 @@ input.cmn-toggle-round-flat + label:after
   left: 4px;
   bottom: 4px;
   width: 18px;
-  background-color: #dddddd;
+  background-color: $text_light_grey;
   -webkit-border-radius: 52px;
   -moz-border-radius: 52px;
   -ms-border-radius: 52px;
@@ -234,7 +234,7 @@ input.cmn-toggle-round-flat:checked + label:after
 /*Navbar*/
 .main-nav{
   border: 0 !important;
-  background: #222222 !important;
+  background: $qwerteach_black !important;
   height: 30px !important;
   outline: none !important;
   margin: 0 !important;
@@ -242,7 +242,7 @@ input.cmn-toggle-round-flat:checked + label:after
   position: static !important;
   border: none !important;
   .navbar-nav a{
-    color: $color_link_grey;
+    color: $text_grey;
     text-shadow: none;
   }
   .navbar-nav a:hover{
@@ -262,11 +262,11 @@ input.cmn-toggle-round-flat:checked + label:after
   z-index:10;
   position: absolute;
   width: 100%;
-  background: $color_qwerteach_navgrey;
-  color: $color_link_grey;
+  background: $qwerteach_black;
+  color: $text_grey;
   height: 500px;
   .cadre{
-    border-top: 1px solid #767676;
+    border-top: 1px solid $medium_grey;
     margin-top: 50px;
   }
   .inner{
@@ -288,7 +288,7 @@ input.cmn-toggle-round-flat:checked + label:after
       padding-right: 10%;
       display: block;
       text-align: left;
-      color: $color_link_grey;
+      color: $text_grey;
     }
     h3{
       font-size: 18px;
@@ -319,7 +319,7 @@ input.cmn-toggle-round-flat:checked + label:after
   .copyright{
     clear: both;
     bottom: 25px;
-    color: $color_link_grey;
+    color: $text_grey;
     margin-top: 280px;
   }
 }
@@ -345,9 +345,9 @@ table{
   line-height:25px;
   thead{
     tr{
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid $text_light_grey;
       th:first-child{
-        border-right: 1px solid #eee;
+        border-right: 1px solid $text_light_grey;
       }
       th{
         font-weight: 400;
@@ -358,7 +358,7 @@ table{
   tbody {
     tr {
       th {
-        border-right: 1px solid #eee;
+        border-right: 1px solid $text_light_grey;
         padding-left:0px;
         font-weight: 400;
       }
