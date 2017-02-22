@@ -44,7 +44,7 @@ var NotificationsManager = function() {
     {
       shown = limit;
       $('#notifications-wrapper').empty();
-      $('#notifications-wrapper').html('<i class="fa fa-spin fa-spinner"></i>');
+      //$('#notifications-wrapper').html('<i class="fa fa-spin fa-spinner"></i>');
       Notifications.loadNotifications(limit, offset);
     }
   });

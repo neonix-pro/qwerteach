@@ -7,7 +7,7 @@
   float:left;
   height: 170px;
   position: relative;
-  box-shadow: inset 25px 0px 19px -17px rgba(0,0,0,0.75);
+  box-shadow: 1px 0px 4px 0px rgba(0, 0, 0, 1);
   text-align:center;
   h3{
     font-size: 20px;
@@ -70,12 +70,16 @@
   }
 }
 
-#new-offer{
-  padding: 30px;
+#new-offer, .edit-offer form .col-sm-5{
+  padding: 50px;
+  #offer_description{
+    margin-top:15px;
+  }
 }
-.edit-offer form .col-sm-5{
-  padding-top:30px
+#new-offer .group-choice{
+  margin-top:15px;
 }
+
 #additional-levels{
 
 }

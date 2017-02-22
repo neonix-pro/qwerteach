@@ -12,7 +12,7 @@
             = f.label :firstname
             = f.text_field :firstname, :placeholder => :Jean, class: 'form-control'
             = f.label :birthdate
-            = f.text_field :birthdate, :placeholder => :Date_de_Naissance, class: 'form-control datepicker'
+            = f.text_field :birthdate, :placeholder => :Date_de_Naissance, class: 'form-control datepicker', data: {parent: '#edit_user'}
           .col-sm-6
             = f.label :phone_number
             .row

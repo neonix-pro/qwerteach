@@ -38,6 +38,9 @@
     a:hover{
       background-color: $dark_grey;
     }
+    a.active:hover{
+      background-color:$color_qwerteach_green;
+    }
     .title{
       border: none;
       background: $medium_grey;

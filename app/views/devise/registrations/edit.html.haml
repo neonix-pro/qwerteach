@@ -1,16 +1,16 @@
-.backgroundEdit.edit_profile
+.backgroundEdit.edit_profile#edit_profile
   .container-fluid
     .row.flex
       .col-md-2.menu
         = render :partial => 'menu_edit_registrations'
       .col-md-10.right
-        %div#passcode.collapse
+        %div#passcode.collapse.profile-section
           = render :partial => 'password_form'
-        %div#annonces.collapse
+        %div#annonces.collapse.profile-section
           = render :template => 'offers/index'
-        %div#calendear.collapse
+        %div#calendear.collapse.profile-section
           Calendrier
-        %div#degrees.collapse
+        %div#degrees.collapse.profile-section
           Diplômes
-        %div#profil.collapse.in
+        %div#profil.collapse.in.profile-section
           = render :partial => 'profile_form'

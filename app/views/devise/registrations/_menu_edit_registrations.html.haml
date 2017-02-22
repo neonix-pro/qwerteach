@@ -50,13 +50,26 @@
       $('#avatar-crop-modal').modal('show');
     }
   });
+
   $(document).ready(function(){
-    $('.collapse').on('show.bs.collapse', function(){
+    $('#edit_profile .collapse').on('show.bs.collapse', function(){
       var h = $(body).height();
       $('.menu').css({height:h});
     });
-    $('.collapse').on('shown.bs.collapse', function(){
+    $('#edit_profile .collapse').on('shown.bs.collapse', function(){
       $('.menu').css({height:''});
       bodySidebarHeight();
+      var h = Math.max($(body).height(), $(this).height());
+      $('.menu').css({height:h});
     });
+
+    $(".collapse").on('show.bs.collapse', function(e) {
+      if ($(this).is(e.target)) {
+
+      }
+      else{
+        e.stopPropagation();
+      }
+    })
   });
+
