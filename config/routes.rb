@@ -147,6 +147,7 @@ Rails.application.routes.draw do
 
     post "payerfacture/:payment_id" => "payments#payerfacture", as: 'payerfacture'
   end
+
   match '/cours' =>'lessons#index', :as => 'cours', via: :get
   match '/cours/recus'=>'lessons#received', :as => 'cours_recus', via: :get
   match '/cours/donnes'=>'lessons#given', :as => 'cours_donnes', via: :get

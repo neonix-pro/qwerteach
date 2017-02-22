@@ -11,8 +11,9 @@ body{
     color: $color_qwerteach_green;
   }
   a:hover, a:active, a:focus{
-    text-decoration: underline;
+    text-decoration: none;
     outline: 0;
+    color: inherit;
   }
   a.btn:hover{
     text-decoration:none;

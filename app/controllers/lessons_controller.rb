@@ -51,7 +51,7 @@ class LessonsController < ApplicationController
     @lesson.update_attributes(:status => 2)
     @lesson.save
     body = "#"
-    if @lesson.is_teacher(@user)
+    if @lesson.is_teacher?(@user)
       @notification_text = "Le professeur #{@lesson.teacher.name} a accepté votre demande de cours."
     else
       @notification_text = "#{@lesson.student.name} a accepté la demande de cours pour le cours ##{@lesson.id}."
@@ -138,7 +138,7 @@ class LessonsController < ApplicationController
 
   def find_lesson_infos
     @user = current_user
-    @lesson = Lesson.find(params[:lesson])
+    @lesson = params[:id].nil? ? Lesson.find(params[:lesson_id]) : Lesson.find(params[:id])
     @other = @lesson.other(@user)
   end
 end

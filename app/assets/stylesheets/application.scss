@@ -11,7 +11,6 @@
  * file per style scope.
  *
  */
-@import "*";
 //@import "**/*";
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -21,4 +20,5 @@
 @import "font-awesome";
 @import 'bootstrap-datetimepicker';
 @import 'bootstrap-datepicker3';
+@import "*";
 
