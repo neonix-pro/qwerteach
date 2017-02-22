@@ -242,8 +242,13 @@
       }
     }
     .name{
-      padding-left: 60px;
-      text-align: center;
+      padding-left: 70px;
+      a {
+        color: $text_light_grey;
+      }
+      a:hover{
+        color: $color_qwerteach_green;
+      }
       small{
         color: $text_light_grey;
       }

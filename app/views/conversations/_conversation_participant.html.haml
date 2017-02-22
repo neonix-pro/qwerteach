@@ -2,7 +2,7 @@
   .avatar.pull-left
     = image_tag(user.avatar.url(:small), class: 'img img-circle')
   .name
-    #{user.name}
+    = link_to user.name, user_path(user)
     - if user.is_a?(Teacher)
       %br
       %small Professeur

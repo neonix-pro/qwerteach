@@ -275,3 +275,7 @@ fr:
           five: "Quelles sont les conditions d'annulation et de remboursment?"
           six: "Puis-je charger de l'argent sur un autre compte Qwerteach?"
           seven: "Je souhaite fermer mon compte et récupérer le solde de mon portefeuille virtuel."
+  activerecord:
+    errors:
+      messages:
+        taken: "est déjà pris"

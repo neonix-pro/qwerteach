@@ -2,7 +2,7 @@
   .triangle
   .wrapper
     %p
-      = link_to user_path(review.subject) do
+      = link_to user_path(review.subject, anchor: 'profile-reviews') do
         %i.fa.fa-comment.text-green
       = review.review_text.gsub(/(^[ ]*<p>[ ]*)|([ ]*<\/p>[ ]*$)/, '').html_safe
     %div
