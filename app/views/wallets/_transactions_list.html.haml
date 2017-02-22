@@ -7,5 +7,7 @@
     %th.dark Montant crédité
     %th Montant débité
     %th.dark Frais
+    %th Statut
+    %th.dark Message
   - transactions.each do |t|
     = render 'transaction', t: t

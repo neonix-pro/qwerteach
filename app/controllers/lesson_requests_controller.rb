@@ -69,7 +69,7 @@ class LessonRequestsController < ApplicationController
 
         if payin.valid?
           result = payin.result
-          if result.secure_mode == 'FORCE' and result.secure_mode_redirect_url.present?
+          if result.secure_mode_redirect_url.present?
             render js: "window.location = '#{result.secure_mode_redirect_url}'" and return
           else
             paying = PayLessonWithCard.run(user: current_user, lesson: @lesson, transaction_id: result.id)

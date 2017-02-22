@@ -79,7 +79,8 @@ class WalletsController < ApplicationController
         payin = Mango::PayinCreditCard.run(user: current_user, amount: amount, card_id: card, return_url: return_url)
         if payin.valid?
           result = payin.result
-          if result.secure_mode == 'FORCE' and result.secure_mode_redirect_url.present?
+
+          if result.secure_mode_redirect_url.present?
             redirect_to result.secure_mode_redirect_url
           else
             redirect_to index_wallet_path, notice: t('notice.processing_success') and return
