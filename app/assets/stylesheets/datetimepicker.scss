@@ -15,3 +15,15 @@
     }
   }
 }
+div.datepicker{
+  td.active{
+    background-color: $color_qwerteach_green!important;
+  }
+  td.active:hover{
+    background-coor:$color_qwerteach_green;
+    color: $dark_grey;
+  }
+  th.prev:hover, th.next:hover{
+      color:$color_qwerteach_green;
+  }
+}

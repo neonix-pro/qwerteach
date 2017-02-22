@@ -15,7 +15,6 @@
 //= require users
 //= require private_pub
 //= require bootstrap-sprockets
-//= require bootstrap-datepicker/core
 //= require messages
 //= require_tree .
 //= require bootstrap-datetimepicker
@@ -31,6 +30,8 @@
 //= require fullcalendar/lang/fr.js
 //= require simpletextrotator
 //= require mangopay-kit.min
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
 
 $.validate({
     modules : 'security'

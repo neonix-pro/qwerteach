@@ -14,7 +14,7 @@
           = f.text_field :lastname, :required => true, class: 'form-control'
         .form-group
           = f.label :birthdate
-          = f.text_field :birthdate, :data => {:provide => "datepicker", 'date-format' => 'yyyy-mm-dd'}, :required => true, class: 'form-control'
+          = f.text_field :birthdate, :required => true, class: 'form-control datepicker'
         .form-group
           = f.label :level_id, "Niveau de formation atteint"
           = f.select :level_id, options_for_select(@levels, selected: @user.level), {}, required: true, class:'form-control'
