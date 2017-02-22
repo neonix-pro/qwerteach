@@ -2,6 +2,8 @@
   .triangle
   .wrapper
     %p
+      = link_to user_path(review.subject) do
+        %i.fa.fa-comment.text-green
       = review.review_text.gsub(/(^[ ]*<p>[ ]*)|([ ]*<\/p>[ ]*$)/, '').html_safe
     %div
       %img.avatar{"src" => image_path(review.sender.avatar(:small))}

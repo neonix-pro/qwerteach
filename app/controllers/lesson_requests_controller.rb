@@ -82,7 +82,6 @@ class LessonRequestsController < ApplicationController
         else
           render 'errors', :layout=>false, locals: {object: payin}
         end
-
     end
   end
 
