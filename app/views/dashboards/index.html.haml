@@ -1,4 +1,8 @@
 .container-fluid
+  - unless @current_lesson.nil?
+    .row
+      .col-xs-12#current_lesson
+        = render partial: 'current_lesson', locals:{lesson:  @current_lesson}
   -if @user.lessons_received.empty? && @user.is_a?(Student)
     .row
       .col-xs-12#welcome

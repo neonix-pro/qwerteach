@@ -2,7 +2,8 @@ class LessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_lesson_infos, except: [:new, :index]
   before_filter :user_time_zone, :if => :current_user
-  after_action :email_user, only: [:update, :accept, :refuse, :cancel, :dispute, :pay_teacher]
+  # needs to check that everything went OK before sending mail!
+  #after_action :email_user, only: [:update, :accept, :refuse, :cancel, :dispute, :pay_teacher]
 
   def index
     @user = current_user
@@ -39,6 +40,7 @@ class LessonsController < ApplicationController
       @other.send_notification(@notification_text, '#', @user, @lesson)
       if @lesson.save
         flash[:success] = "La modification s'est correctement déroulée."
+        email_user
         redirect_to lessons_path and return
       else
         flash[:danger] = "Il y a eu un problème lors de la modification. Veuillez réessayer."
@@ -60,6 +62,7 @@ class LessonsController < ApplicationController
     PrivatePub.publish_to "/notifications/#{@other.id}", :lesson => @lesson # ???
     flash[:notice] = "Le cours a été accepté."
     LessonsNotifierWorker.perform() # check if new bbb is needed (right now)
+    email_user
     redirect_to dashboard_path
   end
 
@@ -72,6 +75,7 @@ class LessonsController < ApplicationController
       @notification_text = "#{@user.name} a refusé votre demande de cours."
       @other.send_notification(@notification_text, body, @user, @lesson)
       flash[:success] = 'Vous avez décliné la demande de cours.'
+      email_user
       redirect_to lessons_path
     else
       flash[:danger] = "Il y a eu un problème: #{refuse.errors.full_messages.to_sentence} <br />Le cours n'a pas été refusé".html_safe
@@ -89,6 +93,7 @@ class LessonsController < ApplicationController
         @notification_text = "#{@user.name} a annulé la demande de cours."
         @other.send_notification(@notification_text, body, @user, @lesson)
         flash[:success] = 'Vous avez annulé la demande de cours.'
+        email_user
         redirect_to lessons_path
       else
         flash[:danger] = "Il y a eu un problème: #{refuse.errors.full_messages.to_sentence}.<br /> Le cours n'a pas été annulé.".html_safe
@@ -106,6 +111,7 @@ class LessonsController < ApplicationController
       @notification_text = "Le payement de votre cours avec #{@user.name} a été débloqué!"
       @other.send_notification(@notification_text, '#', @user, @lesson)
       flash[:success] = 'Merci pour votre feedback! Le professeur a été payé.'
+      email_user
       redirect_to lessons_path
     else
       flash[:danger] = "Il y a eu un problème: #{pay_teacher.errors.full_messages.to_sentence} <br />Nous n'avons pas pu procéder au payement du professeur".html_safe
@@ -119,6 +125,7 @@ class LessonsController < ApplicationController
       @notification_text = "#{@user.name} a déclaré un litige sur le cours ##{@leson.id}. Le payement est suspendu, un administrateur prendra contact avec vous sous peu."
       @other.send_notification(@notification_text, '#', @user, @lesson)
       flash[:success] = "Merci pour votre feedback! Un administrateur prendra contact avec vous dans le splus brefs délais."
+      email_user
       redirect_to root_path
     else
       flash[:danger] = "Il y a eu un problème: #{dispute.errors.full_messages.to_sentence} <br />Prenez contact avec l'équipe du site".html_safe

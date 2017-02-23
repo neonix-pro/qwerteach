@@ -1,0 +1,33 @@
+#upcoming_lessons
+  .row
+    %h2.text-center
+      Vous avez un cours prévu maintenant!
+  .row
+    .lesson-date.text-center
+      .lesson-day #{lesson.time_start.day}
+      .lesson-month #{lesson.time_start.strftime("%B")}
+    .lesson-partner
+      = image_tag lesson.other(current_user).avatar(:medium), class: 'lesson-partner-img'
+    .lesson-details
+      .pull-left
+        %span.text-pink
+          = lesson.topic.title
+        %span.time-start
+          de
+          = lesson.time_start.strftime("%H:%M")
+          à
+          = lesson.time_end.strftime("%H:%M")
+          %br
+          %small= "(timezone: #{t Time.zone.name})"
+        %br
+        avec
+        = link_to lesson.other(current_user).firstname, user_path(lesson.other(current_user)), class: 'text-pink'
+        %br
+        =# lesson_duration(lesson.time_start, lesson.time_end)
+      .pull-right.text-center
+        = image_tag lesson.topic.pictotype('medium'), class: 'lesson-picto'
+        %br
+        = link_to 'voir détails', lessons_path, class: 'text-pink see-more'
+      - unless lesson.bbb_room.nil?
+        .pull-right.text-center
+          = link_to 'rejoindre la classe virtuelle', join_bigbluebutton_room_path(lesson.bbb_room)

@@ -104,9 +104,12 @@ class window.RequestLesson
     if @isFreeLession()
       $('.hours-select').prop("disabled", true).val('00')
       $('.minutes-select').prop("disabled", true).val('30')
+      @$el.children('form').append('<input type="hidden" name="request[hours]" value="0" class="free_lesson_duration" />')
+      @$el.children('form').append('<input type="hidden" name="request[minutes]" value="30" class="free_lesson_duration" />')
     else
       $('.hours-select').prop("disabled", false)
       $('.minutes-select').prop("disabled", false)
+      @$el.find('.free_lesson_duration').remove()
 
 
   isFreeLession: ->

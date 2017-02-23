@@ -135,7 +135,7 @@ Rails.application.routes.draw do
     get 'accept' => :accept
     get 'refuse' => :refuse
     get 'cancel' => :cancel
-    get 'pay_teacher'=>:pay_teacher
+    post 'pay_teacher'=>:pay_teacher
     get 'dispute'=>:dispute
     
     resources :payments do

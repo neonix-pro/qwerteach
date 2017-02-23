@@ -279,3 +279,15 @@ fr:
     errors:
       messages:
         taken: "est déjà pris"
+  active_interaction:
+    errors:
+      messages:
+        invalid: 'est invalide'
+        invalid_nested: 'est en partie invalide: (%{name} => %{value})'
+        invalid_type: 'a une valeur non valide'
+        missing: ': cette information est requise'
+    attributes:
+      create_lesson_request:
+        topic_id: 'matière'
+        level_id: 'niveau'
+        hours: 'durée du cours'

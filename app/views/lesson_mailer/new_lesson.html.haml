@@ -8,14 +8,13 @@
     %p
       = @text
     %blockquote
-    %dl
-      %dt ID:
-      %dd #{@lesson.id}
-      %dt date:
-      %dd le #{@lesson.time_start.strftime("%d/%m/%Y à %H:%M")}
-      %dt Matière:
-      %dd #{@lesson.topic.title}
-      %dt Durée:
-      %dd #{@lesson.duration.hours}h#{@lesson.duration.minutes}
+    %p
+      ID: #{@lesson.id}
+      %br
+      date: le #{@lesson.time_start.strftime("%d/%m/%Y à %H:%M")}
+      %br
+      Matière: #{@lesson.topic.title}
+      %br
+      Durée: #{@lesson.duration.hours}h#{@lesson.duration.minutes}
     %p
       #{link_to 'Consulter la liste de mes cours', lessons_path } pour plus d'informations

@@ -1,4 +1,5 @@
 class LessonsNotifierWorker
+  include Rails.application.routes.url_helpers
   @queue = :bigbluebutton_rails
 
   def self.perform(*args)
