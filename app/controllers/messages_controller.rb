@@ -1,9 +1,18 @@
 class MessagesController < ApplicationController
+  class SendToSelf < StandardError; end
+
+  rescue_from SendToSelf, with: :dont_send_to_self
 
   before_action :authenticate_user!
   after_filter { flash.discard if request.xhr? }
+  before_action :check_users_different, only: :create
 
   def new
+  end
+
+  def dont_send_to_self(exception)
+    flash[:notice]= "Vous ne pouvez pas envoyer de message à vous-même!"
+    flash_to_headers
   end
 
   def create
@@ -43,5 +52,10 @@ class MessagesController < ApplicationController
   def count
     render :json => current_user.mailbox.inbox({:read => false}).count
   end
+
+  private
+    def check_users_different
+      raise SendToSelf unless User.find(params[:message][:recipient]) != current_user
+    end
 end
 

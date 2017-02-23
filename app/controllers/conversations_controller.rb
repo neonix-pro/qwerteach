@@ -142,7 +142,6 @@ class ConversationsController < ApplicationController
 
   private
   def get_conversation
-    logger.debug(params)
     @conversation ||= @mailbox.conversations.find(params[:id])
     @conversation.mark_as_read(current_user)
   end
