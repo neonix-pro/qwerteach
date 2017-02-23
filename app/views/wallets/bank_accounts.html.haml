@@ -1,32 +1,37 @@
-= form_tag update_bank_accounts_path, method: :put do
-  - if (!@user.bank_accounts || @user.bank_accounts.empty?)
-    = render 'mangopay/bank_accounts/new', bank_account: @bank_account
-  - else
-    %h4 Vos comptes en banque:
-    - @user.bank_accounts.each do |bank_account|
-      - if bank_account.type == 'IBAN'
-        %b> Type:
-        IBAN
-        %br/
-        %b Numéro:
-        = bank_account.iban
-        %br/
-      - else
-        %b Type:
-        = bank_account.type
-        %br/
-        %b Numéro:
-        = bank_account.account_number
-        %br/
-      %b Owner:
-      = bank_account.owner_name
-      %br/
-      %br/
-    %br/
-    %button#addBankAcountButton.btn.btn-default{:type => "button"} Ajouter un compte en banque
-    #addBankAccount{:hidden => ""}
-      = render 'mangopay/bank_accounts/new', bank_account: @bank_account
-  %hr/
-  .field
-    = submit_tag :terminer, :class => 'btn btn-primary btn-mini'
-    %br/
+#register_bank_account
+  .row
+    %h2.page-title-green Ajouter un compte bancaire
+    .col-xs-2
+    .col-xs-8
+      .alert.alert-info
+        %p Introduisez ici les détails du compte bancaire sur lequel vous souhaitez verser le solde de votre portefeuille virtuel.
+      = form_tag update_bank_accounts_path, method: :put do
+        - if (!@user.bank_accounts || @user.bank_accounts.empty?)
+          = render 'mangopay/bank_accounts/new', bank_account: @bank_account
+        - else
+          %h4 Vos comptes en banque:
+          - @user.bank_accounts.each do |bank_account|
+            - if bank_account.type == 'IBAN'
+              %b> Type:
+              IBAN
+              %br/
+              %b Numéro:
+              = bank_account.iban
+              %br/
+            - else
+              %b Type:
+              = bank_account.type
+              %br/
+              %b Numéro:
+              = bank_account.account_number
+              %br/
+            %b Owner:
+            = bank_account.owner_name
+            %br/
+            %br/
+          %br/
+          %button#addBankAcountButton.btn.btn-default{:type => "button"} Ajouter un compte en banque
+          #addBankAccount{:hidden => ""}
+            = render 'mangopay/bank_accounts/new', bank_account: @bank_account
+:javascript
+  $('#submit_new_bank_account').hide();

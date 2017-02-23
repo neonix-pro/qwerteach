@@ -158,10 +158,11 @@ class WalletsController < ApplicationController
 
   def payout
     if @user.bank_accounts.blank?
-      redirect_to bank_accounts_path, alert: "You must register bank account for payout"
-    end
-    if @user.normal_wallet.balance.amount.to_f == 0.0
-      redirect_to index_wallet_path, alert: "Vous n'avez rien à récupérer."
+      redirect_to bank_accounts_path, alert: "Vous devez enregistrer un compte en banque pour pouvoir décharger votre portfeueille virtuel!"
+    else
+      if @user.normal_wallet.balance.amount.to_f == 0.0
+        redirect_to index_wallet_path, alert: "Vous n'avez rien à récupérer."
+      end
     end
   end
 

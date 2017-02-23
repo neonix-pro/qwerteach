@@ -1,15 +1,4 @@
 .mail-box
-  -##mailbox-head
-  -#  .new-message
-  -#    = image_tag('compose_message.png', class: 'compose-message')
-  -#  #compose-message
-  -#    .form-group
-  -#      = label_tag 'recipients', 'À:'
-  -#      %input#recipients{:list => "recipients-list", :class => 'form-control',
-  -#      :placeholder => 'Entrez le nom d\'une personne'}
-  -#      %datalist#recipients-list
-  -#        -@recipient_options.each do |o|
-  -#          %option{value:o.name, userid: o.id}
   #mailbox-content
     %aside.sm-side
       -#liste des conversations

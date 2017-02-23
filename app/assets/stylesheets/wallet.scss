@@ -372,3 +372,13 @@
   }
 }
 
+#register_bank_account{
+  .choose_bank_account_type{
+    label{
+      font-weight: 400;
+    }
+    .col-xs-2{
+      white-space: nowrap;
+    }
+  }
+}

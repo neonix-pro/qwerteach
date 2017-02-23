@@ -64,7 +64,7 @@
             = hidden_field_tag :card, '', id: "submit-card-id"
             = hidden_field_tag :card_type, '', id: "submit-payment-method"
             .actions
-              = submit_tag('Valider')
+              = button_tag('Valider', type: :submit, data:{disable_with: "Opération en cours <i class='fa fa-spinner fa-spin'></i>".html_safe}, class: 'btn btn-green btn-qw btn-sm')
 
 :javascript
   updateCardType();
