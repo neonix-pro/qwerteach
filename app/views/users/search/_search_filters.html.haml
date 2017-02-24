@@ -9,3 +9,6 @@
     %li.filter{data:{filter: :has_reviews}, class:('selected' if params[:filter] == :has_reviews)}
       %i.fa.fa-star-o
       Appréciations
+    %li.filter{data:{filter: nil}, class:('selected' if params[:filter] == :has_reviews)}
+      %i.fa.fa-long-arrow-right
+      Tous les profs

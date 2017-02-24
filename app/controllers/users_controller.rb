@@ -21,9 +21,10 @@ class UsersController < ApplicationController
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
     search_sorting_options
-    if params[:topic].nil?
+    if params[:topic].nil? || params[:topic].empty?
       @search = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
       @pagin = @search
+      search_text
     else
       # can't access global variable in sunspot search...
       @sunspot_search = Sunspot.search(Offer) do
@@ -100,6 +101,9 @@ class UsersController < ApplicationController
       @search_text ||= @search_topic.title
     else
       @search_text ||= params[:topic]
+    end
+    if @search_text.nil? || @search_text.empty?
+      @search_text = 'tous les profs'
     end
   end
 

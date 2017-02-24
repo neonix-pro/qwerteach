@@ -10,7 +10,7 @@ fr:
       subscribe: "S'inscrire"
   search:
     filters:
-      has_reviews: 'ayant déjà des reviews'
+      has_reviews: 'ayant déjà des appréciations'
       online: 'en ligne en ce moment'
       first_lesson_free: 'proposant un premier cours gratuit'
   menu:

@@ -24,3 +24,7 @@
     = render 'pages/accueil/partie_commentaire'
     = render 'pages/accueil/tri_colonne'
     = render 'pages/accueil/presse'
+
+- if current_user
+  :javascript
+    $(window).scrollTop(450);

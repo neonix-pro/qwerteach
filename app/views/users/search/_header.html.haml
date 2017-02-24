@@ -1,6 +1,6 @@
 #search_header{"data-vide-bg" => "mp4: '' , webm:'' , poster: #{image_path('search/search_header.jpg')}", "data-vide-options" => "posterType: jpg, loop: ture, muted: true, position: 50% 50%"}
   %h1
-    Trouvez votre #{params[:topic].nil? ? "prof particulier" : "prof de #{@search_text.downcase}"}
+    Trouvez votre #{params[:topic].nil? || params[:topic].empty? ? "prof particulier" : "prof de #{@search_text.downcase}"}
     %br
     pour un
     %span.text-green
@@ -9,7 +9,7 @@
     %a.open_mode_emploi.toggleCCM{href: '#'} Mode d'emploi
   .search-controls
     = form_tag profs_path, method: :post, id: 'search-form', remote: false do
-      - if params[:topic].nil?
+      - if params[:topic].nil? || params[:topic].empty?
         %span#search-topic.text-appear Tous les profs
         %span.caret
       - else
