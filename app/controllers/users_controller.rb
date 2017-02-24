@@ -110,7 +110,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = "Votre profil a bien été modifié"
+      flash[:success] = "Votre profil a bien été modifié" unless @user.previous_changes.empty?
     else
       flash[:danger] = "La modification a échoué"
     end
@@ -119,7 +119,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:firstname, :lastname, :birthdate, :phonenumber,
+      params.require(:user).permit(:firstname, :lastname, :birthdate, :phone_country_code, :phone_number,
                                    :gender, :occupation, :description, :level_id,
                                    :time_zone, :avatar, :crop_x, :crop_y, :crop_h, :crop_w)
     end

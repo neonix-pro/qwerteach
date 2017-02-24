@@ -1,0 +1,21 @@
+#detailed-pricing.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-body
+        - offers.keys.each do |key|
+          - unless offers[key].empty?
+            - levels = Level.where(code: :scolaire).group_by{|l| l.be}.collect{|k,v| v.last}
+            %h5.title-green.text-center #{key}
+            %table
+              %thead
+                %tr
+                  %th tarifs €/h
+                  -levels.each do |level|
+                    %th{class: "level_col_#{level.id}"} #{t level.be, locale: :abv}
+              %tbody
+                - offers[key].each do |ad|
+                  %tr.topic_row{id: "topic_row_#{ad.topic.id}"}
+                    %th #{ad.topic.title}
+                    -levels.each do |level|
+                      %td.level_col{class: "level_col_#{level.id}"}
+                        #{ad.price_for_level(level.id).nil? ? '&mdash;'.html_safe : "%g" % ad.price_for_level(level.id).price}

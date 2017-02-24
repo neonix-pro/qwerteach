@@ -1,5 +1,8 @@
 
 fr:
+  male: 'Homme'
+  female: 'Femme'
+  "not telling": 'Non-communiqué'
   hello: "Bonjour!!!"
   forms:
     messages:

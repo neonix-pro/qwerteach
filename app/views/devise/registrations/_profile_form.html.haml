@@ -12,7 +12,8 @@
             = f.label :firstname
             = f.text_field :firstname, :placeholder => :Jean, class: 'form-control'
             = f.label :birthdate
-            = f.text_field :birthdate, :placeholder => :Date_de_Naissance, class: 'form-control datepicker', data: {parent: '#edit_user'}
+            .form-inline
+              = f.date_select :birthdate, {start_year: 1930, end_year: 2020 }, :class => "form-control"
           .col-sm-6
             = f.label :phone_number
             .row
@@ -21,9 +22,9 @@
               .col-xs-9
                 = f.telephone_field :phone_number, class: 'form-control'
             = f.label :gender
-            = f.select :gender, User::GENDER_TYPES, {}, class: 'form-control'
+            = f.select :gender, User::GENDER_TYPES.map{|type|[ t(type.downcase), type]}, {}, class: 'form-control'
             = f.label :time_zone, "Quelle est votre fuseau horaire?"
-            = f.time_zone_select :time_zone, nil, {}, class: 'form-control'
+            = f.time_zone_select :time_zone, nil, {default: Time.zone.name}, class: 'form-control'
       .col-md-4
         %h3.text-center Formations/Expérience
         %hr
@@ -34,6 +35,8 @@
             = f.label :level, "Niveau de formation"
             - levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id)
             = f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }, {}, class: 'form-control'
+            .actions
+              = submit_tag "Envoyer", :class => "submit action"
     .row
       .col-sm-12
         %h3.text-center Description

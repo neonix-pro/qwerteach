@@ -6,7 +6,7 @@
       .user-pricing
         .minprice
           = "%g€/h" % (@user.min_price)
-        %a{"data-toggle" => "modal", :href => "#myModTarif"} voir le tarif détaillé
+        %a{"data-toggle" => "modal", :href => "#detailed-pricing"} voir le tarif détaillé
       = link_to 'Réserver un cours', new_user_lesson_request_path(@user),
         class: "btn btn-green", remote: false
     #user-contactform
@@ -26,19 +26,7 @@
       .similar-teachers
       .clearfix
   - if @user.is_a?(Teacher)
-    #myModTarif.modal.fade{:role => "dialog"}
-      .modal-dialog
-        .modal-content
-          .modal-header
-            %button.close{"data-dismiss" => "modal", :type => "button"} ×
-            %h4.modal-title Tarif(s) de #{@user.name}
-          .modal-body
-            - @offers.each do |offer|
-              = render partial: "users/tarifs", :locals => {:offer => offer}
-        .modal-footer
-          .pasDeCompte{"data-dismiss" => "modal", "data-target" => "#myModCo", "data-toggle" => "modal"}
-
-    = render partial: 'lesson_requests/request_lesson_modal'
+    = render partial: 'lesson_requests/detailed_pricing_modal', locals:{offers: @user.offers_by_level_code}
 
     :javascript
       new RequestLesson( $('#request-lesson'), {teacher_id: #{@user.id}} );
