@@ -255,7 +255,7 @@ class Lesson < ActiveRecord::Base
     LessonMailer.new_lesson(@other, @lesson, @notification_text).deliver
   end
 
-  def can_cancel(user)
+  def can_cancel?(user)
     (self.teacher == user || self.time_start > Time.now + 2.days || self.pending_any?)
   end
 

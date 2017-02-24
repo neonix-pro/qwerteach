@@ -6,5 +6,6 @@
   avec
   %span.text-green #{lesson.teacher.firstname}
 .cta
-  Nouveau cours
-  %i.fa.fa-long-arrow-right
+  = link_to new_user_lesson_request_path(lesson.teacher) do
+    Nouveau cours
+    %i.fa.fa-long-arrow-right

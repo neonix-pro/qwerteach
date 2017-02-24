@@ -9,6 +9,6 @@
     - else
       Ce cours a déjà commencé!
       %br
-      = link_to 'Rejoindre la classe virtuelle', join_bigbluebutton_room_path(lesson.bbb_room)
+      = link_to 'Rejoindre la classe virtuelle', join_bigbluebutton_room_path(lesson.bbb_room), target: "_blank"
   %br
   = link_to 'annuler le cours', lesson_cancel_path(lesson), class: 'btn btn-qw btn-grey btn-sm' unless lesson.bbb_room
