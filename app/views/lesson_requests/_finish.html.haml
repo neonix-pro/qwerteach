@@ -1,12 +1,26 @@
-%h3 Merci! Votre demande a bien été envoyée au professeur.
+%h3 Merci! Votre réservation a bien été enregistrée!
+%p
+  Félicitations!
+  %br
+  Votre réservation a été envoyée au professeur.
+  Cependant, avant de pouvoir profiter de votre cours particulier, votre professeur devra confirmer
+  qu'il accepte votre réservation. Vous serez averti par e-mail dès que celà sera fait.
+  %br
+  D'ici là, vous pouvez déjà vous familiariser avec notre outil, la classe virtuelle.
+  %br
+  %a{href:'https://qwerteach.com/classe-de-demo'} Essayer la classe virtuelle
+%p
+  Vous trouverez ci-dessous un récapitulatif de votre réservation.
 %dl.dl-horizontal
-  %dt ID:
-  %dd #{@lesson.id}
   %dt date:
   %dd le #{@lesson.time_start.strftime("%d/%m/%Y à %H:%M")}
   %dt Matière:
   %dd #{@lesson.topic.title}
   %dt Durée:
   %dd #{@lesson.duration.hours}h#{@lesson.duration.minutes}
+  %dt Montant:
+  %dd #{@lesson.price}€
   %p
     #{link_to 'Consulter la liste de mes cours', lessons_path }
+    %br
+    #{link_to 'Plus d\'informations sur les payements', faq_path('students', 'payments')}
