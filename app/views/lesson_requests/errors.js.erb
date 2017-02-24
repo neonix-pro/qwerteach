@@ -1,3 +1,4 @@
 $('.lesson-request-errors').remove();
 $('<div class="lesson-request-errors">').html("<%= j render('shared/errors', object: object) %>").prependTo('#lesson-details');
-$('#lesson-details').trigger('update')
+$('#lesson-details').trigger('update');
+$('#step1-title').trigger('click');

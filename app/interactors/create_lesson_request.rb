@@ -1,5 +1,11 @@
 class CreateLessonRequest < ActiveInteraction::Base
-  
+  class DurationValidator < ActiveModel::Validator
+    def validate(record)
+      if record.hours + record.minutes <= 0
+        record.errors[:base] << "la durée doit être supérieure à 0"
+      end
+    end
+  end
   integer :teacher_id
   integer :student_id
   time :time_start
@@ -12,6 +18,7 @@ class CreateLessonRequest < ActiveInteraction::Base
   string :comment, default: nil
 
   validates :teacher_id, :student_id, :topic_id, :level_id, :time_start, presence: true
+  validates_with DurationValidator
 
   set_callback :validate, :after, :calculate_price
 

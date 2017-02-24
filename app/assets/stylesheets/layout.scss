@@ -33,7 +33,15 @@ h1,h2,h3,h4,h5,p,span,a{
 .main-content{
   min-height: 50%;
 }
-
+.alert{
+  .close{
+    opacity:0.9;
+    img{
+      height: 30px;
+      margin-top: 0px;
+    }
+  }
+}
 #flash-messages{
   position: relative;
   width: 100%;
@@ -48,13 +56,6 @@ h1,h2,h3,h4,h5,p,span,a{
     color: rgba(255, 255, 255, 0.9);
     background-color: $color_qwerteach_blue;
     background-image: none;
-    .close{
-      opacity:0.9;
-      img{
-        height: 30px;
-        margin-top: 0px;
-      }
-    }
   }
   .alert-notice{
     background-color: $color_qwerteach_blue;

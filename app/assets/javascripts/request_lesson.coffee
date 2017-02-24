@@ -26,6 +26,7 @@ class window.RequestLesson
     @$el.on 'change', '#request_time_start', (e)=> @calculatePrice()
     @$el.on 'submit', 'form', => @showLoader()
     @$el.on 'update', => @calculatePrice()
+    @$el.find('.topic-select').trigger('change')
 
 
   onTopicGroupChange: (e)->
@@ -62,12 +63,14 @@ class window.RequestLesson
 
   calculatePrice: ->
     return if !@isReadyForCalculating()
+    $('#precalculated-price').removeClass('updated');
     @displayRecap(@paramsForDisplay())
     if @isFreeLession()
       $('#price_shown').text '0'
     else
       $.post @getCalculateUrl(), @paramsForCalculating(), (data)=>
         $('#price_shown').text data.price
+    $('#precalculated-price').addClass('updated');
 
   displayRecap: (params)->
     if params.topic != 'matiere'

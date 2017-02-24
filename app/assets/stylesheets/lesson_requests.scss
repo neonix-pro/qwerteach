@@ -187,6 +187,7 @@ h2.booking-title{
         height: 40px;
         line-height: 40px;
         clear: both;
+        transition: bakcground-color 1s;
         .pull-right, .pull-left {
           background-color: transparent;
         }
@@ -194,6 +195,11 @@ h2.booking-title{
           top: 0px;
           padding-right: 30px;
         }
+      }
+      #precalculated-price.updated{
+        color:white;
+        transition: bakcground-color 0;
+        background-color: $color_qwerteach_green;
       }
     }
     .teacher-topics.active, .lesson-recap.active {

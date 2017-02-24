@@ -1,5 +1,5 @@
 #pay-by-wallet
-  - if @lesson.price > @user.total_wallets_in_cents
+  - if @lesson.price > (@user.total_wallets_in_cents / 100)
     Mon portefeuille: #{@user.total_wallets_in_cents/100}€
     Montant insuffisant
   - else
@@ -38,11 +38,11 @@
 = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
 
 :javascript
-  $('#payment_method').on('input', function(){
+  $('#payment_method').on('change', function(){
     $('.payment_method').hide();
     $('.payment_by_'+$(this).val()).slideDown();
   });
-  $('#pay_by_wallet').on('input', function(){
+  $('#pay_by_wallet').on('change', function(){
     $('.payment_method').hide();
     if($(this).prop('checked')){
       $('.payment_by_wallet').slideDown();

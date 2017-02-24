@@ -1,5 +1,5 @@
 .alert.alert-dismissible{:role => "alert", :class => "alert-#{type} alert"}
-  %button.close{"aria-label" => "Close", :type => "button"}
+  %button.close{"aria-label" => "Close", :type => "button", data:{dismiss: 'alert'}}
     %span{"aria-hidden" => "true"}
       =image_tag 'close.png'
   #{content.html_safe}

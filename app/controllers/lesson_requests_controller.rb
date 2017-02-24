@@ -143,6 +143,11 @@ class LessonRequestsController < ApplicationController
 
   def set_lesson
     @lesson = Lesson.drafts(current_user).first.try(:restore)
+    if !@lesson.nil? && @lesson.teacher.id == params[:user_id]
+      @lesson
+    else
+      @lesson = nil
+    end
   end
 
   def lesson_params
