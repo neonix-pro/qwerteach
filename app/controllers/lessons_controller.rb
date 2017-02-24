@@ -85,7 +85,7 @@ class LessonsController < ApplicationController
 
   def cancel
     #TO DO: refactor to model
-    if(@lesson.teacher == @user || @lesson.time_start > Time.now + 2.days)
+    if @lesson.can_cancel?(@user)
       @lesson.status = 'canceled'
       refuse = RefundLesson.run(user: @user, lesson: @lesson)
       if refuse.valid?
