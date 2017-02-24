@@ -7,11 +7,7 @@ class DashboardsController < ApplicationController
     @past_lessons = Lesson.involving(@user).passed.limit(3).order(time_start: :desc)
 
     unless @past_lessons.empty?
-      @past_lessons.each do |lesson|
-        if lesson.student == current_user
-          @book_again_lesson = lesson
-        end
-      end
+      @book_again_lesson = @past_lessons.is_student(@user).last
       while @past_lessons.length < 3
         @past_lessons.append(nil)
       end
@@ -25,6 +21,6 @@ class DashboardsController < ApplicationController
 
     @featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)
     @featured_teachers = Teacher.all.order(score: :desc).limit(5)
-    @current_lesson = Lesson.where(:status => 2).where('time_end > ?', DateTime.now).where('time_start < ?', DateTime.now - 10.minutes).where("student_id =#{@user.id}  OR teacher_id = #{@user.id}").first
+    @current_lesson = Lesson.where(:status => 2).where('time_end > ?', DateTime.now).where('time_start > ?', DateTime.now - 10.minutes).where("student_id =#{@user.id}  OR teacher_id = #{@user.id}").first
   end
 end

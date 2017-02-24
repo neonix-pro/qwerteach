@@ -25,6 +25,7 @@ class Lesson < ActiveRecord::Base
   scope :past, ->{where("time_start < ? ", Time.now)}
   scope :future, ->{where("time_start > ? ", Time.now)}
   scope :involving, ->(user){where("teacher_id LIKE ? OR student_id LIKE ?", user.id, user.id).order(time_start: 'desc')}
+  scope :is_student, ->(user){where("student_id LIKE ?", user.id)}
   scope :active, ->{where.not("lessons.status IN(?)", [3, 4])} # not canceled or refused or expired
 
   scope :upcoming, ->{ active.future } #future and (created or pending)
