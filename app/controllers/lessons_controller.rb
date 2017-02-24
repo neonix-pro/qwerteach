@@ -15,7 +15,7 @@ class LessonsController < ApplicationController
 
   def show
     @room = BbbRoom.where(lesson_id = @lesson.id).first
-    @recordings = @lesson.bbb_room.recordings
+    @recordings = @lesson.bbb_room.recordings unless @lesson.bbb_room.nil?
     @todo = @lesson.todo(@user)
   end
 

@@ -1,5 +1,14 @@
 
 fr:
+  lesson:
+    payment:
+      status:
+        locked: 'Payé - détenu par Qwerteach'
+        paid: 'Payé - versé au professeur'
+        pending: 'A payer'
+        canceled: 'Annulé'
+        disputed: 'En litige'
+        refuned: 'Remboursé'
   male: 'Homme'
   female: 'Femme'
   "not telling": 'Non-communiqué'

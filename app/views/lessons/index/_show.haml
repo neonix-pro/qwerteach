@@ -1,26 +1,33 @@
-.container-fluid
+.container
   .row
     .col-sm-6
       %h3 Détails:
       %dl.dl-horizontal
         %dt Date:
-        %dd #{@lesson.time_start}
+        %dd le #{@lesson.time_start.strftime("%d/%m/%y à %H:%M (%Z)")}
         %dt Durée:
         %dd #{@lesson.duration.hours}h#{@lesson.duration.minutes unless @lesson.duration.minutes == 0}
         %dt Prix:
         %dd #{@lesson.price}€
     .col-sm-6
       %h3
-        Payement du cours:
+        ="Payement".pluralize(@lesson.payments.count)
+        = "associé".pluralize(@lesson.payments.count)
         %small
-          #{@lesson.payments.count} payement
+          #{@lesson.payments.count} #{"payement".pluralize(@lesson.payments.count)}
       %table.table
-        %tr
-        - @lesson.payments.each do |p|
+        %thead
           %tr
-            %td ID #{p.id}
-            %td #{p.price}€
-            %td #{p.status}
+            %th ID
+            %th Montant (€)
+            %th statut
+        %tbody
+          %tr
+          - @lesson.payments.each do |p|
+            %tr
+              %td #{p.id}
+              %td #{p.price}€
+              %td= t "lesson.payment.status.#{p.status}"
 
 :javascript
   $(document).ready(function () {
