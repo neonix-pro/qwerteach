@@ -9,7 +9,11 @@
 :javascript
   $('.arrow-give-lesson').click(function(){
     $('#take-lesson').slideUp();
-    $('#give-lesson').slideDown();
+    $('#give-lesson').slideDown({
+      complete: function(){
+        scrollTop('#give-lesson');
+      }
+    });
     $(this).fadeOut();
     $('.arrow-take-lesson').fadeIn();
   });
@@ -19,3 +23,10 @@
     $(this).fadeOut();
     $('.arrow-give-lesson').fadeIn();
   });
+
+  function scrollTo(div){
+    alert('test');
+    $('html, body').animate({
+        scrollTop: ($(div).offset().top - 200)
+    }, 500);
+  }
