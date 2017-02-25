@@ -2,6 +2,15 @@
   %h2.page-title-green.text-center Modifier mon profil
   = form_for(@user, as: 'user', url: user_path(@user), html: {method: :put}) do |f|
     .row
+      .col-xs-12
+        -unless @user.confirmed?
+          .alert.alert-info
+            %i.fa.fa-warning.fa-2x
+            Votre e-mail n'est pas confirmé!
+            %br
+            Rendez-vous dans votre boîte mail et cliquez sur le lien de confirmation que nous vous avons envoyé.
+            %br
+            = link_to "Vous n'avez pas reçu le lien de confirmation par e-mail ?", new_confirmation_path(resource_name), class: 'text-grey'
       .col-md-8
         %h3.text-center Infos générales
         %hr
