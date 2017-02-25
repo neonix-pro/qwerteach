@@ -8,4 +8,4 @@
     -else
       %h3 Portefeuille
       %h3.balance #{user.total_wallets_in_cents/100} €
-      = link_to 'Charger', direct_debit_path(user), class: 'text-black load-wallet'
+      = link_to 'Charger', load_wallet_path, class: 'text-black load-wallet'

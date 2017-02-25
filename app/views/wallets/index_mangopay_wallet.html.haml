@@ -12,17 +12,17 @@
           .center
             =link_to payout_path do
               =image_tag("wallet/deload.png")
-              %p Décharger
+              Décharger
         .high
           .center
             =link_to load_wallet_path do
               =image_tag("wallet/reload.png")
-              %p Recharger
+              Recharger
       - else
         .center
           = link_to load_wallet_path do
             =image_tag("wallet/reload.png")
-            %p Recharger
+            Recharger
   .row
     .threecol#info_bank.col-md-4
       .center

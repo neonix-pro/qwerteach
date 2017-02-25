@@ -1,7 +1,7 @@
 #topic-groups-list
   - topic_groups.each do |tg|
-    .topic-group
-      = link_to profs_by_topic_path(tg.title.downcase) do
+    = link_to profs_by_topic_path(tg.title.downcase) do
+      .topic-group
         = image_tag(tg.picto)
         .topic-group-name
           = tg.title
