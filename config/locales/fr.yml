@@ -303,3 +303,6 @@ fr:
         topic_id: 'matière'
         level_id: 'niveau'
         hours: 'durée du cours'
+  mango:
+    response_message:
+      User has let the payment session expire without paying: "La validation auprès de votre institution bancaire a échoué."

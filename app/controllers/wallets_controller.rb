@@ -16,6 +16,14 @@ class WalletsController < ApplicationController
     if current_user.mango_id.blank?
       redirect_to edit_wallet_path(redirect_to: request.fullpath)
     else
+      if params[:transactionId]
+        payin =  Mango.normalize_response MangoPay::PayIn.fetch(params[:transactionId])
+        if %w[CREATED SUCCEEDED].exclude? payin.status
+          flash[:danger] = I18n.translate("mango.response_message."+payin.result_message) + "<br />Vous n'avez pas été débité, et votre portefeuille virtuel Qwerteach n'a pas été chargé."
+        else
+          flash[:info] = 'Votre portefeuille virtuel a bien été rechargé.'
+        end
+      end
       @transactions = @user.mangopay.transactions
       @transactions_on_way = @transactions.sum do |t|
         t.status == "CREATED" ? t.debited_funds.amount/100.0 : 0
