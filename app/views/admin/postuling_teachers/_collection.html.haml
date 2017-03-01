@@ -10,6 +10,7 @@
             - if collection_presenter.ordered_by?(attr_name)
               %span{:class => "cell-label__sort-indicator cell-label__sort-indicator--#{collection_presenter.ordered_html_class(attr_name)}"}
                 = svg_tag("administrate/sort_arrow.svg", "sort_arrow",width: "13",height: "13")                           |
+      %th.cell-label Admin Responsable
       %th.cell-label{:colspan => "2", :scope => "col"} Actions
   %tbody
     - resources.each do |resource|
@@ -20,4 +21,5 @@
         - collection_presenter.attributes_for(resource).each do |attribute|
           %td{:class => "cell-data cell-data--#{attribute.html_class}"}
             = render_field attribute
+        %td= resource.postulation.responsible_admin.name unless resource.postulation.nil? || resource.postulation.responsible_admin.nil?
         %td= link_to(t("administrate.actions.show"),[namespace, resource],class: "action-show")

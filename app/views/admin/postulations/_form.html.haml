@@ -10,5 +10,9 @@
   - page.attributes.each do |attribute|
     %div{:class => "field-unit field-unit--#{attribute.html_class}"}
       = render_field attribute, f: f
+  %div{:class => "field-unit field-unit--belongs-to"}
+    .field-unit__label
+      %label Admin responsable
+    = select_tag("postulation[admin_id]", options_for_select(User.where(admin:true).map{|u| [u.name, u.id]}, selected: page.resource.admin_id), class: 'field-unit__field')
   .form-actions
     = f.submit

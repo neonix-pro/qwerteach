@@ -19,6 +19,9 @@ class Postulation < ActiveRecord::Base
   }
 
   belongs_to :teacher, :foreign_key => :user_id, class_name: 'Teacher'
+
+  attr_accessor :responsible_admin
+
   validates :user_id, presence: true
   validates_uniqueness_of :user_id
 
@@ -70,6 +73,10 @@ class Postulation < ActiveRecord::Base
     end
     logger.debug(corr)
     corr
+  end
+
+  def responsible_admin
+    User.find(admin_id) unless admin_id.nil?
   end
 
 

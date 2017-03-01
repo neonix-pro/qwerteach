@@ -27,5 +27,9 @@ module Admin
       changes = @postulation.correction_text
       @text = [greetings, reason, changes].join("\r\n")
     end
+
+    def permitted_attributes
+      dashboard.permitted_attributes.push(:admin_id)
+    end
   end
 end

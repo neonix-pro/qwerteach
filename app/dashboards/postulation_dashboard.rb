@@ -16,6 +16,7 @@ class PostulationDashboard < Administrate::BaseDashboard
       gen_informations_ok: Field::Boolean,
       offer_ok: Field::Boolean,
       user_id: Field::Number,
+      admin_id: Field::Number,
       created_at: Field::DateTime,
       updated_at: Field::DateTime,
   }
@@ -55,7 +56,7 @@ class PostulationDashboard < Administrate::BaseDashboard
       :interview_ok,
       :avatar_ok,
       :gen_informations_ok,
-      :offer_ok,
+      :offer_ok
   ]
 
   # Overwrite this method to customize how postulations are displayed
