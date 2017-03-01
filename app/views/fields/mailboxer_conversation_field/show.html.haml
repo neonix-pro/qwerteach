@@ -11,16 +11,21 @@
     %dt.attribute-label Subject:
     %dd #{@conversation.subject}
 
-  %table
-    %thead
-      %tr
-        %th.cell-label Emetteur
-        %th.cell-label Texte
-        %th.cell-label Date
-    %tbody
-      - @messages.each do |m|
-        %tr{class: m.sender == @conversation.originator ? 'bg-blue':'bg-green'}
-          %td #{link_to "#{m.sender.name} (#{m.sender.id})", admin_user_path(m.sender)}
-          %td #{m.body}
-          %td #{m.created_at}
+  -#%table
+  -#  %thead
+  -#    %tr
+  -#      %th.cell-label Emetteur
+  -#      %th.cell-label Texte
+  -#      %th.cell-label Date
+  -#  %tbody
+  -#    - @messages.each do |m|
+  -#      %tr{class: m.sender == @conversation.originator ? 'bg-blue':'bg-green'}
+  -#        %td #{link_to "#{m.sender.name} (#{m.sender.id})", admin_user_path(m.sender)}
+  -#        %td #{m.body}
+  -#        %td #{m.created_at}
+  -#= paginate @messages
+  .conversation-admin
+    .mailbox-conversation
+      .conversation-content
+        = render 'conversations/messages', messages: @messages
   = paginate @messages

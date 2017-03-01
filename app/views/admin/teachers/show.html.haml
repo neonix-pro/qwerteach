@@ -14,7 +14,12 @@
       = form_for([namespace, page.resource], html: {class: "form"}) do |f|
         = f.hidden_field :postulance_accepted, value: !page.resource.postulance_accepted
         = page.resource.postulance_accepted ? (f.submit 'Suspend') : (f.submit 'Approve', :class => 'action-destroy')
-  = render :partial => 'admin/postulations/postulation', locals:{postulation: page.resource.postulation}
+  %hr
+  .user-postulation
+    %h2 Postulation:
+    = render :partial => 'admin/postulations/postulation', locals:{postulation: page.resource.postulation}
+    = link_to "Modifier", [:edit, namespace, page.resource], class: 'pull-right'
+  %hr
   %dl
     - page.attributes.each do |attribute|
       %dt.attribute-label= attribute.name.titleize

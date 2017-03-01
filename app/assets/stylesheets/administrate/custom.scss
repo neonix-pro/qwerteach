@@ -1,5 +1,10 @@
 //commentaire
 @import 'conversations';
+//@import "bootstrap/variables";
+//@import "bootstrap/mixins/grid-framework";
+//@import "bootstrap/mixins/clearfix";
+//@import "bootstrap/mixins/grid";
+//@import "bootstrap/grid";
 .conversation-admin{
   .show-more, .mailbox-conversation-details{
     display:none;
@@ -27,4 +32,15 @@
 }
 .bg-blue{
   background-color: lightblue;
+}
+.pull-right{
+  float:right;
+}
+.pull-left{
+  float:left;
+}
+
+
+.user-postulation{
+  padding: 0px 40px;
 }
