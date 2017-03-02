@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302093051) do
+ActiveRecord::Schema.define(version: 20170302112005) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -429,6 +429,8 @@ ActiveRecord::Schema.define(version: 20170302093051) do
     t.integer  "avatar_score"
     t.string   "phone_country_code"
     t.boolean  "sms_allowed",            default: true
+    t.boolean  "active",                 default: true
+    t.boolean  "blocked",                default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

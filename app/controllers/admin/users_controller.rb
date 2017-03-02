@@ -29,8 +29,12 @@ module Admin
       render 'admin/comments/new'
     end
 
-    def suspend
-
+    def destroy
+      # suspends the user from signing in
+      if requested_resource.block
+        flash[:notice] = translate_with_resource("blocked.success")
+        redirect_to action: :index
+      end
     end
 
     private

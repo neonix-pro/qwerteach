@@ -41,6 +41,8 @@ class User < ActiveRecord::Base
 
   acts_as_messageable
   acts_as_commentable :admin
+  default_scope { where(blocked: false) }
+
   def mailboxer_email(messageable)
     email
   end
@@ -101,6 +103,11 @@ class User < ActiveRecord::Base
   def upgrade
     self.type = User::ACCOUNT_TYPES[0]
     self.save!
+  end
+
+  #prevents a user from signin in
+  def block
+    self.update blocked: true
   end
 
   # Types de User possibles
@@ -222,6 +229,14 @@ class User < ActiveRecord::Base
 
   def sms_allowed?
     sms_allowed
+  end
+
+  def active_for_authentication?
+    super && !self.blocked
+  end
+
+  def active?
+    self.active
   end
 
   protected

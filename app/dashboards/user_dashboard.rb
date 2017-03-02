@@ -11,7 +11,7 @@ class UserDashboard < Administrate::BaseDashboard
       gallery: Field::HasOne,
       conversations: Field::HasMany.with_options(class_name: 'Conversation'),
       offers: Field::HasMany,
-      admin_comments: Field::AdminCommentField.with_options(class_name: "Comment"),
+      admin_comments: AdminCommentField.with_options(class_name: "Comment"),
       level: Field::BelongsTo,
       id: Field::Number,
       login: Field::String,
