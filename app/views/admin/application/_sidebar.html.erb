@@ -36,6 +36,7 @@ as defined by the routes in the `admin/` namespace
             class: "sidebar__link sidebar__link--#{nav_link_state(:inactive_teachers)}"
         )%>
   </li>
+
   <li>
     <%= link_to(
             'Avatars',
@@ -83,6 +84,13 @@ as defined by the routes in the `admin/` namespace
             'Payments',
             [namespace, Payment],
             class: "sidebar__link sidebar__link--#{nav_link_state(:payments)}"
+        )%>
+  </li>
+  <li>
+    <%= link_to(
+            'Banned users',
+            '/admin/banned_users',
+            class: "sidebar__link sidebar__link--#{nav_link_state(:banned_users)}"
         )%>
   </li>
 </ul>

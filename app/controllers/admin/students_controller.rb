@@ -29,5 +29,26 @@ module Admin
       }
     end
 
+    def show
+      @user = User.find(params[:id])
+      @conversations = @user.mailbox.conversations.page(params[:page]).per(10)
+      @admins = User.where(admin: true)
+      conv_check_1 = Conversation.participant(@user)
+      conv_check_2 = Conversation.participant(current_user)
+      @conversation_admin = (conv_check_1 & conv_check_2).first
+      if @conversation_admin.nil?
+        @conversation_admin = Mailboxer::Conversation.new()
+      end
+      @messages_admin = @conversation_admin.messages.order(id: :desc)
+      super
+    end
+    def destroy
+      # suspends the user from signing in
+      if requested_resource.block
+        flash[:notice] = translate_with_resource("blocked.success")
+        redirect_to action: :index
+      end
+    end
+
   end
 end

@@ -20,4 +20,7 @@
           %td{:class => "cell-data cell-data--#{attribute.html_class}"}
             = render_field attribute
         %td= link_to(t("administrate.actions.show"),[namespace, resource],class: "action-show")
-        %td= link_to("Suspendre",[namespace, resource],class: "table__action--destroy",method: :delete,data: {confirm: t("administrate.actions.confirm")})
+        -if resource.blocked
+          %td= link_to("Restaurer",admin_user_unblock_path(resource),class: "table__action--show",method: :post,data: {confirm: t("administrate.actions.confirm")})
+        -else
+          %td= link_to("Suspendre",[namespace, resource],class: "table__action--destroy",method: :delete,data: {confirm: t("administrate.actions.confirm")})

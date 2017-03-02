@@ -16,8 +16,8 @@
           %td
             = image_tag(resource.avatar.url(:small))
           %td= resource.id
-          %td= resource.level.be
+          %td= resource.level.be unless resource.level.nil?
           %td= resource.email
-          %td= resource.phonenumber
+          %td= resource.full_number
           %td= resource.offers.count.to_s + ' offers'
           %td= link_to(t("administrate.actions.show"),[namespace, resource],class: "action-show")

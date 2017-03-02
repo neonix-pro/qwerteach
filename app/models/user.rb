@@ -109,6 +109,9 @@ class User < ActiveRecord::Base
   def block
     self.update blocked: true
   end
+  def unblock
+    self.update blocked: false
+  end
 
   # Types de User possibles
   def self.types

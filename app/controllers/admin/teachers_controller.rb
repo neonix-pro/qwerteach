@@ -16,6 +16,15 @@ module Admin
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
 
+    def destroy
+      # suspends the user from signing in
+      if requested_resource.block
+        flash[:notice] = translate_with_resource("blocked.success")
+        redirect_to action: :index
+      end
+    end
+
+
     def index
       search_term = params[:search].to_s.strip
       resources = Teacher.where(postulance_accepted: true, active: true)
@@ -47,6 +56,8 @@ module Admin
       case params[:action]
         when 'inactive_teachers'
           resource_name = :inactive_teacher
+        when 'banned_users'
+          resource_name = :banned_user
         when 'index'
           if params[:controller] == 'admin/teachers'
             resource_name = :teacher

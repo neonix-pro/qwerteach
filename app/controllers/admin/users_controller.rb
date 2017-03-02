@@ -16,6 +16,19 @@ module Admin
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
 
+    def banned_users
+      search_term = params[:search].to_s.strip
+      resources = User.unscoped.where(:blocked=>true)
+      resources = resources.page(params[:page]).per(records_per_page)
+      page = Administrate::Page::Collection.new(dashboard, order: order)
+
+      render :index, locals: {
+          resources: resources,
+          search_term: search_term,
+          page: page,
+      }
+    end
+
     def show_conversation
       @conversation = Mailboxer::Conversation.find(params[:id])
       @messages = @conversation.messages.page(params[:page]).per(20).order(id: :asc)
@@ -34,6 +47,29 @@ module Admin
       if requested_resource.block
         flash[:notice] = translate_with_resource("blocked.success")
         redirect_to action: :index
+      end
+    end
+
+    def unblock
+      requested_resource = User.unscoped.find(params[:user_id])
+      if requested_resource.unblock
+        flash[:notice] = translate_with_resource("blocked.success")
+        redirect_to action: :index
+      end
+    end
+
+    def nav_link_state(resource)
+      case params[:action]
+        when 'banned_users'
+          resource_name = :banned_user
+        when 'index'
+          resource_name = :user
+      end
+
+      if resource_name.to_s.pluralize == resource.to_s
+        :active
+      else
+        :inactive
       end
     end
 

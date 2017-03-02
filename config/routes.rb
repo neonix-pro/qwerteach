@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users do
       get 'new_comment' => :new_comment
+      post 'unblock' => :unblock
     end
     resources :students
     resources :teachers do
@@ -35,6 +36,7 @@ Rails.application.routes.draw do
     resources :bbb_rooms
 
     get "inactive_teachers" => "teachers#inactive_teachers"
+    get "banned_users" => "users#banned_users"
 
     root to: "users#index"
   end

@@ -21,7 +21,8 @@
           %td{:class => "cell-data cell-data--#{attribute.html_class}"}
             = render_field attribute
         %td= link_to(t("administrate.actions.show"),[namespace, resource],class: "action-show")
-        - if resource.active?
-          %td= link_to("mark as inactive", admin_teacher_deactivate_path(resource),class: "table__action--destroy",method: :post,data: {confirm: t("administrate.actions.confirm")})
-        - else
-          %td= link_to("Ré-activer", admin_teacher_reactivate_path(resource),class: "table__action--destroy",method: :post,data: {confirm: t("administrate.actions.confirm")})
+        -if resource.is_a?(Teacher)
+          - if resource.active?
+            %td= link_to("mark as inactive", admin_teacher_deactivate_path(resource),class: "table__action--destroy",method: :post,data: {confirm: t("administrate.actions.confirm")})
+          - else
+            %td= link_to("Ré-activer", admin_teacher_reactivate_path(resource),class: "table__action--destroy",method: :post,data: {confirm: t("administrate.actions.confirm")})
