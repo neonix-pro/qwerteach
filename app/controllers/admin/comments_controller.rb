@@ -13,7 +13,26 @@ module Admin
     #   Comment.find_by!(slug: param)
     # end
 
-    # See https://administrate-docs.herokuapp.com/customizing_controller_actions
+    # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
+
+    def resource_params
+      params.require(:comment).permit(:title, :comment, :commentable_id).merge(user_id: current_user.id, role: 'admin', commentable_type: 'User')
+    end
+
+    def create
+      resource = resource_class.new(resource_params)
+
+      if resource.save
+        redirect_to(
+            [namespace, resource.commentable],
+            notice: translate_with_resource("create.success"),
+        )
+      else
+        render :new, locals: {
+            page: Administrate::Page::Form.new(dashboard, resource),
+        }
+      end
+    end
   end
 end

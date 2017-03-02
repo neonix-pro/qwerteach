@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :admin do
-    resources :users
+    resources :users do
+      get 'new_comment' => :new_comment
+    end
     resources :students
     resources :teachers
     resources :pictures

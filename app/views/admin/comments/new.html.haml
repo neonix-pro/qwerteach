@@ -1,7 +1,8 @@
 %body
-  - content_for(:title) { "New #{page.resource_name.titleize}" }
+  - content_for(:title) { "Nouveau commentaire sur #{@commentable.name}" }
   %header.header
     %h1.header__heading= content_for(:title)
     .header__actions
       = link_to 'Back', :back, class: "button"
-  = render 'form', page: page
+  = render 'admin/comments/form', page: @page
+

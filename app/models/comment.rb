@@ -1,11 +1,15 @@
 class Comment < ActiveRecord::Base
 
-  # User qui commente
-  belongs_to :sender, :class_name => 'User', :foreign_key  => "sender_id"
-  # User commenté
-  belongs_to :subject, :class_name => 'User', :foreign_key  => "subject_id"
-  validates :sender_id, presence: true
-  validates :subject_id, presence: true
-  validates :comment_text, presence: true
+  include ActsAsCommentable::Comment
 
+  belongs_to :commentable, :polymorphic => true
+
+  default_scope -> { order('created_at ASC') }
+
+  # NOTE: install the acts_as_votable plugin if you
+  # want user to vote on the quality of comments.
+  #acts_as_voteable
+
+  # NOTE: Comments belong to a user
+  belongs_to :user
 end

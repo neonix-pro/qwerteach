@@ -8,15 +8,15 @@ class CommentDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    sender: Field::BelongsTo.with_options(class_name: "User"),
-    subject: Field::BelongsTo.with_options(class_name: "User"),
+    commentable: Field::Polymorphic,
+    user: Field::BelongsTo,
     id: Field::Number,
-    sender_id: Field::Number,
-    subject_id: Field::Number,
-    comment_text: Field::Text,
+    title: Field::String,
+    comment: Field::Text,
+    role: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-  }
+  }.freeze
 
   # COLLECTION_ATTRIBUTES
   # an array of attributes that will be displayed on the model's index page.
@@ -24,33 +24,32 @@ class CommentDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-      :id,
-      :sender,
-      :subject,
-      :comment_text,
-  ]
+    :commentable,
+    :user,
+    :title,
+    :comment,
+  ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :sender,
-    :subject,
+    :commentable,
+    :user,
     :id,
-    :sender_id,
-    :subject_id,
-    :comment_text,
+    :title,
+    :comment,
+    :role,
     :created_at,
     :updated_at,
-  ]
+  ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-      :sender,
-      :subject,
-      :comment_text,
-  ]
+    :title,
+    :comment,
+  ].freeze
 
   # Overwrite this method to customize how comments are displayed
   # across all pages of the admin dashboard.

@@ -1,0 +1,6 @@
+- field.data.each do |c|
+  .comment
+    %b= "#{c.user.name} le #{c.created_at.strftime('%d/%m/%Y')}:"
+    = c.comment
+  -#= render 'comment', comment: c
+= link_to 'ajouter un commentaire', admin_user_new_comment_path(field.data.first.commentable_id)

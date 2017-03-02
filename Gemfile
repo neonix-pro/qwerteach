@@ -63,8 +63,6 @@ gem "administrate", github: 'thoughtbot/administrate'
 
 # autocomplete search
 gem 'rails-jquery-autocomplete'
-# seed dump
-gem 'seed_dump'
 
 #gems for async actions
 gem 'private_pub'
@@ -79,15 +77,15 @@ gem 'kaminari'
 gem 'ckeditor_rails'
 # wizardify models
 gem 'wicked'
-gem 'unread'
+gem 'unread' # ??
 # mangopay!
 gem 'mangopay'
 gem 'countries'
-gem 'progress_bar'
+gem 'progress_bar' # ??
 # conversations & messages
 gem 'mailboxer'
 # cron jobs
-gem 'whenever', :require => false
+gem 'whenever', :require => false # still needed? We have resque...
 
 # validate card number
 gem 'jquery-form-validator-rails'
@@ -102,13 +100,10 @@ gem 'fullcalendar-rails'
 #Sans la Gem Erreur concernant les Images_Tags
 gem 'coffee-script-source', '1.8.0'
 
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'bigbluebutton_rails', github: 'mconf/bigbluebutton_rails'
-
-
 
 gem 'resque', :require => "resque/server"
 
@@ -116,7 +111,7 @@ gem 'devise_lastseenable'
 
 gem "factory_girl_rails", "~> 4.0"
 
-gem 'capybara' #Pour les test
+gem 'capybara'
 
 gem "rails-erd"
 
@@ -124,9 +119,11 @@ gem 'active_interaction'
 gem 'hashie'
 gem 'pluck_to_hash'
 gem 'drafting'
-gem 'ruby-duration'
+gem 'ruby-duration' # duplicate of time_difference ??
 gem 'phony_rails'
 gem 'nexmo'
+
+gem 'acts_as_commentable'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -174,4 +171,3 @@ gem 'simple_form', '~> 3.0.0.rc'
 # Development (Optional)
 gem 'better_errors', group: :development
 gem 'quiet_assets', group: :development
-

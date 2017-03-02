@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   after_create :create_gallery
 
   acts_as_messageable
+  acts_as_commentable :admin
   def mailboxer_email(messageable)
     email
   end

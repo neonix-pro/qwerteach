@@ -22,5 +22,22 @@ module Admin
       render 'fields/mailboxer_conversation_field/show'
     end
 
+    def new_comment
+      @commentable = User.find(params[:user_id])
+      @comment = @commentable.admin_comments.new({user_id: current_user.id})
+      @page = Administrate::Page::Form.new(comment_dashboard, @comment)
+      render 'admin/comments/new'
+    end
+
+    def suspend
+
+    end
+
+    private
+
+    def comment_dashboard
+      Administrate::ResourceResolver.new("admin/comments").dashboard_class.new
+    end
+
   end
 end
