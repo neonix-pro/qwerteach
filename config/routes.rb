@@ -4,7 +4,10 @@ Rails.application.routes.draw do
       get 'new_comment' => :new_comment
     end
     resources :students
-    resources :teachers
+    resources :teachers do
+      post 'deactivate' => :deactivate
+      post 'reactivate' => :reactivate
+    end
     resources :pictures
     resources :galleries
     resources :postulations do
@@ -30,6 +33,8 @@ Rails.application.routes.draw do
     resources :bigbluebutton_servers
     resources :bigbluebutton_recordings
     resources :bbb_rooms
+
+    get "inactive_teachers" => "teachers#inactive_teachers"
 
     root to: "users#index"
   end

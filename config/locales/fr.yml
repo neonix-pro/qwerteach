@@ -306,3 +306,10 @@ fr:
   mango:
     response_message:
       User has let the payment session expire without paying: "La validation auprès de votre institution bancaire a échoué."
+
+  administrate:
+    controller:
+      deactivated:
+        success: "L'utilisateur a bien été marqué comme étant inactif"
+      reactivated:
+        success: "L'utilisateur a bien été marqué comme étant actif"

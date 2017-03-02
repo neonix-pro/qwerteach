@@ -12,6 +12,13 @@ class Teacher  < Student
     where(:is_admin => true)
   end
 
+  def mark_as_inactive
+    self.update active: false
+  end
+
+  def mark_as_active
+    self.update active: true
+  end
 
   # Methode override de User bloquant le type de User à Teacher au maximum
   def upgrade

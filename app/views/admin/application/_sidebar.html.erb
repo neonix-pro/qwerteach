@@ -31,6 +31,13 @@ as defined by the routes in the `admin/` namespace
   </li>
   <li>
     <%= link_to(
+            'Inactive Teachers',
+            '/admin/inactive_teachers',
+            class: "sidebar__link sidebar__link--#{nav_link_state(:inactive_teachers)}"
+        )%>
+  </li>
+  <li>
+    <%= link_to(
             'Avatars',
             [namespace, Picture],
             class: "sidebar__link sidebar__link--#{nav_link_state(:pictures)}"

@@ -18,7 +18,7 @@ module Admin
 
     def index
       search_term = params[:search].to_s.strip
-      resources = Teacher.where(:postulance_accepted=>true)
+      resources = Teacher.where(postulance_accepted: true, active: true)
       resources = resources.page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
 
@@ -44,16 +44,54 @@ module Admin
     end
 
     def nav_link_state(resource)
-      if params[:id] && !requested_resource.postulance_accepted
-        resource_name = :postuling_teacher
-      else
-        resource_name = :teacher
+      case params[:action]
+        when 'inactive_teachers'
+          resource_name = :inactive_teacher
+        when 'index'
+          if params[:controller] == 'admin/teachers'
+            resource_name = :teacher
+          end
+          if params[:controller] == 'admin/postulling_teachers'
+            resource_name = :postulling_teacher
+          end
       end
+
       if resource_name.to_s.pluralize == resource.to_s
         :active
       else
         :inactive
       end
+    end
+
+    def deactivate
+      # marks the teacher as inactive
+      r = Teacher.find(params[:teacher_id])
+      if r.mark_as_inactive
+        flash[:notice] = translate_with_resource("deactivated.success")
+        redirect_to request.referer
+      end
+    end
+
+    def reactivate
+      # marks the teacher as active
+      r = Teacher.find(params[:teacher_id])
+      if r.mark_as_active
+        flash[:notice] = translate_with_resource("reactivated.success")
+        redirect_to request.referer
+      end
+    end
+
+    def inactive_teachers
+      search_term = params[:search].to_s.strip
+      resources = Teacher.unscoped.where(:active=>false)
+      resources = resources.page(params[:page]).per(records_per_page)
+      page = Administrate::Page::Collection.new(dashboard, order: order)
+
+      render :index, locals: {
+          resources: resources,
+          search_term: search_term,
+          page: page,
+      }
     end
 
   end
