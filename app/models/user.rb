@@ -124,6 +124,10 @@ class User < ActiveRecord::Base
     self.save!
   end
 
+  def is_admin?
+    self.admin
+  end
+
   def offers_except_other
     Offer.joins(:topic).where(user_id: id).where.not(topics:{title: 'Autre'})
   end

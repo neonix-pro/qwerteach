@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :users do
       get 'new_comment' => :new_comment
       post 'unblock' => :unblock
+      post 'become' => :become
     end
     resources :students
     resources :teachers do

@@ -73,6 +73,14 @@ module Admin
       end
     end
 
+    def become
+      return unless current_user.is_admin?
+      u = User.find(params[:user_id])
+      sign_in(:user, u, { :bypass => true })
+      flash[:notice]= "Connecté en tant que #{u.name} - #{u.id}"
+      redirect_to root_url # or user_root_url
+    end
+
     private
 
     def comment_dashboard

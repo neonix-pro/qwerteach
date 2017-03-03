@@ -11,6 +11,7 @@
       = form_for([namespace, page.resource], html: {class: "form"}) do |f|
         = f.hidden_field :postulance_accepted, value: !page.resource.postulance_accepted
         = page.resource.postulance_accepted ? (f.submit 'Suspend') : (f.submit 'Approve', :class => 'action-destroy')
+      = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "button"
   %hr
   .user-postulation
     %h2 Postulation:

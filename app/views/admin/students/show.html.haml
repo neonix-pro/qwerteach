@@ -8,6 +8,7 @@
     .header__actions
       = link_to("Edit",[:edit, namespace, page.resource], class: "button")
       = link_to("Suspendre", admin_user_path(page.resource), method: :delete, class: "button")
+      = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "button"
   %hr
 
   %dl
