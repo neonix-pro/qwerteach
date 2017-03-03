@@ -56,10 +56,10 @@ var NotificationsManager = function() {
   });
 }
 
-$(document).ready(NotificationsManager);
+$(document).on('turbolinks:load',  NotificationsManager);
 
 // fadeUp of feedback messages
-$(document).ready(function(){
+$(document).on('turbolinks:load',  function(){
     $("#flash-messages .alert button.close").click(function (e) {
         $(this).parent().slideUp('slow');
     });

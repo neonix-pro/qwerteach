@@ -30,7 +30,7 @@
               %td= t "lesson.payment.status.#{p.status}"
 
 :javascript
-  $(document).ready(function () {
+  $(document).on('turbolinks:load',  function () {
     $('#datetimepicker2').data("DateTimePicker").date(new Date(#{@lesson.time_start.to_f * 1000}));
     $('.show-lesson-details').hide();
     $('#lesson-details-'#{@lesson.id}).slideToggle('slow');

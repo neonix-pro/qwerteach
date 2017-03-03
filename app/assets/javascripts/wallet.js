@@ -1,5 +1,5 @@
 var x = 1;
-$(document).ready(function(){
+$(document).on('turbolinks:load',  function(){
     
     //open block info
     $(".threecol").click(function(){

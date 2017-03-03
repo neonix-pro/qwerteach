@@ -94,7 +94,7 @@
     $(this).toggleClass('active');
     $(this).closest('.press-article').toggleClass('hover');
   });
-  $(document).ready(function(){
+  $(document).on('turbolinks:load',  function(){
     var w = $('.press-article').width();
     $('.press-article').height(w);
     bodySidebarHeight();

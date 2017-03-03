@@ -41,7 +41,7 @@
         }
       });
     });
-    $(document).ready(function(){
+    $(document).on('turbolinks:load',  function(){
       var chatbox = $("#chatbox_#{@conversations.first.id} .conversation-content");
       chatbox.scrollTop(chatbox[0].scrollHeight);
       $('body').on('click', '[data-toggle="loader"]', function(){

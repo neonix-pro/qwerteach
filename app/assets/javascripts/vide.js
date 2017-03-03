@@ -458,7 +458,7 @@
     return this;
   };
 
-  $(document).ready(function() {
+  $(document).on('turbolinks:load',  function() {
     var $window = $(window);
 
     // Window resize event listener

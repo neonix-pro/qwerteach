@@ -24,8 +24,8 @@ var MessagesManager = function() {
     }
 }
 
-$(document).ready(MessagesManager);
-$(document).ready(function(){
+$(document).on('turbolinks:load',  MessagesManager);
+$(document).on('turbolinks:load',  function(){
     var m = new MessagesManager();
     Messages.numberOfUnreadMessages();
 })

@@ -1,6 +1,6 @@
 var x = 0;
 
-$(document).ready(function(e){
+$(document).on('turbolinks:load',  function(e){
     
     //open mode emploi
     $(".open_mode_emploi").click(function(){

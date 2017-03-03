@@ -1,5 +1,5 @@
 :javascript
-  $(document).ready(function(){
+  $(document).on('turbolinks:load',  function(){
     window.location.href = "#{@join_mobile}";
   });
 %h1

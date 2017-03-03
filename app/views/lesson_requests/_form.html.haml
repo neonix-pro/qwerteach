@@ -53,7 +53,7 @@
 #step3.booking-step
 
 :javascript
-  $(document).ready(function(){
+  $(document).on('turbolinks:load',  function(){
     $('.change-booking-step').click(function(){
       $('#lesson-details').children('.alert').remove();
       if($(this).attr('data-toggle') == '#step2')

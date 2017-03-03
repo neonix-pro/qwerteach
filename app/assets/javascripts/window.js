@@ -1,4 +1,4 @@
-$(document).ready(function(e){
+$(document).on('turbolinks:load',  function(e){
     
     var height;
     var width;
@@ -59,4 +59,27 @@ $(document).ready(function(e){
             $(this).toggleClass('active');
         });
     });
-})
+});
+
+$(document).on('turbolinks:load',  function(){
+    $.validate({
+        modules : 'security'
+    });
+    var show_ajax_message = function(msg, type) {
+        $("#flash-messages").html('<div class="alert alert-dismissible alert-'+type+' role="alert" ><button class="close" data-dismiss="alert"><span>&times</span></button>'+msg+'</div>');
+    };
+
+    $(document).ajaxSuccess(function(event, request) {
+        /*
+         *   escape() is deprecated but encodeURI() or encodeURIComponent() don't do the trick
+         *   nor does or decodeURIComponent() alone
+         * */
+        var msg = decodeURIComponent(escape(request.getResponseHeader('X-Message')));
+        var type = request.getResponseHeader('X-Message-Type');
+        if (msg != 'null') show_ajax_message(msg, type);
+    });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+});

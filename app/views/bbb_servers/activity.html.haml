@@ -28,7 +28,7 @@
     }, 1000);
   }
 
-  $(document).ready(function(){
+  $(document).on('turbolinks:load',  function(){
     serverActivitySetCountdown();
 
     $('.bbbrails_countdown a.bbbrails_refresh_now').click(function() {

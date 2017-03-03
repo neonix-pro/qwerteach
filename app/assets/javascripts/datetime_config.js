@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).on('turbolinks:load',  function () {
     $('body').on('change', '.form-control', function () {
         $.validate({
             modules: 'security'

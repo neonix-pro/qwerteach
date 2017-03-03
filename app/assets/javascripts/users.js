@@ -169,13 +169,13 @@ var ready = function () {
 
 }
 
-$(document).ready(ready);
+$(document).on('turbolinks:load',  ready);
 $(document).on("page:load", ready);
 
 
 //Only one collapse edit profil
 
-$(document).ready(function(){
+$(document).on('turbolinks:load',  function(){
     $(".edit_profile .menu a").click(function(){
         $(".edit_profile .menu a").removeClass("active");
         $(this).addClass("active");
@@ -207,5 +207,3 @@ var ready = function () {
     }
 }
 
-$(document).ready(ready);
-$(document).on("page:load", ready);

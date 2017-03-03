@@ -1,5 +1,5 @@
 :javascript
-  $(document).ready(function() {
+  $(document).on('turbolinks:load',  function() {
     $("#fetch-recordings-input").keyup(function() {
       var filters = $("#fetch-recordings-input").val();
       var url = "#{fetch_recordings_bigbluebutton_server_path(@server)}";

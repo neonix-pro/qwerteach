@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).on('turbolinks:load',  function(){
     $('.text-appear')
         .delay(500)
         .animate({ opacity: 1 }, 500);

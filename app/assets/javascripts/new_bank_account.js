@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).on('turbolinks:load', function(){
   $('.bank_account_type').click(function(){
     var type = $(this).val();
     $('.account_fields').hide();

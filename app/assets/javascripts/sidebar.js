@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).on('turbolinks:load', function () {
     var h1 = $('.main-content').innerHeight();
     var h4 = $('.main-content div').innerHeight();
     var h2 = $('#footer').offset().top - $(window).height();

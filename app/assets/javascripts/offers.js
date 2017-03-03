@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).on('turbolinks:load', function () {
     animateAdvertFields();
     changeText();
     $("#cmn-toggle-4").on('change', function(){
