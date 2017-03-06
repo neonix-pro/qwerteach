@@ -17,6 +17,8 @@ class UsersController < ApplicationController
       #Autres informations nécessaires pour l'application
       topics = Array.new
       advert_prices = Array.new
+      levels = Array.new
+      
       @adverts.each do |ad|
         if ad.topic.title == "Other"
           topic_title = ad.other_name
@@ -29,16 +31,14 @@ class UsersController < ApplicationController
       
       review_sender_names = Array.new
       @reviews.each do |review|
-        sender_name = review.sender.firstname
-        review_sender_names.push(sender_name)
+        review_sender_names.push(review.sender.firstname)
       end
           
       respond_to do |format|
         format.html {}
         format.json {render :json => {:avatar => @user.avatar.url(:medium), :adverts => @adverts, :advert_prices => advert_prices,
-          :reviews => @reviews, :notes => @notes, :avg => @avg, :user => @user, 
-          :min_price => @user.min_price, :topic_titles => topics, 
-          :review_sender_names => review_sender_names}}
+          :reviews => @reviews, :notes => @notes, :avg => @avg, :user => @user, :min_price => @user.min_price, 
+          :topic_titles => topics, :review_sender_names => review_sender_names}}
       end
     else
       @me = current_user

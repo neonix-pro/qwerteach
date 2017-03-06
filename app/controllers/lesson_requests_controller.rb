@@ -60,7 +60,7 @@ class LessonRequestsController < ApplicationController
             format.js {render 'finish', :layout => false}
             format.json {render :json => {:message => "finish"}}
             format.html {redirect_to lessons_path}
-          end
+          end and return
         else
           @card_registration = Mango::CreateCardRegistration.run(user: current_user).result
           respond_to do |format|
@@ -154,13 +154,13 @@ class LessonRequestsController < ApplicationController
   def topics
     @topics = @teacher.adverts.includes(:topic).where(topics: params.slice(:topic_group_id)).uniq
       .pluck_to_hash('topics.id as id', 'topics.title as title')
-    render json: @topics
+    render :json => {:topics => @topics}
   end
 
   def levels
     @levels = @teacher.adverts.includes(advert_prices: :level).where(topic_id: params[:topic_id]).uniq
-      .pluck_to_hash('levels.id as id', 'levels.fr as title')
-    render json: @levels
+    .pluck_to_hash('levels.id as id', 'levels.fr as title')
+    render :json => {:levels => @levels}
   end
 
   def calculate

@@ -5,9 +5,6 @@ class Api::LessonRequestsController < LessonRequestsController
   
   def new
     super
-    respond_to do |format|
-     format.json {render :json => {:success => "true", :lesson_request => @lesson_request.as_json}}
-    end
   end
   
   def create
@@ -24,6 +21,29 @@ class Api::LessonRequestsController < LessonRequestsController
   
   def credit_card_process
     super
+  end
+  
+  def topics
+    super
+  end
+  
+  def levels
+    levels = []
+    @teacher.adverts.where(topic_id: params[:topic_id]).each do |ad|
+      ad.advert_prices.each do |p|
+        levels.push(p.level)
+      end
+    end
+    
+    render :json => {:levels => levels}  
+  end
+  
+  def topic_groups
+    topic_groups = []
+    @teacher.adverts.includes(:topic_group).each do |tg|
+      topic_groups.push(tg.topic_group)
+    end
+    render :json => {:topic_groups => topic_groups.uniq}
   end
   
 end

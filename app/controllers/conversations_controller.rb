@@ -74,6 +74,14 @@ class ConversationsController < ApplicationController
     receiver = (@conversation.participants - [current_user]).first
     @path = reply_conversation_path(@conversation)
     @message = @conversation.messages.last
+    
+    #Send message to android app
+    Pusher.trigger('my-channel', 'my-event', {last_message: @message, avatar: @message.sender.avatar.url(:small)})
+    
+    #Send notification to android app
+    Pusher.notify(["qwerteach"], {fcm: {notification: {title: @message.subject, body: @message.body, 
+      icon: 'androidlogo', click_action: "MY_MESSAGES"}}})
+    
     # notifie le gars qu'il a une conversation ==> permet d'ouvrir le chat automatiquement
     # Une fois qu'il a ouvert le chat, il subscribe au channel de la conversation
     PrivatePub.publish_to "/chat", :conversation_id => @conversation.id, :receiver_id => receiver

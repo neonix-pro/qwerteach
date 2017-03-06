@@ -161,7 +161,6 @@ class LessonsController < ApplicationController
   end
 
   private
-
   def lesson_params
     params.require(:lesson).permit(:student_id, :teacher_id, :price, :level_id, :topic_id, :topic_group_id, :time_start, :time_end).merge(:student_id => current_user.id)
   end

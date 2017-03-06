@@ -20,11 +20,12 @@ class ReviewsController < ApplicationController
       respond_to do |format|
         if @review.save
           format.html { redirect_to user_path(User.find(params[:user_id])), notice: t('review.creation.success') }
-          format.json {render :json => {:success => "true"}}
+          format.json {render :json => {:success => "true", :message => "Votre avis a bien été enregistré"}}
         else
           flash[:danger]=t('review.creation.error', message: @review.errors.full_messages.to_sentence)
           format.html { redirect_to user_path(User.find(params[:user_id])) }
-          format.json {render :json => {:success => "false"}}
+          format.json {render :json => {:success => "false", 
+            :message => "Il y a eu une erreur. Impossible d'enregistrer votre avis. Essayer à nouveau."}}
         end
       end
     else

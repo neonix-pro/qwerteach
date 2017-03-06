@@ -1,23 +1,29 @@
 Rails.application.routes.draw do
   
   namespace :api, :defaults => { :format => 'json' } do
-    get 'dashboard' => 'dashboards#index'
+    get 'dashboard' => 'dashboards#index' 
+    
     post 'profiles/display' => 'profiles#display'
     get 'profiles/find_level' => 'profiles#find_level'
     put 'users/:id' => 'profiles#update'
-    get 'profiles' => 'profiles#index'
-    post 'profiles/find_type' => 'profiles#find_type'
+    get 'profs' => 'profiles#index'
     get 'users/:id' => 'profiles#show'
+    get 'get_infos_for_detailed_prices_modal' => 'profiles#get_infos_for_detailed_prices_modal'
+    
     get 'users/:user_id/lesson_requests/new' => 'lesson_requests#new'
     post 'users/:user_id/lesson_requests' => 'lesson_requests#create'
     put 'users/:user_id/lesson_requests/payment' => 'lesson_requests#payment'
     get 'users/:user_id/lesson_requests/bancontact_process' => 'lesson_requests#bancontact_process'
     get 'users/:user_id/lesson_requests/credit_card_process' => 'lesson_requests#credit_card_process'
+    get 'users/:user_id/lesson_requests/topic_groups' => 'lesson_requests#topic_groups'
+    get 'users/:user_id/lesson_requests/topics/:topic_group_id' => 'lesson_requests#topics'
+    get 'users/:user_id/lesson_requests/levels/:topic_id' => 'lesson_requests#levels'
+    
+    get 'wallets/get_total_wallet/:user_id' => 'wallets#get_total_wallet'
+    post 'wallets/find_users_by_mango_id' => 'wallets#find_users_by_mango_id'
+    
     put 'user/mangopay/edit_wallet' => 'wallets#update_mangopay_wallet'
     get 'user/mangopay/index_wallet' => 'wallets#index_mangopay_wallet'
-    post 'wallets/get_total_wallet' => 'wallets#get_total_wallet'
-    get 'wallets/check_user_wallet' => 'wallets#check_user_wallet'
-    post 'wallets/find_users_by_mango_id' => 'wallets#find_users_by_mango_id'
     get 'user/mangopay/load-wallet' => 'wallets#direct_debit_mangopay_wallet'
     put 'user/mangopay/direct_debit' => 'wallets#load_wallet'
     get 'user/mangopay/card_info' => 'wallets#card_info'
@@ -25,8 +31,9 @@ Rails.application.routes.draw do
     put 'user/mangopay/desactivate_bank_account/:id' => 'wallets#desactivate_bank_account'
     put 'user/mangopay/make_payout' => 'wallets#make_payout'
     get 'user/mangopay/payout' => 'wallets#payout'
+    
     get 'cours' => 'lessons#index'
-    post 'lessons/find_lesson_infos' => 'lessons#find_lesson_infos'
+    get 'lessons/find_lesson_infos/:lesson_id' => 'lessons#find_lesson_infos'
     get 'lessons/:lesson_id/cancel' => 'lessons#cancel'
     put 'lessons/:id' => 'lessons#update'
     get 'lessons/:lesson_id/refuse' => 'lessons#refuse'
@@ -42,27 +49,25 @@ Rails.application.routes.draw do
   
   namespace :api, :defaults => { :format => 'json' } do
     get 'adverts' => 'adverts#index'
-    get 'adverts/:id' => 'adverts#show'
-    post 'adverts/create' => 'adverts#create'
+    get 'adverts/show/:id' => 'adverts#show'
+    post 'adverts' => 'adverts#create'
     patch 'adverts/:id' => 'adverts#update'
     delete 'adverts/:id' => 'adverts#destroy'
+    get 'topic_choice' => 'adverts#choice_group'
+    get 'level_choice' => 'adverts#choice'
+    get 'adverts/new' => 'adverts#new'
   end
 
   namespace :api, :defaults => { :format => 'json' } do
-    get 'topics/:id' => 'topics#show'
-    post 'topics/find_levels' => 'topics#find_levels'
+    #get 'topics/:id' => 'topics#show'
     get 'topics' => 'topics#get_all_topics'
-  end
-
-  namespace :api do
-    get 'group_topics' => 'group_topics#show'
+    get 'topic_groups' => 'topic_groups#get_all_topic_groups'
   end
 
   namespace :api, :defaults => { :format => 'json' } do
     devise_scope :user do
-      get 'sessions' => 'sessions#new'
       post 'sessions' => 'sessions#create'
-      delete 'sessions' => 'sessions#delete'
+      delete 'sessions' => 'sessions#destroy'
       post 'registrations' => 'registrations#create'
     end
   end

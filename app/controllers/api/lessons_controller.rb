@@ -5,7 +5,7 @@ class Api::LessonsController < LessonsController
   
   def index
     super
-    render :json => {:lessons => @lessons}
+    render :json => {:lessons => @lessons} 
   end
   
   def cancel
@@ -33,31 +33,56 @@ class Api::LessonsController < LessonsController
   end
   
   def find_lesson_infos
-    topic = Topic.find_by_id(params[:topic_id])
-    topic_group = TopicGroup.find_by_id(params[:topic_group_id])
-    level = Level.find_by_id(params[:level_id])
     lesson = Lesson.find_by_id(params[:lesson_id])
-    user = User.find_by_id(params[:user_id])
-    payment = Payment.find_by_lesson_id(params[:lesson_id])
-    need_review = params[:need_review]
     
-    if need_review
-      student = User.find_by_id(lesson.student_id)
-      review_needed = lesson.review_needed?(student)
+    if current_user.id == lesson.student.id
+      name = lesson.teacher.name
     else
-      review_needed = false
+      name = lesson.student.name
     end
     
-    if level.nil?
+    todo = lesson.todo(current_user)
+    case todo
+      when :wait
+      if lesson.past?
+        lesson_status = "past"
+      else
+        if lesson.pending?
+          lesson_status = "waiting"
+        else
+          lesson_status = "accepted"
+        end
+      end
+      when :inactive
+      if lesson.expired?
+        lesson_status = "expired"
+      elsif lesson.canceled?
+        lesson_status = "canceled"
+      elsif lesson.refused?
+        lesson_status = "refused"
+      end
+      when :confirm
+      lesson_status = "confirm"
+      when :unlock
+      lesson_status = "pay"
+      when :review
+      lesson_status = "review"
+      when :disputed
+      lesson_status = "disputed"
+    end
+    
+    if lesson.level.nil?
       level_title = nil
     else
-      level_title = level.fr
+      level_title = lesson.level.fr
     end
     
-    render :json => {:topic => topic.title, :topic_group => topic_group.title, :level => level_title, 
-      :duration => lesson.duration, :expired => lesson.expired?, 
-      :past => lesson.past?, :lesson_id => lesson.id, :payment_status => payment.status, :review_needed => review_needed,
-      :user => {:firstname => user.firstname, :lastname => user.lastname}}
+    render :json => {:topic => lesson.topic.title, 
+      :topic_group => lesson.topic_group.title, 
+      :level => level_title, 
+      :duration => lesson.duration,
+      :name => name, 
+      :lesson_status => lesson_status}
     
   end
   

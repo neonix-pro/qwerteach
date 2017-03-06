@@ -42,7 +42,7 @@ class WalletsController < ApplicationController
       flash[:danger] = t('notice.mango_account.update_error', message: saving.errors.full_messages.to_sentence)
       respond_to do |format|
         format.js {render 'edit_mangopay_wallet'}
-        format.json {render :json => {:message => {:errors => saving.errors.as_json, :saving => saving.as_json}}}
+        format.json {render :json => {:message => {:errors => saving.errors.as_json, :saving => saving}}}
         format.html {redirect_to index_wallet_path}
       end
     end
@@ -99,7 +99,7 @@ class WalletsController < ApplicationController
           if result.secure_mode == 'FORCE' and result.secure_mode_redirect_url.present?
             respond_to do |format|
               format.html {redirect_to result.secure_mode_redirect_url}
-              format.json {render :json => {:message => "secure mode", :url => result.secure_mode_redirect_url}}
+              format.json {render :json => {:message => "redirect url", :url => result.secure_mode_redirect_url}}
             end
           else
             respond_to do |format|
@@ -138,7 +138,7 @@ class WalletsController < ApplicationController
       @card_registration = creation.result
       respond_to do |format|
         format.html {}
-        format.json {render :json => {:card_registration => @card_registration.as_json}}
+        format.json {render :json => {:card_registration => @card_registration}}
       end
     end
   end
@@ -229,7 +229,7 @@ class WalletsController < ApplicationController
     else
       respond_to do |format|
         format.html {redirect_to payout_path, alert: t('notice.processing_error')}
-        format.json {render :json => {:success => "false", :redirect_url => payout_path}}
+        format.json {render :json => {:success => "false", :url => payout_path}}
       end
     end
   end
