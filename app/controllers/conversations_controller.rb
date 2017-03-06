@@ -86,10 +86,19 @@ class ConversationsController < ApplicationController
     # notifie le gars qu'il a une conversation ==> permet d'ouvrir le chat automatiquement
     # Une fois qu'il a ouvert le chat, il subscribe au channel de la conversation
     PrivatePub.publish_to "/chat/#{receiver.id}", :conversation_id => @conversation.id, :receiver_id => receiver
+    
+    #Send message to android app
+    Pusher.trigger('my-channel', 'my-event', {last_message: @message, avatar: @message.sender.avatar.url(:small)})
+    
+    #Send notification to android app
+    Pusher.notify(["qwerteach"], {fcm: {notification: {title: @message.subject, body: @message.body, 
+      icon: 'androidlogo', click_action: "MY_MESSAGES"}}})
+ 
     @conversation_id = @conversation.id
     respond_to do |format|
       format.html {redirect_to conversation_path(@conversation), notice: 'Reply sent'}
       format.js
+      format.json {render :json => {:success => "true"}}
     end
   end
 
@@ -110,6 +119,7 @@ class ConversationsController < ApplicationController
       end
     end
     # Envoi fake msg pour init conversation avec participants
+  
     # TO DO: not neded anymore
     @conversation = current_user.send_message([current_user, (User.find(params[:recipient_id]))], "init_conv_via_chat", "chat").conversation
     render json: {conversation_id: @conversation.id}

@@ -8,6 +8,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     meeting.users << current_user
     meeting.save
   end
+  
   def invite_to_room
 
   end

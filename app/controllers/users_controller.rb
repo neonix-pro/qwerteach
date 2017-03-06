@@ -14,8 +14,40 @@ class UsersController < ApplicationController
       @notes = @reviews.map { |r| r.note }
       @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size unless @notes.empty?
       @profSimis = @user.similar_teachers(4)
+      
+      #Autres informations nécessaires pour l'application
+      topics = Array.new
+      offer_prices = Array.new
+      levels = Array.new
+      
+      @offers.each do |ad|
+        if ad.topic.title == "Autre"
+          topic_title = ad.other_name
+        else
+          topic_title = ad.topic.title
+        end
+        topics.push(topic_title)
+        offer_prices.push(ad.offer_prices)
+      end
+      
+      review_sender_names = Array.new
+      @reviews.each do |review|
+        review_sender_names.push(review.sender.firstname)
+      end
+          
+      respond_to do |format|
+        format.html {}
+        format.json {render :json => {:avatar => @user.avatar.url(:medium), :adverts => @offer, :advert_prices => offer_prices,
+          :reviews => @reviews, :notes => @notes, :avg => @avg, :user => @user, :min_price => @user.min_price, 
+          :topic_titles => topics, :review_sender_names => review_sender_names}}
+      end
+    else
+      @me = current_user
+      respond_to do |format|
+        format.html {}
+        format.json {render :json => {:user => @me, :avatar => @me.avatar.url(:medium)}}
+      end
     end
-    @me = current_user
   end
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
@@ -110,11 +142,20 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = "Votre profil a bien été modifié" unless @user.previous_changes.empty?
+      flash[:success] = "Votre profil a bien été modifié"
+      respond_to do |format|
+        format.html {redirect_to edit_user_registration_path(@user)}
+        format.json {render :json => {:user => @user, :success => "true", 
+          :message => "Votre profil a bien été modifié."}}
+      end and return
     else
-      flash[:danger] = "La modification a échoué"
+      flash[:error] = "La modification a échoué"
+      respond_to do |format|
+        format.html {redirect_to edit_user_registration_path(@user)}
+        format.json {render :json => {:user => @user, :success => "false", 
+          :message => "La modification a échoué."}}
+      end
     end
-    redirect_to edit_user_registration_path(@user)
   end
 
   private
@@ -123,9 +164,8 @@ class UsersController < ApplicationController
                                    :gender, :occupation, :description, :level_id,
                                    :time_zone, :avatar, :crop_x, :crop_y, :crop_h, :crop_w)
     end
-
+  
     def filter_param
       @filter = params[:filter]
     end
-
 end

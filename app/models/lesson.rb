@@ -261,5 +261,4 @@ class Lesson < ActiveRecord::Base
   end
 
   private
-
 end

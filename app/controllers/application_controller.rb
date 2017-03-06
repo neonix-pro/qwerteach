@@ -1,11 +1,17 @@
 class ApplicationController < ActionController::Base
+  
+  acts_as_token_authentication_handler_for User, fallback: :none
+ 
   # redirects if catches cancan access denied
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
   end
 
   rescue_from Mango::UserDoesNotHaveAccount do |exception|
-    redirect_to edit_wallet_path(redirect_to: request.fullpath), alert: t('notice.missing_account')
+    respond_to do |format|
+      format.html {redirect_to edit_wallet_path(redirect_to: request.fullpath), alert: t('notice.missing_account')}
+      format.json {render :json => {:message => "no wallet"}}
+    end
   end
 
   # Prevent CSRF attacks by raising an exception.
@@ -77,7 +83,7 @@ class ApplicationController < ActionController::Base
   def international_prefix_list
     @list ||= ISO3166::Country.all.map{|c| ["#{c.translations['fr']} (+#{c.country_code})", c.country_code] }.sort
   end
-
+  
   def flash_message
     [:error, :warning, :notice].each do |type|
       return flash[type] unless flash[type].blank?

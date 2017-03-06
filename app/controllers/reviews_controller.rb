@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   before_filter :authenticate_user! unless :featured_reviews
+
   def index
     @user = User.find(params[:user_id])
     @reviews = @user.reviews_received
@@ -18,9 +19,12 @@ class ReviewsController < ApplicationController
       respond_to do |format|
         if @review.save
           format.html { redirect_to user_path(User.find(params[:user_id])), notice: t('review.creation.success') }
+          format.json {render :json => {:success => "true", :message => t('review.creation.success')}}
         else
           flash[:danger]=t('review.creation.error', message: @review.errors.full_messages.to_sentence)
           format.html { redirect_to user_path(User.find(params[:user_id])) }
+          format.json {render :json => {:success => "false", 
+            :message => t('review.creation.error', message: @review.errors.full_messages.to_sentence)}
         end
       end
     else
@@ -28,9 +32,11 @@ class ReviewsController < ApplicationController
       respond_to do |format|
         if old.first.save
           format.html { redirect_to user_path(User.find(params[:user_id])),notice: t('review.update.success') }
+          format.json {render :json => {:success => "true"}}
         else
           flash[:danger]=t('review.update.error', message: @review.errors.full_messages.to_sentence)
           format.html { redirect_to user_path(User.find(params[:user_id]))}
+          format.json {render :json => {:success => "false"}}
         end
       end
     end
