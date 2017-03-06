@@ -1,4 +1,4 @@
-class Api::AdvertsController < AdvertsController
+class Api::OffersController < OffersController
   
   skip_before_filter :verify_authenticity_token
   respond_to :json

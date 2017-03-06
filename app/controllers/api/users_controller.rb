@@ -1,4 +1,4 @@
-class Api::ProfilesController < UsersController
+class Api::UsersController < UsersController
   
   skip_before_filter :verify_authenticity_token
   respond_to :json
