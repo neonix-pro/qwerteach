@@ -21,6 +21,6 @@ class DashboardsController < ApplicationController
 
     @featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)
     @featured_teachers = Teacher.all.order(score: :desc).limit(5)
-    @current_lesson = Lesson.where(:status => 2).where('time_end > ?', DateTime.now).where('time_start > ?', DateTime.now - 10.minutes).where("student_id =#{@user.id}  OR teacher_id = #{@user.id}").first
+    @current_lesson = @user.current_lesson
   end
 end

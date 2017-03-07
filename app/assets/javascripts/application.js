@@ -33,3 +33,7 @@
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
 //= require bootstrap-sprockets
 //= require turbolinks
+
+$.validate({
+    modules : 'security'
+});

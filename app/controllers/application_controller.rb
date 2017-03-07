@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   # loads devise permitted params
   before_filter :configure_permitted_parameters, if: :devise_controller?
   after_filter :flash_to_headers
+  after_action :has_lesson?, if: :user_signed_in?
 
   def bigbluebutton_role(room)
       :moderator
@@ -79,17 +80,24 @@ class ApplicationController < ActionController::Base
   end
 
   def flash_message
-    [:error, :warning, :notice].each do |type|
+    [:error, :warning, :notice, :lesson].each do |type|
       return flash[type] unless flash[type].blank?
     end
     nil
   end
 
   def flash_type
-    [:error, :warning, :notice].each do |type|
+    [:error, :warning, :notice, :lesson].each do |type|
       return type unless flash[type].blank?
     end
     nil
+  end
+
+  def has_lesson?
+    @current_lesson = current_user.current_lesson
+    if @current_lesson
+      flash[:lesson] = "Votre cours de #{@current_lesson.topic.title} avec #{@lesson.other(current_user).name} a commencé."
+    end
   end
 
 end

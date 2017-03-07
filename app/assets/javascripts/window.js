@@ -62,6 +62,7 @@ $(document).on('turbolinks:load',  function(e){
 });
 
 $(document).on('turbolinks:load',  function(){
+    $.ajaxSetup({beforeSend: function(xhr) {xhr.setRequestHeader("X-CSRF-Token", $("meta[name='csrf-token']").attr("content")); }});
     $.validate({
         modules : 'security'
     });
