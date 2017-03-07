@@ -426,13 +426,13 @@ ActiveRecord::Schema.define(version: 20170302112005) do
     t.integer  "response_rate",                     default: 0
     t.integer  "response_time",                     default: 0
     t.integer  "average_response_time",             default: 0
-    t.text     "tokens"
-    t.string   "authentication_token",   limit: 30
     t.integer  "avatar_score"
     t.string   "phone_country_code"
     t.boolean  "sms_allowed",                       default: true
     t.boolean  "active",                            default: true
     t.boolean  "blocked",                           default: false
+    t.text     "tokens"
+    t.string   "authentication_token",   limit: 30
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true
