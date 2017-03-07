@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       levels = Array.new
       
       @offers.each do |ad|
-        if ad.topic.title == "Autre"
+        if ad.topic.title == "Other"
           topic_title = ad.other_name
         else
           topic_title = ad.topic.title
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
           
       respond_to do |format|
         format.html {}
-        format.json {render :json => {:avatar => @user.avatar.url(:medium), :adverts => @offer, :advert_prices => offer_prices,
+        format.json {render :json => {:avatar => @user.avatar.url(:medium), :offers => @offers, :offer_prices => offer_prices,
           :reviews => @reviews, :notes => @notes, :avg => @avg, :user => @user, :min_price => @user.min_price, 
           :topic_titles => topics, :review_sender_names => review_sender_names}}
       end

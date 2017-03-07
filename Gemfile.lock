@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: git://github.com/thoughtbot/administrate.git
-  revision: d157ea1082a5b33cb36f86c590d421419dd8aaf9
+  revision: 4ba6e31aaf9b081886692e02433fb939e4086233
   specs:
     administrate (0.4.0)
       autoprefixer-rails (~> 6.0)

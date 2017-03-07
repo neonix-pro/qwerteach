@@ -44,8 +44,8 @@ class OffersController < ApplicationController
       respond_to do |format|
         flash[:notice]='Une annonce pour cette catégorie existe déjà.'
         format.html {redirect_to offers_path}
-        format.json {}
         format.js {}
+        format.json {render :json => {:message => "Une annonce pour cette catégorie existe déjà."}}
         return
       end
     end
@@ -53,14 +53,12 @@ class OffersController < ApplicationController
     @offer = Offer.new(offer_params)
     respond_to do |format|
       if @offer.save
-        format.html { redirect_to offers_path, notice: 'Votre annonce a bien été enregistrée.' }
-        format.json { head :no_content }
-        format.js {
-          render partial: "#{params[:origin]}/create_offer", locals: {offer: @offer} if params[:origin]
-        }
+        format.html {redirect_to offers_path, notice: 'Votre annonce a bien été enregistrée.'}
+        format.json {render :json => {:success => "true"}}
+        format.js {render partial: "#{params[:origin]}/create_offer", locals: {offer: @offer} if params[:origin]}
       else
-        format.html { redirect_to @offer, danger: 'Il y a eu un problème, votre annonce, n\'a pas été mise à jour' }
-        format.json { render json: @offer.errors, status: :unprocessable_entity }
+        format.html {redirect_to @offer, danger: 'Il y a eu un problème, votre annonce, n\'a pas été mise à jour'}
+        format.json {render :json => {:message => @offer.errors}}
         format.js {flash[:danger]=@offer.errors.full_messages.to_sentence}
       end
     end
@@ -101,6 +99,7 @@ class OffersController < ApplicationController
     @levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => level_choice).group(I18n.locale[0..3]).order(:id)
     respond_to do |format|
       format.js {}
+      format.json {render :json => {:levels => @levels}}
     end
   end
 
@@ -109,6 +108,7 @@ class OffersController < ApplicationController
     @topics = Topic.where(:topic_group_id => group.id) - current_user.offers_except_other.map(&:topic)
     respond_to do |format|
       format.js {}
+      format.json {render :json => {:topics => @topics}}
     end
   end
 

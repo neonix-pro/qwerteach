@@ -29,8 +29,8 @@ class Api::LessonRequestsController < LessonRequestsController
   
   def levels
     levels = []
-    @teacher.adverts.where(topic_id: params[:topic_id]).each do |ad|
-      ad.advert_prices.each do |p|
+    @teacher.offers.where(topic_id: params[:topic_id]).each do |offer|
+      offer.offer_prices.each do |p|
         levels.push(p.level)
       end
     end
@@ -40,7 +40,7 @@ class Api::LessonRequestsController < LessonRequestsController
   
   def topic_groups
     topic_groups = []
-    @teacher.adverts.includes(:topic_group).each do |tg|
+    @teacher.offers.includes(:topic_group).each do |tg|
       topic_groups.push(tg.topic_group)
     end
     render :json => {:topic_groups => topic_groups.uniq}

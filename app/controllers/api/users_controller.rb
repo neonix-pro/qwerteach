@@ -10,9 +10,9 @@ class Api::UsersController < UsersController
   end
   
   def get_infos_for_detailed_prices_modal
-    advert = Advert.find_by_id(params[:id])
-    topic_group_title = advert.topic.topic_group.title
-    prices = advert.advert_prices
+    offer = Offer.find_by_id(params[:id])
+    topic_group_title = offer.topic.topic_group.title
+    prices = offer.offer_prices
     levels = []
     prices.each do |p|
       levels.push(p.level)
