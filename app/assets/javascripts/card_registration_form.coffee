@@ -49,6 +49,7 @@ class window.CardRegistrationForm
       @$('#new_card').addClass('hidden')
 
   perform: ->
+    @showLoader()
     $select = @$('select[name$=card_id]')
     if $select.size() and $select.val() != ''
       @payWithCard $select.val()
@@ -70,3 +71,5 @@ class window.CardRegistrationForm
   registrationError: (res)->
     alert "Error occured while registering the card: ResultCode: #{res.ResultCode} , ResultMessage: #{res.ResultMessage}"
 
+  showLoader: ->
+    $('#step3').html('<div class="text-center"><i class="fa fa-spin fa-3x fa-spinner text-green"></i></div>')
