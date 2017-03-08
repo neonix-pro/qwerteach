@@ -31,8 +31,7 @@
         = render partial: 'users/profile/profile_reviews', locals:{reviews: @teacher.reviews_received}
 
 :javascript
-  $(document).on('turbolinks:load',  function(){
-
+  $(document).on('turbolinks:load', function(){
     $('#datetimepicker').datetimepicker({
       locale: moment.locale(),
       format: "dddd DD MMMM [à] HH:mm",
