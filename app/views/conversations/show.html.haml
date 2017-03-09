@@ -1,13 +1,14 @@
 = render partial: 'conversation', locals: {conversation: @conversation}
-:javascript
-  $('#chatbox_#{@conversation.id} .chatboxinput').click(function () {
-    $.ajax({
-      url: "/seen",
-      data: {conversation_id: "#{@conversation.id}"},
-      method: 'post',
-      success:  Messages.numberOfUnreadMessages()
-    });
-  });
-:javascript
-  var chatbox = $("#chatbox_#{@conversation.id} .chatboxcontent");
-  chatbox.scrollTop(chatbox[0].scrollHeight);
+-#:javascript
+-#  $(document).on('turbolinks:load', function(){
+-#    $('#chatbox_#{@conversation.id} .chatboxinput').click(function () {
+-#      $.ajax({
+-#        url: "/seen",
+-#        data: {conversation_id: "#{@conversation.id}"},
+-#        method: 'post',
+-#        success:  Messages.numberOfUnreadMessages()
+-#      });
+-#    });
+-#    var chatbox = $("#chatbox_#{@conversation.id} .chatboxcontent");
+-#    chatbox.scrollTop(chatbox[0].scrollHeight);
+-#  });

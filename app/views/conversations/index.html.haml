@@ -3,7 +3,7 @@
     %aside.sm-side
       -#liste des conversations
       #conversations-list
-        = render partial: 'new_conversation_preview'
+        -#= render partial: 'new_conversation_preview'
         - @conversations.each do |conversation|
           = render partial: 'last_message', :locals=> {conversation: conversation, user: @user}
         - if @conversations.empty?
@@ -19,37 +19,10 @@
           = render partial: 'conversation', locals:{conversation: @conversations.first, messages: @messages, page: @page}
     .clearfix
 
-= render partial: 'lesson_requests/request_lesson_modal'
-
 - unless @conversations.empty?
   :javascript
-    $('.compose-message').click(function(){
-      $('.conversation-preview.active').removeClass('active');
-      $('#compose-message').toggle('slow');
-      $('.new-message.conversation-preview').toggle();
-      $('#mailbox_conversations').html("#{j render partial: 'new_conversation'}");
-    });
-    options = $('#recipients-list option');
-    $('#recipients').on('input', function(){
-      $('#new_message_recipient').val('');
-      var input = $(this);
-      options.each(function(){
-        if($(this).val() == input.val())
-        {
-          $('#new_message_recipient').val($(this).attr('userid'));
-          return;
-        }
-      });
-    });
-    $(document).on('turbolinks:load',  function(){
-      var chatbox = $("#chatbox_#{@conversations.first.id} .conversation-content");
-      if (chatbox.length > 0)
-      {
-        chatbox.scrollTop(chatbox[0].scrollHeight);
-        $('body').on('click', '[data-toggle="loader"]', function(){
-          $('.loader').fadeIn('slow');
-        });
-      }
+    $(document).on('turbolinks:load', function(){
+      chat(#{@conversations.first.id});
     });
 
 
