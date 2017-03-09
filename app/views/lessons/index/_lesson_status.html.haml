@@ -6,7 +6,7 @@
       -when :pay
         = render :partial => 'lessons/index/postpay_lesson', locals:{lesson: lesson}
       -when :review
-        please leave a review!
+        = render :partial => 'lessons/index/review_lesson', locals:{lesson: lesson}
       -when :confirm
         = render :partial => 'lessons/index/answer_request', locals:{lesson: lesson}
       -when :unlock
