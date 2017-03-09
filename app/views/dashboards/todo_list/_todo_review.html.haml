@@ -4,7 +4,9 @@
       = image_tag (lesson.teacher.avatar(:medium)), class: 'img todo_review_img'
     .col-sm-7.col-xs-9.todo_review
       %h3.todo_title
-        Recommanderiez-vous #{lesson.teacher.firstname} ?
+        Recommanderiez-vous
+        = link_to lesson.teacher.firstname, user_path(lesson.teacher), class: 'text-black'
+        ?
       %div
         = render partial: 'shared/star_rating', locals:{note: lesson.teacher.avg_reviews}
     .col-xs-3.todo_review.text-center.todo_action

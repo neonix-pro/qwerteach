@@ -5,9 +5,16 @@
     -unless lesson.nil?
       .col-sm-4.preview-lesson
         .lesson-topic #{lesson.topic.title}
-        .lesson-partner #{lesson.other(current_user).firstname}
-        .lesson-date #{lesson.time_start.strftime("%d %b %Y")}
-        .lesson-seemore #{link_to 'voir le cours', lessons_path, class: 'text-white'}
+        .lesson-partner= link_to lesson.other(current_user).firstname, user_path(lesson.other(current_user)), class: 'text-yellow'
+        .lesson-date
+          #{lesson.time_start.strftime("%d %b %Y")}
+          - lesson.bbb_room.recordings.each do |r|
+            %br
+            = distance_of_time_in_words (r.end_time - r.start_time).to_i.seconds
+        .lesson-seemore.text-center
+          - unless lesson.bbb_room.recordings.empty?
+            = link_to lesson.bbb_room.recordings.last.playback_formats.first.url, target: '_blank' do
+              %i.fa.fa-play.fa-2x
     - else
       .col-sm-4.empty-lesson.text-center
         .border

@@ -171,10 +171,9 @@
       color: $color_qwerteach_yellow;
       line-height:30px;
     }
-    .lesson-partner{
-      font-weight:200;
+    .lesson-partner a{
+      font-family:SofiaProLight;
       font-size: 22px;
-      color:white;
       line-height:30px;
     }
     .lesson-date{
@@ -184,8 +183,17 @@
       line-height:20px;
     }
     .lesson-seemore{
-      color:white;
+      a {
+        color: $text_light_grey;
+      }
       font-size: 12px;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 50%;
+    }
+    .lesson-seemore a:hover{
+      color: white;
     }
   }
   .empty-lesson{
