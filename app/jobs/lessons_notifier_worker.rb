@@ -17,7 +17,7 @@ class LessonsNotifierWorker
           :param => @interviewee.id.to_s+'_'+DateTime.now.to_time.to_i.to_s,
           :record_meeting => 1,
         #  :logout_url => 'https://qwer-dewiiid.c9users.io/bbb_rooms/end_room/'+@interviewee.id.to_s+'_'+DateTime.now.to_time.to_i.to_s,
-          :logout_url => 'http://localhost:3000/bbb_rooms/end_room/'+@interviewee.id.to_s+'_'+DateTime.now.to_time.to_i.to_s,
+          :logout_url => ENV['MAILER_HOST']+':3000/bbb_rooms/end_room/'+@interviewee.id.to_s+'_'+DateTime.now.to_time.to_i.to_s,
           :duration => 0,
           :auto_start_recording => 1,
           :allow_start_stop_recording => 0

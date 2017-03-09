@@ -7,7 +7,7 @@ class DashboardsController < ApplicationController
     @past_lessons = Lesson.involving(@user).passed.limit(3).order(time_start: :desc)
 
     unless @past_lessons.empty?
-      @book_again_lesson = @past_lessons.is_student(@user).last
+      @book_again_lesson = @past_lessons.is_student(@user).first
       while @past_lessons.length < 3
         @past_lessons.append(nil)
       end

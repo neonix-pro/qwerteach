@@ -18,7 +18,7 @@
       .col-xs-12#book_again
         = render partial: 'book_again', locals: {lesson: @book_again_lesson}
   -# show to do list
-  -unless @to_do_list.empty?
+  -unless @to_do_list.empty? || @current_lesson
     .row
       .col-xs-12#todo_list
         = render partial: 'todo_list', locals: {to_do_list: @to_do_list, user: @user}

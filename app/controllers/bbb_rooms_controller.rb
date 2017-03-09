@@ -22,7 +22,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
         :name => "Interview "+@interviewee.id.to_s+'_'+current_timestamp.to_s,
         :param => @interviewee.id.to_s+'_'+current_timestamp.to_s,
         :record_meeting => 1,
-        :logout_url => 'http://localhost:3000/', #TODO: make dynamic
+        :logout_url => ENV['MAILER_HOST']+':3000', #TODO: make dynamic
         :duration => 0,
         :auto_start_recording => 1,
         :allow_start_stop_recording => 0,

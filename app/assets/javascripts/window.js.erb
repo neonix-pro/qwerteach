@@ -67,7 +67,14 @@ $(document).on('turbolinks:load',  function(){
         modules : 'security'
     });
     var show_ajax_message = function(msg, type) {
-        $("#flash-messages").html('<div class="alert alert-dismissible alert-'+type+' role="alert" ><button class="close" data-dismiss="alert"><span>&times</span></button>'+msg+'</div>');
+        if (type != 'lesson')
+        {
+            $("#flash-messages").html('<div class="alert alert-dismissible alert-'+type+' role="alert" ><button class="close" data-dismiss="alert"><span><%= image_tag "close.png" %> </span></button>'+msg+'</div>');
+        }
+        else
+        {
+            $("#flash-messages").html('<div class="alert alert-dismissible alert-'+type+' role="alert" >'+msg+'</div>');
+        }
     };
 
     $(document).ajaxSuccess(function(event, request) {

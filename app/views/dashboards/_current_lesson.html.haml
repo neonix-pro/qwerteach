@@ -30,4 +30,4 @@
         = link_to 'voir détails', lessons_path, class: 'text-pink see-more'
       - unless lesson.bbb_room.nil?
         .pull-right.text-center
-          = link_to 'rejoindre la classe virtuelle', join_bigbluebutton_room_path(lesson.bbb_room)
+          = link_to 'rejoindre la classe virtuelle', join_bigbluebutton_room_path(lesson.bbb_room), target: '_blank'
