@@ -42,3 +42,23 @@
       .col-xs-12#topics.section-choix
         = render partial: 'pages/topic_groups_list', locals:{topic_groups: @featured_topics}
     = render partial: 'featured_teachers', locals: {teachers: @featured_teachers}
+
+#edit-lesson-modal.modal.fade{:role => "dialog"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close.text-white{"data-dismiss" => "modal", :type => "button"} ×
+        %h4.modal-title Modifier la date du cours
+      .modal-body
+        .edit-lesson
+      .modal-footer
+        %span{"data-dismiss" => "modal"}
+          %a{:href => "#"}
+            Annuler
+
+:javascript
+  $(document).on('turbolinks:load', function(){
+      $('#edit-lesson-modal').on('show.bs.modal', function(e){
+      $(this).find('.edit-lesson').attr('id', 'lesson-details-'+$(e.relatedTarget).attr('data-lesson'));
+    });
+  });
