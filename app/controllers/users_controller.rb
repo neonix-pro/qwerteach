@@ -105,6 +105,7 @@ class UsersController < ApplicationController
     if @search_text.nil? || @search_text.empty?
       @search_text = 'tous les profs'
     end
+    @search_text
   end
 
   def update

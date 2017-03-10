@@ -1,4 +1,4 @@
-#search_header{"data-vide-bg" => "mp4: '' , webm:'' , poster: #{image_path('search/search_header.jpg')}", "data-vide-options" => "posterType: jpg, loop: ture, muted: true, position: 50% 50%"}
+#search_header{"data-vide-bg" => "poster: #{image_path('search/search_header.jpg')}", "data-vide-options" => "posterType: jpg, loop: ture, muted: true, position: 50% 50%"}
   %h1
     Trouvez votre #{params[:topic].nil? || params[:topic].empty? ? "prof particulier" : "prof de #{@search_text.downcase}"}
     %br
