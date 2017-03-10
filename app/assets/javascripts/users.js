@@ -65,9 +65,9 @@ var ready = function () {
     });
 
 
-    $('.ckeditor').ckeditor({
+    //$('.ckeditor').ckeditor({
         // optional config
-    });
+    //});
     adjustProfileSidebar();
     function adjustProfileSidebar(){
         height= $(window).height();
@@ -208,3 +208,23 @@ var ready1 = function () {
 $(document).on('turbolinks:load',  ready1);
 $(document).on("page:load", ready1);
 
+$(document).on("turbolinks:load", function(){
+
+$('#edit_profile .collapse').on('show.bs.collapse', function(){
+    var h = $(body).height();
+    $('.menu').css({height:h});
+});
+$('#edit_profile .collapse').on('shown.bs.collapse', function(){
+    $('.menu').css({height:''});
+    bodySidebarHeight();
+    var h = Math.max($(body).height(), $(this).height());
+    $('.menu').css({height:h});
+});
+
+$('#edit_profile .menu a').on('click',function(e){
+    if($($(this).attr('data-target')).hasClass('in')) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+});
+});
