@@ -24,7 +24,7 @@ class window.RequestLesson
     @$el.on 'change', '.minutes-select', (e)=> @calculatePrice()
     @$el.on 'change', '#free_lesson', => @onFreeChange()
     @$el.on 'change', '#request_time_start', (e)=> @calculatePrice()
-    @$el.on 'submit', 'form', => @showLoader()
+    @$el.on 'submit', 'form', (e)=> @showLoader(e)
     @$el.on 'update', => @calculatePrice()
     @$el.find('.topic-select').trigger('change')
     @$el.on 'click', '.change-booking-step', (e)=> @onChangeBookingStep(e)
@@ -155,8 +155,9 @@ class window.RequestLesson
       return
     r
 
-  showLoader: ->
-    $('#step3').html('<div class="text-center"><i class="fa fa-spin fa-3x fa-spinner text-green"></i></div>')
+  showLoader: (e)->
+    $('#step3 #loader').remove();
+    $('#step3').append('<div class="text-center" id="loader"><i class="fa fa-spin fa-3x fa-spinner text-green"></i></div>')
 
   onPaymentMethodChange: (e)->
     $('.payment_method').hide()
