@@ -17,13 +17,14 @@ class CustomDeviseMailer < Devise::Mailer
     super
   end
   def reset_password_instructions(record, token, opts={})
-    opts =  {"filters" => {
+    opts =  {"X-SMTPAPI" =>{"filters" => {
               "templates" => {
                 "settings" => {
                   "enable" => 1, "template_id" => "208ffcb4-5129-4111-8aa2-1353abde1bc2"}
                 }
               }
             }.to_json
+    }
     super
   end
 end

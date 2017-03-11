@@ -22,7 +22,8 @@ RSpec.describe OffersController, type: :controller do
         end
         
         it "edit" do
-            get 'edit', :id => Offer.first.id
+            @offer = FactoryGirl.create(:offer)
+            get 'edit', :id => Offer.last.id
             expect(response).to be_success
         end
         

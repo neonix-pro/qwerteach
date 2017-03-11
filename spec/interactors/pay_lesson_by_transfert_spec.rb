@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'pp'
 
 RSpec.describe PayLessonByTransfert do
 
@@ -24,9 +25,10 @@ RSpec.describe PayLessonByTransfert do
   end
 
   it 'save draft lesson and create payment', vcr: true do
-    payin = Mango::PayinTestCard.run(user: @user, amount: 80)
+    payin = Mango::PayinTestCard.run(user: @user, amount: 40)
     expect(payin).to be_valid
     @user.reload
+    pp payin
     paying = PayLessonByTransfert.run( user: @user, lesson: @lesson )
     expect(paying).to be_valid
     expect(@lesson.id).to be

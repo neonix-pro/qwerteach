@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+require 'pp'
 
 feature "Wallets" do
   scenario "GET /wallets not logged in" do
@@ -8,16 +8,13 @@ feature "Wallets" do
   end
   scenario "test test test" do
     visit new_user_session_path
-    expect(page).to have_content('Log in')
+    expect(page).to have_content('Se connecter')
   end
   scenario "GET /wallets logged in", vcr: true do
-   user = User.first
-     user.mango_id=nil
-     user.save
-     login_user(user.email, 'kaltrina')
-     
+     user = FactoryGirl.create(:student, email: FFaker::Internet.email)
+     login_user(user.email, user.password)
      visit index_wallet_path
-     expect(page).to have_content("Mes informations bancaires")
+     expect(page).to have_content("Configurer mon portefeuille virtuel")
      within(".main-content") do
        fill_in 'account[first_name]', with: user.firstname
        fill_in 'account[last_name]', with: user.lastname
@@ -29,33 +26,34 @@ feature "Wallets" do
        select "France", :from => "account[country]"
        select "France", :from => "account[country_of_residence]"
        select "France", :from => "account[nationality]"
-       find('input[type=submit]').click
+       find('button[type=submit]').click
      end
      
-     expect(page).to have_content("0.0 EUR + 0.0 EUR de crédit bonus")
-     visit direct_debit_path
+     expect(page).to have_content("0.0 EUR 0.0 EUR de crédit bonus")
+     visit load_wallet_path
      expect(page).to have_content("Charger mon portefeuille")
      
-     within(".main-content") do
-       fill_in 'amount', with: 25
-       # select 'CB_VISA_MASTERCARD', :from => "card_type"
-       find('input[type=submit]').click
-     end
-     expect(page).to have_content("Numero")
-     within(".main-content") do
- 
-       fill_in 'cardNumber', with: '3569990000000132'
-       #fill_in 'cardExpirationDate', with: '1020'
-       #fill_in 'year', with: 19
-       select 'juillet', from: 'date_month'
-       select 2020, from: 'year'
-       fill_in 'cardCvx', with: '123'
+     # within(".main-content") do
+     #   fill_in 'amount', with: 25
+     #   select 'CB_VISA_MASTERCARD', :from => "card_type"
+     #   find('#edit_user button[type=submit]').click
+     # end
+     # expect(page).to have_content("Numero")
+     # within(".main-content") do
+     #
+     #   fill_in 'cardNumber', with: '3569990000000132'
+     #   #fill_in 'cardExpirationDate', with: '1020'
+     #   #fill_in 'year', with: 19
+     #   select 'juillet', from: 'date_month'
+     #   select 2020, from: 'year'
+     #   fill_in 'cardCvx', with: '123'
+     #
+     #   #find('input[type=submit]').click
+     #   #expect(page.status_code).to eq(302)
+     #   #expect(page.response_headers['Location']).to include('ACSWithValidation')
+     # end
 
-       #find('input[type=submit]').click
-       #expect(page.status_code).to eq(302)
-       #expect(page.response_headers['Location']).to include('ACSWithValidation')
-     end
- 
+     # all happens at once now
    end
  
    def login_user(email, password)
