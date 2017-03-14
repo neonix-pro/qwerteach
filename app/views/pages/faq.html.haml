@@ -310,7 +310,7 @@
           %li
             %a{class: ('active' if @section == 'bookings'), data: {toggle: '#parents-bookings'}} Les réservations
           %li
-            %a{data: {toggle: '#parents-payments'}} Paiements
+            %a{class: ('active' if @section == 'paiements'), data: {toggle: '#parents-payments'}} Paiements
       .panel-group{:id => "parents-generalites", hidden: (true unless @section == 'generalites')}
         .panel.panel-default
           %a{:href => "#parents-generalites-one", :data => {:toggle => "collapse", :parent => "#parents-generalites"}}
@@ -547,7 +547,7 @@
       $('ul#user-type-toggle li a').removeClass('active');
       origin.addClass('active');
       $('.user-type').hide();
-      $(origin.attr('data-target')).show("slide", { direction: "left" }, 350);
+      $(origin.attr('data-target')).fadeIn(350);
     }
 
     function toggleQuestionsSection(origin){

@@ -16,13 +16,10 @@
 
 
 :javascript
-  $(document).on('turbolinks:load',  function () {
   var time_start = moment("#{@lesson.time_start.to_time}", 'YYYY-MM-DD HH:mm:ss Z');
-    console.log(time_start)
-    $('#lesson-details-#{@lesson.id} .datetimepicker input').datetimepicker(
-      {
-        defaultDate: time_start,
-        format: '[le] DD/MM/YYYY - HH:mm'
-      }
-    );
-  });
+  $('#lesson-details-#{@lesson.id} .datetimepicker input').datetimepicker(
+    {
+      defaultDate: time_start,
+      format: '[le] DD/MM/YYYY - HH:mm'
+    }
+  );
