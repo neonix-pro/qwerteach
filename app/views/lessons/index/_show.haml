@@ -28,10 +28,5 @@
               %td #{p.id}
               %td #{p.price}€
               %td= t "lesson.payment.status.#{p.status}"
-
-:javascript
-  $(document).on('turbolinks:load',  function () {
-    $('#datetimepicker2').data("DateTimePicker").date(new Date(#{@lesson.time_start.to_f * 1000}));
-    $('.show-lesson-details').hide();
-    $('#lesson-details-'#{@lesson.id}).slideToggle('slow');
-  });
+    .close-details
+      %i.fa.fa-times.fa-2x.close

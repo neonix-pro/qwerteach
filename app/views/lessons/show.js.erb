@@ -1,3 +1,6 @@
-$('.show-lesson-details').hide();
-$('<%= "#lesson-details-#{@lesson.id}" %>').slideToggle('slow');
 $('<%= "#lesson-details-#{@lesson.id}" %>').html('<%= j render partial: 'lessons/index/show', locals:{lesson: @lesson} %>');
+$('.show-lesson-details').slideUp('slow');
+$('<%= "#lesson-details-#{@lesson.id}" %>').slideToggle('slow');
+$('<%= "#lesson-details-#{@lesson.id}" %> .close-details').on('click', function(){
+  $('<%= "#lesson-details-#{@lesson.id}" %>').slideUp('slow');
+});

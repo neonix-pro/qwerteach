@@ -502,7 +502,7 @@
             %div
               %p
 
-      .panel-group{:id => "parents-teachers", hidden: true}
+      .panel-group{:id => "parents-teachers", hidden: (true unless @section == 'teachers')}
         .panel.panel-default
           %a{:href => "#parents-teachers-one", :data => {:toggle => "collapse", :parent => "#parents-teachers"}}
             .panel-heading
