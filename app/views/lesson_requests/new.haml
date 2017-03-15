@@ -31,11 +31,6 @@
         = render partial: 'users/profile/profile_reviews', locals:{reviews: @teacher.reviews_received}
 
 :javascript
-  $('#datetimepicker').datetimepicker({
-    locale: moment.locale(),
-    format: "dddd DD MMMM [à] HH:mm",
-    minDate: moment("#{Time.current.beginning_of_hour + ((Time.now.min / 15.0).ceil * 15).minutes}", 'L LT')
-  });
   var r = new RequestLesson( $('#lesson-details'), {teacher_id: #{@teacher.id}} );
   $('#lesson-details').trigger('update');
   $('#datetimepicker').on('dp.change', function(){

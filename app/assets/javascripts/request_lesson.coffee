@@ -13,8 +13,18 @@ class window.RequestLesson
     @initialize()
 
   initialize: ->
+    @initDatetimepicker()
     @initEvents()
 
+  initDatetimepicker: ->
+    ROUNDING = 15 * 60 * 1000;
+    start = moment().add(5, 'minutes')
+    start = moment(Math.ceil((+start) / ROUNDING) * ROUNDING)
+    $('#datetimepicker').datetimepicker({
+      locale: moment.locale(),
+      format: "dddd DD MMMM [à] HH:mm",
+      minDate: start
+    });
 
   initEvents: ->
     @$el.on 'change', '.topic-group-select', (e)=> @onTopicGroupChange(e)
