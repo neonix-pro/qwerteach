@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
   def has_lesson?
     if current_user.is_a?(Student)
       @current_lesson = current_user.current_lesson
-      unless @current_lesson.nil?
+      unless @current_lesson.nil? || @current_lesson.bbb_room.nil?
         flash[:lesson] = "Votre cours de #{@current_lesson.topic.title} " \
                           "avec #{@current_lesson.other(current_user).name} " \
                           "#{@current_lesson.upcoming? ? 'va commencer' : 'a commencé'}." \
