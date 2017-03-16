@@ -54,4 +54,5 @@
         });
         PrivatePub.subscribe("/chat/#{current_user.id}", function(data, channel) {
             Messages.numberOfUnreadMessages();
+            Messages.sound.play();
         });

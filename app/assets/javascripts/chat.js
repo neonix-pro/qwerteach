@@ -10,7 +10,7 @@ var MessagesManager = function() {
                     document.title = '(' + answer + ') Qwerteach';
                     if(oldValue < answer)
                     {
-                        Messages.sound.play();
+
                     }
                 }
                 else {
