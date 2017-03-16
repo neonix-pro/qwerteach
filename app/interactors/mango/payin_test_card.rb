@@ -18,11 +18,11 @@ module Mango
     private
 
     def card_id
-      @card_id ||= user.mangopay.cards.find{|c| c.alias == '470675XXXXXX0017'}.try(:id) || create_card
+      @card_id ||= user.mangopay.cards.find{|c| c.alias == '356999XXXXXX0132'}.try(:id) || create_card
     end
 
     def card_number
-      '4706750000000017'
+      '3569990000000132'
     end
 
     def create_card

@@ -66,6 +66,7 @@ class ConversationsController < ApplicationController
     @message = Mailboxer::Message.new
     Resque.enqueue(MessageStatWorker, current_user.id)
     @unread_count = @mailbox.inbox({:read => false}).count
+    @path = reply_conversation_path(@conversation)
   end
 
   def show_more
@@ -86,7 +87,12 @@ class ConversationsController < ApplicationController
     @message = @conversation.messages.last
     # notifie le gars qu'il a une conversation ==> permet d'ouvrir le chat automatiquement
     # Une fois qu'il a ouvert le chat, il subscribe au channel de la conversation
+
+    @string_received = render_to_string partial: 'messages/message_received', locals:{message: @message}
+    @string_sent = render_to_string partial: 'messages/message_sent', locals:{message: @message}
+
     PrivatePub.publish_to "/chat/#{receiver.id}", :conversation_id => @conversation.id, :receiver_id => receiver
+    PrivatePub.publish_to @path, message_received: @string_received, message_sent: @string_sent, sender_id: current_user.id
     
     #Send message to android app
     Pusher.trigger("#{@conversation.id}", "#{@conversation.id}", {last_message: @message, avatar: @message.sender.avatar.url(:small)})
@@ -94,7 +100,7 @@ class ConversationsController < ApplicationController
     #Send notification to android app
     Pusher.notify(["qwerteach"], {fcm: {notification: {title: @message.subject, body: @message.body, 
       icon: 'androidlogo', click_action: "MY_MESSAGES"}}})
- 
+    
     @conversation_id = @conversation.id
     respond_to do |format|
       format.html {redirect_to conversation_path(@conversation), notice: 'Reply sent'}

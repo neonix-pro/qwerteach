@@ -24,7 +24,7 @@ RSpec.describe PayLessonByTransfert do
   end
 
   it 'save draft lesson and create payment', vcr: true do
-    payin = Mango::PayinTestCard.run(user: @user, amount: 80)
+    payin = Mango::PayinTestCard.run(user: @user, amount: 40)
     expect(payin).to be_valid
     @user.reload
     paying = PayLessonByTransfert.run( user: @user, lesson: @lesson )

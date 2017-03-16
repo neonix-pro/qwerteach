@@ -3,7 +3,7 @@
   .notification-item
     %h4.item-title
     .item-image= image_tag(emetteur.avatar.url(:small), class:'img img-circle')
-    = notification.subject
+    = notification.subject.html_safe
     -if notification.notified_object_type == 'Lesson'
       .text-right
         = link_to 'voir plus', lessons_path

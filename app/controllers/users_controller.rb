@@ -62,6 +62,7 @@ class UsersController < ApplicationController
       @sunspot_search = Sunspot.search(Offer) do
         with(:postulance_accepted, true)
         fulltext search_text
+        order_by :online, :desc
         order_by(sorting, sorting_direction(params[:search_sorting]))
         group :user_id_str
         with(:first_lesson_free, true) if params[:filter] == 'first_lesson_free'
@@ -137,6 +138,7 @@ class UsersController < ApplicationController
     if @search_text.nil? || @search_text.empty?
       @search_text = 'tous les profs'
     end
+    @search_text
   end
 
   def update

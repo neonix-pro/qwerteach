@@ -101,13 +101,18 @@ class LessonsController < ApplicationController
   end
 
   def cancel
-    #TO DO: refactor to model
     if @lesson.can_cancel?(@user)
+      status = @lesson.status
       @lesson.status = 'canceled'
       refuse = RefundLesson.run(user: @user, lesson: @lesson)
       if refuse.valid?
         body = "#"
-        @notification_text = "#{@user.name} a annulé la demande de cours."
+        if statuts == 'created'
+          @notification_text = "#{@user.name} a annulé le cours."
+        else
+          @notification_text = "#{@user.name} a annulé la demande de cours."
+        end
+
         @other.send_notification(@notification_text, body, @user, @lesson)
         flash[:success] = 'Vous avez annulé la demande de cours.'
         email_user

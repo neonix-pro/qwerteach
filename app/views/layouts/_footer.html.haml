@@ -20,7 +20,7 @@
                     Comment ça marche
                 %a{:href => faq_path}
                     Aide/FAQ
-                %a{:href => "#"} 
+                %a{:href => demo_room_path}
                     Plan du site
                 %a{:href => faq_path('parents', 'paiements')}
                     Paiement sécurisé
@@ -54,4 +54,5 @@
         });
         PrivatePub.subscribe("/chat/#{current_user.id}", function(data, channel) {
             Messages.numberOfUnreadMessages();
+            Messages.sound.play();
         });

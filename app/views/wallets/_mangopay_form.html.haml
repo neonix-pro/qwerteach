@@ -6,7 +6,7 @@
     = f.text_field :first_name, value: @account.first_name || @user.firstname, :required => true, class:'form-control'
   .form-group
     = f.label :last_name, 'Nom de famille'
-    = f.text_field :last_name, value: @account.last_name || @user.lastname, :required => true, class:'form-control'
+    = f.text_field :last_name, value: @account.last_name || @user.lastname, :required =>true, class:'form-control'
   .form-group
     = f.label :street, 'Adresse: rue'
     = f.text_field :address_line1, :required => true, class:'form-control'
@@ -32,5 +32,5 @@
     = f.label :nationality, 'Nationalité'
     = f.select :nationality, options_for_select(countries_list, :selected => @user.nationality), {}, :required => true, class:'form-control'
   .form-group.actions
-    = f.submit :enregistrer
+    = f.button :enregistrer, class: 'btn btn-green btn-qw', data: {disable_with: "<i class='fa fa-spinner fa-spin'></i>"}
 

@@ -32,6 +32,7 @@ class window.CardRegistrationForm
     cardType : 'CB_VISA_MASTERCARD'
 
   cardMonth: ->
+    console.log( $("#date_month").val())
     month = $("#date_month").val()
     month = "0#{month}" if month.length <= 1
     month
@@ -66,7 +67,10 @@ class window.CardRegistrationForm
       @$('#card_id').prepend('<option value="'+cardId+'"></option>').val(cardId);
       @$('#card_id').trigger('input');
       $('#edit_user').submit();
+    @showLoader()
 
   registrationError: (res)->
     alert "Error occured while registering the card: ResultCode: #{res.ResultCode} , ResultMessage: #{res.ResultMessage}"
 
+  showLoader: ->
+    $('#step3').html('<div class="text-center"><i class="fa fa-spin fa-3x fa-spinner text-green"></i></div>')

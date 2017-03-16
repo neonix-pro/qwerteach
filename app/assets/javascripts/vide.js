@@ -459,35 +459,44 @@
   };
 
   $(document).on('turbolinks:load',  function() {
-    var $window = $(window);
+    if ($(document).find('[data-' + PLUGIN_NAME + '-bg]').length) {
+        var $window = $(window);
 
-    // Window resize event listener
-    $window.on('resize.' + PLUGIN_NAME, function() {
-      for (var len = $[PLUGIN_NAME].lookup.length, i = 0, instance; i < len; i++) {
-        instance = $[PLUGIN_NAME].lookup[i];
+        // Window resize event listener
+        $window.on('resize.' + PLUGIN_NAME, function () {
+            for (var len = $[PLUGIN_NAME].lookup.length, i = 0, instance; i < len; i++) {
+                instance = $[PLUGIN_NAME].lookup[i];
 
-        if (instance && instance.settings.resizing) {
-          instance.resize();
+                if (instance && instance.settings.resizing) {
+                    instance.resize();
+                }
+            }
+        });
+
+        // https://github.com/VodkaBears/Vide/issues/68
+        $window.on('unload.' + PLUGIN_NAME, function () {
+            return false;
+        });
+
+        // Auto initialization
+        // Add 'data-vide-bg' attribute with a path to the video without extension
+        // Also you can pass options throw the 'data-vide-options' attribute
+        // 'data-vide-options' must be like 'muted: false, volume: 0.5'
+        $(document).find('[data-' + PLUGIN_NAME + '-bg]').each(function (i, element) {
+            var $element = $(element);
+            var options = $element.data(PLUGIN_NAME + '-options');
+            var path = $element.data(PLUGIN_NAME + '-bg');
+
+            $element[PLUGIN_NAME](path, options);
+        });
+    }
+    });
+    $(document).on('turbolinks:before-cache',  function() {
+        for (var len = $[PLUGIN_NAME].lookup.length, i = 0, instance; i < len; i++) {
+            instance = $[PLUGIN_NAME].lookup[i];
+            if (instance){
+                instance.destroy();
+            }
         }
-      }
     });
-
-    // https://github.com/VodkaBears/Vide/issues/68
-    $window.on('unload.' + PLUGIN_NAME, function() {
-      return false;
-    });
-
-    // Auto initialization
-    // Add 'data-vide-bg' attribute with a path to the video without extension
-    // Also you can pass options throw the 'data-vide-options' attribute
-    // 'data-vide-options' must be like 'muted: false, volume: 0.5'
-    $(document).find('[data-' + PLUGIN_NAME + '-bg]').each(function(i, element) {
-      var $element = $(element);
-      var options = $element.data(PLUGIN_NAME + '-options');
-      var path = $element.data(PLUGIN_NAME + '-bg');
-
-      $element[PLUGIN_NAME](path, options);
-    });
-  });
-
 });

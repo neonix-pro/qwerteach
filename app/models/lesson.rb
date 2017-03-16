@@ -146,7 +146,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def other(user)
-    if user.id == student.id
+    if student && user.id == student.id
       teacher
     else
       student

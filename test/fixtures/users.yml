@@ -14,7 +14,7 @@ one:
     lastname: Selfieur
     description: info
     gender: Female
-    phonenumber: 029292929
+    phone_number: 029292929
     type: User
     level_id: 1
     first_lesson_free: false
@@ -39,7 +39,7 @@ two:
     lastname: Souriant
     description: info
     gender: Female
-    phonenumber: 029292929
+    phone_number: 029292929
     type: User
     level_id: 1
     first_lesson_free: false
@@ -64,7 +64,7 @@ three:
     lastname: Chauve
     description: info
     gender: Female
-    phonenumber: 029292929
+    phone_number: 029292929
     type: User
     level_id: 1
     first_lesson_free: false
@@ -88,7 +88,7 @@ four:
     lastname: Tete
     description: info
     gender: Female
-    phonenumber: 029292929
+    phone_number: 029292929
     type: User
     level_id: 1
     first_lesson_free: false

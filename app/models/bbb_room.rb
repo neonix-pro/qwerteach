@@ -17,4 +17,8 @@ class BbbRoom < BigbluebuttonRoom
     }
   end
 
+  def create_room_options
+    false
+  end
+
 end

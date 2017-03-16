@@ -33,25 +33,6 @@
         = submit_tag "Finaliser la demande de cours"
   .payment_method.payment_by_wallet
     .actions
-      = button_to 'Finaliser la demande de cours', user_lesson_requests_payment_path(@teacher, mode: 'transfert'), remote: false, method: 'put'
+      = button_to 'Finaliser la demande de cours', user_lesson_requests_payment_path(@teacher, mode: 'transfert'), method: 'put'
 
 = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
-
-:javascript
-  $('#payment_method').on('change', function(){
-    $('.payment_method').hide();
-    $('.payment_by_'+$(this).val()).slideDown();
-  });
-  $('#pay_by_wallet').on('change', function(){
-    $('.payment_method').hide();
-    if($(this).prop('checked')){
-      $('.payment_by_wallet').slideDown();
-      $('.choose_payment_method').addClass('inactive');
-      $('#payment_method').prop('disabled', 'disabled');
-    }
-    else{
-      $('.choose_payment_method').removeClass('inactive');
-      $('#payment_method').prop('disabled', '');
-    }
-
-  });

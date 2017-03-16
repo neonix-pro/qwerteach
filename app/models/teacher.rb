@@ -7,6 +7,7 @@ class Teacher  < Student
 
   acts_as_reader
   after_create :create_postulation_user
+  after_save :reindex_adverts
 
   def self.reader_scope
     where(:is_admin => true)
@@ -87,5 +88,9 @@ class Teacher  < Student
       result[lc] =  self.offers.joins(:topic_group).where('topic_groups.level_code LIKE "'+lc+'"')
     end
     result
+  end
+
+  def reindex_adverts
+    Sunspot.index! offers
   end
 end

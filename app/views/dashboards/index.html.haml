@@ -1,8 +1,10 @@
 .container-fluid
+  -# first, lessons currently happening
   - unless @current_lesson.nil?
     .row
       .col-xs-12#current_lesson
         = render partial: 'current_lesson', locals:{lesson:  @current_lesson}
+  -# if the user never had a lesson, show, welcome dashboard (welcome, topics groups list and how to request a lesson)
   -if @user.lessons_received.empty? && @user.is_a?(Student)
     .row
       .col-xs-12#welcome
@@ -10,18 +12,22 @@
       .col-xs-12#topics.section-choix
         = render partial: 'pages/topic_groups_list', locals:{topic_groups: @featured_topics}
       =render partial: 'help_request_lesson', locals:{}
-  -if !@book_again_lesson.nil? && @to_do_list.empty?
+  -# push book again, if possible, nothing to do and no upcoming lessons
+  -if !@book_again_lesson.nil? && @to_do_list.empty? && @upcoming_lessons.empty?
     .row
       .col-xs-12#book_again
         = render partial: 'book_again', locals: {lesson: @book_again_lesson}
-  -unless @to_do_list.empty?
+  -# show to do list
+  -unless @to_do_list.empty? || @current_lesson
     .row
       .col-xs-12#todo_list
         = render partial: 'todo_list', locals: {to_do_list: @to_do_list, user: @user}
+  -# show upcoming lessons
   -unless @upcoming_lessons.empty?
     .row
       .col-xs-12#upcoming_lessons
         = render partial: 'upcoming_lessons', locals:{lessons: @upcoming_lessons}
+  -# show recordings
   -unless @past_lessons.empty?
     .row
       .col-xs-12#past_lessons
@@ -36,3 +42,23 @@
       .col-xs-12#topics.section-choix
         = render partial: 'pages/topic_groups_list', locals:{topic_groups: @featured_topics}
     = render partial: 'featured_teachers', locals: {teachers: @featured_teachers}
+
+#edit-lesson-modal.modal.fade{:role => "dialog"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close.text-white{"data-dismiss" => "modal", :type => "button"} ×
+        %h4.modal-title Modifier la date du cours
+      .modal-body
+        .edit-lesson
+      .modal-footer
+        %span{"data-dismiss" => "modal"}
+          %a{:href => "#"}
+            Annuler
+
+:javascript
+  $(document).on('turbolinks:load', function(){
+      $('#edit-lesson-modal').on('show.bs.modal', function(e){
+      $(this).find('.edit-lesson').attr('id', 'lesson-details-'+$(e.relatedTarget).attr('data-lesson'));
+    });
+  });

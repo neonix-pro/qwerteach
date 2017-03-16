@@ -13,8 +13,18 @@ class window.RequestLesson
     @initialize()
 
   initialize: ->
+    @initDatetimepicker()
     @initEvents()
 
+  initDatetimepicker: ->
+    ROUNDING = 15 * 60 * 1000;
+    start = moment().add(5, 'minutes')
+    start = moment(Math.ceil((+start) / ROUNDING) * ROUNDING)
+    $('#datetimepicker').datetimepicker({
+      locale: moment.locale(),
+      format: "dddd DD MMMM [à] HH:mm",
+      minDate: start
+    });
 
   initEvents: ->
     @$el.on 'change', '.topic-group-select', (e)=> @onTopicGroupChange(e)
@@ -24,9 +34,12 @@ class window.RequestLesson
     @$el.on 'change', '.minutes-select', (e)=> @calculatePrice()
     @$el.on 'change', '#free_lesson', => @onFreeChange()
     @$el.on 'change', '#request_time_start', (e)=> @calculatePrice()
-    @$el.on 'submit', 'form', => @showLoader()
+    @$el.on 'submit', 'form', (e)=> @showLoader(e)
     @$el.on 'update', => @calculatePrice()
     @$el.find('.topic-select').trigger('change')
+    @$el.on 'click', '.change-booking-step', (e)=> @onChangeBookingStep(e)
+    @$el.on 'change', '#payment_method', (e)=> @onPaymentMethodChange(e)
+    @$el.on 'change', '#pay_by_wallet', (e)=> @onPayByWalletChange(e)
 
 
   onTopicGroupChange: (e)->
@@ -114,15 +127,62 @@ class window.RequestLesson
       $('.minutes-select').prop("disabled", false)
       @$el.find('.free_lesson_duration').remove()
 
+  onChangeBookingStep: (e)->
+    $('#lesson-details').children('.alert').remove();
+    if($(e.currentTarget).attr('data-toggle') == '#step2')
+      if (!@checkSelected())
+        m = "#{j render partial: 'shared/flash_dismiss', locals: {type: 'danger', content: 'Veuillez remplir tous les champs'}}";
+        $('#lesson-details').prepend(m);
+        return
+    $('.booking-step').hide().removeClass('active');
+    $('h3.change-booking-step').removeClass('active');
+    $('h3'+$(e.currentTarget).attr('data-toggle')+'-title').addClass('active')
+    $($(e.currentTarget).attr('data-toggle')).slideToggle ->
+      $(this).addClass 'active'
+
+
+    if($(e.currentTarget).attr('data-toggle') != '#step3')
+      $('.booking-info').removeClass('active')
+      $($(e.currentTarget).attr('data-toggle')+'-booking-info').addClass('active')
 
   isFreeLession: ->
     $('#free_lesson').prop('checked')
 
   isReadyForCalculating: ->
-    $('.topic-select').val().length and $('.level-select').val().length
+    if $('.topic-select').length > 0 and  $('.level-select').length > 0
+      $('.topic-select').val() != null and $('.level-select').val() != null
+    else
+      false
 
   clearSelect: ($select)->
     $select.find('option[value!=""]').remove()
+
+  checkSelected: ->
+    r = true
+    $('#step1 select').each (e)->
+      if $(e.currentTarget).prop('required') and $(e.currentTarget).val() == ''
+        r = false
+      return
+    r
+
+  showLoader: (e)->
+    $('#step3 #loader').remove();
+    $('#step3').append('<div class="text-center" id="loader"><i class="fa fa-spin fa-3x fa-spinner text-green"></i></div>')
+
+  onPaymentMethodChange: (e)->
+    $('.payment_method').hide()
+    $('.payment_by_'+$(e.currentTarget).val()).slideDown()
+
+  onPayByWalletChange: (e)->
+    $('.payment_method').hide();
+    if($(e.currentTarget).prop('checked'))
+      $('.payment_by_wallet').slideDown()
+      $('.choose_payment_method').addClass('inactive')
+      $('#payment_method').prop('disabled', 'disabled')
+    else
+      $('.choose_payment_method').removeClass('inactive')
+      $('#payment_method').prop('disabled', '')
+
 
   $: (selector)-> @$el.find selector
 

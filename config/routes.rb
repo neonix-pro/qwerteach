@@ -142,8 +142,6 @@ Rails.application.routes.draw do
       :controller => "users/omniauth_callbacks",
       :constraints => { :action => /google_oauth2|facebook/ }
 
-
-
   resources :users, only: [:update]
 
   get 'dashboard' => 'dashboards#index', :as => 'dashboard'
@@ -253,6 +251,8 @@ Rails.application.routes.draw do
     get "/end_room/:room_id" => "bbb_rooms#end_room", as: 'end_room'
   end
   bigbluebutton_routes :default, :only => 'recordings', :controllers => {:rooms => 'bbb_recordings'}
+  get 'demo_room', to: "bbb_rooms#demo_room", as: 'demo_room'
+  get 'join_demo/:id', to: "bbb_rooms#join_demo", as: 'join_demo'
 
   mount Resque::Server, :at => "/resque"
 

@@ -13,6 +13,8 @@ class PagesController < ApplicationController
 	end
 
   def faq
+		#targets: students, teachers, parents
+		#sections: generalites, lessons, videoconference, paiements, technical, teachers, bookings
 		@target = params[:target] || 'students'
 		@section = params[:section] || 'generalites'
 	end

@@ -11,6 +11,9 @@ FactoryGirl.define do
       lastname { FFaker::Name.last_name }
     end
     factory :student, class: Student do
+      email { FFaker::Internet.email }
+      firstname { FFaker::Name.first_name }
+      lastname { FFaker::Name.last_name }
     end
     factory :teacher, class: Teacher do
     end

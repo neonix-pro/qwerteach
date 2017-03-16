@@ -1,7 +1,6 @@
 $.ajaxSetup({beforeSend: function(xhr) {xhr.setRequestHeader("X-CSRF-Token", $("meta[name='csrf-token']").attr("content")); }});
 
 var ready = function () {
-
     /**
      * When the send message link on our home page is clicked
      * send an ajax request to our rails app with the sender_id and
@@ -66,9 +65,9 @@ var ready = function () {
     });
 
 
-    $('.ckeditor').ckeditor({
+    //$('.ckeditor').ckeditor({
         // optional config
-    });
+    //});
     adjustProfileSidebar();
     function adjustProfileSidebar(){
         height= $(window).height();
@@ -186,7 +185,7 @@ $(document).on('turbolinks:load',  function(){
     });
 });
 
-var ready = function () {
+var ready1 = function () {
 
     chatBox = {
         checkInputKey: function (event, chatboxtextarea, conversation_id) {
@@ -197,7 +196,7 @@ var ready = function () {
                 message = message.replace(/^\s+|\s+$/g, "");
 
                 if (message != '') {
-                    $('#conversation_form_' + conversation_id).submit();
+                    $('#conversation_form_' + conversation_id + ' input[type=submit]').trigger('click');
                     $(chatboxtextarea).val('');
                     $(chatboxtextarea).focus();
                 }
@@ -206,4 +205,26 @@ var ready = function () {
         },
     }
 }
+$(document).on('turbolinks:load',  ready1);
+$(document).on("page:load", ready1);
 
+$(document).on("turbolinks:load", function(){
+
+$('#edit_profile .collapse').on('show.bs.collapse', function(){
+    var h = $(body).height();
+    $('.menu').css({height:h});
+});
+$('#edit_profile .collapse').on('shown.bs.collapse', function(){
+    $('.menu').css({height:''});
+    bodySidebarHeight();
+    var h = Math.max($(body).height(), $(this).height());
+    $('.menu').css({height:h});
+});
+
+$('#edit_profile .menu a').on('click',function(e){
+    if($($(this).attr('data-target')).hasClass('in')) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+});
+});
