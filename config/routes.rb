@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     
     get 'users/find_level' => 'users#find_level'
     put 'users/:id' => 'users#update'
+    patch 'users/:id' => 'users#update'
     get 'profs' => 'users#index'
     get 'users/:id' => 'users#show'
     get 'get_infos_for_detailed_prices_modal' => 'users#get_infos_for_detailed_prices_modal'
@@ -31,7 +32,7 @@ Rails.application.routes.draw do
     get 'user/mangopay/payout' => 'wallets#payout'
     
     get 'cours' => 'lessons#index'
-    get 'lessons/find_lesson_infos/:lesson_id' => 'lessons#find_lesson_infos'
+    get 'lessons/find_lesson_informations/:lesson_id' => 'lessons#find_lesson_informations'
     get 'lessons/:lesson_id/cancel' => 'lessons#cancel'
     put 'lessons/:id' => 'lessons#update'
     get 'lessons/:lesson_id/refuse' => 'lessons#refuse'

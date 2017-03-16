@@ -1,4 +1,5 @@
 class ConversationsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
   before_action :authenticate_user!
   before_action :get_mailbox
   before_action :get_conversation, except: [:index, :show_min, :find, :search]
@@ -88,7 +89,7 @@ class ConversationsController < ApplicationController
     PrivatePub.publish_to "/chat/#{receiver.id}", :conversation_id => @conversation.id, :receiver_id => receiver
     
     #Send message to android app
-    Pusher.trigger('my-channel', 'my-event', {last_message: @message, avatar: @message.sender.avatar.url(:small)})
+    Pusher.trigger("#{@conversation.id}", "#{@conversation.id}", {last_message: @message, avatar: @message.sender.avatar.url(:small)})
     
     #Send notification to android app
     Pusher.notify(["qwerteach"], {fcm: {notification: {title: @message.subject, body: @message.body, 

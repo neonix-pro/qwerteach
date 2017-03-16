@@ -31,4 +31,8 @@ class Api::ConversationsController < ConversationsController
     render :json => {:last_message => @last_message}
   end
   
+  def mark_as_read
+    super
+  end
+  
 end

@@ -6,10 +6,24 @@ class OffersController < ApplicationController
 
   def index
     @offers = Offer.where(:user => current_user)
+    
+    #Other informations for Qwerteach application
+    topics = Array.new
+    offer_prices = Array.new
+    @offers.each do |offer|
+      if offer.topic.title == "Other"
+        topic_title = offer.other_name
+      else
+        topic_title = offer.topic.title
+      end
+      topics.push(topic_title)
+      offer_prices.push(offer.offer_prices)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @offers }
+      format.json {render :json => {:offers => @offers, :topic_titles => topics, 
+        :offer_prices => offer_prices}}
     end
   end
 
@@ -17,7 +31,10 @@ class OffersController < ApplicationController
     @offer = Offer.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @offer }
+      format.json {render :json => {:offer => @offer, 
+        :topic => @offer.topic.title, 
+        :topic_group => @offer.topic.topic_group.title,
+        :levels => find_levels(@offer.topic.topic_group.level_code)}}
     end
   end
 
@@ -45,7 +62,7 @@ class OffersController < ApplicationController
         flash[:notice]='Une annonce pour cette catégorie existe déjà.'
         format.html {redirect_to offers_path}
         format.js {}
-        format.json {render :json => {:message => "Une annonce pour cette catégorie existe déjà."}}
+        format.json {render :json => {:success => "true", :message => 'Une annonce pour cette catégorie existe déjà.'}}
         return
       end
     end
@@ -58,7 +75,7 @@ class OffersController < ApplicationController
         format.js {render partial: "#{params[:origin]}/create_offer", locals: {offer: @offer} if params[:origin]}
       else
         format.html {redirect_to @offer, danger: 'Il y a eu un problème, votre annonce, n\'a pas été mise à jour'}
-        format.json {render :json => {:message => @offer.errors}}
+        format.json {render :json => {:success => "false", :message => @advert.errors}, :status => :unprocessable_entity}
         format.js {flash[:danger]=@offer.errors.full_messages.to_sentence}
       end
     end
@@ -70,13 +87,12 @@ class OffersController < ApplicationController
     respond_to do |format|
       if @offer.update_attributes!(offer_params)
         flash[:notice] = 'Vos modifications ont été sauvegardées.'
-
         format.html { redirect_to offers_path}
-        format.json { head :no_content }
+        format.json {render :json => {:success => "true", :message => 'Vos modifications ont été sauvegardées.'}}
         format.js {}
       else
         format.html { render action: "edit" }
-        format.json { render json: @offer.errors, status: :unprocessable_entity }
+        format.json {render :json => {:success => "false", :message => @advert.errors}, :status => :unprocessable_entity}
       end
     end
   end
@@ -87,7 +103,7 @@ class OffersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to params[:origin].nil? ? offers_url : "/#{params[:origin]}/offers"}
-      format.json {}
+      format.json {render :json => {:success => "true"}}
       format.js {}
     end
   end
@@ -96,7 +112,7 @@ class OffersController < ApplicationController
     topic = Topic.find(params[:topic_id])
     level_choice = topic.topic_group.level_code
     params.has_key?(:id) ? @offer = Offer.find_by(user_id: current_user.id, topic_id: topic.id) : @offer = Offer.new()
-    @levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => level_choice).group(I18n.locale[0..3]).order(:id)
+    @levels = find_levels(level_choice)
     respond_to do |format|
       format.js {}
       format.json {render :json => {:levels => @levels}}
@@ -129,4 +145,10 @@ class OffersController < ApplicationController
   def find_user
     @user = current_user
   end
+  
+  def find_levels(level_code)
+    return Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '')
+      .where(:code => level_code).group(I18n.locale[0..3]).order(:id)
+  end
+  
 end

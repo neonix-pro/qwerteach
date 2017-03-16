@@ -32,7 +32,7 @@ class Api::LessonsController < LessonsController
     super
   end
   
-  def find_lesson_infos
+  def find_lesson_informations
     lesson = Lesson.find_by_id(params[:lesson_id])
     
     if current_user.id == lesson.student.id
@@ -69,6 +69,8 @@ class Api::LessonsController < LessonsController
       lesson_status = "review"
       when :disputed
       lesson_status = "disputed"
+      when nil
+      lesson_status = "past&paid"
     end
     
     if lesson.level.nil?

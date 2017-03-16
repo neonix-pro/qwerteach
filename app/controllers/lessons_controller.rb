@@ -71,8 +71,7 @@ class LessonsController < ApplicationController
     email_user
     respond_to do |format|
       format.html {redirect_to dashboard_path}
-      format.json {render :json => {:success => "true", 
-        :message => "Le cours a été accepté.", :lesson => @lesson}}
+      format.json {render :json => {:success => "true", :message => "Le cours a été accepté.", :lesson => @lesson}}
     end
   end
 
@@ -158,20 +157,20 @@ class LessonsController < ApplicationController
   def dispute
     dispute = DisputeLesson.run(user: @user, lesson: @lesson)
     if dispute.valid?
-      @notification_text = "#{@user.name} a déclaré un litige sur le cours ##{@leson.id}. Le payement est suspendu, un administrateur prendra contact avec vous sous peu."
+      @notification_text = "#{@user.name} a déclaré un litige sur le cours ##{@lesson.id}. Le payement est suspendu, un administrateur prendra contact avec vous sous peu."
       @other.send_notification(@notification_text, '#', @user, @lesson)
       flash[:success] = "Merci pour votre feedback! Un administrateur prendra contact avec vous dans le splus brefs délais."
       email_user
       respond_to do |format|
         format.html {redirect_to root_path}
-        format .json {render :json => {:success => "true", 
+        format.json {render :json => {:success => "true", 
           :message => "Merci pour votre feedback! Un administrateur prendra contact avec vous dans les plus brefs délais."}}
       end
     else
       flash[:danger] = "Il y a eu un problème: #{dispute.errors.full_messages.to_sentence} <br />Prenez contact avec l'équipe du site".html_safe
       respond_to do |format|
         format.html {redirect_to lessons_path}
-        format .json {render :json => {:success => "false", 
+        format.json {render :json => {:success => "false", 
           :message => "Il y a eu un problème. Prenez contact avec l'équipe du site."}}
       end
     end

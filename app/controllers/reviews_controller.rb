@@ -24,7 +24,7 @@ class ReviewsController < ApplicationController
           flash[:danger]=t('review.creation.error', message: @review.errors.full_messages.to_sentence)
           format.html { redirect_to user_path(User.find(params[:user_id])) }
           format.json {render :json => {:success => "false", 
-            :message => t('review.creation.error', message: @review.errors.full_messages.to_sentence)}
+            :message => t('review.creation.error', message: @review.errors.full_messages.to_sentence)}}
         end
       end
     else

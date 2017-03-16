@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @me = current_user
     if @user.is_a?(Teacher)
       @degrees = @user.degrees
       @offers = @user.offers.order(:topic_group_id)
@@ -42,7 +43,6 @@ class UsersController < ApplicationController
           :topic_titles => topics, :review_sender_names => review_sender_names}}
       end
     else
-      @me = current_user
       respond_to do |format|
         format.html {}
         format.json {render :json => {:user => @me, :avatar => @me.avatar.url(:medium)}}
