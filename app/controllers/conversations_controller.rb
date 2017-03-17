@@ -87,8 +87,8 @@ class ConversationsController < ApplicationController
     # notifie le gars qu'il a une conversation ==> permet d'ouvrir le chat automatiquement
     # Une fois qu'il a ouvert le chat, il subscribe au channel de la conversation
 
-    @string_received = render_to_string partial: 'messages/message_received', locals:{message: @message}
-    @string_sent = render_to_string partial: 'messages/message_sent', locals:{message: @message}
+    @string_received = render_to_string template: 'messages/_message_received', locals:{message: @message}, layout:false
+    @string_sent = render_to_string template: 'messages/_message_sent', locals:{message: @message}, layout:false
 
     PrivatePub.publish_to "/chat/#{receiver.id}", :conversation_id => @conversation.id, :receiver_id => receiver
     PrivatePub.publish_to @path, message_received: @string_received, message_sent: @string_sent, sender_id: current_user.id
