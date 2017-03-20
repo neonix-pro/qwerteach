@@ -5,21 +5,16 @@ class Api::ConversationsController < ConversationsController
   
   def index
     super
-    messages = Array.new
-    message_avatars = Array.new
-    participant_avatars = Array.new
     
+    participant_avatars = Array.new
     @mailbox.conversations.each do |conv|
       conv.recipients.select{|participant| @user.id != participant.id}.each do |p|
         participant_avatars.push(p.avatar.url(:small))
       end
-      conv.receipts_for(@user).each do |receipt|
-        messages.push(receipt.message)
-        message_avatars.push(receipt.message.sender.avatar.url(:small))
-      end
     end
-    render :json => {:participant_avatars => participant_avatars, :avatars => message_avatars, :recipients => @recipient_options, 
-      :conversations => @conversations, :messages => messages}
+    
+    render :json => {:participant_avatars => participant_avatars, :avatars => get_sender_avatars, 
+      :recipients => @recipient_options, :conversations => @conversations, :messages => @messages.reverse}
   end
   
   def reply
@@ -33,6 +28,18 @@ class Api::ConversationsController < ConversationsController
   
   def mark_as_read
     super
+  end
+  
+  def show_more
+    super
+    render :json => {:messages => @messages, :avatars => get_sender_avatars.reverse}
+  end
+  
+  def get_sender_avatars
+    sender_avatars = Array.new
+    @messages.reverse.each do |receipt|
+      sender_avatars.push(receipt.sender.avatar.url(:small))
+    end and return sender_avatars
   end
   
 end

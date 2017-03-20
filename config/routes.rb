@@ -20,7 +20,6 @@ Rails.application.routes.draw do
     get 'users/:user_id/lesson_requests/levels/:topic_id' => 'lesson_requests#levels'
     
     get 'wallets/get_total_wallet/:user_id' => 'wallets#get_total_wallet'
-    post 'wallets/find_users_by_mango_id' => 'wallets#find_users_by_mango_id'
     put 'user/mangopay/edit_wallet' => 'wallets#update_mangopay_wallet'
     get 'user/mangopay/index_wallet' => 'wallets#index_mangopay_wallet'
     get 'user/mangopay/load-wallet' => 'wallets#direct_debit_mangopay_wallet'
@@ -43,6 +42,7 @@ Rails.application.routes.draw do
     get 'mailbox/:mailbox' => 'conversations#index'
     post 'conversations/:id/reply' => 'conversations#reply'
     get 'conversations/:id' => 'conversations#show'
+    get 'conversation/show_more/:id/:page' => 'conversations#show_more'
     post 'users/:user_id/reviews' => 'reviews#create'
   end
   
