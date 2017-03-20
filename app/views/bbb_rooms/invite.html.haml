@@ -18,7 +18,7 @@
       },
       success: function (xhr_data) {
         if (xhr_data.running == 'false') {
-          $("#meeting_status").html("La classe est actuellement vide.");
+          $("#meeting_status").html("Cette classe n'est pas disponible pour le moment. Si vous pensez qu'ils s'agit d'une erreur, contactez l'équipe du site.");
           is_partner_online();
           meetingRunning = false;
         } else {
@@ -63,9 +63,23 @@
   $(document).on('turbolinks:load',  function () {
     is_meeting_running();
   });
-%p
-  %span#meeting_status -
-  (
-  %a{:href => "javascript:ajax_request();"}> refresh
-  )
-#join_link
+%h2.page-title-green Votre classe virtuelle pour #{@room.name}
+.container
+  -unless @bbbRoom.lesson.nil?
+    .row
+      .col-sm-2
+      .col-sm-8
+        Cours avec: #{@bbbRoom.lesson.other(current_user).name}
+        %br
+        Matière: #{@bbbRoom.lesson.topic.title}
+        %br
+        Niveau: #{@bbbRoom.lesson.level.be}
+        %br
+        Durée: #{@bbbRoom.lesson.duration.hours}h#{@bbbRoom.lesson.duration.minutes}
+        %br
+  .row
+    .col-sm-2
+    .col-sm-8
+      %p
+        %span#meeting_status -
+      #join_link

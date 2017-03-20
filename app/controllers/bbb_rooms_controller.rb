@@ -88,6 +88,11 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     @teacher = @room.lesson.teacher
   end
 
+  def invite
+    @bbbRoom = BbbRoom.find_by(param: params[:id])
+    super
+  end
+
   private
   def room_allowed_params
     [:name, :server_id, :meetingid, :attendee_key, :moderator_key, :welcome_msg,
@@ -106,7 +111,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
                                            :name => "Demo",
                                            :param => "Demo",
                                            :record_meeting => 0,
-                                           :logout_url => ENV['MAILER_HOST']+':3000', #TODO: make dynamic
+                                           :logout_url => ENV['MAILER_HOST']+':3000',
                                            :duration => 0,
                                            :auto_start_recording => 0,
                                            :allow_start_stop_recording => 0
