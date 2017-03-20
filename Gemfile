@@ -125,6 +125,10 @@ gem 'nexmo'
 
 gem 'acts_as_commentable'
 
+gem 'simple_token_authentication', '~> 1.0'
+gem 'pusher'
+gem 'bourbon'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

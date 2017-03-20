@@ -14,24 +14,24 @@ class User < ActiveRecord::Base
   #    validatable – Validates e-mail and password (custom validators can be used).
   #    confirmable – Users will have to confirm their e-mails after registration before being allowed to sign in.
   #    lockable – Users’ accounts will be locked out after a number of unsuccessful authentication attempts.
+  acts_as_token_authenticatable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :lockable, :validatable,
          :lastseenable, :confirmable
           #, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
-  # def confirmation_required?
-  #   false
-  # end
 
   phony_normalize :phone_number, as: :full_number, default_country_code: :phone_country_code
 
   has_one :gallery
   has_many :offers, dependent: :destroy
+  #before_save -> { skip_confirmation! }
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
   has_many :reviews_sent, :class_name => 'Review', :foreign_key => 'sender_id'
   has_many :reviews_received, :class_name => 'Review', :foreign_key => 'subject_id'
   has_many :levels, through: :degrees
   belongs_to :level
+  
   has_and_belongs_to_many :bbb_meetings
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :full_number
@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   acts_as_messageable
   acts_as_commentable :admin
   default_scope { where(blocked: false) }
-
+  
   def mailboxer_email(messageable)
     email
   end
@@ -77,6 +77,7 @@ class User < ActiveRecord::Base
   def online?
     last_seen > 10.minutes.ago unless last_seen.nil?
   end
+  
   def send_notification (subject, body, sender, obj=nil)
     notification = self.notify(subject, body, obj, true, 100, false, sender)
     PrivatePub.publish_to '/notifications/'+self.id.to_s, :notification => notification
@@ -201,6 +202,7 @@ class User < ActiveRecord::Base
     @mangopay = nil
     super
   end
+  
   def full_number
     "#{phone_country_code}#{phone_number}"
   end
@@ -256,7 +258,12 @@ class User < ActiveRecord::Base
       avatar.assign(avatar)
       avatar.save
     end
+  
     def reset_avatar_score
       self.avatar_score = 0
     end
+  
+  #def skip_confirmation!
+    #self.confirmed_at = Time.now
+  #end
 end

@@ -46,7 +46,6 @@ class Ability
       can :manage, Degree, :user_id => user.id
       cannot :create, Degree if user.type != "Teacher"
 
-    
       can :create, Offer
       can :create, OfferPrice
       can :read, Offer

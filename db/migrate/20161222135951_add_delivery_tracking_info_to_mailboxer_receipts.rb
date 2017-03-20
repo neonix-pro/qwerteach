@@ -1,4 +1,3 @@
-# This migration comes from mailboxer_engine (originally 20151103080417)
 class AddDeliveryTrackingInfoToMailboxerReceipts < ActiveRecord::Migration
   def change
     add_column :mailboxer_receipts, :is_delivered, :boolean, default: false

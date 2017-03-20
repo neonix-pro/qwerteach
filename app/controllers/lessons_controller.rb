@@ -41,10 +41,16 @@ class LessonsController < ApplicationController
       if @lesson.save
         flash[:success] = "La modification s'est correctement déroulée."
         email_user
-        redirect_to lessons_path and return
+        respond_to do |format|
+          format.html {redirect_to lessons_path}
+          format.json {render :json => {:success => "true", :message => "La modification s'est correctement déroulée."}}
+        end and return
       else
-        flash[:danger] = "Il y a eu un problème lors de la modification. Veuillez réessayer."
-        redirect_to dashboard_path and return
+        flash[:alert] = "Il y a eu un problème lors de la modification. Veuillez réessayer."
+        respond_to do |format|
+          format.html {redirect_to dashboard_path}
+          format.json {render :json => {:success => "error", :message => "Il y a eu un problème lors de la modification. Veuillez réessayer."}}
+        end and return
       end
     end
   end
@@ -63,7 +69,10 @@ class LessonsController < ApplicationController
     flash[:notice] = "Le cours a été accepté."
     LessonsNotifierWorker.perform() # check if new bbb is needed (right now)
     email_user
-    redirect_to dashboard_path
+    respond_to do |format|
+      format.html {redirect_to dashboard_path}
+      format.json {render :json => {:success => "true", :message => "Le cours a été accepté.", :lesson => @lesson}}
+    end
   end
 
   def refuse
@@ -76,10 +85,18 @@ class LessonsController < ApplicationController
       @other.send_notification(@notification_text, body, @user, @lesson)
       flash[:success] = 'Vous avez décliné la demande de cours.'
       email_user
-      redirect_to lessons_path
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format.json {render :json => {:success => "true", 
+          :message => "Vous avez décliné la demande de cours.", :lesson => @lesson}}
+      end
     else
       flash[:danger] = "Il y a eu un problème: #{refuse.errors.full_messages.to_sentence} <br />Le cours n'a pas été refusé".html_safe
-      redirect_to lessons_path
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format.json {render :json => {:success => "false", 
+          :message => "Il y a eu un problème. Le cours n'a pas été refusé."}}
+      end
     end
   end
 
@@ -99,14 +116,26 @@ class LessonsController < ApplicationController
         @other.send_notification(@notification_text, body, @user, @lesson)
         flash[:success] = 'Vous avez annulé la demande de cours.'
         email_user
-        redirect_to lessons_path
+        respond_to do |format|
+          format.html {redirect_to lessons_path}
+          format.json {render :json => {:success => "true", 
+            :message => "Vous avez annulé la demande de cours.", :lesson => @lesson}}
+        end
       else
         flash[:danger] = "Il y a eu un problème: #{refuse.errors.full_messages.to_sentence}.<br /> Le cours n'a pas été annulé.".html_safe
-        redirect_to lessons_path
+        respond_to do |format|
+          format.html {redirect_to lessons_path}
+          format.json {render :json => {:success => "false", 
+            :message => "Il y a eu un problème. Le cours n'a pas été annulé."}}
+        end
       end
     else
       flash[:danger]="Seul le professeur peut annuler un cours moins de 48h à l'avance."
-      redirect_to lessons_path
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format.json {render :json => {:success => "false", 
+          :message => "Seul le professeur peut annuler un cours moins de 48h à l'avance."}}
+      end
     end
   end
 
@@ -117,29 +146,43 @@ class LessonsController < ApplicationController
       @other.send_notification(@notification_text, '#', @user, @lesson)
       flash[:success] = 'Merci pour votre feedback! Le professeur a été payé.'
       email_user
-      redirect_to lessons_path
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format.json {render :json => {:success => "true", :message => "Merci pour votre feedback! Le professeur a été payé."}}
+      end
     else
       flash[:danger] = "Il y a eu un problème: #{pay_teacher.errors.full_messages.to_sentence} <br />Nous n'avons pas pu procéder au payement du professeur".html_safe
-      redirect_to lessons_path
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format.json {render :json => {:success => "false", :message => "Il y a eu un problème. Nous n'avons pas pu procéder au payement du professeur"}}
+      end
     end
   end
 
   def dispute
     dispute = DisputeLesson.run(user: @user, lesson: @lesson)
     if dispute.valid?
-      @notification_text = "#{@user.name} a déclaré un litige sur le cours ##{@leson.id}. Le payement est suspendu, un administrateur prendra contact avec vous sous peu."
+      @notification_text = "#{@user.name} a déclaré un litige sur le cours ##{@lesson.id}. Le payement est suspendu, un administrateur prendra contact avec vous sous peu."
       @other.send_notification(@notification_text, '#', @user, @lesson)
       flash[:success] = "Merci pour votre feedback! Un administrateur prendra contact avec vous dans le splus brefs délais."
       email_user
-      redirect_to root_path
+      respond_to do |format|
+        format.html {redirect_to root_path}
+        format.json {render :json => {:success => "true", 
+          :message => "Merci pour votre feedback! Un administrateur prendra contact avec vous dans les plus brefs délais."}}
+      end
     else
       flash[:danger] = "Il y a eu un problème: #{dispute.errors.full_messages.to_sentence} <br />Prenez contact avec l'équipe du site".html_safe
-      redirect_to lessons_path
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format.json {render :json => {:success => "false", 
+          :message => "Il y a eu un problème. Prenez contact avec l'équipe du site."}}
+      end
     end
   end
 
   private
-
+  
   def lesson_params
     params.require(:lesson).permit(:student_id, :teacher_id, :price, :level_id, :topic_id, :topic_group_id, :time_start, :time_end).merge(:student_id => current_user.id)
   end

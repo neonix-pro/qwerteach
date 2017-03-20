@@ -44,6 +44,8 @@ class Lesson < ActiveRecord::Base
     .where('reviews.id is NULL')
     .where('time_end < ?', DateTime.now)
     .group(:teacher_id)}
+  
+  scope :with_room, -> {joins(:bbb_room).select("DISTINCT lessons.*")}
 
   has_drafts
 
@@ -264,5 +266,4 @@ class Lesson < ActiveRecord::Base
   end
 
   private
-
 end

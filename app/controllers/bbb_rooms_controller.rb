@@ -10,7 +10,6 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     meeting.save
   end
 
-
   def demo_room
     @room = BigbluebuttonRoom.find_by(name: 'Demo')
     if @room.id.nil?

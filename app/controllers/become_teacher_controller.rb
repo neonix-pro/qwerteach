@@ -62,7 +62,8 @@ class BecomeTeacherController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:mango_id, :crop_x, :crop_y, :crop_w, :crop_h, :firstname, :lastname, :email, :birthdate, :description, :gender, :avatar, :phonenumber, :level_id, :occupation, :phone_number, :phone_country_code)
+    params.require(:user).permit(:mango_id, :crop_x, :crop_y, :crop_w, :crop_h, :firstname, :lastname, 
+      :email, :birthdate, :description, :gender, :avatar, :phonenumber, :level_id, :occupation, :phone_number, :phone_country_code)
   end
 
   def gallery_params
