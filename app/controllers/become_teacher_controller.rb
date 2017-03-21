@@ -23,7 +23,7 @@ class BecomeTeacherController < ApplicationController
         @gallery = Gallery.find_by user_id: @user.id
       when :avatar
         if @user.avatar_file_name?
-          jump_to(:offers)
+          #jump_to(:offers)
         end
       when :offers
         @offer = Offer.new

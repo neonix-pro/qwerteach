@@ -28,7 +28,7 @@
           %button.btn.btn-sm.btn-qw.btn-green.browse{type: 'button'}
             parcourir
             %i.fa.fa-folder-open
-          = f.submit "Enregistrer", class: 'btn btn-sm btn-qw btn-green'
+          = f.button "Enregistrer", class: 'btn btn-sm btn-qw btn-green', type: 'submit', disable_with: '<i class="fa fa-spinner fa-spin"></i>en cours'
   .row
     = tutorial_progress_bar
 
