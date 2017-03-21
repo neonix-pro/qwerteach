@@ -77,7 +77,7 @@ class UsersController < ApplicationController
           @search.push(result.user)
         end
       end
-      @pagin = Kaminari.paginate_array(@search, total_count: @total, topic: @search_text).page(params[:page]).per(12)
+      @pagin = Kaminari.paginate_array(@search, total_count: @total).page(params[:page]).per(12)
     end
   end
 
