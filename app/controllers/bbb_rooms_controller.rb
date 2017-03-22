@@ -26,7 +26,14 @@ class BbbRoomsController < Bigbluebutton::RoomsController
   end
 
   def join_demo
-    @user_name =  current_user ? current_user.name : 'Invité'
+    if current_user
+      @user_name = current_user.name
+      meeting = BbbMeeting.find_by(meetingid: @room.meetingid)
+      meeting.users << current_user
+      meeting.save
+    else
+      @user_name = 'Invité'
+    end
     join_internal(@user_name, @user_role, @user_id)
   end
 
