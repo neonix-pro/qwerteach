@@ -22,23 +22,7 @@
 # Ignore creds mangopay
 /config/initializers/mangopay.rb
 
-.idea/.generators
-
-.idea/.name
-
-.idea/.rakeTasks
-
-.idea/encodings.xml
-
-.idea/misc.xml
-
-.idea/qwerteach.iml
-
-.idea/modules.xml
-
-.idea/vcs.xml
-
-.idea/workspace.xml
+.idea
 
 db/schema.rb
 
