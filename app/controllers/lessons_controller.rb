@@ -50,19 +50,16 @@ class LessonsController < ApplicationController
   end
 
   def accept
-    @lesson.update_attributes(:status => 2)
-    @lesson.save
-    body = "#"
-    if @lesson.is_teacher?(@user)
-      @notification_text = "Le professeur #{@lesson.teacher.name} a accepté votre demande de cours."
-    else
-      @notification_text = "#{@lesson.student.name} a accepté la demande de cours pour le cours ##{@lesson.id}."
+    if !@lesson.paid? and !@lesson.prepaid? and !@lesson.pay_afterwards
+      redirect_to new_lesson_payment_path(@lesson) and return
     end
-    @other.send_notification(@notification_text, body, @user, @lesson)
-    PrivatePub.publish_to "/notifications/#{@other.id}", :lesson => @lesson # ???
-    flash[:notice] = "Le cours a été accepté."
-    LessonsNotifierWorker.perform() # check if new bbb is needed (right now)
-    email_user
+
+    accepting = AcceptLesson.run(lesson: @lesson, user: current_user)
+    if accepting.valid?
+      flash[:notice] = "Le cours a été accepté."
+    else
+      flash[:danger] = accepting.errors.full_messages.first
+    end
     redirect_to dashboard_path
   end
 
@@ -106,6 +103,9 @@ class LessonsController < ApplicationController
   end
 
   def pay_teacher
+    unless @lesson.prepaid?
+      redirect_to new_lesson_payment_path(@lesson) and return
+    end
     pay_teacher = PayTeacher.run(user: @user, lesson: @lesson)
     if pay_teacher.valid?
       @notification_text = "Le payement de votre cours avec #{@user.name} a été débloqué!"

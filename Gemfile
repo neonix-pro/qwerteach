@@ -125,6 +125,8 @@ gem 'nexmo'
 
 gem 'acts_as_commentable'
 
+gem 'dotenv-rails'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -156,6 +158,7 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'mysql2'
   gem 'figaro'
+  gem 'letter_opener'
   #gem 'rails-dev-tweaks', '~> 1.1'
 end
 

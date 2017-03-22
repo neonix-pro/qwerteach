@@ -40,4 +40,8 @@ module UsersHelper
     @search_sorting_name ||= "pertinence"
   end
 
+  def user_avatar(user, type = nil)
+    user.avatar.present? ? user.avatar.url(type) : image_path('avatar.jpg')
+  end
+
 end

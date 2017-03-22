@@ -24,6 +24,7 @@ class Payment < ActiveRecord::Base
   validates :payment_method, presence: true
 
   scope :locked, ->{where("status LIKE ? ", 1)}
+  scope :paid, ->{ where(status: 2) }
 
   def pending?
     status == 'pending'

@@ -12,6 +12,7 @@ class PayLessonWithCard < ActiveInteraction::Base
       return errors.add(:base, I18n.t('notice.transaction_error'))
     end
     Lesson.transaction do
+      lesson.created! if lesson.pending_student?
       return self.errors.merge!(lesson.errors) if !lesson.save
       payment = Payment.new payment_params
       if !payment.save
@@ -31,9 +32,9 @@ class PayLessonWithCard < ActiveInteraction::Base
 
   def payment_params
     {
-      payment_type: 0,
+      payment_type: lesson.past? ? 1 : 0,
       payment_method: :creditcard,
-      status: 1,
+      status: lesson.past? ? 1 : 2,
       lesson_id: lesson.id,
       transfert_date: DateTime.now,
       price: amount,

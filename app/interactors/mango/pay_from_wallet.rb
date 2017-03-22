@@ -2,6 +2,8 @@ module Mango
   class PayFromWallet < BaseInteraction
     object :user, class: User
     integer :amount
+    string :wallet, default: 'transaction'
+    validates :wallet, presence: true
 
     set_callback :execute, :before, :check_mango_account
 
@@ -31,7 +33,7 @@ module Mango
         user: user,
         amount: amount,
         debited_wallet_id: user.bonus_wallet.id,
-        credited_wallet_id: user.transaction_wallet.id
+        credited_wallet_id: beneficiary_wallet_id
       )
     end
 
@@ -40,7 +42,7 @@ module Mango
         user: user,
         amount: amount,
         debited_wallet_id: user.normal_wallet.id,
-        credited_wallet_id: user.transaction_wallet.id
+        credited_wallet_id: beneficiary_wallet_id
       )
     end
 

@@ -9,7 +9,7 @@ module Mango
     string :wallet, default: 'normal'
 
     validates :amount, :return_url, :card_id, presence: true
-    validates :wallet, inclusion: {in: %w(normal bonus transaction)}
+    validates :wallet, presence: true
 
     set_callback :execute, :before, :check_mango_account
 
@@ -41,10 +41,6 @@ module Mango
       @secure_mode.nil? ? (card.validity != 'VALID') : @secure_mode
     end
 
-    def beneficiary_wallet
-      user.send( "#{wallet}_wallet" )
-    end
-
     def mango_params
       {
         :author_id => user.mango_id,
@@ -57,7 +53,7 @@ module Mango
           :currency => "EUR",
           :amount => fees * 100
         },
-        :credited_wallet_id => beneficiary_wallet.id,
+        :credited_wallet_id => beneficiary_wallet_id,
         :SecureModeReturnURL => return_url,
         :secure_mode => secure_mode ? 'FORCE' : 'DEFAULT',
         :card_id => card_id

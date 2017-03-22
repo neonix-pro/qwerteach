@@ -1,0 +1,7 @@
+.container-fluid
+  .row
+    #lesson-details.col-sm-5.col-sm-offset-1
+      = render 'form'
+
+:javascript
+  var form = new LessonProposal( $('#lesson-details'), {teacher_id: #{current_user.id}} );

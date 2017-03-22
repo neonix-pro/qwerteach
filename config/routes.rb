@@ -79,7 +79,7 @@ Rails.application.routes.draw do
 
   resources :users, :only => [:show] do
     resources :require_lesson
-    put '/lesson_requests/payment' => 'lesson_requests/payment'
+    post '/lesson_requests/payment' => 'lesson_requests/payment'
     resources :lesson_requests, only: [:new, :create] do
       get 'topics/:topic_group_id', action: :topics, on: :collection
       get 'levels/:topic_id', action: :levels, on: :collection
@@ -149,6 +149,10 @@ Rails.application.routes.draw do
     get 'dispute'=>:dispute
     
     resources :payments do
+      collection do
+        get :credit_card_complete
+        get :bancontact_complete
+      end
       resources :pay_postpayments
     end
     post "create_postpayment" => "payments#create_postpayment"
@@ -156,7 +160,10 @@ Rails.application.routes.draw do
     post "edit_postpayment/:payment_id" => "payments#send_edit_postpayment", as: 'send_edit_postpayment'
 
     post "payerfacture/:payment_id" => "payments#payerfacture", as: 'payerfacture'
+
   end
+
+  resources :lesson_proposals, only: [:new, :create], constraints: ->(request){ request.env["warden"].user(:user).try(:type) == 'Teacher' }
 
   match '/cours' =>'lessons#index', :as => 'cours', via: :get
   match '/cours/recus'=>'lessons#received', :as => 'cours_recus', via: :get

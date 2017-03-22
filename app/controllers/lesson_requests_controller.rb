@@ -38,52 +38,57 @@ class LessonRequestsController < ApplicationController
 
   def payment
     render 'new' and return if @lesson.nil?
-
-    case params[:mode]
-
-      when 'transfert'
-        paying = PayLessonByTransfert.run(user: current_user, lesson: @lesson)
-        if paying.valid?
-          respond_to do |format|
-            format.html {redirect_to lessons_path}
-          end
-        else
-          @card_registration = Mango::CreateCardRegistration.run(user: current_user).result
-          render 'errors', :layout=>false, locals: {object: paying}
-        end
-
-      when 'bancontact'
-        return_url = bancontact_process_user_lesson_requests_url(@teacher)
-        payin = Mango::PayinBancontact.run(user: current_user, amount: @lesson.price,
-          return_url: return_url, wallet: 'transaction')
-        if payin.valid?
-          render js: "window.location = '#{payin.result.redirect_url}'" and return
-        else
-          render 'errors', :layout=>false, locals: {object: payin}
-        end
-
-      when 'cd'
-        return_url = credit_card_process_user_lesson_requests_url(@teacher)
-        payin = Mango::PayinCreditCard.run({user: current_user, amount: @lesson.price,
-          card_id: params[:card_id], return_url: return_url, wallet: 'transaction'})
-
-        if payin.valid?
-          result = payin.result
-          if result.secure_mode_redirect_url.present?
-            render js: "window.location = '#{result.secure_mode_redirect_url}'" and return
-          else
-            paying = PayLessonWithCard.run(user: current_user, lesson: @lesson, transaction_id: result.id)
-            if !paying.valid?
-              render 'errors', :layout=>false, locals: {object: paying}
-            else
-              render 'finish', :layout => false
-            end
-          end
-        else
-          render 'errors', :layout=>false, locals: {object: payin}
-        end
-    end
+    PayLesson.run(controller: self, lesson: @lesson)
   end
+
+  # def payment
+  #   render 'new' and return if @lesson.nil?
+  #
+  #   case params[:mode]
+  #
+  #     when 'transfert'
+  #       paying = PayLessonByTransfert.run(user: current_user, lesson: @lesson)
+  #       if paying.valid?
+  #         respond_to do |format|
+  #           format.html {redirect_to lessons_path}
+  #         end
+  #       else
+  #         @card_registration = Mango::CreateCardRegistration.run(user: current_user).result
+  #         render 'errors', :layout=>false, locals: {object: paying}
+  #       end
+  #
+  #     when 'bancontact'
+  #       return_url = bancontact_process_user_lesson_requests_url(@teacher)
+  #       payin = Mango::PayinBancontact.run(user: current_user, amount: @lesson.price,
+  #         return_url: return_url, wallet: 'transaction')
+  #       if payin.valid?
+  #         render js: "window.location = '#{payin.result.redirect_url}'" and return
+  #       else
+  #         render 'errors', :layout=>false, locals: {object: payin}
+  #       end
+  #
+  #     when 'cd'
+  #       return_url = credit_card_process_user_lesson_requests_url(@teacher)
+  #       payin = Mango::PayinCreditCard.run({user: current_user, amount: @lesson.price,
+  #         card_id: params[:card_id], return_url: return_url, wallet: 'transaction'})
+  #
+  #       if payin.valid?
+  #         result = payin.result
+  #         if result.secure_mode_redirect_url.present?
+  #           render js: "window.location = '#{result.secure_mode_redirect_url}'" and return
+  #         else
+  #           paying = PayLessonWithCard.run(user: current_user, lesson: @lesson, transaction_id: result.id)
+  #           if !paying.valid?
+  #             render 'errors', :layout=>false, locals: {object: paying}
+  #           else
+  #             render 'finish', :layout => false
+  #           end
+  #         end
+  #       else
+  #         render 'errors', :layout=>false, locals: {object: payin}
+  #       end
+  #   end
+  # end
 
   def credit_card_process
     processing = PayLessonWithCard.run(user: current_user, lesson: @lesson, transaction_id: params[:transactionId])

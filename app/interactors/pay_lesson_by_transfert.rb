@@ -1,12 +1,14 @@
 class PayLessonByTransfert < ActiveInteraction::Base
   object :user, class: User
   object :lesson, class: Lesson
+  string :wallet, default: 'transaction'
 
   def execute
     Lesson.transaction do
+      lesson.created! if lesson.pending_student?
       return self.errors.merge!(lesson.errors) if !lesson.save
-      transfering = Mango::PayFromWallet.run(user: user, amount: amount)
-      if !transfering.valid?
+      transfering = Mango::PayFromWallet.run(user: user, amount: amount, wallet: wallet)
+      unless transfering.valid?
         self.errors.merge! transfering.errors
         raise ActiveRecord::Rollback
       end
@@ -30,9 +32,9 @@ class PayLessonByTransfert < ActiveInteraction::Base
     bonus_transaction = transfering.result.first
     normal_transaction = transfering.result.last
     {
-      payment_type: 0,
+      payment_type: lesson.past? ? 1 : 0,
       payment_method: :wallet,
-      status: 1,
+      status: lesson.past? ? 1 : 2,
       lesson_id: lesson.id,
       transfert_date: DateTime.now,
       price: amount,
@@ -46,4 +48,9 @@ class PayLessonByTransfert < ActiveInteraction::Base
       end
     end
   end
+
+  def beneficiary_wallet_id
+    @beneficiary_wallet_id ||= %w[normal transaction bonus].include?(wallet) ? user.send( "#{wallet}_wallet" ).id : wallet
+  end
+
 end

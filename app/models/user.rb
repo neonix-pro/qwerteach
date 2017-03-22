@@ -242,8 +242,8 @@ class User < ActiveRecord::Base
     super && !self.blocked
   end
 
-  def active?
-    self.active
+  def full_name
+    [first_name.presence, last_name.presence].compact.join(' ')
   end
 
   protected

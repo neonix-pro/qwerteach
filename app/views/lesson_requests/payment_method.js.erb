@@ -1,8 +1,12 @@
-$('#lesson-details #step3').html("<%= j render(:partial => '/lesson_requests/payment_method') %>").trigger('update');
+$('#lesson-details .lesson-payment-loader').addClass('hidden')
+$('#lesson-details .lesson-payment-wrapper')
+    .removeClass('hidden')
+    .html("<%= j render('lesson_requests/payment_method', url: ->(mode){ user_lesson_requests_payment_path(@teacher, mode: mode, lesson_id: @lesson.id) }) %>").trigger('update');
+
 mangoPay.cardRegistration.baseURL = "<%= MangoPay.configuration.root_url %>";
 mangoPay.cardRegistration.clientId = "<%= MangoPay.configuration.client_id %>";
 
-new CardRegistrationForm( $('#credit_card'), {
+new PaymentForm( $('#lesson-payment-form'), {
   card_registration_url: "<%= @card_registration.card_registration_url %>",
   card_registration_id: "<%= @card_registration.id %>",
   payment_url: "<%= user_lesson_requests_payment_path(@teacher, mode: 'cd', card_id: '__CARD_ID__').html_safe %>"
