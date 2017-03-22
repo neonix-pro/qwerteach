@@ -12,7 +12,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
 
   def demo_room
     @room = BigbluebuttonRoom.find_by(name: 'Demo')
-    if @room.id.nil?
+    if @room.nil?
       @room = BigbluebuttonRoom.new(demo_room_params)
       @room.save!
     end
@@ -26,7 +26,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
   end
 
   def join_demo
-    @user_name = 'Invité'
+    @user_name =  current_user ? current_user.name : 'Invité'
     join_internal(@user_name, @user_role, @user_id)
   end
 
