@@ -59,7 +59,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
 
   # redefinie pour changer le redirect et faire entrer l'utilisateur directement dans la classe
   def create
-    @room ||= BigbluebuttonRoom.new(room_params)
+    @room = BigbluebuttonRoom.new(room_params)
 
     if params[:bigbluebutton_room] and
         (not params[:bigbluebutton_room].has_key?(:meetingid) or
@@ -82,7 +82,6 @@ class BbbRoomsController < Bigbluebutton::RoomsController
       else
         format.html {
           message = t('bigbluebutton_rails.rooms.notice.create.failure')
-          message += @room.errors.full_messages.to_sentence
           redirect_to user_path(@interviewee), :notice => message
         }
         format.json { render :json => @room.errors.full_messages, :status => :unprocessable_entity }
