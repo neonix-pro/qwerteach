@@ -21,11 +21,16 @@ class PayLesson < ActiveInteraction::Base
     paying = PayLessonByTransfert.run(user: user, lesson: lesson, wallet: beneficiary_wallet)
     if paying.valid?
       respond_to do |format|
+        format.js {render 'finish', :layout => false}
+        format.json {render :json => {:message => "finish"}}
         format.html {redirect_to lessons_path}
       end
     else
       controller.instnce_variable_set :@card_registration, Mango::CreateCardRegistration.run(user: user).result
-      render 'errors', :layout=>false, locals: {object: paying}
+      respond_to do |format|
+        format.js {render 'errors', :layout=>false, locals: {object: paying}}
+        format.json {render :json => {:message => "errors"}}
+      end
     end
   end
 
@@ -34,10 +39,15 @@ class PayLesson < ActiveInteraction::Base
     payin = Mango::PayinBancontact.run(user: user, amount: lesson.price,
                                        return_url: return_url, wallet: beneficiary_wallet)
     if payin.valid?
-      redirect_to payin.result.redirect_url and return
-      #render js: "window.location = '#{payin.result.redirect_url}'" and return
+      respond_to do |format|
+        format.js { redirect_to payin.result.redirect_url }
+        format.json {render :json => {:message => "result", :url => payin.result.redirect_url}}
+      end
     else
-      render 'errors', :layout=>false, locals: {object: payin}
+      respond_to do |format|
+        format.js {render 'errors', :layout=>false, locals: {object: payin}}
+        format.json {render :json => {:message => "errors"}}
+      end
     end
   end
 
@@ -51,16 +61,29 @@ class PayLesson < ActiveInteraction::Base
       if result.secure_mode_redirect_url.present?
         redirect_to result.secure_mode_redirect_url
         #render js: "window.location = '#{result.secure_mode_redirect_url}'" and return
+        respond_to do |format|
+          format.js { redirect_to result.secure_mode_redirect_url }
+          format.json { render :json => {:message => "result", :url => result.secure_mode_redirect_url} }
+        end
       else
         paying = PayLessonWithCard.run(user: user, lesson: lesson, transaction_id: result.id)
         if !paying.valid?
-          render 'errors', :layout=>false, locals: {object: paying}
+          respond_to do |format|
+            format.js {render 'errors', :layout=>false, locals: {object: paying}}
+            format.json {render :json => {:message => "errors"}}
+          end
         else
-          render 'finish', :layout => false
+          respond_to do |format|
+            format.js {render 'finish', :layout => false}
+            format.json {render :json => {:message => "finish"}}
+          end
         end
       end
     else
-      render 'errors', :layout=>false, locals: {object: payin}
+      respond_to do |format|
+        format.js { render 'errors', :layout=>false, locals: {object: payin} }
+        format.json {render :json => {:message => "errors"}}
+      end
     end
   end
 

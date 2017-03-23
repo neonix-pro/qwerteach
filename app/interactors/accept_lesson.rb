@@ -4,14 +4,18 @@ class AcceptLesson < ActiveInteraction::Base
   object :lesson, class: Lesson
 
   set_callback :execute, :before, :validate_access
-  set_callback :execute, :before, :validate_accept_ability
   set_callback :execute, :after, :send_notifications
 
   def execute
-    if teacher? and !lesson.pay_afterwards?
-      lesson.status = :pending_student #student need pay before
-    else
+    if lesson.can_start?
       lesson.status = :created
+    else
+      if teacher?
+        lesson.status = :pending_student
+      else
+        errors.add :base, 'Needs to pay this lesson before'
+        return lesson
+      end
     end
     errors.merge(lesson.errors) unless lesson.save
     lesson
@@ -40,7 +44,7 @@ class AcceptLesson < ActiveInteraction::Base
   end
 
   def send_notifications
-    return unless valid?
+    return unless errors.blank?
     other.send_notification(notification_text, '#', user, lesson)
     PrivatePub.publish_to("/notifications/#{other.id}", :lesson => lesson) rescue SocketError nil # ???
     LessonsNotifierWorker.perform() # check if new bbb is needed (right now)
@@ -52,13 +56,6 @@ class AcceptLesson < ActiveInteraction::Base
   def validate_access
     if lesson.student_id != user.id and lesson.teacher_id != user.id
       self.errors.add :base, 'You can\'t access to this lesson'
-    end
-  end
-
-  def validate_accept_ability
-    return if lesson.prepaid? or lesson.paid?
-    if student? and !lesson.pay_afterwards?
-      self.errors.add :base, 'You need to pay this lesson before accept'
     end
   end
 

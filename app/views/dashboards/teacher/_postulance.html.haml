@@ -1,10 +1,98 @@
-%div.col-sm-6.col-md-4
-  -if @user.postulance_accepted
-    %h5 Vous êtes un prof approuvé!
-    #{image_tag("check.png")}
-  -else
-    %h5 Etat de votre postulation:
-    %dl.dl-horizontal
-      -@user.postulation.dashboard_fields.each do |field|
-        %dt #{field[0].to_s.humanize}:
-        %dd= field[1] ? 'OK':'x'
+- unless @user.postulance_accepted?
+  %h3 Nous avons bien reçu vos informations
+  %p
+    Les administrateurs du site sont en tran d'
+    %b examiner votre candidature.
+    Voici les points que nous validons:
+  .panel
+    .row
+      .postulation-point{data:{toggle:"collapse", target:"#explanation-profil", parent: "#postulation"}}
+        %span Votre profil
+        %br
+        - if @user.postulation.gen_informations_ok
+          %i.fa.fa-2x.fa-check.text-green
+        - else
+          %i.fa.fa-2x.fa-times.text-pink
+      .postulation-point{data:{toggle:"collapse", target:"#explanation-avatar", parent: "#postulation"}}
+        Votre avatar
+        %br
+        - if @user.postulation.avatar_ok
+          %i.fa.fa-2x.fa-check.text-green
+        - else
+          %i.fa.fa-2x.fa-times.text-pink
+      .postulation-point{data:{toggle:"collapse", target:"#explanation-offers", parent: "#postulation"}}
+        Vos annonces
+        %br
+        - if @user.postulation.offer_ok
+          %i.fa.fa-2x.fa-check.text-green
+        - else
+          %i.fa.fa-2x.fa-times.text-pink
+      .postulation-point{data:{toggle:"collapse", target:"#explanation-email", parent: "#postulation"}}
+        Votre e-mail
+        %br
+        - if @user.confirmed?
+          %i.fa.fa-2x.fa-check.text-green
+        - else
+          %i.fa.fa-2x.fa-times.text-pink
+      .postulation-point{data:{toggle:"collapse", target:"#explanation-mangopay", parent: "#postulation"}}
+        Coordonnées bancaires
+        %br
+        - unless @user.mango_id.nil?
+          %i.fa.fa-2x.fa-check.text-green
+        - else
+          %i.fa.fa-2x.fa-times.text-pink
+      .postulation-point{data:{toggle:"collapse", target:"#explanation-test-classe", parent: "#postulation"}}
+        Classe virtuelle
+        %br
+        - if @user.postulation.test_classe
+          %i.fa.fa-2x.fa-check.text-green
+        - else
+          %i.fa.fa-2x.fa-times.text-pink
+      .postulation-point{data:{toggle:"collapse", target:"#explanation-interview", parent: "#postulation"}}
+        Interview
+        %br
+        - if @user.postulation.interview_ok
+          %i.fa.fa-2x.fa-check.text-green
+        - else
+          %i.fa.fa-2x.fa-times.text-pink
+    #explanation-profil.collapse.explanation
+      Nous vérifions que vous avez correctement rempli votre profil. Informations générales, description, niveau d'études...
+      Au plus vous permettrez aux élèves de vous connaître, au plus ils serton en confiance au moment de réserver un cours.
+    #explanation-avatar.collapse.explanation
+      La première impression que les élèves auront de vous est grandement influencée par
+      %b votre photo.
+      Les professeurs qui ne fournissent pas une photo d'eux ont bien moins de chances d'être contactés.
+      Nous recommandons une photo de vous de bonne qualité, avec votre visage bien visible.
+      Votre photo doit répondre à nos critères de qualité pour que vous puissiez apparaître sur le site.
+    #explanation-offers.collapse.explanation
+      Vous êtes libres de fixer vos tarifs et d'enseigner dans les matières et aux niveaux que vous souhaitez.
+      Cependant, un administrateur du site relis vos annonces avant de vus faire apparaître sur le site.
+    #explanation-email.collapse.explanation
+      Votre e-mail est le moyen de communication principal que Qwerteach utilise pour communiquer avec vous.
+      Ainsi, il est important que nous nous assurions que vous recevez nos e-mails.
+      %br
+      Pour valider votre e-mail, cliquez sur le lien de validation contenu dans votre email de bienvenue.
+      %br
+      = link_to "Vous n'avez pas reçu l'email?", new_confirmation_path(@user)
+    #explanation-mangopay.collapse.explanation
+      Afin de pouvoir vous verser l'argent que vous gagnez sur Qwerteach, nous avons besoin de vos coordonnées bancaires!
+    #explanation-test-classe.collapse.explanation
+      Familiarisez-vous avec la classe virtuelle de Qwerteach avant de vous lancer dans les cours à distance!
+      Vous pouvez
+      = link_to 'tester la classe virtuelle', demo_room_path
+      ainsi que consulter la liste des
+      = link_to 'autres outils', faq_path
+      que nous recommandons.
+    #explanation-interview.collapse.explanation
+      La dernière étape avant de faire apparaître votre profil sur Qwerteach est une interview avec un de nos
+      administrateurs, via la classe virtuelle.
+      %br
+      C'est l'occasion pour nous d'apprendre à mieux vous connaître et pour vous de faire connaissance avec l'équipe du site,
+      et poser toutes les questions que auriez encore.
+      %br
+      Si ce n'est déjà fait, un administrateur prendra contact avec vous via la messagerie interne à Qwerteach pour
+      fixer un rendez-vous pour cette rencontre.
+  -#%dl.dl-horizontal
+  -#  -@user.postulation.dashboard_fields.each do |field|
+  -#    %dt #{field[0].to_s.humanize}:
+  -#    %dd= field[1] ? 'OK':'x'

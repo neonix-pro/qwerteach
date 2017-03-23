@@ -380,26 +380,26 @@ ActiveRecord::Schema.define(version: 20170319105840) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "login",                  default: "",            null: false
-    t.string   "firstname",              default: "",            null: false
-    t.string   "lastname",               default: "",            null: false
-    t.date     "birthdate",              default: '2016-01-01',  null: false
-    t.text     "description",            default: "",            null: false
-    t.string   "gender",                 default: "Not telling", null: false
-    t.string   "phone_number",           default: "",            null: false
-    t.string   "type",                   default: "Student",     null: false
-    t.integer  "level_id",               default: 1
-    t.boolean  "first_lesson_free",      default: false
-    t.boolean  "accepts_post_payments",  default: false
-    t.string   "occupation",             default: "student"
-    t.boolean  "postulance_accepted",    default: false,         null: false
-    t.string   "teacher_status",         default: "Actif"
-    t.string   "email",                  default: "",            null: false
-    t.string   "encrypted_password",     default: "",            null: false
+    t.string   "login",                             default: "",            null: false
+    t.string   "firstname",                         default: "",            null: false
+    t.string   "lastname",                          default: "",            null: false
+    t.date     "birthdate",                         default: '2016-01-01',  null: false
+    t.text     "description",                       default: "",            null: false
+    t.string   "gender",                            default: "Not telling", null: false
+    t.string   "phone_number",                      default: "",            null: false
+    t.string   "type",                              default: "Student",     null: false
+    t.integer  "level_id",                          default: 1
+    t.boolean  "first_lesson_free",                 default: false
+    t.boolean  "accepts_post_payments",             default: false
+    t.string   "occupation",                        default: "student"
+    t.boolean  "postulance_accepted",               default: false,         null: false
+    t.string   "teacher_status",                    default: "Actif"
+    t.string   "email",                             default: "",            null: false
+    t.string   "encrypted_password",                default: "",            null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,             null: false
+    t.integer  "sign_in_count",                     default: 0,             null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -408,32 +408,35 @@ ActiveRecord::Schema.define(version: 20170319105840) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        default: 0,             null: false
+    t.integer  "failed_attempts",                   default: 0,             null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",                  default: false
+    t.boolean  "admin",                             default: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.integer  "mango_id"
     t.datetime "last_seen"
-    t.string   "time_zone",              default: "UTC"
+    t.string   "time_zone",                         default: "UTC"
     t.string   "provider"
     t.string   "uid"
-    t.integer  "score",                  default: 0
-    t.integer  "response_rate",          default: 0
-    t.integer  "response_time",          default: 0
-    t.integer  "average_response_time",  default: 0
+    t.integer  "score",                             default: 0
+    t.integer  "response_rate",                     default: 0
+    t.integer  "response_time",                     default: 0
+    t.integer  "average_response_time",             default: 0
     t.integer  "avatar_score"
     t.string   "phone_country_code"
-    t.boolean  "sms_allowed",            default: true
-    t.boolean  "active",                 default: true
-    t.boolean  "blocked",                default: false
+    t.boolean  "sms_allowed",                       default: true
+    t.boolean  "active",                            default: true
+    t.boolean  "blocked",                           default: false
+    t.text     "tokens"
+    t.string   "authentication_token",   limit: 30
   end
 
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

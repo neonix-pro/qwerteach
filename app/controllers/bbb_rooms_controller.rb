@@ -1,5 +1,6 @@
+require 'pp'
 class BbbRoomsController < Bigbluebutton::RoomsController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:demo_room, :join_demo]
 
   def join
     super
@@ -8,8 +9,32 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     meeting.users << current_user
     meeting.save
   end
-  def invite_to_room
 
+  def demo_room
+    @room = BigbluebuttonRoom.find_by(name: 'Demo')
+    if @room.nil?
+      @room = BigbluebuttonRoom.new(demo_room_params)
+      @room.save!
+    end
+    params[:id] = @room.id
+
+    respond_with @room do |format|
+      format.html {
+        redirect_to_using_params join_demo_path(@room)
+      }
+    end
+  end
+
+  def join_demo
+    if current_user
+      @user_name = current_user.name
+      meeting = BbbMeeting.find_by(meetingid: @room.meetingid)
+      meeting.users << current_user
+      meeting.save
+    else
+      @user_name = 'Invité'
+    end
+    join_internal(@user_name, @user_role, @user_id)
   end
 
   def room_invite
@@ -69,6 +94,11 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     @teacher = @room.lesson.teacher
   end
 
+  def invite
+    @bbbRoom = BbbRoom.find_by(param: params[:id])
+    super
+  end
+
   private
   def room_allowed_params
     [:name, :server_id, :meetingid, :attendee_key, :moderator_key, :welcome_msg,
@@ -77,6 +107,21 @@ class BbbRoomsController < Bigbluebutton::RoomsController
      :auto_start_video, :auto_start_audio, :background,
      :moderator_only_message, :auto_start_recording, :allow_start_stop_recording, :lesson_id,
      :metadata_attributes => [:id, :name, :content, :_destroy, :owner_id]]
+  end
+
+  def demo_room_params
+    params[:bigbluebutton_room] = {        :lesson_id => 0,
+                                           :owner_type => 'Admin',
+                                           :owner_id => 26,
+                                           :server_id => 1,
+                                           :name => "Demo",
+                                           :param => "Demo",
+                                           :record_meeting => 0,
+                                           :logout_url => ENV['MAILER_HOST']+':3000',
+                                           :duration => 0,
+                                           :auto_start_recording => 0,
+                                           :allow_start_stop_recording => 0
+    }
   end
 
 end

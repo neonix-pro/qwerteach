@@ -21,18 +21,30 @@ class LessonRequestsController < ApplicationController
       @lesson = saving.result
       if @lesson.free_lesson
         @lesson.save
-        render 'finish'
+        respond_to do |format|
+          format.js {render 'finish'}
+          format.json {render :json => {:message => "finish"}}
+        end
       elsif check_mangopay_account
         creation = Mango::CreateCardRegistration.run(user: current_user)
         if !creation.valid?
-          render 'errors', :layout=>false, locals: {object: creation}
+          respond_to do |format|
+            format.js {render 'errors', :layout=>false, locals: {object: creation}}
+            format.json {render :json => {:message => "false"}}
+          end
         else
           @card_registration = creation.result
-          render 'payment_method'
+          respond_to do |format|
+            format.js {render 'payment_method'}
+            format.json {render :json => {:message => "true", :card_registration => @card_registration, :user_cards => @user.mangopay.cards}}
+          end
         end
       end
     else
-      render 'errors', :layout=>false, locals: {object: saving}
+      respond_to do |format|
+          format.js {render 'errors', :layout=>false, locals: {object: saving}}
+          format.json {render :json => {:message => "false"}}
+        end
     end
   end
 
@@ -41,83 +53,46 @@ class LessonRequestsController < ApplicationController
     PayLesson.run(controller: self, lesson: @lesson)
   end
 
-  # def payment
-  #   render 'new' and return if @lesson.nil?
-  #
-  #   case params[:mode]
-  #
-  #     when 'transfert'
-  #       paying = PayLessonByTransfert.run(user: current_user, lesson: @lesson)
-  #       if paying.valid?
-  #         respond_to do |format|
-  #           format.html {redirect_to lessons_path}
-  #         end
-  #       else
-  #         @card_registration = Mango::CreateCardRegistration.run(user: current_user).result
-  #         render 'errors', :layout=>false, locals: {object: paying}
-  #       end
-  #
-  #     when 'bancontact'
-  #       return_url = bancontact_process_user_lesson_requests_url(@teacher)
-  #       payin = Mango::PayinBancontact.run(user: current_user, amount: @lesson.price,
-  #         return_url: return_url, wallet: 'transaction')
-  #       if payin.valid?
-  #         render js: "window.location = '#{payin.result.redirect_url}'" and return
-  #       else
-  #         render 'errors', :layout=>false, locals: {object: payin}
-  #       end
-  #
-  #     when 'cd'
-  #       return_url = credit_card_process_user_lesson_requests_url(@teacher)
-  #       payin = Mango::PayinCreditCard.run({user: current_user, amount: @lesson.price,
-  #         card_id: params[:card_id], return_url: return_url, wallet: 'transaction'})
-  #
-  #       if payin.valid?
-  #         result = payin.result
-  #         if result.secure_mode_redirect_url.present?
-  #           render js: "window.location = '#{result.secure_mode_redirect_url}'" and return
-  #         else
-  #           paying = PayLessonWithCard.run(user: current_user, lesson: @lesson, transaction_id: result.id)
-  #           if !paying.valid?
-  #             render 'errors', :layout=>false, locals: {object: paying}
-  #           else
-  #             render 'finish', :layout => false
-  #           end
-  #         end
-  #       else
-  #         render 'errors', :layout=>false, locals: {object: payin}
-  #       end
-  #   end
-  # end
-
   def credit_card_process
     processing = PayLessonWithCard.run(user: current_user, lesson: @lesson, transaction_id: params[:transactionId])
     if processing.valid?
-      redirect_to lessons_path, notice: t('notice.booking_success')
+      respond_to do |format|
+        format.html {redirect_to lessons_path, notice: t('notice.booking_success')}
+        format.json {render :json => {:success => "true"}}
+      end
     else
-      redirect_to user_path(@lesson.teacher), notice: t('notice.booking_error')
+      respond_to do |format|
+        format.html {redirect_to user_path(@lesson.teacher), notice: t('notice.booking_error')}
+        format.json {render :json => {:success => "false"}}
+      end
     end
   end
 
   def bancontact_process
     processing = PayLessonByBancontact.run(user: current_user, lesson: @lesson, transaction_id: params[:transactionId])
     if processing.valid?
-      redirect_to lessons_path, notice: t('notice.booking_success')
+      respond_to do |format|
+        format.html {redirect_to lessons_path, notice: t('notice.booking_success')}
+        format.json {render :json => {:success => "true"}}
+      end
     else
-      redirect_to user_path(@lesson.teacher), notice: t('notice.booking_error')
+      respond_to do |format|
+        format.html {redirect_to user_path(@lesson.teacher), notice: t('notice.booking_error')}
+        format.json {render :json => {:success => "false"}}
+      end
     end
   end
 
   def topics
     @topics = @teacher.offers.includes(:topic).where(topics: params.slice(:topic_group_id)).uniq
       .pluck_to_hash('topics.id as id', 'topics.title as title')
-    render json: @topics
+    render :json => {:topics => @topics}
   end
 
   def levels
     @levels = @teacher.offers.includes(offer_prices: :level).where(topic_id: params[:topic_id]).uniq
       .pluck_to_hash('levels.id as id', 'levels.fr as title')
-    render json: @levels
+    render :json => {:levels => @levels}
   end
 
   def calculate
@@ -173,7 +148,10 @@ class LessonRequestsController < ApplicationController
   def check_mangopay_account
     return true if current_user.mango_id.present?
     @account = Mango::SaveAccount.new(user: current_user, first_name: current_user.firstname, last_name: current_user.lastname)
-    render 'mango_account', :layout=>false and return false
+    respond_to do |format|
+      format.js {render 'mango_account', :layout=>false}
+      format.json {render :json => {:message => "no account"}}
+    end and return false
   end
 
 

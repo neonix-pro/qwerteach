@@ -34,7 +34,7 @@ class PayLessonWithCard < ActiveInteraction::Base
     {
       payment_type: lesson.past? ? 1 : 0,
       payment_method: :creditcard,
-      status: lesson.past? ? 1 : 2,
+      status: lesson.past? ? 2 : 1,
       lesson_id: lesson.id,
       transfert_date: DateTime.now,
       price: amount,

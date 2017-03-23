@@ -1,4 +1,5 @@
 class ConversationsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
   before_action :authenticate_user!
   before_action :get_mailbox
   before_action :get_conversation, except: [:index, :show_min, :find, :search]
@@ -65,6 +66,7 @@ class ConversationsController < ApplicationController
     @message = Mailboxer::Message.new
     Resque.enqueue(MessageStatWorker, current_user.id)
     @unread_count = @mailbox.inbox({:read => false}).count
+    @path = reply_conversation_path(@conversation)
   end
 
   def show_more
@@ -85,11 +87,26 @@ class ConversationsController < ApplicationController
     @message = @conversation.messages.last
     # notifie le gars qu'il a une conversation ==> permet d'ouvrir le chat automatiquement
     # Une fois qu'il a ouvert le chat, il subscribe au channel de la conversation
+
+    @string_received = render_to_string template: 'messages/_message_received.html.haml', locals:{message: @message}, layout: false
+    @string_sent = render_to_string template: 'messages/_message_sent.html.haml', locals:{message: @message}, layout: false
+
+
     PrivatePub.publish_to "/chat/#{receiver.id}", :conversation_id => @conversation.id, :receiver_id => receiver
+    PrivatePub.publish_to @path, message_received: @string_received, message_sent: @string_sent, sender_id: current_user.id
+    
+    #Send message to android app
+    Pusher.trigger("#{@conversation.id}", "#{@conversation.id}", {last_message: @message, avatar: @message.sender.avatar.url(:small)})
+    
+    #Send notification to android app
+    Pusher.notify(["qwerteach"], {fcm: {notification: {title: @message.subject, body: @message.body, 
+      icon: 'androidlogo', click_action: "MY_MESSAGES"}}})
+    
     @conversation_id = @conversation.id
     respond_to do |format|
       format.html {redirect_to conversation_path(@conversation), notice: 'Reply sent'}
       format.js
+      format.json {render :json => {:success => "true"}}
     end
   end
 
@@ -110,6 +127,7 @@ class ConversationsController < ApplicationController
       end
     end
     # Envoi fake msg pour init conversation avec participants
+  
     # TO DO: not neded anymore
     @conversation = current_user.send_message([current_user, (User.find(params[:recipient_id]))], "init_conv_via_chat", "chat").conversation
     render json: {conversation_id: @conversation.id}

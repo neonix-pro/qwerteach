@@ -43,7 +43,7 @@ class window.LessonForm
     if topicGroupId.length > 0
       $.get @getTopicsUrl(topicGroupId), (data)=>
         $topicSelect = @$('.topic-select')
-        $topicSelect.append  $('<option>').attr(value: group.id).text(group.title) for group in data
+        $topicSelect.append  $('<option>').attr(value: group.id).text(group.title) for group in data.topics
 
   getTopicsUrl: (topicGroupId)->
     @topicsUrl.replace('__TEACHER_ID__', @options.teacher_id).replace('__TOPIC_GROUP_ID__', topicGroupId)
@@ -54,7 +54,7 @@ class window.LessonForm
     if topicId.length > 0
       $.get @getLevelsUrl(topicId), (data)=>
         $levelSelect = @$('.level-select')
-        $levelSelect.append  $('<option>').attr(value: group.id).text(group.title) for group in data
+        $levelSelect.append  $('<option>').attr(value: group.id).text(group.title) for group in data.levels
     $('.topic_row').removeClass('active');
     $('#topic_row_'+topicId).addClass('active');
 

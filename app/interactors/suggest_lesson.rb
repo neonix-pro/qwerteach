@@ -34,7 +34,7 @@ class SuggestLesson < ActiveInteraction::Base
   private
 
   def validate_pay_afterwards
-    return if student_id.blank?
+    return if student_id.blank? or !pay_afterwards
     if Payment.select('lessons.student_id').paid.joins(:lesson).where(lessons: {student_id: student_id}).count == 0
       self.errors.add(:pay_afterwards, 'Can\'t be applicable for selected student')
     end

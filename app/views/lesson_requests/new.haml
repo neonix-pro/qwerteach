@@ -34,11 +34,6 @@
 
 :javascript
   $(document).on('turbolinks:load', function(){
-
     var r = new RequestLesson( $('#lesson-details'), {teacher_id: #{@teacher.id}} );
     $('#lesson-details').trigger('update');
-    $('#datetimepicker').on('dp.change', function(){
-      $('#request_time_start').trigger('change');
-      $('#lesson-details').trigger('update');
-    });
-  });
+  })

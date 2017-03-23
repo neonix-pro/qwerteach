@@ -1,11 +1,17 @@
 class ApplicationController < ActionController::Base
+  
+  acts_as_token_authentication_handler_for User, fallback: :none
+ 
   # redirects if catches cancan access denied
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
   end
 
   rescue_from Mango::UserDoesNotHaveAccount do |exception|
-    redirect_to edit_wallet_path(redirect_to: request.fullpath), alert: t('notice.missing_account')
+    respond_to do |format|
+      format.html {redirect_to edit_wallet_path(redirect_to: request.fullpath), alert: t('notice.missing_account')}
+      format.json {render :json => {:message => "no wallet"}}
+    end
   end
 
   # Prevent CSRF attacks by raising an exception.
@@ -25,7 +31,12 @@ class ApplicationController < ActionController::Base
   end
 
   def bigbluebutton_can_create?(room, role)
-    true
+    if current_user && current_user.is_admin?
+      true
+    else
+      room = BbbRoom.find(room.id)
+      (room.lesson.present? && room.lesson.eql?(current_user.current_lesson) ) || room.name == 'Demo'
+    end
   end
 
   def current_timestamp
@@ -78,7 +89,7 @@ class ApplicationController < ActionController::Base
   def international_prefix_list
     @list ||= ISO3166::Country.all.map{|c| ["#{c.translations['fr']} (+#{c.country_code})", c.country_code] }.sort
   end
-
+  
   def flash_message
     [:error, :warning, :notice, :lesson].each do |type|
       return flash[type] unless flash[type].blank?
@@ -94,12 +105,14 @@ class ApplicationController < ActionController::Base
   end
 
   def has_lesson?
-    @current_lesson = current_user.current_lesson
-    unless @current_lesson.nil?
-      flash[:lesson] = "Votre cours de #{@current_lesson.topic.title} " \
-                        "avec #{@current_lesson.other(current_user).name} " \
-                        "#{@current_lesson.upcoming? ? 'va commencer' : 'a commencé'}." \
-                        "<br /> #{view_context.link_to('rejoindre la classe', join_bigbluebutton_room_path(@current_lesson.bbb_room), target: '_blank', class:'text-white')}"
+    if current_user.is_a?(Student)
+      @current_lesson = current_user.current_lesson
+      unless @current_lesson.nil? || @current_lesson.bbb_room.nil?
+        flash[:lesson] = "Votre cours de #{@current_lesson.topic.title} " \
+                          "avec #{@current_lesson.other(current_user).name} " \
+                          "#{@current_lesson.upcoming? ? 'va commencer' : 'a commencé'}." \
+                          "<br /> #{view_context.link_to('rejoindre la classe', join_bigbluebutton_room_path(@current_lesson.bbb_room), target: '_blank', class:'text-white')}"
+      end
     end
   end
 

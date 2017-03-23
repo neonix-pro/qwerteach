@@ -4,7 +4,7 @@ class DashboardsController < ApplicationController
   def index
     @user = current_user
     @upcoming_lessons = Lesson.where(:status => 2).where('time_start > ?', DateTime.now).where("student_id =#{@user.id}  OR teacher_id = #{@user.id}")
-    @past_lessons = Lesson.involving(@user).passed.limit(3).order(time_start: :desc)
+    @past_lessons = Lesson.involving(@user).passed.with_room.limit(3).order(time_start: :desc)
 
     unless @past_lessons.empty?
       @book_again_lesson = @past_lessons.is_student(@user).first
@@ -17,7 +17,7 @@ class DashboardsController < ApplicationController
       @wallets = {normal: @user.wallets.first, bonus: @user.wallets.second, transfer: @user.wallets.third}
     end
 
-    @to_do_list =@user.todo_lessons.sort_by &:created_at
+    @to_do_list = @user.todo_lessons.sort_by &:created_at
 
     @featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)
     @featured_teachers = Teacher.all.order(score: :desc).limit(5)

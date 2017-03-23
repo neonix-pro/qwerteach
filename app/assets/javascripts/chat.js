@@ -10,7 +10,7 @@ var MessagesManager = function() {
                     document.title = '(' + answer + ') Qwerteach';
                     if(oldValue < answer)
                     {
-                        Messages.sound.play();
+
                     }
                 }
                 else {
@@ -26,7 +26,9 @@ var MessagesManager = function() {
 
 $(document).on('turbolinks:load',  MessagesManager);
 $(document).on('turbolinks:load',  function(){
-    var m = new MessagesManager();
-    Messages.numberOfUnreadMessages();
+    if($('#unread-messages').length > 0){
+        var m = new MessagesManager();
+        Messages.numberOfUnreadMessages();
+    }
 })
 

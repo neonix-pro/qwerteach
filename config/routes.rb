@@ -1,4 +1,76 @@
 Rails.application.routes.draw do
+  
+  namespace :api, :defaults => { :format => 'json' } do
+    get 'dashboard' => 'dashboards#index' 
+    
+    get 'users/find_level' => 'users#find_level'
+    put 'users/:id' => 'users#update'
+    patch 'users/:id' => 'users#update'
+    get 'profs' => 'users#index'
+    get 'users/:id' => 'users#show'
+    get 'get_infos_for_detailed_prices_modal' => 'users#get_infos_for_detailed_prices_modal'
+    
+    get 'users/:user_id/lesson_requests/new' => 'lesson_requests#new'
+    post 'users/:user_id/lesson_requests' => 'lesson_requests#create'
+    put 'users/:user_id/lesson_requests/payment' => 'lesson_requests#payment'
+    get 'users/:user_id/lesson_requests/bancontact_process' => 'lesson_requests#bancontact_process'
+    get 'users/:user_id/lesson_requests/credit_card_process' => 'lesson_requests#credit_card_process'
+    get 'users/:user_id/lesson_requests/topic_groups' => 'lesson_requests#topic_groups'
+    get 'users/:user_id/lesson_requests/topics/:topic_group_id' => 'lesson_requests#topics'
+    get 'users/:user_id/lesson_requests/levels/:topic_id' => 'lesson_requests#levels'
+    
+    get 'wallets/get_total_wallet/:user_id' => 'wallets#get_total_wallet'
+    put 'user/mangopay/edit_wallet' => 'wallets#update_mangopay_wallet'
+    get 'user/mangopay/index_wallet' => 'wallets#index_mangopay_wallet'
+    get 'user/mangopay/load-wallet' => 'wallets#direct_debit_mangopay_wallet'
+    put 'user/mangopay/direct_debit' => 'wallets#load_wallet'
+    get 'user/mangopay/card_info' => 'wallets#card_info'
+    put 'user/mangopay/update_bank_accounts' => 'wallets#update_bank_accounts'
+    put 'user/mangopay/desactivate_bank_account/:id' => 'wallets#desactivate_bank_account'
+    put 'user/mangopay/make_payout' => 'wallets#make_payout'
+    get 'user/mangopay/payout' => 'wallets#payout'
+    
+    get 'cours' => 'lessons#index'
+    get 'lessons/find_lesson_informations/:lesson_id' => 'lessons#find_lesson_informations'
+    get 'lessons/:lesson_id/cancel' => 'lessons#cancel'
+    put 'lessons/:id' => 'lessons#update'
+    get 'lessons/:lesson_id/refuse' => 'lessons#refuse'
+    get 'lessons/:lesson_id/accept' => 'lessons#accept'
+    get 'lessons/:lesson_id/pay_teacher' => 'lessons#pay_teacher'
+    get 'lessons/:lesson_id/dispute' => 'lessons#dispute'
+    post 'messages' => 'messages#create'
+    get 'mailbox/:mailbox' => 'conversations#index'
+    post 'conversations/:id/reply' => 'conversations#reply'
+    get 'conversations/:id' => 'conversations#show'
+    get 'conversation/show_more/:id/:page' => 'conversations#show_more'
+    post 'users/:user_id/reviews' => 'reviews#create'
+  end
+  
+  namespace :api, :defaults => { :format => 'json' } do
+    get 'offers' => 'offers#index'
+    get 'offers/:id' => 'offers#show'
+    post 'offers' => 'offers#create'
+    patch 'offers/:id' => 'offers#update'
+    delete 'offers/:id' => 'offers#destroy'
+    get 'topic_choice' => 'offers#choice_group'
+    get 'level_choice' => 'offers#choice'
+    get 'offers/new' => 'offers#new'
+  end
+
+  namespace :api, :defaults => { :format => 'json' } do
+    #get 'topics/:id' => 'topics#show'
+    get 'topics' => 'topics#get_all_topics'
+    get 'topic_groups' => 'topic_groups#get_all_topic_groups'
+  end
+
+  namespace :api, :defaults => { :format => 'json' } do
+    devise_scope :user do
+      post 'sessions' => 'sessions#create'
+      delete 'sessions' => 'sessions#destroy'
+      post 'registrations' => 'registrations#create'
+    end
+  end 
+  
   namespace :admin do
     resources :users do
       get 'new_comment' => :new_comment
@@ -69,8 +141,6 @@ Rails.application.routes.draw do
   get "/auth/:action/callback",
       :controller => "users/omniauth_callbacks",
       :constraints => { :action => /google_oauth2|facebook/ }
-
-
 
   resources :users, only: [:update]
 
@@ -188,6 +258,8 @@ Rails.application.routes.draw do
     get "/end_room/:room_id" => "bbb_rooms#end_room", as: 'end_room'
   end
   bigbluebutton_routes :default, :only => 'recordings', :controllers => {:rooms => 'bbb_recordings'}
+  get 'demo_room', to: "bbb_rooms#demo_room", as: 'demo_room'
+  get 'join_demo/:id', to: "bbb_rooms#join_demo", as: 'join_demo'
 
   mount Resque::Server, :at => "/resque"
 

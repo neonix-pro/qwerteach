@@ -13,7 +13,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :topic
   belongs_to :level
 
-  has_many :payments
+  has_many :payments, inverse_of: :lesson
 
   has_one :bbb_room
 
@@ -35,12 +35,17 @@ class Lesson < ActiveRecord::Base
   scope :to_unlock, ->{created.locked.past} # lessons where we're waiting for student to unlock money
   scope :to_pay, ->{created.payment_pending.past} # lessons that haven't been prepaid and student needs to pay
 
+  scope :with_room, -> { joins(:bbb_room).select("DISTINCT lessons.*")}
+
+
   scope :to_review, ->(user){created.locked_or_paid.past.joins('LEFT OUTER JOIN reviews ON reviews.subject_id = lessons.teacher_id
     AND reviews.sender_id = lessons.student_id')
     .where(:student => user.id)
     .where('reviews.id is NULL')
     .where('time_end < ?', DateTime.now)
     .group(:teacher_id)}
+  
+  scope :with_room, -> {joins(:bbb_room).select("DISTINCT lessons.*")}
 
   scope :needs_pay, ->{ created.where('price > 0').where('NOT EXISTS( SELECT 1 FROM payments WHERE status = 2 AND lesson_id = lessons.id )') }
 
@@ -91,7 +96,7 @@ class Lesson < ActiveRecord::Base
   def prepaid?
     return false if payments.empty?
     return true if payments.any?{|payment| payment.locked? }
-    true
+    false
   end
 
   # le user doit-il confirmer?
@@ -136,6 +141,10 @@ class Lesson < ActiveRecord::Base
     else
       Review.where('sender_id = ? AND subject_id = ?', student.id, teacher.id).empty? && past?
     end
+  end
+
+  def can_start?
+    free_lesson? or pay_afterwards or paid? or prepaid?
   end
 
   def pending_any?
@@ -210,5 +219,4 @@ class Lesson < ActiveRecord::Base
   end
 
   private
-
 end

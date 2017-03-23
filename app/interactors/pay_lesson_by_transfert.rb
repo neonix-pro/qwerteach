@@ -49,8 +49,4 @@ class PayLessonByTransfert < ActiveInteraction::Base
     end
   end
 
-  def beneficiary_wallet_id
-    @beneficiary_wallet_id ||= %w[normal transaction bonus].include?(wallet) ? user.send( "#{wallet}_wallet" ).id : wallet
-  end
-
 end

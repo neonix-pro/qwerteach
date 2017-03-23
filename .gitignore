@@ -21,8 +21,10 @@
 
 # Ignore creds mangopay
 /config/initializers/mangopay.rb
+.idea/runConfigurations/*
 
 .idea
+.zeus.sock
 
 db/schema.rb
 

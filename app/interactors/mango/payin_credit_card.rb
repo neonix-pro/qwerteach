@@ -38,25 +38,25 @@ module Mango
     end
 
     def secure_mode
-      @secure_mode.nil? ? (card.validity != 'VALID') : @secure_mode
+      @secure_mode#.nil? ? (card.validity != 'VALID') : @secure_mode
     end
 
     def mango_params
       {
-        :author_id => user.mango_id,
-        :credited_user_id => user.mango_id,
-        :debited_funds => {
-          :currency => "EUR",
-          :amount => amount * 100
+        author_id: user.mango_id,
+        credited_user_id: user.mango_id,
+        debited_funds: {
+          currency: "EUR",
+          amount: amount * 100
         },
-        :fees => {
-          :currency => "EUR",
-          :amount => fees * 100
+        fees: {
+          currency: "EUR",
+          amount: fees * 100
         },
-        :credited_wallet_id => beneficiary_wallet_id,
-        :SecureModeReturnURL => return_url,
-        :secure_mode => secure_mode ? 'FORCE' : 'DEFAULT',
-        :card_id => card_id
+        credited_wallet_id: beneficiary_wallet_id,
+        SecureModeReturnURL: return_url,
+        secure_mode: secure_mode ? 'FORCE' : 'DEFAULT',
+        card_id: card_id
       }.camelize_keys
     end
 

@@ -9,9 +9,9 @@ fr:
         canceled: 'Annulé'
         disputed: 'En litige'
         refuned: 'Remboursé'
-  male: 'Homme'
-  female: 'Femme'
-  "not telling": 'Non-communiqué'
+  Male: 'Homme'
+  Female: 'Femme'
+  Not telling: 'Non-communiqué'
   hello: "Bonjour!!!"
   forms:
     messages:
@@ -291,6 +291,9 @@ fr:
     errors:
       messages:
         taken: "est déjà pris"
+    attributes:
+      teacher:
+        Male: Homme
   active_interaction:
     errors:
       messages:

@@ -78,6 +78,4 @@ class Postulation < ActiveRecord::Base
   def responsible_admin
     User.find(admin_id) unless admin_id.nil?
   end
-
-
 end

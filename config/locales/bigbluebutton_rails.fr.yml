@@ -1,0 +1,162 @@
+---
+fr:
+  activerecord:
+    attributes:
+      bigbluebutton_metadata:
+        content: Contenu
+        name: Nom
+        owner: Propriétaire
+      bigbluebutton_playback_format:
+        format_type: Type
+        length: Longueur
+        url: URL
+      bigbluebutton_playback_type:
+        default: Défaut
+        name: Nom
+        visible: Visible
+      bigbluebutton_recording:
+        description: "Description"
+        end_time: "Heure de fin"
+        meetingid: "Meeting ID"
+        metadata: Metadata
+        name: Nom
+        published: Publié
+        recordid: "Record ID"
+        room_id: "Room ID"
+        server_id: "Server ID"
+        size: "Taille"
+        start_time: "Heure de début"
+      bigbluebutton_room:
+        allow_start_stop_recording: "Autoriser les utilisateurs à démarrer / arrêter l'enregistrement"
+        attendee_api_password: "Clé API interne pour les participants"
+        attendee_key: "clé participants"
+        auto_start_video: "Démarer la vidéo automatiquement"
+        auto_start_audio: "Démarer l'audio automatiquement"
+        auto_start_recording: "Démarer l'enregistrement automatiquement"
+        background: "Image de fond"
+        default_layout: "Layout par défaut"
+        dial_number: "Dial Number"
+        duration: Durée
+        external: "Créé depuis l'extérieur"
+        logout_url: "URL de déconnexion"
+        max_participants: "Nombre maximum de participants"
+        meetingid: "Meeting ID"
+        metadata: Metadata
+        moderator_api_password: "Clé API interne pour modérateurs"
+        moderator_key: "Clé modérateurs"
+        moderator_only_message: "Message montré uniquement aux modérateurs"
+        name: Nom
+        param: "ID litéral (string)"
+        private: Privé
+        presenter_share_only: "Seul le présentateur partage son audio et vidéo"
+        record: Enregistrement
+        server_id: "Server ID"
+        voice_bridge: "Voice Bridge"
+        welcome_msg: "Message de bienvenue"
+      bigbluebutton_server:
+        name: Nom
+        param: "ID litéral (string)"
+        salt: "Security Salt"
+        url: URL
+        version: Version
+      bigbluebutton_server_config:
+        available_layouts: "Layouts disponibles"
+    models:
+      bigbluebutton_metadata: "Metadata de l'enregistrement"
+      bigbluebutton_playback_format: "Format du playback de l'enregistrement"
+      bigbluebutton_recording: "Enregistrement"
+      bigbluebutton_room: "Web Conference Room"
+      bigbluebutton_server: "Web Conference Server"
+      bigbluebutton_server_config: "Web Conference Server Configurations"
+  bigbluebutton_rails:
+    bigbluebutton: BigBlueButton
+    metadata:
+      errors:
+        name_format: "vous ne pouvez utiliser que des lettres, nombres et les syboles suivants: \"-\" or \"_\", et commnencer par une lettre."
+    playback_types:
+      notice:
+        update:
+          success: "le type de playback a été mis à jour avec succès."
+      presentation:
+        name: "Play"
+        tip: "lance l'enregistrement sur une page HTML5. L'enregistrement n'est pas téléchargé sur votre ordinateur ; vous aurez besoin d'un accès à internet pour pouvoir le revoir."
+      presentation_export:
+        name: "Download HTML"
+        tip: "Télécharge la page HTML afin de pouvoir revoir l'enregistrement sur votre ordinateur. Ainsi vous pouvez profiter de votre enregistrement même si vous êtes hors ligne. Ne fonctionne qu'avec le navigateur Firefox pour le moment."
+      presentation_video:
+        name: "Download"
+        tip: "télécharge un fichier vidéo. Vous pouvez utiliser ce fichier pour regarder votre enregistremen hors ligne et pour le partager sur d'autres sites web. Format Webm."
+    recordings:
+      default:
+        description: "Heure du meeting: %{time} (UTC)"
+      errors:
+        check_for_server:
+          no_server: "Pas de serveur associé à cet enregistrement."
+        play:
+          no_format: "Pas d'URL disponible pour cet enregistrement."
+      notice:
+        destroy:
+          success: "Votre enregistrement a bien été supprimé."
+          success_with_bbb_error: "L'enregistrement a été supprimé mais est toujours présent sur le serveur: (\"%{error}\")"
+        publish:
+          success: "Votre enregistrement a bien été publié."
+        unpublish:
+          success: "Votre enregistrement a bien été dépublié."
+        update:
+          success: "Votre enregistrement a bien été mis à jour."
+    rooms:
+      default_welcome_msg: "Welcome to <b>%%CONFNAME%%</b>!<br><br>To join the audio bridge click the headset icon (upper-left hand corner). Use a headset to avoid causing background noise for others.<br>"
+      default_welcome_msg_dial_number: "Welcome to <b>%%CONFNAME%%</b>!<br><br>To join the audio bridge click the headset icon (upper-left hand corner). Use a headset to avoid causing background noise for others.<br>You can call into this conference with a regular phone using the number \"%%DIALNUM%%\".<br>"
+      errors:
+        fetch_recordings:
+          no_server: "There's no server associated with this room."
+        join:
+          cannot_create: "You don't have permissions to start this meeting."
+          failure: "Authentication failure."
+          not_running: "The meeting is not running. You must wait for a moderator to join."
+          wrong_params: "Wrong params in your request."
+        generate_dial_number:
+          not_unique: "We're sorry, but it wasn't possible to generate a unique dial number for this room. You can either try again or manually set a dial number."
+        param_format: "can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
+        server:
+          nil: "Your room must be associated to a server to execute this operation."
+      notice:
+        create:
+          failure: "La classe virtuelle n'a pu être créée."
+          success: "Votre classe virtuelle est prête."
+        destroy:
+          success: "Votre classe virtuelle a bien été supprimée."
+          success_with_bbb_error: "le serveur n'a pu supprimer votre classe virtuelle: (\"%{error}\")"
+        end:
+          not_running: "la classe virtuelle n'a pu être fermée car elle est toujours en cours."
+          success: "la classe virtuelle a bien été fermée."
+        fetch_recordings:
+          success: "La liste des enregistrements de cette classe a bien été mise à jour."
+        generate_dial_number:
+          success: "A unique dial number was generated and saved."
+        update:
+          failure: "Votre classe virtuelle n'a pas pu être mise à jour."
+          success: "Votre classe virtuelle a bien été mise à jour."
+    servers:
+      errors:
+        param_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
+        url_format: "should use the pattern http://<server>/bigbluebutton/api"
+      notice:
+        create:
+          success: "Your server was successfully created."
+        fetch_recordings:
+          success: "The list of recordings was successfully updated."
+        publish_recordings:
+          success: "Your recordings were successfully published."
+        unpublish_recordings:
+          success: "Your recordings were successfully unpublished."
+        update:
+          success: "Your server was successfully updated."
+    server_configs:
+      layouts:
+        defaultlayout: "Default Layout"
+        lecture: "Lecture"
+        lectureassistant: "Lecture Assistant"
+        presentfocus: "Webinar"
+        videochat: "Video Chat"
+        webcamsfocus: "Meeting"

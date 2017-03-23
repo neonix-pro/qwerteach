@@ -5,14 +5,21 @@ FactoryGirl.define do
     password_confirmation "password"
     birthdate { 25.years.ago }
     confirmed_at Date.today
+    description ""
     factory :rand_user do
       email { FFaker::Internet.email }
       firstname { FFaker::Name.first_name }
       lastname { FFaker::Name.last_name }
     end
     factory :student, class: Student do
+      email { FFaker::Internet.email }
+      firstname { FFaker::Name.first_name }
+      lastname { FFaker::Name.last_name }
     end
     factory :teacher, class: Teacher do
+      email { FFaker::Internet.email }
+      firstname { FFaker::Name.first_name }
+      lastname { FFaker::Name.last_name }
     end
   end
   factory :admin, class: User do

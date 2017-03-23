@@ -6,10 +6,10 @@ feature "payment" do
     create_user_with_mango
     login_user(@user.email, @user.password)
     expect(page).to have_content('Connecté.')
-    visit('/user/mangopay/direct_debit')
+    visit('/user/mangopay/load-wallet')
     expect(page).to have_content('Charger mon portefeuille')
     expect(page).to have_field('amount')
-    expect(page).to have_field('card_type')
+    expect(page).to have_field('payment-method')
     expect(page).to have_field('card')
   end
 
@@ -17,8 +17,8 @@ feature "payment" do
     create_user
     login_user(@user.email, @user.password)
     expect(page).to have_content('Connecté.')
-    visit('/user/mangopay/direct_debit')
-    expect(page).to have_content('Mes informations bancaires') #redirected to form to create his mangopay account
+    visit('/user/mangopay/load-wallet')
+    expect(page).to have_content('Configurer mon portefeuille virtuel') #redirected to form to create his mangopay account
   end
 
   def login_user(email, password)
