@@ -10,6 +10,7 @@ class Student < User
   def upgrade
     self.type = User::ACCOUNT_TYPES[1]
     self.save!
+    create_postulation
   end
 
   def free_lessons_with(teacher)

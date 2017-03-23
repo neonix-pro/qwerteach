@@ -7,7 +7,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     # logging that the user joined a room
     meeting = BbbMeeting.find_by(meetingid: @room.meetingid)
     meeting.users << current_user
-    meeting.save
+    meeting.save!
   end
 
   def demo_room
@@ -30,7 +30,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
       @user_name = current_user.name
       meeting = BbbMeeting.find_by(meetingid: @room.meetingid)
       meeting.users << current_user
-      meeting.save
+      meeting.save!
     else
       @user_name = 'Invité'
     end
@@ -82,6 +82,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
       else
         format.html {
           message = t('bigbluebutton_rails.rooms.notice.create.failure')
+          message += @room.errors.full_messages.to_sentence
           redirect_to user_path(@interviewee), :notice => message
         }
         format.json { render :json => @room.errors.full_messages, :status => :unprocessable_entity }

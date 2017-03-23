@@ -16,7 +16,7 @@
           .form-group
             = f.label :birthdate
             %br
-            = f.date_select :birthdate, {}, :required => true, class: 'form-control'
+            = f.date_select :birthdate, {start_year: 1930, end_year:2020}, :required => true, class: 'form-control'
             -#= f.text_field :birthdate, value: @user.birthdate.strftime("%d/%m/%Y"),:required => true, class: 'form-control datepicker'
         .form-group
           = f.label :level_id, "Niveau de formation atteint"
