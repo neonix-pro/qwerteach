@@ -32,9 +32,9 @@ class PayLessonWithCard < ActiveInteraction::Base
 
   def payment_params
     {
-      payment_type: lesson.past? ? 1 : 0,
+      payment_type: lesson.past? ? :postpayment : :prepayment,
       payment_method: :creditcard,
-      status: lesson.past? ? 2 : 1,
+      status: lesson.past? ? :paid : :locked,
       lesson_id: lesson.id,
       transfert_date: DateTime.now,
       price: amount,

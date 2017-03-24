@@ -27,7 +27,7 @@ RSpec.describe PayLessonByTransfert do
     @lesson.save_draft(user)
   end
 
-  it 'save draft lesson and create payment', vcr: true do
+  it 'save draft lesson and create prepayment', vcr: true do
     payin = Mango::PayinTestCard.run(user: user, amount: 49)
     expect(payin).to be_valid
     user.reload
@@ -39,6 +39,26 @@ RSpec.describe PayLessonByTransfert do
     payment = lesson.payments.first
     expect(payment.price).to eq(20)
     expect(payment.payment_method).to eq('wallet')
+    expect(payment.payment_type).to eq('prepayment')
+    expect(payment.status).to eq('locked')
+
+  end
+
+  it 'save draft lesson and create postpayment', vcr: true do
+    lesson.update(time_start: 7.hours.ago, time_end: 5.hours.ago)
+    payin = Mango::PayinTestCard.run(user: user, amount: 49)
+    expect(payin).to be_valid
+    user.reload
+    paying = PayLessonByTransfert.run( user: user, lesson: lesson )
+    expect(paying).to be_valid
+    expect(lesson.id).to be
+    expect(lesson.payments).to be_any
+
+    payment = lesson.payments.first
+    expect(payment.price).to eq(20)
+    expect(payment.payment_method).to eq('wallet')
+    expect(payment.payment_type).to eq('postpayment')
+    expect(payment.status).to eq('paid')
 
   end
 
