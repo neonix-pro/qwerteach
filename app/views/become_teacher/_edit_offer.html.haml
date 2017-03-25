@@ -10,5 +10,5 @@
       = f.label :description
       = f.text_area :description, class:'form-control', rows: 5
     .actions
-      = f.button :enregistrer, type: 'submit', disable_with: '<i class="fa fa-spinner fa-spin"></i>', class: 'btn-sm btn-qw btn-green'
+      = f.button :enregistrer, type: 'submit', disable_with: '<i class="fa fa-spinner fa-spin"></i>', class: 'btn btn-sm btn-qw btn-green'
       = link_to 'supprimer', offer_path(offer, origin: :become_teacher), method: :delete, remote:false

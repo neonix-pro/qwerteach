@@ -54,6 +54,7 @@ class OffersController < ApplicationController
   end
 
   def create
+    @user = current_user
     unless @user.is_a?(Teacher)
       @user.upgrade
     end
