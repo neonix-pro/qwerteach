@@ -1,12 +1,12 @@
 class Postulation < ActiveRecord::Base
 
-  CORRECTION_MANGOPAY = "Prends le temps de configurer ton portefeuille virtuel. Nous avons besoin de tes coordonnées bancaires pour pouvoir te payer."
-  CORRECTION_EMAIL = "L'email que tu as introduit n'a pas encore été validé. Nous t'avons envoyé un lien de confirmation par e-mail, clique dessus pour valider ton e-mail."
-  CORRECTION_TEST_CLASSE = "Tu n'as pas encore essayé la classe virtuelle! Connecte-toi au moins une fois à la classe de démo afin de te familiariser avec l'outil."
-  CORRECTION_OFFERS = "Veille à remplir convenablement tes annonces de cours. Nous utiliserons ces informations pour permettre aux élèves de te trouver et de réserver un cours avec toi."
-  CORRECTION_GENERAL_INFORMATIONS = "Relis ta description. C'est sur base de ce texte que les élèves déideront de prendre ou non cours avec toi."
-  CORRECTION_AVATAR = "Change ta photo de profil. Nous recommandons une photo de toi avec le visage bien visible."
-  CORRECTION_INTERVIEW = "Avant d'approuver ta candidature, nous souhaitons réaliser un petit entretien vidéo avec toi. Pourrais-tu me communiquer 3 créneaux horaire quie te conviendraient, pour que nous puissions fixer rendez-vous?"
+  CORRECTION_MANGOPAY = I18n.t('admin.teacher.postulation.corrections.mangopay')
+  CORRECTION_EMAIL = I18n.t('admin.teacher.postulation.corrections.email')
+  CORRECTION_TEST_CLASSE = I18n.t('admin.teacher.postulation.corrections.bbb')
+  CORRECTION_OFFERS = I18n.t('admin.teacher.postulation.corrections.offers')
+  CORRECTION_GENERAL_INFORMATIONS = I18n.t('admin.teacher.postulation.corrections.description')
+  CORRECTION_AVATAR = I18n.t('admin.teacher.postulation.corrections.avatar')
+  CORRECTION_INTERVIEW = I18n.t('admin.teacher.postulation.corrections.interview')
 
   CORRECTION_TEXT = {
       mangopay: CORRECTION_MANGOPAY,
