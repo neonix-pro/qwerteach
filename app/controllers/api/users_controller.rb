@@ -3,10 +3,9 @@ class Api::UsersController < UsersController
   skip_before_filter :verify_authenticity_token
   respond_to :json
   
-  def find_level
-    topic_group_level_code = "scolaire"
-    level = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => topic_group_level_code).group(I18n.locale[0..3]).order(:id)
-    render :json => {:levels => level}
+  def find_level 
+    levels = Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '').where(:code => "scolaire").group(I18n.locale[0..3]).order(:id)
+    render :json => {:levels => levels}
   end
   
   def get_infos_for_detailed_prices_modal
