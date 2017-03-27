@@ -13,8 +13,9 @@ class Api::ConversationsController < ConversationsController
       end
     end
     
-    render :json => {:participant_avatars => participant_avatars, :avatars => get_sender_avatars, 
-      :recipients => @recipient_options, :conversations => @conversations, :messages => @messages.reverse}
+    render :json => {:participant_avatars => participant_avatars, :recipients => @recipient_options, 
+      :conversations => @conversations, :messages => get_last_messages}
+    
   end
   
   def reply
@@ -23,7 +24,7 @@ class Api::ConversationsController < ConversationsController
   
   def show
     super
-    render :json => {:last_message => @last_message}
+    render :json => {:messages => @messages.reverse, :avatars => get_sender_avatars}
   end
   
   def mark_as_read
@@ -35,11 +36,21 @@ class Api::ConversationsController < ConversationsController
     render :json => {:messages => @messages, :avatars => get_sender_avatars.reverse}
   end
   
+  def get_last_messages
+    last_messages = Array.new
+    @mailbox.conversations.each do |conv|
+      messages = conv.messages.page(@page).per(MESSAGES_PER_PAGE).order(id: :desc)
+      last_messages.push(messages.reverse.last)
+    end
+    return last_messages
+  end
+  
   def get_sender_avatars
     sender_avatars = Array.new
     @messages.reverse.each do |receipt|
       sender_avatars.push(receipt.sender.avatar.url(:small))
-    end and return sender_avatars
+    end
+    return sender_avatars
   end
   
 end
