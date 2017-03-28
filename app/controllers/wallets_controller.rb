@@ -54,7 +54,7 @@ class WalletsController < ApplicationController
       flash[:danger] = t('notice.mango_account.update_error', message: saving.errors.full_messages.to_sentence)
       respond_to do |format|
         format.js {render 'edit_mangopay_wallet'}
-        format.json {render :json => {:message => {:errors => saving.errors.as_json, :saving => saving}}}
+        format.json {render :json => {:message => {:errors => saving.errors, :saving => saving}}}
         format.html {redirect_to index_wallet_path}
       end
     end
@@ -131,7 +131,10 @@ class WalletsController < ApplicationController
     when 'BANK_WIRE'
       @bank_wire = Mango::SendMakeBankWire.run(user: current_user, amount: amount)
       if @bank_wire.valid?
-        render :load_wallet
+        respond_to do |format|
+          format.html {render :load_wallet}
+          format.json {render :json => {:message => "bank wire", :bank_wire => @bank_wire.result}}
+        end
       else
         #TODO: render direct_debit_mangopay_wallet with filled fields
         redirect_to load_wallet_path, alert: payin.errors.full_messages.join(' ') and return

@@ -101,7 +101,6 @@ class OffersController < ApplicationController
   def destroy
     @offer = Offer.find(params[:id])
     Offer.destroy(@offer.id)
-
     respond_to do |format|
       format.html { redirect_to params[:origin].nil? ? offers_url : "/#{params[:origin]}/offers"}
       format.json {render :json => {:success => "true"}}
