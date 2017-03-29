@@ -12,17 +12,20 @@ class SuggestLesson < ActiveInteraction::Base
   float :price
   string :comment, default: nil
 
+  attr_reader :lesson
+
   validates :student, :time_start, :hours, :minutes, :topic_id, :level_id, :price, presence: true
 
   set_callback :validate, :after, :validate_pay_afterwards
   set_callback :validate, :after, :validate_duration
+  set_callback :execute, :after, :send_notifications
 
   def student
     @student ||= Student.find_by(id: student_id) if student_id.present?
   end
 
   def execute
-    lesson = Lesson.new(lesson_params)
+    @lesson = Lesson.new(lesson_params)
     self.errors.merge!(lesson.errors) unless lesson.save
     lesson
   end
@@ -57,6 +60,11 @@ class SuggestLesson < ActiveInteraction::Base
       topic_group_id: Topic.find_by(id: topic_id).try(:topic_group_id),
       status: :pending_student
     })
+  end
+
+  def send_notifications
+    return if errors.any?
+    LessonNotificationsJob.perform_async(:notify_student_about_proposal, lesson)
   end
 
 end

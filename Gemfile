@@ -129,7 +129,7 @@ gem 'dotenv-rails'
 gem 'simple_token_authentication', '~> 1.0'
 gem 'pusher'
 #gem 'bourbon'
-
+gem 'sucker_punch'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

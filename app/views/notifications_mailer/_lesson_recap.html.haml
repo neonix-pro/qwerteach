@@ -1,0 +1,14 @@
+%dl
+  %dt ID:
+  %dd #{lesson.id}
+  %dt date:
+  %dd le #{lesson.time_start.strftime("%d/%m/%Y à %H:%M")}
+  %dt Matière:
+  %dd #{lesson.topic.title}
+  %dt Durée:
+  %dd #{lesson.duration.hours}h#{lesson.duration.minutes}
+  %dt Statut:
+  %dd
+    = 'en attente' if lesson.pending_any?
+    = 'confirmée' if lesson.created?
+    = 'Annulée' unless lesson.active?

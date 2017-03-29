@@ -15,7 +15,9 @@ RSpec.describe PayLessonWithCard do
         "Amount": 12
       },
       "Nature": "REGULAR",
-      "Status": "SUCCEEDED"
+      "Status": "SUCCEEDED",
+      "PaymentType": "CARD",
+      "CardId": "123456"
     }
   end
 
@@ -39,10 +41,13 @@ RSpec.describe PayLessonWithCard do
     })
     @lesson.save_draft(@user)
     expect(MangoPay::PayIn).to receive(:fetch).with(transaction_id).and_return(transaction)
+    expect_any_instance_of(Student).to receive(:mangopay).and_return( Struct.new(:cards).new([]) )
     #Mango::SaveAccount.run FactoryGirl.attributes_for(:mango_user).merge(user: @user)
   end
 
   it 'save draft lesson and create prepayment' do
+
+
 
     paying = PayLessonWithCard.run( user: user, lesson: lesson, transaction_id: transaction_id )
     expect(paying).to be_valid

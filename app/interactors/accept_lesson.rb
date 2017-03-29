@@ -44,13 +44,14 @@ class AcceptLesson < ActiveInteraction::Base
   end
 
   def send_notifications
-    return unless errors.blank?
-    other.send_notification(notification_text, '#', user, lesson)
-    PrivatePub.publish_to("/notifications/#{other.id}", :lesson => lesson) rescue SocketError nil # ???
-    LessonsNotifierWorker.perform() # check if new bbb is needed (right now)
-    LessonMailer.update_lesson(other, lesson, notification_text).deliver
-  rescue
-    raise if ENV['SKIP_NOTIFICATION_ERRORS'].blank?
+    return if errors.any?
+    if teacher?
+      LessonNotificationsJob.perform_async(:notify_student_about_teacher_accepts_lesson, lesson)
+      LessonNotificationsJob.perform_async(:notify_teacher_about_teacher_accepts_lesson, lesson)
+    else
+      LessonNotificationsJob.perform_async(:notify_student_about_student_accepts_lesson, lesson)
+      LessonNotificationsJob.perform_async(:notify_teacher_about_student_accepts_lesson, lesson)
+    end
   end
 
   def validate_access

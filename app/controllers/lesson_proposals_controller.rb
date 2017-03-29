@@ -29,7 +29,7 @@ class LessonProposalsController < ApplicationController
     @students = User.where(id: current_user.mailbox.conversations
                                       .where('mailboxer_conversations.updated_at > ?', 1.year.ago)
                                       .includes(:messages).flat_map(&:messages).map(&:sender_id).uniq)
-                    .where(type: 'Student')
+                                      .where.not(id: current_user.id)
 
     @payments = Payment.select('lessons.student_id').paid.joins(:lesson)
                     .where(lessons: {student_id: @students.map(&:id)})

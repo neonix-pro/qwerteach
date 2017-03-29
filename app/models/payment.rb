@@ -6,6 +6,8 @@ class Payment < ActiveRecord::Base
   enum status: [:pending, :locked, :paid, :canceled, :disputed, :refunded]
 
   enum payment_method: [:creditcard, :bcmc, :wallet, :unknown]
+
+  serialize :transactions, JSON
   #pending: en attente
   #paid: payé (au prof)
   #canceled: annulé

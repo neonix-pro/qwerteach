@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170319105840) do
+ActiveRecord::Schema.define(version: 20170328032718) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -314,6 +314,7 @@ ActiveRecord::Schema.define(version: 20170319105840) do
     t.integer  "transfer_prof_id"
     t.integer  "transfer_bonus_id"
     t.float    "transfer_bonus_amount"
+    t.text     "transactions"
   end
 
   create_table "pictures", force: :cascade do |t|

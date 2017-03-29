@@ -1,7 +1,11 @@
 class PayLessonByTransfert < ActiveInteraction::Base
+  include PayLessonNotification
+
   object :user, class: User
   object :lesson, class: Lesson
   string :wallet, default: 'transaction'
+
+  attr_reader :payment
 
   def execute
     Lesson.transaction do
@@ -12,12 +16,11 @@ class PayLessonByTransfert < ActiveInteraction::Base
         self.errors.merge! transfering.errors
         raise ActiveRecord::Rollback
       end
-      payment = Payment.new payment_params(transfering)
+      @payment = Payment.new payment_params(transfering)
       if !payment.save
         self.errors.merge! payment.errors
         raise ActiveRecord::Rollback
       end
-      lesson.notify_user(user)
       return transfering.result
     end
   end
@@ -38,7 +41,8 @@ class PayLessonByTransfert < ActiveInteraction::Base
       lesson_id: lesson.id,
       transfert_date: DateTime.now,
       price: amount,
-      transfer_eleve_id: normal_transaction.try(:id)
+      transfer_eleve_id: normal_transaction.try(:id),
+      transactions: [normal_transaction, bonus_transaction]
     }.tap do |p|
       if bonus_transaction.present?
         p.merge!({

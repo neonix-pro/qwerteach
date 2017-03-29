@@ -152,10 +152,10 @@ class Lesson < ActiveRecord::Base
   end
 
   def is_teacher?(user)
-    user.id == teacher.id
+    user.id == teacher_id
   end
   def is_student?(user)
-    user.id == student.id
+    user.id == student_id
   end
 
   def disputed?
