@@ -36,11 +36,13 @@ class LessonsController < ApplicationController
       @lesson.time_start =  params[:lesson][:time_start]
       @lesson.time_end = @lesson.time_start + duration.total
       @lesson.status = @lesson.alternate_pending
-      @notification_text = "#{@other.name} a modifié votre demande pour le cours ##{@lesson.id}."
-      @other.send_notification(@notification_text, '#', @user, @lesson)
       if @lesson.save
         flash[:success] = "La modification s'est correctement déroulée."
-        email_user
+        if @lesson.is_teacher?(current_user)
+          LessonNotificationsJob.perform_async(:notify_student_about_reschedule_lesson, @lesson)
+        else
+          LessonNotificationsJob.perform_async(:notify_teacher_about_reschedule_lesson, @lesson)
+        end
         respond_to do |format|
           format.html {redirect_to lessons_path}
           format.json {render :json => {:success => "true", :message => "La modification s'est correctement déroulée."}}
@@ -56,23 +58,23 @@ class LessonsController < ApplicationController
   end
 
   def accept
-    @lesson.update_attributes(:status => 2)
-    @lesson.save
-    body = "#"
-    if @lesson.is_teacher?(@user)
-      @notification_text = "Le professeur #{@lesson.teacher.name} a accepté votre demande de cours."
+    if @lesson.is_student?(current_user) and !@lesson.paid? and !@lesson.prepaid? and !@lesson.pay_afterwards
+      redirect_to new_lesson_payment_path(@lesson) and return
+    end
+
+    accepting = AcceptLesson.run(lesson: @lesson, user: current_user)
+    if accepting.valid?
+      respond_to do |format|
+        format.html {redirect_to dashboard_path, notice: "Le cours a été accepté."}
+        format.json {render :json => {:success => "true", :message => "Le cours a été accepté.", :lesson => @lesson}}
+      end
     else
-      @notification_text = "#{@lesson.student.name} a accepté la demande de cours pour le cours ##{@lesson.id}."
+      respond_to do |format|
+        format.html {redirect_to dashboard_path, flash: {danger: accepting.errors.full_messages.first}}
+        format.json {render :json => {:success => "false", :message => accepting.errors.full_messages.first, :lesson => @lesson}}
+      end
     end
-    @other.send_notification(@notification_text, body, @user, @lesson)
-    PrivatePub.publish_to "/notifications/#{@other.id}", :lesson => @lesson # ???
-    flash[:notice] = "Le cours a été accepté."
-    LessonsNotifierWorker.perform() # check if new bbb is needed (right now)
-    email_user
-    respond_to do |format|
-      format.html {redirect_to dashboard_path}
-      format.json {render :json => {:success => "true", :message => "Le cours a été accepté.", :lesson => @lesson}}
-    end
+
   end
 
   def refuse
@@ -81,10 +83,7 @@ class LessonsController < ApplicationController
 
     if refuse.valid?
       body = "#"
-      @notification_text = "#{@user.name} a refusé votre demande de cours."
-      @other.send_notification(@notification_text, body, @user, @lesson)
       flash[:success] = 'Vous avez décliné la demande de cours.'
-      email_user
       respond_to do |format|
         format.html {redirect_to lessons_path}
         format.json {render :json => {:success => "true", 
@@ -106,16 +105,7 @@ class LessonsController < ApplicationController
       @lesson.status = 'canceled'
       refuse = RefundLesson.run(user: @user, lesson: @lesson)
       if refuse.valid?
-        body = "#"
-        if statuts == 'created'
-          @notification_text = "#{@user.name} a annulé le cours."
-        else
-          @notification_text = "#{@user.name} a annulé la demande de cours."
-        end
-
-        @other.send_notification(@notification_text, body, @user, @lesson)
         flash[:success] = 'Vous avez annulé la demande de cours.'
-        email_user
         respond_to do |format|
           format.html {redirect_to lessons_path}
           format.json {render :json => {:success => "true", 
@@ -140,12 +130,12 @@ class LessonsController < ApplicationController
   end
 
   def pay_teacher
+    unless @lesson.prepaid?
+      redirect_to new_lesson_payment_path(@lesson) and return
+    end
     pay_teacher = PayTeacher.run(user: @user, lesson: @lesson)
     if pay_teacher.valid?
-      @notification_text = "Le payement de votre cours avec #{@user.name} a été débloqué!"
-      @other.send_notification(@notification_text, '#', @user, @lesson)
       flash[:success] = 'Merci pour votre feedback! Le professeur a été payé.'
-      email_user
       respond_to do |format|
         format.html {redirect_to lessons_path}
         format.json {render :json => {:success => "true", :message => "Merci pour votre feedback! Le professeur a été payé."}}

@@ -1,6 +1,8 @@
 class PayTeacher < ActiveInteraction::Base
-  object :user, class: User
-  object :lesson, class: Lesson
+  object :user, :class => User
+  object :lesson, :class => Lesson
+
+  set_callback :execute, :after, :send_notifications
 
   def execute
     # find all payments of the lesson (most cases only one)
@@ -29,6 +31,11 @@ class PayTeacher < ActiveInteraction::Base
   end
 
   private
+
+  def send_notifications
+    return if errors.any?
+    LessonNotificationsJob.perform_async(:notify_teacher_about_lesson_payment_unlocked, lesson)
+  end
 
   def student
     lesson.student

@@ -8,11 +8,12 @@
         .lesson-partner= link_to lesson.other(current_user).firstname, user_path(lesson.other(current_user)), class: 'text-yellow'
         .lesson-date
           #{lesson.time_start.strftime("%d %b %Y")}
-          - lesson.bbb_room.recordings.each do |r|
-            %br
-            = distance_of_time_in_words (r.end_time - r.start_time).to_i.seconds
+          - if lesson.bbb_room
+            - lesson.bbb_room.recordings.each do |r|
+              %br
+              = distance_of_time_in_words (r.end_time - r.start_time).to_i.seconds
         .lesson-seemore.text-center
-          - unless lesson.bbb_room.recordings.empty?
+          - if lesson.bbb_room and lesson.bbb_room.recordings.exists?
             = link_to lesson.bbb_room.recordings.last.playback_formats.first.url, target: '_blank' do
               %i.fa.fa-play.fa-2x
     - else

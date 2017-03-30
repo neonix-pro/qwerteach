@@ -4,6 +4,7 @@ class Offer < ActiveRecord::Base
   belongs_to :topic
   belongs_to :topic_group
   has_many :offer_prices, -> { order(:level_id) }, inverse_of: :offer
+  has_many :levels, through: :offer_prices
   accepts_nested_attributes_for :offer_prices,
                                 :allow_destroy => true,
                                 :reject_if => :all_blank

@@ -1,5 +1,42 @@
 class PaymentsController < ApplicationController
   before_filter :authenticate_user!
+  before_action :set_lesson, only: [:new, :create, :credit_card_complete, :bancontact_complete]
+
+  def new
+    if @lesson.paid? or @lesson.prepaid?
+      redirect_to dashboard_path, notice: 'This lesson has already been paid'
+    end
+    @user = current_user
+    @teacher = @lesson.teacher
+    @card_registration = Mango::CreateCardRegistration.run(user: current_user).result
+  end
+
+  def create
+    PayLesson.run({
+      controller: self,
+      lesson: @lesson,
+      credit_card_complete_url: credit_card_complete_lesson_payments_url(@lesson),
+      bancontact_complete_url: bancontact_complete_lesson_payments_url(@lesson)
+    })
+  end
+
+  def credit_card_complete
+    processing = PayLessonWithCard.run(user: current_user, lesson: @lesson, transaction_id: params[:transactionId])
+    if processing.valid?
+      redirect_to lessons_path, notice: t('notice.booking_success')
+    else
+      redirect_to new_lesson_payment_path(@lesson), notice: t('notice.booking_error')
+    end
+  end
+
+  def bancontact_complete
+    processing = PayLessonByBancontact.run(user: current_user, lesson: @lesson, transaction_id: params[:transactionId])
+    if processing.valid?
+      redirect_to lessons_path, notice: t('notice.booking_success')
+    else
+      redirect_to new_lesson_payment_path(@lesson), notice: t('notice.booking_error')
+    end
+  end
 
   def index
     @lessons_given = current_user.lessons_given
@@ -136,6 +173,10 @@ class PaymentsController < ApplicationController
 
   def edit_params
     params.require(:payment).permit(:price)
+  end
+
+  def set_lesson
+    @lesson = Lesson.find_by(id: params[:lesson_id], student_id: current_user.id)
   end
 
 end

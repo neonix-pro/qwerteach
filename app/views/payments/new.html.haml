@@ -1,0 +1,19 @@
+.container-fluid
+  .row
+    .lesson-payment.col-sm-5.col-sm-offset-1
+      .lesson-payment-wrapper
+        %h3 Payment
+        #payment-errors
+        = render 'lesson_requests/payment_method', url: ->(mode){ lesson_payments_path(@lesson, mode: mode)  }
+      .loader-wrapper.text-center.lesson-payment-loader.hidden
+        %i.fa.fa-spin.fa-3x.fa-spinner.text-green
+
+:javascript
+  mangoPay.cardRegistration.baseURL = "#{ MangoPay.configuration.root_url }";
+  mangoPay.cardRegistration.clientId = "#{ MangoPay.configuration.client_id }";
+
+  window.paymentForm = new PaymentForm( $('#lesson-payment-form'), {
+    card_registration_url: "#{ @card_registration.card_registration_url }",
+    card_registration_id: "#{ @card_registration.id }",
+    payment_url: "#{ lesson_payments_path(@lesson, mode: 'cd', card_id: '__CARD_ID__') }"
+  });

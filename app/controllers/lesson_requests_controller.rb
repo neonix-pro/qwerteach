@@ -50,75 +50,7 @@ class LessonRequestsController < ApplicationController
 
   def payment
     render 'new' and return if @lesson.nil?
-
-    case params[:mode]
-
-      when 'transfert'
-        paying = PayLessonByTransfert.run(user: current_user, lesson: @lesson)
-        if paying.valid?
-          respond_to do |format|
-            format.js {render 'finish', :layout => false}
-            format.json {render :json => {:message => "finish"}}
-            format.html {redirect_to lessons_path}
-          end and return
-        else
-          @card_registration = Mango::CreateCardRegistration.run(user: current_user).result
-          respond_to do |format|
-            format.js {render 'errors', :layout=>false, locals: {object: paying}}
-            format.json {render :json => {:message => "errors"}}
-          end
-        end
-
-      when 'bancontact'
-        return_url = bancontact_process_user_lesson_requests_url(@teacher)
-        payin = Mango::PayinBancontact.run(user: current_user, amount: @lesson.price,
-          return_url: return_url, wallet: 'transaction')
-        if payin.valid?
-          respond_to do |format|
-            format.js {render js: "window.location = '#{payin.result.redirect_url}'"}
-            format.json {render :json => {:message => "result", :url => payin.result.redirect_url}}
-          end and return
-        else
-          respond_to do |format|
-            format.js {render 'errors', :layout=>false, locals: {object: payin}}
-            format.json {render :json => {:message => "errors"}}
-          end
-        end
-
-      when 'cd'
-        return_url = credit_card_process_user_lesson_requests_url(@teacher)
-        payin = Mango::PayinCreditCard.run({user: current_user, amount: @lesson.price,
-          card_id: params[:card_id], return_url: return_url, wallet: 'transaction'})
-
-        if payin.valid?
-          result = payin.result
-          if result.secure_mode_redirect_url.present?
-            respond_to do |format|
-              format.js {render js: "window.location = '#{result.secure_mode_redirect_url}'"}
-              format.json {render :json => {:message => "result", :url => result.secure_mode_redirect_url}}
-            end and return
-          else
-            paying = PayLessonWithCard.run(user: current_user, lesson: @lesson, transaction_id: result.id)
-            if !paying.valid?
-              respond_to do |format|
-                format.js {render 'errors', :layout=>false, locals: {object: paying}}
-                format.json {render :json => {:message => "errors"}}
-              end
-            else
-              respond_to do |format|
-                format.js {render 'finish', :layout => false}
-                format.json {render :json => {:message => "finish"}}
-              end
-            end
-          end
-        else
-          respond_to do |format|
-            format.js {render 'errors', :layout=>false, locals: {object: payin}}
-            format.json {render :json => {:message => "errors"}}
-          end
-        end
-
-    end
+    PayLesson.run(controller: self, lesson: @lesson)
   end
 
   def credit_card_process

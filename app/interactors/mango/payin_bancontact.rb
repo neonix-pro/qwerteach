@@ -8,7 +8,7 @@ module Mango
     string :return_url
 
     validates :amount, :return_url, presence: true
-    validates :wallet, inclusion: {in: %w(normal bonus transaction)}
+    validates :wallet, presence: true
 
     set_callback :execute, :before, :check_mango_account
 
@@ -28,10 +28,6 @@ module Mango
       raise Mango::UserDoesNotHaveAccount if user.mango_id.blank?
     end
 
-    def beneficiary_wallet
-      user.send( "#{wallet}_wallet" )
-    end
-
     def mango_params
       {
         author_id: user.mango_id.to_s,
@@ -43,7 +39,7 @@ module Mango
           currency: "EUR",
           amount: fees * 100
         },
-        credited_wallet_id: beneficiary_wallet.id,
+        credited_wallet_id: beneficiary_wallet_id,
         ReturnURL: return_url,
         culture: "FR",
         card_type: "BCMC",
