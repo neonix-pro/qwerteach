@@ -98,8 +98,8 @@ class ConversationsController < ApplicationController
     Pusher.trigger("#{@conversation.id}", "#{@conversation.id}", {last_message: @message, avatar: @message.sender.avatar.url(:small)})
     
     #Send notification to android app
-    Pusher.notify(["#{receiver.id}"], {fcm: {notification: {title: @message.subject, body: @message.body, 
-      icon: 'androidlogo', click_action: "MY_MESSAGES"}}})
+    Pusher.notify(["#{receiver.id}"], {fcm: {notification: {title: @message.subject, body: @message.body,
+      icon: 'androidlogo', click_action: "MY_MESSAGES"}}, webhook_url: 'http://requestb.in/wiriy8wi', webhook_level: 'DEBUG'})
     
     @conversation_id = @conversation.id
     respond_to do |format|
