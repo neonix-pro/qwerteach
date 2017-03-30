@@ -7,4 +7,7 @@
     -if notification.notified_object_type == 'Lesson'
       .text-right
         = link_to 'voir plus', lessons_path
+    -unless notification.body.nil?
+      .text-right
+        = link_to 'cliquez ici', notification.body
     .item-date= notification_date notification.created_at

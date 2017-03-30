@@ -1,0 +1,15 @@
+fr:
+  admin:
+    teacher:
+      greetings: "Bonjour %{name},  et bienvenue sur Qwerteach!"
+      postulation:
+        contact: "Je te contacte car tu postules pour être prof. "
+        change: "Avant de te faire apparaître comme prof sur le site, nous aimerions augmenter tes chances de te faire contacter par des élèves. Pour ce faire, je vais te demander de corriger les petits détails suivants:"
+        corrections:
+          mangopay: "Prends le temps de configurer ton portefeuille virtuel. Nous avons besoin de tes coordonnées bancaires pour pouvoir te payer."
+          email: "L'email que tu as introduit n'a pas encore été validé. Nous t'avons envoyé un lien de confirmation par e-mail, clique dessus pour valider ton e-mail."
+          bbb: "Tu n'as pas encore essayé la classe virtuelle! Connecte-toi au moins une fois à la classe de démo afin de te familiariser avec l'outil."
+          offers: "Veille à remplir convenablement tes annonces de cours. Nous utiliserons ces informations pour permettre aux élèves de te trouver et de réserver un cours avec toi."
+          description: "Relis ta description. C'est sur base de ce texte que les élèves décideront de prendre ou non cours avec toi."
+          avatar: "Change ta photo de profil. Nous recommandons une photo de toi avec le visage bien visible."
+          interview: "Avant d'approuver ta candidature, nous souhaitons réaliser un petit entretien vidéo avec toi. Pourrais-tu me communiquer 3 créneaux horaire qui te conviendraient, pour que nous puissions fixer rendez-vous?"

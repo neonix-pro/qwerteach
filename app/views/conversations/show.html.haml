@@ -1,4 +1,4 @@
-= render partial: 'conversation', locals: {conversation: @conversation}
+= render partial: 'conversation', locals: {conversation: @conversation, page: @page, messages: @messages}
 -#:javascript
 -#  $(document).on('turbolinks:load', function(){
 -#    $('#chatbox_#{@conversation.id} .chatboxinput').click(function () {
@@ -12,3 +12,5 @@
 -#    var chatbox = $("#chatbox_#{@conversation.id} .chatboxcontent");
 -#    chatbox.scrollTop(chatbox[0].scrollHeight);
 -#  });
+:javascript
+  $("#chatbox_#{@conversation.id} .loader").hide();

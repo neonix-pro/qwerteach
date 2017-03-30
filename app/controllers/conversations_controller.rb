@@ -91,6 +91,7 @@ class ConversationsController < ApplicationController
     @string_received = render_to_string template: 'messages/_message_received.html.haml', locals:{message: @message}, layout: false
     @string_sent = render_to_string template: 'messages/_message_sent.html.haml', locals:{message: @message}, layout: false
 
+
     PrivatePub.publish_to "/chat/#{receiver.id}", :conversation_id => @conversation.id, :receiver_id => receiver
     PrivatePub.publish_to @path, message_received: @string_received, message_sent: @string_sent, sender_id: current_user.id
     

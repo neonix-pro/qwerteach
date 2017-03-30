@@ -9,7 +9,7 @@ class window.AvatarUploader
   constructor: (options = {}) ->
     @$el = $('form.avatar-uploader')
     @$placeholder = $('.avatar-uploaded-preview')
-    @$submit = $('.edit-user-avatar input[type=submit]')
+    @$submit = $('.edit-user-avatar button[type=submit]')
     @$browse = $('.edit-user-avatar button[type=button]')
     @jcrop = null
     @options = options
@@ -23,6 +23,7 @@ class window.AvatarUploader
     @$el.on 'change', '#user_avatar', => @onFileSelected()
     @$el.on 'click', '.btn-avatar-save', => @submitForm()
     @$el.on 'click', 'button.browse', => @onClickBrowse()
+    @$submit.on 'click', (e)=> @onClickSubmit(e)
 
   onFileSelected: ->
     @$placeholder.hide()
@@ -74,3 +75,7 @@ class window.AvatarUploader
 
   onClickBrowse: ->
     $('#avatar_select input').trigger('click');
+
+  onClickSubmit: (e)->
+    $(e.currentTarget).html($(e.currentTarget).attr('disable_with'))
+    $(e.currentTarget).prop('disabled', true)

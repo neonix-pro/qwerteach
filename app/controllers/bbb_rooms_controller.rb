@@ -7,12 +7,12 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     # logging that the user joined a room
     meeting = BbbMeeting.find_by(meetingid: @room.meetingid)
     meeting.users << current_user
-    meeting.save
+    meeting.save!
   end
 
   def demo_room
     @room = BigbluebuttonRoom.find_by(name: 'Demo')
-    if @room.id.nil?
+    if @room.nil?
       @room = BigbluebuttonRoom.new(demo_room_params)
       @room.save!
     end
@@ -26,7 +26,14 @@ class BbbRoomsController < Bigbluebutton::RoomsController
   end
 
   def join_demo
-    @user_name = 'Invité'
+    if current_user
+      @user_name = current_user.name
+      meeting = BbbMeeting.find_by(meetingid: @room.meetingid)
+      meeting.users << current_user
+      meeting.save!
+    else
+      @user_name = 'Invité'
+    end
     join_internal(@user_name, @user_role, @user_id)
   end
 
@@ -52,7 +59,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
 
   # redefinie pour changer le redirect et faire entrer l'utilisateur directement dans la classe
   def create
-    @room ||= BigbluebuttonRoom.new(room_params)
+    @room = BigbluebuttonRoom.new(room_params)
 
     if params[:bigbluebutton_room] and
         (not params[:bigbluebutton_room].has_key?(:meetingid) or
@@ -87,6 +94,11 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     @teacher = @room.lesson.teacher
   end
 
+  def invite
+    @bbbRoom = BbbRoom.find_by(param: params[:id])
+    super
+  end
+
   private
   def room_allowed_params
     [:name, :server_id, :meetingid, :attendee_key, :moderator_key, :welcome_msg,
@@ -105,7 +117,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
                                            :name => "Demo",
                                            :param => "Demo",
                                            :record_meeting => 0,
-                                           :logout_url => ENV['MAILER_HOST']+':3000', #TODO: make dynamic
+                                           :logout_url => ENV['MAILER_HOST']+':3000',
                                            :duration => 0,
                                            :auto_start_recording => 0,
                                            :allow_start_stop_recording => 0

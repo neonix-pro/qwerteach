@@ -17,7 +17,7 @@
 .right
   .form-group
     = f.label :post_code
-    = f.number_field :postal_code, :required => true, class: 'form-control'
+    = f.text_field :postal_code, :required => true, class: 'form-control'
   .form-group
     = f.label :city
     = f.text_field :city, :required => true, class: 'form-control'

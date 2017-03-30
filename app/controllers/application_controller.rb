@@ -31,7 +31,12 @@ class ApplicationController < ActionController::Base
   end
 
   def bigbluebutton_can_create?(room, role)
-    true
+    if current_user && current_user.is_admin?
+      true
+    else
+      room = BbbRoom.find(room.id)
+      (room.lesson.present? && room.lesson.eql?(current_user.current_lesson) ) || room.name == 'Demo'
+    end
   end
 
   def current_timestamp

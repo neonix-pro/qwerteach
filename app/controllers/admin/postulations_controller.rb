@@ -19,10 +19,10 @@ module Admin
     def generate_text
       @postulation = Postulation.find(params[:postulation_id])
       @user = @postulation.teacher
-      greetings = "Bonjour #{@user.name},  et bienvenue sur Qwerteach!"
-      reason = "Je te contacte car tu postules pour être prof."
+      greetings = t('admin.teacher.greetings', name: @user.name)
+      reason = t('admin.teacher.postulation.contact')
       if @postulation.corrections_needed
-        reason += "Avant de te faire apparaitre comme prof sur le site, nous aimerions augmenter tes chances de te faire contacter par des élèves. Pour ce faire, je vais te demander de corriger les petits détails suivants:"
+        reason += t('admin.teacher.postulation.change')
       end
       changes = @postulation.correction_text
       @text = [greetings, reason, changes].join("\r\n")

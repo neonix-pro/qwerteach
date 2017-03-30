@@ -275,3 +275,41 @@
     }
   }
 }
+
+#postulation{
+  padding: 0px 30px;
+  background-color: $color_qwerteach_purple;
+  color:white;
+  .panel{
+    background-color: $color_qwerteach_purple;
+    color:white;
+    border: none;
+    border-radius: 0px;
+    box-shadow:none;
+    margin-bottom:0;
+  }
+  .postulation-point{
+    text-align:center;
+    width: 14.2857%;
+    float:left;
+    padding: 20px 0px;
+    margin-bottom: 0px;
+  }
+  .postulation-point:hover{
+    cursor:pointer;
+    background-color:$color_qwerteach_purple_light;
+  }
+  .explanation{
+    margin: 30px;
+  }
+}
+
+#teacher-tools{
+  padding-bottom: 20px;
+  .tools-list{
+    border-right: 1px solid $medium_grey;
+  }
+  .tools-list:last-child{
+    border-right:none;
+  }
+}

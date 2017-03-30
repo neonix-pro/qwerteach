@@ -30,14 +30,14 @@ class MessagesController < ApplicationController
       flash[:success] = "Votre message a bien été envoyé!" unless params[:mailbox]
       respond_to do |format|
         format.html {redirect_to messagerie_path}
-        format.js {redirect_to conversation_path(receipt.conversation)}
+        format.js
         format.json {render :json => {:success => "true", :message => "Votre message a bien été envoyé!"}}
       end and return
     else
       flash[:danger] = "Votre message n'a pas pu être envoyé!"
       respond_to do |format|
         format.html {redirect_to messagerie_path}
-        format.js {redirect_to conversation_path(receipt.conversation)}
+        format.js
         format.json {render :json => {:success => "false", :message => "Votre message n'a pas pu être envoyé!"}}
       end
     end
