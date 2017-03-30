@@ -13,7 +13,19 @@
         %span{data: {toggle: 'tooltip', placement: 'bottom'}, title: "#{lesson.time_start.strftime('Timezone: %Z')}"}
           #{lesson.time_start.strftime('Le %d/%m/%Y à %R')}
     .col-xs-3.todo_answer.text-center.todo_action
-      = link_to 'Accepter', lesson_accept_path(lesson), class: 'btn btn-qw btn-green btn-sm'
+      - if lesson.pending_any?
+        - if (lesson.teacher == current_user and lesson.pending_teacher?) or lesson.paid? or lesson.prepaid?
+          = link_to 'Accepter', lesson_accept_path(lesson), class: 'btn btn-qw btn-green btn-sm'
+        - else
+          - if lesson.pay_afterwards?
+            %span.dropdown
+              %a.btn.btn-qw.btn-green.btn-sm{href: '#', 'data-toggle' => 'dropdown'} Accept
+              %ul.dropdown-menu
+                %li= link_to 'Pay later', lesson_accept_path(lesson)
+                %li= link_to 'Pay now', new_lesson_payment_path(lesson)
+          - else
+            = link_to 'Accepter', new_lesson_payment_path(lesson), class: 'btn btn-qw btn-green btn-sm'
+
       = link_to 'Modifier', edit_lesson_path(lesson),
         class: 'btn btn-qw btn-orange btn-sm edit-lesson',
         data:{target: '#edit-lesson-modal',toggle: 'modal', lesson: lesson.id},

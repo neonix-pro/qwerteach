@@ -1,21 +1,26 @@
 class PayLessonByTransfert < ActiveInteraction::Base
+  include PayLessonNotification
+
   object :user, class: User
   object :lesson, class: Lesson
+  string :wallet, default: 'transaction'
+
+  attr_reader :payment
 
   def execute
     Lesson.transaction do
+      lesson.created! if lesson.pending_student?
       return self.errors.merge!(lesson.errors) if !lesson.save
-      transfering = Mango::PayFromWallet.run(user: user, amount: amount)
-      if !transfering.valid?
+      transfering = Mango::PayFromWallet.run(user: user, amount: amount, wallet: wallet)
+      unless transfering.valid?
         self.errors.merge! transfering.errors
         raise ActiveRecord::Rollback
       end
-      payment = Payment.new payment_params(transfering)
+      @payment = Payment.new payment_params(transfering)
       if !payment.save
         self.errors.merge! payment.errors
         raise ActiveRecord::Rollback
       end
-      lesson.notify_user(user)
       return transfering.result
     end
   end
@@ -30,13 +35,14 @@ class PayLessonByTransfert < ActiveInteraction::Base
     bonus_transaction = transfering.result.first
     normal_transaction = transfering.result.last
     {
-      payment_type: 0,
+      payment_type: lesson.past? ? :postpayment : :prepayment,
       payment_method: :wallet,
-      status: 1,
+      status: lesson.past? ? :paid : :locked,
       lesson_id: lesson.id,
       transfert_date: DateTime.now,
       price: amount,
-      transfer_eleve_id: normal_transaction.try(:id)
+      transfer_eleve_id: normal_transaction.try(:id),
+      transactions: [normal_transaction, bonus_transaction]
     }.tap do |p|
       if bonus_transaction.present?
         p.merge!({
@@ -46,4 +52,5 @@ class PayLessonByTransfert < ActiveInteraction::Base
       end
     end
   end
+
 end

@@ -20,24 +20,6 @@ h2.booking-title{
   .change-booking-step.active small{
     display:none;
   }
-  .payment_method{
-    display:none;
-    .actions{
-      margin: 25px 0px;
-      text-align:right;
-      input[type="submit"]{
-        color:$dark_grey;
-        background-color: $color_qwerteach_green;
-        border-radius: 17px;
-        font-size: 14px;
-        padding: 6px 30px;
-        margin-left:10px;
-        border: 1px solid $color_qwerteach_green;
-        letter-spacing: 0.2px;
-        font-family: SofiaProLight;
-      }
-    }
-  }
   h3{
     color: #AFAFAF;
     font-size: 18px;
@@ -60,6 +42,26 @@ h2.booking-title{
     }
   }
 }
+
+#payment-methods .payment_method{
+  display:none;
+  .actions{
+    margin: 25px 0px;
+    text-align:right;
+    input[type="submit"]{
+      color:$dark_grey;
+      background-color: $color_qwerteach_green;
+      border-radius: 17px;
+      font-size: 14px;
+      padding: 6px 30px;
+      margin-left:10px;
+      border: 1px solid $color_qwerteach_green;
+      letter-spacing: 0.2px;
+      font-family: SofiaProLight;
+    }
+  }
+}
+
 .additional-infos {
   .teacher-references {
     padding: 10px;

@@ -125,9 +125,11 @@ gem 'nexmo'
 
 gem 'acts_as_commentable'
 
+gem 'dotenv-rails'
 gem 'simple_token_authentication', '~> 1.0'
 gem 'pusher'
-gem 'bourbon'
+#gem 'bourbon'
+gem 'sucker_punch'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -160,6 +162,7 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'mysql2'
   gem 'figaro'
+  gem 'letter_opener'
   #gem 'rails-dev-tweaks', '~> 1.1'
 end
 

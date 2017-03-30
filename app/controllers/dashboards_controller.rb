@@ -17,7 +17,7 @@ class DashboardsController < ApplicationController
       @wallets = {normal: @user.wallets.first, bonus: @user.wallets.second, transfer: @user.wallets.third}
     end
 
-    @to_do_list =@user.todo_lessons.sort_by &:created_at
+    @to_do_list = @user.todo_lessons.sort_by &:created_at
 
     @featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)
     @featured_teachers = Teacher.all.order(score: :desc).limit(5)

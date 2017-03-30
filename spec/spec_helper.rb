@@ -23,13 +23,14 @@ require 'sunspot/rails/spec_helper'
 RSpec.configure do |config|
 
   #Ajout de Sunspot pour les tests sur Advert
-    config.before(:each) do
+  config.before(:each) do
     ::Sunspot.session = ::Sunspot::Rails::StubSessionProxy.new(::Sunspot.session)
   end
 
   config.after(:each) do
     ::Sunspot.session = ::Sunspot.session.original_session
   end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

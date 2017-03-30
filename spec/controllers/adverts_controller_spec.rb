@@ -8,30 +8,30 @@ RSpec.describe AdvertsController, type: :controller do
        request.env['devise.mapping'] = Devise.mappings[:user]
      end
      
-        it "nombreAdvert" do
+        xit "nombreAdvert" do
             assert_equal 4, Advert.count
         end
         
-        it "user" do
+        xit "user" do
           expect(subject.current_user).to_not eq(nil)
         end
         
-        it "show" do
+        xit "show" do
             get 'show', :id => Advert.last.id
             expect(response).to be_success
         end
         
-        it "edit" do
+        xit "edit" do
             get 'edit', :id => Advert.first.id
             expect(response).to be_success
         end
         
-        it "delete" do
+        xit "delete" do
             get "destroy", :id => Advert.first.id 
             expect(response).to redirect_to adverts_path
         end
         
-        it "nombreAdvert-1" do
+        xit "nombreAdvert-1" do
             assert_equal 4, Advert.count
         end
     
@@ -41,12 +41,12 @@ end
 
 RSpec.describe AdvertsController, type: :controller do
     describe AdvertsController do
-        it "show" do
+        xit "show" do
             get 'show', :id => Advert.first.id
             expect(response).to_not be_success
         end
         
-        it "edit" do
+        xit "edit" do
             get 'edit', :id => Advert.first.id
             expect(response).to_not be_success
         end

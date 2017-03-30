@@ -19,13 +19,6 @@ form{
       margin-bottom: 10px;
     }
   }
-  select, select.form-control{
-    appearance:none;
-    -moz-appearance:none;
-    -webkit-appearance:none;
-    background: url('select_arrow.png') no-repeat 97% 50% #ffffff;
-    background-image: url('select_arrow.png');
-  }
   input[type="number"]{
     appearance:none;
     -moz-appearance:none;
@@ -34,4 +27,12 @@ form{
   .checkbox label{
     line-height: 25px;
   }
+}
+
+select, select.form-control, .form-control.select{
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  background: url('select_arrow.png') no-repeat 97% 50% #ffffff;
+  background-image: url('select_arrow.png');
 }

@@ -33,7 +33,7 @@ class UsersController < ApplicationController
       
       review_sender_names = Array.new
       @reviews.each do |review|
-        review_sender_names.push(review.sender.firstname)
+        review_sender_names.push(review.sender.firstname) if review.sender
       end
           
       respond_to do |format|

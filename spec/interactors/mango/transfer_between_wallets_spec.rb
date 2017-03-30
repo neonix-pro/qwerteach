@@ -8,17 +8,17 @@ RSpec.describe Mango::TransferBetweenWallets do
   end
 
   it 'makes payin from test card', :vcr do
-    payin = Mango::PayinTestCard.run(user: @user, amount: 80)
+    payin = Mango::PayinTestCard.run(user: @user, amount: 45)
     expect(payin).to be_valid
     transfer = Mango::TransferBetweenWallets.run({
-      user: @user, amount: 50,
+      user: @user, amount: 30,
       debited_wallet_id: @user.normal_wallet.id,
       credited_wallet_id: @user.transaction_wallet.id
     })
     expect(transfer).to be_valid
     @user.reload
-    expect(@user.normal_wallet.balance.amount ).to eq(3000)
-    expect(@user.transaction_wallet.balance.amount ).to eq(5000)
+    expect(@user.normal_wallet.balance.amount ).to eq(1500)
+    expect(@user.transaction_wallet.balance.amount ).to eq(3000)
   end
 
 end

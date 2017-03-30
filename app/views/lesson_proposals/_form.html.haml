@@ -1,0 +1,52 @@
+= form_for @proposal, as: :proposal, url: lesson_proposals_path, method: :post, remote: true, html: {class: 'request-lession-form'} do |f|
+  %h3.active A propos du cours
+  #proposal-form-errors= render 'shared/errors', object: f.object
+  .form-group
+    = f.label :student
+    = f.hidden_field :student_id
+    .dropdown
+      %a.form-control.select.students-select-btn{href: '#', 'data-toggle' => 'dropdown'}= f.object.student.try(:full_name) || 'Select a student'
+      %ul#students-list.students-select.dropdown-menu
+        - @students.each do |student|
+          %li.students-select-item{'data-student-id' => student.id, class: ('disabled' if student.mango_id.blank?), 'data-payment' => ('true' if @payments[student.id].present?)}
+            = image_tag( user_avatar(student, :small), class: 'students-select-avatar' )
+            %span.students-select-name= student.name
+  .form-group.pay-afterwards-field.hidden
+    = f.check_box :pay_afterwards
+    = f.label :pay_afterwards, 'Pay afterwards'
+  .form-group
+    = f.label :topic_id, 'Choisissez une matière'
+    - options = current_user.offers.map{|o| [o.title, o.topic.id]}
+    = f.select :topic_id, options, {prompt: 'matière'}, {class: 'form-control topic-select', required: true}
+  .form-group
+    = f.label :level_id, 'Choisissez le niveau'
+    - if f.object.topic_id.present?
+      - options = current_user.offers.includes(offer_prices: :level).where(topic_id: f.object.topic_id).uniq.pluck('levels.be', 'levels.id')
+    - else
+      - options = []
+    = f.select :level_id, options, {prompt: 'niveau'}, {class: 'form-control level-select', required: true}
+  .form-group
+    = f.label :time_start, 'Choisissez le jour et l\'heure de votre cours'
+    #time_start_picker.input-group.date
+      = f.text_field :time_start, class: 'form-control', :required => true
+      %span.input-group-addon
+        %span.glyphicon.glyphicon-calendar
+    %small
+      Toutes les heures sont affichées dans votre timezone ("#{t current_user.time_zone}")
+  .form-group.lesson-duration
+    = label_tag :time, 'Choisissez la durée du cours', class: 'control-label'
+    .row
+      .col-xs-2= select_hour f.object.hours, {prefix: :proposal, field_name: :hours, start_hour: 0, :end_hour => 5}, {class: 'form-control hours-select', required: true}
+      .col-xs-1
+        %label heure
+      .col-xs-2= select_minute f.object.minutes, {prefix: :proposal, field_name: :minutes, minute_step: 15}, {class: 'form-control minutes-select', required: true}
+      .col-xs-1
+        %label min
+  .form-group
+    = f.label :price
+    = f.text_field :price, class: 'form-control'
+  .form-group
+    = f.label :comment, 'Un détail à préciser à votre prof?'
+    = f.text_area :comment, class:'form-control', rows: "3", placeholder: "Ex: j'ai des difficultés avec la trigonométrie et les vecteurs."
+  .form-group.text-right
+    = f.submit 'Suivant', class: 'btn btn-qw btn-green'

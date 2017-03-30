@@ -6,6 +6,8 @@ class Payment < ActiveRecord::Base
   enum status: [:pending, :locked, :paid, :canceled, :disputed, :refunded]
 
   enum payment_method: [:creditcard, :bcmc, :wallet, :unknown]
+
+  serialize :transactions, JSON
   #pending: en attente
   #paid: payé (au prof)
   #canceled: annulé
@@ -19,11 +21,12 @@ class Payment < ActiveRecord::Base
   validates :payment_type, presence: true
   validates :price, presence: true
   validates :price, :numericality => {:greater_than_or_equal_to => 0}
-  validates :lesson_id, presence: true
+  validates :lesson, presence: true
   validates :transfert_date, presence: true
   validates :payment_method, presence: true
 
   scope :locked, ->{where("status LIKE ? ", 1)}
+  scope :paid, ->{ where(status: 2) }
 
   def pending?
     status == 'pending'

@@ -1,6 +1,8 @@
 class RefundLesson < ActiveInteraction::Base
-  object :user, class: User
-  object :lesson, class: Lesson
+  object :user, :class => User
+  object :lesson, :class => Lesson
+
+  set_callback :execute, :after, :send_notifications
 
   def execute
     # find all payments of the lesson (most cases only one)
@@ -56,6 +58,15 @@ class RefundLesson < ActiveInteraction::Base
       debited_wallet_id: student.transaction_wallet.id,
       credited_wallet_id: student.normal_wallet.id
     }
+  end
+
+  def send_notifications
+    return if errors.any?
+    if lesson.is_student?(user)
+      LessonNotificationsJob.perform_async(:notify_teacher_about_student_reject_lesson, lesson)
+    else
+      LessonNotificationsJob.perform_async(:notify_student_about_teacher_reject_lesson, lesson)
+    end
   end
 
 end

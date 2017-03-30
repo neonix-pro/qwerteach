@@ -1,0 +1,774 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/oauth/token
+    body:
+      encoding: UTF-8
+      string: grant_type=client_credentials
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic cXdlcnRlYWNocmFpbHM6eGs0WUpMWnZ5S3N5QWJoN0Q3RlRNUk92ckZ6azQyMWZzRE9pRHhIUHJPNlNVYzBvUnA=
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json;charset=UTF-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Date:
+      - Fri, 24 Mar 2017 03:10:12 GMT
+      Content-Length:
+      - '91'
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"8fba7edc811d43e282638992c318a909","token_type":"bearer","expires_in":1199}'
+    http_version: 
+  recorded_at: Fri, 24 Mar 2017 03:10:14 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/natural
+    body:
+      encoding: UTF-8
+      string: '{"CountryOfResidence":"LR","Nationality":"CM","Address":{"AddressLine1":"Sanford
+        Ridges","AddressLine2":"302","PostalCode":"FM49 5ES","City":"Janetteburgh","Region":"Minnesota","Country":"SB"},"FirstName":"Jacinto","LastName":"Rippin","Birthday":701370000,"Email":"vernon_dare@gulgowski.biz","PersonType":"NATURAL","Tag":"user
+        1662"}'
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.26
+      Authorization:
+      - bearer 8fba7edc811d43e282638992c318a909
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.26","lang":"ruby","lang_version":"2.3.1 p112 (2016-04-26)","platform":"x86_64-darwin16","uname":"Darwin
+        MacBook-Pro-MacBook.local 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29
+        17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      X-Ratelimit:
+      - '120'
+      - '30'
+      - '3549'
+      - '60'
+      X-Ratelimit-Remaining:
+      - '102051'
+      - '2270'
+      - '4440'
+      - '8680'
+      X-Ratelimit-Reset:
+      - '1490325900'
+      - '1490326800'
+      - '1490328600'
+      - '1490411340'
+      Date:
+      - Fri, 24 Mar 2017 03:10:14 GMT
+      Content-Length:
+      - '476'
+    body:
+      encoding: UTF-8
+      string: '{"Address":{"AddressLine1":"Sanford Ridges","AddressLine2":"302","City":"Janetteburgh","Region":"Minnesota","PostalCode":"FM49
+        5ES","Country":"SB"},"FirstName":"Jacinto","LastName":"Rippin","Birthday":701370000,"Nationality":"CM","CountryOfResidence":"LR","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"PersonType":"NATURAL","Email":"vernon_dare@gulgowski.biz","KYCLevel":"LIGHT","Id":"23182810","Tag":"user
+        1662","CreationDate":1490325014}'
+    http_version: 
+  recorded_at: Fri, 24 Mar 2017 03:10:14 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/wallets
+    body:
+      encoding: UTF-8
+      string: '{"Owners":[23182810],"Currency":"EUR","Description":"wallet user 1662"}'
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.26
+      Authorization:
+      - bearer 8fba7edc811d43e282638992c318a909
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.26","lang":"ruby","lang_version":"2.3.1 p112 (2016-04-26)","platform":"x86_64-darwin16","uname":"Darwin
+        MacBook-Pro-MacBook.local 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29
+        17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      X-Ratelimit:
+      - '121'
+      - '31'
+      - '3550'
+      - '61'
+      X-Ratelimit-Remaining:
+      - '102050'
+      - '2269'
+      - '4439'
+      - '8679'
+      X-Ratelimit-Reset:
+      - '1490325900'
+      - '1490326800'
+      - '1490328600'
+      - '1490411340'
+      Date:
+      - Fri, 24 Mar 2017 03:10:15 GMT
+      Content-Length:
+      - '188'
+    body:
+      encoding: UTF-8
+      string: '{"Description":"wallet user 1662","Owners":["23182810"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"23182811","Tag":null,"CreationDate":1490325015}'
+    http_version: 
+  recorded_at: Fri, 24 Mar 2017 03:10:15 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/wallets
+    body:
+      encoding: UTF-8
+      string: '{"Owners":[23182810],"Currency":"EUR","Description":"wallet bonus 1662","Tag":"Bonus"}'
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.26
+      Authorization:
+      - bearer 8fba7edc811d43e282638992c318a909
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.26","lang":"ruby","lang_version":"2.3.1 p112 (2016-04-26)","platform":"x86_64-darwin16","uname":"Darwin
+        MacBook-Pro-MacBook.local 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29
+        17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      X-Ratelimit:
+      - '122'
+      - '32'
+      - '3551'
+      - '62'
+      X-Ratelimit-Remaining:
+      - '102049'
+      - '2268'
+      - '4438'
+      - '8678'
+      X-Ratelimit-Reset:
+      - '1490325900'
+      - '1490326800'
+      - '1490328600'
+      - '1490411340'
+      Date:
+      - Fri, 24 Mar 2017 03:10:16 GMT
+      Content-Length:
+      - '192'
+    body:
+      encoding: UTF-8
+      string: '{"Description":"wallet bonus 1662","Owners":["23182810"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"23182812","Tag":"Bonus","CreationDate":1490325016}'
+    http_version: 
+  recorded_at: Fri, 24 Mar 2017 03:10:16 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/wallets
+    body:
+      encoding: UTF-8
+      string: '{"Owners":[23182810],"Currency":"EUR","Description":"wallet transfert
+        1662","Tag":"Transfert"}'
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.26
+      Authorization:
+      - bearer 8fba7edc811d43e282638992c318a909
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.26","lang":"ruby","lang_version":"2.3.1 p112 (2016-04-26)","platform":"x86_64-darwin16","uname":"Darwin
+        MacBook-Pro-MacBook.local 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29
+        17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      X-Ratelimit:
+      - '124'
+      - '34'
+      - '3553'
+      - '64'
+      X-Ratelimit-Remaining:
+      - '102047'
+      - '2266'
+      - '4436'
+      - '8676'
+      X-Ratelimit-Reset:
+      - '1490325900'
+      - '1490326800'
+      - '1490328600'
+      - '1490411340'
+      Date:
+      - Fri, 24 Mar 2017 03:10:16 GMT
+      Content-Length:
+      - '200'
+    body:
+      encoding: UTF-8
+      string: '{"Description":"wallet transfert 1662","Owners":["23182810"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"23182815","Tag":"Transfert","CreationDate":1490325016}'
+    http_version: 
+  recorded_at: Fri, 24 Mar 2017 03:10:17 GMT
+- request:
+    method: get
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/23182810/cards?per_page=100&sort=CreationDate:desc
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.26
+      Authorization:
+      - bearer 8fba7edc811d43e282638992c318a909
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.26","lang":"ruby","lang_version":"2.3.1 p112 (2016-04-26)","platform":"x86_64-darwin16","uname":"Darwin
+        MacBook-Pro-MacBook.local 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29
+        17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Link:
+      - <https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/23182810/cards?sort=CreationDate%3adesc&per_page=100&page=1>;
+        rel="first",<https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/23182810/cards?sort=CreationDate%3adesc&per_page=100&page=1>;
+        rel="last"
+      X-Number-Of-Pages:
+      - '1'
+      X-Number-Of-Items:
+      - '0'
+      X-Ratelimit:
+      - '125'
+      - '35'
+      - '3554'
+      - '65'
+      X-Ratelimit-Remaining:
+      - '102046'
+      - '2265'
+      - '4435'
+      - '8675'
+      X-Ratelimit-Reset:
+      - '1490325900'
+      - '1490326800'
+      - '1490328600'
+      - '1490411340'
+      Date:
+      - Fri, 24 Mar 2017 03:10:17 GMT
+      Content-Length:
+      - '2'
+    body:
+      encoding: UTF-8
+      string: "[]"
+    http_version: 
+  recorded_at: Fri, 24 Mar 2017 03:10:18 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/cardregistrations
+    body:
+      encoding: UTF-8
+      string: '{"UserId":23182810,"Currency":"EUR","CardType":"CB_VISA_MASTERCARD"}'
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.26
+      Authorization:
+      - bearer 8fba7edc811d43e282638992c318a909
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.26","lang":"ruby","lang_version":"2.3.1 p112 (2016-04-26)","platform":"x86_64-darwin16","uname":"Darwin
+        MacBook-Pro-MacBook.local 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29
+        17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      X-Ratelimit:
+      - '126'
+      - '3555'
+      - '36'
+      - '66'
+      X-Ratelimit-Remaining:
+      - '102045'
+      - '2264'
+      - '4434'
+      - '8674'
+      X-Ratelimit-Reset:
+      - '1490325900'
+      - '1490326800'
+      - '1490328600'
+      - '1490411340'
+      Date:
+      - Fri, 24 Mar 2017 03:10:17 GMT
+      Content-Length:
+      - '453'
+    body:
+      encoding: UTF-8
+      string: '{"Id":"23182818","Tag":null,"CreationDate":1490325018,"UserId":"23182810","AccessKey":"1X0m87dmM2LiwFgxPLBJ","PreregistrationData":"ObMObfSdwRfyE4QClGtUc91x0JiE4HGLqzIa_Wc4hLe3bXtj4Zf_kdZsKqNVw1D2S4wCy-yiraxeE65tmxOe8A","RegistrationData":null,"CardId":null,"CardType":"CB_VISA_MASTERCARD","CardRegistrationURL":"https://homologation-webpayment.payline.com/webpayment/getToken","ResultCode":null,"ResultMessage":null,"Currency":"EUR","Status":"CREATED"}'
+    http_version: 
+  recorded_at: Fri, 24 Mar 2017 03:10:18 GMT
+- request:
+    method: post
+    uri: https://homologation-webpayment.payline.com/webpayment/getToken
+    body:
+      encoding: US-ASCII
+      string: accessKeyRef=1X0m87dmM2LiwFgxPLBJ&cardNumber=3569990000000132&cardExpirationDate=1017&cardCvx=131&data=ObMObfSdwRfyE4QClGtUc91x0JiE4HGLqzIa_Wc4hLe3bXtj4Zf_kdZsKqNVw1D2S4wCy-yiraxeE65tmxOe8A
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - homologation-webpayment.payline.com
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 24 Mar 2017 03:10:19 GMT
+      Set-Cookie:
+      - JSESSIONID=C31303F0FB47B8711AF1387A4A137CC9; Path=/; Secure; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Length:
+      - '155'
+      Vary:
+      - Accept-Encoding,User-Agent
+      Content-Type:
+      - text/plain; charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: data=zhOzMuGOpoDc3tuUg5z-5iQ1FY4w_jTwWKFa4WWJ43chM_qbqYFdrjhQw6unv9G19oeHmTsdh4tENwDy-WsqmuMXVX5MuK21xbjzhiN1FvdcMno-TH-uVmrMIWwDURfPj_xhEP1mO3a4c0TqpYJePQ
+    http_version: 
+  recorded_at: Fri, 24 Mar 2017 03:10:21 GMT
+- request:
+    method: put
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/cardregistrations/23182818
+    body:
+      encoding: UTF-8
+      string: '{"RegistrationData":"data=data=zhOzMuGOpoDc3tuUg5z-5iQ1FY4w_jTwWKFa4WWJ43chM_qbqYFdrjhQw6unv9G19oeHmTsdh4tENwDy-WsqmuMXVX5MuK21xbjzhiN1FvdcMno-TH-uVmrMIWwDURfPj_xhEP1mO3a4c0TqpYJePQ"}'
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.26
+      Authorization:
+      - bearer 8fba7edc811d43e282638992c318a909
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.26","lang":"ruby","lang_version":"2.3.1 p112 (2016-04-26)","platform":"x86_64-darwin16","uname":"Darwin
+        MacBook-Pro-MacBook.local 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29
+        17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      X-Ratelimit:
+      - '127'
+      - '3556'
+      - '37'
+      - '67'
+      X-Ratelimit-Remaining:
+      - '102044'
+      - '2263'
+      - '4433'
+      - '8673'
+      X-Ratelimit-Reset:
+      - '1490325900'
+      - '1490326800'
+      - '1490328600'
+      - '1490411340'
+      Date:
+      - Fri, 24 Mar 2017 03:10:21 GMT
+      Content-Length:
+      - '628'
+    body:
+      encoding: UTF-8
+      string: '{"Id":"23182818","Tag":null,"CreationDate":1490325018,"UserId":"23182810","AccessKey":"1X0m87dmM2LiwFgxPLBJ","PreregistrationData":"ObMObfSdwRfyE4QClGtUc91x0JiE4HGLqzIa_Wc4hLe3bXtj4Zf_kdZsKqNVw1D2S4wCy-yiraxeE65tmxOe8A","RegistrationData":"data=data=zhOzMuGOpoDc3tuUg5z-5iQ1FY4w_jTwWKFa4WWJ43chM_qbqYFdrjhQw6unv9G19oeHmTsdh4tENwDy-WsqmuMXVX5MuK21xbjzhiN1FvdcMno-TH-uVmrMIWwDURfPj_xhEP1mO3a4c0TqpYJePQ","CardId":"23182819","CardType":"CB_VISA_MASTERCARD","CardRegistrationURL":"https://homologation-webpayment.payline.com/webpayment/getToken","ResultCode":"000000","ResultMessage":"Success","Currency":"EUR","Status":"VALIDATED"}'
+    http_version: 
+  recorded_at: Fri, 24 Mar 2017 03:10:21 GMT
+- request:
+    method: get
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/23182810/wallets
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.26
+      Authorization:
+      - bearer 8fba7edc811d43e282638992c318a909
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.26","lang":"ruby","lang_version":"2.3.1 p112 (2016-04-26)","platform":"x86_64-darwin16","uname":"Darwin
+        MacBook-Pro-MacBook.local 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29
+        17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Link:
+      - <https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/23182810/wallets?page=1&per_page=10>;
+        rel="first",<https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/23182810/wallets?page=1&per_page=10>;
+        rel="last"
+      X-Number-Of-Pages:
+      - '1'
+      X-Number-Of-Items:
+      - '3'
+      X-Ratelimit:
+      - '128'
+      - '3557'
+      - '38'
+      - '68'
+      X-Ratelimit-Remaining:
+      - '102043'
+      - '2262'
+      - '4432'
+      - '8672'
+      X-Ratelimit-Reset:
+      - '1490325900'
+      - '1490326800'
+      - '1490328600'
+      - '1490411340'
+      Date:
+      - Fri, 24 Mar 2017 03:10:22 GMT
+      Content-Length:
+      - '584'
+    body:
+      encoding: UTF-8
+      string: '[{"Description":"wallet user 1662","Owners":["23182810"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"23182811","Tag":null,"CreationDate":1490325015},{"Description":"wallet
+        bonus 1662","Owners":["23182810"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"23182812","Tag":"Bonus","CreationDate":1490325016},{"Description":"wallet
+        transfert 1662","Owners":["23182810"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"23182815","Tag":"Transfert","CreationDate":1490325016}]'
+    http_version: 
+  recorded_at: Fri, 24 Mar 2017 03:10:23 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/payins/card/direct
+    body:
+      encoding: UTF-8
+      string: '{"AuthorId":23182810,"CreditedUserId":23182810,"DebitedFunds":{"Currency":"EUR","Amount":4900.0},"Fees":{"Currency":"EUR","Amount":0.0},"CreditedWalletId":"23182811","SecureModeReturnURL":"http://test.com","SecureMode":"DEFAULT","CardId":"23182819"}'
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.26
+      Authorization:
+      - bearer 8fba7edc811d43e282638992c318a909
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.26","lang":"ruby","lang_version":"2.3.1 p112 (2016-04-26)","platform":"x86_64-darwin16","uname":"Darwin
+        MacBook-Pro-MacBook.local 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29
+        17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      X-Ratelimit:
+      - '129'
+      - '3558'
+      - '39'
+      - '69'
+      X-Ratelimit-Remaining:
+      - '102042'
+      - '2261'
+      - '4431'
+      - '8671'
+      X-Ratelimit-Reset:
+      - '1490325900'
+      - '1490326800'
+      - '1490328600'
+      - '1490411340'
+      Date:
+      - Fri, 24 Mar 2017 03:10:24 GMT
+      Content-Length:
+      - '618'
+    body:
+      encoding: UTF-8
+      string: '{"Id":"23182822","Tag":null,"CreationDate":1490325023,"AuthorId":"23182810","CreditedUserId":"23182810","DebitedFunds":{"Currency":"EUR","Amount":4900},"CreditedFunds":{"Currency":"EUR","Amount":4900},"Fees":{"Currency":"EUR","Amount":0},"Status":"SUCCEEDED","ResultCode":"000000","ResultMessage":"Success","ExecutionDate":1490325024,"Type":"PAYIN","Nature":"REGULAR","CreditedWalletId":"23182811","DebitedWalletId":null,"PaymentType":"CARD","ExecutionType":"DIRECT","SecureMode":"DEFAULT","CardId":"23182819","SecureModeReturnURL":null,"SecureModeRedirectURL":null,"SecureModeNeeded":false,"StatementDescriptor":null}'
+    http_version: 
+  recorded_at: Fri, 24 Mar 2017 03:10:25 GMT
+- request:
+    method: get
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/23182810/wallets
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.26
+      Authorization:
+      - bearer 8fba7edc811d43e282638992c318a909
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.26","lang":"ruby","lang_version":"2.3.1 p112 (2016-04-26)","platform":"x86_64-darwin16","uname":"Darwin
+        MacBook-Pro-MacBook.local 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29
+        17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      Link:
+      - <https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/23182810/wallets?page=1&per_page=10>;
+        rel="first",<https://api.sandbox.mangopay.com/v2.01/qwerteachrails/users/23182810/wallets?page=1&per_page=10>;
+        rel="last"
+      X-Number-Of-Pages:
+      - '1'
+      X-Number-Of-Items:
+      - '3'
+      X-Ratelimit:
+      - '130'
+      - '3559'
+      - '40'
+      - '70'
+      X-Ratelimit-Remaining:
+      - '102041'
+      - '2260'
+      - '4430'
+      - '8670'
+      X-Ratelimit-Reset:
+      - '1490325900'
+      - '1490326800'
+      - '1490328600'
+      - '1490411340'
+      Date:
+      - Fri, 24 Mar 2017 03:10:25 GMT
+      Content-Length:
+      - '587'
+    body:
+      encoding: UTF-8
+      string: '[{"Description":"wallet user 1662","Owners":["23182810"],"Balance":{"Currency":"EUR","Amount":4900},"Currency":"EUR","FundsType":"DEFAULT","Id":"23182811","Tag":null,"CreationDate":1490325015},{"Description":"wallet
+        bonus 1662","Owners":["23182810"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"23182812","Tag":"Bonus","CreationDate":1490325016},{"Description":"wallet
+        transfert 1662","Owners":["23182810"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"23182815","Tag":"Transfert","CreationDate":1490325016}]'
+    http_version: 
+  recorded_at: Fri, 24 Mar 2017 03:10:26 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/qwerteachrails/transfers
+    body:
+      encoding: UTF-8
+      string: '{"AuthorId":23182810,"DebitedFunds":{"Currency":"EUR","Amount":2000.0},"Fees":{"Currency":"EUR","Amount":0.0},"DebitedWalletId":"23182811","CreditedWalletId":"23182815"}'
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.26
+      Authorization:
+      - bearer 8fba7edc811d43e282638992c318a909
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.26","lang":"ruby","lang_version":"2.3.1 p112 (2016-04-26)","platform":"x86_64-darwin16","uname":"Darwin
+        MacBook-Pro-MacBook.local 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29
+        17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Leetchi
+      X-Ratelimit:
+      - '131'
+      - '3560'
+      - '41'
+      - '71'
+      X-Ratelimit-Remaining:
+      - '102040'
+      - '2259'
+      - '4429'
+      - '8669'
+      X-Ratelimit-Reset:
+      - '1490325900'
+      - '1490326800'
+      - '1490328600'
+      - '1490411340'
+      Date:
+      - Fri, 24 Mar 2017 03:10:26 GMT
+      Content-Length:
+      - '430'
+    body:
+      encoding: UTF-8
+      string: '{"Id":"23182824","Tag":null,"CreationDate":1490325027,"AuthorId":"23182810","CreditedUserId":"23182810","DebitedFunds":{"Currency":"EUR","Amount":2000},"CreditedFunds":{"Currency":"EUR","Amount":2000},"Fees":{"Currency":"EUR","Amount":0},"Status":"SUCCEEDED","ResultCode":"000000","ResultMessage":"Success","ExecutionDate":1490325027,"Type":"TRANSFER","Nature":"REGULAR","DebitedWalletId":"23182811","CreditedWalletId":"23182815"}'
+    http_version: 
+  recorded_at: Fri, 24 Mar 2017 03:10:27 GMT
+recorded_with: VCR 3.0.3

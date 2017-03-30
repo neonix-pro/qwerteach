@@ -1,38 +1,38 @@
-#pay-by-wallet
-  - if @lesson.price > (@user.total_wallets_in_cents / 100)
-    Mon portefeuille: #{@user.total_wallets_in_cents/100}€
-    Montant insuffisant
-  - else
-    .checkbox
-      %label
-        = check_box_tag('pay_by_wallet', '')
-        Payer avec mon portefeuille virtuel
-        %br
-        Mon portefeuille: #{@user.total_wallets_in_cents/100}€
-#payment-methods
-  %hr
-  .choose_payment_method
-    .or.text-center
-      ou
-    - options = {'Carte de crédit' => :creditcard, 'Carte de débit / direct banking' => :bcmc}
-    = select_tag('payment_method', options_for_select(options), prompt: 'Choisissez votre mode de payement', class:'form-control')
-  .payment_method.payment_by_bcmc
-    En cliquant sur 'ok', vous serez redirigé vers votre insitution bancaire pour procéder au payement.
-    .actions
-      = button_to 'Finaliser la demande de cours', user_lesson_requests_payment_path(@teacher, mode: 'bancontact'), remote: true, method: 'put'
-  .payment_method.payment_by_creditcard
-    #credit_card.field.credit_card_choice
-      = form_tag  user_lesson_requests_payment_path(@teacher), :method => :put, remote: true do |f|
-        = hidden_field :mode, 'cd'
-        = label_tag "Choisir carte"
-        - options = options_for_select(current_user.mangopay.cards.map { |f| [f.alias, f.id] }, (current_user.mangopay.cards.first.id unless current_user.mangopay.cards.empty?))
-        = select_tag :card_id, options, {include_blank: 'Nouvelle carte', class:'form-control'}
-      #new_card{class: ('hidden' unless current_user.mangopay.cards.empty?)}
-        = render 'mangopay/card_form', remote: true, no_actions: true
+#lesson-payment-form
+  #pay-by-wallet
+    - if @lesson.price > (@user.total_wallets_in_cents / 100)
+      Mon portefeuille: #{@user.total_wallets_in_cents/100}€
+      Montant insuffisant
+    - else
+      .checkbox
+        %label
+          = check_box_tag('pay_by_wallet', '')
+          Payer avec mon portefeuille virtuel
+          %br
+          Mon portefeuille: #{@user.total_wallets_in_cents/100}€
+  #payment-methods
+    %hr
+    .choose_payment_method
+      .or.text-center
+        ou
+      - options = {'Carte de crédit' => :creditcard, 'Carte de débit / direct banking' => :bcmc}
+      = select_tag('payment_method', options_for_select(options), prompt: 'Choisissez votre mode de payement', class:'form-control')
+    .payment_method.payment_by_bcmc
+      En cliquant sur 'ok', vous serez redirigé vers votre insitution bancaire pour procéder au payement.
       .actions
-        = submit_tag "Finaliser la demande de cours"
-  .payment_method.payment_by_wallet
-    .actions
-      = button_to 'Finaliser la demande de cours', user_lesson_requests_payment_path(@teacher, mode: 'transfert'), method: 'put'
+        = button_to 'Finaliser la demande de cours', url.call('bancontact'), remote: true, method: 'post'
+    .payment_method.payment_by_creditcard
+      #credit_card.field.credit_card_choice
+        = form_tag  url.call('cd'), :method => :post, remote: true do |f|
+          = label_tag "Choisir carte"
+          - options = options_for_select(current_user.mangopay.cards.map { |f| [f.alias, f.id] }, (current_user.mangopay.cards.first.id unless current_user.mangopay.cards.empty?))
+          = select_tag :card_id, options, {include_blank: 'Nouvelle carte', class:'form-control'}
+        #new_card{class: ('hidden' unless current_user.mangopay.cards.empty?)}
+          = render 'mangopay/card_form', remote: true, no_actions: true
+        .actions
+          = submit_tag "Finaliser la demande de cours", class: 'btn-pay-by-card'
+    .payment_method.payment_by_wallet
+      .actions
+        = button_to 'Finaliser la demande de cours', url.call('transfert'), method: 'post'
 
-= link_to 'retour', new_user_lesson_request_path(@teacher), remote: true
+= link_to 'retour', new_user_lesson_request_path(@teacher), remote: true, class: 'back-link'
