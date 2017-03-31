@@ -39,9 +39,9 @@ class LessonsController < ApplicationController
       if @lesson.save
         flash[:success] = "La modification s'est correctement déroulée."
         if @lesson.is_teacher?(current_user)
-          LessonNotificationsJob.perform_async(:notify_student_about_reschedule_lesson, @lesson)
+          LessonNotificationsJob.perform_async(:notify_student_about_reschedule_lesson, @lesson.id)
         else
-          LessonNotificationsJob.perform_async(:notify_teacher_about_reschedule_lesson, @lesson)
+          LessonNotificationsJob.perform_async(:notify_teacher_about_reschedule_lesson, @lesson.id)
         end
         respond_to do |format|
           format.html {redirect_to lessons_path}

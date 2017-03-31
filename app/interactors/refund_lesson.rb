@@ -63,9 +63,9 @@ class RefundLesson < ActiveInteraction::Base
   def send_notifications
     return if errors.any?
     if lesson.is_student?(user)
-      LessonNotificationsJob.perform_async(:notify_teacher_about_student_reject_lesson, lesson)
+      LessonNotificationsJob.perform_async(:notify_teacher_about_student_reject_lesson, lesson.id)
     else
-      LessonNotificationsJob.perform_async(:notify_student_about_teacher_reject_lesson, lesson)
+      LessonNotificationsJob.perform_async(:notify_student_about_teacher_reject_lesson, lesson.id)
     end
   end
 

@@ -64,7 +64,7 @@ class SuggestLesson < ActiveInteraction::Base
 
   def send_notifications
     return if errors.any?
-    LessonNotificationsJob.perform_async(:notify_student_about_proposal, lesson)
+    LessonNotificationsJob.perform_async(:notify_student_about_proposal, lesson.id)
   end
 
 end
