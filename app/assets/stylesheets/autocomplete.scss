@@ -42,7 +42,7 @@
     padding: 3px 15px;
   }
 }
-.ui-widget-content .ui-state-focus {
+.ui-widget-content .ui-state-focus, .ui-menu-item:hover {
   //élément sélectionné
   color: #ffffff;
   text-decoration: none;

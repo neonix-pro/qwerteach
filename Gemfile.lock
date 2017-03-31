@@ -287,7 +287,7 @@ GEM
       thor (~> 0.19)
     nexmo (4.5.0)
       jwt
-    nokogiri (1.7.0.1)
+    nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     normalize-rails (3.0.3)
     oauth (0.5.1)
@@ -497,7 +497,7 @@ GEM
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
-    tzinfo (1.2.2)
+    tzinfo (1.2.3)
       thread_safe (~> 0.1)
     uglifier (3.1.4)
       execjs (>= 0.3.0, < 3)
