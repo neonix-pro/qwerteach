@@ -54,7 +54,7 @@ class WalletsController < ApplicationController
       flash[:danger] = t('notice.mango_account.update_error', message: saving.errors.full_messages.to_sentence)
       respond_to do |format|
         format.js {render 'edit_mangopay_wallet'}
-        format.json {render :json => {:message => {:errors => saving.errors, :saving => saving}}}
+        format.json {render :json => {:message => "false", :error => saving.errors.full_messages.to_sentence, :saving => saving}}
         format.html {redirect_to index_wallet_path}
       end
     end
