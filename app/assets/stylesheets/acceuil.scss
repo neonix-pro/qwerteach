@@ -40,24 +40,12 @@
   }
 }
 .mode_emploi{
-  margin: 150px auto auto auto;
+  margin: 20px auto auto auto;
   width: 100%;
   text-align:center;
-  a{
-    background: $dark_grey;
-    letter-spacing: 0.26px;
-    padding: 8px 20px;
-    border: 2px solid $color_qwerteach_green;
-    border-radius: 25px;
-    color: $color_qwerteach_green;
-    font-size: 16px;
-    cursor: pointer;
-    font-family:SofiaProRegular;
-  }
-  a:hover{
-    background: $qwerteach_black;
-    color:$color_qwerteach_green;
-    border: 2px solid $color_qwerteach_green;
+  a.toggleCCM:hover{
+    color:$dark_grey;
+    cursor:pointer;
   }
 }
 
