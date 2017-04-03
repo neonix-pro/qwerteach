@@ -82,9 +82,9 @@ class NotificationsMailer < ApplicationMailer
     mail(to: @teacher.email, subject: 'Qwerteach')
   end
 
-  def send_payment_details_to_student(payment)
-    @payment = payment
-    @lesson = payment.lesson
+  def send_payment_details_to_student(payment_id)
+    @payment = Payment.find(payment_id)
+    @lesson = @payment.lesson
     @student = @lesson.student
     card_id = @payment.transactions.find{|tr| tr['payment_type'] == 'CARD'}['card_id'] rescue nil
     @card = @student.mangopay.cards.find{|c| c.id == card_id} if card_id

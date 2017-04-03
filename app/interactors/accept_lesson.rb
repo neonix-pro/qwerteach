@@ -46,11 +46,11 @@ class AcceptLesson < ActiveInteraction::Base
   def send_notifications
     return if errors.any?
     if teacher?
-      LessonNotificationsJob.perform_async(:notify_student_about_teacher_accepts_lesson, lesson)
-      LessonNotificationsJob.perform_async(:notify_teacher_about_teacher_accepts_lesson, lesson)
+      LessonNotificationsJob.perform_async(:notify_student_about_teacher_accepts_lesson, lesson.id)
+      LessonNotificationsJob.perform_async(:notify_teacher_about_teacher_accepts_lesson, lesson.id)
     else
-      LessonNotificationsJob.perform_async(:notify_student_about_student_accepts_lesson, lesson)
-      LessonNotificationsJob.perform_async(:notify_teacher_about_student_accepts_lesson, lesson)
+      LessonNotificationsJob.perform_async(:notify_student_about_student_accepts_lesson, lesson.id)
+      LessonNotificationsJob.perform_async(:notify_teacher_about_student_accepts_lesson, lesson.id)
     end
   end
 

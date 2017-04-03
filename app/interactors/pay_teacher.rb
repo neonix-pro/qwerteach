@@ -34,7 +34,7 @@ class PayTeacher < ActiveInteraction::Base
 
   def send_notifications
     return if errors.any?
-    LessonNotificationsJob.perform_async(:notify_teacher_about_lesson_payment_unlocked, lesson)
+    LessonNotificationsJob.perform_async(:notify_teacher_about_lesson_payment_unlocked, lesson.id)
   end
 
   def student
