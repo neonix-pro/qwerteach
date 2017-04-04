@@ -23,7 +23,7 @@
     padding-top: 10%;
     text-align:center;
     font-family: SofiaProBold;
-    margin-bottom: 50px;
+    margin-bottom: 10%;
     h1,h2{
       color: white;
       margin:0;
@@ -33,19 +33,20 @@
     }
     h1{
       text-transform:uppercase;
-      font-size: 48px;
-      line-height:42px;
-      margin-bottom: 10px;
+      font-size: 4.5em;
+      line-height: 1.1em;
+      margin-bottom: 20px;
     }
   }
-}
-.mode_emploi{
-  margin: 20px auto auto auto;
-  width: 100%;
-  text-align:center;
-  a.toggleCCM:hover{
-    color:$dark_grey;
-    cursor:pointer;
+  .mode_emploi{
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    text-align:center;
+    a.toggleCCM:hover{
+      color:$dark_grey;
+      cursor:pointer;
+    }
   }
 }
 
@@ -390,7 +391,7 @@
 
 .section_profs{
   width: 100%;
-  overflow: hidden;
+  overflow:hidden;
   text-align: left;
   position: relative;
   .inside{
@@ -398,21 +399,6 @@
     left: 0;
     top: 0;
     width:100%;
-    .title{
-      background: $color_qwerteach_yellow;
-      color: $color_qwerteach_purple;
-      width: 300px;
-      height: 300px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      h3{
-        font-size: 38px;
-        padding: 50px 70px;
-        font-family: SofiaProLight;
-        line-height: 42px;
-      }
-    }
     .prof{
       background-size: cover;
       background-position: center center;
@@ -439,9 +425,16 @@
         font-size: SofiaProRegular;
       }
     }
-    #prof2 p, #prof3 p, #prof4 p, #prof5 p, #prof6 p{
+    #prof4 p .topics, #prof5 p .topics, #prof6 p .topics, #prof12{
       display: none;
     }
+  }
+  .spinner {
+    width:100%;
+    height:100%;
+    margin-top:200px;
+    font-size:50px;
+    text-align:center;
   }
 }
 
@@ -458,19 +451,37 @@
     margin-bottom: 50px;
   }
 }
+.profs_by_topic{
+  background-color:$color_qwerteach_yellow;
+}
 
 .section_choix{
   width: 100%;
   background: $color_qwerteach_yellow;
   height: 150px;
+  padding-left:25%;
+  .title{
+    width: 25%;
+    height:300px;
+    position:absolute;
+    left:15px;
+    background: $color_qwerteach_yellow;
+    color: $color_qwerteach_purple;
+    h3{
+      font-size: 38px;
+      padding: 50px 70px;
+      font-family: SofiaProLight;
+      line-height: 42px;
+    }
+  }
   .matiere{
+    width:14.27%;
     float: left;
-    width: 12.5%;
     text-align: center;
     position: relative;
     height: 100%;
     cursor: pointer;
-    img{
+    img, .fa{
       margin: 10px auto auto auto;
       height: 40px;
       margin-top: 40px;
@@ -482,15 +493,7 @@
       margin-top: 10px;
     }
   }
-  .matiere:hover{
+  .matiere:hover, .matiere.active{
     background: #fef46e;
-  }
-  .tous{
-    width: 25%;
-    text-align: center;
-    float: left;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
   }
 }
