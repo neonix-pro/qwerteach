@@ -3,8 +3,10 @@ class ExpireBookings
 
   def self.perform(*args)
     #fetch expiring bookings
-    @lessons = Lesson.expired
+    @lessons = Lesson.pending.past
     @lessons.each do |l|
+      l.status = :expired
+      l.save!
       refund = RefundLesson.run(user: l.student, lesson: l)
       unless refund.valid?
         Rails.logger.debug("Impossible de rembourser la demande expirée. ID: #{l.id}. #{refund.errors.full_messages.to_sentence}")

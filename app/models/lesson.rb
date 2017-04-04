@@ -2,7 +2,7 @@ class Lesson < ActiveRecord::Base
   require 'nexmo'
   # meme nom que dans DB sinon KO.
   # cf schéma etats de Lesson
-  enum status: [:pending_teacher, :pending_student, :created, :canceled, :refused]
+  enum status: [:pending_teacher, :pending_student, :created, :canceled, :refused, :expired]
 
   # User qui recoit le cours
   belongs_to :student, :class_name => 'User', :foreign_key  => "student_id"
@@ -30,7 +30,7 @@ class Lesson < ActiveRecord::Base
 
   scope :upcoming, ->{ active.future } #future and (created or pending)
   scope :passed, ->{past.created} # lessons that already happened
-  scope :expired, ->{pending.past}
+  scope :expired, ->{where("lessons.status LIKE ? ", 5)}
   scope :to_answer, ->{pending.locked.future} # lessons where we're waiting for an answer
   scope :to_unlock, ->{created.locked.past} # lessons where we're waiting for student to unlock money
   scope :to_pay, ->{created.payment_pending.past} # lessons that haven't been prepaid and student needs to pay
@@ -105,8 +105,12 @@ class Lesson < ActiveRecord::Base
     (teacher == user && status == 'pending_teacher') || (student == user && status == 'pending_student')
   end
 
-  def expired?
+  def to_expire?
     (status == 'pending_teacher' || status == 'pending_student') && time_start < Time.now
+  end
+
+  def expired?
+    status == 'expired'
   end
 
   def canceled?
