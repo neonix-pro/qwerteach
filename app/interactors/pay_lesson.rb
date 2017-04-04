@@ -20,6 +20,7 @@ class PayLesson < ActiveInteraction::Base
   def transfert
     paying = PayLessonByTransfert.run(user: user, lesson: lesson, wallet: beneficiary_wallet)
     if paying.valid?
+      send_notification
       respond_to do |format|
         format.js {render 'finish', :layout => false}
         format.json {render :json => {:message => "finish"}}
@@ -73,6 +74,7 @@ class PayLesson < ActiveInteraction::Base
             format.json {render :json => {:message => "errors"}}
           end
         else
+          send_notification
           respond_to do |format|
             format.js {render 'finish', :layout => false}
             format.json {render :json => {:message => "finish"}}
@@ -109,6 +111,11 @@ class PayLesson < ActiveInteraction::Base
 
   def bancontact_url
     bancontact_complete_url || bancontact_process_user_lesson_requests_url(teacher)
+  end
+        
+  def send_notification
+    Pusher.notify(["#{@lesson.teacher.id}"], {fcm: {notification: {body: "#{@lesson.student.name} vous adresse une demande de cours.",
+      icon: 'androidlogo', click_action: "MY_LESSONS"}}})
   end
 
 
