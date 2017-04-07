@@ -35,6 +35,8 @@ class PayTeacher < ActiveInteraction::Base
   def send_notifications
     return if errors.any?
     LessonNotificationsJob.perform_async(:notify_teacher_about_lesson_payment_unlocked, lesson.id)
+    Pusher.notify(["#{@lesson.teacher.id}"], {fcm: {notification: {body: "Le payement de votre cours avec #{@lesson.student.name} a été débloqué.", 
+            icon: 'androidlogo', click_action: "MY_LESSONS"}}})
   end
 
   def student

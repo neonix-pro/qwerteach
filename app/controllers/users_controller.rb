@@ -15,38 +15,6 @@ class UsersController < ApplicationController
       @notes = @reviews.map { |r| r.note }
       @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size unless @notes.empty?
       @profSimis = @user.similar_teachers(4)
-      
-      #Autres informations nécessaires pour l'application
-      topics = Array.new
-      offer_prices = Array.new
-      levels = Array.new
-      
-      @offers.each do |ad|
-        if ad.topic.title == "Other"
-          topic_title = ad.other_name
-        else
-          topic_title = ad.topic.title
-        end
-        topics.push(topic_title)
-        offer_prices.push(ad.offer_prices)
-      end
-      
-      review_sender_names = Array.new
-      @reviews.each do |review|
-        review_sender_names.push(review.sender.firstname) if review.sender
-      end
-          
-      respond_to do |format|
-        format.html {}
-        format.json {render :json => {:avatar => @user.avatar.url(:medium), :offers => @offers, :offer_prices => offer_prices,
-          :reviews => @reviews, :notes => @notes, :avg => @avg, :user => @user, :min_price => @user.min_price, 
-          :topic_titles => topics, :review_sender_names => review_sender_names}}
-      end
-    else
-      respond_to do |format|
-        format.html {}
-        format.json {render :json => {:user => @me, :avatar => @me.avatar.url(:medium)}}
-      end
     end
   end
 

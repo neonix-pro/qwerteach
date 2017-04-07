@@ -56,6 +56,7 @@ class LessonRequestsController < ApplicationController
   def credit_card_process
     processing = PayLessonWithCard.run(user: current_user, lesson: @lesson, transaction_id: params[:transactionId])
     if processing.valid?
+      send_notification
       respond_to do |format|
         format.html {redirect_to lessons_path, notice: t('notice.booking_success')}
         format.json {render :json => {:success => "true"}}
@@ -71,6 +72,7 @@ class LessonRequestsController < ApplicationController
   def bancontact_process
     processing = PayLessonByBancontact.run(user: current_user, lesson: @lesson, transaction_id: params[:transactionId])
     if processing.valid?
+      send_notification
       respond_to do |format|
         format.html {redirect_to lessons_path, notice: t('notice.booking_success')}
         format.json {render :json => {:success => "true"}}
@@ -153,6 +155,10 @@ class LessonRequestsController < ApplicationController
       format.json {render :json => {:message => "no account"}}
     end and return false
   end
-
+  
+  def send_notification
+    Pusher.notify(["#{@lesson.teacher.id}"], {fcm: {notification: {body: "#{@lesson.student.name} vous adresse une demande de cours.",
+        icon: 'androidlogo', click_action: "MY_LESSONS"}}})
+  end
 
 end

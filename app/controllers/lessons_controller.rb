@@ -40,8 +40,12 @@ class LessonsController < ApplicationController
         flash[:success] = "La modification s'est correctement déroulée."
         if @lesson.is_teacher?(current_user)
           LessonNotificationsJob.perform_async(:notify_student_about_reschedule_lesson, @lesson.id)
+          Pusher.notify(["#{@lesson.student.id}"], {fcm: {notification: {body: "#{@lesson.teacher.name} a déplacé le votre demande de cours. veuillez confirmer le nouvel horaire.", 
+            icon: 'androidlogo', click_action: "MY_LESSONS"}}})
         else
           LessonNotificationsJob.perform_async(:notify_teacher_about_reschedule_lesson, @lesson.id)
+          Pusher.notify(["#{@lesson.teacher.id}"], {fcm: {notification: {body: "#{@lesson.student.name} a déplacé le votre demande de cours. veuillez confirmer le nouvel horaire.", 
+            icon: 'androidlogo', click_action: "MY_LESSONS"}}})
         end
         respond_to do |format|
           format.html {redirect_to lessons_path}
@@ -186,4 +190,5 @@ class LessonsController < ApplicationController
     @lesson = params[:id].nil? ? Lesson.find(params[:lesson_id]) : Lesson.find(params[:id])
     @other = @lesson.other(@user)
   end
+  
 end
