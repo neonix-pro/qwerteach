@@ -8,6 +8,8 @@ class Api::DashboardsController < DashboardsController
     
     review_asked = Array.new
     to_do_list = Array.new
+    upcoming_lesson_avatars = Array.new
+    avg_reviews = Array.new
     
     @to_do_list.each do |lesson|
       if lesson.review_needed?(@user) && !review_asked.include?(lesson.teacher.id)
@@ -15,6 +17,7 @@ class Api::DashboardsController < DashboardsController
         user.id = lesson.teacher.id
         user.firstname = lesson.teacher.firstname
         review_asked.push(user)
+        avg_reviews.push(lesson.teacher.avg_reviews)
       end
       unless (lesson.paid? || lesson.upcoming?)
         if lesson.prepaid?
@@ -26,15 +29,14 @@ class Api::DashboardsController < DashboardsController
       end
     end
     
-    #avatar = []
-    #@upcoming_lessons.each do |lesson|
-      #image_tag = lesson.other(current_user).avatar(:medium)
-      #avatar.push(image_tag)
-    #end
+    @upcoming_lessons.each do |lesson|
+      image_tag = lesson.other(current_user).avatar(:medium)
+      upcoming_lesson_avatars.push(image_tag)
+    end
     
     render :json => {:upcoming_lessons => @upcoming_lessons,
-      :review_asked => review_asked, :to_do_list => to_do_list}
-      #:avatar => avatar}
+      :review_asked => review_asked, :to_do_list => to_do_list, 
+      :avatars => upcoming_lesson_avatars, :avgs => avg_reviews}
   end
   
 end
