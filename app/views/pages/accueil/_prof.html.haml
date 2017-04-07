@@ -1,15 +1,9 @@
-.section_profs.100window
-  .inside
-    .title.cadre_large.item
-      %h3 
-        Choisissez
-        %br le professeur
-        qui vous  
-        %br convient
-    - profs.each_with_index do |prof, index|
-      .prof{id: "prof#{index}", style: "background-image: url(#{image_path prof.avatar.url(:large)})"}
-        %p
-          %span.name
-            = link_to "#{prof.firstname} #{prof.lastname}", user_path(prof)
-          %br
+.inside
+  - profs.each_with_index do |prof, index|
+    .prof{id: "prof#{index}", style: "background-image: url(#{image_path prof.avatar.url(:large)})"}
+      %p
+        %span.name
+          = link_to "#{prof.firstname} #{prof.lastname}", user_path(prof)
+        %br
+        %span.topics
           = prof.offers.map{|ad| link_to ad.title, profs_by_topic_path(ad.title)}.join(', ').html_safe

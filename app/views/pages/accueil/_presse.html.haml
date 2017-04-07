@@ -1,21 +1,37 @@
 .container.section_presse
-  %div{:classe => "row"}
+  .row
     %h3 La presse parle de nous!
-    .col-sm-2.col-xs-4.center-block.presse_link
-      %a{:href => "http://www.rtl.be/belrtl/index-bel-rtl.htm", :target => "_blank"}
-        = image_tag("acceuil/logo_presse/belrtl.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block.presse_link
-      %a{:href => "http://datanews.levif.be/ict/", :target => "_blank"}
-        = image_tag("acceuil/logo_presse/datanews.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block.presse_link
-      %a{:href => "http://www.educadis.fr/", :target => "_blank"}
-        = image_tag("acceuil/logo_presse/educadis.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block.presse_link
-      %a{:href => "http://www.lesoir.be/", :target => "_blank"}
-        = image_tag("acceuil/logo_presse/leSoir.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block.presse_link
-      %a{:href => "http://www.solutions-magazine.com/", :target => "_blank"}
-        = image_tag("acceuil/logo_presse/solutionsMagazine.png", :class => "image_presse img-responsive")
-    .col-sm-2.col-xs-4.center-block.presse_link
-      %a{:href => "http://trends.levif.be/economie/", :target => "_blank"}
-        = image_tag("acceuil/logo_presse/trends-logo.png", :class => "image_presse img-responsive")
+    .col-sm-4.col-xs-4.center-block.presse_link
+      .card
+        .card-image
+          = image_tag "press/lesoir_card.png"
+        .card-content
+          %p
+            Si votre enfant ne jure que par son ordinateur et que le mot racine carrée lui fait
+            davantage penser au dernier album de Stromae qu’à un nombre, il y a de fortes chances
+            qu’il soit intéressé par Qwerteach.
+        .card-action
+          = link_to 'Lire plus', "http://www.lesoir.be/483418/article/actualite/regions/2014-03-03/un-nouveau-genre-d-e-learning", class:' text-green'
+    .col-sm-4.col-xs-4.center-block.presse_link
+      .card
+        .card-image
+          = image_tag "press/belrtl_card.png"
+        .card-content
+          %p
+            Ca va vous changer la vie - Des cours particuliers en ligne pour enfants, ados et adultes!
+        .card-action
+          = link_to 'Lire plus', pages_path("presse"), class:' text-green'
+    .col-sm-4.col-xs-4.center-block.presse_link
+      .card
+        .card-image
+          = image_tag "press/trends_card.png"
+        .card-content
+          %p
+            De Brusselse ondememers Stephane Panier en Aurelie Merckx lanceerden onlangs de betaversie
+            van Qwerteach. Het gaat om een platform dat online lesgeven van persoon tot persoon wil vergemak- kelijken..."
+        .card-action
+          = link_to 'Lire plus', pages_path('presse'), class:' text-green'
+  .row
+    .col-xs-12.text-center
+      =link_to 'Voir tout', pages_path("presse"), class: 'btn btn-green btn-sm btn-qw'
+  %hr
