@@ -232,105 +232,45 @@
 
 
 .section_commentaire{
-  width: 100%;
-  color: #fff;
-  position: relative;
-  .left{
-    float: left;
-    width: 66.66666%;
-  }
-  .right{
-    float: left;
-    width: 33.33333%;
-    background: $color_qwerteach_purple;
+  background: image-url("bg_testimonials.png") no-repeat center;
+  background-size: cover;
+  height: 67vh;
+  position:relative;
+  #carousel-commentaires{
+    width:100%;
     height:100%;
-  }
-  .bigimage{
-    background: url(image_path("bg_testimonials.png"));
-    background-size: cover;
-    background-position: center center;
-    height:100%;
-  }
-  h4{
-    font-family: SofiaProLight;
-    font-size: 38px;
-    padding: 25px 50px;
-    text-align: left;
-    width: 80%;
-    margin-top: 45px;
-    margin-left: 15px;
-    line-height:42px;
-  }
-  .commentaires{
-    position: absolute;
-    height: 150px;
-    width: 100%;
-    bottom: 0;
-    display: block;
-    background: #fff;
-    text-align: left;
-    box-shadow: 0px 5px 5px grey;
-    .commentaire{
-      float: left;
-      width: 32%;
-      height: 150px;
-      margin-left: 0px;
-      position: relative;
-      background-color:white;
-      .triangle{
-        width: 0;
-        height: 0;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-        border-bottom: 15px solid #fff;
-        position: absolute;
-        left: 50%;
-        top: -15px;
-      }
-      p{
-        color: $medium_grey;
-        padding: 25px 50px 10px 50px;
-        text-align: left;
-        margin: auto;
-        font-size: 14px;
-        line-height: 21px;
-      }
-      .avatar{
-        width: 45px;
-        border-radius: 50%;
-        margin-left: 50px;
-      }
-      .avatar_name{
-        display: inline;
-        text-align: left;
-        padding: 15px 25px;
-      }
-      .wrapper{
-        height:100%;
-        overflow:hidden;
-        border-right: 1px solid $color_qwerteach_green;
+    position:absolute;
+    .carousel-control{
+      span.fa{
+        position:absolute;
+        top:45%;
       }
     }
-    .plus{
-      width: 4%;
-      height: 150px;
-      background: $color_qwerteach_green;
-      display: inline-table;
-      color: #fff;
-      float: left;
-      margin-left: -1px;
-      div{
-        display: table-cell;
-        vertical-align: middle;
-        text-align: center;
-        width: 100%;
-        height: 150px;
-        a{
-          color: #fff;
-          font-size: 38px;
-          margin: 0;
-          padding: 0;
-        }
+    .carousel-inner{
+      height:100%;
+    }
+    .item.active{
+      height:100%;
+    }
+    .commentaire{
+      bottom: 20%;
+      text-align:center;
+      blockquote{
+        border-left: 0px;
+        color: white;
+        font-size:28px;
+        font-family: SofiaProLight;
+      }
+      img.avatar{
+        width:40px; height:40px;
+        display:inline-block;
+        border-radius: 50%;
+      }
+      .avatar_name{
+        font-size: 20px;
+        color: white;
+        margin-left: 10px;
+        vertical-align: bottom;
       }
     }
   }

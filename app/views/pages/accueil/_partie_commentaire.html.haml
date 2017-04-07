@@ -1,29 +1,40 @@
-.featurette.section.section_commentaire.100window
-  .left.bigimage
-  .right
-    %h4#cadreBleu.txtCadreBleu Nos élèves adorent leurs cours en ligne.
-  .commentaires
-    .commentaire
-      .triangle
-      .wrapper
-        %p « Connaît son sujet, polyvalent, clair et concis. Parfait pour corriger les imperfections avant une session d'examens!
-        %div
-          %img.avatar{"src" => image_path("avatar.jpg")}
-          %p.avatar_name Francois, élève.
-    .commentaire
-      .triangle
-      .wrapper
-        %p « Super prof! très efficace et très À l'écoute. Bon contact humain, ce qui est très appréciable! »
-        %div
-          %img.avatar{"src" => image_path("avatar.jpg")}
-          %p.avatar_name Meir, élève.
-    .commentaire
-      .triangle
-      .wrapper
-        %p « Super prof super sympa qui maitrise très bien sa matière ! A conseiller à tout le monde :) »
-        %div
-          %img.avatar{"src" => image_path("avatar.jpg")}
-          %p.avatar_name Kevin, élève.
-    .plus.opacity_hover#more-comments
-      %div
-        = link_to '+', featured_reviews_path({n:1, offset:3}), id: 'more-reviews', remote: true
+.section.section_commentaire
+  #carousel-commentaires.commentaires.carousel.slide{data:{ride:"carousel"}}
+    %ol.carousel-indicators
+      %li.active{data: {target: "#carousel-commentaires", slide:{to:0}}}
+      %li{data: {target: "#carousel-commentaires", slide:{to:1}}}
+      %li{data: {target: "#carousel-commentaires", slide:{to:2}}}
+    .carousel-inner{role: "listbox"}
+      .item.active
+        .carousel-caption.commentaire
+          %blockquote.blockquote
+            « Super prof super sympa qui maitrise très bien sa matière!
+            %br
+            A conseiller à tout le monde :) »
+          %div
+            %img.avatar{"src" => image_path("avatar.jpg")}
+            %span.avatar_name Kevin, élève.
+      .item
+        .carousel-caption.commentaire
+          %blockquote.blockquote
+            « Connaît son sujet, polyvalent, clair et concis.
+            %br
+            Parfait pour corriger les imperfections avant une session d'examens! »
+          %div
+            %img.avatar{"src" => image_path("avatar.jpg")}
+            %span.avatar_name François, élève.
+      .item
+        .carousel-caption.commentaire
+          %blockquote.blockquote
+            « Super prof! très efficace et très À l'écoute.
+            %br
+            Bon contact humain, ce qui est très appréciable! »
+          %div
+            %img.avatar{"src" => image_path("avatar.jpg")}
+            %span.avatar_name Meir, élève.
+    %a.left.carousel-control{href:"#carousel-commentaires", role:"button", data:{slide:"prev"}}
+      %span.glyphicon.glyphicon-chevron-left{aria:{hidden:true}}
+      %span.sr-only Précédent
+    %a.right.carousel-control{href:"#carousel-commentaires", role:"button", data:{slide:"next"}}
+      %span.glyphicon.glyphicon-chevron-right{aria:{hidden:true}}
+      %span.sr-only Suivant
