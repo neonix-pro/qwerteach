@@ -2,24 +2,5 @@
   = render 'pages/comment_ca_marche/section_video'
   = render 'pages/comment_ca_marche/section_test_classe'
   = render 'pages/comment_ca_marche/section_etapes'
-  = render 'pages/comment_ca_marche/section_comment_prendre_cours'
-  = render 'pages/comment_ca_marche/section_comment_donner_cours'
+  = render 'pages/comment_ca_marche/section_tabs'
   = render 'pages/comment_ca_marche/section_faq'
-
-:javascript
-  $('.arrow-give-lesson').click(function(){
-    $('#take-lesson').slideUp();
-    $('#give-lesson').slideDown({
-      complete: function(){
-        scrollTop('#give-lesson');
-      }
-    });
-    $(this).fadeOut();
-    $('.arrow-take-lesson').fadeIn();
-  });
-  $('.arrow-take-lesson').click(function(){
-    $('#give-lesson').slideUp();
-    $('#take-lesson').slideDown();
-    $(this).fadeOut();
-    $('.arrow-give-lesson').fadeIn();
-  });
