@@ -138,6 +138,8 @@ Rails.application.routes.draw do
   # :omniauth_callbacks => "users/omniauth_callbacks",
   devise_for :users, :controllers => { :registrations=> "registrations"}
   devise_for :teachers, :controllers => {:registrations => "registrations"}
+  resources :onboarding
+
   get "/auth/:action/callback",
       :controller => "users/omniauth_callbacks",
       :constraints => { :action => /google_oauth2|facebook/ }

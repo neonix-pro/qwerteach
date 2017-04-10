@@ -16,7 +16,8 @@ class RegistrationsController < Devise::RegistrationsController
     if resource.is_a?(Teacher)
       become_teacher_path(:general_infos)
     else
-      dashboard_path
+      #dashboard_path
+      onboarding_path(:welcome)
     end
   end
 end
