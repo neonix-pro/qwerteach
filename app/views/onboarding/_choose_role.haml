@@ -1,0 +1,14 @@
+.container-fluid.sign_in_page
+  .row
+    %h2.page-title-green.text-center Que souhaitez-vous faire sur Qwerteach?
+.container
+  .col-sm-3
+  .col-sm-3.text-center.role
+    = link_to become_teacher_path do
+      = image_tag('signup/teacher.png')
+      %h4 Donner des cours
+  .col-sm-3.text-center.role
+    = link_to next_wizard_path, remote: true do
+      = image_tag('signup/student.png')
+      %h4 Prendre des cours
+  %hr

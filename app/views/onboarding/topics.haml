@@ -1,0 +1,19 @@
+.container-fluid.sign_in_page
+  .row
+    %h2.page-title-green.text-center Trouvez votre prof idéal
+.container
+  .row
+    %h3.text-center Par matière
+    - @topic_groups.each do |tg|
+      .col-xs-4.col-sm-2
+        .card
+          = link_to profs_by_topic_path(tg.title), class: 'text-center' do
+            .badge.badge-default.offers-number= Offer.where(topic_group_id: tg.id).count
+            .text-center= image_tag(tg.pictotype('grey_small'))
+            %div= tg.title
+  %hr
+  .row
+    %h3.text-center Nos profs les plus populaires
+    #search-results
+      - @teachers.each do |t|
+        = render partial: 'users/search/search_result', :locals => {:u => t, :custom=>nil}

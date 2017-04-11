@@ -1,10 +1,16 @@
-.become-teacher-avatar
+.container-fluid.sign_in_page
   .row
-    %h2.page-title-green Choisissez votre photo de profil
+    %h2.page-title-green.text-center Choisissez votre photo de profil
+.container
+  .row
     .col-sm-2
     .col-sm-8.text-center
       .alert.alert-info.text-left
-        %p Nous sommes curieux de vous connaître!
+        %p Vos élèves sont curieux de vous connaître!
+        %p
+          En ajoutant une photo de profil de bonne qualité, vous augmentez grandement vos chances d'être contacté par des élèves.
+          Nous vous conseillons d'utiliser une photo de vous, en couleur et de bonne qualité.
+          L'humour est bienvenu, mais gardez à l'esprit qu'il s'agit de mettre en avant vos compétences pédagogiques, et non oeunologiques
       = form_for(resource, as: resource_name, url: wizard_path, html: { method: :put, class: 'avatar-uploader' }) do |f|
         #avatar_select.field.hidden
           - resource.crop_x=0
@@ -25,9 +31,5 @@
             parcourir
             %i.fa.fa-folder-open
           = f.button "Enregistrer", class: 'btn btn-sm btn-qw btn-green', type: 'submit', disable_with: '<i class="fa fa-spinner fa-spin"></i>en cours'
-        %hr
-  .row
-    = tutorial_progress_bar
-
 :javascript
   new AvatarUploader()
