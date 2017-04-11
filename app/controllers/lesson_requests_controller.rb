@@ -1,5 +1,6 @@
 class LessonRequestsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :redirect_if_not_logged_in, only: :new
+  before_filter :authenticate_user!, except: :new
   before_action :find_users
   before_action :check_mangopay_account, only: :payment
   before_action :set_lesson, expect: [:topics, :levels, :calculate]
@@ -159,6 +160,14 @@ class LessonRequestsController < ApplicationController
   def send_notification
     Pusher.notify(["#{@lesson.teacher.id}"], {fcm: {notification: {body: "#{@lesson.student.name} vous adresse une demande de cours.",
         icon: 'androidlogo', click_action: "MY_LESSONS"}}})
+  end
+
+  def redirect_if_not_logged_in
+    unless current_user
+      session[:user_redirect_to]= request.original_url
+      @teacher = Teacher.find(params[:user_id])
+      render 'sign_up_booking'
+    end
   end
 
 end
