@@ -30,5 +30,7 @@
         .signup-email
           %p.lead Inscription par e-mail
           = render 'devise/registrations/new_form'
+        .text-right
+          = link_to 'Déjà inscrit?', new_user_session_path
 
 
