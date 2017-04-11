@@ -22,7 +22,7 @@
             - if current_user
               = link_to 'Voir les profs', profs_path, class: 'btn btn-qw btn-purple'
             - else
-              %a.btn.btn-qw.btn-purple{:href => "#myModIns", "data-toggle" => "modal"} Inscription gratuite
+              = link_to 'Inscription gratuite', new_user_registration_path, class: 'btn btn-qw btn-purple'
 
             -#= link_to 'Comment ça marche', '#', class: 'comment_ca_marche open_mode_emploi toggleCCM'
     %a.left.carousel-control.100window{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}

@@ -8,7 +8,7 @@
       au bon moment
     %h2 Trouvez votre professeur pour un cours particulier en ligne
     %br
-    %button{"data-toggle" => "modal", :href => "#signup-modal", class: 'btn btn-green'} Inscription
+    = link_to 'Inscription', new_user_registration_path, class: 'btn btn-qw btn-green'
   .searchbar
     = render partial: 'pages/accueil/partie_recherche'
   .mode_emploi
