@@ -1,15 +1,67 @@
 @import 'global_variables';
 #onboarding{
+  .welcome{
+    padding-top: 50px;
+  }
   .role{
     padding: 0px 20px;
     img{
       width:100%;
     }
   }
-}
-.card{
-  .badge{
-    position:absolute;
-    right:0;
+  .card{
+    .badge{
+      position:absolute;
+      right:0;
+    }
+    .card-title{
+      font-family: SofiaProExtraLight;
+    }
   }
+}
+#login-modal{
+  .modal-content {
+    background-color: #404040;
+    color: #e6e6e6;
+    text-align:center;
+    form{
+      text-align:left;
+    }
+    .or{
+      display: inline-block;
+      background-color: #404040;
+      position: relative;
+      bottom: 40px;
+      padding: 10px;
+    }
+    .links{
+      font-size: 12px;
+      color: $color_qwerteach_green;
+    }
+  }
+  .modal-header, .modal-footer {
+    text-align:left;
+    margin: 0px 15px;
+    padding: 15px 0px;
+    font-weight: 400;
+    font-family: SofiaProLight;
+  }
+  .modal-footer{
+    text-align:right;
+  }
+  .omniauth-signin{
+    margin-top: -30px;
+    img{
+      display:inline-block;
+      height:35px;
+    }
+    a{
+      font-family: SofiaProLight;
+    }
+    a:hover{
+      text-decoration:none;
+    }
+  }
+}
+#login-modal{
 }

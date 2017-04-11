@@ -50,6 +50,11 @@ fr:
     offers: "Annonces de cours"
     banking_informations: "Informations bancaires"
     finish_postulation: "c'est fini!!!"
+  onboarding:
+    welcome: 'Bienvenue!'
+    choose_role: 'Qwerteach et vous'
+    picture: 'Votre profil'
+    topics: 'Vos matières'
   notice:
     general_error: Il y a eu un problème lors de l'opération. Veuillez vérifier que vous avez bien complété tous les champs.
     processing_error: Il y a eu une erreur lors de la transaction. Veuillez réessayer.

@@ -19,13 +19,15 @@
         .avatar-uploaded-view
           %img.avatar-uploaded-view-image
         .avatar-uploaded-preview
-          =image_tag('avatar.jpg', class: 'avatar-uploaded-preview-image', width: 200)
+          =image_tag(current_user.avatar(:medium), class: 'avatar-uploaded-preview-image', width: 200)
         .edit-user-avatar.text-center
           %button.btn.btn-sm.btn-qw.btn-green.browse{type: 'button'}
             parcourir
             %i.fa.fa-folder-open
           = f.button "Enregistrer", class: 'btn btn-sm btn-qw btn-green', type: 'submit', disable_with: '<i class="fa fa-spinner fa-spin"></i>en cours'
         %hr
+        .text-right
+          = link_to 'Pas maintenant', next_wizard_path
   .row
     = tutorial_progress_bar
 
