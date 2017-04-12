@@ -91,195 +91,58 @@
 }
 
 /* Profil*/
-#sidebar-profile{
-  position:fixed;
-  top:50px;
-  height:100%;
-  font-weight:200;
-  overflow:hidden;
-  background-color: $dark_grey;
-  text-align:center;
-  z-index:2;
-  #user-profilepicture{
-    width:100%;
-    margin-bottom:24px;
-    img{
+#profile-header{
+  background-color: $text_light_grey;
+  padding: 20px;
+  .profilepicture{
+    img {
       width:100%;
-      height:auto;
+      border-radius: 50%;
     }
   }
-  .user-pricing{
-    margin-bottom:30px;
-    /* voir le tarif détail: */
-    font-size: 14px;
-    font-family: 'Helvetica';
-    a{
-      margin-top:-4px;
-      color:$text_grey;
+  h2.user-name{
+    font-family: SofiaProRegular;
+    font-size: 30px;
+    small{
+      text-transform:uppercase;
+      font-family: SofiaProLight;
+      font-size:14px;
     }
   }
-  .minprice{
-    font-size: 34px;
-    color: $color_qwerteach_green;
-    margin-bottom: -8px;
-  }
-}
-
-#user-contactform{
-  position:absolute;
-  bottom:15px;
-  width:100%;
-  textarea{
-    border-radius:0px;
-  }
-  .btn-send-message{
-    background: $color_qwerteach_green!important;
-    border-radius:0px;
-    position:relative;
-    top:-45px;
-    left:5px;
-    float:left;
-    font-size: 13px;
-    color: $medium_grey;
-    letter-spacing: 0px;
-    line-height: 10px!important;
+  #pricing{
+    padding: 30px 0px;
+    .user-pricing{
+      font-size: 30px;
+      font-family: SofiaProRegular;
+    }
+    .detailed-pricing-link{
+      font-family: SofiaProLight;
+      font-size: 12px;
+      text-transform:uppercase;
+    }
   }
 }
 
-#profile-content{
-  width: calc(100%-256px);
-  margin-left:256px;
-  position:relative;
-  .profile-header{
-    background-color: $dark_grey;
-    width:100%;
-    float:left;
-    margin-bottom:30px;
-    padding-bottom: 20px;
-    h2{
-      margin:0px;
-      color:white;
-      font-size: 35px;
-      letter-spacing: 0px;
-      font-weight:300;
-    }
-    .topics a, .topics{
-      font-weight:200;
-      color: $color_qwerteach_green;
-      font-size: 18px;
-      letter-spacing: 0.17px;
-      line-height: 30px;
-    }
-    .left{
-      margin-left:30px;
-      float:left;
-      margin-top:20px;
-      width:60%;
-    }
-    .right{
-      color:$text_grey;
-      float: left;
-      margin-right: 10%;
-      line-height: 25px;
-      margin-top: 25px;
-      font-weight: 300;
-      max-width: 25%;
-    }
-    #rating{
-      cursor:pointer;
-      display:inline-block;
-      margin-top:8px;
-      color: $text_light_grey;
-    }
-    .number-of-reviews{
-      margin-left:10px;
-      font-size:17px;
-      color:$text_grey;
-      font-weight:200;
-    }
-  }
-  .profile-description{
-    padding-left:30px;
-    font-size: 14px;
-    color: $medium_grey;
-    letter-spacing: 0px;
-    margin-right: 15%;
-    padding-bottom:30px;
-  }
-}
 
 #profile-offers{
-  position:relative;
-  width:100%;
-  .profile-offer{
-    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
-  }
-  .profile-offer .front{
-    padding-top:50px;
-    color:white;
-    text-align:center;
-    h4{
-      text-align:center;
-      font-size: 18px;
-      font-weight: 300;
-      line-height: 35px;
+  .card{
+    .card-content{
+      .card-title{
+        line-height: normal;
+        small{
+          font-size: 70%;
+        }
+      }
     }
   }
-  .profile-offer .back{
-    text-align:left;
-    color:white;
-  }
-  .profile-offer.simple{
-    width: 100%;
-  }
-  .profile-offer.double{
-    width: 50%;
-  }
-  .profile-offer.triple{
-    width: calc(100% / 3);
-  }
-  .profile-offer.quadruple{
-    width: calc(100% / 4);
-  }
-  .offer-flip-toggle {
-    position: absolute;
-    z-index: 2;
-    top: 20px;
-    right: 20px;
-    height: 20px;
-    width: 20px;
-    cursor: pointer;
-  }
-  .offer-flip-toggle span, .offer-flip-toggle span:before, .offer-flip-toggle span:after {
-    cursor: pointer;
-    border-radius: 1px;
-    height: 2px;
-    width: 20px;
-    background: white;
-    position: absolute;
-    display: block;
-    content: '';
-  }
-  .offer-flip-toggle span:before {
-    top: 14px;
-  }
-  .offer-flip-toggle span:after {
-    bottom: -7px;
-  }
-  .offer-flip-toggle span, .offer-flip-toggle span:before, .offer-flip-toggle span:after {
-    transition: all 500ms ease-in-out;
-  }
-  .offer-flip-toggle.active span {
-    background-color: transparent!important;
-  }
-  .offer-flip-toggle.active span:before, .offer-flip-toggle.active span:after {
-    top: 0;
-  }
-  .offer-flip-toggle.active span:before {
-    transform: rotate(45deg);
-  }
-  .offer-flip-toggle.active span:after {
-    transform: rotate(-45deg);
+}
+
+#profile-description{
+  margin-top: 20px;
+  h3{
+    margin: 20px 0px;
+    font-size: 32px;
+    font-family: SofiaProRegular;
   }
 }
 
