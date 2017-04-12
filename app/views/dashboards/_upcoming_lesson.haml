@@ -1,0 +1,15 @@
+.row
+  .col-xs-2
+    = image_tag(lesson.other(current_user).avatar(:small), class: 'img img-circle', height:62)
+  .col-xs-8
+    .lesson-datetime.text-grey
+      = lesson.time_start.strftime("%d %B %Y - %H:%M")
+    .lesson-topic
+      = "#{lesson.duration.hours}h" unless lesson.duration.hours.equal?(0)
+      = "#{lesson.duration.minutes}min" unless lesson.duration.minutes.equal?(0)
+      de
+      %span{class: "color-topic-#{lesson.topic_group_id}"}
+        #{lesson.topic.title}
+      avec #{lesson.other(current_user).name}
+  .col-xs-2
+    = image_tag(lesson.topic.pictotype(:grey_small))

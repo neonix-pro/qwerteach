@@ -1,0 +1,14 @@
+.card.card-search
+  .card-content
+    .row
+      .col-xs-2
+        %i.fa.fa-check.fa-2x
+      .col-xs-10
+        .card-title
+          Validation de votre candidature:
+          étape #{@user.postulation.ok_fields.length}/7
+        .row
+          %p
+            Nous avons bien reçu vos informations. Un
+            = link_to 'administrateur', mailbox_path(:inbox)
+            prendra contact avec vous sous peu pour valider votre profil.

@@ -1,6 +1,6 @@
 class LessonsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_lesson_infos, except: [:new, :index]
+  before_action :find_lesson_infos, except: [:new, :index, :calendar_index]
   before_filter :user_time_zone, :if => :current_user
   # needs to check that everything went OK before sending mail!
   #after_action :email_user, only: [:update, :accept, :refuse, :cancel, :dispute, :pay_teacher]
@@ -27,6 +27,13 @@ class LessonsController < ApplicationController
   def edit
     @hours = ((@lesson.time_end - @lesson.time_start) / 3600).to_i
     @minutes = ((@lesson.time_end - @lesson.time_start) / 60 ) % 60
+  end
+
+  def calendar_index
+    @lessons = Lesson.where(status: 2).where("time_start > '#{params[:start]}' AND time_end < '#{params[:end]}'")
+    respond_to do |format|
+      format.json {render json: @lessons}
+    end
   end
 
   def update

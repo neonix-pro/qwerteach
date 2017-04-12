@@ -101,3 +101,22 @@
     background: $dark_grey;
   }
 }
+
+#dashboard-calendar{
+  .fc-toolbar{
+    .fc-left{
+      h2{
+        font-family: SofiaProregular;
+        font-size: 20px;
+        text-transform: capitalize;
+      }
+    }
+  }
+  .fc-content-skeleton{
+    table{
+      thead, thead tr{
+        border-bottom: 0px;
+      }
+    }
+  }
+}

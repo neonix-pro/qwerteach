@@ -219,7 +219,7 @@ Rails.application.routes.draw do
     get 'cancel' => :cancel
     post 'pay_teacher'=>:pay_teacher
     get 'dispute'=>:dispute
-    
+
     resources :payments do
       collection do
         get :credit_card_complete
@@ -234,6 +234,8 @@ Rails.application.routes.draw do
     post "payerfacture/:payment_id" => "payments#payerfacture", as: 'payerfacture'
 
   end
+
+  get 'calendar_index'=>"lessons#calendar_index"
 
   resources :lesson_proposals, only: [:new, :create], constraints: ->(request){ request.env["warden"].user(:user).try(:type) == 'Teacher' }
 
