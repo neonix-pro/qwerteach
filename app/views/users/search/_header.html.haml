@@ -8,17 +8,18 @@
   .mode_emploi
     %a.open_mode_emploi.toggleCCM{href: '#'} Mode d'emploi
   .search-controls
-    = form_tag profs_path, method: :post, id: 'search-form', remote: false do
-      - if params[:topic].nil? || params[:topic].empty?
-        %span#search-topic.text-appear Tous les profs
+    .container
+      = form_tag profs_path, method: :post, id: 'search-form', remote: false do
+        - if params[:topic].nil? || params[:topic].empty?
+          %span#search-topic.text-appear Tous les profs
+          %span.caret
+        - else
+          Profs de
+          %span#search-topic.text-appear #{@search_text.downcase}
+          %span.caret
+        = hidden_field_tag("topic", params[:topic], id: 'search-topic-field')
+        triés par
+        %span#search-sorting.text-appear #{params[:search_sorting].nil? ? "pertinence": search_sorting_name}
         %span.caret
-      - else
-        Profs de
-        %span#search-topic.text-appear #{@search_text.downcase}
-        %span.caret
-      = hidden_field_tag("topic", params[:topic], id: 'search-topic-field')
-      triés par
-      %span#search-sorting.text-appear #{params[:search_sorting].nil? ? "pertinence": search_sorting_name}
-      %span.caret
-      = hidden_field_tag("search_sorting", params[:search_sorting].nil? ? "qwerteach_score": params[:search_sorting].to_s, id: 'search-sorting-field')
-      = hidden_field_tag('filter', params[:filter], id:'search-filter')
+        = hidden_field_tag("search_sorting", params[:search_sorting].nil? ? "qwerteach_score": params[:search_sorting].to_s, id: 'search-sorting-field')
+        = hidden_field_tag('filter', params[:filter], id:'search-filter')

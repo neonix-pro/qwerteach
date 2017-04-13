@@ -1,24 +1,17 @@
-.section_comment_prendre_donner_cours.comment_prendre
-  .section_title.take_lesson
-    %h2.text-left
-      Comment
-      %br prendre un cours ?
-      %a.arrow-take-lesson{data:{toggle: '#take-lesson'}}
-        %i.fa.fa-long-arrow-right
-    = image_tag('comment_ca_marche/take-lesson.png', class:'take-lesson')
-  .toggle-content.active#take-lesson
-    .cont
+.container.section_comment_prendre_donner_cours.comment_prendre
+  .row
+    .col-sm-5.text-center
       .icone
         =image_tag("comment_ca_marche/loupe.png", :alt => "Qwerteach rassemble une communauté de professeurs compétents dans plusieurs matières et prêts à vous aider à tout moment.")
+    .col-sm-7
       .text
         %h3 Choisir un prof
         %p Qwerteach rassemble une communauté de professeurs compétents dans plusieurs matières et prêts à vous aider à tout moment.
         %a.toggler.infos{:href => "#choose-teacher"} Plus d'infos
         %p#choose-teacher.toggle-content.hidden
           Pour découvrir leur profil, saisissez une matière dans la barre de recherche et cliquez sur leur photo ou sur leur nom. De la sorte, vous accéderez à une description détaillée de leurs formations et de leurs centres d’intérêt. Grâce aux évaluations laissées par d’autres utilisateurs, vous avez une idée de leurs expériences passées sur Qwerteach. Nous avons également créé des filtres de recherche pour que vous puissiez affiner vos résultats par prix, par âge et par type de diplôme obtenu.
-    .cont
-      .icone
-        =image_tag("comment_ca_marche/calendrier.png", :alt => "Expliquez les raisons pour lesquelles vous sollicitez l'aide d'un professeur. Par exemple en précisant les points de matière qui vous posent difficulté ou encore en présentant les consignes d'un examen d'entrée")
+  .row
+    .col-sm-7
       .text
         %h3 Réserver un cours
         %p Expliquez les raisons pour lesquelles vous sollicitez l'aide d'un professeur. Par exemple en précisant les points de matière qui vous posent difficulté ou encore en présentant les consignes d'un examen d'entrée.
@@ -29,9 +22,14 @@
           %h3 Paiement et confirmation
           %p Sur Qwerteach, nous demandons à chaque élève de payer au moment de réserver ses cours en ligne. Deux modes de paiements sont possibles : par carte de crédit ou au moyen d’un Portefeuille Virtuel. Quel que soit le mode de paiement utilisé, votre compte ne sera débité qu’une fois votre demande de cours acceptée. En cas d’annulation plus de 48 heures avant le début de votre cours en ligne, nous vous remboursons automatiquement.
           %p Chaque utilisateur possède par défaut un Portefeuille Virtuel grâce auquel il peut payer facilement et rapidement ses cours en ligne. A l’instar des comptes en banque traditionnels, vous pourrez à tout moment y verser des devises en prévision de vos futurs cours. Le dépôt de vos devises s’effectue sans frais au moyen de notre système de paiement en ligne sécurisé. Ce dernier accepte, en plus des virements bancaires classiques, l’usage des cartes de crédit de type Visa, MasterCard et Carte Bleue.
-    .cont
+    .col-sm-5.text-center
+      .icone
+        =image_tag("comment_ca_marche/calendrier.png", :alt => "Expliquez les raisons pour lesquelles vous sollicitez l'aide d'un professeur. Par exemple en précisant les points de matière qui vous posent difficulté ou encore en présentant les consignes d'un examen d'entrée")
+  .row
+    .col-sm-5.text-center
       .icone
         =image_tag("comment_ca_marche/ordi.png", :alt => "Tout est prêt, il ne vous reste plus qu'à rejoindre votre professeur dans la classe virtuelle !")
+    .col-sm-7
       .text
         %h3 Profiter d'un cours particulier
         %p Tout est prêt, il ne vous reste plus qu'à rejoindre votre professeur dans la classe virtuelle !

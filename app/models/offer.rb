@@ -33,15 +33,15 @@ class Offer < ActiveRecord::Base
   end
 
   def min_price
-    @min_price ||= offer_prices.order('price DESC').last.price
+    @min_price ||= offer_prices.order('price DESC').first.price
   end
 
   def max_price
-    @max_price ||= offer_prices.order('price DESC').first.price
+    @max_price ||= offer_prices.order('price DESC').last.price
   end
 
   def max_level
-    @max_level ||= offer_prices.order('level_id DESC').first.level.be
+    @max_level ||= offer_prices.order('level_id DESC').last.level.be
   end
 
   def topic_group_title

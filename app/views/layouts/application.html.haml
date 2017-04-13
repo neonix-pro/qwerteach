@@ -4,8 +4,6 @@
     = render "layouts/header"
   %body#body
     =render partial: 'layouts/navbar'
-    -if current_user
-      = render 'layouts/sidebar'
     #flash-messages
       - flash.each do |key, value|
         = render partial: 'shared/flash_dismiss', locals:{type: key, content: value}

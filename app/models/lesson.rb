@@ -222,5 +222,17 @@ class Lesson < ActiveRecord::Base
     (self.teacher == user || self.time_start > Time.now + 2.days || self.pending_any?)
   end
 
+  def as_json(options = {})
+    {
+        :id => self.id,
+        :title => "#{self.topic.title}",
+        :start => time_start.rfc822,
+        :end => time_end.rfc822,
+        :allDay => false,
+        :user_name => self.teacher.name,
+        :color => "#22de80"
+    }
+  end
+
   private
 end

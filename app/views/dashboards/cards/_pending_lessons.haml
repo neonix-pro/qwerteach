@@ -1,0 +1,11 @@
+.card.card-search
+  .card-content
+    .row
+      .col-xs-2
+        %i.fa.fa-check.fa-2x
+      .col-xs-10
+        .card-title
+          #{@to_do_list.length}
+          cours en attente
+        %p
+          =link_to 'Voir la liste', lessons_path

@@ -47,6 +47,9 @@ class UsersController < ApplicationController
       end
       @pagin = Kaminari.paginate_array(@search, total_count: @total).page(params[:page]).per(12)
     end
+    if params[:location] == 'landing'
+      render 'landing_page_teachers'
+    end
   end
 
   def profs_by_topic

@@ -13,7 +13,7 @@
           %div
             = link_to 'Devenir prof', pages_path('devenir-prof'), class: 'btn btn-qw btn-pink' unless current_user.is_a?(Teacher)
             = link_to 'Charte du prof', faq_path('teachers'), class: 'btn btn-qw btn-pink' if current_user.is_a?(Teacher)
-            %a.comment_ca_marche.open_mode_emploi.toggleCCM{href: '#'} Comment ça marche ?
+            -#%a.comment_ca_marche.open_mode_emploi.toggleCCM{href: '#'} Comment ça marche ?
       .item.active.100window
         = image_tag(image_path("acceuil/classe_eleve.png"), :class => "image_carrousel img-responsive img_slide1")
         %div{:class => "left"}
@@ -22,9 +22,9 @@
             - if current_user
               = link_to 'Voir les profs', profs_path, class: 'btn btn-qw btn-purple'
             - else
-              %a.btn.btn-qw.btn-purple{:href => "#myModIns", "data-toggle" => "modal"} Inscription gratuite
+              = link_to 'Inscription gratuite', new_user_registration_path, class: 'btn btn-qw btn-purple'
 
-            = link_to 'Comment ça marche', '#', class: 'comment_ca_marche open_mode_emploi toggleCCM'
+            -#= link_to 'Comment ça marche', '#', class: 'comment_ca_marche open_mode_emploi toggleCCM'
     %a.left.carousel-control.100window{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}
       = image_tag(image_path("acceuil/flecheg.png"))
     %a.right.carousel-control.100window{"data-slide" => "next", :href => "#myCarousel", :role => "button"}

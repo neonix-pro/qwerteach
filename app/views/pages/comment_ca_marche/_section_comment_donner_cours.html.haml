@@ -1,15 +1,9 @@
-.section_comment_prendre_donner_cours
-  .section_title.give_lesson
-    %h2.text-left
-      Comment
-      %br donner un cours ?
-      %a.arrow-give-lesson{data:{toggle: '#give-lesson'}}
-        %i.fa.fa-long-arrow-right
-    = image_tag('comment_ca_marche/give_lesson.png', class:'give-lesson')
-  .toggle-content#give-lesson
-    .cont
+.container.section_comment_prendre_donner_cours
+  .row
+    .col-sm-4.text-center
       .icone
         =image_tag("comment_ca_marche/loupe.png", :alt => "Qwerteach rassemble une communauté de professeurs compétents dans plusieurs matières et prêts à vous aider à tout moment.")
+    .col-sm-8
       .text
         %h3 Publier son annonce
         %p Nous vous invitons à enseigner tout type de matière sur Qwerteach, que ce soit de la géographie, des mathématiques ou du français. Dès que vous vous sentez prêt à donner cours, inscrivez-vous gratuitement et complétez votre profil en ligne afin de vous faire connaitre auprès des élèves.
@@ -19,9 +13,8 @@
           %p Sur Qwerteach, nous vous laissons fixer vos propres tarifs. Vous pouvez choisir un prix unique ou bien le personnaliser selon la matière que vous enseignez et le niveau d’étude des élèves. Nous vous demandons également de tenir à jour votre calendrier pour qu’il reflète vos disponibilités.
           %p La présence d’une photo de profil permet à chaque élève de visualiser précisément qui vous êtes. Téléchargez une photo depuis votre disque dur ou utilisez votre webcam pour vous photographier. Veillez à ce que votre photo soit lumineuse, nette et représente l’entièreté de votre visage.
           %p Une fois votre profil entièrement complété et enregistré, un membre de notre équipe vous contactera par e-mail afin de vous proposer un entretien au sein de la Classe Virtuelle, notre outil d’enseignement à distance. Au cours de cet entretien, nous vérifierons vos connaissances pour chaque matière et niveau indiqués sur votre page de profil, ainsi que vos compétences pédagogiques. Dans le cas où nous jugerons vos connaissances insuffisantes pour une matière ou un niveau donnés, nous vous demanderons de les modifier voire de les supprimer. Au terme de cet entretien, nous validerons et publierons votre profil.
-    .cont
-      .icone
-        =image_tag("comment_ca_marche/calendrier.png", :alt => "Expliquez les raisons pour lesquelles vous sollicitez l'aide d'un professeur. Par exemple en précisant les points de matière qui vous posent difficulté ou encore en présentant les consignes d'un examen d'entrée")
+  .row
+    .col-sm-8
       .text
         %h3 Donner des cours particuliers
         %p Nous avons conçu un espace de visioconférence, que nous appelons Classe Virtuelle, et grâce auquel vous pourrez donner vos cours depuis chez vous.
@@ -33,9 +26,14 @@
           %h3 Les cours particuliers dans la classe virtuelle
           %p Au sein de cette classe, vous communiquerez en direct avec votre élève oralement et par écrit, en utilisant votre micro, votre webcam ainsi qu’un chat intégré. La présence d’un tableau blanc interactif vous permettra également de dessiner, avec l’aide de votre souris, des figures géométriques, des graphes ou des équations mathématiques. Sur ce même tableau, vous pourrez afficher vos propres exercices, ou tout autre document, que vous aurez préalablement scannés ou photographiés, et que vous ferez compléter par votre élève.
           %p L’utilisation de la Classe Virtuelle ne nécessite l’installation d’aucun nouveau programme sur votre ordinateur. Pour y accéder, rien de plus simple. Connectez-vous au site quelques minutes avant le début de votre cours en ligne. Observez votre écran. Vous verrez affiché à gauche un message de rappel ainsi qu’un bouton bleu intitulé Ouvrir la Classe Virtuelle. En cliquant sur ce bouton, un nouvel onglet s’ouvrira dans votre navigateur. Il s’agit de votre classe où vous rejoindra bientôt votre élève.
-    .cont
+    .col-sm-4.text-center
+      .icone
+        =image_tag("comment_ca_marche/calendrier.png", :alt => "Expliquez les raisons pour lesquelles vous sollicitez l'aide d'un professeur. Par exemple en précisant les points de matière qui vous posent difficulté ou encore en présentant les consignes d'un examen d'entrée")
+  .row
+    .col-sm-4.text-center
       .icone
         =image_tag("comment_ca_marche/ordi.png", :alt => "Tout est prêt, il ne vous reste plus qu'à rejoindre votre professeur dans la classe virtuelle !")
+    .col-sm-8
       .text
         %h3 Recevoir ses honoraires
         %p Sur Qwerteach, vous recevrez vos honoraires au terme de chaque cours en ligne. En cas de litige, notre équipe accèdera à l'enregistrement du cours, afin de trouver une solution entre votre élève et vous.

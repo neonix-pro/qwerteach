@@ -1,0 +1,14 @@
+#onboarding
+  .container.welcome
+    .row
+      .col-sm-4
+      .col-sm-4.text-center
+        = image_tag('congrats.ico')
+    .row
+      .col-sm-3
+      .col-sm-6.text-center
+        %h3
+          Félicitations, vous êtes inscrit sur Qwerteach!
+          %small Prenons quelques instants pour configurer votre profil :)
+        = link_to "C'est parti!", next_wizard_path, class: 'btn btn-green btn-qw btn-sm', remote: true
+    %hr

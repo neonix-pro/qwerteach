@@ -3,6 +3,11 @@
 body, html{
   margin: 0;
   font-family: SofiaProRegular;
+  height:100%;
+  background-color: #F2F2F2;
+}
+body#body{
+  background-color: #F2F2F2;
 }
 body{
   padding-bottom:50px; // because of navbar
@@ -92,7 +97,7 @@ h1,h2,h3,h4,h5,p,span,a{
   background: $color_qwerteach_green;
   border-radius: 30px;
   font-size: 16px;
-  color: white;
+  color: $qwerteach_black;
   padding:8px 20px;
   .descriptionPlusResteProfil {
     margin-top: 400px;
@@ -407,4 +412,23 @@ table{
 .turbolinks-progress-bar {
   height: 5px;
   background-color: $color_qwerteach_green;
+}
+
+.color-topic-1{
+  color: $color_qwerteach_yellow;
+}
+.color-topic-2{
+  color: $color_qwerteach_pink;
+}
+.color-topic-3{
+  color: $color_qwerteach_purple;
+}
+.color-topic-4{
+  color: $color_qwerteach_green;
+}
+.color-topic-5{
+  color: $color_qwerteach_orange;
+}
+.color-topic-6{
+  color: $color_qwerteach_blue;
 }

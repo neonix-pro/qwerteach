@@ -1,0 +1,12 @@
+.ccm-tabs
+  .row.ccm-tabs-nav
+    %ul.col-xs-12.nav.nav-pills.nav-justified{role: "tablist"}
+      %li.active{role:"presentation"}
+        %a{href:"#take-lesson", role:"tab", data:{toggle:"tab"}, aria:{controls:"take-lesson"}}Prendre un cours
+      %li{role:"presentation"}
+        %a{href:"#give-lesson", role:"tab", data:{toggle:"tab"}, aria:{controls:"give-lesson"}}Donner un cours
+  .tab-content
+    #take-lesson.tab-pane.active{role:"tabpanel"}
+      =render 'pages/comment_ca_marche/section_comment_prendre_cours'
+    #give-lesson.tab-pane{role:"tabpanel"}
+      =render 'pages/comment_ca_marche/section_comment_donner_cours'

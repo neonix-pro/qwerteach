@@ -138,6 +138,8 @@ Rails.application.routes.draw do
   # :omniauth_callbacks => "users/omniauth_callbacks",
   devise_for :users, :controllers => { :registrations=> "registrations"}
   devise_for :teachers, :controllers => {:registrations => "registrations"}
+  resources :onboarding
+
   get "/auth/:action/callback",
       :controller => "users/omniauth_callbacks",
       :constraints => { :action => /google_oauth2|facebook/ }
@@ -217,7 +219,7 @@ Rails.application.routes.draw do
     get 'cancel' => :cancel
     post 'pay_teacher'=>:pay_teacher
     get 'dispute'=>:dispute
-    
+
     resources :payments do
       collection do
         get :credit_card_complete
@@ -232,6 +234,8 @@ Rails.application.routes.draw do
     post "payerfacture/:payment_id" => "payments#payerfacture", as: 'payerfacture'
 
   end
+
+  get 'calendar_index'=>"lessons#calendar_index"
 
   resources :lesson_proposals, only: [:new, :create], constraints: ->(request){ request.env["warden"].user(:user).try(:type) == 'Teacher' }
 

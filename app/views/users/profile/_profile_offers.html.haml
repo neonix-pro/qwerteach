@@ -1,33 +1,22 @@
-- offers.group_by(&:topic_group_id).each do |topic_group, offers|
-  - offers.each do |offer|
-    -unless offers.count == 1
-      .profile-offer{:class=>"#{profile_offer_classes(offers.count)} topic_#{topic_group}"}
-        .flipper
-          .front
-            = image_tag(offer.topic.pictotype('medium'), :class => 'offer-picto')
-            %h4.a-title
-              #{offer.title}
-          .back
-            .a-title
-              #{offer.title}
-              %br
-              %small Jusqu'au niveau #{offer.max_level}
-            .offer-description #{offer.description}
-        %span.offer-flip-toggle
-          %span
-- offers_single.each do |offer|
-  - unless offer.nil?
-    .profile-offer{:class=>"#{(offer == offers_single.last && offers_single.length % 2 == 1)  ? 'simple': 'double'} topic_#{offer.topic_group_id}"}
-      .flipper
-        .front
-          = image_tag(offer.topic.pictotype('medium'), :class => 'offer-picto')
-          %h4.a-title
-            #{offer.title}
-        .back
-          .a-title
-            #{offer.title}
-            %br
-            %small Jusqu'au niveau #{offer.max_level}
-          .offer-description #{offer.description}
-      %span.offer-flip-toggle
-        %span
+
+- offers.each do |offer|
+  .col-sm-6
+    .card.sticky-action
+      .card-content
+        .card-title.activator
+          .pull-left
+            = image_tag(offer.topic.pictotype(:grey_small))
+          #{offer.title}
+          %i.fa.fa-ellipsis-v.pull-right
+          %br
+          %small
+            Jusqu'au niveau #{offer.max_level} -
+            .text-green
+              #{offer.min_price} €/h
+      .card-action
+        = link_to 'Réserver', new_user_lesson_request_path(@user), class: 'text-green'
+      .card-reveal
+        .card-title
+          #{offer.topic.title}
+          %i.fa.fa-times.pull-right
+        %p.card-content= offer.description

@@ -1,0 +1,32 @@
+.container
+  .row
+    = onboarding_progress_bar
+  .row
+    .col-sm-2
+    .col-sm-8.text-center
+      %h3 Nous sommes curieux de vous connaître :)
+      = form_for(resource, as: resource_name, url: wizard_path, html: { method: :put, class: 'avatar-uploader' }) do |f|
+        #avatar_select.field.hidden
+          - resource.crop_x=0
+          = f.label 'Sélectionnez un fichier'
+          = f.file_field :avatar, value: '', :required => true
+        .form-group
+          = f.hidden_field :crop_x, :id => 'crop_x'
+          = f.hidden_field :crop_y, :id => 'crop_y'
+          = f.hidden_field :crop_w, :id => 'crop_w'
+          = f.hidden_field :crop_h, :id => 'crop_h'
+
+        .avatar-uploaded-view
+          %img.avatar-uploaded-view-image
+        .avatar-uploaded-preview
+          =image_tag(current_user.avatar(:medium), class: 'avatar-uploaded-preview-image', width: 200)
+        .edit-user-avatar.text-center
+          %button.btn.btn-sm.btn-qw.btn-green.browse{type: 'button'}
+            parcourir
+            %i.fa.fa-folder-open
+          = f.button "Enregistrer", class: 'btn btn-sm btn-qw btn-green', type: 'submit', disable_with: '<i class="fa fa-spinner fa-spin"></i>en cours'
+      %hr
+      .text-right
+        = link_to 'Pas maintenant', next_wizard_path
+:javascript
+  new AvatarUploader()

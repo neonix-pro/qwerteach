@@ -2,29 +2,40 @@
   .col-sm-12
     %h3 La boîte à outils
   .col-sm-3.col-xs-6.tools-list
-    %h4 Vos élèves
-    Félicitations, vous avez donné
-    = link_to "#{@user.lessons_given.count} cours", lessons_path
-    sur Qwerteach!
-    %ul
-      - @user.lessons_given.group(:student_id).each do |l|
-        - unless l.student.nil?
-          %li #{link_to l.student.name, user_path(l.student.id)}
+    .card
+      .card-content
+        %span.card-title Vos élèves
+        - if @user.lessons_given.count > 0
+          Félicitations, vous avez donné
+          = link_to "#{@user.lessons_given.count} cours", lessons_path
+          sur Qwerteach!
+          %ul
+            - @user.lessons_given.group(:student_id).each do |l|
+              - unless l.student.nil?
+                %li #{link_to l.student.name, user_path(l.student.id)}
+        - else
+          Vous n'avez pas encore donné de cours sur Qwerteach
   .col-sm-3.col-xs-6.tools-list
-    %h4 Donner cours
-    = link_to "Essayer la classe virtuelle", demo_room_path
-    %br
-    = link_to "Autres outils d'enseignement", faq_path
-    %br
-    = link_to "Questions fréquentes", faq_path
+    .card
+      .card-content
+        %span.card-title Donner cours
+        = link_to "Essayer la classe virtuelle", demo_room_path
+        %br
+        = link_to "Autres outils d'enseignement", faq_path
+        %br
+        = link_to "Questions fréquentes", faq_path
   .col-sm-3.col-xs-6.tools-list
-    %h4 Communauté
-    %a{href: '#'} Groupe facebook
-    %br
-    %a{href: '#'} Contacter un admin
+    .card
+      .card-content
+        %span.card-title Communauté
+        %a{href: '#'} Groupe facebook
+        %br
+        %a{href: '#'} Contacter un admin
   .col-sm-3.col-xs-6.find-students.tools-list
-    %h4
-      = link_to 'Trouver des élèves', faq_path
+    .card
+      .card-content
+        %span.card-title
+          = link_to 'Trouver des élèves', faq_path
 
 
 

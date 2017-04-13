@@ -1,10 +1,15 @@
-%div{:class => "section_bigimage",
-      "data-vide-bg" => "mp4: #{video_path('landing.mp4')} , webm: #{video_path('landing.webm')} , poster: #{image_path('acceuil/bigimage.jpg')}",
+.section_bigimage{"data-vide-bg" => "mp4: #{video_path('landing.mp4')} , webm: #{video_path('landing.webm')} , poster: #{image_path('acceuil/bigimage.jpg')}",
       "data-vide-options" => "posterType: jpg, loop: ture, muted: true, position: 50% 50%",
       "data-turbolinks-temporary" => true}
-    %div{:class => "title"}
-        %h1 Le bon prof au bon moment
-        %h2 Passez au soutien scolaire à la demande.
-    %div{:class => "mode_emploi"}
-        %a.toggleCCM Mode d'emploi
-    
+  .title
+    %h1
+      Le bon prof
+      %br
+      au bon moment
+    %h2 Trouvez votre professeur pour un cours particulier en ligne
+    %br
+    = link_to 'Inscription', new_user_registration_path, class: 'btn btn-qw btn-green'
+  .searchbar
+    = render partial: 'pages/accueil/partie_recherche'
+  .mode_emploi
+    %a.toggleCCM Mode d'emploi

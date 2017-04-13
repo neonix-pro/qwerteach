@@ -1,0 +1,56 @@
+.container
+  .row
+    = onboarding_progress_bar
+  .row
+    %h3.text-center
+      Génial, tout est prêt!
+      %br
+      %small
+        Trouvez votre prof idéal pour bénéficier de vos cours particuliers en ligne :)
+    .text-right
+      = link_to 'Explorer Qwerteach', dashboard_path
+    %hr
+  .row
+    %h2.page-title-green Cherchez par matière
+    - @topic_groups.each do |tg|
+      .col-xs-4.col-sm-2
+        .card
+          = link_to profs_by_topic_path(tg.title), class: 'text-center' do
+            .badge.badge-default.offers-number= Offer.where(topic_group_id: tg.id).count
+            .text-center= image_tag(tg.pictotype('grey_small'))
+            %div= "#{tg.title}"
+  %hr
+  .row
+    %h2.page-title-green Nos profs les plus populaires
+    #search-results
+      - @teachers.each do |t|
+        = render partial: 'users/search/search_result', :locals => {:u => t, :custom=>nil}
+  %hr
+  .row
+    %h2.page-title-green Pour aller plus loin
+    .col-sm-3
+      .card
+        .card-content
+          %h4.card-title Rendez-vous pédagogique
+          %p
+            = link_to 'Rencontrez un membre de notre équipe', pages_path('contact')
+            pour vous aider à choisir le meilleur professeur
+    .col-sm-3
+      .card
+        .card-content
+          %h4.card-title Il vous reste des questions?
+          %p
+            Rendez-vous dans notre
+            = link_to 'FAQ', faq_path
+            ou contactez-directement un admin via le
+            = link_to 'chat', '#'
+            !
+    .col-sm-6
+      .card
+        .card-content
+          %h4.card-title
+            Non merci, je préfère
+            = link_to 'explorer le site', dashboard_path
+            par moi-même
+
+

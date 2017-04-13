@@ -1,16 +1,20 @@
 @import "global_variables";
-.become-teacher-progress-bar{
-  height:100px;
-  margin:40px 0px;
+.become-teacher-progress-bar, .onboarding-progress-bar{
+  margin:20px 0px;
   padding: 0px;
   ul{
     padding: 0px;
   }
-  .become-teacher-step{
+  .become-teacher-step, .onboarding-step{
     display: inline-block;
     margin: 5px 0px;
     text-align:center;
+  }
+  .become-teacher-step{
     width:20%;
+  }
+  .onboarding-step{
+    width:33%;
   }
   ul li:first-child:before{
     border-color:transparent;
