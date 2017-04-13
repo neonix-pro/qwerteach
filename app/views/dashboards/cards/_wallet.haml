@@ -8,7 +8,9 @@
     -if @user.mango_id.nil?
       =link_to 'Configurer mon portefeuille', edit_wallet_path(@user), class: 'text-green'
     -else
+      = link_to 'Voir', index_wallet_path
+      #{"-"}
       - if @user.is_a?(Teacher)
-        = link_to 'Verser sur mon compte bancaire', load_wallet_path
+        = link_to 'Décharger', load_wallet_path
       - else
         = link_to 'Charger', load_wallet_path

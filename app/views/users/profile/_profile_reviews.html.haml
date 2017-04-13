@@ -1,6 +1,6 @@
 - reviews.each do |review|
   - if review.sender
-    .review.clearfix
+    .review.card
       = link_to user_path(review.sender) do
         .review-sender.col-sm-2
           = image_tag(review.sender.avatar.url(:small), {class: 'sender-picture'})

@@ -1,6 +1,8 @@
 .inside
   - profs.each_with_index do |prof, index|
-    .prof{id: "prof#{index}", style: "background-image: url(#{image_path prof.avatar.url(:large)})"}
+    .prof{id: "prof#{index}"}
+      = link_to user_path(prof) do
+        .prof-background{style: "background-image: url(#{image_path prof.avatar.url(:large)})"}
       %p
         %span.name
           = link_to "#{prof.firstname} #{prof.lastname}", user_path(prof)

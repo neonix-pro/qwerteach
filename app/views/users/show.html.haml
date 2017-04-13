@@ -30,25 +30,25 @@
 
 .container
   .row
-    .col-sm-1
-    .col-sm-10
+    .col-sm-8
+      #profile-description
+        %h3 A propos de #{@user.firstname}
+        %hr
+        %p
+          #{@user.description.gsub(/\n/, '<br />').html_safe unless @user.description.nil?}
+      - if @user.is_a?(Teacher)
+        #profile-calendar
+    .col-sm-4
       #profile-offers
         .row
           =render partial: 'users/profile/profile_offers', locals:{offers: @offers, offers_single: @offers_single}
-      #profile-description
-        .row
-          .col-xs-12
-            %h3 Description
-            %hr
-            %p
-              #{@user.description.gsub(/\n/, '<br />').html_safe unless @user.description.nil?}
-      - if @user.is_a?(Teacher)
-        #profile-calendar
-        - unless @reviews.empty?
-          #profile-reviews
-            = render partial: 'users/profile/profile_reviews', locals:{reviews: @reviews}
-        .similar-teachers
-        .clearfix
+  .row
+    - if @user.is_a?(Teacher)
+      - unless @reviews.empty?
+        #profile-reviews
+          = render partial: 'users/profile/profile_reviews', locals:{reviews: @reviews}
+      .similar-teachers
+      .clearfix
 - if @user.is_a?(Teacher)
   = render partial: 'lesson_requests/detailed_pricing_modal', locals:{offers: @user.offers_by_level_code}
   = render partial: 'users/profile/contactform', locals:{me: @me, user: @user} if current_user

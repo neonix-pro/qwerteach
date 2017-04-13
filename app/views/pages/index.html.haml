@@ -2,9 +2,10 @@
 = render 'pages/accueil/partie_big_image'
 = render 'pages/accueil/partie_carrousel'
 .profs_by_topic
-  .container
-    = render 'pages/accueil/partie_choix'
-  .section_profs.100window
+  .container-fluid
+    .row
+      = render 'pages/accueil/partie_choix'
+  .section_profs
     = render partial: 'pages/accueil/prof', :locals => {profs: @featured_teachers, topic_groups: @featured_topics}
 = render 'pages/accueil/tri_colonne'
 = render 'pages/accueil/partie_commentaire'

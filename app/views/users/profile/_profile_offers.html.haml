@@ -1,6 +1,6 @@
 
 - offers.each do |offer|
-  .col-sm-6
+  .col-sm-12
     .card.sticky-action
       .card-content
         .card-title.activator
@@ -10,8 +10,8 @@
           %i.fa.fa-ellipsis-v.pull-right
           %br
           %small
-            Jusqu'au niveau #{offer.max_level} -
-            .text-green
+            Jusqu'au niveau #{offer.max_level} - à partir de
+            %span.text-green
               #{offer.min_price} €/h
       .card-action
         = link_to 'Réserver', new_user_lesson_request_path(@user), class: 'text-green'
