@@ -223,7 +223,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    {
+    super.merge({
         :id => self.id,
         :title => "#{self.topic.title}",
         :start => time_start.rfc822,
@@ -231,7 +231,7 @@ class Lesson < ActiveRecord::Base
         :allDay => false,
         :user_name => self.teacher.name,
         :color => "#22de80"
-    }
+    })
   end
 
   private
