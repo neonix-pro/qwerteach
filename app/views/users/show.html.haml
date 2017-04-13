@@ -37,7 +37,7 @@
         %p
           #{@user.description.gsub(/\n/, '<br />').html_safe unless @user.description.nil?}
       - if @user.is_a?(Teacher)
-        #profile-calendar
+        #profile-calendar{data: {teacher:{id: @user.id}}}
     .col-sm-4
       #profile-offers
         .row
@@ -45,7 +45,8 @@
   .row
     - if @user.is_a?(Teacher)
       - unless @reviews.empty?
-        #profile-reviews
+        #profile-reviews.col-xs-8
+          %hr
           = render partial: 'users/profile/profile_reviews', locals:{reviews: @reviews}
       .similar-teachers
       .clearfix

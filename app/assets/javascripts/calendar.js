@@ -11,15 +11,25 @@ $(document).on('turbolinks:load',  function() {
         minTime: '08:00:00',
         maxTime: '23:59:59',
         dayClick: function(date, jsEvent, view) {
-            $('#request-lesson').modal('show');
-        },
-        events:[
-            {
-                title: 'test',
-                start: '2016-07-13T08:00:00',
-                end: '2016-07-13T10:00:00'
-            }
-        ]
 
+        },
+        eventSources: [{
+            url: '/calendar_index/'+$('#profile-calendar').attr('data-teacher-id')
+        }],
     });
+
+    $('#dashboard-lessons-calendar').fullCalendar({
+        defaultView: 'month',
+        eventSources: [{
+            url: 'calendar_index'
+        }],
+        lang: 'fr',
+        height: 450,
+        header: {
+            left:   'title',
+            center: '',
+            right:  'prev, next'
+        }
+    });
+
 });

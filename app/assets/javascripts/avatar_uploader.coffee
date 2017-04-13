@@ -52,6 +52,7 @@ class window.AvatarUploader
       onChange: (coords)=> this.onCropSelect(coords)
       setSelect:   [ 0, 0, PREVIEW_WIDTH, PREVIEW_HEIGHT ]
       aspectRatio: 1
+      boxHeight: 400
 
   onCropSelect: (coords) ->
     rx = PREVIEW_WIDTH / coords.w

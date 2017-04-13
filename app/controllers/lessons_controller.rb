@@ -30,7 +30,8 @@ class LessonsController < ApplicationController
   end
 
   def calendar_index
-    @lessons = Lesson.where(status: 2).where("time_start > '#{params[:start]}' AND time_end < '#{params[:end]}'")
+    @user = params[:id].nil? ? current_user : User.find(params[:id])
+    @lessons = Lesson.involving(@user).where(status: 2).where("time_start > '#{params[:start]}' AND time_end < '#{params[:end]}'")
     respond_to do |format|
       format.json {render json: @lessons}
     end

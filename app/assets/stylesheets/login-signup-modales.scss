@@ -1,12 +1,13 @@
 @import 'global_variables';
 #onboarding{
+  margin-bottom: 50px;
   .welcome{
     padding-top: 50px;
   }
   .role{
     padding: 0px 20px;
     img{
-      width:100%;
+      width:80%;
     }
   }
   .card{
@@ -17,6 +18,9 @@
     .card-title{
       font-family: SofiaProExtraLight;
     }
+  }
+  .onboarding-progress-bar{
+    margin-top:0px;
   }
 }
 

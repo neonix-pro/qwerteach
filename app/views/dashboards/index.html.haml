@@ -46,19 +46,3 @@
   - else
     = render partial: 'featured_teachers', locals: {teachers: @featured_teachers}
   %hr
-
-
-:javascript
-  $('#dashboard-lessons-calendar').fullCalendar({
-    defaultView: 'month',
-    eventSources: [{
-      url: 'calendar_index'
-    }],
-    lang: 'fr',
-    height: 450,
-    header: {
-      left:   'title',
-      center: '',
-      right:  'prev, next'
-    }
-  });

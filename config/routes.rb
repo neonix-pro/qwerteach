@@ -235,7 +235,7 @@ Rails.application.routes.draw do
 
   end
 
-  get 'calendar_index'=>"lessons#calendar_index"
+  get 'calendar_index/(:id)'=>"lessons#calendar_index"
 
   resources :lesson_proposals, only: [:new, :create], constraints: ->(request){ request.env["warden"].user(:user).try(:type) == 'Teacher' }
 

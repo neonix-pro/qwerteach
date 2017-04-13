@@ -3,9 +3,13 @@
   z-index: 1;
   height:500px;
   padding-top:100px;
-  .mode_emploi{
-    text-align:center;
-    padding-top:10%;
+  .mode_emploi {
+    text-align: center;
+    padding-top: 10%;
+    a:hover {
+      color: white;
+      cursor:pointer;
+    }
   }
   h1{
     margin:0px;
