@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_lesson_infos, except: [:new, :index]
   before_filter :user_time_zone, :if => :current_user
-  # needs to check that everything went OK before sending mail!
+  #needs to check that everything went OK before sending mail!
   #after_action :email_user, only: [:update, :accept, :refuse, :cancel, :dispute, :pay_teacher]
 
   def index
