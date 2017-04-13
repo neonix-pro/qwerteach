@@ -234,7 +234,7 @@
 .section_commentaire{
   background: image-url("bg_testimonials.png") no-repeat center;
   background-size: cover;
-  height: 67vh;
+  height: 300px;
   position:relative;
   #carousel-commentaires{
     width:100%;
@@ -249,11 +249,13 @@
     .carousel-inner{
       height:100%;
     }
+    .carousel-caption{
+      position:static;
+    }
     .item.active{
       height:100%;
     }
     .commentaire{
-      bottom: 20%;
       text-align:center;
       blockquote{
         border-left: 0px;
