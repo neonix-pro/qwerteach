@@ -1,5 +1,6 @@
 @import "global_variables";
 #search_header{
+  z-index: 0;
   height:500px;
   padding-top:100px;
   h1{
@@ -15,7 +16,6 @@
     width:100%;
     background-color:rgba(0,0,0,0.80);
     line-height:100px;
-    padding:0% 10%;
     font-size: 25.84px;
     color: #E5E5E5;
     font-weight:300;
@@ -34,25 +34,22 @@
 }
 
 #search-filters{
-  width:12%;
-  float:left;
-  padding:22px 0px;
-  z-index:1;
-  ul.search-filters{
-    list-style: outside none none;
-    padding-left: 0px;
+  margin-top:40px;
+  ul{
     li{
       cursor:pointer;
       font-size: 12px;
       color: $medium_grey;
-      padding: 10px 20px;
-      border-bottom: 1px solid #4A4A4A;
+      padding: 10px 40px;
     }
-    li:hover, li.selected{
+    li:hover{
+      text-decoration:none;
+      border-bottom: 1px solid $medium_grey;
+    }
+    li.selected{
       color: $color_qwerteach_green;
-      text-decoration:underline;
+      border-bottom: 1px solid $color_qwerteach_green;
     }
-
   }
 }
 
@@ -80,8 +77,6 @@
     color:inherit;
   }
   .result{
-    width:25%;
-    float:left;
     height:600px;
     box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.50);
     background-color:white;
