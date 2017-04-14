@@ -34,14 +34,8 @@ class Api::LessonsController < LessonsController
   
   def find_lesson_informations
     lesson = Lesson.find_by_id(params[:lesson_id])
-    
-    if current_user.id == lesson.student.id
-      name = lesson.teacher.name
-    else
-      name = lesson.student.name
-    end
-    
     todo = lesson.todo(current_user)
+    
     case todo
       when :wait
       if lesson.past?
@@ -83,8 +77,10 @@ class Api::LessonsController < LessonsController
       :topic_group => lesson.topic_group.title, 
       :level => level_title, 
       :duration => lesson.duration,
-      :name => name, 
-      :lesson_status => lesson_status}
+      :name => lesson.other(current_user).firstname, 
+      :lesson_status => lesson_status,
+      :avatar => lesson.other(current_user).avatar(:medium),
+      :payments => lesson.payments}
     
   end
   
