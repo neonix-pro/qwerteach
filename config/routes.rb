@@ -237,7 +237,7 @@ Rails.application.routes.draw do
 
   get 'calendar_index/(:id)'=>"lessons#calendar_index"
 
-  resources :lesson_proposals, only: [:new, :create], constraints: ->(request){ request.env["warden"].user(:user).try(:type) == 'Teacher' }
+  resources :lesson_proposals, only: [:new, :create], constraints: ->(request){ request.env["warden"].user(:user).try(:type) == 'Teacher' }, path_names: {new: 'new/(:id)'}
 
   match '/cours' =>'lessons#index', :as => 'cours', via: :get
   match '/cours/recus'=>'lessons#received', :as => 'cours_recus', via: :get

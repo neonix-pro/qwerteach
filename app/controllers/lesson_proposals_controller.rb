@@ -6,6 +6,7 @@ class LessonProposalsController < ApplicationController
 
   def new
     @proposal = SuggestLesson.new
+    @proposal.student_id = params[:id]
   end
 
   def create

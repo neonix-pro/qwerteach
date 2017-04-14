@@ -4,58 +4,14 @@
 
 @import 'global_variables';
 
-#mailbox-head{
-  height:40px;
-  background-color:$qwerteach_black;
-  border-top: 1px solid $medium_grey;
-  .new-message{
-    width:20%;
-    padding-right:20px;
-    float:left;
-    img{
-      height:20px;
-      margin-top:10px;
-      float:right;
-      cursor:pointer;
-    }
-  }
-  #compose-message{
-    display:none;
-    width:80%;
-    float:right;
-    label{
-      float:left;
-      color: $text_light_grey;
-      font-weight:400;
-      margin-top: 10px;
-      padding-left: 5px;
-    }
-    input#recipients{
-      margin-top:3px;
-      display: inline-block;
-      width: 80%;
-      margin-left:5px;
-      border:none;
-      background-color:transparent;
-      color: $text_light_grey;
-    }
-    input#recipients:active, input#recipients:focus{
-      box-shadow: none;
-    }
-    .form-group{
-      margin-bottom: 0px;
-    }
-  }
-}
 
 .mail-box {
   text-align: left;
   height:100%;
   width:100%;
-  padding-right:40px;
 }
 .mail-box aside {
-  height: 100%;
+  height: 100vh;
   padding: 0;
   vertical-align: top;
   position:relative;

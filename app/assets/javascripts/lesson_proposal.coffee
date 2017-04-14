@@ -2,11 +2,12 @@ class window.LessonProposal extends window.LessonForm
 
   initialize: ->
     super
+    @showHideWarning()
 
   initEvents: ->
     super
     @$el.on 'click', '[data-student-id]', (ev)=> @selectStudent(ev)
-    #@$el.on 'dp.change', '#time_start_picker', ()=> @calculatePrice()
+    @$el.on 'change', '#pay_afterwards', (e) => @onPayAfterwardsChange(e)
 
   isFreeLession: -> false
 
@@ -26,3 +27,16 @@ class window.LessonProposal extends window.LessonForm
     $.post @getCalculateUrl(), @paramsForCalculating(), (data)=>
       $('#proposal_price').val data.price
 
+
+  onPayAfterwardsChange: (e)->
+    if e.target.checked
+      $('#warning').show()
+    else
+      $('#warning').hide()
+
+  showHideWarning: ->
+    console.log($('#pay_afterwards').val())
+    if $('#pay_afterwards').checked
+      $('#warning').show()
+    else
+      $('#warning').hide()
