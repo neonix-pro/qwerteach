@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     put 'user/mangopay/make_payout' => 'wallets#make_payout'
     get 'user/mangopay/payout' => 'wallets#payout'
     
-    get 'cours' => 'lessons#index'
+    get 'lessons' => 'lessons#index'
     get 'lessons/find_lesson_informations/:lesson_id' => 'lessons#find_lesson_informations'
     get 'lessons/:lesson_id/cancel' => 'lessons#cancel'
     put 'lessons/:id' => 'lessons#update'

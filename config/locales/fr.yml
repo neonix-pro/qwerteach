@@ -8,7 +8,7 @@ fr:
         pending: 'A payer'
         canceled: 'Annulé'
         disputed: 'En litige'
-        refuned: 'Remboursé'
+        refunded: 'Remboursé'
   Male: 'Homme'
   Female: 'Femme'
   Not telling: 'Non-communiqué'
