@@ -28,8 +28,7 @@
     #search-results
       .row
       - @teachers.each do |t|
-        .col-sm-4.col-md-3
-          = render partial: 'users/search/search_result', :locals => {:u => t, :custom=>nil}
+        = render partial: 'users/search/search_result', :locals => {:u => t, :custom=>nil}
 
   %hr
   .row
