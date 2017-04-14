@@ -1,4 +1,6 @@
 .message-container.clearfix
+  .message-sender
+    #{message.sender.firstname}
   .message.message-received
     .avatar
       = image_tag(message.sender.avatar.url(:small), class: "img img-circle")

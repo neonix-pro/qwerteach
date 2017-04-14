@@ -434,3 +434,28 @@ table{
 .color-topic-6{
   color: $color_qwerteach_blue;
 }
+
+.badge.badge-topic-1{
+  background-color: $color_qwerteach_yellow;
+  color: $dark_grey;
+}
+.badge.badge-topic-2{
+  color:white;
+  background-color: $color_qwerteach_pink;
+}
+.badge.badge-topic-3{
+  color:white;
+  background-color: $color_qwerteach_purple;
+}
+.badge.badge-topic-4, .badge.badge-green{
+  color:white;
+  background-color: $color_qwerteach_green;
+}
+.badge.badge-topic-5{
+  color:white;
+  background-color: $color_qwerteach_orange;
+}
+.badge.badge-topic-6{
+  color:white;
+  background-color: $color_qwerteach_blue;
+}

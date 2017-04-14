@@ -10,17 +10,43 @@
       width:80%;
     }
   }
-  .card{
-    .badge{
-      position:absolute;
-      right:0;
-    }
-    .card-title{
-      font-family: SofiaProExtraLight;
-    }
+  .progress-bar-wrapper{
+    background-color: $text_light_grey;
   }
   .onboarding-progress-bar{
-    margin-top:0px;
+    margin:5px 0px;
+    ul{
+      margin-bottom: 0px;
+      li{
+        margin:0;
+        a{
+          position:relative;
+          z-index:2;
+        }
+      }
+      li::before{
+        z-index:1;
+      }
+    }
+  }
+  .topics-list{
+    margin:50px 0px;
+    .card{
+      .badge{
+        position:absolute;
+        right:3px;
+        top:3px;
+      }
+      .card-title{
+        font-family: SofiaProExtraLight;
+      }
+      padding: 20px;
+    }
+  }
+  #search-results{
+    h3{
+      margn-bottom: 20px;
+    }
   }
 }
 
