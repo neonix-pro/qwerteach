@@ -26,8 +26,8 @@ $(document).on('turbolinks:load',  function() {
         lang: 'fr',
         height: 450,
         header: {
-            left:   'title',
-            center: '',
+            left:   'agendaWeek, month',
+            center: 'title',
             right:  'prev, next'
         }
     });

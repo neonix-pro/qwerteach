@@ -20,26 +20,36 @@
       = render 'help_request_lesson'
 - else
   .container
-    .row
-      #dashboard-calendar
-        .col-sm-7
-          #dashboard-lessons-calendar
-        .col-sm-5.lessons-list
-          - if @upcoming_lessons.empty?
-            %p.lead.text-center
-              Vous n'avez aucun cours prévu.
-            = form_tag profs_path, method: :post, class: 'form text-center' do
-              .form-group
-                %label Cherchez un prof par matière:
-                .input-group
-                  = text_field_tag('topic', '', class: 'form-control', placeholder: 'ex: physique')
-                  %span.input-group-btn
-                    = button_tag type:'submit', class: 'btn btn-search' do
-                      %i.fa.fa-search
-          - @upcoming_lessons.each do |l|
-            = render partial: 'upcoming_lesson', locals:{lesson: l}
-            %br
-      %hr
+    .card.card-search
+      .card-content
+        .row
+          #dashboard-calendar
+            .col-sm-7
+              #dashboard-lessons-calendar
+            .col-sm-5.lessons-list
+              - if @upcoming_lessons.empty?
+                %p.lead.text-center
+                  Vous n'avez aucun cours prévu.
+                %hr
+                - if @user.is_a?(Teacher)
+                  %i.fa.fa-life-ring.fa-3x.pull-left.text-purple
+                  %p.text-center
+                    Besoin d'un coup de main?
+                    Consultez nos trucs pour
+                    %br
+                    #{link_to 'trouver des élèves', faq_path}!
+                -else
+                  = form_tag profs_path, method: :post, class: 'form text-center' do
+                    .form-group
+                      %label Cherchez un prof par matière:
+                      .input-group
+                        = text_field_tag('topic', '', class: 'form-control', placeholder: 'ex: physique')
+                        %span.input-group-btn
+                          = button_tag type:'submit', class: 'btn btn-search' do
+                            %i.fa.fa-search
+              - @upcoming_lessons.each do |l|
+                = render partial: 'upcoming_lesson', locals:{lesson: l}
+                %br
 .container
   - if @user.is_a?(Teacher)
     = render 'dashboards/teacher/tools'
