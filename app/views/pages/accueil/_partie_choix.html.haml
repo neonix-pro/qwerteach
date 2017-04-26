@@ -7,29 +7,29 @@
       %br convient
   =link_to profs_path(location: :landing), remote: true do
     .matiere.active
-      %i.fa.fa-star.fa-2x.text-purple
+      %i.fa.fa-star.fa-2x.text-white
       %h3 Tous
   =link_to profs_by_topic_path('mathématiques', location: :landing), remote: true do
     .matiere
-      = image_tag("matieres/maths.png", :class => "image_presse img-responsive")
+      = image_tag("matieres/maths_small_white.png", :class => "image_presse img-responsive")
       %h3 Maths
   =link_to profs_by_topic_path('sciences', location: :landing), remote: true do
     .matiere
-      = image_tag("matieres/sciences.png", :class => "image_presse img-responsive")
+      = image_tag("matieres/sciences_small.png", :class => "image_presse img-responsive")
       %h3 Science
   =link_to profs_by_topic_path('français', location: :landing), remote: true do
     .matiere
-      = image_tag("matieres/francais.png", :class => "image_presse img-responsive")
+      = image_tag("matieres/francais_small.png", :class => "image_presse img-responsive")
       %h3 Français
   =link_to profs_by_topic_path('informatique', location: :landing), remote: true do
     .matiere
-      = image_tag("matieres/informatique.png", :class => "image_presse img-responsive")
+      = image_tag("matieres/informatique_small.png", :class => "image_presse img-responsive")
       %h3 Informatique
   =link_to profs_by_topic_path('anglais', location: :landing), remote: true do
     .matiere
-      = image_tag("matieres/anglais.png", :class => "image_presse img-responsive")
+      = image_tag("matieres/anglais_small.png", :class => "image_presse img-responsive")
       %h3 Anglais
   =link_to profs_by_topic_path('neerlandais', location: :landing), remote: true do
     .matiere
-      = image_tag("matieres/neerlandais.png", :class => "image_presse img-responsive")
+      = image_tag("matieres/neerlandais_small.png", :class => "image_presse img-responsive")
       %h3 Néerlandais
