@@ -1,19 +1,32 @@
 = render 'pages/accueil/partie_comment_ca_marche'
-= render 'pages/accueil/partie_big_image'
-= render 'pages/accueil/partie_carrousel'
-.profs_by_topic
-  .container-fluid
-    .row
-      = render 'pages/accueil/partie_choix'
-  .section_profs
-    = render partial: 'pages/accueil/prof', :locals => {profs: @featured_teachers, topic_groups: @featured_topics}
-= render 'pages/accueil/tri_colonne'
-= render 'pages/accueil/partie_commentaire'
-= render "pages/accueil/presse"
+.magnetic
+  = render 'pages/accueil/partie_big_image'
+#carousel-anchor
+.magnetic
+  = render 'pages/accueil/partie_carrousel'
+.magnetic
+  .profs_by_topic
+    .container-fluid
+      .row
+        = render 'pages/accueil/partie_choix'
+    .section_profs
+      = render partial: 'pages/accueil/prof', :locals => {profs: @featured_teachers, topic_groups: @featured_topics}
+.magnetic
+  = render 'pages/accueil/tri_colonne'
+.magnetic
+  = render 'pages/accueil/partie_commentaire'
+.magnetic
+  = render "pages/accueil/presse"
 
 :javascript
   $('.matiere').click(function(){
     $('.section_profs').html('<div class="spinner"><i class="fa fa-spinner fa-spin"></i></div>');
     $('.matiere').removeClass('active');
     $(this).addClass('active');
+  });
+  $('.see-more-link').click(function(e){
+    e.preventDefault();
+    $('html, body').animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top
+    }, 500);
   });
