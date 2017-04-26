@@ -4,10 +4,8 @@ body, html{
   margin: 0;
   font-family: 'Open Sans', sans-serif;
   height:100%;
-  background-color: #F2F2F2;
 }
 body#body{
-  background-color: #F2F2F2;
 }
 body{
   padding-bottom:50px; // because of navbar
@@ -26,6 +24,10 @@ body{
 }
 h1,h2,h3,h4,h5{
   font-family: SofiaProRegular;
+}
+h1{
+  text-transform: uppercase;
+  font-size: 3rem;
 }
 p, span, a, ul, li{
   font-family: 'Open Sans', sans-serif;
@@ -84,22 +86,22 @@ p, span, a, ul, li{
   }
 }
 
-.btn.btn-qw, .btn.btn-qw:hover {
+.btn.btn-qw{
   border-radius: 30px;
   font-size: 14px;
   letter-spacing: 0.2px;
   font-weight: 300;
-  padding: 6px 30px;
-  font-family: SofiaProLight;
+  padding: 1px 30px;
 }
 .btn-sm.btn.btn-qw, .btn-sm.btn.btn-qw:hover {
   font-size: 14px;
-  padding: 5px 12px;
+  padding: 1px 12px;
+  border-radius: 30px;
 }
 
 .btn.btn-green, .btn.btn-success, .btn.btn-green:hover, .btn.btn-success:hover{
   background: $color_qwerteach_green;
-  border-radius: 30px;
+
   font-size: 16px;
   color: $qwerteach_black;
   padding:8px 20px;
@@ -410,6 +412,17 @@ table{
     padding: 20px;
     border: none;
     background-image: none;
+  }
+  form{
+    .alert{
+      background-color:transparent!important;
+      h4{
+        font-size: 2rem;
+      }
+    }
+    .alert.alert-danger{
+      color: $color_qwerteach_red;
+    }
   }
 }
 

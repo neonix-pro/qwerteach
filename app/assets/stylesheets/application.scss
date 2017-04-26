@@ -13,13 +13,14 @@
  */
 //@import "**/*";
 @import 'chosen';
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import 'bootstrap/theme';
 @import "font-awesome-sprockets";
 @import "font-awesome";
-@import 'bootstrap-datetimepicker';
-@import 'bootstrap-datepicker3';
 @import 'fullcalendar';
+@import "materialize/components/color";
+@import "global_variables";
+$input-focus-color: $color_qwerteach_green;
+$input-error-color: $color_qwerteach_red;
+$input-success-color: #9e9e9e;
+@import "materialize";
 @import "*";
 

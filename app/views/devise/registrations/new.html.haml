@@ -1,14 +1,14 @@
-.container-fluid.sign_in_page
-  .row
-    %h2.page-title-green.text-center S'inscrire
-    .col-md-4.col-md-offset-4
-      %p.lead
-        S'inscrire sur Qwerteach c'est rapide, gratuit, et garanti sans spams :)
-      = render :partial => 'new_form'
-  .row
-    .col-md-6.col-md-offset-3
-      = render "devise/shared/links"
-      %hr
+.container-fluid
+  .sign_in_page
+    .row
+      %h1.text-center Inscription
+      .col-md-6.col-md-offset-3
+        %p
+          S'inscrire sur Qwerteach c'est rapide, gratuit, et garanti sans spams :)
+        = render :partial => 'new_form'
+        .text-right
+          %small= link_to 'Déjà inscrit?', new_session_path(resource)
+
 :javascript
   a = jstz.determine();
   $('#user_time_zone').val(a.name());

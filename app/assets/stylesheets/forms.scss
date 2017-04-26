@@ -5,7 +5,7 @@ form{
     font-family: 'Open Sans', sans-serif;
   }
   .actions{
-    margin: 25px 0px;
+    margin: 25px 0px 5px;
     text-align:right;
     input[type="submit"]{
       color:$dark_grey;
@@ -26,6 +26,17 @@ form{
   }
   .checkbox label{
     line-height: 25px;
+  }
+  .input-field{
+    margin-top:0.5rem;
+    input{
+      margin-bottom: 10px;
+    }
+  }
+  .has-error{
+    input{
+      border-color: $color_qwerteach_red;
+    }
   }
 }
 
