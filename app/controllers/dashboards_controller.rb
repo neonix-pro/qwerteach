@@ -20,7 +20,7 @@ class DashboardsController < ApplicationController
     @to_do_list = @user.todo_lessons.sort_by &:created_at
 
     @featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)
-    @featured_teachers = Teacher.all.order(score: :desc).limit(5)
+    @featured_teachers = Teacher.all.order(score: :desc).limit(4)
     @current_lesson = @user.current_lesson
   end
 end

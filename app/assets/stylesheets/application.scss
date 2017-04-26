@@ -12,10 +12,10 @@
  *
  */
 //@import "**/*";
+@import 'chosen';
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import 'bootstrap/theme';
-@import 'chosen';
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import 'bootstrap-datetimepicker';

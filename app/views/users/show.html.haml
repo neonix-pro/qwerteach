@@ -26,9 +26,12 @@
           .user-pricing #{@user.min_price} €/h
           %p.detailed-pricing-link= link_to 'Voir le tarif détaillé', "#detailed-pricing", data:{toggle: 'modal'}
         #cta.text-center
+          %a.btn.btn-green.btn-sm.btn-qw{href: '#contact-modal', data:{toggle: 'modal'}}
+            %i.fa.fa-envelope
           = link_to 'Réserver', new_user_lesson_request_path(@user), class: 'btn btn-green btn-sm btn-qw'
 
 .container
+  #header-anchor
   .row
     .col-sm-8
       #profile-description

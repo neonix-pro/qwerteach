@@ -265,6 +265,8 @@ Rails.application.routes.draw do
   get 'demo_room', to: "bbb_rooms#demo_room", as: 'demo_room'
   get 'join_demo/:id', to: "bbb_rooms#join_demo", as: 'join_demo'
 
+  resources :toolbox, only: [:index, :show], path_names: {new: 'show/:id'}
+
   mount Resque::Server, :at => "/resque"
 
   #root to: 'pages#index'

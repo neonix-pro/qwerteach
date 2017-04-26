@@ -17,24 +17,6 @@ main {
   // flex: 1 0 auto;
 }
 
-ul {
-  &:not(.browser-default) {
-    padding-left: 0;
-    list-style-type: none;
-
-    li {
-      list-style-type: none;
-    }
-  }
-}
-
-a {
-	color: $link-color;
-	text-decoration: none;
-
-  // Gets rid of tap active state
-  -webkit-tap-highlight-color: transparent;
-}
 
 
 // Positioning

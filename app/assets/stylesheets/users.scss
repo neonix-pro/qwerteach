@@ -92,14 +92,14 @@
 
 /* Profil*/
 #profile-header{
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
   background-color: $text_light_grey;
   padding: 20px;
-  .profilepicture{
-    img {
-      width:100%;
-      border-radius: 50%;
-    }
-  }
+  max-height:250px;
   h2.user-name{
     font-family: SofiaProRegular;
     font-size: 30px;
@@ -109,9 +109,28 @@
       font-size:14px;
     }
   }
+  #topics{
+    display:block;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+  }
   #pricing{
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    margin-top:auto;
     padding: 30px 0px;
     .user-pricing{
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      -ms-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
       font-size: 30px;
       font-family: SofiaProRegular;
     }
@@ -119,6 +138,78 @@
       font-family: SofiaProLight;
       font-size: 12px;
       text-transform:uppercase;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      -ms-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      margin-bottom:10px;
+    }
+    #cta{
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      -ms-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      margin-top:0px;
+    }
+  }
+  .profilepicture{
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    max-height:auto;
+    padding-left:0px;
+    img {
+      border-radius: 50%;
+      max-height:250px;
+      max-width:100%;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      -ms-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+    }
+  }
+}
+
+#profile-header.smaller{
+  max-height:100px;
+  width:100%;
+  z-index:10;
+  position:fixed;
+  top:0;
+  .profilepicture{
+    padding-left:35px;
+    img{
+      width:auto;
+      max-height:75px;
+    }
+  }
+  #topics{
+    display:none;
+  }
+  h2.user-name{
+    margin:0px;
+  }
+  .profile-infos{
+    line-height:10px;
+  }
+  #pricing{
+    padding: 3px 0px;
+    margin-top:-15px;
+    .user-pricing{
+      font-size:25px;
+    }
+    #cta{
+      margin-top:-10px;
+    }
+    .detailed-pricing-link{
+      font-size: 10px;
+      text-transform:uppercase;
+      margin-bottom:0px;
     }
   }
 }

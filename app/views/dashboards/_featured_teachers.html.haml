@@ -1,15 +1,7 @@
 .row
-  .col-xs-12#featured_teachers
+  .col-xs-12
     %h2.text-center
       Quelques profs qui pourraient vous intéresser
-    -teachers.each do |teacher|
-      = link_to user_path(teacher) do
-        .featured_teacher
-          .picture
-            =image_tag(teacher.avatar.url(:medium))
-          .min_price
-            #{"%g" % (teacher.min_price)} €/h
-          .name
-            %b #{teacher.name.humanize}
-          .topics
-            = teacher.offers.first(3).map(&:title).join(', ')
+    #search-results
+      -teachers.each do |teacher|
+        = render partial: 'users/search/search_result', :locals => {:u => teacher, :custom=>nil}
