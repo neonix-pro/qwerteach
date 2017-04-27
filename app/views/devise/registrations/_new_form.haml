@@ -2,18 +2,18 @@
   = devise_error_messages!
   = f.hidden_field :time_zone
   .row
-    .input-field.col.s6
+    .input-field.col-sm-6
       = f.label :firstname, 'Prénom'
       = f.text_field :firstname, autofocus: true
-    .input-field.col.s6
+    .input-field.col-sm-6
       = f.label :lastname, 'Nom'
       = f.text_field :lastname
   .row
-    .input-field.col.s12
+    .input-field.col-sm-12
       = f.label :user_email, 'E-mail'
       = f.email_field :email, :required => true, id: "user_email", class: 'validate'
   .row
-    .input-field.col.s12
+    .input-field.col-sm-12
       = f.label :password, "Mot de passe (#{@minimum_password_length} caractères)"
       = f.password_field :password, autocomplete: "off", class: 'validate', :required => true,
       pattern:".{#{@minimum_password_length},}",
