@@ -19,7 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
       if session[:user_redirect_to]
         session[:user_redirect_to]
       else
-        onboarding_path(:welcome)
+        onboarding_path(:choose_role)
       end
     end
   end

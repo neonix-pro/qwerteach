@@ -36,7 +36,12 @@
     background-color:transparent;
     border:none;
     height:100%;
+    font-size: 18px;
   }
+}
+.navbar-form{
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .navbar-form .input-group input.form-control{
   background: $dark_grey;
@@ -47,6 +52,8 @@
   letter-spacing: 0.2px;
   width:150%;
   border:none;
+  height: 40px;
+  padding-left: 10px;
 }
 
 #navbar{
