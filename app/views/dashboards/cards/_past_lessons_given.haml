@@ -2,9 +2,10 @@
   .card-content
     .row
       .col-xs-2
-        %i.fa.fa-graduation-cap.fa-2x
+        .icon-coloured.icon-green.icon-title
+          %i.fa.fa-graduation-cap.fa-2x
       .col-xs-10
         .card-title
-          #{@user.lessons_given.past.count} Cours donnés
+          #{@user.lessons_given.past.count} Cours <br /> donnés
         %p
           =link_to "Voir l'historique complet", lessons_path, class: 'text-green'

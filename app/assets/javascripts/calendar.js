@@ -3,6 +3,7 @@ $(document).on('turbolinks:load',  function() {
         defaultView: 'agendaWeek',
         eventSources: [
         ],
+        timezone: 'local',
         firstDay: 1,
         lang: 'fr',
         allDaySlot : false,
@@ -19,6 +20,7 @@ $(document).on('turbolinks:load',  function() {
     });
 
     $('#dashboard-lessons-calendar').fullCalendar({
+        timezone: 'local',
         defaultView: 'month',
         eventSources: [{
             url: 'calendar_index'

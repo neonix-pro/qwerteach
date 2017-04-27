@@ -21,6 +21,7 @@
 //= require private_pub
 //= require messages
 //= require_tree .
+//= require bootstrap
 //= require bootstrap-datetimepicker
 //= require ckeditor-jquery
 //= require chosen-jquery
@@ -31,7 +32,6 @@
 //= require mangopay-kit.min
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
-
 //= require materialize
 //= require turbolinks
 

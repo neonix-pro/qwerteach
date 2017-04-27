@@ -2,9 +2,10 @@
   .card-content
     .row
       .col-xs-2
-        %i.fa.fa-calendar.fa-2x
+        .icon-coloured.icon-green.icon-title
+          %i.fa.fa-calendar.fa-2x
       .col-xs-10
         .card-title
-          #{@user.lessons_received.past.count} Cours suivis
+          #{@user.lessons_received.past.count} Cours <br /> suivis
         %p
           =link_to "Voir l'historique complet", lessons_path, class: 'text-green'

@@ -1,16 +1,23 @@
 .card.card-search
   .card-content
-    .card-title
-      %i.fa.fa-euro.pull-left
-      Portefeuille:
-      - unless @user.mango_id.nil?
-        %span.text-green #{@user.total_wallets_in_cents/100} €
-    -if @user.mango_id.nil?
-      =link_to 'Configurer mon portefeuille', edit_wallet_path(@user), class: 'text-green'
-    -else
-      = link_to 'Voir', index_wallet_path
-      #{"-"}
-      - if @user.is_a?(Teacher)
-        = link_to 'Décharger', load_wallet_path
-      - else
-        = link_to 'Charger', load_wallet_path
+    .row
+      .col-xs-2
+        .icon-coloured.icon-purple.icon-title
+          %i.fa.fa-euro.fa-2x
+      .col-xs-10
+        .card-title
+          Portefeuille <br />
+          - unless @user.mango_id.nil?
+            %span.text-green #{@user.total_wallets_in_cents/100} €
+          - else
+            0€
+        .row
+          -if @user.mango_id.nil?
+            =link_to 'Configurer', edit_wallet_path(@user), class: 'text-green'
+          -else
+            = link_to 'Voir', index_wallet_path
+            #{"-"}
+            - if @user.is_a?(Teacher)
+              = link_to 'Décharger', load_wallet_path
+            - else
+              = link_to 'Charger', load_wallet_path
