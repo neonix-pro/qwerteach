@@ -135,6 +135,7 @@ Rails.application.routes.draw do
     get 'payout' => :payout
     put 'make_payout' => :make_payout
     put 'desactivate_bank_account/:id' => :desactivate_bank_account, as: 'desactivate_bank_account'
+    get 'transactions_index' => :transactions_index
   end
   # :omniauth_callbacks => "users/omniauth_callbacks",
   devise_for :users, :controllers => { :registrations=> "registrations"}

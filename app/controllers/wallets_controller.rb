@@ -37,12 +37,14 @@ class WalletsController < ApplicationController
       @bank_accounts = @user.mangopay.bank_accounts.select{|ba| ba if ba.active}
       @bank_account = Mango::CreateBankAccount.new(user: current_user)
       @pagin = Kaminari.paginate_array(@transactions, total_count: filters['total_items']).page(params[:page]).per(10)
-      logger.debug(filters['total_items'])
     end
   end
 
   def transactions_index
-    @transactions = @user.mangopay.transactions(page: params[:page], per_page: params[:per_page], sort: 'CreationDate:desc')
+    @user = current_user
+    filters = {page: params[:page], per_page: 10, sort: 'CreationDate:desc'}
+    @transactions = @user.mangopay.transactions(filters)
+    @pagin = Kaminari.paginate_array(@transactions, total_count: filters['total_items']).page(params[:page]).per(10)
   end
 
   def edit_mangopay_wallet
