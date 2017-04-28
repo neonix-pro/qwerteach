@@ -1,0 +1,95 @@
+.card.card-bank-accounts
+  .card-content
+    - if @user.is_a?(Teacher)
+      = render 'wallets/cards/teacher_accounts_and_cards'
+    - else
+      = render partial: 'wallets/cards/student_accounts_and_cards'
+    %hr
+    = link_to '#', class: 'text-green valign-wrapper' do
+      %i.fa.fa-edit
+      #{"  Modifier"}
+
+
+
+-#.wallet_index
+-#  .row
+-#    .money.col-md-10
+-#      - # user = local_assigns[:user] || current_user ==> ??
+-#      %p
+-#        = wallet_balance(@user.normal_wallet)
+-#      %span
+-#        \#{wallet_balance(@user.bonus_wallet)} de crédit bonus
+-#    .reload.col-md-2
+-#      - if @user.is_a?(Teacher)
+-#        .high
+-#          .center
+-#            =link_to payout_path do
+-#              =image_tag("wallet/deload.png")
+-#              Décharger
+-#        .high
+-#          .center
+-#            =link_to load_wallet_path do
+-#              =image_tag("wallet/reload.png")
+-#              Recharger
+-#      - else
+-#        .center
+-#          = link_to load_wallet_path do
+-#            =image_tag("wallet/reload.png")
+-#            Recharger
+-#  .row
+-#    .threecol#info_bank.col-md-4
+-#      .center
+-#        =image_tag("wallet/info_bank.png")
+-#        %p Information bancaires
+-#      .triangle
+-#    .threecol#historique.col-md-4
+-#      .center
+-#        =image_tag("wallet/historique.png")
+-#        %p Historique
+-#      .triangle
+-#    .threecol#option.col-md-4
+-#      .center
+-#        =image_tag("wallet/option.png")
+-#        %p Coordonnées
+-#      .triangle
+-#  .row
+-#    #option_info_bank.block_info
+-#      .cards-list.clearfix
+-#        .title
+-#          Moyens de payement enregistrés
+-#        - @cards.each do |c|
+-#          -if c.active
+-#            .card{class: c.card_provider}
+-#              .provider
+-#                = image_tag("wallet/card-#{c.card_provider}.png")
+-#              .alias #{c.alias}
+-#              .expiry.text-right #{c.expiration_date.insert(2, "/20")}
+-#      -if @user.is_a?(Teacher)
+-#        .bank-accounts-list
+-#          .title
+-#            Compte bancaire
+-#          -@bank_accounts.each do |ba|
+-#            .bank-account
+-#              =image_tag('wallet/bank-account-background.png', class: 'bank-account-background')
+-#              .owner #{ba.owner_name}
+-#              .number #{ba.iban || ba.account_number}
+-#              .delete.pull-right
+-#                = button_to desactivate_bank_account_path(ba.id), method: :put do
+-#                  .fa.fa-trash-o
+-#          .bank-account
+-#            .add
+-#              =link_to bank_accounts_path, remote: true do
+-#                .title Ajouter un compte bancaire
+-#                =image_tag("wallet/plus.png")
+-#
+-#    #option_historique.block_info
+-#      = render 'transactions_list', transactions: @transactions
+-#    #option_option.block_info
+-#      = render 'mangopay_form', :path => @path
+-#
+-#.modal.fade#add-bank-account-modal
+-#  .modal-dialog
+-#    .modal-content
+-#      .modal-header
+-#        %h4 Ajouter un compte en banque
+-#      .modal-body

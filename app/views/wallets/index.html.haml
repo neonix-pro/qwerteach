@@ -1,0 +1,10 @@
+#mangopay_index
+  .container-fluid
+    = render partial: 'header'
+  .container
+    .row
+      .col-sm-4
+        = render :partial => 'card_bank_accounts'
+        = render :partial => 'card_coordonnees'
+      .col-sm-8
+        = render :partial => 'card_transactions_history'

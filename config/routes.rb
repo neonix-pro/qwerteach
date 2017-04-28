@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     
     get 'wallets/get_total_wallet/:user_id' => 'wallets#get_total_wallet'
     put 'user/mangopay/edit_wallet' => 'wallets#update_mangopay_wallet'
-    get 'user/mangopay/index_wallet' => 'wallets#index_mangopay_wallet'
+    get 'user/mangopay/index_wallet' => 'wallets#index'
     get 'user/mangopay/load-wallet' => 'wallets#direct_debit_mangopay_wallet'
     put 'user/mangopay/direct_debit' => 'wallets#load_wallet'
     get 'user/mangopay/card_info' => 'wallets#card_info'
@@ -123,7 +123,8 @@ Rails.application.routes.draw do
   scope '/user/mangopay', controller: :wallets do
     get "edit_wallet" => :edit_mangopay_wallet
     put "edit_wallet" => :update_mangopay_wallet
-    get "index_wallet" => :index_mangopay_wallet
+    get "index_wallet" => :index
+    get "index"=>:index
     get "load-wallet" => :direct_debit_mangopay_wallet
     put "direct_debit" => :load_wallet
     get "transactions" => :transactions_mangopay_wallet

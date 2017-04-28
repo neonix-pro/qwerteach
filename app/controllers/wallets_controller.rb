@@ -4,7 +4,7 @@ class WalletsController < ApplicationController
   before_filter :authenticate_user!
   after_filter { flash.discard if request.xhr? }
   before_action :set_user
-  before_action :check_mangopay_account, except: [:edit_mangopay_wallet, :update_mangopay_wallet, :index_mangopay_wallet]
+  before_action :check_mangopay_account, except: [:edit_mangopay_wallet, :update_mangopay_wallet, :index]
 
 
   helper_method :countries_list # You can use it in view
@@ -12,7 +12,8 @@ class WalletsController < ApplicationController
   rescue_from MangoPay::ResponseError, with: :set_error_flash
 
 
-  def index_mangopay_wallet
+  def index
+    params[:page] = 1 if params[:page].nil?
     if current_user.mango_id.blank?
       redirect_to edit_wallet_path(redirect_to: request.fullpath)
     else
@@ -24,7 +25,8 @@ class WalletsController < ApplicationController
           flash[:info] = 'Votre portefeuille virtuel a bien été rechargé.'
         end
       end
-      @transactions = @user.mangopay.transactions
+      filters = {page: params[:page], per_page: 10, sort: 'CreationDate:desc'}
+      @transactions = @user.mangopay.transactions(filters)
       @transactions_on_way = @transactions.sum do |t|
         t.status == "CREATED" ? t.debited_funds.amount/100.0 : 0
       end
@@ -34,7 +36,13 @@ class WalletsController < ApplicationController
 
       @bank_accounts = @user.mangopay.bank_accounts.select{|ba| ba if ba.active}
       @bank_account = Mango::CreateBankAccount.new(user: current_user)
+      @pagin = Kaminari.paginate_array(@transactions, total_count: filters['total_items']).page(params[:page]).per(10)
+      logger.debug(filters['total_items'])
     end
+  end
+
+  def transactions_index
+    @transactions = @user.mangopay.transactions(page: params[:page], per_page: params[:per_page], sort: 'CreationDate:desc')
   end
 
   def edit_mangopay_wallet

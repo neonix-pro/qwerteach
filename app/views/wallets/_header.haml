@@ -1,0 +1,19 @@
+.row#wallet_header.header.valign-wrapper
+  .col-sm-2.col-xs-4
+    .icon-header.icon-coloured.icon-white
+      %i.material-icons.large.text-purple account_balance_wallet
+  .col-sm-8.col-xs-4
+    .header-infos
+      %h1
+        Votre portefeuille
+        %br
+        %small Argent disponible pour réserver des cours
+  .col-sm-2.col-xs-4
+    .header-right.text-right
+      %h3 #{total_balance(@user.normal_wallet, @user.bonus_wallet)}
+      .header-cta
+        - if @user.is_a?(Teacher)
+          = link_to 'Décharger', payout_path, class: 'btn btn-qw btn-green'
+          = link_to 'Recharger', load_wallet_path, class: 'text-white'
+        - else
+          = link_to 'Recharger', load_wallet_path, class: 'btn btn-qw btn-green'

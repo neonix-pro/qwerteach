@@ -24,6 +24,9 @@ body{
 }
 h1,h2,h3,h4,h5{
   font-family: SofiaProRegular;
+  small{
+    font-family: 'Open Sans';
+  }
 }
 h1{
   text-transform: uppercase;
@@ -160,6 +163,9 @@ p, span, a, ul, li{
 }
 .text-mauve{
   color: $color_qwerteach_mauve;
+}
+.text-red{
+  color: $color_qwerteach_red;
 }
 
 .cmn-toggle
@@ -517,6 +523,9 @@ table{
 .icon-title{
   margin-left: -15px;
 }
+.icon-white{
+  background-color: white;
+}
 
 
 .cards-wrapper{
@@ -536,4 +545,32 @@ table{
 }
 .cards-wrapper > div[class^="col-"]{
   display:flex;
+}
+
+.header{
+  padding: 20px;
+  margin-bottom: 30px;
+  .icon-header{
+    width:100%;
+    padding-top:50%;
+    padding-bottom: 50%;
+    i{
+      line-height:0;
+    }
+  }
+  .header-infos{
+    h1{
+      small{
+        color:white;
+        text-transform: initial;
+        font-size: 16px;
+        font-weight:400;
+      }
+    }
+  }
+  .header-right{
+    h3{
+      font-size: 36px;
+    }
+  }
 }
