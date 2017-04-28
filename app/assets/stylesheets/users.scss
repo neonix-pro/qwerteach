@@ -90,14 +90,19 @@
   background-color: $color_qwerteach_purple;
 }
 
+@mixin t($duration) {
+  -webkit-transition: all $duration;
+  -moz-transition: all $duration;
+  -ms-transition: all $duration;
+  -o-transition: all $duration;
+  transition: all $duration;
+}
+
 /* Profil*/
 #profile-header{
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
-  background-color: $text_light_grey;
+  @include t(0.3s);
+  background-color: $color_qwerteach_mauve;
+  color:white;
   padding: 20px;
   max-height:250px;
   h2.user-name{
@@ -107,30 +112,19 @@
       text-transform:uppercase;
       font-family: SofiaProLight;
       font-size:14px;
+      color:white;
     }
   }
   #topics{
     display:block;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
+
   }
   #pricing{
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
+    @include t(0.3s);
     margin-top:auto;
     padding: 30px 0px;
     .user-pricing{
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-      -ms-transition: all 0.3s;
-      -o-transition: all 0.3s;
-      transition: all 0.3s;
+      @include t(0.3s);
       font-size: 30px;
       font-family: SofiaProRegular;
     }
@@ -138,40 +132,31 @@
       font-family: SofiaProLight;
       font-size: 12px;
       text-transform:uppercase;
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-      -ms-transition: all 0.3s;
-      -o-transition: all 0.3s;
-      transition: all 0.3s;
+      @include t(0.3s);
       margin-bottom:10px;
+      a{
+        color: white;
+      }
     }
     #cta{
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-      -ms-transition: all 0.3s;
-      -o-transition: all 0.3s;
-      transition: all 0.3s;
+      @include t(0.3s);
       margin-top:0px;
     }
   }
   .profilepicture{
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
+    @include t(0.3s);
     max-height:auto;
     padding-left:0px;
     img {
       border-radius: 50%;
       max-height:250px;
       max-width:100%;
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-      -ms-transition: all 0.3s;
-      -o-transition: all 0.3s;
-      transition: all 0.3s;
+      @include t(0.3s);
     }
+  }
+  #cta, .profilepicture, .profile-infos{
+    margin-top:0px;
+    @include t(0.3s);
   }
 }
 
@@ -203,14 +188,14 @@
     .user-pricing{
       font-size:25px;
     }
-    #cta{
-      margin-top:-10px;
-    }
     .detailed-pricing-link{
       font-size: 10px;
       text-transform:uppercase;
       margin-bottom:0px;
     }
+  }
+  .profilepicture, .profile-infos{
+    margin-top:-10px;
   }
 }
 
@@ -229,12 +214,15 @@
 }
 
 #profile-description{
-  margin-top: 20px;
+  margin-bottom: 100px;
   h3{
     margin: 20px 0px;
     font-size: 32px;
     font-family: SofiaProRegular;
   }
+}
+#profile-offers, #profile-description{
+  margin-top:50px;
 }
 
 #profile-reviews{

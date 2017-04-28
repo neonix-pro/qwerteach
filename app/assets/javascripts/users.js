@@ -237,7 +237,7 @@ function resizeHeader() {
             anchor = $('#header-anchor');
         if (distanceY > shrinkOn) {
             header.addClass('smaller');
-            anchor.height(110);
+            anchor.height(160);
         } else {
             if (header.hasClass('smaller')) {
                 header.removeClass("smaller");
