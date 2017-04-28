@@ -41,6 +41,9 @@ $h3-fontsize:24px;
 .material-form{
   $input-border: 1px solid #ccc;
   @import "materialize/components/forms/forms";
+  .material-form .input-field label{
+    left: auto;
+  }
 }
 //@import "materialize/components/table_of_contents";
 //@import "materialize/components/sideNav";

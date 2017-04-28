@@ -92,38 +92,43 @@ p, span, a, ul, li{
 
 .btn.btn-qw{
   border-radius: 30px;
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 0.2px;
   font-weight: 300;
-  padding: 1px 30px;
+  text-transform: initial;
 }
 .btn-sm.btn.btn-qw, .btn-sm.btn.btn-qw:hover {
   font-size: 14px;
-  padding: 1px 12px;
-  border-radius: 30px;
+  padding-left: 12px;
+  padding-right:12px;
 }
 
 .btn.btn-green, .btn.btn-success, .btn.btn-green:hover, .btn.btn-success:hover{
   background: $color_qwerteach_green;
-
-  font-size: 16px;
   color: $qwerteach_black;
-  padding:8px 20px;
   .descriptionPlusResteProfil {
     margin-top: 400px;
   }
 }
-.btn-pink, .btn-pink:hover{
+.btn.btn-pink, .btn.btn-pink:hover{
   background: $color_qwerteach_pink;
   color:white;
 }
-.btn-orange, .btn-orange:hover{
+.btn.btn-orange, .btn.btn-orange:hover{
   background: $color_qwerteach_orange;
   color:white;
 }
-.btn-purple, .btn-purple:hover{
+.btn.btn-purple, .btn.btn-purple:hover{
   background: $color_qwerteach_purple;
   color:white;
+}
+.btn.btn-mauve, .btn.btn-mauve:hover{
+  background: $color_qwerteach_mauve;
+  color:white;
+}
+.btn.btn-grey, .btn.btn-grey:hover{
+  background: $text_light_grey;
+  color: $dark_grey;
 }
 
 .text-green, .text-green:hover{
@@ -269,9 +274,6 @@ input.cmn-toggle-round-flat:checked + label:after
   .navbar-header .navbar-brand{
     padding: 10px;
   }
-}
-.navbar-nav{
-  float: right !important;
 }
 
 /*footer*/
