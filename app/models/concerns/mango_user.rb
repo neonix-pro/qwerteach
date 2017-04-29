@@ -41,9 +41,9 @@ class MangoUser
     @user_data ||= Mango.normalize_response(MangoPay::NaturalUser.fetch(id_for_api))
   end
 
-  def transactions
+  def transactions(filters={'sort' => 'CreationDate:desc', 'per_page' => 100})
     @transactions ||= Mango.normalize_response(
-      MangoPay::User.transactions(id_for_api, {'sort' => 'CreationDate:desc', 'per_page' => 100}))
+      MangoPay::User.transactions(id_for_api, filters))
   end
 
   def cards

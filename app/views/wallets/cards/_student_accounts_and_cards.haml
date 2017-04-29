@@ -1,0 +1,11 @@
+.card-title
+  Cartes bancaires
+- @cards.each do |card|
+  .row.valign-wrapper
+    .col-xs-2.text-right
+      %i.material-icons.tiny.text-purple credit_card
+    .col-xs-10
+      .card-type= card.card_provider
+      .card-number.text-grey
+        = card.alias
+        = card.expiration_date.insert(2, "/20")

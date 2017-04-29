@@ -1,17 +1,57 @@
 @charset "UTF-8";
 
 // Mixins
-// @import "components/prefixer";
-@import "components/mixins";
-@import "components/color";
+// @import "materialize/components/prefixer";
+@import "materialize/components/mixins";
+@import "materialize/components/color";
+
+$input-focus-color: $color_qwerteach_green;
+$input-error-color: $color_qwerteach_red;
+$input-success-color: #9e9e9e;
 
 // Variables;
-@import "components/variables";
+@import "materialize/components/variables";
 
 // Reset
-@import "components/normalize";
+@import "materialize/components/normalize";
 
-// components
-@import "components/global";
-@import "components/cards";
-
+// materialize/components
+@import "materialize/components/global";
+//@import "materialize/components/badges";
+@import "materialize/components/icons-material-design";
+//@import "materialize/components/grid";
+//@import "materialize/components/navbar";
+//@import "materialize/components/roboto";
+$h1-fontsize:36px;
+$h2-fontsize:30px;
+$h3-fontsize:24px;
+@import "materialize/components/typography";
+@import "materialize/components/transitions";
+@import "materialize/components/cards";
+//@import "materialize/components/toast";
+//@import "materialize/components/tabs";
+//@import "materialize/components/tooltip";
+@import "materialize/components/buttons";
+//@import "materialize/components/dropdown";
+//@import "materialize/components/waves";
+//@import "materialize/components/modal";
+//@import "materialize/components/collapsible";
+//@import "materialize/components/chips";
+//@import "materialize/components/materialbox";
+.material-form{
+  $input-border: 1px solid #ccc;
+  @import "materialize/components/forms/forms";
+  .material-form .input-field label{
+    left: auto;
+  }
+}
+//@import "materialize/components/table_of_contents";
+//@import "materialize/components/sideNav";
+//@import "materialize/components/preloader";
+//@import "materialize/components/slider";
+//@import "materialize/components/carousel";
+//@import "materialize/components/tapTarget";
+//@import "materialize/components/pulse";
+@import "materialize/components/date_picker/default";
+@import "materialize/components/date_picker/default.date";
+@import "materialize/components/date_picker/default.time";

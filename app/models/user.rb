@@ -246,7 +246,7 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    [first_name.presence, last_name.presence].compact.join(' ')
+    [firstname.presence, lastname.presence].compact.join(' ')
   end
 
   protected

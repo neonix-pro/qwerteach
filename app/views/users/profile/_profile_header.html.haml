@@ -1,16 +1,30 @@
-- user = @user
-.left
-  %h2 #{user.name}
-  - if @user.is_a?(Teacher)
-    .topics
-      #{user.offers.map{|ad| "#{link_to ad.title, profs_by_topic_path(ad.title)}"}.join(", ").html_safe}
-    #rating
-      = render partial: "shared/star_rating", locals: {note: user.avg_reviews}
-      %span.number-of-reviews
-        #{user.reviews_received.count}
-        %i.fa.fa-user
-.right
-  .age
-    = "#{user.age} ans" unless user.birthdate.nil?
-  .degree #{user.level_max}
-  .occupation #{user.occupation}
+.row#profile-header
+  .col-sm-2.col-xs-4
+    .profilepicture
+      = image_tag(@user.avatar.url(:medium))
+  .col-sm-8.col-xs-4
+    .profile-infos
+      #rating
+        = render partial: "shared/star_rating", locals: {note: @user.avg_reviews}
+        %span.number-of-reviews
+          #{@user.reviews_received.count}
+          %i.fa.fa-user
+      %h2.user-name
+        #{@user.firstname} #{@user.lastname}
+        %br
+        %small
+          = "#{@user.age} ans - " unless @user.birthdate.nil?
+          #{@user.occupation}
+          = "- #{@user.level_max}" unless @user.level_max.nil?
+      #topics
+        - @user.offers.each do |o|
+          = image_tag(o.topic.pictotype(:small), class: 'offer-picto')
+  .col-sm-2.col-xs-4
+    .booking-infos
+      #pricing.text-center
+        .user-pricing #{@user.min_price} €/h
+        %p.detailed-pricing-link= link_to 'Voir le tarif détaillé', "#detailed-pricing", data:{toggle: 'modal'}
+      #cta.text-center
+        %a.btn.btn-green.btn-sm.btn-qw{href: '#contact-modal', data:{toggle: 'modal'}}
+          %i.fa.fa-envelope
+        = link_to 'Réserver', new_user_lesson_request_path(@user), class: 'btn btn-green btn-sm btn-qw'

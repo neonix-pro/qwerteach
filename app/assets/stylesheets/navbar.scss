@@ -36,20 +36,29 @@
     background-color:transparent;
     border:none;
     height:100%;
+    font-size: 16px;
   }
 }
-.navbar-form .input-group input.form-control{
-  background: $dark_grey;
-  box-shadow: inset 1px 4px 3px 0px rgba(0,0,0,0.50);
-  border-radius: 40px;
-  font-size: 12px;
-  color: #E5E5E5;
-  letter-spacing: 0.2px;
-  width:150%;
-  border:none;
+.navbar {
+  .navbar-form {
+    margin-top: 7px;
+    margin-bottom: 7px;
+  }
+  .navbar-form .input-group input.form-control {
+    background: $dark_grey;
+    box-shadow: inset 1px 4px 3px 0px rgba(0, 0, 0, 0.50);
+    border-radius: 40px;
+    font-size: 12px;
+    color: #E5E5E5;
+    letter-spacing: 0.2px;
+    width: 150%;
+    border: none;
+    height: 35px;
+    padding-left: 10px;
+  }
 }
 
-#navbar{
+#navbar.navbar{
   .nav .open > a, nav .open > a:focus, .nav .open > a:hover, .nav a{
     background-color:transparent;
   }

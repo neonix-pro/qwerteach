@@ -2,7 +2,7 @@
   %h3.active A propos du cours
   #proposal-form-errors= render 'shared/errors', object: f.object
   .form-group
-    = f.label :student
+    = f.label :student_id, 'Élève'
     = f.hidden_field :student_id
     .dropdown
       %a.form-control.select.students-select-btn{href: '#', 'data-toggle' => 'dropdown'}= f.object.student.try(:full_name) || 'Select a student'
@@ -12,8 +12,13 @@
             = image_tag( user_avatar(student, :small), class: 'students-select-avatar' )
             %span.students-select-name= student.name
   .form-group.pay-afterwards-field.hidden
-    = f.check_box :pay_afterwards
-    = f.label :pay_afterwards, 'Pay afterwards'
+    = f.check_box :pay_afterwards, id: :pay_afterwards, autocomplete: "off"
+    = f.label :pay_afterwards, 'Payer après le cours'
+    %br
+    %small Permettre à l'élève de payer le cours après qu'il ait eu lieu
+    #warning.alert.alert-danger
+      %h4.alert-title Attention
+      .alert-content En cochant cette case, vous permettez à l'élève de suivre le cours sans effectuer de payement. Qwerteach ne peut pas garantir que vous serez payé en temps et en heure.
   .form-group
     = f.label :topic_id, 'Choisissez une matière'
     - options = current_user.offers.map{|o| [o.title, o.topic.id]}
@@ -43,10 +48,10 @@
       .col-xs-1
         %label min
   .form-group
-    = f.label :price
+    = f.label :price, 'Prix'
     = f.text_field :price, class: 'form-control'
   .form-group
     = f.label :comment, 'Un détail à préciser à votre prof?'
-    = f.text_area :comment, class:'form-control', rows: "3", placeholder: "Ex: j'ai des difficultés avec la trigonométrie et les vecteurs."
+    = f.text_area :comment, class:'form-control', rows: "3", placeholder: "Ex: Cours de biologie sur la mitose et la meiose."
   .form-group.text-right
     = f.submit 'Suivant', class: 'btn btn-qw btn-green'

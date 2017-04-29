@@ -16,8 +16,7 @@
     - unless @search.empty?
       .row
         - @search.each do |u|
-          .col-sm-4.col-md-3
-            = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
+          = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
     - else
       =render partial: 'users/search/noresults', locals:{popular_topics: popular_topics}
 - unless @search.empty?
@@ -32,3 +31,6 @@
 - if current_user
   :javascript
     $(window).scrollTop(450);
+
+
+

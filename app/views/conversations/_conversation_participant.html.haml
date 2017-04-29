@@ -14,7 +14,10 @@
     - user.offers.each do |ad|
       .offer{class: "topic_#{ad.topic_group.id}"}
         #{ad.topic.title}
+        %br
         = image_tag(ad.topic.pictotype("medium"))
   .participant-cta
     = link_to 'Réserver un cours', new_user_lesson_request_path(user), data:{turbolinks: false}
-
+- if current_user.is_a?(Teacher)
+  .participant-cta
+    = link_to 'Proposer un cours', new_lesson_proposal_path(user)

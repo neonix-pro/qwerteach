@@ -1,33 +1,38 @@
-.container
+.container-fluid.progress-bar-wrapper
   .row
     = onboarding_progress_bar
+.container
   .row
-    %h3.text-center
+    %h2.text-center
       Génial, tout est prêt!
       %br
       %small
         Trouvez votre prof idéal pour bénéficier de vos cours particuliers en ligne :)
-    .text-right
-      = link_to 'Explorer Qwerteach', dashboard_path
     %hr
-  .row
-    %h2.page-title-green Cherchez par matière
+  .row.topics-list
     - @topic_groups.each do |tg|
       .col-xs-4.col-sm-2
         .card
           = link_to profs_by_topic_path(tg.title), class: 'text-center' do
-            .badge.badge-default.offers-number= Offer.where(topic_group_id: tg.id).count
+            .badge.badge-green.offers-number= Offer.where(topic_group_id: tg.id).count
             .text-center= image_tag(tg.pictotype('grey_small'))
             %div= "#{tg.title}"
+    .row
+      %p.text-right
+        Non merci, je préfère
+        = link_to 'explorer Qwerteach', dashboard_path
+        par moi-même
   %hr
   .row
-    %h2.page-title-green Nos profs les plus populaires
+    %h3.text-center Nos profs les plus populaires
     #search-results
+      .row
       - @teachers.each do |t|
         = render partial: 'users/search/search_result', :locals => {:u => t, :custom=>nil}
+
   %hr
   .row
-    %h2.page-title-green Pour aller plus loin
+    %h3.text-center Pour aller plus loin
     .col-sm-3
       .card
         .card-content

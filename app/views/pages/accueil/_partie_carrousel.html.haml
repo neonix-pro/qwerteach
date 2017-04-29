@@ -12,8 +12,8 @@
           %h2 Devenez prof particulier, travaillez en ligne.
           %p.text-white Rejoignez la communauté Qwerteach et faites l’expérience d’une nouvelle façon d’enseigner. Apportez votre soutien à des élèves issus du monde entier
           %div
-            = link_to 'Devenir prof', pages_path('devenir-prof'), class: 'btn btn-qw btn-pink' unless current_user.is_a?(Teacher)
-            = link_to 'Charte du prof', faq_path('teachers'), class: 'btn btn-qw btn-pink' if current_user.is_a?(Teacher)
+            = link_to 'Devenir prof', pages_path('devenir-prof'), class: 'btn btn-qw btn-green' unless current_user.is_a?(Teacher)
+            = link_to 'Charte du prof', faq_path('teachers'), class: 'btn btn-qw btn-green' if current_user.is_a?(Teacher)
             -#%a.comment_ca_marche.open_mode_emploi.toggleCCM{href: '#'} Comment ça marche ?
       .item.active.100window
         = image_tag(image_path("acceuil/classe_eleve.png"), :class => "image_carrousel img-responsive img_slide1")
@@ -22,9 +22,9 @@
           %p.text-white Avec Qwerteach, vous avez accès à plus de professeurs, tout en limitant les contraintes liées aux horaires ou aux déplacements.
           %div
             - if current_user
-              = link_to 'Voir les profs', profs_path, class: 'btn btn-qw btn-purple'
+              = link_to 'Voir les profs', profs_path, class: 'btn btn-qw btn-green'
             - else
-              = link_to 'Inscription gratuite', new_user_registration_path, class: 'btn btn-qw btn-purple'
+              = link_to 'Inscription gratuite', new_user_registration_path, class: 'btn btn-qw btn-green'
 
             -#= link_to 'Comment ça marche', '#', class: 'comment_ca_marche open_mode_emploi toggleCCM'
     %a.left.carousel-control.100window{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}

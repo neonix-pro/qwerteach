@@ -1,43 +1,17 @@
 .container-fluid
-  .row#profile-header
-    .col-sm-2.col-xs-4
-      .profilepicture
-        = image_tag(@user.avatar.url(:medium))
-    .col-sm-8.col-xs-4
-      .profile-infos
-        #rating
-          = render partial: "shared/star_rating", locals: {note: @user.avg_reviews}
-          %span.number-of-reviews
-            #{@user.reviews_received.count}
-            %i.fa.fa-user
-        %h2.user-name
-          #{@user.firstname} #{@user.lastname}
-          %br
-          %small
-            = "#{@user.age} ans - " unless @user.birthdate.nil?
-            #{@user.occupation}
-            = "- #{@user.level_max}" unless @user.level_max.nil?
-        #topics
-          - @user.offers.each do |o|
-            = image_tag(o.topic.pictotype(:grey_small), class: 'offer-picto')
-    .col-sm-2.col-xs-4
-      .booking-infos
-        #pricing.text-center
-          .user-pricing #{@user.min_price} €/h
-          %p.detailed-pricing-link= link_to 'Voir le tarif détaillé', "#detailed-pricing", data:{toggle: 'modal'}
-        #cta.text-center
-          = link_to 'Réserver', new_user_lesson_request_path(@user), class: 'btn btn-green btn-sm btn-qw'
-
+  = render partial: 'users/profile/profile_header'
 .container
+  #header-anchor
   .row
-    .col-sm-8
+    .col-sm-7
       #profile-description
         %h3 A propos de #{@user.firstname}
         %hr
         %p
           #{@user.description.gsub(/\n/, '<br />').html_safe unless @user.description.nil?}
       - if @user.is_a?(Teacher)
-        #profile-calendar
+        #profile-calendar{data: {teacher:{id: @user.id}}}
+    .col-sm-1
     .col-sm-4
       #profile-offers
         .row
@@ -45,7 +19,8 @@
   .row
     - if @user.is_a?(Teacher)
       - unless @reviews.empty?
-        #profile-reviews
+        #profile-reviews.col-xs-7
+          %hr
           = render partial: 'users/profile/profile_reviews', locals:{reviews: @reviews}
       .similar-teachers
       .clearfix

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     
     get 'wallets/get_total_wallet/:user_id' => 'wallets#get_total_wallet'
     put 'user/mangopay/edit_wallet' => 'wallets#update_mangopay_wallet'
-    get 'user/mangopay/index_wallet' => 'wallets#index_mangopay_wallet'
+    get 'user/mangopay/index_wallet' => 'wallets#index'
     get 'user/mangopay/load-wallet' => 'wallets#direct_debit_mangopay_wallet'
     put 'user/mangopay/direct_debit' => 'wallets#load_wallet'
     get 'user/mangopay/card_info' => 'wallets#card_info'
@@ -124,7 +124,8 @@ Rails.application.routes.draw do
   scope '/user/mangopay', controller: :wallets do
     get "edit_wallet" => :edit_mangopay_wallet
     put "edit_wallet" => :update_mangopay_wallet
-    get "index_wallet" => :index_mangopay_wallet
+    get "index_wallet" => :index
+    get "index"=>:index
     get "load-wallet" => :direct_debit_mangopay_wallet
     put "direct_debit" => :load_wallet
     get "transactions" => :transactions_mangopay_wallet
@@ -135,6 +136,7 @@ Rails.application.routes.draw do
     get 'payout' => :payout
     put 'make_payout' => :make_payout
     put 'desactivate_bank_account/:id' => :desactivate_bank_account, as: 'desactivate_bank_account'
+    get 'transactions_index' => :transactions_index
   end
   # :omniauth_callbacks => "users/omniauth_callbacks",
   devise_for :users, :controllers => { :registrations=> "registrations"}
@@ -236,9 +238,9 @@ Rails.application.routes.draw do
 
   end
 
-  get 'calendar_index'=>"lessons#calendar_index"
+  get 'calendar_index/(:id)'=>"lessons#calendar_index"
 
-  resources :lesson_proposals, only: [:new, :create], constraints: ->(request){ request.env["warden"].user(:user).try(:type) == 'Teacher' }
+  resources :lesson_proposals, only: [:new, :create], constraints: ->(request){ request.env["warden"].user(:user).try(:type) == 'Teacher' }, path_names: {new: 'new/(:id)'}
 
   match '/cours' =>'lessons#index', :as => 'cours', via: :get
   match '/cours/recus'=>'lessons#received', :as => 'cours_recus', via: :get
@@ -265,6 +267,8 @@ Rails.application.routes.draw do
   bigbluebutton_routes :default, :only => 'recordings', :controllers => {:rooms => 'bbb_recordings'}
   get 'demo_room', to: "bbb_rooms#demo_room", as: 'demo_room'
   get 'join_demo/:id', to: "bbb_rooms#join_demo", as: 'join_demo'
+
+  resources :toolbox, only: [:index, :show], path_names: {new: 'show/:id'}
 
   mount Resque::Server, :at => "/resque"
 

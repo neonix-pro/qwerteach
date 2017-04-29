@@ -1,12 +1,11 @@
 class OnboardingController < ApplicationController
   include Wicked::Wizard
 
-  steps :welcome, :choose_role, :picture, :topics
+  steps :choose_role, :topics
 
   def show
     @user = current_user
     case step
-      when :welcome
       when :picture
       when :topics
         @topic_groups = TopicGroup.first(6)
@@ -18,7 +17,6 @@ class OnboardingController < ApplicationController
   def update
     @user = current_user
     case step
-      when :welcome
       when :picture
         @user.update_attributes(user_params)
     end

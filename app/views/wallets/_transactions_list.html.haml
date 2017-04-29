@@ -1,13 +1,32 @@
-%table
-  %tr
-    %th.dark Date
-    %th Type
-    %th.dark Auteur
-    %th Utilisateur crédité
-    %th.dark Montant crédité
-    %th Montant débité
-    %th.dark Frais
-    %th Statut
-    %th.dark Message
-  - transactions.each do |t|
-    = render 'transaction', t: t
+- @transactions.each do |t|
+  - p = Payment.find_by(mangopay_payin_id: t.id) || Payment.find_by(transfer_eleve_id: t.id)
+  .row
+    .col-xs-1
+      %i.fa{class: transaction_icon(t)}
+    .col-xs-10
+      .pull-left
+        - if p.nil?
+          Rechargement du portefeuille
+        - else
+          Réservation du cours de #{p.lesson.topic.title} avec #{p.lesson.teacher.full_name}
+        %br
+        .text-grey= Time.at(t.creation_date).strftime("le %d/%m/%Y à %H:%M")
+      %p.text-right
+        - if t.status == 'FAILED'
+          %i.fa.fa-warning.text-red
+          %span.text-red= "#{t t.status}: #{t.result_message}"
+        - else
+          = t t.status
+    .col-xs-1
+      #{t.credited_funds.amount/100}€
+  %hr
+.row.text-center
+  = paginate @pagin, remote: true, params: {controller: 'wallets', action: 'transactions_index'}
+
+:javascript
+  $('.pagination a').click(function(){
+    $('#transactions_list').prepend("#{j render partial: 'shared/loader'}");
+    $('html, body').animate({
+        scrollTop: $( '#transactions_list' ).offset().top
+    }, 500);
+  });

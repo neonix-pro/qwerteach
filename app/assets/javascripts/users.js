@@ -228,3 +228,24 @@ $('#edit_profile .menu a').on('click',function(e){
     }
 });
 });
+
+function resizeHeader() {
+    window.addEventListener('scroll', function(e){
+        var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+            shrinkOn = 50,
+            header = $("#profile-header");
+            anchor = $('#header-anchor');
+        if (distanceY > shrinkOn) {
+            header.addClass('smaller');
+            anchor.height(160);
+        } else {
+            if (header.hasClass('smaller')) {
+                header.removeClass("smaller");
+                anchor.height(0);
+            }
+        }
+    });
+}
+
+$(document).on('turbolinks:load',  resizeHeader());
+

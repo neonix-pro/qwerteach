@@ -90,16 +90,21 @@
   background-color: $color_qwerteach_purple;
 }
 
+@mixin t($duration) {
+  -webkit-transition: all $duration;
+  -moz-transition: all $duration;
+  -ms-transition: all $duration;
+  -o-transition: all $duration;
+  transition: all $duration;
+}
+
 /* Profil*/
 #profile-header{
-  background-color: $text_light_grey;
+  @include t(0.3s);
+  background-color: $color_qwerteach_mauve;
+  color:white;
   padding: 20px;
-  .profilepicture{
-    img {
-      width:100%;
-      border-radius: 50%;
-    }
-  }
+  max-height:250px;
   h2.user-name{
     font-family: SofiaProRegular;
     font-size: 30px;
@@ -107,11 +112,19 @@
       text-transform:uppercase;
       font-family: SofiaProLight;
       font-size:14px;
+      color:white;
     }
   }
+  #topics{
+    display:block;
+
+  }
   #pricing{
+    @include t(0.3s);
+    margin-top:auto;
     padding: 30px 0px;
     .user-pricing{
+      @include t(0.3s);
       font-size: 30px;
       font-family: SofiaProRegular;
     }
@@ -119,7 +132,70 @@
       font-family: SofiaProLight;
       font-size: 12px;
       text-transform:uppercase;
+      @include t(0.3s);
+      margin-bottom:10px;
+      a{
+        color: white;
+      }
     }
+    #cta{
+      @include t(0.3s);
+      margin-top:0px;
+    }
+  }
+  .profilepicture{
+    @include t(0.3s);
+    max-height:auto;
+    padding-left:0px;
+    img {
+      border-radius: 50%;
+      max-height:250px;
+      max-width:100%;
+      @include t(0.3s);
+    }
+  }
+  #cta, .profilepicture, .profile-infos{
+    margin-top:0px;
+    @include t(0.3s);
+  }
+}
+
+#profile-header.smaller{
+  max-height:100px;
+  width:100%;
+  z-index:10;
+  position:fixed;
+  top:0;
+  .profilepicture{
+    padding-left:35px;
+    img{
+      width:auto;
+      max-height:75px;
+    }
+  }
+  #topics{
+    display:none;
+  }
+  h2.user-name{
+    margin:0px;
+  }
+  .profile-infos{
+    line-height:10px;
+  }
+  #pricing{
+    padding: 3px 0px;
+    margin-top:-15px;
+    .user-pricing{
+      font-size:25px;
+    }
+    .detailed-pricing-link{
+      font-size: 10px;
+      text-transform:uppercase;
+      margin-bottom:0px;
+    }
+  }
+  .profilepicture, .profile-infos{
+    margin-top:-10px;
   }
 }
 
@@ -138,12 +214,15 @@
 }
 
 #profile-description{
-  margin-top: 20px;
+  margin-bottom: 100px;
   h3{
     margin: 20px 0px;
     font-size: 32px;
     font-family: SofiaProRegular;
   }
+}
+#profile-offers, #profile-description{
+  margin-top:50px;
 }
 
 #profile-reviews{

@@ -2,10 +2,11 @@
   .card-content
     .row
       .col-xs-2
-        %i.fa.fa-check.fa-2x
+        .icon-coloured.icon-orange.icon-title
+          %i.fa.fa-question.fa-2x
       .col-xs-10
         .card-title
-          #{@to_do_list.length}
+          #{@pending_lessons.length}
           cours en attente
         %p
           =link_to 'Voir la liste', lessons_path

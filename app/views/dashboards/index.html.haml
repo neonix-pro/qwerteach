@@ -5,7 +5,7 @@
       .col-xs-12#current_lesson
         = render partial: 'current_lesson', locals:{lesson:  @current_lesson}
   .row
-    #dashboard-cards
+    #dashboard-cards.cards-wrapper
       - if @user.is_a?(Teacher)
         - if @user.postulance_accepted?
           = render partial: 'cards_teacher'
@@ -20,45 +20,40 @@
       = render 'help_request_lesson'
 - else
   .container
-    .row
-      #dashboard-calendar
-        .col-sm-7
-          #dashboard-lessons-calendar
-        .col-sm-5.lessons-list
-          - if @upcoming_lessons.empty?
-            %p.lead.text-center
-              Vous n'avez aucun cours prévu.
-            = form_tag profs_path, method: :post, class: 'form text-center' do
-              .form-group
-                %label Cherchez un prof par matière:
-                .input-group
-                  = text_field_tag('topic', '', class: 'form-control', placeholder: 'ex: physique')
-                  %span.input-group-btn
-                    = button_tag type:'submit', class: 'btn btn-search' do
-                      %i.fa.fa-search
-          - @upcoming_lessons.each do |l|
-            = render partial: 'upcoming_lesson', locals:{lesson: l}
-            %br
-      %hr
+    .cards-wrapper
+      .card.card-search
+        .card-content
+          .row
+            #dashboard-calendar
+              .col-sm-7
+                #dashboard-lessons-calendar
+              .col-sm-5.lessons-list
+                - if @upcoming_lessons.empty?
+                  %p.lead.text-center
+                    Vous n'avez aucun cours prévu.
+                  %hr
+                  - if @user.is_a?(Teacher)
+                    .row
+                      .col-xs-2
+                        .icon-coloured.icon-mauve
+                          %i.fa.fa-life-ring.fa-2x
+                      .col-xs-10
+                        %p Besoin d'un coup de main? Consultez nos trucs pour #{link_to 'trouver des élèves', faq_path}!
+                  -else
+                    = form_tag profs_path, method: :post, class: 'form text-center' do
+                      .form-group
+                        %label Cherchez un prof par matière:
+                        .input-group
+                          = text_field_tag('topic', '', class: 'form-control', placeholder: 'ex: physique')
+                          %span.input-group-btn
+                            = button_tag type:'submit', class: 'btn btn-search' do
+                              %i.fa.fa-search
+                - @upcoming_lessons.each do |l|
+                  = render partial: 'upcoming_lesson', locals:{lesson: l}
+                  %br
 .container
   - if @user.is_a?(Teacher)
     = render 'dashboards/teacher/tools'
   - else
     = render partial: 'featured_teachers', locals: {teachers: @featured_teachers}
   %hr
-
-
-:javascript
-  $('#dashboard-lessons-calendar').fullCalendar({
-    defaultView: 'month',
-    eventSources: [{
-      url: 'calendar_index'
-    }],
-    lang: 'fr',
-    height: 450,
-    header: {
-      left:   'title',
-      center: '',
-      right:  'prev, next'
-    }
-  });

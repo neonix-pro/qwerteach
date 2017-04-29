@@ -12,14 +12,12 @@
  *
  */
 //@import "**/*";
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import 'bootstrap/theme';
 @import 'chosen';
 @import "font-awesome-sprockets";
 @import "font-awesome";
-@import 'bootstrap-datetimepicker';
-@import 'bootstrap-datepicker3';
 @import 'fullcalendar';
+@import "global_variables";
+@import "bootstrap-sprockets";
+@import "bootstrap";
 @import "*";
 

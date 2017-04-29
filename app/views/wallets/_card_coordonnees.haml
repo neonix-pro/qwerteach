@@ -1,0 +1,11 @@
+.card.card-coordonnees
+  .card-content
+    .card-title Mes coordonnees
+    .account-owner= "#{@account.first_name} #{@account.last_name}"
+    .account-details.text-grey
+      #{@account.address_line1} #{@account.address_line2}
+      %br
+      #{@account.postal_code} #{@account.city}
+    = link_to '#' do
+      %i.fa.fa-edit
+      #{" Modifier"}

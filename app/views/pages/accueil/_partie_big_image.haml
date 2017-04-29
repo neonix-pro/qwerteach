@@ -3,13 +3,15 @@
       "data-turbolinks-temporary" => true}
   .title
     %h1
-      Le bon prof
-      %br
-      au bon moment
+      Le bon prof au bon moment
     %h2 Trouvez votre professeur pour un cours particulier en ligne
     %br
     = link_to 'Inscription', new_user_registration_path, class: 'btn btn-qw btn-green'
   .searchbar
     = render partial: 'pages/accueil/partie_recherche'
   .mode_emploi
-    %a.toggleCCM Mode d'emploi
+    %a.toggleCCM.text-white Mode d'emploi
+  .see-more
+    %a{href:'#carousel-anchor', class:'see-more-link', data:{turbolinks: 'false'}}
+      %i.fa.fa-angle-down.text-white
+

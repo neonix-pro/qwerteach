@@ -18,4 +18,5 @@ class PagesController < ApplicationController
 		@target = params[:target] || 'students'
 		@section = params[:section] || 'generalites'
 	end
+
 end
