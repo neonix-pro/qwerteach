@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get 'users/:user_id/lesson_requests/topic_groups' => 'lesson_requests#topic_groups'
     get 'users/:user_id/lesson_requests/topics/:topic_group_id' => 'lesson_requests#topics'
     get 'users/:user_id/lesson_requests/levels/:topic_id' => 'lesson_requests#levels'
+    post 'users/:user_id/lesson_requests/calculate' => 'lesson_requests#calculate'
     
     get 'wallets/get_total_wallet/:user_id' => 'wallets#get_total_wallet'
     put 'user/mangopay/edit_wallet' => 'wallets#update_mangopay_wallet'

@@ -27,6 +27,10 @@ class Api::LessonRequestsController < LessonRequestsController
     super
   end
   
+  def calculate
+    super
+  end
+  
   def levels
     levels = []
     @teacher.offers.where(topic_id: params[:topic_id]).each do |offer|
