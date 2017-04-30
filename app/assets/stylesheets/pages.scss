@@ -159,6 +159,7 @@ form.reinit-password{
   padding: 100px 0px 50px 0px;
   background-image: url('toolbox/header.jpg');
   background-size: cover;
+  margin-bottom: 50px;
   .help{
     font-size: 24px;
     font-family: SofiaProExtraLight;
@@ -169,6 +170,22 @@ form.reinit-password{
     small{
       color:white;
       font-size: 24px;
+    }
+  }
+}
+#toolbox_navigation{
+  padding: 20px 0px;
+  border-right: 1px solid $text_grey;
+  width:90%;
+  li{
+    line-height:35px;
+    a{
+      color: $text-grey;
+      font-size: 16px;
+      font-weight:300;
+    }
+    a.active{
+      color: $color_qwerteach_green;
     }
   }
 }

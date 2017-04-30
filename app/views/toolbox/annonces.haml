@@ -1,9 +1,9 @@
 = render :partial => 'header', locals:{title: 'Poster des annonces'}
 .container
   .row
-    .col-sm-2
-    .col-sm-8
-      %hr
+    .col-sm-3.col-md-offset-1
+      = render :partial => 'navigation'
+    .col-sm-9.col-md-7
       %p
         Insérez ici un paragraphe sur le fait qu'on faut poster des annonces ailleurs que sur Qwerteach.
         %br
