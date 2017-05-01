@@ -1,11 +1,13 @@
 class OnboardingController < ApplicationController
   include Wicked::Wizard
 
-  steps :choose_role, :topics
+  steps :welcome, :choose_role, :topics
 
   def show
     @user = current_user
     case step
+      when :welcome
+        skip_step
       when :picture
       when :topics
         @topic_groups = TopicGroup.first(6)
