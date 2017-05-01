@@ -1,13 +1,93 @@
 @import 'global_variables';
 #onboarding{
-  margin-bottom: 50px;
-  .welcome{
-    padding-top: 50px;
+  height:100vh;
+  #choose-role{
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    height:100%;
+    background-color: $color_qwerteach_purple;
+    .role{
+      width: 50%;
+      height: 100%;
+      position: relative;
+      float: left;
+      text-align:center;
+      color:white;
+    }
+    .role-teacher:hover{
+      cursor:pointer;
+      transform:skew(-10deg,0deg) translateX(100px);
+      z-index:5;
+    }
+    .role-student:hover{
+      cursor:pointer;
+      transform:skew(-10deg,0deg) translateX(-100px);
+    }
+    .role-teacher{
+      background-color: $color_qwerteach_purple;
+      transform: skew(-10deg,0deg);
+      transition: all 0.3s;
+      z-index: auto;
+    }
+    .role-student{
+      background-color: $color_qwerteach_purple_dark;
+      transform: skew(-10deg,0deg);
+      transition: all 0.3s;
+      z-index: auto;
+    }
+    .role-teacher:before {
+      content: " ";
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background:$color_qwerteach_purple;
+      transform-origin:bottom left;
+      -ms-transform: skew(10deg,0deg);
+      -webkit-transform: skew(10deg,0deg);
+      transform: skew(10deg,0deg);
+    }
+    .role-student:after {
+      content: " ";
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 100px;
+      z-index: -1;
+      background:$color_qwerteach_purple_dark;
+      transform-origin:top right;
+      -ms-transform: skew(10deg,0deg);
+      -webkit-transform: skew(10deg,0deg);
+      transform: skew(10deg,0deg);
+    }
+    .role-content{
+      width: 100%;
+      a{
+        color: white;
+      }
+      text-align: center;
+      transform: skew(10deg,0deg);
+    }
   }
-  .role{
-    padding: 0px 20px;
-    img{
-      width:80%;
+  #choose-topics{
+    background-color: $color_qwerteach_mauve;
+    padding: 70px 0px;
+    height:100vh;
+    h2{
+      text-transform:uppercase;
+    }
+    #user-interests{
+      min-height:70px;
+      margin-top:50px;
+    }
+    #search-form{
+      margin-bottom: 70px;
     }
   }
   .progress-bar-wrapper{

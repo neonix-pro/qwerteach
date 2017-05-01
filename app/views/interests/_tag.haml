@@ -1,0 +1,4 @@
+.chip{id: "interest_#{interest.id}"}
+  = interest.topic.title
+  = link_to interest_path(interest), method: :delete, class: 'text-grey', remote: true do
+    %i.fa.fa-close

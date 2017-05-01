@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   namespace :api, :defaults => { :format => 'json' } do
     get 'dashboard' => 'dashboards#index' 
     
@@ -270,6 +270,8 @@ Rails.application.routes.draw do
   resources :toolbox, only: [:index, :show], path_names: {new: 'show/:id'}
 
   mount Resque::Server, :at => "/resque"
+
+  resources :interests
 
   #root to: 'pages#index'
 end

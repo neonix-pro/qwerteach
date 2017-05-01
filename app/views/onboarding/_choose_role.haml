@@ -1,22 +1,19 @@
-.container
-  .row
-    = onboarding_progress_bar
-  .row
-    %h3.text-center
-      Qwerteach et vous
-      %br
-      %small Qui êtes-vous, et que venez-vous faire sur Qwerteach ?
-    .col-sm-3
-    .col-sm-3.text-center.role
-      = link_to become_teacher_path do
-        = image_tag('signup/teacher.png')
-        %h4
-          Je suis prof
-          %small je voudrais donner cours et partager mes connaissances
-    .col-sm-3.text-center.role
-      = link_to next_wizard_path, remote: true do
-        = image_tag('signup/student.png')
-        %h4
-          Je suis élève
-          %small Je cherche un prof particulier
-    %hr
+-#.container
+-#  .row
+-#    = onboarding_progress_bar
+
+#onboarding
+  #choose-role
+    .role-teacher.role.valign-wrapper
+      .role-content
+        = link_to become_teacher_path do
+          %i.fa.fa-briefcase.fa-5x
+          %h3 Je suis prof
+          %p Je voudrais donner cours et partager mes connaissances
+    .role-student.role.valign-wrapper
+      .role-content
+        = link_to next_wizard_path do
+          %i.fa.fa-graduation-cap.fa-5x
+          %h3 Je suis élève
+          %p Je cherche un prof particulier
+

@@ -1,5 +1,6 @@
 class Student < User
   has_many :lessons_received, :class_name => 'Lesson', :foreign_key => 'student_id'
+  has_many :interests
 
   acts_as_reader
   def self.reader_scope
