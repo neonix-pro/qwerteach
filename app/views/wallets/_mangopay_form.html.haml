@@ -1,36 +1,41 @@
 - path = local_assigns[:path] || edit_wallet_path
-= form_for @account, as: :account, url: path, method: :put do |f|
+= form_for @account, as: :account, url: path, method: :put, class: '' do |f|
   = render 'shared/errors', object: f.object
-  .form-group
-    = f.label :first_name, 'Prénom'
-    = f.text_field :first_name, value: @account.first_name || @user.firstname, :required => true, class:'form-control'
-  .form-group
-    = f.label :last_name, 'Nom de famille'
-    = f.text_field :last_name, value: @account.last_name || @user.lastname, :required =>true, class:'form-control'
-  .form-group
-    = f.label :street, 'Adresse: rue'
-    = f.text_field :address_line1, :required => true, class:'form-control'
-  .form-group
-    = f.label :number, 'N°'
-    = f.text_field :address_line2, :required => true, class:'form-control'
-  .form-group
-    = f.label :country, 'Pays'
-    = f.select :country, options_for_select(countries_list, :selected => @account.country), {}, :required => true, class:'form-control'
-  .form-group
-    = f.label :post_code, 'Code postal'
-    = f.number_field :postal_code, :required => true, class:'form-control'
-  .form-group
-    = f.label :city, 'Ville'
-    = f.text_field :city, :required => true, class:'form-control'
-  .form-group
-    = f.label :region, 'Région'
-    = f.text_field :region, :required => true, class:'form-control'
-  .form-group
-    = f.label :country_of_residence, 'Pays de résidence'
-    = f.select :country_of_residence, options_for_select(countries_list, :selected => @account.country_of_residence), {}, :required => true, class:'form-control'
-  .form-group
-    = f.label :nationality, 'Nationalité'
-    = f.select :nationality, options_for_select(countries_list, :selected => @user.nationality), {}, :required => true, class:'form-control'
-  .form-group.actions
+  .form-group.row
+    .col-xs-6
+      = f.label :first_name, 'Prénom'
+      = f.text_field :first_name, value: @account.first_name || @user.firstname, :required => true, class:'form-control'
+    .col-xs-6
+      = f.label :last_name, 'Nom de famille'
+      = f.text_field :last_name, value: @account.last_name || @user.lastname, :required =>true, class:'form-control'
+  .form-group.row
+    .col-xs-10
+      = f.label :street, 'Adresse: rue'
+      = f.text_field :address_line1, :required => true, class:'form-control'
+    .col-xs-2
+      = f.label :number, 'N°'
+      = f.text_field :address_line2, :required => true, class:'form-control'
+  .form-group.row
+    .col-xs-8
+      = f.label :country, 'Pays'
+      = f.select :country, options_for_select(countries_list, :selected => @account.country), {}, :required => true, class:'form-control'
+    .col-xs-4
+      = f.label :post_code, 'Code postal'
+      = f.number_field :postal_code, :required => true, class:'form-control'
+  .form-group.row
+    .col-xs-6
+      = f.label :city, 'Ville'
+      = f.text_field :city, :required => true, class:'form-control'
+    .col-xs-6
+      = f.label :region, 'Région'
+      = f.text_field :region, :required => true, class:'form-control'
+  .form-group.row
+    .col-xs-6
+      = f.label :country_of_residence, 'Pays de résidence'
+      = f.select :country_of_residence, options_for_select(countries_list, :selected => @account.country_of_residence), {}, :required => true, class:'form-control'
+    .col-xs-6
+      = f.label :nationality, 'Nationalité'
+      = f.select :nationality, options_for_select(countries_list, :selected => @user.nationality), {}, :required => true, class:'form-control'
+  .form-group.actions.row
     = f.button :enregistrer, class: 'btn btn-green btn-qw', data: {disable_with: "<i class='fa fa-spinner fa-spin'></i>"}
 

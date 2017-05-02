@@ -10,10 +10,15 @@
         %small Argent disponible pour réserver des cours
   .col-sm-2.col-xs-4
     .header-right.text-right
-      %h3 #{total_balance(@user.normal_wallet, @user.bonus_wallet)}
-      .header-cta
-        - if @user.is_a?(Teacher)
-          = link_to 'Décharger', payout_path, class: 'btn btn-qw btn-green'
-          = link_to 'Recharger', load_wallet_path, class: 'text-white'
-        - else
-          = link_to 'Recharger', load_wallet_path, class: 'btn btn-qw btn-green'
+      - unless @user.mango_id.nil?
+        %h3 #{total_balance(@user.normal_wallet, @user.bonus_wallet)}
+        .header-cta
+          - if @user.is_a?(Teacher)
+            %span.inline-block
+              = link_to 'Décharger', payout_path, class: 'btn btn-qw btn-green'
+              .text-center
+                = link_to 'Recharger', load_wallet_path, class: 'text-white'
+          - else
+            = link_to 'Recharger', load_wallet_path, class: 'btn btn-qw btn-green'
+      - else
+        %h5 Non configuré

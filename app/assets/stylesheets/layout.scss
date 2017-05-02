@@ -353,15 +353,6 @@ input.cmn-toggle-round-flat:checked + label:after
   font-family: SofiaProRegular;
   .modal-content{
     border-radius: 0px;
-    .modal-body{
-      h5{
-        font-size: 16px;
-        background-color: $color_qwerteach_green;
-        color: white;
-        margin: 0px -15px 10px -15px;
-        padding: 5px 15px;
-      }
-    }
   }
 }
 table{
@@ -573,4 +564,8 @@ table{
       font-size: 36px;
     }
   }
+}
+
+.inline-block{
+  display:inline-block;
 }

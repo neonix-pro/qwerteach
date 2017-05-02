@@ -35,7 +35,6 @@ class WalletsController < ApplicationController
       @cards = @user.mangopay.cards
 
       @bank_accounts = @user.mangopay.bank_accounts.select{|ba| ba if ba.active}
-      @bank_account = Mango::CreateBankAccount.new(user: current_user)
       @pagin = Kaminari.paginate_array(@transactions, total_count: filters['total_items']).page(params[:page]).per(10)
     end
   end
@@ -49,6 +48,11 @@ class WalletsController < ApplicationController
 
   def edit_mangopay_wallet
     @account = Mango::SaveAccount.new(user: current_user, first_name: current_user.firstname, last_name: current_user.lastname)
+    unless @user.mango_id.nil?
+      @bank_accounts = @user.mangopay.bank_accounts.select{|ba| ba if ba.active}
+      @bank_account = Mango::CreateBankAccount.new(user: current_user)
+      @cards = @user.mangopay.cards
+    end
   end
 
   def update_mangopay_wallet
