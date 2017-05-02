@@ -37,4 +37,4 @@
           #account_other.account_fields{:hidden => bank_account.type != 'other'}
             = render 'mangopay/bank_accounts/other', :bank_account => bank_account
         .actions#submit_new_bank_account
-          = submit_tag :terminer, :class => 'btn btn-qw', hidden: true
+          = submit_tag :terminer

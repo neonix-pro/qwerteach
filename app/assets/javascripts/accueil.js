@@ -12,15 +12,15 @@ $(window).on('turbolinks:load',  function(e){
         $(".section_commentmarche").slideToggle("slow");
     })
     
-    //largeur de la abr de recherche 
-    $(".recherche-bar").css("width", width - 300);
+    //largeur de la bar de recherche
+    $(".recherche-bar").css("width", width*0.7);
     window.addEventListener("resize", function(){
         width = $(window).width();
-        $(".recherche-bar").css("width", width -300);
+        $(".recherche-bar").css("width", width*0.7);
     });
     window.addEventListener("orientationchange", function(){
         width = $(window).width();
-        $(".recherche-bar").css("width", width -300);
+        $(".recherche-bar").css("width", width*0.7);
     });
     resizeTeachers();
 

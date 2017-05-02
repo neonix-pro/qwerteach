@@ -20,6 +20,11 @@
   .open_mode_emploi{
     font-size: 16px;
   }
+  .btn.btn-green{
+    padding: 3px 2rem;
+    height:42px;
+    line-height:39px;
+  }
   .title{
     padding-top: 10%;
     text-align:center;
@@ -90,34 +95,25 @@
     height: 50px;
     width: 50px;
     border: none;
-    background: $color_qwerteach_green;
+    background: transparent;
     display: inline;
-    color: $dark_grey;
+    color: white;
     vertical-align:top;
     font-size: 26px;
+    margin-left:-60px;
   }
   button:hover{
     color: $color_qwerteach_green;
-    background: $dark_grey;
-  }
-  .search-decoration{
-    vertical-align:top;
-    width:100px; /*2x carré de 100 px*/
-    .star, .calendar{
-      float:left;
-      width:50px;
-      line-height:50px;
-      text-align:center;
-    }
   }
   .recherche-bar{
     vertical-align:top;
     height: 50px;
     display: inline;
-    border: none;
-    border-radius: 0;
-    background: white;
+    border: 1px solid white;
+    border-radius: 25px;
+    background: rgba(0, 0, 0, 0.3);
     padding-left:30px;
+    color:white;
   }
 }
 
