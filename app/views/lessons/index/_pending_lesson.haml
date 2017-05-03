@@ -11,9 +11,20 @@
           de #{lesson.topic.title} avec #{lesson.other(current_user).name}
         %p #{lesson.comment}
         .lesson-actions
-          = link_to lesson_accept_path(lesson) do
-            %i.fa.fa-check
-          = link_to lesson_refuse_path(lesson) do
-            %i.fa.fa-times
-          = link_to edit_lesson_path(lesson), remote: true do
-            %i.fa.fa-edit
+          - if lesson.pending?(current_user)
+            - if lesson.pay_afterwards?
+              %span.dropdown
+                %a{href: '#', 'data-toggle' => 'dropdown'}
+                  %i.fa.fa-check
+                %ul.dropdown-menu
+                  %li= link_to 'Payer plus tard', lesson_accept_path(lesson)
+                  %li= link_to 'Payer maintenant', new_lesson_payment_path(lesson)
+            - else
+              = link_to new_lesson_payment_path(lesson) do
+                %i.fa.fa-check
+            = link_to lesson_refuse_path(lesson) do
+              %i.fa.fa-times
+            = link_to edit_lesson_path(lesson), remote: true do
+              %i.fa.fa-edit
+          - else
+            .badge.grey En attente

@@ -117,6 +117,9 @@ class Lesson < ActiveRecord::Base
   def refused?
     status == 'refused'
   end
+  def created?
+    status == 'created'
+  end
 
   def active?
     !(expired? || status == 'canceled' || status == 'refused')
@@ -167,6 +170,17 @@ class Lesson < ActiveRecord::Base
       end
     end
     return false
+  end
+
+  def to_pay?(user)
+    if created? && is_student?(user)
+      payments.each do |p|
+        if p.pending? || p.locked?
+          return true
+        end
+      end
+    end
+    false
   end
 
   # defines if the user needs to do something with the lesson:

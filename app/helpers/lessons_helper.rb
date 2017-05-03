@@ -63,4 +63,22 @@ module LessonsHelper
       end
     end
   end
+
+  def payment_status(status)
+    case status
+      when 'pending'
+        "Le paiement n'a pas encore été effectué par l'élève"
+      when 'locked'
+        "Le paiement a été effectué par l'élève et est détenu par Qwerteach"
+      when 'canceled'
+        "Le paiement a été annulé"
+      when 'refunded'
+        "Le paiement a été retourné à l'élève et crédité sur son poretefeuille virtuel Qwerteach"
+      when 'paid'
+        "le paiement a été versé au professeur"
+      when 'disputed'
+        "le paiement est détenu par Qwerteach. Notre équipe cherche avec vous une solution"
+    end
+  end
+
 end

@@ -37,9 +37,16 @@
       font-family: "Open Sans";
       font-weight: 300;
     }
+    .lesson-status{
+      position:absolute;
+      top:0px;
+      right:0px;
+    }
   }
   .history_lesson.inactive{
-    opacity: 0.5;
+    .lesson-date, img, .lesson-topic{
+      opacity: 0.5;
+    }
   }
 }
 
@@ -49,132 +56,7 @@
   margin-bottom: 30px;
 }
 
-#lessons-list{
-  border-left:1px solid #ddd;
-}
 
-.lesson{
-  height:150px;
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
-  position:relative;
-  z-index:1;
-  .lesson-topic{
-    text-align:center;
-    width:150px;
-    height:100%;
-    line-height:150px;
-    float:left;
-    img{
-      max-width:100px;
-      max-height:100px;
-    }
-  }
-  .lesson-other{
-    width:150px;
-    height:150px;
-    float:left;
-    overflow:hidden;
-    img{
-      width:100%;
-    }
-  }
-  .lesson-details{
-    height: 150px;
-    background-color: white;
-    color: $dark_grey;
-    margin-left:300px;
-    padding-left:10px;
-    padding-top:15px;
-    line-height: 27px;
-    font-family:'Helvetica';
-    font-weight: 300;
-    font-size:18px;
-  }
-  .lesson-details-left, .lesson-details-right{
-    width:40%;
-    display:inline-block;
-  }
-  .lesson-details-right{
-    width:60%;
-    padding-right:200px;
-    line-height:18px;
-  }
-  $card-width : 150px;
-  $margin: 20px;
-  $margin-spread: -5px;
-  .lesson-status {
-
-    width:$card-width;
-    position:absolute;
-    top:0px;
-    right:0px;
-    img.lesson-card{
-      width:150px;
-      position:absolute;
-      box-shadow:  0px 2px 4px 0px rgba(0,0,0,1);
-      filter: grayscale(100%);
-      transition: right 0.7s;
-    }
-
-    .lesson-card:first-child{
-      right:0px;
-    }
-    .lesson-card:nth-child(2){
-      right:$margin * 1;
-    }
-    .lesson-card:nth-child(3){
-      right:$margin*2;
-    }
-    .lesson-card:nth-child(4){
-      right:$margin*3;
-    }
-    .lesson-card:last-child{
-      filter:none!important;
-    }
-  }
-
-  .lesson-status:hover {
-    .lesson-card:first-child{
-      right:0px;
-    }
-    .lesson-card:nth-child(2){
-      right:($card-width + $margin-spread);
-    }
-    .lesson-card:nth-child(3){
-      right:($card-width + $margin-spread)*2;
-    }
-    .lesson-card:nth-child(4){
-      right:($card-width + $margin-spread)*3;
-    }
-    .lesson-card:last-child{
-      filter:none!important;
-    }
-  }
-
-  .lesson-date{
-    margin-top:10px;
-    font-size: 16px;
-  }
-  .lesson-actions, .lesson-show-details{
-    position: relative;
-    text-align:center;
-    font-size:15px;
-  }
-  .lesson-actions{
-    padding-bottom:15px;
-    margin-bottom:15px;
-    form.button_to{
-      display:inline-block;
-    }
-  }
-}
-
-.lesson.inactive{
-  filter: grayscale(100%);
-  .lesson-details-left{
-    text-decoration:line-through;
-  }
-}
 //maths
 .topic_1{
   border-color: $color_qwerteach_yellow;
@@ -226,88 +108,58 @@
 }
 
 /*SHOW*/
-.show-lesson-details{
-  padding-right:0px;
-  padding-top:20px;
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,1);
-  h3{
-    margin-top:0px;
-  }
-  .lesson-picture{
-    text-align:center;
-    img{
-      display: inline-block;
-      vertical-align: middle;
+#lesson{
+  .header{
+    background-color:$dark-grey;
+    color:white;
+    .icon-header img{
+      margin: 0 auto;
+    }
+    h1{
+      text-transform:none;
+    }
+    .lesson-date{
+      color: $text_light_grey;
+      text-transform: uppercase;
+    }
+    .lesson-actions{
+      a{
+        text-transform:uppercase;
+        margin: 10px 5px;
+      }
+      a.btn{
+        text-transform: none;
+      }
     }
   }
-  .lesson-picture:before{
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    margin-right: -0.25em;
-  }
-  .lesson-infos{
-    padding: 20px 0px;
-    .dl-horizontal{
-      margin-bottom:0px;
-    }
-  }
-  .close-details{
-    position: relative;
-    top: -135px;
-    right: -15px;
-    float: right;
-  }
-}
-.show-lesson-status {
-  font-size: 25px;
-  div{
-    padding:0px 30px;
-  }
-  .lesson-expired {
-    background-color: $text_grey;
-    color: white;
-  }
-  .lesson-created {
-    background-color: $color_qwerteach_green;
-  }
-  .lesson-canceled {
-    background-color: $text_grey;
-  }
-  .lesson-pending {
-    background-color: $color_qwerteach_purple;
-  }
-}
-
-.lesson-todo{
-  background-color: $dark_grey;
-  color:white;
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
-  .todo-title{
-    background-color: #222;
-    text-align:center;
-    padding:15px 0px;
-    h3{
-      margin:0px;
-    }
-  }
-  .todo{
-    padding: 30px 0px;
+  .preview-lesson{
     width:100%;
-    button{
-      margin-right: 20px;
+  }
+  .lessons-details {
+    dl dt{
+      margin-top: 10px;
     }
   }
-}
-.lesson-payments{
-  padding: 30px;
-  h3{
-    margin-top:0px;
-  }
-}
-#lessons-index{
-  .show-lesson-details{
-    display:none;
+  .card-payment{
+    dl{
+      dt, dd{
+        line-height:24px;
+        .fa{
+          font-size: 20px;
+        }
+        .fa:hover{
+          cursor:pointer;
+        }
+      }
+    }
+    .payment-action{
+      .btn{
+        margin-top: -10px;
+        margin-right:10px;
+      }
+      a{
+        text-transform:none;
+      }
+    }
   }
 }

@@ -6,7 +6,9 @@
       = lesson.time_start.strftime("%d %B %Y à %H:%M")
     .lesson-topic
       Cours de #{lesson.topic.title} avec #{lesson.other(current_user).name}
-    .lesson-status.pull-right
+    .lesson-link
+      = link_to 'voir', lesson_path(lesson)
+    .lesson-status
       - if lesson.status == 'expired'
         %span.badge.grey Expiré
       - if lesson.status == 'canceled'
