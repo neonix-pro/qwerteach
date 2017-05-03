@@ -26,8 +26,6 @@
           #{" - "}
           = link_to edit_lesson_path(@lesson), remote: true do
             Déplacer
-        - if @lesson.to_pay?(@user)
-          payer!
   .container
     .row
       .col-md-1
@@ -71,3 +69,18 @@
                       = link_to lesson_dispute_path(@lesson) do
                         %i.fa.fa-warning
                         Signaler un problème
+            -if @lesson.payments.empty? && @lesson.pay_afterwards?
+              .card.card-payment
+                .card-content
+                  %h4 Ce cours n'a pas été pré-payé
+                  %dl.dl-horizontal
+                    %dt Montant:
+                    %dd #{@lesson.price}€
+                .card-action
+                  .payment-action
+                    - if @lesson.is_student?(@user)
+                      = link_to 'Payer', new_lesson_payment_path(@lesson), class: 'btn btn-green btn-qw'
+                    - else
+                      .text-red
+                        Si vous acceptez de donner cours avant que l'élève n'ait
+                        réglé le paiement, <b>Qwerteach ne peut pas garantir que vous serez payé</b>.
