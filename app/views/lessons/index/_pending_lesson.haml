@@ -1,0 +1,19 @@
+.card.card-lesson
+  .card-content
+    .row
+      .col-xs-3
+        .icon-coloured{class: "icon-topic-#{lesson.topic.topic_group.id}"}
+          = image_tag(lesson.topic.pictotype(:small))
+      .col-xs-9
+        .lesson-date.text-grey #{lesson.time_start.strftime("%d %B %Y à %H:%M")}
+        .card-title
+          #{lesson_duration(lesson.time_start, lesson.time_end)}
+          de #{lesson.topic.title} avec #{lesson.other(current_user).name}
+        %p #{lesson.comment}
+        .lesson-actions
+          = link_to lesson_accept_path(lesson) do
+            %i.fa.fa-check
+          = link_to lesson_refuse_path(lesson) do
+            %i.fa.fa-times
+          = link_to edit_lesson_path(lesson), remote: true do
+            %i.fa.fa-edit

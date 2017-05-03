@@ -1,0 +1,9 @@
+<% unless @history_lessons.nil? %>
+  $('#history').html("<%= j render partial: 'lessons/index/history' %>");
+<% end %>
+<% unless @pending_lessons.nil? %>
+  $('#pending').html("<%= j render partial: 'lessons/index/pending' %>");
+<% end %>
+<% unless @planned_lessons.nil? %>
+  $('#planned').html("<%= j render partial: 'lessons/index/planned' %>");
+<% end %>

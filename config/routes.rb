@@ -213,7 +213,8 @@ Rails.application.routes.draw do
 
   #Permet affichage facture
   get "/payments/index" => "payments#index"
-  
+
+  get 'lessons/index_pagination' => "lessons#index_pagination"
   #post "lessons/:teacher_id/require_lesson", to: "lessons#require_lesson", as: 'require_lesson'
   resources :lessons do
     get 'accept' => :accept

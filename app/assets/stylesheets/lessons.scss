@@ -1,79 +1,52 @@
 @import 'global_variables';
-#lessons-content{
-  position:relative;
-  width:100%;
-}
-.section-head{
-  background-color: $color_qwerteach_green;
-  color: white;
-  height:100px;
-  width:100%;
-  padding-left:30px;
-  h2{
-    margin:0px;
-    line-height:100px;
+#lessons{
+  .header{
+    background-color:$color_qwerteach_green;
+    color:white;
+  }
+  .card-lesson{
+    img{
+      height:100%;
+    }
+    .card-title{
+      font-size:18px;
+      line-height:24px;
+    }
+    .lesson-actions{
+      position: absolute;
+      right: 0;
+      top: -20px;
+      a{
+        margin: 0px 3px;
+      }
+    }
+  }
+  .history_lesson{
+    border-bottom: 1px solid $text_grey;
+    padding: 10px 0px;
+    img{
+      border-radius: 50%;
+      width:50%;
+      margin: 0 25%;
+    }
+    .lesson-date{
+      text-transform: uppercase;
+    }
+    .lesson-topic{
+      font-size: 18px;
+      font-family: "Open Sans";
+      font-weight: 300;
+    }
+  }
+  .history_lesson.inactive{
+    opacity: 0.5;
   }
 }
-.vertical-navigation{
-  width:20%;
-  border-radius:0px;
-  background-color:#f2f2f2;
-  float:left;
-}
 
-.vertical-navigation{
-  padding-right: 0;
-  padding-left: 0;
-  padding-bottom: 0;
-}
-.vertical-navigation .list-group{
-  margin-bottom: 0;
-  border-radius:0;
-}
-.vertical-navigation .list-group>a{
-  margin-bottom: 0;
-}
-.vertical-navigation .list-group>a .glyphicon,
-.vertical-navigation .list-group>a .fa {
-  color: $color_qwerteach_purple;
-}
-.vertical-navigation .list-group>a:first-child{
-  border-top-right-radius: 0;
-  -moz-border-top-right-radius: 0;
-}
-.vertical-navigation .list-group>a:last-child{
-  border-bottom-right-radius: 0;
-  -moz-border-bottom-right-radius: 0;
-}
-.vertical-navigation .list-group>a.active {
-  background-color: $color_qwerteach_purple;
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
-  background-image: none;
-  color: #ffffff;
-  border-radius:0px;
-  border:none!important;
-}
-.vertical-navigation .list-group>a.active .fa{
-  color:white;
-
-}
-.vertical-navigation .list-group>a.active:after{
-  content: '';
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  margin-top: -13px;
-  border-left: 0;
-  border-bottom: 13px solid transparent;
-  border-top: 13px solid transparent;
-  border-left: 10px solid $color_qwerteach_purple;
-}
-.vertical-navigation a.list-group-item:hover{
-  border: 1px solid #ddd;
-}
-.vertical-navigation a.list-group-item{
-  border-top:none;
-  border-right:none;
+#lessons-navigation{
+  margin-top: -30px;
+  background-color: white;
+  margin-bottom: 30px;
 }
 
 #lessons-list{

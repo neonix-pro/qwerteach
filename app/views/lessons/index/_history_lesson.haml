@@ -1,0 +1,15 @@
+.row.history_lesson{class: ('inactive' unless lesson.active?)}
+  .col-xs-2
+    = image_tag lesson.other(current_user).avatar(:small)
+  .col-xs-10
+    .text-grey.lesson-date
+      = lesson.time_start.strftime("%d %B %Y à %H:%M")
+    .lesson-topic
+      Cours de #{lesson.topic.title} avec #{lesson.other(current_user).name}
+    .lesson-status.pull-right
+      - if lesson.status == 'expired'
+        %span.badge.grey Expiré
+      - if lesson.status == 'canceled'
+        %span.badge.red Annulé
+      - if lesson.status == 'refused'
+        %span.badge.grey Refusé

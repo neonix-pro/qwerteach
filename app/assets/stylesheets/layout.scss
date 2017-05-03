@@ -493,23 +493,26 @@ table{
     line-height: 45px;
   }
 }
-.icon-green{
+.icon-green, .icon-topic-3{
   background-color:$color_qwerteach_green;
 }
-.icon-purple{
+.icon-purple, .icon-topic-4{
   background-color:$color_qwerteach_purple;
 }
-.icon-orange{
+.icon-orange, .icon-topic-5{
   background-color:$color_qwerteach_orange;
 }
 .icon-red{
   background-color:$color_qwerteach_red;
 }
-.icon-blue{
+.icon-blue, .icon-topic-6{
   background-color:$color_qwerteach_blue;
 }
-.icon-mauve{
+.icon-mauve, .icon-topic-1{
   background-color:$color_qwerteach_mauve;
+}
+.icon-pink, .icon-topic-2{
+  background-color: $color_qwerteach_pink;
 }
 .icon-title{
   margin-left: -15px;
