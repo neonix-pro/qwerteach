@@ -8,6 +8,12 @@
     img{
       height:100%;
     }
+    .icon-user-avatar{
+      display:inline-block;
+      img {
+        border-radius: 50%;
+      }
+    }
     .card-title{
       font-size:18px;
       line-height:24px;
@@ -134,6 +140,20 @@
   }
   .preview-lesson{
     width:100%;
+  }
+  .record-text{
+    position: absolute;
+    margin: auto auto;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin-top: -20px;
+  }
+  .recording-link{
+     color:white;
+   }
+  .recording-link:hover {
+    color:$color_qwerteach_green;
   }
   .lessons-details {
     dl dt{

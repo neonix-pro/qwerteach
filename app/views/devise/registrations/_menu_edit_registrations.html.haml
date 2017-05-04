@@ -8,46 +8,46 @@
     = f.hidden_field :crop_w, :id => 'crop_w'
     = f.hidden_field :crop_h, :id => 'crop_h'
 
-    #avatar-crop-modal.modal.fade{'aria-hidden'=>'true', 'aria-labelledby'=>'myModalLabel', 'role'=>'dialog', 'tabindex'=>-1}
-      .modal-dialog.modal-lg
-        .modal-content
-          .modal-header
-            %button.close{'aria-hidden'=>'true', 'data-dismiss'=>'modal', 'type'=>"button"} &times;
-            %h4#myModalLabel.modal-title Recadrer la photo
-          .modal-body.modal-body-avatar
-            .col-view
-              .avatar-uploaded-view
-                %img.avatar-uploaded-view-image
-            .avatar-uploaded-preview
-              %img.avatar-uploaded-preview-image
-          .modal-footer.text-center
-            %button.btn.btn-qw.btn-sm.btn-default{'data-dismiss'=>'modal', 'type'=>'button'} Annuler
-            %button.btn.btn-success.btn-qw.btn-sm.btn-avatar-save{'type'=>'button'} Sauver
 
   .edit-user-avatar
     .banner
       modifier
       %i.fa.fa-camera
-%div
+.menu-link
   %a{:data => {:toggle => "collapse", :target => "#profil", :parent => '#edit_profile'}, :class => "active"} Modifier mes informations
-%div
+.menu-link
   %a{:data => {:toggle => "collapse", :target => "#passcode", :parent => '#edit_profile'}} Modifier mon mot de passe
 -if @user.is_a?(Teacher)
-  %div
+  .menu-link
     %a{:data => {:toggle => "collapse", :target => "#annonces", :parent => '#edit_profile'}} Mes annonces
-%div
+.menu-link
   =link_to "Voir mon profil", user_path(@user)
+
+#avatar-crop-modal.modal
+  .modal-dialog
+    .modal-content
+      %h4 Recadrer la photo
+      .modal-body-avatar
+        .avatar-uploaded-view
+          %img.avatar-uploaded-view-image
+        .avatar-uploaded-preview
+          %img.avatar-uploaded-preview-image
+      .modal-footer.text-center
+        %a.modal-action.modal-close{href: '#!'} Annuler
+        %button.btn.btn-success.btn-qw.btn-avatar-save{'type'=>'button'} Sauver
 
 :javascript
   new AvatarUploader();
+  $('.modal').modal();
 
 :javascript
   $('.edit-user-avatar').on('click', function(){
     $('#user_avatar').trigger('click');
   });
   $('#user_avatar').on('change', function(){
+
     if ( $('#user_avatar').get(0).files[0] ) {
-      $('#avatar-crop-modal').modal('show');
+      $('#avatar-crop-modal').modal('open');
     }
   });
   var h = $(body).height();

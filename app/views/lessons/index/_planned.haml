@@ -8,9 +8,10 @@
     %h3 Vous n'avez aucun cours à venir
 - else
   .row
-    - @planned_lessons.each do |l|
-      .col-sm-4.col-xs-6
-        = render partial: 'lessons/index/planned_lesson', locals:{lesson: l}
+    .cards-wrapper
+      - @planned_lessons.each do |l|
+        .col-sm-4.col-xs-6
+          = render partial: 'lessons/index/planned_lesson', locals:{lesson: l}
   .row
     .text-center
       = paginate @planned_lessons, params:{controller: :lessons, action: :index_pagination, lesson_type: :planned}, remote: true

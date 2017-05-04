@@ -21,8 +21,6 @@
 //= require private_pub
 //= require messages
 //= require_tree .
-//= require bootstrap
-//= require bootstrap-datetimepicker
 //= require ckeditor-jquery
 //= require chosen-jquery
 //= require jquery.form-validator
@@ -30,6 +28,8 @@
 //= require fullcalendar/lang/fr.js
 //= require simpletextrotator
 //= require mangopay-kit.min
+//= require bootstrap
+//= require bootstrap-datetimepicker
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
 //= require materialize

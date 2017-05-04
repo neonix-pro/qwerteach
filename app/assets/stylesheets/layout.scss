@@ -134,7 +134,7 @@ p, span, a, ul, li{
   color: $dark_grey;
 }
 
-.text-green, .text-green:hover{
+.text-green, .text-green:hover, .text-topic-3{
   color:$color_qwerteach_green!important;
 }
 .text-white{
@@ -146,22 +146,22 @@ p, span, a, ul, li{
 .text-black{
   color: #000;
 }
-.text-pink{
+.text-pink, .text-topic-2{
   color: $color_qwerteach_pink;
 }
-.text-blue{
+.text-blue, .text-topic-6{
   color: $color_qwerteach_blue;
 }
-.text-purple{
+.text-purple, .text-topic-4{
   color: $color_qwerteach_purple;
 }
-.text-orange{
+.text-orange, .text-topic-5{
   color: $color_qwerteach_orange;
 }
 .text-yellow{
   color: $color_qwerteach_yellow;
 }
-.text-mauve{
+.text-mauve, .text-topic-1{
   color: $color_qwerteach_mauve;
 }
 .text-red{
@@ -492,6 +492,13 @@ table{
   .fa{
     line-height: 45px;
   }
+}
+.icon-user-avatar{
+  width:45px;
+  height:45px;
+  display:inline-block;
+  border-radius: 50%;
+  vertical-align: middle;
 }
 .icon-green, .icon-topic-3{
   background-color:$color_qwerteach_green;

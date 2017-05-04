@@ -34,8 +34,10 @@
           .col-sm-6
             - unless @recordings.nil? || @recordings.empty?
               - @recordings.each do |recording|
-                = link_to recording.url do
+                = link_to recording.playback_formats.first.url, class: 'valign-wrapper recording-link', target: '_blank' do
                   = image_tag('dashboard/preview_cours.png', class: 'preview-lesson')
+                  %span.record-text
+                    %i.fa.fa-youtube-play.fa-3x
             .lessons-details
               %dl
                 %dt Date
@@ -58,7 +60,7 @@
                     %dd #{payment.price}€
                     %dt Statut:
                     %dd
-                      #{payment.status}
+                      #{ t 'lesson.payment.status.'+payment.status}
                       %i.fa.fa-question-circle-o.text-purple.tooltipped{data:{position:'bottom', dalay: 30, tooltip: payment_status(payment.status)}}
                     %dt Référence:
                     %dd ##{payment.id}
