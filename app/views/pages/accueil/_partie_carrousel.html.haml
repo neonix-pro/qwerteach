@@ -2,31 +2,29 @@
   #myCarousel.carousel.slide{"data-ride" => "carousel", :class => "100window"}
     //Indicators
     %ol.carousel-indicators
-      %li.active{"data-slide-to" => "0", "data-target" => "#myCarousell"}
-      %li{"data-slide-to" => "1", "data-target" => "#myCarousel2"}
+      %li.active{"data-slide-to" => "0", "data-target" => "#myCarousel"}
+      %li{"data-slide-to" => "1", "data-target" => "#myCarousel"}
     //Wrapper for slides
     .carousel-inner{:role => "listbox"}
-      .item.100window
+      .item.active
         = image_tag(image_path("acceuil/classe_prof.png"), :class => "image_carrousel img-responsive img_slide2")
         %div{:class => "right"}
-          %h2 Devenez prof particulier, travaillez en ligne.
-          %p.text-white Rejoignez la communauté Qwerteach et faites l’expérience d’une nouvelle façon d’enseigner. Apportez votre soutien à des élèves issus du monde entier
+          %h2 Les cours particuliers depuis votre canapé
+          %p.text-white Grâce à notre classe virtuelle intuitive et simple d’utilisation, combinant tableau interactif et vidéoconférence, trouvez un prof et prenez vos cours particuliers en direct
           %div
             = link_to 'Devenir prof', pages_path('devenir-prof'), class: 'btn btn-qw btn-green' unless current_user.is_a?(Teacher)
             = link_to 'Charte du prof', faq_path('teachers'), class: 'btn btn-qw btn-green' if current_user.is_a?(Teacher)
-            -#%a.comment_ca_marche.open_mode_emploi.toggleCCM{href: '#'} Comment ça marche ?
-      .item.active.100window
+      .item
         = image_tag(image_path("acceuil/classe_eleve.png"), :class => "image_carrousel img-responsive img_slide1")
         %div{:class => "left"}
-          %h2 Vos cours particuliers depuis chez vous.
-          %p.text-white Avec Qwerteach, vous avez accès à plus de professeurs, tout en limitant les contraintes liées aux horaires ou aux déplacements.
+          %h2 Les meilleurs profs
+          %p.text-white Même dans les matières les plus pointues, les professeurs sont certifiés grâce à un entretien individuel, ils sont ensuite évalués à la fin de chaque séance
           %div
             - if current_user
               = link_to 'Voir les profs', profs_path, class: 'btn btn-qw btn-green'
             - else
               = link_to 'Inscription gratuite', new_user_registration_path, class: 'btn btn-qw btn-green'
 
-            -#= link_to 'Comment ça marche', '#', class: 'comment_ca_marche open_mode_emploi toggleCCM'
     %a.left.carousel-control.100window{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}
       = image_tag(image_path("acceuil/flecheg.png"))
     %a.right.carousel-control.100window{"data-slide" => "next", :href => "#myCarousel", :role => "button"}

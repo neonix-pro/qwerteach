@@ -126,9 +126,13 @@
   .btn.btn-qw{
     width:210px;
   }
+  .carousel-inner{
+    height:100%;
+  }
   .item{
     position: relative;
     height: 100%;
+    width:100%;
     img{
       position: relative;
       display: inline-block;
@@ -314,6 +318,8 @@
 .section_tri_colonne{
   width: 100%;
   margin: 0 !important;
+  background-color: $qwerteach_black;
+  position:relative;
   .caption{
     width: 60%;
     margin: auto;
@@ -337,7 +343,7 @@
     font-size: 14px;
     line-height: 25px;
     text-align: left;
-    margin-bottom: 25px;
+    margin-bottom: 150px;
     margin-top:30px;
   }
   hr{
@@ -347,20 +353,23 @@
   }
   a{
     font-size: 16px;
-    width: 70%;
-    margin: 0;
+    width: 33.33333%;
+    margin-left: -15px;
+    padding-left: 6.666666667%;
     display: block;
     position:absolute;
     bottom: 55px;
+    text-align:left;
   }
   .thumbnails{
-    height:600px;
+    height:100%;
+    position:unset;
   }
   .thumbnails:nth-child(odd){
     background: $qwerteach_black;
   }
   .thumbnails:nth-child(even){
-    background: $qwerteach_black;
+    background: $dark_grey;
   }
 }
 
