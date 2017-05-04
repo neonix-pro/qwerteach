@@ -1,14 +1,13 @@
-.container-fluid
-  .sign_in_page
-    .row
-      %h1.text-center Inscription
-      .col-md-6.col-md-offset-3
-        %p
-          S'inscrire sur Qwerteach c'est rapide, gratuit, et garanti sans spams :)
-        .material-form
-          = render :partial => 'new_form'
-        .text-right
-          %small= link_to 'Déjà inscrit?', new_session_path(resource)
+.container-fluid.sign_in_page
+  .row
+    %h1.text-center Inscription
+    .col-md-6.col-md-offset-3
+      %p
+        S'inscrire sur Qwerteach c'est rapide, gratuit, et garanti sans spams :)
+      .material-form
+        = render :partial => 'new_form'
+      .text-right
+        %small= link_to 'Déjà inscrit?', new_session_path(resource)
 
 :javascript
   a = jstz.determine();
