@@ -32,6 +32,7 @@
 //= require bootstrap-datetimepicker
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
+$.fn.bsModal  = $.fn.modal.noConflict();
 //= require materialize
 //= require turbolinks
 

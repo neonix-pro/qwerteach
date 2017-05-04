@@ -1,4 +1,4 @@
-#contact-modal.modal.fade{role: 'dialog', tabindex:'-1'}
+#contact-modal.modal.fade
   .modal-dialog{role:'document'}
     .modal-content
       = form_tag messages_path, method: :post, remote: true do
@@ -13,3 +13,7 @@
             = text_area_tag 'message[body]', nil, rows: 5,
               placeholder: "Posez une question à #{user.firstname}", class: 'form-control', required: true
           = submit_tag 'Envoyer', class: 'btn btn-qw btn-green'
+:javascript
+  $('#contact-modal form').submit(function(){
+    $('#contact-modal').bsModal('hide');
+  });
