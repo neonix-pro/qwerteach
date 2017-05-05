@@ -14,8 +14,8 @@ class window.LessonForm
 
 
   initialize: ->
-    @initEvents()
     @initDatePicker()
+    @initEvents()
 
 
   initEvents: ->
@@ -32,6 +32,8 @@ class window.LessonForm
       locale: moment.locale(),
       format: "dddd DD MMMM [à] HH:mm",
       minDate: @getMinDate()
+      allowInputToggle: true
+      sideBySide: true
 
   getMinDate: ->
     moment().startOf('hour').add( Math.ceil(moment().minutes() / 15) * 15, 'minutes' )
@@ -93,8 +95,8 @@ class window.LessonForm
     level: $('option:selected', $('#request_level_id')).text()
     hours: $('option:selected', $('#request_hours')).text()
     minutes: $('option:selected', $('#request_minutes')).text()
-    datetime: $("#datetimepicker").data("DateTimePicker")?.date()
-    endtime: $("#datetimepicker").data("DateTimePicker")?.date()?.add({hours: $('option:selected', $('#request_hours')).val(), minutes: $('option:selected', $('#request_minutes')).val()})
+    datetime: $("#time_start_picker").data("DateTimePicker")?.date()
+    endtime: $("#time_start_picker").data("DateTimePicker")?.date()?.add({hours: $('option:selected', $('#request_hours')).val(), minutes: $('option:selected', $('#request_minutes')).val()})
 
   $: (selector)-> @$el.find selector
 
