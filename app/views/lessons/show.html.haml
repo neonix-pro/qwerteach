@@ -19,7 +19,7 @@
                 %li= link_to 'Payer plus tard', lesson_accept_path(@lesson)
                 %li= link_to 'Payer maintenant', new_lesson_payment_path(@lesson)
           - else
-            = link_to 'Accepter', new_lesson_payment_path(@lesson), class: 'btn btn-qw btn-green'
+            = link_to 'Accepter', lesson_accept_path(@lesson), class: 'btn btn-qw btn-green'
           %br
           = link_to lesson_refuse_path(@lesson) do
             Refuser

@@ -51,12 +51,12 @@
         .card.card-coordonees-form
           .card-content
             = render 'mangopay_form', :path => @path
-
-.modal.fade#modal-add-bank-account
-  .modal-dialog
-    .modal-content
-      .modal-body
-        .row
-          .col-xs-12
-            = render 'mangopay/bank_accounts/new', bank_account: @bank_account
+- unless @user.mango_id.nil?
+  .modal.fade#modal-add-bank-account
+    .modal-dialog
+      .modal-content
+        .modal-body
+          .row
+            .col-xs-12
+              = render 'mangopay/bank_accounts/new', bank_account: @bank_account
 

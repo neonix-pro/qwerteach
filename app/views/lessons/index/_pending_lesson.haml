@@ -20,7 +20,7 @@
                   %li= link_to 'Payer plus tard', lesson_accept_path(lesson)
                   %li= link_to 'Payer maintenant', new_lesson_payment_path(lesson)
             - else
-              = link_to new_lesson_payment_path(lesson) do
+              = link_to lesson_accept_path(lesson) do
                 %i.fa.fa-check
             = link_to lesson_refuse_path(lesson) do
               %i.fa.fa-times
