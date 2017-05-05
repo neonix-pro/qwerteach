@@ -28,13 +28,13 @@
 //= require fullcalendar/lang/fr.js
 //= require simpletextrotator
 //= require mangopay-kit.min
-//= require bootstrap
-//$.fn.bsModal  = $.fn.modal.noConflict();
 //= require materialize
+//= require bootstrap
 //= require bootstrap-datetimepicker
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
 //= require turbolinks
+
 
 $.validate({
     modules : 'security'
