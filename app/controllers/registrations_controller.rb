@@ -1,6 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
   after_action :save_user_timezone, only: [:create]
-  
+  respond_to :html, :js
+
   def sign_up(resource_name, resource)
     sign_in(:user, resource)
   end
@@ -28,8 +29,4 @@ class RegistrationsController < Devise::RegistrationsController
     params.require(:user).permit(:firstname, :lastname, :email, :password)
   end
 
-  def edit
-    super
-    @levels = Level.where(:code => @offer.topic.topic_group.level_code).group(I18n.locale[0..3]).order(id: :asc)
-  end
 end

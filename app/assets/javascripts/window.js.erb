@@ -1,11 +1,11 @@
 $(document).on('turbolinks:load',  function(e){
-    
+
     var height;
     var width;
-    
+
     height = $(window).height();
     width = $(window).width();
-    
+
     //bigimage
     $(".section_bigimage").css("height", height-50);
     window.addEventListener("resize", function(){
@@ -16,7 +16,7 @@ $(document).on('turbolinks:load',  function(e){
       height = $(window).height();
       $(".section_bigimage").css("height", height-50);
     });
-    
+
     //100window
     $(".100window").css("height", height);
     window.addEventListener("resize", function(){
@@ -27,7 +27,7 @@ $(document).on('turbolinks:load',  function(e){
       height = $(window).height();
       $(".100window").css("height", height);
     });
-    
+
     //100width
     $(".100width").css("height", height);
     window.addEventListener("resize", function(){
@@ -62,7 +62,9 @@ $(document).on('turbolinks:load',  function(e){
 });
 
 $(document).on('turbolinks:load',  function(){
-    $.ajaxSetup({beforeSend: function(xhr) {xhr.setRequestHeader("X-CSRF-Token", $("meta[name='csrf-token']").attr("content")); }});
+    $.ajaxSetup({beforeSend: function(xhr) {
+        xhr.setRequestHeader("X-CSRF-Token", $("meta[name='csrf-token']").attr("content"));
+    }});
     $.validate({
         modules : 'security'
     });

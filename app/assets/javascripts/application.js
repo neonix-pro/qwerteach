@@ -18,15 +18,12 @@
 //= require js.cookie
 //= require ckeditor-jquery
 //= require moment
-//= require users
 //= require private_pub
-//= require messages
 //= require_tree .
 //= require chosen-jquery
 //= require jquery.form-validator
 //= require fullcalendar
 //= require fullcalendar/lang/fr.js
-//= require simpletextrotator
 //= require mangopay-kit.min
 //= require materialize
 //= require bootstrap
@@ -34,8 +31,3 @@
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
 //= require turbolinks
-
-
-$.validate({
-    modules : 'security'
-});
