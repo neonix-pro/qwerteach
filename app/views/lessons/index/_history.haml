@@ -1,0 +1,10 @@
+.row
+  .col-md-2
+  .col-md-8
+    .row
+      - @history_lessons.each do |lesson|
+        .col-xs-12
+          = render partial: 'lessons/index/history_lesson', :locals => {:lesson => lesson} unless lesson.teacher.nil? || lesson.student.nil?
+.row
+  #lessons-pagination.text-center
+    = paginate @history_lessons, params:{controller: :lessons, action: :index_pagination, lesson_type: :history}, remote: true

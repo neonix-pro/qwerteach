@@ -61,9 +61,9 @@ p, span, a, ul, li{
   }
 }
 #flash-messages{
-  position: relative;
+  position: fixed;
   width: 100%;
-  z-index: 2;
+  z-index: 100;
   .alert{
     border-radius:0px;
     border:0px;
@@ -134,7 +134,7 @@ p, span, a, ul, li{
   color: $dark_grey;
 }
 
-.text-green, .text-green:hover{
+.text-green, .text-green:hover, .text-topic-3{
   color:$color_qwerteach_green!important;
 }
 .text-white{
@@ -146,22 +146,22 @@ p, span, a, ul, li{
 .text-black{
   color: #000;
 }
-.text-pink{
+.text-pink, .text-topic-2{
   color: $color_qwerteach_pink;
 }
-.text-blue{
+.text-blue, .text-topic-6{
   color: $color_qwerteach_blue;
 }
-.text-purple{
+.text-purple, .text-topic-4{
   color: $color_qwerteach_purple;
 }
-.text-orange{
+.text-orange, .text-topic-5{
   color: $color_qwerteach_orange;
 }
 .text-yellow{
   color: $color_qwerteach_yellow;
 }
-.text-mauve{
+.text-mauve, .text-topic-1{
   color: $color_qwerteach_mauve;
 }
 .text-red{
@@ -350,18 +350,8 @@ input.cmn-toggle-round-flat:checked + label:after
 }
 
 .modal-dialog{
-  font-family: SofiaProRegular;
   .modal-content{
     border-radius: 0px;
-    .modal-body{
-      h5{
-        font-size: 16px;
-        background-color: $color_qwerteach_green;
-        color: white;
-        margin: 0px -15px 10px -15px;
-        padding: 5px 15px;
-      }
-    }
   }
 }
 table{
@@ -502,23 +492,33 @@ table{
     line-height: 45px;
   }
 }
-.icon-green{
+.icon-user-avatar{
+  width:45px;
+  height:45px;
+  display:inline-block;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.icon-green, .icon-topic-3{
   background-color:$color_qwerteach_green;
 }
-.icon-purple{
+.icon-purple, .icon-topic-4{
   background-color:$color_qwerteach_purple;
 }
-.icon-orange{
+.icon-orange, .icon-topic-5{
   background-color:$color_qwerteach_orange;
 }
 .icon-red{
   background-color:$color_qwerteach_red;
 }
-.icon-blue{
+.icon-blue, .icon-topic-6{
   background-color:$color_qwerteach_blue;
 }
-.icon-mauve{
+.icon-mauve, .icon-topic-1{
   background-color:$color_qwerteach_mauve;
+}
+.icon-pink, .icon-topic-2{
+  background-color: $color_qwerteach_pink;
 }
 .icon-title{
   margin-left: -15px;
@@ -573,4 +573,8 @@ table{
       font-size: 36px;
     }
   }
+}
+
+.inline-block{
+  display:inline-block;
 }

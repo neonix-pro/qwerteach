@@ -1,15 +1,29 @@
 class LessonsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_lesson_infos, except: [:new, :index, :calendar_index]
+  before_action :find_lesson_infos, except: [:new, :index, :calendar_index, :index_pagination]
   before_filter :user_time_zone, :if => :current_user
   #needs to check that everything went OK before sending mail!
   #after_action :email_user, only: [:update, :accept, :refuse, :cancel, :dispute, :pay_teacher]
 
   def index
     @user = current_user
-    @lessons = Lesson.involving(@user).page(params[:page]).per(5)
-    if @lessons.empty?
-      @teachers = Teacher.all.order(score: :desc).limit(5)
+    @planned_lessons = Lesson.involving(@user).created.future.page(1).per(6)
+    @pending_lessons = Lesson.involving(@user).pending.future.page(1).per(6)
+    @history_lessons = Lesson.involving(@user).page(1).per(12)
+    if @planned_lessons.empty? && @pending_lessons.empty?
+      @teachers = Teacher.all.order(score: :desc).limit(4)
+    end
+  end
+
+  def index_pagination
+    @user = current_user
+    case params[:lesson_type]
+      when 'planned'
+        @planned_lessons = Lesson.involving(@user).created.future.page(params[:page]).per(6)
+      when 'pending'
+        @pending_lessons = Lesson.involving(@user).pending.future.page(params[:page]).per(6)
+      when 'history'
+        @history_lessons = Lesson.involving(@user).page(params[:page]).per(12)
     end
   end
 

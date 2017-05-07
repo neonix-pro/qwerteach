@@ -35,8 +35,6 @@ class Lesson < ActiveRecord::Base
   scope :to_unlock, ->{created.locked.past} # lessons where we're waiting for student to unlock money
   scope :to_pay, ->{created.payment_pending.past} # lessons that haven't been prepaid and student needs to pay
 
-  scope :with_room, -> { joins(:bbb_room).select("DISTINCT lessons.*")}
-
 
   scope :to_review, ->(user){created.locked_or_paid.past.joins('LEFT OUTER JOIN reviews ON reviews.subject_id = lessons.teacher_id
     AND reviews.sender_id = lessons.student_id')
@@ -119,6 +117,9 @@ class Lesson < ActiveRecord::Base
   def refused?
     status == 'refused'
   end
+  def created?
+    status == 'created'
+  end
 
   def active?
     !(expired? || status == 'canceled' || status == 'refused')
@@ -169,6 +170,17 @@ class Lesson < ActiveRecord::Base
       end
     end
     return false
+  end
+
+  def to_pay?(user)
+    if created? && is_student?(user)
+      payments.each do |p|
+        if p.pending? || p.locked?
+          return true
+        end
+      end
+    end
+    false
   end
 
   # defines if the user needs to do something with the lesson:

@@ -1,0 +1,11 @@
+- if @pending_lessons.empty?
+  %h3 Vous n'avez aucun cours en attente
+- else
+  .row
+    .cards-wrapper
+      -@pending_lessons.each do |l|
+        .col-sm-4.col-xs-6
+          = render partial: 'lessons/index/pending_lesson', locals:{lesson: l}
+  .row
+    .text-center
+      = paginate @pending_lessons, params:{controller: :lessons, action: :index_pagination, lesson_type: :pending}, remote: true

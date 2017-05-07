@@ -174,7 +174,7 @@ h2.booking-title{
         height: 14px;
       }
       .pull-left, .pull-right {
-        background-color: white;
+        background-color: #f0f0f0;
         padding: 0px 10px;
       }
       .pull-right {
@@ -228,5 +228,21 @@ h2.booking-title{
         width:100%;
       }
     }
+  }
+}
+
+#step2{
+  .bootstrap-datetimepicker-widget table td {
+    span.glyphicon{
+      background-color: $color_qwerteach_green;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+    }
+    a.btn{
+      background-color:transparent;
+      box-shadow: none;
+    }
+
   }
 }

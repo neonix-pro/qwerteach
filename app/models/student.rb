@@ -1,5 +1,6 @@
 class Student < User
   has_many :lessons_received, :class_name => 'Lesson', :foreign_key => 'student_id'
+  has_many :interests
 
   acts_as_reader
   def self.reader_scope
@@ -30,7 +31,7 @@ class Student < User
   end
 
   def current_lesson
-    Lesson.where(:status => 2).where('time_end > ?', DateTime.now).where('time_start < ?', DateTime.now + 10.minutes).where(student_id: self.id, teacher_id: self.id).first
+    Lesson.where(:status => 2).where('time_end > ?', DateTime.now).where('time_start < ?', DateTime.now + 10.minutes).where( 'student_id=? OR teacher_id=?', self.id, self.id).first
   end
 
 

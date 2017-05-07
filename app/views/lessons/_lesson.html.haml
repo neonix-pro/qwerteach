@@ -1,6 +1,0 @@
-.lesson{class: ("inactive" if todo == :inactive)}
-  =render partial: 'lessons/index/lesson_images', locals:{lesson: lesson, todo: todo}
-  .lesson-details
-    = render :partial => 'lessons/index/lesson_datetime', locals:{lesson: lesson, todo: todo}
-    = render :partial => 'lessons/index/lesson_status', locals:{lesson: lesson, todo: todo}
-.show-lesson-details{id: "lesson-details-#{lesson.id}"}

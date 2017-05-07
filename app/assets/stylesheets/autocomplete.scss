@@ -12,7 +12,7 @@
   padding: 4px 0;
   margin: 0;
   list-style: none;
-  background-color: #ffffff;
+  background-color: rgba(0,0,0,0.3);
   border-color: #ccc;
   border-color: rgba(0, 0, 0, 0.2);
   border-style: solid;
@@ -35,18 +35,19 @@
     clear: both;
     font-weight: normal;
     line-height: 18px;
-    color: #555555;
+    color: #fff;
     white-space: nowrap;
   }
   .ui-menu-item{
+    color: white;
     padding: 3px 15px;
   }
 }
 .ui-widget-content .ui-state-focus, .ui-menu-item:hover {
   //élément sélectionné
-  color: #ffffff;
+  color: $color_qwerteach_green;
   text-decoration: none;
-  background-color: $color_qwerteach_green;
+  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 0px;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;

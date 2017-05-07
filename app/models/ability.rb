@@ -64,6 +64,8 @@ class Ability
       can :destroy, Degree, :user_id => user.id
       can :index, Payment, :user_id => user.id
 
+      can :manage, Interest, student_id: user.id
+
       can :create_postpayment, Payment do |payment|
         payment.lesson.teacher_id == user.id
       end

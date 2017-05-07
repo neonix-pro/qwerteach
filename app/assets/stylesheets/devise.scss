@@ -23,12 +23,12 @@
       border: 0px;
       color: $qwerteach_black;
     }
-    h2, a{
+    h2, .menu-link a{
       color: $text_light_grey;
       font-size: 11px;
       margin: 0;
     }
-    a{
+    .menu-link a{
       cursor:pointer;
       height: 100%;
       width: 100%;
@@ -36,10 +36,10 @@
       padding: 5px 0px;
       border-bottom: 1px solid $text_light_grey;
     }
-    a:hover{
+    .menu-link a:hover{
       background-color: $dark_grey;
     }
-    a.active:hover{
+    .menu-link a.active:hover{
       background-color:$color_qwerteach_green;
     }
     .title{

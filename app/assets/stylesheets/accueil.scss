@@ -20,6 +20,11 @@
   .open_mode_emploi{
     font-size: 16px;
   }
+  .btn.btn-green{
+    padding: 3px 2rem;
+    height:42px;
+    line-height:33px;
+  }
   .title{
     padding-top: 10%;
     text-align:center;
@@ -90,34 +95,25 @@
     height: 50px;
     width: 50px;
     border: none;
-    background: $color_qwerteach_green;
+    background: transparent;
     display: inline;
-    color: $dark_grey;
+    color: white;
     vertical-align:top;
     font-size: 26px;
+    margin-left:-60px;
   }
   button:hover{
     color: $color_qwerteach_green;
-    background: $dark_grey;
-  }
-  .search-decoration{
-    vertical-align:top;
-    width:100px; /*2x carré de 100 px*/
-    .star, .calendar{
-      float:left;
-      width:50px;
-      line-height:50px;
-      text-align:center;
-    }
   }
   .recherche-bar{
     vertical-align:top;
     height: 50px;
     display: inline;
-    border: none;
-    border-radius: 0;
-    background: white;
+    border: 1px solid white;
+    border-radius: 25px;
+    background: rgba(0, 0, 0, 0.3);
     padding-left:30px;
+    color:white;
   }
 }
 
@@ -130,9 +126,13 @@
   .btn.btn-qw{
     width:210px;
   }
+  .carousel-inner{
+    height:100%;
+  }
   .item{
     position: relative;
     height: 100%;
+    width:100%;
     img{
       position: relative;
       display: inline-block;
@@ -181,6 +181,7 @@
     p{
       width: 60%;
       font-size: 14px;
+      margin-bottom: 30px;
     }
   }
   .carousel-control{
@@ -318,6 +319,8 @@
 .section_tri_colonne{
   width: 100%;
   margin: 0 !important;
+  background-color: $qwerteach_black;
+  position:relative;
   .caption{
     width: 60%;
     margin: auto;
@@ -341,7 +344,7 @@
     font-size: 14px;
     line-height: 25px;
     text-align: left;
-    margin-bottom: 25px;
+    margin-bottom: 150px;
     margin-top:30px;
   }
   hr{
@@ -351,20 +354,23 @@
   }
   a{
     font-size: 16px;
-    width: 70%;
-    margin: 0;
+    width: 33.33333%;
+    margin-left: -15px;
+    padding-left: 6.666666667%;
     display: block;
     position:absolute;
     bottom: 55px;
+    text-align:left;
   }
   .thumbnails{
-    height:600px;
+    height:100%;
+    position:unset;
   }
   .thumbnails:nth-child(odd){
     background: $qwerteach_black;
   }
   .thumbnails:nth-child(even){
-    background: $qwerteach_black;
+    background: $dark_grey;
   }
 }
 
