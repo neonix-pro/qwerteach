@@ -6,19 +6,24 @@ class Api::WalletsController < WalletsController
   def index_mangopay_wallet
     super
     
-    author_names = Array.new
-    credited_user_names = Array.new
-    transactions = Kaminari.paginate_array(@transactions).page(params[:page]).per(5)
+    #author_names = Array.new
+    #credited_user_names = Array.new
+    #transactions = Kaminari.paginate_array(@transactions).page(params[:page]).per(5)
     
-    transactions.each do |t|
-      author_name = User.find_by(mango_id: t.author_id).name
-      credited_user_name = User.find_by(mango_id: t.credited_user_id).name
-      author_names.push(author_name)
-      credited_user_names.push(credited_user_name)
-    end
+    #transactions.each do |t|
+      #author_name = User.find_by(mango_id: t.author_id).name
+      #credited_user_name = User.find_by(mango_id: t.credited_user_id).name
+      #author_names.push(author_name)
+      #credited_user_names.push(credited_user_name)
+    #end
     
-    render :json => {:success => "loaded", :account => @account, :bank_accounts => @bank_accounts, 
-      :user_cards => @cards, :transactions => transactions, :author_names => author_names, :credited_user_names => credited_user_names}
+    #respond_to do |format|
+      #format.html {}
+      #format.js {}
+      #format.json {render :json => {:success => "loaded", :account => @account, :bank_accounts => @bank_accounts, 
+      #:user_cards => @cards, :transactions => transactions, :author_names => author_names, :credited_user_names => credited_user_names}}
+    #end
+    
   end
   
   def update_mangopay_wallet

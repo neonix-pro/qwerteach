@@ -37,6 +37,15 @@ class WalletsController < ApplicationController
       @bank_accounts = @user.mangopay.bank_accounts.select{|ba| ba if ba.active}
       @bank_account = Mango::CreateBankAccount.new(user: current_user)
       @pagin = Kaminari.paginate_array(@transactions, total_count: filters['total_items']).page(params[:page]).per(10)
+      
+      respond_to do |format|
+        format.html {}
+        format.js {}
+        format.json {render :json => {:success => "loaded", :account => @account, 
+          :bank_accounts => @bank_accounts, :user_cards => @cards, :transactions => @pagin, 
+          :transaction_infos => get_transaction_infos(@pagin)}}
+      end
+      
     end
   end
 
@@ -278,6 +287,19 @@ class WalletsController < ApplicationController
     if error.details['errors'].present?
       flash[:danger] += error.details['errors'].map{|name, val| " #{name}: #{val} \n\n"}.join
     end
+  end
+  
+  #More transaction informations for Qwerteach App
+  def get_transaction_infos(transactions)
+    transaction_infos = Array.new
+    transactions.each do |t|
+      p = Payment.find_by(mangopay_payin_id: t.id) || Payment.find_by(transfer_eleve_id: t.id)
+      if p.nil?
+        transaction_infos.push("Rechargement du portefeuille")
+      else
+        transaction_infos.push("Réservation du cours de #{p.lesson.topic.title} avec #{p.lesson.teacher.full_name}")
+      end
+    end and return transaction_infos
   end
 
 end

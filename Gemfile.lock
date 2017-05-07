@@ -10,6 +10,14 @@ GIT
       resque-scheduler (~> 3.0)
 
 GIT
+  remote: git://github.com/rails/jbuilder.git
+  revision: b9042baa064bd3d54c7ff19a9bf086781927b196
+  specs:
+    jbuilder (2.6.3)
+      activesupport (>= 3.0.0, < 5.2)
+      multi_json (~> 1.2)
+
+GIT
   remote: git://github.com/thoughtbot/administrate.git
   revision: 4ba6e31aaf9b081886692e02433fb939e4086233
   specs:
@@ -227,9 +235,6 @@ GEM
     i18n (0.7.0)
     i18n_data (0.7.0)
     iso8601 (0.9.1)
-    jbuilder (2.6.3)
-      activesupport (>= 3.0.0, < 5.2)
-      multi_json (~> 1.2)
     jcrop-rails-v2 (0.9.12.3)
     jquery-form-validator-rails (0.0.2)
       railties (>= 3.2, < 5.0)
@@ -564,7 +569,7 @@ DEPENDENCIES
   globalize (~> 5.0.0)
   haml-rails (~> 0.9)
   hashie
-  jbuilder (~> 2.0)
+  jbuilder!
   jcrop-rails-v2
   jquery-form-validator-rails
   jquery-rails
