@@ -1,0 +1,17 @@
+- if @planned_lessons.empty?
+  - if @pending_lessons.empty?
+    .row
+      = render partial: 'dashboards/help_request_lesson', locals:{user: @user}
+    .row
+      = render partial: 'dashboards/featured_teachers', locals:{teachers: @teachers}
+  - else
+    %h3 Vous n'avez aucun cours à venir
+- else
+  .row
+    .cards-wrapper
+      - @planned_lessons.each do |l|
+        .col-sm-4.col-xs-6
+          = render partial: 'lessons/index/planned_lesson', locals:{lesson: l}
+  .row
+    .text-center
+      = paginate @planned_lessons, params:{controller: :lessons, action: :index_pagination, lesson_type: :planned}, remote: true

@@ -2,24 +2,29 @@
   = fields_for :bank_account do |bank_account_fields|
     .row.choose_bank_account_type
       = render 'shared/errors', object: bank_account
-      %h5 Choisissez le type de compte
-      .col-xs-2
-        = label_tag(:bank_account_type_iban, "IBAN", class: 'radio-inline')
-        = bank_account_fields.radio_button(:type, "iban", class: "bank_account_type")
-      .col-xs-2
-        = bank_account_fields.radio_button(:type, "gb", class: "bank_account_type")
-        = label_tag(:bank_account_type_gb, "Royaume Uni")
-      .col-xs-2
-        = bank_account_fields.radio_button(:type, "us", class: "bank_account_type")
-        = label_tag(:bank_account_type_us, "Etats Unis")
-      .col-xs-2
-        = bank_account_fields.radio_button(:type, "ca", class: "bank_account_type")
-        = label_tag(:bank_account_type_ca, "Canada")
-      .col-xs-2
-        = bank_account_fields.radio_button(:type, "other", class: "bank_account_type")
-        = label_tag(:bank_account_type_other, "Autre")
+      .col-xs-12
+        %h4.modal-title Ajouter un compte en banque
+        %hr
+      .text-center
+        %span
+          = label_tag(:bank_account_type_iban, "IBAN", class: 'radio-inline')
+          = bank_account_fields.radio_button(:type, "iban", class: "bank_account_type")
+        %span
+          = label_tag(:bank_account_type_gb, "Royaume Uni", class: 'radio-inline' )
+          = bank_account_fields.radio_button(:type, "gb", class: "bank_account_type")
+        %span
+          = label_tag(:bank_account_type_us, "Etats Unis", class: 'radio-inline')
+          = bank_account_fields.radio_button(:type, "us", class: "bank_account_type")
+        %span
+          = label_tag(:bank_account_type_ca, "Canada", class: 'radio-inline')
+          = bank_account_fields.radio_button(:type, "ca", class: "bank_account_type")
+        %span
+          = label_tag(:bank_account_type_other, "Autre", class: 'radio-inline')
+          = bank_account_fields.radio_button(:type, "other", class: "bank_account_type")
     .row
+      .col-xs-2
       .col-xs-8
+        %br
         #bank_account_fields
           #account_iban.account_fields{:hidden => bank_account.type != 'iban' }
             = render 'mangopay/bank_accounts/iban', :bank_account => bank_account
@@ -32,4 +37,4 @@
           #account_other.account_fields{:hidden => bank_account.type != 'other'}
             = render 'mangopay/bank_accounts/other', :bank_account => bank_account
         .actions#submit_new_bank_account
-          = submit_tag :terminer, :class => 'btn btn-primary btn-mini', hidden: true
+          = submit_tag :terminer

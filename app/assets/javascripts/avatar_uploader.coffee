@@ -11,6 +11,7 @@ class window.AvatarUploader
     @$placeholder = $('.avatar-uploaded-preview')
     @$submit = $('.edit-user-avatar button[type=submit]')
     @$browse = $('.edit-user-avatar button[type=button]')
+    @$modal = $('#avatar-crop-modal')
     @jcrop = null
     @options = options
     @initialize()
@@ -21,7 +22,7 @@ class window.AvatarUploader
 
   initEvents: ->
     @$el.on 'change', '#user_avatar', => @onFileSelected()
-    @$el.on 'click', '.btn-avatar-save', => @submitForm()
+    @$modal.on 'click', '.btn-avatar-save', => @submitForm()
     @$el.on 'click', 'button.browse', => @onClickBrowse()
     @$submit.on 'click', (e)=> @onClickSubmit(e)
 

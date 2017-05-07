@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170328032718) do
+ActiveRecord::Schema.define(version: 20170501121938) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -197,6 +197,16 @@ ActiveRecord::Schema.define(version: 20170328032718) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "interests", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "topic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "interests", ["student_id"], name: "index_interests_on_student_id"
+  add_index "interests", ["topic_id"], name: "index_interests_on_topic_id"
 
   create_table "lessons", force: :cascade do |t|
     t.integer  "student_id",                                             null: false

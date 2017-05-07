@@ -1,7 +1,7 @@
 - @transactions.each do |t|
   - p = Payment.find_by(mangopay_payin_id: t.id) || Payment.find_by(transfer_eleve_id: t.id)
   .row
-    .col-xs-1
+    .col-xs-1.text-right
       %i.fa{class: transaction_icon(t)}
     .col-xs-10
       .pull-left

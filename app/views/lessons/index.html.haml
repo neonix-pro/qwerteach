@@ -1,15 +1,24 @@
-%div
-  #lessons-sorting
-  #lessons-index
-    - @lessons.each do |lesson|
-      = render partial: 'lessons/lesson', :locals => {:lesson => lesson, todo: lesson.todo(@user)}
-  #lessons-pagination.text-center
-    = paginate @lessons
-  - if @lessons.empty?
-    %h2.page-title-green{style:'margin-bottom:0px'}
-      Vous n'avez pas encore pris de cours sur Qwerteach!
-    .container-fluid
+#lessons
+  .container-fluid
+    = render partial: 'header'
+  #lessons-navigation
+    .container
       .row
-        = render partial: 'dashboards/help_request_lesson', locals:{user: @user}
-      = render partial: 'dashboards/featured_teachers', locals:{teachers: @teachers}
-
+        %ul.tabs
+          %li.tab
+            %a{href: "#planned"} Cours prévus
+          %li.tab
+            %a{href: "#pending"} Cours à approuver
+          %li.tab
+            %a{href: "#history"} Historique
+  .container
+    #planned
+      = render partial: 'lessons/index/planned'
+    #pending
+      = render partial: 'lessons/index/pending'
+    #history
+      = render partial: 'lessons/index/history'
+:javascript
+  $(document).ready(function(){
+    $('ul.tabs').tabs();
+  });

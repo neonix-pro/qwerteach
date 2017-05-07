@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Student:
+  = @interest.student
+%p
+  %b Topic:
+  = @interest.topic
+
+= link_to 'Edit', edit_interest_path(@interest)
+\|
+= link_to 'Back', interests_path

@@ -7,8 +7,8 @@
     = render 'conversations/messages', messages: messages
   .conversation-reply
     = form_tag reply_conversation_path(conversation), id: "conversation_form_#{conversation.id}", method: :post, :remote => true do
-      = text_area_tag 'body', nil, cols: 3, class: 'form-control chatboxtextarea', placeholder: 'Type something...', required: true, "data-cid" => conversation.id
-      = submit_tag "Envoyer", class: 'btn btn-primary'
+      = text_area_tag 'body', nil, cols: 3, class: 'form-control chatboxtextarea', placeholder: 'Écrivez ici...', required: true, "data-cid" => conversation.id
+      = submit_tag "Envoyer", class: 'btn btn-green btn-qw'
 .mailbox-conversation-details
   .conversation-participants
     -conversation.participants.each do |p|
