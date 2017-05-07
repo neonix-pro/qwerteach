@@ -27,4 +27,9 @@ class RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.require(:user).permit(:firstname, :lastname, :email, :password)
   end
+
+  def edit
+    super
+    @levels = Level.where(:code => @offer.topic.topic_group.level_code).group(I18n.locale[0..3]).order(id: :asc)
+  end
 end

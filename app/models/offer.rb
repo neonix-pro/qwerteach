@@ -69,7 +69,7 @@ class Offer < ActiveRecord::Base
   end
 
   def possible_levels
-    Level.where(:code => self.topic.topic_group.level_code).group(I18n.locale[0..3]).order(id: :asc)
+    Level.where(:code => self.topic.topic_group.level_code).group(I18n.locale[0..3]).order(level: :asc)
   end
 
   # Pour Sunspot, définition des champs sur lesquels les recherches sont faites et des champs sur lesquels les filtres sont réalisés

@@ -1,33 +1,52 @@
 .row
-  .first-lesson-free
-    = form_for(@user, url: registration_path(@user), html: { method: :put }, remote: true) do |f|
-      %h3.text-green.text-center
-        Premier cours gratuit
-        .switch
-          = f.check_box(:first_lesson_free, id: 'cmn-toggle-4', class: 'cmn-toggle cmn-toggle-round-flat')
-          %label#label-cmn-toggle-4{for: "cmn-toggle-4"}
-      %p
-        Sur Qwerteach, nous offrons aux élève sla possibilité de réserver un premier cours gratuit d'une heure avec un professeur.
-        Par défaut, tous les professeurs participent à ce mouvement. Si vous ne souhaitez pas proposer cette option aux élèves qui souhaitent prendre cours avec vous, vous pouvez ici changer ce paramètre.
-      %label#cours_gratuit_info.info Pour le moment, les élèves ont la possibilité de réserver un premier cours gratuit avec vous.
-  .offers-list.clearfix
-    -c = 0
-    - layout = offers_layout(@user.offers.count+1)
-    - layout.each do |cl|
-      -if cl == "br"
-        .edit-offer.clearfix
-      -else
-        - unless @user.offers[c].nil?
-          .offer{class: "#{cl} topic_#{@user.offers[c].topic_group.id}", id: "offer_#{@user.offers[c].id}"}
-            = link_to edit_offer_path(@user.offers[c]), remote: true do
-              = image_tag "option.png", :class => "option"
-            = image_tag @user.offers[c].topic.pictotype('medium'), :class => "icon"
-            %h3 #{@user.offers[c].topic.title}
-          - c+=1
-    .add-new-offer.offer.text-center{class: layout.last}
-      = link_to new_offer_path, remote: true do
-        = image_tag("plus_annonce.png")
-      %p Ajouter un annonce
-    .edit-offer
-  #new-offer
+  .col-xs-12
+    .card
+      .card-content
+        .first-lesson-free
+          = form_for(@user, url: registration_path(@user), html: { method: :put }, remote: true) do |f|
+            .card-title.text-center
+              Premier cours gratuit
+              .switch
+                = f.check_box(:first_lesson_free, id: 'cmn-toggle-4', class: 'cmn-toggle cmn-toggle-round-flat')
+                %label#label-cmn-toggle-4{for: "cmn-toggle-4"}
+            %p
+              Sur Qwerteach, nous offrons aux élève sla possibilité de réserver un premier cours gratuit d'une heure avec un professeur.
+              Par défaut, tous les professeurs participent à ce mouvement. Si vous ne souhaitez pas proposer cette option aux élèves qui souhaitent prendre cours avec vous, vous pouvez ici changer ce paramètre.
+            %label#cours_gratuit_info.info Pour le moment, les élèves ont la possibilité de réserver un premier cours gratuit avec vous.
+.row
+  .offers-list.clearfix.cards-wrapper
+    - @user.offers.each do |o|
+      .col-lg-4.col-sm-6
+        .card.card-offer
+          .card-content
+            .card-title
+              Cours de #{o.title}
+              .icon-coloured{class: "icon-topic-#{o.topic_group.id}"}= image_tag(o.topic.pictotype(:small))
+            =render partial: 'offers/form', locals:{offer: o, remote:true}
+  .col-lg-4.col-sm-6
+    .card.card-offer
+      .card-content
+        = link_to new_offer_path, remote: true do
+          .card-title Ajouter un annonce
+          = image_tag("plus_annonce.png")
+        #new-offer
+  -#  -c = 0
+  -#  - layout = offers_layout(@user.offers.count+1)
+  -#  - layout.each do |cl|
+  -#    -if cl == "br"
+  -#      .edit-offer.clearfix
+  -#    -else
+  -#      - unless @user.offers[c].nil?
+  -#        .offer{class: "#{cl} topic_#{@user.offers[c].topic_group.id}", id: "offer_#{@user.offers[c].id}"}
+  -#          = link_to edit_offer_path(@user.offers[c]), remote: true do
+  -#            = image_tag "option.png", :class => "option"
+  -#          = image_tag @user.offers[c].topic.pictotype('medium'), :class => "icon"
+  -#          %h3 #{@user.offers[c].topic.title}
+  -#        - c+=1
+  -#  .add-new-offer.offer.text-center{class: layout.last}
+  -#    = link_to new_offer_path, remote: true do
+  -#      = image_tag("plus_annonce.png")
+  -#    %p Ajouter un annonce
+  -#  .edit-offer
+  -#
 

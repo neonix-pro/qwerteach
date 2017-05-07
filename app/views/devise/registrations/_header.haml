@@ -1,0 +1,25 @@
+.row#edit-profile-header.header.valign-wrapper
+  .col-sm-2.col-xs-4
+    .icon-avatar
+      = image_tag @user.avatar(:medium)
+      = form_for @user, as: resource_name, url: user_path(@user), html: {class: 'avatar-uploader'} do |f|
+        = f.file_field :avatar
+        = f.submit ''
+        = f.hidden_field :crop_x, :id => 'crop_x'
+        = f.hidden_field :crop_y, :id => 'crop_y'
+        = f.hidden_field :crop_w, :id => 'crop_w'
+        = f.hidden_field :crop_h, :id => 'crop_h'
+      .edit-user-avatar
+        .banner
+          modifier
+          %i.fa.fa-camera
+
+  .col-sm-8.col-xs-4
+    .header-infos
+      %h1
+        Votre profil
+        %br
+        %small Ce que les autres voient de vous
+  .col-sm-2.col-xs-4
+    .header-right.text-right
+      %h5= t @user.type

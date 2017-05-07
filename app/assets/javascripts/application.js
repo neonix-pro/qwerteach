@@ -16,12 +16,12 @@
 //= require jquery-ui
 //= require autocomplete-rails
 //= require js.cookie
+//= require ckeditor-jquery
 //= require moment
 //= require users
 //= require private_pub
 //= require messages
 //= require_tree .
-//= require ckeditor-jquery
 //= require chosen-jquery
 //= require jquery.form-validator
 //= require fullcalendar

@@ -65,9 +65,6 @@ var ready = function () {
     });
 
 
-    //$('.ckeditor').ckeditor({
-        // optional config
-    //});
     adjustProfileSidebar();
     function adjustProfileSidebar(){
         height= $(window).height();
@@ -216,7 +213,6 @@ $('#edit_profile .collapse').on('show.bs.collapse', function(){
 });
 $('#edit_profile .collapse').on('shown.bs.collapse', function(){
     $('.menu').css({height:''});
-    bodySidebarHeight();
     var h = Math.max($(body).height(), $(this).height());
     $('.menu').css({height:h});
 });
