@@ -158,7 +158,7 @@ var ready = function () {
 
     function newSearch(){
         $('#search-form').submit();
-        $('#search-results').html('<i class="fa fa-spin fa-spinner></i>');
+        $('#search-results').html('<div class="text-center"><i class="fa fa-spin fa-spinner fa-2x"></i></div>');
     }
 
 
