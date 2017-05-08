@@ -64,7 +64,6 @@ var ready = function () {
         chatBox.chatWith(conversation_id);
     });
 
-
     adjustProfileSidebar();
     function adjustProfileSidebar(){
         height= $(window).height();
@@ -171,17 +170,6 @@ $(document).on("page:load", ready);
 
 //Only one collapse edit profil
 
-$(document).on('turbolinks:load',  function(){
-    $(".edit_profile .menu a").click(function(){
-        $(".edit_profile .menu a").removeClass("active");
-        $(this).addClass("active");
-    })
-    var $myGroup = $('.edit_profile .right');
-    $myGroup.on('show.bs.collapse','.collapse', function() {
-        $myGroup.find('.collapse.in').collapse('hide');
-    });
-});
-
 var ready1 = function () {
 
     chatBox = {
@@ -205,25 +193,6 @@ var ready1 = function () {
 $(document).on('turbolinks:load',  ready1);
 $(document).on("page:load", ready1);
 
-$(document).on("turbolinks:load", function(){
-
-$('#edit_profile .collapse').on('show.bs.collapse', function(){
-    var h = $(body).height();
-    $('.menu').css({height:h});
-});
-$('#edit_profile .collapse').on('shown.bs.collapse', function(){
-    $('.menu').css({height:''});
-    var h = Math.max($(body).height(), $(this).height());
-    $('.menu').css({height:h});
-});
-
-$('#edit_profile .menu a').on('click',function(e){
-    if($($(this).attr('data-target')).hasClass('in')) {
-        e.stopPropagation();
-        e.preventDefault();
-    }
-});
-});
 
 function resizeHeader() {
     window.addEventListener('scroll', function(e){

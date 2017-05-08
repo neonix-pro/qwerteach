@@ -8,7 +8,10 @@
           %li.tab
             %a{href: "#planned"} Cours prévus
           %li.tab
-            %a{href: "#pending"} Cours à approuver
+            %a{href: "#pending"}
+              Cours à approuver
+              - if @number_of_pending_lessons > 0
+                .badge.badge-pink= @number_of_pending_lessons
           %li.tab
             %a{href: "#history"} Historique
   .container

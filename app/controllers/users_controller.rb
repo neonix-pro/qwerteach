@@ -135,7 +135,8 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:firstname, :lastname, :birthdate, :phone_country_code, :phone_number,
                                    :gender, :occupation, :description, :level_id,
-                                   :time_zone, :avatar, :crop_x, :crop_y, :crop_h, :crop_w)
+                                   :time_zone, :avatar, :crop_x, :crop_y, :crop_h, :crop_w,
+                                  :first_lesson_free)
     end
   
     def filter_param

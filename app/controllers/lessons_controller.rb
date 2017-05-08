@@ -7,12 +7,13 @@ class LessonsController < ApplicationController
 
   def index
     @user = current_user
-    @planned_lessons = Lesson.involving(@user).created.future.page(1).per(6)
-    @pending_lessons = Lesson.involving(@user).pending.future.page(1).per(6)
-    @history_lessons = Lesson.involving(@user).page(1).per(12)
+    @planned_lessons = @user.planned_lessons.page(1).per(6)
+    @pending_lessons = @user.pending_lessons.page(1).per(6)
+    @history_lessons = @user.history_lessons.page(1).per(12)
     if @planned_lessons.empty? && @pending_lessons.empty?
       @teachers = Teacher.all.order(score: :desc).limit(4)
     end
+    @number_of_pending_lessons = @user.pending_me_lessons.count
   end
 
   def index_pagination

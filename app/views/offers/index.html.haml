@@ -3,7 +3,7 @@
     .card
       .card-content
         .first-lesson-free
-          = form_for @user, url: registration_path(@user), html: { method: :put }, remote: true do |f|
+          = form_for @user, as: :user, url: registration_path(@user), html: { method: :put }, remote: true do |f|
             .card-title.text-center
               Premier cours gratuit
               .switch
@@ -50,18 +50,3 @@
   -#  .edit-offer
   -#
 
-:javascript
-  $("#cmn-toggle-4").on('change', function(){
-    changeText();
-    $(this).closest('form').submit();
-  });
-
-  function changeText(){
-    if($("#cmn-toggle-4").prop('checked')){
-        $("#cours_gratuit_info").text("Félécitations! Les élèves ont la possibilité de réserver un premier cours gratuit avec vous.");
-        $("#cours_gratuit_info").css("color", "#22de80");
-    }else {
-        $("#cours_gratuit_info").text("Pour le moment, les élèves n'ont pas la possibilité de réserver un premier cours gratuit avec vous.");
-        $("#cours_gratuit_info").css("color", "#d92d9b");
-    }
-  }

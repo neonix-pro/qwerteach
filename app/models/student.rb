@@ -18,8 +18,16 @@ class Student < User
     Lesson.where(:student => self, :teacher_id => teacher.id, :free_lesson => true)
   end
 
+  def history_lessons
+    Lesson.involving(self)
+  end
+
+  def planned_lessons
+    Lesson.involving(self).created.future
+  end
+
   def pending_lessons
-    Lesson.upcoming.where('student_id=? OR teacher_id=?', id, id).where(status: ['pending_teacher', 'pending_student'] )
+    Lesson.involving(self).pending.future
   end
 
   def pending_me_lessons
