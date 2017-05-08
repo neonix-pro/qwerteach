@@ -1,9 +1,4 @@
 .container
-  -# first, lessons currently happening
-  - unless @current_lesson.nil?
-    .row
-      .col-xs-12#current_lesson
-        = render partial: 'current_lesson', locals:{lesson:  @current_lesson}
   .row
     #dashboard-cards.cards-wrapper
       - if @user.is_a?(Teacher)

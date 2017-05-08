@@ -74,6 +74,12 @@ p, span, a, ul, li{
     color: rgba(255, 255, 255, 0.9);
     background-color: $color_qwerteach_blue;
     background-image: none;
+    a{
+      border: 1px solid white;
+      border-radius: 3px;
+      padding: 5px 10px;
+      line-height: 40px;
+    }
   }
   .alert-notice{
     background-color: $color_qwerteach_blue;
