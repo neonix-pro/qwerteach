@@ -94,8 +94,8 @@ class Offer < ActiveRecord::Base
     string :user_email do
       self.user.email
     end
-    string :user_name do
-      user.firstname
+    text :user_name do
+      "#{user.firstname} #{user.lastname}"
     end
     boolean :postulance_accepted do
       self.user.postulance_accepted
