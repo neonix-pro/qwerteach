@@ -33,7 +33,5 @@
 #empty-fields-alert.hidden= render partial: 'shared/flash_dismiss', locals: {type: 'danger', content: 'Veuillez remplir tous les champs'}
 
 :javascript
-  $(document).on('turbolinks:load', function(){
-    var r = new RequestLesson( $('#lesson-details'), {teacher_id: #{@teacher.id}} );
-    $('#lesson-details').trigger('update');
-  })
+  var r = new RequestLesson( $('#lesson-details'), {teacher_id: #{@teacher.id}} );
+  $('#lesson-details').trigger('update');

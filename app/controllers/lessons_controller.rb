@@ -107,7 +107,6 @@ class LessonsController < ApplicationController
   def refuse
     @lesson.status = 'refused'
     refuse = RefundLesson.run(user: @user, lesson: @lesson)
-
     if refuse.valid?
       body = "#"
       flash[:success] = 'Vous avez décliné la demande de cours.'
