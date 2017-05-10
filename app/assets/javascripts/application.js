@@ -14,11 +14,11 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui
-//= require autocomplete-rails
 //= require js.cookie
 //= require ckeditor-jquery
 //= require moment
 //= require private_pub
+//= require autocomplete-rails
 //= require_tree .
 //= require chosen-jquery
 //= require jquery.form-validator
