@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501121938) do
+ActiveRecord::Schema.define(version: 20170510122413) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -402,7 +402,7 @@ ActiveRecord::Schema.define(version: 20170501121938) do
     t.integer  "level_id",                          default: 1
     t.boolean  "first_lesson_free",                 default: false
     t.boolean  "accepts_post_payments",             default: false
-    t.string   "occupation",                        default: "student"
+    t.string   "occupation",                        default: ""
     t.boolean  "postulance_accepted",               default: false,         null: false
     t.string   "teacher_status",                    default: "Actif"
     t.string   "email",                             default: "",            null: false
