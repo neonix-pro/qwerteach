@@ -26,6 +26,7 @@
 //= require fullcalendar/lang/fr.js
 //= require mangopay-kit.min
 //= require materialize
+//= require materialize-forms
 //= require bootstrap
 //= require bootstrap-datetimepicker
 //= require bootstrap-datepicker/core

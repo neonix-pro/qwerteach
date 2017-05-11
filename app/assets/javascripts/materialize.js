@@ -1,3 +1,30 @@
-// conflict between autocomplete from rails-autocomplete and from materialize
-// rails-autocomplete needs to be before, and materialize after the //require_tree . danse
-$("#topic").autocomplete();
+//= require materialize/initial
+//= require materialize/jquery.easing.1.3
+//= require materialize/animation
+//= require materialize/velocity.min
+//= require materialize/hammer.min
+//= require materialize/jquery.hammer
+//= require materialize/global
+//= require materialize/collapsible
+//= require materialize/dropdown
+//= require materialize/modal
+//= require materialize/materialbox
+//= require materialize/parallax
+//= require materialize/tabs
+//= require materialize/tooltip
+//= require materialize/waves
+//= require materialize/toasts
+//= require materialize/sideNav
+//= require materialize/scrollspy
+//= require materialize/slider
+//= require materialize/cards
+//= require materialize/chips
+//= require materialize/pushpin
+//= require materialize/buttons
+//= require materialize/transitions
+//= require materialize/scrollFire
+//= require materialize/date_picker/picker
+//= require materialize/date_picker/picker.date
+//= require materialize/character_counter
+//= require materialize/carousel
+//= require materialize/tapTarget
