@@ -1,3 +1,2 @@
-$('.show-lesson-details').hide();
-$('<%= "#lesson-details-#{@lesson.id}" %>').slideDown('slow');
-$('<%= "#lesson-details-#{@lesson.id}" %>').html('<%= j render partial: 'lessons/index/edit', locals:{lesson: @lesson} %>');
+$("#reschedule-lesson").modal('show');
+$('#reschedule-lesson .modal-body').html('<%= j render partial: 'lessons/index/edit', locals:{lesson: @lesson} %>');
