@@ -12,13 +12,13 @@ class LessonNotificator
 
   def notify_teacher_about_booking
     NotificationsMailer.notify_teacher_about_booking(lesson).deliver_later
-    notify_teacher("#{student.name} vous adresse une demande de cours. " + link_to('détails', lessons_path))
+    notify_teacher("#{student.name} vous adresse une demande de cours. " + link_to('Détails', lessons_path))
     send_sm_to(teacher, 'Vous avez une nouvelle demande de cours sur Qwerteach!')
   end
 
   def notify_student_about_proposal
     NotificationsMailer.notify_student_about_proposal(lesson).deliver_later
-    notify_student("#{teacher.name} vous adresse une demande de cours. " + link_to('détails', lessons_path))
+    notify_student("#{teacher.name} vous adresse une demande de cours. " + link_to('Détails', lessons_path))
     send_sm_to(student, 'Vous avez une nouvelle proposition de cours sur Qwerteach!')
   end
 
@@ -28,12 +28,12 @@ class LessonNotificator
 
   def notify_teacher_about_student_accepts_lesson
     NotificationsMailer.notify_teacher_about_student_accepts_lesson(lesson).deliver_later
-    notify_teacher("#{student.name} a accepté votre demande de cours. " + link_to('détails', lessons_path))
+    notify_teacher("#{student.name} a accepté votre demande de cours. " + link_to('Détails', lessons_path))
   end
 
   def notify_student_about_teacher_accepts_lesson
     NotificationsMailer.notify_student_about_teacher_accepts_lesson(lesson).deliver_later
-    notify_student("#{teacher.name} a accepté votre demande de cours. " + link_to('détails', lessons_path))
+    notify_student("#{teacher.name} a accepté votre demande de cours. " + link_to('Détails', lessons_path))
   end
 
   def notify_teacher_about_teacher_accepts_lesson
@@ -42,26 +42,26 @@ class LessonNotificator
 
   def notify_student_about_teacher_reject_lesson
     NotificationsMailer.notify_student_about_teacher_reject_lesson(lesson).deliver_later
-    notify_student("#{teacher.name} a refusé votre demande de cours. Celle-ci a été annulée. " + link_to('détails', lessons_path))
+    notify_student("#{teacher.name} a refusé votre demande de cours. Celle-ci a été annulée. " + link_to('Détails', lessons_path))
   end
 
   def notify_teacher_about_student_reject_lesson
     NotificationsMailer.notify_teacher_about_student_reject_lesson(lesson).deliver_later
-    notify_teacher("#{student.name} a refusé votre demande de cours. " + link_to('détails', lessons_path))
+    notify_teacher("#{student.name} a refusé votre demande de cours. " + link_to('Détails', lessons_path))
   end
 
   def notify_student_about_reschedule_lesson
     NotificationsMailer.notify_student_about_reschedule_lesson(lesson).deliver_later
-    notify_student("#{teacher.name} a déplacé votre demande de cours. Veuillez confirmer le nouvel horaire. " + link_to('details', lessons_path))
+    notify_student("#{teacher.name} a déplacé votre demande de cours. Veuillez confirmer le nouvel horaire. " + link_to('Détails', lessons_path))
   end
 
   def notify_teacher_about_reschedule_lesson
     NotificationsMailer.notify_teacher_about_reschedule_lesson(lesson).deliver_later
-    notify_teacher("#{student.name} a déplacé votre demande de cours. Veuillez confirmer le nouvel horaire. " + link_to('details', lessons_path))
+    notify_teacher("#{student.name} a déplacé votre demande de cours. Veuillez confirmer le nouvel horaire. " + link_to('Détails', lessons_path))
   end
 
   def notify_teacher_about_student_pay_lesson_before
-    notify_teacher("Votre cours avec #{student.name} a été pré-payé " + link_to('detaisl', lessons_path))
+    notify_teacher("Votre cours avec #{student.name} a été pré-payé. " + link_to('Détails', lessons_path))
   end
 
   def notify_teacher_about_student_pay_lesson_after
