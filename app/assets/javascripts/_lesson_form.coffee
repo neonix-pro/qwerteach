@@ -36,7 +36,7 @@ class window.LessonForm
       sideBySide: true
 
   getMinDate: ->
-    moment().startOf('hour').add( Math.ceil(moment().minutes() / 15) * 15, 'minutes' )
+    moment().startOf('hour').add( Math.ceil(moment().minutes() / 15) * 15, 'minutes' ).add(5, 'minutes')
 
   onTopicGroupChange: (e)->
     @displayRecap()

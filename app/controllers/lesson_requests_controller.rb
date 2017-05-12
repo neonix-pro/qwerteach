@@ -16,6 +16,7 @@ class LessonRequestsController < ApplicationController
 
   def create
     Lesson.drafts(current_user).destroy_all
+    duration_free_lesson
     @free_lessons = @user.free_lessons_with(@teacher)
     saving = CreateLessonRequest.run(request_params)
     if saving.valid?
@@ -167,6 +168,13 @@ class LessonRequestsController < ApplicationController
       session[:user_redirect_to]= request.original_url
       @teacher = Teacher.find(params[:user_id])
       render 'sign_up_booking'
+    end
+  end
+
+  def duration_free_lesson
+    if params[:request][:free_lesson] == '1'
+      params[:request][:hours]=0
+      params[:request][:minutes]=30
     end
   end
 

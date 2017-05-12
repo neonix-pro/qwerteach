@@ -20,7 +20,8 @@ class window.RequestLesson extends window.LessonForm
       $('#duration-minutes').text(params.minutes)
     else if params.minutes != '00'
       $('#duration-minutes').text(params.minutes+' min')
-
+    if params.hours == '00'
+      $('#duration-hours').text('0')
     if params.datetime
       $('#recap-date .pull-right').text(params.datetime.format('dddd D MMMM YYYY'))
       $('#recap-starttime .pull-right').text(params.datetime.format('HH:mm'))
@@ -39,6 +40,8 @@ class window.RequestLesson extends window.LessonForm
   onChangeBookingStep: (e)->
     $('#lesson-details').children('.alert').remove();
     if($(e.currentTarget).attr('data-toggle') == '#step2')
+      @displayRecap()
+      @initDatePicker()
       if (!@checkSelected())
         $('#lesson-details').prepend( $('#empty-fields-alert').html() );
         return

@@ -126,7 +126,6 @@ class ConversationsController < ApplicationController
         end
       end
     end
-    # Envoi fake msg pour init conversation avec participants
   
     # TO DO: not neded anymore
     @conversation = current_user.send_message([current_user, (User.find(params[:recipient_id]))], "init_conv_via_chat", "chat").conversation

@@ -11,10 +11,14 @@
           = hidden_field_tag 'message[recipient]', user.id
           .form-group
             = text_area_tag 'message[body]', nil, rows: 5,
-              placeholder: "Posez une question à #{user.firstname}", class: 'form-control', required: true
+              placeholder: "Posez une question à #{user.firstname}", class: "form-control #{ "character-count" if @conversation.empty? }", data:{length:50}, required: true
+            -if @conversation.empty?
+              %span.text-pink
+                Minimum 50 caractères.
           = submit_tag 'Envoyer', class: 'btn btn-qw btn-green'
 :javascript
   $('#contact-modal form').submit(function(){
-
     $('#contact-modal').modal('hide');
   });
+  - if @conversation.empty?
+    $('#message_body').characterCounter();

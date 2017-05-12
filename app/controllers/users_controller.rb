@@ -16,6 +16,9 @@ class UsersController < ApplicationController
       @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size unless @notes.empty?
       @profSimis = @user.similar_teachers(4)
     end
+    if @me
+      @conversation = Conversation.participant(@me).where('mailboxer_conversations.id in (?)', Conversation.participant(@user).collect(&:id))
+    end
   end
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination

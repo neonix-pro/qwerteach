@@ -19,8 +19,8 @@
             =render partial: 'users/profile/profile_offers', locals:{offers: @offers, offers_single: @offers_single}
   .row
     - if @user.is_a?(Teacher)
-      - unless @reviews.empty?
-        #profile-reviews.col-xs-7
+      #profile-reviews.col-xs-7
+        - unless @reviews.empty?
           %hr
           = render partial: 'users/profile/profile_reviews', locals:{reviews: @reviews}
       .similar-teachers
