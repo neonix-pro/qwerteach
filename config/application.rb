@@ -46,7 +46,7 @@ module Qwerteach
     }
 
 config.action_mailer.default_url_options = {
-    host: "qwerteach.com"
+    host: ENV['DEFAULT_URL']
 }
   end
 end
