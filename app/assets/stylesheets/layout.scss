@@ -74,6 +74,12 @@ p, span, a, ul, li{
     color: rgba(255, 255, 255, 0.9);
     background-color: $color_qwerteach_blue;
     background-image: none;
+    a{
+      border: 1px solid white;
+      border-radius: 3px;
+      padding: 5px 10px;
+      line-height: 40px;
+    }
   }
   .alert-notice{
     background-color: $color_qwerteach_blue;
@@ -420,7 +426,7 @@ table{
   }
   form{
     .alert{
-      background-color:transparent!important;
+      //background-color:transparent!important;
       h4{
         font-size: 2rem;
       }
@@ -459,7 +465,7 @@ table{
   background-color: $color_qwerteach_yellow;
   color: $dark_grey;
 }
-.badge.badge-topic-2{
+.badge.badge-topic-2, .badge.badge-pink{
   color:white;
   background-color: $color_qwerteach_pink;
 }
@@ -491,6 +497,12 @@ table{
   .fa{
     line-height: 45px;
   }
+  img{
+    //height:100%;
+  }
+}
+.card .icon-coloured img{
+  height:100%;
 }
 .icon-user-avatar{
   width:45px;

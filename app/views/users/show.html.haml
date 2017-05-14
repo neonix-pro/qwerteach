@@ -13,9 +13,10 @@
         #profile-calendar{data: {teacher:{id: @user.id}}}
     .col-sm-1
     .col-sm-4
-      #profile-offers
-        .row
-          =render partial: 'users/profile/profile_offers', locals:{offers: @offers, offers_single: @offers_single}
+      - if @user.is_a?(Teacher)
+        #profile-offers
+          .row
+            =render partial: 'users/profile/profile_offers', locals:{offers: @offers, offers_single: @offers_single}
   .row
     - if @user.is_a?(Teacher)
       - unless @reviews.empty?

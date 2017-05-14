@@ -5,7 +5,7 @@ var shown = 0; // nombre de notificatiosn qui sont affichées ==> ré initialis�
 var NotificationsManager = function() {
 
   Notifications = {
-    
+
     loadNotifications: function(limit, offset){
       $.get('/notifications', {limit: limit, offset:offset} , function(answer){
         $('#notifications-wrapper .fa-spin').remove();

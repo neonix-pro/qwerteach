@@ -1,15 +1,15 @@
 var x = 0;
 
 $(document).on('turbolinks:load',  function(e){
-    
+
     //open mode emploi
     $(".open_mode_emploi").click(function(){
         if(x==0){
-            $(".section_commentmarche").toggle("slow"); 
+            $(".section_commentmarche").toggle("slow");
             x=1;
         }
     });
-    
+
     //quit mode emploi
     $("#quit_mode_emploi").click(function(){
         if(x==1){

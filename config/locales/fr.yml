@@ -143,7 +143,7 @@ fr:
         birthdate: 'Date de naissance'
         description: 'Description'
         gender: 'Sexe'
-        phonenumber: 'Numéro de téléphone'
+        phone_number: 'Numéro de téléphone'
         email: 'E-mail'
   faq:
     teacher:

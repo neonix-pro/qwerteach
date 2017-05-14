@@ -64,10 +64,6 @@ var ready = function () {
         chatBox.chatWith(conversation_id);
     });
 
-
-    //$('.ckeditor').ckeditor({
-        // optional config
-    //});
     adjustProfileSidebar();
     function adjustProfileSidebar(){
         height= $(window).height();
@@ -162,7 +158,7 @@ var ready = function () {
 
     function newSearch(){
         $('#search-form').submit();
-        $('#search-results').html('<i class="fa fa-spin fa-spinner></i>');
+        $('#search-results').html('<div class="text-center"><i class="fa fa-spin fa-spinner fa-2x"></i></div>');
     }
 
 
@@ -173,17 +169,6 @@ $(document).on("page:load", ready);
 
 
 //Only one collapse edit profil
-
-$(document).on('turbolinks:load',  function(){
-    $(".edit_profile .menu a").click(function(){
-        $(".edit_profile .menu a").removeClass("active");
-        $(this).addClass("active");
-    })
-    var $myGroup = $('.edit_profile .right');
-    $myGroup.on('show.bs.collapse','.collapse', function() {
-        $myGroup.find('.collapse.in').collapse('hide');
-    });
-});
 
 var ready1 = function () {
 
@@ -208,26 +193,6 @@ var ready1 = function () {
 $(document).on('turbolinks:load',  ready1);
 $(document).on("page:load", ready1);
 
-$(document).on("turbolinks:load", function(){
-
-$('#edit_profile .collapse').on('show.bs.collapse', function(){
-    var h = $(body).height();
-    $('.menu').css({height:h});
-});
-$('#edit_profile .collapse').on('shown.bs.collapse', function(){
-    $('.menu').css({height:''});
-    bodySidebarHeight();
-    var h = Math.max($(body).height(), $(this).height());
-    $('.menu').css({height:h});
-});
-
-$('#edit_profile .menu a').on('click',function(e){
-    if($($(this).attr('data-target')).hasClass('in')) {
-        e.stopPropagation();
-        e.preventDefault();
-    }
-});
-});
 
 function resizeHeader() {
     window.addEventListener('scroll', function(e){

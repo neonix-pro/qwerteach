@@ -5,6 +5,16 @@ $(document).on('turbolinks:load', function () {
         changeText();
         $(this).closest('form').submit();
     });
+
+    function changeText(){
+        if($("#cmn-toggle-4").prop('checked')){
+            $("#cours_gratuit_info").text("Félécitations! Les élèves ont la possibilité de réserver un premier cours gratuit avec vous.");
+            $("#cours_gratuit_info").css("color", "#22de80");
+        }else {
+            $("#cours_gratuit_info").text("Pour le moment, les élèves n'ont pas la possibilité de réserver un premier cours gratuit avec vous.");
+            $("#cours_gratuit_info").css("color", "#d92d9b");
+        }
+    }
 });
 
 function animateAdvertFields() {
@@ -30,12 +40,3 @@ function animateAdvertFields() {
     });
 }
 
-function changeText(){
-    if($("#cmn-toggle-4").prop('checked')){
-        $("#cours_gratuit_info").text("Félécitations! Les élèves ont la possibilité de réserver un premier cours gratuit avec vous.");
-        $("#cours_gratuit_info").css("color", "#29B46C");
-    }else {
-        $("#cours_gratuit_info").text("Pour le moment, les élèves n'ont pas la possibilité de réserver un premier cours gratuit avec vous.");
-        $("#cours_gratuit_info").css("color", "#D92D9B");
-    }
-}

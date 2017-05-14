@@ -100,7 +100,7 @@
     background-color:$color_qwerteach_green;
   }
   .preview-lesson{
-    background-image: url("dashboard/preview_cours.png");
+    background-image: image-url("dashboard/preview_cours");
     background-size: cover;
     height:170px;
     font-weight:300;
@@ -175,7 +175,7 @@
 }
 #help_request_lesson{
   padding: 100px 0px 50px 0px;
-  background-image: url("dashboard/help_request_lesson.jpg");
+  background-image: image-url("dashboard/help_request_lesson.jpg");
   background-size: cover;
   .help{
     font-size: 24px;

@@ -287,7 +287,7 @@
       if (path.webm) {
         sources += '<source src="' + path.webm + '.webm" type="video/webm">';
       }
-      
+
       if (path.mp4) {
         sources += '<source src="' + path.mp4 + '.mp4" type="video/mp4">';
       }

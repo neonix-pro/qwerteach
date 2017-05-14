@@ -1,6 +1,8 @@
 class RegistrationsController < Devise::RegistrationsController
   after_action :save_user_timezone, only: [:create]
-  
+  before_filter :configure_permitted_parameters, only: [:update]
+  respond_to :html, :js
+
   def sign_up(resource_name, resource)
     sign_in(:user, resource)
   end
@@ -27,4 +29,9 @@ class RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.require(:user).permit(:firstname, :lastname, :email, :password)
   end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:account_update).push(:first_lesson_free)
+  end
+
 end

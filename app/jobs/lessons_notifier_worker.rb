@@ -2,7 +2,7 @@ class LessonsNotifierWorker
   @queue = :bigbluebutton_rails
 
   def self.perform(*args)
-    @beginning_lessons = Lesson.where(:time_start => (DateTime.now)..(DateTime.now + 10.minutes), :status => 2)
+    @beginning_lessons = Lesson.without_room.where(:time_start => (DateTime.now)..(DateTime.now + 10.minutes), :status => 2)
    # @beginning_lessons = Lesson.all
     #Resque.enqueue(LessonsNotifierWorker)
     @beginning_lessons.each do |bl|
@@ -25,7 +25,7 @@ class LessonsNotifierWorker
       @room = BigbluebuttonRoom.new(bigbluebutton_room)
       @room.meetingid = @room.name
       if @room.save
-        subject = "Votre classe est disponible. #{ActionController::Base.helpers.link_to ' Cliquez ici pour la rejoindre', "/bigbluebutton/rooms/#{@room.param}/join"}."
+        subject = "Votre classe est disponible. #{ActionController::Base.helpers.link_to 'Cliquez ici pour la rejoindre', "/bigbluebutton/rooms/#{@room.param}/join"}."
         body = " /bigbluebutton/rooms/#{@room.param}/join"
         # body = "/bigbluebutton/rooms/#{@room.param}/invite"
         # notifs

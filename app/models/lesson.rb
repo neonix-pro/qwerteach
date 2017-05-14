@@ -44,6 +44,7 @@ class Lesson < ActiveRecord::Base
     .group(:teacher_id)}
   
   scope :with_room, -> {joins(:bbb_room).select("DISTINCT lessons.*")}
+  scope :without_room, -> {includes(:bbb_room).where(:bigbluebutton_rooms => { :id => nil })}
 
   scope :needs_pay, ->{ created.where('price > 0').where('NOT EXISTS( SELECT 1 FROM payments WHERE status = 2 AND lesson_id = lessons.id )') }
 
