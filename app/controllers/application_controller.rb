@@ -50,7 +50,6 @@ class ApplicationController < ActionController::Base
     return if flash_message.nil?
     response.headers['X-Message'] = flash_message
     response.headers["X-Message-Type"] = flash_type.to_s
-
     flash.discard  # discard flash messages after encoding so don't appear twice
   end
 

@@ -24,9 +24,15 @@ class MessagesController < ApplicationController
       c = existing_conversation.first
       receipt = current_user.reply_to_conversation(c, params[:message][:body])
     else
-      receipt = current_user.send_message([recipients], params[:message][:body], params[:message][:subject])
+      receipt = current_user.send_message([recipients], params[:message][:body], params[:message][:subject]) if params[:message][:body].length > 50
     end
-    if Mailboxer::Notification.successful_delivery?(receipt)
+    if receipt.nil?
+      respond_to do |format|
+        format.html {redirect_to messagerie_path}
+        format.js {render action: 'too_short'}
+        format.json {render :json => {:success => "false", :message => "Votre message est trop court!"}}
+      end
+    elsif  Mailboxer::Notification.successful_delivery?(receipt)
       flash[:success] = "Votre message a bien été envoyé!" unless params[:mailbox]
       respond_to do |format|
         format.html {redirect_to messagerie_path}
@@ -37,7 +43,7 @@ class MessagesController < ApplicationController
       flash[:danger] = "Votre message n'a pas pu être envoyé!"
       respond_to do |format|
         format.html {redirect_to messagerie_path}
-        format.js
+        format.js {render action: 'too_short'}
         format.json {render :json => {:success => "false", :message => "Votre message n'a pas pu être envoyé!"}}
       end
     end

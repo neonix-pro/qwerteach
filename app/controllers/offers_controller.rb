@@ -1,6 +1,7 @@
 class OffersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_user
+  after_filter { flash.discard if request.xhr? }
 
   load_and_authorize_resource
 
@@ -102,7 +103,7 @@ class OffersController < ApplicationController
     @offer = Offer.find(params[:id])
     Offer.destroy(@offer.id)
     respond_to do |format|
-      format.html { redirect_to params[:origin].nil? ? offers_url : "/#{params[:origin]}/offers"}
+      format.html { redirect_to params[:origin].nil? ? edit_user_registration_path(@offer.user_id) : "/#{params[:origin]}/offers"}
       format.json {render :json => {:success => "true"}}
       format.js {}
     end

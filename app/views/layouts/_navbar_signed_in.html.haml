@@ -25,11 +25,10 @@
         #notifications-wrapper.notifications-wrapper
         %li.divider
         .notification-footer
-          %h4.menu-title
-            %small
-              %a.see-more-notifications
-                Voir tout
-                %i.glyphicon.glyphicon-circle-arrow-right
+          .menu-title
+            %a.see-more-notifications
+              Voir tout
+              %i.glyphicon.glyphicon-circle-arrow-right
     %li.dropdown
       %a.dropdown-toggle.image-dropdown{"data-toggle" => "dropdown", :href => "#"}
         = image_tag(current_user.avatar.url(:small))

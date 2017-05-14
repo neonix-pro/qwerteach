@@ -14,28 +14,21 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui
-//= require autocomplete-rails
 //= require js.cookie
-//= require moment
-//= require users
-//= require private_pub
-//= require messages
-//= require_tree .
 //= require ckeditor-jquery
+//= require moment
+//= require private_pub
+//= require autocomplete-rails
+//= require_tree .
 //= require chosen-jquery
 //= require jquery.form-validator
 //= require fullcalendar
 //= require fullcalendar/lang/fr.js
-//= require simpletextrotator
 //= require mangopay-kit.min
 //= require materialize
+//= require materialize-forms
 //= require bootstrap
 //= require bootstrap-datetimepicker
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
 //= require turbolinks
-
-
-$.validate({
-    modules : 'security'
-});

@@ -1,6 +1,13 @@
 .offers-list{
   position:relative;
   width:100%;
+  .card-offer{
+    .icon-coloured{
+      position:absolute;
+      top:10px;
+      right:10px;
+    }
+  }
 }
 .offer{
   padding: 30px;
@@ -49,11 +56,6 @@
 }
 
 .first-lesson-free{
-  font-family: 'SofiaProRegular';
-  color: white;
-  background: #3C3C3B;
-  position: relative;
-  padding:30px 60px;
   .info{
     font-weight: 400;
   }
@@ -71,7 +73,6 @@
 }
 
 #new-offer, .edit-offer form .col-sm-5{
-  padding: 50px;
   #offer_description{
     margin-top:15px;
   }

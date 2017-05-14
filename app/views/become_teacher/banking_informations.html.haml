@@ -14,3 +14,8 @@
         .actions
           = submit_tag 'Terminer', :class => 'btn btn-qw btn-sm btn-green'
   = tutorial_progress_bar
+
+:javascript
+  $(document).on('turbolinks:load', function(){
+    $('#bank_account_type_iban').trigger('click');
+  });

@@ -3,7 +3,7 @@ module NotificationsHelper
     if date.today?
       return date.strftime('%H:%M')
     else
-      return date.strftime('le %D/%m à %H:%M')
+      return date.strftime('le %d/%m à %H:%M')
     end
   end
 end

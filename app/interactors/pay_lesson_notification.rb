@@ -14,7 +14,7 @@ module PayLessonNotification
     if lesson.past?
       LessonNotificationsJob.perform_async(:notify_teacher_about_student_pay_lesson_after, lesson.id)
     else
-      LessonNotificationsJob.perform_async(:notify_teacher_about_student_pay_lesson_before, lesson.id)
+      LessonNotificationsJob.perform_async(:notify_teacher_about_student_pay_lesson_before, lesson.id) if lesson.pay_afterwards
     end
     NotificationsMailer.send_payment_details_to_student(payment.id).deliver_later
   end

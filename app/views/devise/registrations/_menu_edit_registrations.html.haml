@@ -1,27 +1,15 @@
-.user-avatar
-  =image_tag @user.avatar(:medium), :class => "avatar"
-  = form_for @user, as: resource_name, url: user_path(@user), html: {class: 'avatar-uploader'} do |f|
-    = f.file_field :avatar
-    = f.submit ''
-    = f.hidden_field :crop_x, :id => 'crop_x'
-    = f.hidden_field :crop_y, :id => 'crop_y'
-    = f.hidden_field :crop_w, :id => 'crop_w'
-    = f.hidden_field :crop_h, :id => 'crop_h'
-
-
-  .edit-user-avatar
-    .banner
-      modifier
-      %i.fa.fa-camera
-.menu-link
-  %a{:data => {:toggle => "collapse", :target => "#profil", :parent => '#edit_profile'}, :class => "active"} Modifier mes informations
-.menu-link
-  %a{:data => {:toggle => "collapse", :target => "#passcode", :parent => '#edit_profile'}} Modifier mon mot de passe
--if @user.is_a?(Teacher)
-  .menu-link
-    %a{:data => {:toggle => "collapse", :target => "#annonces", :parent => '#edit_profile'}} Mes annonces
-.menu-link
-  =link_to "Voir mon profil", user_path(@user)
+.container
+  .row
+    %ul.tabs
+      %li.tab
+        %a{href: "#general-infos", data:{turbolinks: false}} Informations générales
+      %li.tab
+        %a{href: "#password", data:{turbolinks: false}} Mot de passe
+      - if @user.is_a?(Teacher)
+        %li.tab
+          %a{href: "#offers", data:{turbolinks: false}} Mes annonces
+      %li.tab
+        = link_to "Voir mon profil", user_path(@user), target: "_blank"
 
 #avatar-crop-modal.modal
   .modal-dialog
@@ -36,9 +24,10 @@
         %a.modal-action.modal-close{href: '#!'} Annuler
         %button.btn.btn-success.btn-qw.btn-avatar-save{'type'=>'button'} Sauver
 
+
+
 :javascript
   new AvatarUploader();
-  $('.modal').modal();
 
 :javascript
   $('.edit-user-avatar').on('click', function(){
@@ -47,10 +36,11 @@
   $('#user_avatar').on('change', function(){
 
     if ( $('#user_avatar').get(0).files[0] ) {
-      $('#avatar-crop-modal').modal('open');
+      $('#avatar-crop-modal').modal('show');
     }
   });
   var h = $(body).height();
   $('.menu').css({height:h});
 
-
+  $('ul.tabs').tabs();
+  CKEDITOR.replace( 'user_description' );

@@ -1,13 +1,19 @@
 - emetteur = User.find(notification.sender_id)
 .content
   .notification-item
-    %h4.item-title
-    .item-image= image_tag(emetteur.avatar.url(:small), class:'img img-circle')
-    = notification.subject.html_safe
-    -if notification.notified_object_type == 'Lesson'
-      .text-right
-        = link_to 'voir plus', lessons_path
-    -unless notification.body.nil?
-      .text-right
-        = link_to 'cliquez ici', notification.body
-    .item-date= notification_date notification.created_at
+    .row
+      .col-xs-12.item-date= notification_date notification.created_at
+    .row
+      .col-xs-2.item-image
+        = image_tag(emetteur.avatar.url(:small), class:'img img-circle')
+      .col-xs-10
+        = notification.subject.html_safe
+        -if notification.notified_object_type == 'Lesson'
+          .text-left
+            = link_to lessons_path do
+              %i.fa.fa-long-arrow-right
+              %small Mes cours
+        -else
+          -if !notification.body.nil?
+            .text-right
+              -#= link_to 'cliquez ici', notification.body

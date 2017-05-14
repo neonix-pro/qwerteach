@@ -63,7 +63,7 @@
     background-color:transparent;
   }
   .dropdown-menu{
-    left:-200%;
+    left:-300%;
     top:49px;
     border-radius:0px;
     background-color: $dark_grey;
@@ -72,7 +72,7 @@
     }
   }
   .dropdown-menu.notifications{
-    min-width:200px;
+    min-width:300px;
     padding:0px 10px;
     a.dropdown-toggle{
       margin:0px;
@@ -94,14 +94,10 @@
         .notification-item{
           border-top: 1px solid $medium_grey;
           padding: 10px 0px;
-          h4{
-
-          }
           .item-image{
-            float:left;
-            margin-right:4px;
+            padding-right:0;
             img {
-              width: 50px;
+              width: 100%;
             }
           }
           .item-date{
@@ -112,11 +108,21 @@
           .item-date:hover{
             color:$color_qwerteach_green;
           }
+          a{
+            padding-left: 10px;
+          }
         }
       }
     }
     .notification-footer{
       text-align:center;
+      margin-top:-10px;
+      .see-more-notifications{
+        line-height: 40px;
+      }
+      .see-more-notifications:hover{
+        cursor: pointer;
+      }
     }
   }
 

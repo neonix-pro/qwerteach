@@ -26,7 +26,7 @@ class window.CardRegistrationForm
     @$el.on 'change', "select[name$=card_id]", => @toggleCardFields()
 
   cardData: ->
-    cardNumber : @$("input[name$='cardNumber']").val(), 
+    cardNumber : @$("input[name$='cardNumber']").val(),
     cardExpirationDate : "#{ @cardMonth() }#{ @$("#year").val().substr(2,2) }",
     cardCvx : @$("input[name$='cardCvx']").val(),
     cardType : 'CB_VISA_MASTERCARD'
@@ -55,7 +55,7 @@ class window.CardRegistrationForm
       @payWithCard $select.val()
     else
       @ajaxRegistration()
-      
+
 
   payWithCard: (cardId)->
     if @$('input[name$=returnURL]').val()

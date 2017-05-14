@@ -69,7 +69,7 @@ class Offer < ActiveRecord::Base
   end
 
   def possible_levels
-    Level.where(:code => self.topic.topic_group.level_code).group(I18n.locale[0..3]).order(id: :asc)
+    Level.where(:code => self.topic.topic_group.level_code).group(I18n.locale[0..3]).order(level: :asc)
   end
 
   # Pour Sunspot, définition des champs sur lesquels les recherches sont faites et des champs sur lesquels les filtres sont réalisés
@@ -94,8 +94,8 @@ class Offer < ActiveRecord::Base
     string :user_email do
       self.user.email
     end
-    string :user_name do
-      user.firstname
+    text :user_name do
+      "#{user.firstname} #{user.lastname}"
     end
     boolean :postulance_accepted do
       self.user.postulance_accepted
