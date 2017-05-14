@@ -30,6 +30,7 @@ class window.RequestLesson extends window.LessonForm
       $('#recap-endtime .pull-right').text((params.endtime).format('HH:mm'))
 
   onFreeChange: ->
+    @calculatePrice()
     if @isFreeLession()
       $('.hours-select').prop("disabled", true).val('00')
       $('.minutes-select').prop("disabled", true).val('30')
