@@ -3,7 +3,7 @@ class window.RequestLesson extends window.LessonForm
   initEvents: ->
     super
     @$el.on 'change', '#free_lesson', => @onFreeChange()
-    #@$el.on 'submit', 'form', (e)=> @showLoader(e)
+    @$el.on 'submit', 'form', (e)=> @showLoader(e)
     @$el.on 'update', => @calculatePrice()
     @$el.find('.topic-select').trigger('change')
     @$el.on 'click', '.change-booking-step', (e)=> @onChangeBookingStep(e)
