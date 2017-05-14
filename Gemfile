@@ -51,6 +51,7 @@ gem 'minitest'
 # traductions
 gem 'globalize', '~> 5.0.0'
 gem 'rails-i18n'
+gem "i18n-js"
 # for avatars
 gem "paperclip", "~> 4.3"
 # for datum validations

@@ -1,5 +1,5 @@
 $('#lesson-details .lesson-payment-loader').addClass('hidden')
-$('#lesson-details .lesson-payment-wrapper')
+$('#lesson-details')
     .removeClass('hidden')
     .html("<%= j render('lesson_requests/payment_method', url: ->(mode){ user_lesson_requests_payment_path(@teacher, mode: mode, lesson_id: @lesson.id) }) %>").trigger('update');
 

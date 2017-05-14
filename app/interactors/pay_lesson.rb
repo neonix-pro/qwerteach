@@ -60,7 +60,7 @@ class PayLesson < ActiveInteraction::Base
     if payin.valid?
       result = payin.result
       if result.secure_mode_redirect_url.present?
-        redirect_to result.secure_mode_redirect_url
+        #redirect_to result.secure_mode_redirect_url
         #render js: "window.location = '#{result.secure_mode_redirect_url}'" and return
         respond_to do |format|
           format.js { redirect_to result.secure_mode_redirect_url }

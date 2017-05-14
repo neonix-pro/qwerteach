@@ -14,7 +14,7 @@
       %p.text-right
         - if t.status == 'FAILED'
           %i.fa.fa-warning.text-red
-          %span.text-red= "#{t t.status}: #{t.result_message}"
+          %span.text-red= "#{t t.status}: #{t t.result_message}"
         - else
           = t t.status
     .col-xs-1

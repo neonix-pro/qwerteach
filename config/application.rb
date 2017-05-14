@@ -31,6 +31,7 @@ module Qwerteach
     # config.i18n.default_locale = :de
     I18n.available_locales = [:en, :fr, :be, :ch, :abv] #abv = abréviations
     I18n.default_locale = :fr
+    config.middleware.use I18n::JS::Middleware
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
