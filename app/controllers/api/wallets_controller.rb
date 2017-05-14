@@ -26,6 +26,10 @@ class Api::WalletsController < WalletsController
     
   end
   
+  def edit_mangopay_wallet
+    super
+  end
+  
   def update_mangopay_wallet
     super
   end
