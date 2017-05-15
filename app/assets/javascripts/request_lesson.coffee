@@ -3,7 +3,7 @@ class window.RequestLesson extends window.LessonForm
   initEvents: ->
     super
     @$el.on 'change', '#free_lesson', => @onFreeChange()
-    #@$el.on 'submit', 'form', (e)=> @showLoader(e)
+    @$el.on 'submit', 'form', (e)=> @showLoader(e)
     @$el.on 'update', => @calculatePrice()
     @$el.find('.topic-select').trigger('change')
     @$el.on 'click', '.change-booking-step', (e)=> @onChangeBookingStep(e)
@@ -20,7 +20,8 @@ class window.RequestLesson extends window.LessonForm
       $('#duration-minutes').text(params.minutes)
     else if params.minutes != '00'
       $('#duration-minutes').text(params.minutes+' min')
-
+    if params.hours == '00'
+      $('#duration-hours').text('0')
     if params.datetime
       $('#recap-date .pull-right').text(params.datetime.format('dddd D MMMM YYYY'))
       $('#recap-starttime .pull-right').text(params.datetime.format('HH:mm'))
@@ -29,6 +30,7 @@ class window.RequestLesson extends window.LessonForm
       $('#recap-endtime .pull-right').text((params.endtime).format('HH:mm'))
 
   onFreeChange: ->
+    @calculatePrice()
     if @isFreeLession()
       $('.hours-select').prop("disabled", true).val('00')
       $('.minutes-select').prop("disabled", true).val('30')
@@ -39,6 +41,8 @@ class window.RequestLesson extends window.LessonForm
   onChangeBookingStep: (e)->
     $('#lesson-details').children('.alert').remove();
     if($(e.currentTarget).attr('data-toggle') == '#step2')
+      @displayRecap()
+      @initDatePicker()
       if (!@checkSelected())
         $('#lesson-details').prepend( $('#empty-fields-alert').html() );
         return

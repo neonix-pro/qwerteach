@@ -92,6 +92,7 @@ p, span, a, ul, li{
   .alert-danger{
     background-color: $color_qwerteach_pink;
     background-image:none;
+    color: white;
   }
   .alert-warning{
     background-color: $color_qwerteach_orange;
@@ -430,9 +431,6 @@ table{
       h4{
         font-size: 2rem;
       }
-    }
-    .alert.alert-danger{
-      color: $color_qwerteach_red;
     }
   }
 }

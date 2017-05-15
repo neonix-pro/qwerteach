@@ -31,4 +31,6 @@
 //= require bootstrap-datetimepicker
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
+//= require i18n
+//= require i18n/translations
 //= require turbolinks

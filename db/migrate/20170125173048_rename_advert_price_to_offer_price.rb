@@ -3,6 +3,6 @@ class RenameAdvertPriceToOfferPrice < ActiveRecord::Migration
     rename_table :advert_prices, :offer_prices
     rename_table :adverts, :offers
 
-    rename_column :offer_prices, :advert_id, :offer_id
+    #rename_column :offer_prices, :advert_id, :offer_id
   end
 end

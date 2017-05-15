@@ -24,8 +24,12 @@
       .or {
         position: relative;
         bottom: 40px;
-        background-color:white;
+        background-color:#f0f0f0;
         display:inline-block;
+        h5 {
+          font-size: 20px;
+          margin: 7px;
+        }
         padding: 0px 10px;
       }
     }

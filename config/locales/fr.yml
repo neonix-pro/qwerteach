@@ -299,6 +299,7 @@ fr:
     attributes:
       teacher:
         Male: Homme
+
   active_interaction:
     errors:
       messages:
@@ -314,6 +315,12 @@ fr:
   mango:
     response_message:
       User has let the payment session expire without paying: "La validation auprès de votre institution bancaire a échoué."
+      User has not been redirected: Il y a eu un problème lors de la redirection vers notre système de payement sécurisé.
+      User canceled the payment: Le payement a été annulé par l'utilisateur
+      The transaction has been cancelled by the user: La transaction a été annulée par l'utilisateur
+      User has not been redirected then the payment session has expired: Il y a eu un problème lors de la redirection vers notre système de payement sécurisé, session expirée.
+      User has let the payment session expire without paying: L'utilisateur a laissé expirer la session de payement sécurisé sans procéder au payement.
+      The user does not complete transaction: La transaction n'a pas été terminée
 
   administrate:
     controller:
@@ -327,3 +334,60 @@ fr:
   FAILED: 'Échoué'
   SUCCEEDED: 'Validé'
   CREATED: 'En cours'
+
+  helpers:
+    label:
+      mango/save_account:
+        first_name: Prénom
+        last_name: Nom de famille
+        street: Rue
+        number: N°
+        country: Pays
+        post_code: Code postal
+        city: Ville
+        region: Région
+        country_of_residence: Pays de résidence
+        nationality: Nationalité
+
+  "Secure mode: The 3DSecure authentication has failed": L'authentification par 3DSecure a échoué
+  "Secure mode: 3DSecure authentication is not available": L'authetification par 3DSecure est indisponible
+  "Secure mode: The card is not compatible with 3DSecure": Cette carte n'est pas compatible avec l'authetification par 3DSecure
+  "Secure mode: The card is not enrolled with 3DSecure": Cette carte ne permet pas l'authentification par 3DSecure
+  "Secure mode: The 3DSecure authentication session has expired": La session d'authentification par 3DSecure a expiré
+  "Invalid card number": Numéro de carte invalide
+  "Invalid cardholder name": Le nom du détentaire de la carte est incorrect
+  "Invalid PIN code": Code PIN invalide
+  'Invalid PIN format': Mauvais format du code PIN
+
+  "Transaction refused by the bank (Do not honor)": La transaction a été refusée par la banque (transaction non honorée)
+  "Transaction refused by the bank (Amount limit)": La transaction a été refusée par la banque (montant limite)
+  "Transaction refused by the terminal": La transaction a été refusée par le terminal
+  "Transaction refused by the bank (card limit reached)": La transaction a été refusée par la banque (limite de la carte atteint)
+  The card has expired: La carte est expirée
+  The card is inactive: La carte est inactive
+  The card is not active: La carte est désactivée
+  Maximum number of attempts reached: Le nombre maximum d'essai a été atteint
+  Maximum amount exceeded: Montant maximum dépassé
+  Maximum Uses Exceeded: Nombre d'utilisations maximal atteint
+  Debit limit exceeded: Limite de débit dépassée
+  Aomunt limit: Montant limite
+  Transaction refused: La transaction a été refusée par la banque
+
+  Token processing error: Erreur d'identification par token
+  Token input Error: Impossible de s'identifier par token auprès de la banque
+  "Card number: invalid format": Format non valide pour le numéro de carte
+  "Expiry date: missing or invalid format": Format non valide pour la date d'expiration
+  "CVV: missing or invalid format": format non valide pour le CVV
+  "Callback URL: Invalid format": URL de redirection non valide
+  "Registration data : Invalid format": Format non valide des infos d'enregistrement
+
+  CARD_NUMBER_FORMAT_ERROR: Veuillez vérifier le numéro de la carte de crédit
+  CVV_FORMAT_ERROR: Veuillez vérifier le format du code de sécurité
+  PAST_EXPIRY_DATE_ERROR: La date d'expiration est dépassée
+  EXPIRY_DATE_FORMAT_ERROR: La date d'expiration est dépassée
+  An HTTP request was blocked by the User's antivirus: La requête a été bloquée par votre antivirus
+  An HTTP request failed: La requête a échoué
+  Browser does not support making cross-origin Ajax calls: Votre navigateur ne supporte pas les requêtes Ajax. Passez à un navigateur moderne comme Mozilla Firefox!
+  A cross-origin HTTP request failed: La requête cross-origin a échoué
+  Token processing error: Erreur de Token
+  CardRegistration should return a valid JSON response: Réponse invalide, la requête a échoué

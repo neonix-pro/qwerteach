@@ -7,14 +7,14 @@
       .pull-left
         - if p.nil?
           Rechargement du portefeuille
-        - else
+        - elsif !p.lesson.nil?
           Réservation du cours de #{p.lesson.topic.title} avec #{p.lesson.teacher.full_name}
         %br
         .text-grey= Time.at(t.creation_date).strftime("le %d/%m/%Y à %H:%M")
       %p.text-right
         - if t.status == 'FAILED'
           %i.fa.fa-warning.text-red
-          %span.text-red= "#{t t.status}: #{t.result_message}"
+          %span.text-red= "#{t t.status}: #{t t.result_message}"
         - else
           = t t.status
     .col-xs-1
