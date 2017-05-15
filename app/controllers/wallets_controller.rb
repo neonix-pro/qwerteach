@@ -53,6 +53,12 @@ class WalletsController < ApplicationController
     filters = {page: params[:page], per_page: 10, sort: 'CreationDate:desc'}
     @transactions = @user.mangopay.transactions(filters)
     @pagin = Kaminari.paginate_array(@transactions, total_count: filters['total_items']).page(params[:page]).per(10)
+    
+    respond_to do |format|
+      format.html {}
+      format.js {}
+      format.json {render :json => {:transactions => @pagin, :transaction_infos => get_transaction_infos(@pagin)}}
+    end
   end
 
   def edit_mangopay_wallet

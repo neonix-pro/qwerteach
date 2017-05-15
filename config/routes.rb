@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     put 'user/mangopay/desactivate_bank_account/:id' => 'wallets#desactivate_bank_account'
     put 'user/mangopay/make_payout' => 'wallets#make_payout'
     get 'user/mangopay/payout' => 'wallets#payout'
+    get 'user/mangopay/transactions_index' => 'wallets#transactions_index'
     
     get 'lessons' => 'lessons#index'
     get 'lessons/find_lesson_informations/:lesson_id' => 'lessons#find_lesson_informations'
