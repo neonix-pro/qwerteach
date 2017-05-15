@@ -1,5 +1,5 @@
 class AddDescriptionToAdvert < ActiveRecord::Migration
   def change
-    add_column :offers, :description, :text
+    add_column :adverts, :description, :text
   end
 end
