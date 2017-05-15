@@ -5,7 +5,7 @@ TopicGroup.create!([
   {title: "Langues", level_code: "langue", featured: false, picto: nil},
   {title: "Economie", level_code: "scolaire", featured: false, picto: nil},
   {title: "Informatique", level_code: "scolaire", featured: true, picto: "matieres/informatique.png"},
-  {title: "Autre", level_code: "scolaire", feature: false, picto: nil}
+  {title: "Autre", level_code: "scolaire", featured: false, picto: nil}
 ])
 
 Level.create!([
