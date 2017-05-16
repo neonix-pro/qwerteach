@@ -1,3 +1,6 @@
+#UPDATE users SET avatar_file_name = REPLACE (avatar_file_name, '/photo', '') WHERE avatar_file_name LIKE '%/photo%'
+
+
 User.where('id>26 AND avatar_file_name != ""').each do |user|
   if File.file?("#{Rails.root}/public/system/avatars/QWPICS/#{user.avatar_file_name}")
     File.open("#{Rails.root}/public/system/avatars/QWPICS/#{user.avatar_file_name}") do |f|
