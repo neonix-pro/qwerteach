@@ -4,3 +4,9 @@
   .field
     = submit_tag 'terminer', :class => 'btn btn-qw btn-green btn-mini'
     %br/
+
+:javascript
+  $('#new_account').on('submit', function(e){
+    $('#lesson-details #step3 .lesson-payment-wrapper').addClass('hidden');
+    $('#lesson-details .lesson-payment-loader').show();
+  });

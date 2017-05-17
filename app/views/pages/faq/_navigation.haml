@@ -1,0 +1,56 @@
+.container
+  .row
+    .col-xs-3
+      %ul#faq-nav.side-nax.fixed
+        %li.no-padding
+          %ul.collapsible.section.table-of-contents{data:{collapsible:"accordion"}}
+            %li
+              %a.collapsible-header S'inscrire sur Qwerteach
+              %div.collapsible-body
+                %ul
+                  %li= link_to "M'inscrire comme élève",'#new_student'
+                  %li= link_to "M'inscrire comme prof",'#new_teacher'
+            %li= link_to "Mon compte et mon profil", '#account_and_profile'
+            %li
+              %a.collapsible-header Les cours sur Qwerteach
+              %div.collapsible-body
+                %ul
+                  %li= link_to "Réserver et suivre un cours",'#book_take_lesson'
+                  %li= link_to "Donner un cours",'#give_lesson'
+                  %li= link_to "Premier cours gratuit",'#first_free_lesson'
+                  %li= link_to "Enregistrement des cours",'#recording_lesson'
+            %li
+              %a.collapsible-header Paiement
+              %div.collapsible-body
+                %ul
+                  %li= link_to "Généralités",'#payments_intro'
+                  %li= link_to "Payer un cours",'#payments_make'
+                  %li= link_to "Se faire payer",'#payments_receive'
+                  %li= link_to "Sécurité des paiements",'#payments_security'
+                  %li= link_to "Annulation et remboursement", '#cancel_and_refund'
+            %li= link_to "Classe virtuelle", '#virtual_classroom'
+            %li
+              %a.collapsible-header Messagerie et communauté
+              %div.collapsible-body
+                %ul
+                  %li= link_to "La messagerie",'#inbox'
+                  %li= link_to "La communauté et Facebook",'#community_facebook'
+            -# %li= link_to "Application mobile", '#mobile_app'
+            -# %li= link_to "Parrainage", '#referal_program'
+            %li= link_to "En cas de problème", '#issues'
+            %li= link_to "Sécurité", '#safety'
+            %li= link_to "En savoir plus", '#more'
+
+    .col-xs-9
+      #introduction.section.scrollspy
+        %h2 Introduction
+        %p active' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèves
+        %p active' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèves
+        %p active' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèves
+      #chapitre1.section.scrollspy
+        %h2 Chapitre 1
+        %p active' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèves
+        %p #%a{class: ('active' if @section == 'generalites'), data: {toggle: '#student-generalites'}} Généralité
+      #chapitre2.section.scrollspy
+        %h2 Chapitre 2
+        %p active' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèvesactive' if @target == 'students'), data: {target: '#students'}} Élèves
