@@ -1,13 +1,11 @@
 require 'pp'
 class BbbRoomsController < Bigbluebutton::RoomsController
   before_filter :authenticate_user!, except: [:demo_room, :join_demo]
-
+  after_action :register_meeting_participation, only:[:join_demo, :join]
   def join
     super
     # logging that the user joined a room
-    meeting = BbbMeeting.find_by(meetingid: @room.meetingid)
-    meeting.users << current_user
-    meeting.save!
+
   end
 
   def demo_room
@@ -28,9 +26,6 @@ class BbbRoomsController < Bigbluebutton::RoomsController
   def join_demo
     if current_user
       @user_name = current_user.name
-      meeting = BbbMeeting.find_by(meetingid: @room.meetingid)
-      meeting.users << current_user
-      meeting.save!
     else
       @user_name = 'Invité'
     end
@@ -122,6 +117,14 @@ class BbbRoomsController < Bigbluebutton::RoomsController
                                            :auto_start_recording => 0,
                                            :allow_start_stop_recording => 0
     }
+  end
+
+  def register_meeting_participation
+    if current_user
+      meeting = BbbMeeting.find_by(meetingid: @room.meetingid)
+      meeting.users << current_user
+      meeting.save!
+    end
   end
 
 end
