@@ -2,6 +2,8 @@
   .row
     %h1.text-center Se connecter
     .col-md-6.col-md-offset-3
+      .omniauth-signup
+        = render partial: 'users/shared/omniauth_signin'
       %p
       = form_for(resource, as: resource_name, url: session_path(resource_name), html:{class:'form form-horizontal'}) do |f|
         .form-group
