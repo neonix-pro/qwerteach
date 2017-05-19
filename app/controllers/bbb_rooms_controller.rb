@@ -1,7 +1,8 @@
-require 'pp'
 class BbbRoomsController < Bigbluebutton::RoomsController
+  include ActionView::Helpers::UrlHelper
   before_filter :authenticate_user!, except: [:demo_room, :join_demo]
   after_action :register_meeting_participation, only:[:join_demo, :join]
+
   def join
     super
     # logging that the user joined a room
@@ -65,7 +66,8 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     respond_with @room do |format|
       if @room.save
         message = t('bigbluebutton_rails.rooms.notice.create.success')
-        subject = current_user.firstname + " vous invite dans une classe."
+        subject = current_user.firstname + " vous invite dans une classe. "
+        subject += link_to('Cliquez ici', join_bigbluebutton_room_path(@room)) + " pour la rejoindre."
         body = "" + join_bigbluebutton_room_path(@room).to_s
         @interviewee.send_notification(subject, body, current_user)
         format.html {
