@@ -7,7 +7,7 @@
         %span.card-title Vos élèves
         - if @user.lessons_given.count > 0
           Félicitations, vous avez donné
-          = link_to "#{@user.lessons_given.count} cours", lessons_path
+          = link_to "#{@user.lessons_given.count} cours", lessons_path + "#history"
           sur Qwerteach!
           %ul
             - @user.lessons_given.group(:student_id).each do |l|
@@ -28,7 +28,7 @@
     .card
       .card-content
         %span.card-title Communauté
-        %a{href: '#'} Groupe facebook
+        %a{href: 'https://www.facebook.com/groups/1492069747501897/'} Groupe facebook
         %br
         %a{href: '#'} Contacter un admin
   .col-sm-3.col-xs-6.find-students.tools-list

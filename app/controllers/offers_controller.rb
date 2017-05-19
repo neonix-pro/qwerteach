@@ -62,7 +62,7 @@ class OffersController < ApplicationController
     if current_user.offers_except_other.map(&:topic_id).include?(params[:offer][:topic_id].to_i)
       respond_to do |format|
         flash[:notice]='Une annonce pour cette catégorie existe déjà.'
-        format.html {redirect_to offers_path}
+        format.html {redirect_to edit_user_registration_path(@user) + '#offers'}
         format.js {}
         format.json {render :json => {:success => "true", :message => 'Une annonce pour cette catégorie existe déjà.'}}
         return
@@ -72,7 +72,7 @@ class OffersController < ApplicationController
     @offer = Offer.new(offer_params)
     respond_to do |format|
       if @offer.save
-        format.html {redirect_to offers_path, notice: 'Votre annonce a bien été enregistrée.'}
+        format.html {redirect_to edit_user_registration_path(@user) + '#offers', notice: 'Votre annonce a bien été enregistrée.'}
         format.json {render :json => {:success => "true"}}
         format.js {render partial: "#{params[:origin]}/create_offer", locals: {offer: @offer} if params[:origin]}
       else
@@ -89,7 +89,7 @@ class OffersController < ApplicationController
     respond_to do |format|
       if @offer.update_attributes!(offer_params)
         flash[:notice] = 'Vos modifications ont été sauvegardées.'
-        format.html { redirect_to offers_path}
+        format.html { redirect_to edit_user_registration_path(@user) + '#offers'}
         format.json {render :json => {:success => "true", :message => 'Vos modifications ont été sauvegardées.'}}
         format.js {}
       else
