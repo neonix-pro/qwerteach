@@ -8,4 +8,4 @@
         .card-title
           #{@user.lessons_received.past.count} Cours <br /> suivis
         %p
-          =link_to "Voir l'historique complet", lessons_path, class: 'text-green'
+          =link_to "Voir l'historique complet", lessons_path + "#history", class: 'text-green'

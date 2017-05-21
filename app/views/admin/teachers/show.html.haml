@@ -35,7 +35,16 @@
       = link_to 'generate text', admin_postulation_generate_text_path(page.resource.postulation), remote:true, class:'button btn-default'
     .conversation-admin
       -if @conversation_admin.id.nil?
-        = render partial: 'users/profile/contactform', locals:{me: current_user, user: @user}
+        = form_tag messages_path, method: :post do
+          = hidden_field_tag 'message[subject]', "#{current_user.name} vous pose une question!"
+          = hidden_field_tag 'message[recipient]', @user.id
+          .form-group
+            = text_area_tag 'message[body]', nil, rows: 5,
+              placeholder: "Posez une question à #{@user.firstname}", class: "form-control #{ "character-count" if @conversation.empty? }", data:{length:50}, required: true
+            -if @conversation.empty?
+              %span.text-pink
+                Minimum 50 caractères.
+          = submit_tag 'Envoyer', class: 'btn btn-qw btn-green'
       -else
         = render partial: 'conversations/conversation', locals:{conversation: @conversation_admin, page: 0, messages: @messages_admin}
   %div
@@ -60,4 +69,4 @@
     - else
       Pas encore de conversations!
 
--#=content_for(:javascript)
+=content_for(:javascript)

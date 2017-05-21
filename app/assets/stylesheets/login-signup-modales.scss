@@ -231,10 +231,13 @@
     }
     .or {
       display: inline-block;
-      background-color: #fff;
+      background-color: #f0f0f0;
       position: relative;
       bottom: 40px;
       padding: 10px;
+    }
+    hr{
+      border-top: 1px solid #333;
     }
   }
 
@@ -250,5 +253,20 @@
   }
   .col-md-6{
     padding: 0px 50px;
+  }
+}
+
+
+.omniauth-signup{
+  margin-bottom:20px;
+  padding: 40px 0px;
+  border-bottom: 1px solid white;
+  a{
+    display: inline-block;
+    width: 49%;
+    text-align:center;
+    img{
+      width:80%;
+    }
   }
 }

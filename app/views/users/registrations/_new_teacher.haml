@@ -12,6 +12,7 @@
   .actions
     = f.submit "S'inscrire"
 %hr
-.or
+.or.text-center
   ou via
-= render "users/shared/omniauth_signin"
+.omniauth-signup
+  = render "users/shared/omniauth_signin"

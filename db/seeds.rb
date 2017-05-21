@@ -41,31 +41,31 @@ Level.create!([
   {level: 7, code: "langue", be: "C2 Compétent/Courant", fr: "C2 Compétent/Courant", ch: "C2 Compétent/Courant"}
 ])
 Topic.create!([
-  {title: "maths", topic_group_id:1},
-  {title: "statistiques", topic_group_id:1},
-  {title: "physique", topic_group_id:2},
-  {title: "chimie", topic_group_id:2},
-  {title: "biologie", topic_group_id:2},
-  {title: "biochimie", topic_group_id:2},
-  {title: "francais", topic_group_id:3},
-  {title: "latin", topic_group_id:3},
-  {title: "grec", topic_group_id:3},
-  {title: "philosophie", topic_group_id:3},
-  {title: "littérature", topic_group_id:3},
-  {title: "histoire", topic_group_id:3},
-  {title: "fle", topic_group_id:4},
-  {title: "neerlandais", topic_group_id:4},
-  {title: "anglais", topic_group_id:4},
-  {title: "espagnol", topic_group_id:4},
-  {title: "allemand", topic_group_id:4},
-  {title: "italien", topic_group_id:4},
-  {title: "microeconomie", topic_group_id:5},
-  {title: "macroeconomie", topic_group_id:5},
-  {title: "finance", topic_group_id:5},
-  {title: "economie", topic_group_id:5},
-  {title: "bureautique", topic_group_id:6},
-  {title: "programmation", topic_group_id:6},
-  {title: "reseaux", topic_group_id:6},
-  {title: "base de donnees", topic_group_id:6},
+  {title: "maths", topic_group_id:1}, # 1
+  {title: "statistiques", topic_group_id:1}, # 2
+  {title: "physique", topic_group_id:2}, # 3
+  {title: "chimie", topic_group_id:2},# 4
+  {title: "biologie", topic_group_id:2},# 5
+  {title: "biochimie", topic_group_id:2}, # 6
+  {title: "francais", topic_group_id:3},# 7
+  {title: "latin", topic_group_id:3},# 8
+  {title: "grec", topic_group_id:3},# 9
+  {title: "philosophie", topic_group_id:3},# 10
+  {title: "littérature", topic_group_id:3},# 11
+  {title: "histoire", topic_group_id:3},# 12
+  {title: "fle", topic_group_id:4},# 13
+  {title: "neerlandais", topic_group_id:4},# 14
+  {title: "anglais", topic_group_id:4},# 15
+  {title: "espagnol", topic_group_id:4},# 16
+  {title: "allemand", topic_group_id:4},# 17
+  {title: "italien", topic_group_id:4},# 18
+  {title: "microeconomie", topic_group_id:5},# 19
+  {title: "macroeconomie", topic_group_id:5},# 20
+  {title: "finance", topic_group_id:5},# 21
+  {title: "economie", topic_group_id:5},# 22
+  {title: "bureautique", topic_group_id:6},# 23
+  {title: "programmation", topic_group_id:6},# 24
+  {title: "reseaux", topic_group_id:6},# 25
+  {title: "base de donnees", topic_group_id:6}, # 26
   {title: "Other", topic_group_id:nil}
 ])

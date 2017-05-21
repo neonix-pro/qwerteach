@@ -15,6 +15,9 @@ module Admin
     end
 
     def authenticate_admin
+      logger.debug('-----'*20)
+      logger.debug( session[:_csrf_token])
+      logger.debug('-----'*20)
       if (current_user.blank?)
         redirect_to '/', alert: 'Not authorized.'
       else
