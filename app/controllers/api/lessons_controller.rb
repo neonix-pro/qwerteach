@@ -5,7 +5,8 @@ class Api::LessonsController < LessonsController
   
   def index
     super
-    render :json => {:lessons => @lessons} 
+    render :json => {:upcoming_lessons => @planned_lessons, :past_lessons => @history_lessons, 
+      :to_do_list => @pending_lessons} 
   end
   
   def cancel
@@ -30,6 +31,13 @@ class Api::LessonsController < LessonsController
   
   def dispute
     super
+  end
+  
+  def get_history_lesson_infos
+    lesson = Lesson.find_by_id(params[:lesson_id])
+    
+    render :json => {:topic => lesson.topic.title, :name => lesson.other(current_user).name, 
+      :avatar => lesson.other(current_user).avatar(:small)}
   end
   
   def find_lesson_informations

@@ -572,7 +572,7 @@ DEPENDENCIES
   haml-rails (~> 0.9)
   hashie
   i18n-js
-  jbuilder (~> 2.0)
+  jbuilder!
   jcrop-rails-v2
   jquery-form-validator-rails
   jquery-rails

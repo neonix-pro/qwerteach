@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     get 'user/mangopay/transactions_index' => 'wallets#transactions_index'
     
     get 'lessons' => 'lessons#index'
+    get 'get_history_lesson_infos/:lesson_id' => 'lessons#get_history_lesson_infos'
     get 'lessons/find_lesson_informations/:lesson_id' => 'lessons#find_lesson_informations'
     get 'lessons/:lesson_id/cancel' => 'lessons#cancel'
     put 'lessons/:id' => 'lessons#update'
@@ -60,7 +61,6 @@ Rails.application.routes.draw do
   end
 
   namespace :api, :defaults => { :format => 'json' } do
-    #get 'topics/:id' => 'topics#show'
     get 'topics' => 'topics#get_all_topics'
     get 'topic_groups' => 'topic_groups#get_all_topic_groups'
   end
