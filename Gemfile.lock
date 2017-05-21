@@ -388,11 +388,6 @@ GEM
       railties (~> 4.0)
     rails-jquery-autocomplete (1.0.3)
       rails (>= 3.2)
-    rails_12factor (0.0.2)
-      rails_serve_static_assets
-      rails_stdout_logging
-    rails_serve_static_assets (0.0.5)
-    rails_stdout_logging (0.0.5)
     railties (4.2.5.1)
       actionpack (= 4.2.5.1)
       activesupport (= 4.2.5.1)
@@ -604,7 +599,6 @@ DEPENDENCIES
   rails-erd
   rails-i18n
   rails-jquery-autocomplete
-  rails_12factor (= 0.0.2)
   resque
   rspec-rails (~> 3.0)
   ruby-duration

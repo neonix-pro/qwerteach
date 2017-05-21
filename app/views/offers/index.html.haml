@@ -3,7 +3,7 @@
     .card
       .card-content
         .first-lesson-free
-          = form_for @user, as: :user, url: registration_path(@user), html: { method: :put }, remote: true do |f|
+          = form_for @user, as: :user, url: user_path(@user), html: { method: :put }, remote: true do |f|
             .card-title.text-center
               Premier cours gratuit
               .switch

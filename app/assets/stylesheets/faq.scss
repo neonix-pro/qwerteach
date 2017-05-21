@@ -1,4 +1,10 @@
 @import 'global_variables.scss';
+#faq-header{
+  background-color: $color_qwerteach_green;
+  color:white;
+}
+
+
 .faq-template{
   display:block;
   .header{

@@ -20,5 +20,6 @@
   $('#contact-modal form').submit(function(){
     $('#contact-modal').modal('hide');
   });
-  - if @conversation.empty?
+- if @conversation.empty?
+  :javascript
     $('#message_body').characterCounter();

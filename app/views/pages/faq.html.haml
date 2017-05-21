@@ -1,558 +1,561 @@
-%div
-  .faq.faq-template
-    .header
-      %h1 Questions fréquemment posées
-      %ul#user-type-toggle
+-#.container-fluid
+-#  = render partial: 'pages/faq/header'
+-#= render partial: 'pages/faq/navigation'
+
+.faq.faq-template
+  .header
+    %h1 Questions fréquemment posées
+    %ul#user-type-toggle
+      %li
+        %a{class: ('active' if @target == 'students'), data: {target: '#students'}} Élèves
+      %li
+        %a{class: ('active' if @target == 'teachers'), data: {target: '#teachers'}} Professeurs
+      %li
+        %a{class: ('active' if @target == 'parents'), data: {target: '#parents'}} Parents
+  .user-type#students{class: ('active' if @target == 'students'),  hidden: (true unless @target == 'students')}
+    .unav
+      %ul
         %li
-          %a{class: ('active' if @target == 'students'), data: {target: '#students'}} Élèves
+          %a{class: ('active' if @section == 'generalites'), data: {toggle: '#student-generalites'}} Généralités
         %li
-          %a{class: ('active' if @target == 'teachers'), data: {target: '#teachers'}} Professeurs
+          %a{class: ('active' if @section == 'lessons'), data: {toggle: '#student-takelessons'}} Prendre des cours
         %li
-          %a{class: ('active' if @target == 'parents'), data: {target: '#parents'}} Parents
-    .user-type#students{class: ('active' if @target == 'students'),  hidden: (true unless @target == 'students')}
-      .unav
-        %ul
-          %li
-            %a{class: ('active' if @section == 'generalites'), data: {toggle: '#student-generalites'}} Généralités
-          %li
-            %a{class: ('active' if @section == 'lessons'), data: {toggle: '#student-takelessons'}} Prendre des cours
-          %li
-            %a{class: ('active' if @section == 'videoconference'), data: {toggle: '#student-videoconference'}} Vidéo-conférence
-          %li
-            %a{class: ('active' if @section == 'paiements'), data: {toggle: '#student-payments'}} Paiements sécurisés
-          %li
-            %a{class: ('active' if @section == 'technical'), data: {toggle: '#student-technical'}} Problèmes techniques
-      .panel-group{:id => "student-generalites", hidden: (true unless @section == 'generalites')}
-        .panel.panel-default
-          %a{:href => "#student-generalites-one", :data => {:toggle => "collapse", :parent => "#student-generalites"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.generalites.questions.one')
-          .panel-collapse.collapse{:id=>"student-generalites-one"}
+          %a{class: ('active' if @section == 'videoconference'), data: {toggle: '#student-videoconference'}} Vidéo-conférence
+        %li
+          %a{class: ('active' if @section == 'paiements'), data: {toggle: '#student-payments'}} Paiements sécurisés
+        %li
+          %a{class: ('active' if @section == 'technical'), data: {toggle: '#student-technical'}} Problèmes techniques
+    .panel-group{:id => "student-generalites", hidden: (true unless @section == 'generalites')}
+      .panel.panel-default
+        %a{:href => "#student-generalites-one", :data => {:toggle => "collapse", :parent => "#student-generalites"}}
+          .panel-heading
             %div
-              %p= t('faq.student.generalites.answers.one')
-        .panel.panel-default
-          %a{:href => "#student-generalites-two", :data => {:toggle => "collapse", :parent => "#student-generalites"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.generalites.questions.two')
-          .panel-collapse.collapse{:id=>"student-generalites-two"}
+              %h4.panel-title= t('faq.student.generalites.questions.one')
+        .panel-collapse.collapse{:id=>"student-generalites-one"}
+          %div
+            %p= t('faq.student.generalites.answers.one')
+      .panel.panel-default
+        %a{:href => "#student-generalites-two", :data => {:toggle => "collapse", :parent => "#student-generalites"}}
+          .panel-heading
             %div
-              %p= t('faq.student.generalites.answers.two')
-        .panel.panel-default
-          %a{:href => "#student-generalites-three", :data => {:toggle => "collapse", :parent => "#student-generalites"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.generalites.questions.three')
-          .panel-collapse.collapse{:id=>"student-generalites-three"}
+              %h4.panel-title= t('faq.student.generalites.questions.two')
+        .panel-collapse.collapse{:id=>"student-generalites-two"}
+          %div
+            %p= t('faq.student.generalites.answers.two')
+      .panel.panel-default
+        %a{:href => "#student-generalites-three", :data => {:toggle => "collapse", :parent => "#student-generalites"}}
+          .panel-heading
             %div
-              %p= t('faq.student.generalites.answers.three')
-      .panel-group{:id => "student-takelessons", hidden: (true unless @section == 'lessons')}
-        .panel.panel-default
-          %a{:href => "#student-takelessons-one", :data => {:toggle => "collapse", :parent => "#student-takelessons"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.takelessons.question.one')
-          .panel-collapse.collapse{:id=>"student-takelessons-one"}
+              %h4.panel-title= t('faq.student.generalites.questions.three')
+        .panel-collapse.collapse{:id=>"student-generalites-three"}
+          %div
+            %p= t('faq.student.generalites.answers.three')
+    .panel-group{:id => "student-takelessons", hidden: (true unless @section == 'lessons')}
+      .panel.panel-default
+        %a{:href => "#student-takelessons-one", :data => {:toggle => "collapse", :parent => "#student-takelessons"}}
+          .panel-heading
             %div
-              %p= t('faq.student.takelessons.answer.one')
-        .panel.panel-default
-          %a{:href => "#student-takelessons-two", :data => {:toggle => "collapse", :parent => "#student-takelessons"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.takelessons.question.two')
-          .panel-collapse.collapse{:id=>"student-takelessons-two"}
+              %h4.panel-title= t('faq.student.takelessons.question.one')
+        .panel-collapse.collapse{:id=>"student-takelessons-one"}
+          %div
+            %p= t('faq.student.takelessons.answer.one')
+      .panel.panel-default
+        %a{:href => "#student-takelessons-two", :data => {:toggle => "collapse", :parent => "#student-takelessons"}}
+          .panel-heading
             %div
-              %p= t('faq.student.takelessons.answer.two')
-        .panel.panel-default
-          %a{:href => "#student-takelessons-three", :data => {:toggle => "collapse", :parent => "#student-takelessons"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.takelessons.question.three')
-          .panel-collapse.collapse{:id=>"student-takelessons-three"}
+              %h4.panel-title= t('faq.student.takelessons.question.two')
+        .panel-collapse.collapse{:id=>"student-takelessons-two"}
+          %div
+            %p= t('faq.student.takelessons.answer.two')
+      .panel.panel-default
+        %a{:href => "#student-takelessons-three", :data => {:toggle => "collapse", :parent => "#student-takelessons"}}
+          .panel-heading
             %div
-              %p= t('faq.student.takelessons.answer.three')
-      .panel-group{:id => "student-videoconference", hidden: (true unless @section == 'videoconference')}
-        .panel.panel-default
-          %a{:href => "#student-videoconference-one", :data => {:toggle => "collapse", :parent => "#student-videoconference"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.videoconference.question.one')
-          .panel-collapse.collapse{:id=>"student-videoconference-one"}
+              %h4.panel-title= t('faq.student.takelessons.question.three')
+        .panel-collapse.collapse{:id=>"student-takelessons-three"}
+          %div
+            %p= t('faq.student.takelessons.answer.three')
+    .panel-group{:id => "student-videoconference", hidden: (true unless @section == 'videoconference')}
+      .panel.panel-default
+        %a{:href => "#student-videoconference-one", :data => {:toggle => "collapse", :parent => "#student-videoconference"}}
+          .panel-heading
             %div
-              %p= t('faq.student.videoconference.answer.one')
-        .panel.panel-default
-          %a{:href => "#student-videoconference-two", :data => {:toggle => "collapse", :parent => "#student-videoconference"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.videoconference.question.two')
-          .panel-collapse.collapse{:id=>"student-videoconference-two"}
+              %h4.panel-title= t('faq.student.videoconference.question.one')
+        .panel-collapse.collapse{:id=>"student-videoconference-one"}
+          %div
+            %p= t('faq.student.videoconference.answer.one')
+      .panel.panel-default
+        %a{:href => "#student-videoconference-two", :data => {:toggle => "collapse", :parent => "#student-videoconference"}}
+          .panel-heading
             %div
-              %p= t('faq.student.videoconference.answer.two')
-      .panel-group{id: "student-payments", hidden: true}
-        .panel.panel-default
-          %a{href: "#student-payments-one", :data => {:toggle => "collapse", :parent => "#student-payments"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.payments.question.one')
-          .panel-collapse.collapse{:id=>"student-payments-one"}
+              %h4.panel-title= t('faq.student.videoconference.question.two')
+        .panel-collapse.collapse{:id=>"student-videoconference-two"}
+          %div
+            %p= t('faq.student.videoconference.answer.two')
+    .panel-group{id: "student-payments", hidden: true}
+      .panel.panel-default
+        %a{href: "#student-payments-one", :data => {:toggle => "collapse", :parent => "#student-payments"}}
+          .panel-heading
             %div
-              %p= t('faq.student.payments.answer.one')
-        .panel.panel-default
-          %a{href: "#student-payments-two", :data => {:toggle => "collapse", :parent => "#student-payments"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.payments.question.two')
-          .panel-collapse.collapse{:id=>"student-payments-two"}
+              %h4.panel-title= t('faq.student.payments.question.one')
+        .panel-collapse.collapse{:id=>"student-payments-one"}
+          %div
+            %p= t('faq.student.payments.answer.one')
+      .panel.panel-default
+        %a{href: "#student-payments-two", :data => {:toggle => "collapse", :parent => "#student-payments"}}
+          .panel-heading
             %div
-              %p= t('faq.student.payments.answer.two')
-        .panel.panel-default
-          %a{href: "#student-payments-three", :data => {:toggle => "collapse", :parent => "#student-payments"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.payments.question.three')
-          .panel-collapse.collapse{:id=>"student-payments-three"}
+              %h4.panel-title= t('faq.student.payments.question.two')
+        .panel-collapse.collapse{:id=>"student-payments-two"}
+          %div
+            %p= t('faq.student.payments.answer.two')
+      .panel.panel-default
+        %a{href: "#student-payments-three", :data => {:toggle => "collapse", :parent => "#student-payments"}}
+          .panel-heading
             %div
-              %p= t('faq.student.payments.answer.three')
-        .panel.panel-default
-          %a{href: "#student-payments-four", :data => {:toggle => "collapse", :parent => "#student-payments"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.payments.question.four')
-          .panel-collapse.collapse{:id=>"student-payments-four"}
+              %h4.panel-title= t('faq.student.payments.question.three')
+        .panel-collapse.collapse{:id=>"student-payments-three"}
+          %div
+            %p= t('faq.student.payments.answer.three')
+      .panel.panel-default
+        %a{href: "#student-payments-four", :data => {:toggle => "collapse", :parent => "#student-payments"}}
+          .panel-heading
             %div
-              %p= t('faq.student.payments.answer.four')
-      .panel-group{id: "student-technical", hidden: (true unless @section == 'technical')}
-        .panel.panel-default
-          %a{href: "#student-technical-one", :data => {:toggle => "collapse", :parent => "#student-technical"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.technical.question.one')
-          .panel-collapse.collapse{:id=>"student-technical-one"}
+              %h4.panel-title= t('faq.student.payments.question.four')
+        .panel-collapse.collapse{:id=>"student-payments-four"}
+          %div
+            %p= t('faq.student.payments.answer.four')
+    .panel-group{id: "student-technical", hidden: (true unless @section == 'technical')}
+      .panel.panel-default
+        %a{href: "#student-technical-one", :data => {:toggle => "collapse", :parent => "#student-technical"}}
+          .panel-heading
             %div
-              %p= t('faq.student.technical.answer.one')
-        .panel.panel-default
-          %a{href: "#student-technical-two", :data => {:toggle => "collapse", :parent => "#student-technical"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.technical.question.two')
-          .panel-collapse.collapse{:id=>"student-technical-two"}
+              %h4.panel-title= t('faq.student.technical.question.one')
+        .panel-collapse.collapse{:id=>"student-technical-one"}
+          %div
+            %p= t('faq.student.technical.answer.one')
+      .panel.panel-default
+        %a{href: "#student-technical-two", :data => {:toggle => "collapse", :parent => "#student-technical"}}
+          .panel-heading
             %div
-              %p= t('faq.student.technical.answer.two')
-        .panel.panel-default
-          %a{href: "#student-technical-three", :data => {:toggle => "collapse", :parent => "#student-technical"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.technical.question.three')
-          .panel-collapse.collapse{:id=>"student-technical-three"}
+              %h4.panel-title= t('faq.student.technical.question.two')
+        .panel-collapse.collapse{:id=>"student-technical-two"}
+          %div
+            %p= t('faq.student.technical.answer.two')
+      .panel.panel-default
+        %a{href: "#student-technical-three", :data => {:toggle => "collapse", :parent => "#student-technical"}}
+          .panel-heading
             %div
-              %p= t('faq.student.technical.answer.three')
-        .panel.panel-default
-          %a{href: "#student-technical-four", :data => {:toggle => "collapse", :parent => "#student-technical"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.student.technical.question.four')
-          .panel-collapse.collapse{:id=>"student-technical-four"}
+              %h4.panel-title= t('faq.student.technical.question.three')
+        .panel-collapse.collapse{:id=>"student-technical-three"}
+          %div
+            %p= t('faq.student.technical.answer.three')
+      .panel.panel-default
+        %a{href: "#student-technical-four", :data => {:toggle => "collapse", :parent => "#student-technical"}}
+          .panel-heading
             %div
-              %p= t('faq.student.technical.answer.four')
+              %h4.panel-title= t('faq.student.technical.question.four')
+        .panel-collapse.collapse{:id=>"student-technical-four"}
+          %div
+            %p= t('faq.student.technical.answer.four')
 
-    #teachers.user-type{class: ('active' if @target == 'teachers'), hidden: (true unless @target == 'teachers')}
-      .unav
-        %ul
-          %li
-            %a{class: ('active' if @section == 'generalites'),data: {toggle: '#teacher-generalites'}} Généralités
-          %li
-            %a{class: ('active' if @section == 'lessons'), data: {toggle: '#teacher-givelesson'}} Donner des cours
-          %li
-            %a{class: ('active' if @section == 'videoconference'), data: {toggle: '#teacher-videoconference'}} Vidéo-conférence
-          %li
-            %a{class: ('active' if @section == 'paiements'), data: {toggle: '#teacher-payments'}} Paiements
-          %li
-            %a{class: ('active' if @section == 'technical'), data: {toggle: '#teacher-technical'}} Problèmes techniques
-      .panel-group{:id => "teacher-generalites", hidden: (true unless @section == 'generalites')}
-        .panel.panel-default
-          %a{:href => "#teacher-generalites-one", :data => {:toggle => "collapse", :parent => "#teacher-generalites"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.gereralites.questions.one')
-          .panel-collapse.collapse{:id=>"teacher-generalites-one"}
+  #teachers.user-type{class: ('active' if @target == 'teachers'), hidden: (true unless @target == 'teachers')}
+    .unav
+      %ul
+        %li
+          %a{class: ('active' if @section == 'generalites'),data: {toggle: '#teacher-generalites'}} Généralités
+        %li
+          %a{class: ('active' if @section == 'lessons'), data: {toggle: '#teacher-givelesson'}} Donner des cours
+        %li
+          %a{class: ('active' if @section == 'videoconference'), data: {toggle: '#teacher-videoconference'}} Vidéo-conférence
+        %li
+          %a{class: ('active' if @section == 'paiements'), data: {toggle: '#teacher-payments'}} Paiements
+        %li
+          %a{class: ('active' if @section == 'technical'), data: {toggle: '#teacher-technical'}} Problèmes techniques
+    .panel-group{:id => "teacher-generalites", hidden: (true unless @section == 'generalites')}
+      .panel.panel-default
+        %a{:href => "#teacher-generalites-one", :data => {:toggle => "collapse", :parent => "#teacher-generalites"}}
+          .panel-heading
             %div
-              %p= t('faq.teacher.gereralites.answers.one')
-        .panel.panel-default
-          %a{:href => "#teacher-generalites-two", :data => {:toggle => "collapse", :parent => "#teacher-generalites"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.gereralites.questions.two')
-          .panel-collapse.collapse{:id=>"teacher-generalites-two"}
+              %h4.panel-title= t('faq.teacher.gereralites.questions.one')
+        .panel-collapse.collapse{:id=>"teacher-generalites-one"}
+          %div
+            %p= t('faq.teacher.gereralites.answers.one')
+      .panel.panel-default
+        %a{:href => "#teacher-generalites-two", :data => {:toggle => "collapse", :parent => "#teacher-generalites"}}
+          .panel-heading
             %div
-              %p= t('faq.teacher.gereralites.answers.two')
-      .panel-group{:id => "teacher-givelesson", hidden: (true unless @section == 'lessons')}
-        .panel.panel-default
-          %a{:href => "#teacher-givelesson-one", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.givelesson.questions.one')
-          .panel-collapse.collapse{:id=>"teacher-givelesson-one"}
+              %h4.panel-title= t('faq.teacher.gereralites.questions.two')
+        .panel-collapse.collapse{:id=>"teacher-generalites-two"}
+          %div
+            %p= t('faq.teacher.gereralites.answers.two')
+    .panel-group{:id => "teacher-givelesson", hidden: (true unless @section == 'lessons')}
+      .panel.panel-default
+        %a{:href => "#teacher-givelesson-one", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
+          .panel-heading
             %div
-              %p= t('faq.teacher.givelesson.answers.one')
-        .panel.panel-default
-          %a{:href => "#teacher-givelesson-two", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.givelesson.questions.two')
-          .panel-collapse.collapse{:id=>"teacher-givelesson-two"}
+              %h4.panel-title= t('faq.teacher.givelesson.questions.one')
+        .panel-collapse.collapse{:id=>"teacher-givelesson-one"}
+          %div
+            %p= t('faq.teacher.givelesson.answers.one')
+      .panel.panel-default
+        %a{:href => "#teacher-givelesson-two", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
+          .panel-heading
             %div
-              %p= t('faq.teacher.givelesson.answers.two')
-        .panel.panel-default
-          %a{:href => "#teacher-givelesson-three", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.givelesson.questions.three')
-          .panel-collapse.collapse{:id=>"teacher-givelesson-three"}
+              %h4.panel-title= t('faq.teacher.givelesson.questions.two')
+        .panel-collapse.collapse{:id=>"teacher-givelesson-two"}
+          %div
+            %p= t('faq.teacher.givelesson.answers.two')
+      .panel.panel-default
+        %a{:href => "#teacher-givelesson-three", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
+          .panel-heading
             %div
-              %p
-                = t('faq.teacher.givelesson.answers.three.part1')
-                %br= t('faq.teacher.givelesson.answers.three.part2')
-                %br= t('faq.teacher.givelesson.answers.three.part3')
-                %br= t('faq.teacher.givelesson.answers.three.part4')
-        .panel.panel-default
-          %a{:href => "#teacher-givelesson-four", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.givelesson.questions.four')
-          .panel-collapse.collapse{:id=>"teacher-givelesson-four"}
+              %h4.panel-title= t('faq.teacher.givelesson.questions.three')
+        .panel-collapse.collapse{:id=>"teacher-givelesson-three"}
+          %div
+            %p
+              = t('faq.teacher.givelesson.answers.three.part1')
+              %br= t('faq.teacher.givelesson.answers.three.part2')
+              %br= t('faq.teacher.givelesson.answers.three.part3')
+              %br= t('faq.teacher.givelesson.answers.three.part4')
+      .panel.panel-default
+        %a{:href => "#teacher-givelesson-four", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
+          .panel-heading
             %div
-              %p= t('faq.teacher.givelesson.answers.four')
-        .panel.panel-default
-          %a{:href => "#teacher-givelesson-five", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.givelesson.questions.five')
-          .panel-collapse.collapse{:id=>"teacher-givelesson-five"}
+              %h4.panel-title= t('faq.teacher.givelesson.questions.four')
+        .panel-collapse.collapse{:id=>"teacher-givelesson-four"}
+          %div
+            %p= t('faq.teacher.givelesson.answers.four')
+      .panel.panel-default
+        %a{:href => "#teacher-givelesson-five", :data => {:toggle => "collapse", :parent => "#teacher-givelesson"}}
+          .panel-heading
             %div
-              %p= t('faq.teacher.givelesson.answers.five')
+              %h4.panel-title= t('faq.teacher.givelesson.questions.five')
+        .panel-collapse.collapse{:id=>"teacher-givelesson-five"}
+          %div
+            %p= t('faq.teacher.givelesson.answers.five')
 
 
-      .panel-group{:id => "teacher-videoconference", hidden: (true unless @section == 'videoconference')}
-        .panel.panel-default
-          %a{:href => "#teacher-videoconference-one", :data => {:toggle => "collapse", :parent => "#teacher-videoconference"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.videoconference.questions.one')
-          .panel-collapse.collapse{:id=>"teacher-videoconference-one"}
+    .panel-group{:id => "teacher-videoconference", hidden: (true unless @section == 'videoconference')}
+      .panel.panel-default
+        %a{:href => "#teacher-videoconference-one", :data => {:toggle => "collapse", :parent => "#teacher-videoconference"}}
+          .panel-heading
             %div
-              %p= t('faq.teacher.videoconference.answers.one.part1')
-              = image_tag('faq/videoconference/interfaceClasse.png')
-              %p= t('faq.teacher.videoconference.answers.one.part2')
-        .panel.panel-default
-          %a{:href => "#teacher-videoconference-two", :data => {:toggle => "collapse", :parent => "#teacher-videoconference"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.videoconference.questions.two')
-          .panel-collapse.collapse{:id=>"teacher-videoconference-two"}
+              %h4.panel-title= t('faq.teacher.videoconference.questions.one')
+        .panel-collapse.collapse{:id=>"teacher-videoconference-one"}
+          %div
+            %p= t('faq.teacher.videoconference.answers.one.part1')
+            = image_tag('faq/videoconference/interfaceClasse.png')
+            %p= t('faq.teacher.videoconference.answers.one.part2')
+      .panel.panel-default
+        %a{:href => "#teacher-videoconference-two", :data => {:toggle => "collapse", :parent => "#teacher-videoconference"}}
+          .panel-heading
             %div
-              %p= t('faq.teacher.videoconference.answers.two')
+              %h4.panel-title= t('faq.teacher.videoconference.questions.two')
+        .panel-collapse.collapse{:id=>"teacher-videoconference-two"}
+          %div
+            %p= t('faq.teacher.videoconference.answers.two')
 
 
-      .panel-group{:id => "teacher-payments", hidden: (true unless @section == 'paiements')}
-        .panel.panel-default
-          %a{:href => "#teacher-payments-one", :data => {:toggle => "collapse", :parent => "#teacher-payments"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.payments.questions.one')
-          .panel-collapse.collapse{:id=>"teacher-payments-one"}
+    .panel-group{:id => "teacher-payments", hidden: (true unless @section == 'paiements')}
+      .panel.panel-default
+        %a{:href => "#teacher-payments-one", :data => {:toggle => "collapse", :parent => "#teacher-payments"}}
+          .panel-heading
             %div
-              %p= t('faq.teacher.payments.answers.one')
-        .panel.panel-default
-          %a{:href => "#teacher-payments-two", :data => {:toggle => "collapse", :parent => "#teacher-payments"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.payments.questions.two')
-          .panel-collapse.collapse{:id=>"teacher-payments-two"}
+              %h4.panel-title= t('faq.teacher.payments.questions.one')
+        .panel-collapse.collapse{:id=>"teacher-payments-one"}
+          %div
+            %p= t('faq.teacher.payments.answers.one')
+      .panel.panel-default
+        %a{:href => "#teacher-payments-two", :data => {:toggle => "collapse", :parent => "#teacher-payments"}}
+          .panel-heading
             %div
-              %p= t('faq.teacher.payments.answers.two')
+              %h4.panel-title= t('faq.teacher.payments.questions.two')
+        .panel-collapse.collapse{:id=>"teacher-payments-two"}
+          %div
+            %p= t('faq.teacher.payments.answers.two')
 
-      .panel-group{:id => "teacher-technical", hidden: (true unless @section == 'technical')}
-        .panel.panel-default
-          %a{:href => "#teacher-technical-one", :data => {:toggle => "collapse", :parent => "#teacher-technical"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.technical.questions.one')
-          .panel-collapse.collapse{:id=>"teacher-technical-one"}
+    .panel-group{:id => "teacher-technical", hidden: (true unless @section == 'technical')}
+      .panel.panel-default
+        %a{:href => "#teacher-technical-one", :data => {:toggle => "collapse", :parent => "#teacher-technical"}}
+          .panel-heading
             %div
-              %p= t('faq.teacher.technical.answers.one')
-        .panel.panel-default
-          %a{:href => "#teacher-technical-two", :data => {:toggle => "collapse", :parent => "#teacher-technical"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.technical.questions.two')
-          .panel-collapse.collapse{:id=>"teacher-technical-two"}
+              %h4.panel-title= t('faq.teacher.technical.questions.one')
+        .panel-collapse.collapse{:id=>"teacher-technical-one"}
+          %div
+            %p= t('faq.teacher.technical.answers.one')
+      .panel.panel-default
+        %a{:href => "#teacher-technical-two", :data => {:toggle => "collapse", :parent => "#teacher-technical"}}
+          .panel-heading
             %div
-              %p= t('faq.teacher.technical.answers.two')
-        .panel.panel-default
-          %a{:href => "#teacher-technical-three", :data => {:toggle => "collapse", :parent => "#teacher-technical"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.teacher.technical.questions.three')
-          .panel-collapse.collapse{:id=>"teacher-technical-three"}
+              %h4.panel-title= t('faq.teacher.technical.questions.two')
+        .panel-collapse.collapse{:id=>"teacher-technical-two"}
+          %div
+            %p= t('faq.teacher.technical.answers.two')
+      .panel.panel-default
+        %a{:href => "#teacher-technical-three", :data => {:toggle => "collapse", :parent => "#teacher-technical"}}
+          .panel-heading
             %div
-              %p= t('faq.teacher.technical.answers.three')
+              %h4.panel-title= t('faq.teacher.technical.questions.three')
+        .panel-collapse.collapse{:id=>"teacher-technical-three"}
+          %div
+            %p= t('faq.teacher.technical.answers.three')
 
-    #parents.user-type{class: ('active' if @target == 'parents'), hidden: (true unless @target == 'parents')}
-      .unav
-        %ul
-          %li
-            %a{class: ('active' if @section == 'generalites'), data: {toggle: '#parents-generalites'}} Généralités
-          %li
-            %a{class: ('active' if @section == 'teachers'), data: {toggle: '#parents-teachers'}} Les professeurs
-          %li
-            %a{class: ('active' if @section == 'lessons'), data: {toggle: '#parents-lessons'}} Les cours
-          %li
-            %a{class: ('active' if @section == 'bookings'), data: {toggle: '#parents-bookings'}} Les réservations
-          %li
-            %a{class: ('active' if @section == 'paiements'), data: {toggle: '#parents-payments'}} Paiements
-      .panel-group{:id => "parents-generalites", hidden: (true unless @section == 'generalites')}
-        .panel.panel-default
-          %a{:href => "#parents-generalites-one", :data => {:toggle => "collapse", :parent => "#parents-generalites"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.generalites.questions.one')
-          .panel-collapse.collapse{:id=>"parents-generalites-one"}
+  #parents.user-type{class: ('active' if @target == 'parents'), hidden: (true unless @target == 'parents')}
+    .unav
+      %ul
+        %li
+          %a{class: ('active' if @section == 'generalites'), data: {toggle: '#parents-generalites'}} Généralités
+        %li
+          %a{class: ('active' if @section == 'teachers'), data: {toggle: '#parents-teachers'}} Les professeurs
+        %li
+          %a{class: ('active' if @section == 'lessons'), data: {toggle: '#parents-lessons'}} Les cours
+        %li
+          %a{class: ('active' if @section == 'bookings'), data: {toggle: '#parents-bookings'}} Les réservations
+        %li
+          %a{class: ('active' if @section == 'paiements'), data: {toggle: '#parents-payments'}} Paiements
+    .panel-group{:id => "parents-generalites", hidden: (true unless @section == 'generalites')}
+      .panel.panel-default
+        %a{:href => "#parents-generalites-one", :data => {:toggle => "collapse", :parent => "#parents-generalites"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-generalites-two", :data => {:toggle => "collapse", :parent => "#parents-generalites"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.generalites.questions.two')
-          .panel-collapse.collapse{:id=>"parents-generalites-two"}
+              %h4.panel-title= t('faq.parents.generalites.questions.one')
+        .panel-collapse.collapse{:id=>"parents-generalites-one"}
+          %div
+            %p= t('faq.parents.generalites.answers.one')
+      .panel.panel-default
+        %a{:href => "#parents-generalites-two", :data => {:toggle => "collapse", :parent => "#parents-generalites"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-generalites-three", :data => {:toggle => "collapse", :parent => "#parents-generalites"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.generalites.questions.three')
-          .panel-collapse.collapse{:id=>"parents-generalites-three"}
+              %h4.panel-title= t('faq.parents.generalites.questions.two')
+        .panel-collapse.collapse{:id=>"parents-generalites-two"}
+          %div
+            %p= t('faq.parents.generalites.answers.two')
+      .panel.panel-default
+        %a{:href => "#parents-generalites-three", :data => {:toggle => "collapse", :parent => "#parents-generalites"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-generalites-four", :data => {:toggle => "collapse", :parent => "#parents-generalites"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.generalites.questions.four')
-          .panel-collapse.collapse{:id=>"parents-generalites-four"}
+              %h4.panel-title= t('faq.parents.generalites.questions.three')
+        .panel-collapse.collapse{:id=>"parents-generalites-three"}
+          %div
+            %p= t('faq.parents.generalites.answers.three')
+      .panel.panel-default
+        %a{:href => "#parents-generalites-four", :data => {:toggle => "collapse", :parent => "#parents-generalites"}}
+          .panel-heading
             %div
-              %p
-      .panel-group{:id => "parents-lessons",hidden: (true unless @section == 'lessons')}
-        .panel.panel-default
-          %a{:href => "#parents-lessons-one", :data => {:toggle => "collapse", :parent => "#parents-lessons"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.lessons.questions.one')
-          .panel-collapse.collapse{:id=>"parents-lessons-one"}
+              %h4.panel-title= t('faq.parents.generalites.questions.four')
+        .panel-collapse.collapse{:id=>"parents-generalites-four"}
+          %div
+            %p= t('faq.parents.generalites.answers.four')
+    .panel-group{:id => "parents-lessons",hidden: (true unless @section == 'lessons')}
+      .panel.panel-default
+        %a{:href => "#parents-lessons-one", :data => {:toggle => "collapse", :parent => "#parents-lessons"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-lessons-two", :data => {:toggle => "collapse", :parent => "#parents-lessons"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.lessons.questions.two')
-          .panel-collapse.collapse{:id=>"parents-lessons-two"}
+              %h4.panel-title= t('faq.parents.lessons.questions.one')
+        .panel-collapse.collapse{:id=>"parents-lessons-one"}
+          %div
+            %p= t('faq.parents.lessons.answers.one')
+      .panel.panel-default
+        %a{:href => "#parents-lessons-two", :data => {:toggle => "collapse", :parent => "#parents-lessons"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-lessons-three", :data => {:toggle => "collapse", :parent => "#parents-lessons"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.lessons.questions.three')
-          .panel-collapse.collapse{:id=>"parents-lessons-three"}
+              %h4.panel-title= t('faq.parents.lessons.questions.two')
+        .panel-collapse.collapse{:id=>"parents-lessons-two"}
+          %div
+            %p= t('faq.parents.lessons.answers.two')
+      .panel.panel-default
+        %a{:href => "#parents-lessons-three", :data => {:toggle => "collapse", :parent => "#parents-lessons"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-lessons-four", :data => {:toggle => "collapse", :parent => "#parents-lessons"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.lessons.questions.four')
-          .panel-collapse.collapse{:id=>"parents-lessons-four"}
+              %h4.panel-title= t('faq.parents.lessons.questions.three')
+        .panel-collapse.collapse{:id=>"parents-lessons-three"}
+          %div
+            %p= t('faq.parents.lessons.answers.three')
+      .panel.panel-default
+        %a{:href => "#parents-lessons-four", :data => {:toggle => "collapse", :parent => "#parents-lessons"}}
+          .panel-heading
             %div
-              %p
+              %h4.panel-title= t('faq.parents.lessons.questions.four')
+        .panel-collapse.collapse{:id=>"parents-lessons-four"}
+          %div
+            %p= t('faq.parents.lessons.answers.four')
 
-      .panel-group{:id => "parents-bookings",hidden: (true unless @section == 'bookings')}
-        .panel.panel-default
-          %a{:href => "#parents-bookings-one", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.bookings.questions.one')
-          .panel-collapse.collapse{:id=>"parents-bookings-one"}
+    .panel-group{:id => "parents-bookings",hidden: (true unless @section == 'bookings')}
+      .panel.panel-default
+        %a{:href => "#parents-bookings-one", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-bookings-two", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.bookings.questions.two')
-          .panel-collapse.collapse{:id=>"parents-bookings-two"}
+              %h4.panel-title= t('faq.parents.bookings.questions.one')
+        .panel-collapse.collapse{:id=>"parents-bookings-one"}
+          %div
+            %p= t('faq.parents.bookings.answers.one')
+      .panel.panel-default
+        %a{:href => "#parents-bookings-two", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-bookings-three", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.bookings.questions.three')
-          .panel-collapse.collapse{:id=>"parents-bookings-three"}
+              %h4.panel-title= t('faq.parents.bookings.questions.two')
+        .panel-collapse.collapse{:id=>"parents-bookings-two"}
+          %div
+            %p= t('faq.parents.bookings.answers.two')
+      .panel.panel-default
+        %a{:href => "#parents-bookings-three", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-bookings-four", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.bookings.questions.four')
-          .panel-collapse.collapse{:id=>"parents-bookings-four"}
+              %h4.panel-title= t('faq.parents.bookings.questions.three')
+        .panel-collapse.collapse{:id=>"parents-bookings-three"}
+          %div
+            %p= t('faq.parents.bookings.answers.three')
+      .panel.panel-default
+        %a{:href => "#parents-bookings-four", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-bookings-five", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.bookings.questions.five')
-          .panel-collapse.collapse{:id=>"parents-bookings-five"}
+              %h4.panel-title= t('faq.parents.bookings.questions.four')
+        .panel-collapse.collapse{:id=>"parents-bookings-four"}
+          %div
+            %p= t('faq.parents.bookings.answers.four')
+      .panel.panel-default
+        %a{:href => "#parents-bookings-five", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-bookings-six", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.bookings.questions.six')
-          .panel-collapse.collapse{:id=>"parents-bookings-six"}
+              %h4.panel-title= t('faq.parents.bookings.questions.five')
+        .panel-collapse.collapse{:id=>"parents-bookings-five"}
+          %div
+            %p= t('faq.parents.bookings.answers.five')
+      .panel.panel-default
+        %a{:href => "#parents-bookings-six", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-bookings-seven", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.bookings.questions.seven')
-          .panel-collapse.collapse{:id=>"parents-bookings-seven"}
+              %h4.panel-title= t('faq.parents.bookings.questions.six')
+        .panel-collapse.collapse{:id=>"parents-bookings-six"}
+          %div
+            %p= t('faq.parents.bookings.answers.six')
+      .panel.panel-default
+        %a{:href => "#parents-bookings-seven", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-bookings-eight", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.bookings.questions.eight')
-          .panel-collapse.collapse{:id=>"parents-bookings-eight"}
+              %h4.panel-title= t('faq.parents.bookings.questions.seven')
+        .panel-collapse.collapse{:id=>"parents-bookings-seven"}
+          %div
+            %p= t('faq.parents.bookings.answers.seven')
+      .panel.panel-default
+        %a{:href => "#parents-bookings-eight", :data => {:toggle => "collapse", :parent => "#parents-bookings"}}
+          .panel-heading
             %div
-              %p
+              %h4.panel-title= t('faq.parents.bookings.questions.eight')
+        .panel-collapse.collapse{:id=>"parents-bookings-eight"}
+          %div
+            %p= t('faq.parents.bookings.answers.eight')
 
-      .panel-group{:id => "parents-payments", hidden: (true unless @section == 'paiements')}
-        .panel.panel-default
-          %a{:href => "#parents-payments-one", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.payments.questions.one')
-          .panel-collapse.collapse{:id=>"parents-payments-one"}
+    .panel-group{:id => "parents-payments", hidden: (true unless @section == 'paiements')}
+      .panel.panel-default
+        %a{:href => "#parents-payments-one", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-payments-two", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.payments.questions.two')
-          .panel-collapse.collapse{:id=>"parents-payments-two"}
+              %h4.panel-title= t('faq.parents.payments.questions.one')
+        .panel-collapse.collapse{:id=>"parents-payments-one"}
+          %div
+            %p= t('faq.parents.payments.answers.one')
+      .panel.panel-default
+        %a{:href => "#parents-payments-two", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-payments-three", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.payments.questions.three')
-          .panel-collapse.collapse{:id=>"parents-payments-three"}
+              %h4.panel-title= t('faq.parents.payments.questions.two')
+        .panel-collapse.collapse{:id=>"parents-payments-two"}
+          %div
+            %p= t('faq.parents.payments.answers.two')
+      .panel.panel-default
+        %a{:href => "#parents-payments-three", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-payments-four", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.payments.questions.four')
-          .panel-collapse.collapse{:id=>"parents-payments-four"}
+              %h4.panel-title= t('faq.parents.payments.questions.three')
+        .panel-collapse.collapse{:id=>"parents-payments-three"}
+          %div
+            %p= t('faq.parents.payments.answers.three')
+      .panel.panel-default
+        %a{:href => "#parents-payments-four", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-payments-five", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.payments.questions.five')
-          .panel-collapse.collapse{:id=>"parents-payments-five"}
+              %h4.panel-title= t('faq.parents.payments.questions.four')
+        .panel-collapse.collapse{:id=>"parents-payments-four"}
+          %div
+            %p= t('faq.parents.payments.answers.four')
+      .panel.panel-default
+        %a{:href => "#parents-payments-five", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-payments-six", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.payments.questions.six')
-          .panel-collapse.collapse{:id=>"parents-payments-six"}
+              %h4.panel-title= t('faq.parents.payments.questions.five')
+        .panel-collapse.collapse{:id=>"parents-payments-five"}
+          %div
+            %p= t('faq.parents.payments.answers.five')
+      .panel.panel-default
+        %a{:href => "#parents-payments-six", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-payments-seven", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.payments.questions.seven')
-          .panel-collapse.collapse{:id=>"parents-payments-seven"}
+              %h4.panel-title= t('faq.parents.payments.questions.six')
+        .panel-collapse.collapse{:id=>"parents-payments-six"}
+          %div
+            %p= t('faq.parents.payments.answers.six')
+      .panel.panel-default
+        %a{:href => "#parents-payments-seven", :data => {:toggle => "collapse", :parent => "#parents-payments"}}
+          .panel-heading
             %div
-              %p
+              %h4.panel-title= t('faq.parents.payments.questions.seven')
+        .panel-collapse.collapse{:id=>"parents-payments-seven"}
+          %div
+            %p= t('faq.parents.payments.answers.seven')
 
-      .panel-group{:id => "parents-teachers", hidden: (true unless @section == 'teachers')}
-        .panel.panel-default
-          %a{:href => "#parents-teachers-one", :data => {:toggle => "collapse", :parent => "#parents-teachers"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.professeurs.questions.one')
-          .panel-collapse.collapse{:id=>"parents-teachers-one"}
+    .panel-group{:id => "parents-teachers", hidden: (true unless @section == 'teachers')}
+      .panel.panel-default
+        %a{:href => "#parents-teachers-one", :data => {:toggle => "collapse", :parent => "#parents-teachers"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-teachers-two", :data => {:toggle => "collapse", :parent => "#parents-teachers"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.professeurs.questions.two')
-          .panel-collapse.collapse{:id=>"parents-teachers-two"}
+              %h4.panel-title= t('faq.parents.professeurs.questions.one')
+        .panel-collapse.collapse{:id=>"parents-teachers-one"}
+          %div
+            %p= t('faq.parents.professeurs.answers.one')
+      .panel.panel-default
+        %a{:href => "#parents-teachers-two", :data => {:toggle => "collapse", :parent => "#parents-teachers"}}
+          .panel-heading
             %div
-              %p
-        .panel.panel-default
-          %a{:href => "#parents-teachers-three", :data => {:toggle => "collapse", :parent => "#parents-teachers"}}
-            .panel-heading
-              %div
-                %h4.panel-title= t('faq.parents.professeurs.questions.three')
-          .panel-collapse.collapse{:id=>"parents-teachers-three"}
+              %h4.panel-title= t('faq.parents.professeurs.questions.two')
+        .panel-collapse.collapse{:id=>"parents-teachers-two"}
+          %div
+            %p= t('faq.parents.professeurs.answers.two')
+      .panel.panel-default
+        %a{:href => "#parents-teachers-three", :data => {:toggle => "collapse", :parent => "#parents-teachers"}}
+          .panel-heading
             %div
-              %p
+              %h4.panel-title= t('faq.parents.professeurs.questions.three')
+        .panel-collapse.collapse{:id=>"parents-teachers-three"}
+          %div
+            %p= t('faq.parents.professeurs.answers.three')
 
 
 
 
 
-  :javascript
-    $('ul#user-type-toggle li a').on('click', function(){
-      var origin = $(this);
-      toggleUserType($(this));
-    });
+:javascript
+  $('ul#user-type-toggle li a').on('click', function(){
+    var origin = $(this);
+    toggleUserType($(this));
+  });
 
-    $('.unav ul li a').on('click', function(){
-      var origin = $(this);
-      toggleQuestionsSection(origin);
-    });
+  $('.unav ul li a').on('click', function(){
+    var origin = $(this);
+    toggleQuestionsSection(origin);
+  });
 
-    function toggleUserType(origin) {
-      $('ul#user-type-toggle li a').removeClass('active');
-      origin.addClass('active');
-      $('.user-type').hide();
-      $(origin.attr('data-target')).fadeIn(350);
-    }
+  function toggleUserType(origin) {
+    $('ul#user-type-toggle li a').removeClass('active');
+    origin.addClass('active');
+    $('.user-type').hide();
+    $(origin.attr('data-target')).fadeIn(350);
+  }
 
-    function toggleQuestionsSection(origin){
-      $('.unav ul li a').removeClass('active');
-      origin.addClass('active');
-      origin.closest('.user-type').find('.panel-group').hide();
-      $(origin.attr('data-toggle')).fadeIn(350);
-    }
+  function toggleQuestionsSection(origin){
+    $('.unav ul li a').removeClass('active');
+    origin.addClass('active');
+    origin.closest('.user-type').find('.panel-group').hide();
+    $(origin.attr('data-toggle')).fadeIn(350);
+   }

@@ -60,10 +60,15 @@ p, span, a, ul, li{
     }
   }
 }
+#flash-messages.pin-top{
+  position: absolute;
+  top:50px!important;
+}
 #flash-messages{
-  position: fixed;
+  position: absolute;
   width: 100%;
   z-index: 100;
+  top:50px;
   .alert{
     border-radius:0px;
     border:0px;
@@ -120,23 +125,23 @@ p, span, a, ul, li{
     margin-top: 400px;
   }
 }
-.btn.btn-pink, .btn.btn-pink:hover{
+.btn.btn-pink, .btn.btn-pink:hover,.btn.btn-pink:focus {
   background: $color_qwerteach_pink;
   color:white;
 }
-.btn.btn-orange, .btn.btn-orange:hover{
+.btn.btn-orange, .btn.btn-orange:hover, .btn.btn-orange:focus{
   background: $color_qwerteach_orange;
   color:white;
 }
-.btn.btn-purple, .btn.btn-purple:hover{
+.btn.btn-purple, .btn.btn-purple:hover, .btn.btn-purple:focus{
   background: $color_qwerteach_purple;
   color:white;
 }
-.btn.btn-mauve, .btn.btn-mauve:hover{
+.btn.btn-mauve, .btn.btn-mauve:hover, .btn.btn-mauve:focus{
   background: $color_qwerteach_mauve;
   color:white;
 }
-.btn.btn-grey, .btn.btn-grey:hover{
+.btn.btn-grey, .btn.btn-grey:hover, .btn.btn-grey:focus{
   background: $text_light_grey;
   color: $dark_grey;
 }
