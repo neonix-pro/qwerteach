@@ -9,6 +9,15 @@ fr:
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
         remember_me: Se souvenir de moi
+        firstname: 'Prénom'
+        lastname: 'Nom de famille'
+        birthdate: 'Date de naissance'
+        phone_number: 'Numéro de téléphone'
+        gender: 'Genre'
+      user/gender:
+        male: 'Homme'
+        female: 'Femme'
+        not telling: 'Je ne souhaite pas le renseigner'
     models:
       user: Utilisateur
   devise:

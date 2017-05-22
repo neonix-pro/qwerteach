@@ -1,0 +1,20 @@
+%h1 Vous avez effectué un paiement sur Qwerteach.com. Nous vous remercions pour votre confiance.
+
+%p Détails du paiement:
+Montant: #{@amount} EUR
+%br
+Moyen de paiement:
+- if @payment_method == 'creditcard'
+  Carte de crédit #{@card.try(:alias)}
+- elsif @payment_method == 'bcmc'
+  Direct banking / Bancontact / Mistercash
+- elsif @payment_method == 'wallet'
+  Portefeuille virtuel
+- else
+  Autre
+%br
+
+Référence de transaction: #{@mangopay_payin_id}
+%br
+
+Raison du paiement: Chargement du portefeuille virtuel

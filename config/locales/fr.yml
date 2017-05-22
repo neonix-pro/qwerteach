@@ -422,3 +422,5 @@ fr:
   A cross-origin HTTP request failed: La requête cross-origin a échoué
   Token processing error: Erreur de Token
   CardRegistration should return a valid JSON response: Réponse invalide, la requête a échoué
+  The transaction has been cancelled by the user: Opération annulée par l'utilisateur
+

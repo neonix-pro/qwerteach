@@ -88,7 +88,17 @@ class NotificationsMailer < ApplicationMailer
     @student = @lesson.student
     card_id = @payment.transactions.find{|tr| tr['payment_type'] == 'CARD'}['card_id'] rescue nil
     @card = @student.mangopay.cards.find{|c| c.id == card_id} if card_id
-    mail(to: @student.email, subject: 'Qwerteach')
+    mail(to: @student.email, subject: 'Votre paiement sur Qwerteach')
+  end
+
+  def send_load_wallet_details_to_user(user, transaction)
+    transaction = Hashie::Mash.new(transaction)
+    @amount = transaction['credited_funds'].amount / 100
+    @payment_method = transaction.payment_method
+    @mangopay_payin_id = transaction.id
+    card_id = @payment.transactions.find{|tr| tr['payment_type'] == 'CARD'}['card_id'] rescue nil
+    @card = @student.mangopay.cards.find{|c| c.id == card_id} if card_id
+    mail(to: user.email, subject: 'Votre paiement sur Qwerteach')
   end
 
 

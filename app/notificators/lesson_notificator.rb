@@ -66,7 +66,7 @@ class LessonNotificator
 
   def notify_teacher_about_student_pay_lesson_after
     NotificationsMailer.notify_teacher_about_student_pay_lesson_after(lesson).deliver_later
-    notify_teacher("Le payement de votre cours avec #{student.name} a été effectué.  Vous trouverez le solde sur votre #{link_to 'portefeuille virtuel', index_wallet_path}.")
+    notify_teacher("Le payement de votre cours avec #{student.name} a été effectué. Vous trouverez le solde sur votre #{link_to 'portefeuille virtuel', index_wallet_path}.")
   end
 
   def notify_teacher_about_lesson_payment_unlocked
