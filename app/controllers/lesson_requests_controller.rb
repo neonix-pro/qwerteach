@@ -1,12 +1,23 @@
 class LessonRequestsController < ApplicationController
+  class BookWithSelf < StandardError; end
+
   before_filter :redirect_if_not_logged_in, only: :new
   before_filter :authenticate_user!, except: :new
   before_action :find_users
   before_action :check_mangopay_account, only: :payment
   before_action :set_lesson, expect: [:topics, :levels, :calculate]
   before_filter :user_time_zone, :if => :current_user
+  before_action :check_users_different, only: [:new, :create]
+
+  rescue_from BookWithSelf, with: :dont_book_with_self
 
   after_filter { flash.discard if request.xhr? }
+
+  def dont_book_with_self(exception)
+    flash[:notice]= "Vous ne pouvez pas réserver de cours avec vous-même!"
+    flash_to_headers
+    redirect_to dashboard_path
+  end
 
   def new
     @free_lessons = @user.free_lessons_with(@teacher)
@@ -139,6 +150,7 @@ class LessonRequestsController < ApplicationController
   end
 
   def request_params
+    params[:request][:time_start] = DateTime.strptime(params[:time_start], '%A %d %B [à] %H:%M')
     params.require(:request).permit(:student_id, :level_id, :topic_id, :time_start, :hours, :minutes, :free_lesson, 'start_at(4i)').merge({
       :student_id => current_user.id,
       :teacher_id => @teacher.id
@@ -176,6 +188,10 @@ class LessonRequestsController < ApplicationController
       params[:request][:hours]=0
       params[:request][:minutes]=30
     end
+  end
+
+  def check_users_different
+    raise BookWithSelf unless !current_user || User.find(params[:user_id]) != current_user
   end
 
 end

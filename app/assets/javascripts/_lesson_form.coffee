@@ -30,7 +30,7 @@ class window.LessonForm
   initDatePicker: ->
     $('#time_start_picker').datetimepicker
       locale: moment.locale(),
-      format: "dddd DD MMMM [à] HH:mm",
+      format: "[le] DD MMMM [à] HH:mm",
       minDate: @getMinDate()
       allowInputToggle: true
       sideBySide: true

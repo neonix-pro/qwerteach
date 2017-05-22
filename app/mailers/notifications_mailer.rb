@@ -101,5 +101,17 @@ class NotificationsMailer < ApplicationMailer
     mail(to: user.email, subject: 'Votre paiement sur Qwerteach')
   end
 
+  def notify_student_about_request_expired(lesson_id)
+    @lesson_request = Lesson.find(lesson_id)
+    @teacher = @lesson_request.teacher
+    mail(to: @lesson_request.student.email, subject: 'Votre demande de cours sur Qwerteach a expiré')
+  end
+
+  def notify_teacher_about_request_expired(lesson_id)
+    @lesson_request = Lesson.find(lesson_id)
+    @student = @lesson_request.student
+    mail(to: @lesson_request.teacher.email, subject: 'Votre proposition de cours sur Qwerteach a expiré')
+  end
+
 
 end

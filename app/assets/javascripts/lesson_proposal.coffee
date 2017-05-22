@@ -35,7 +35,6 @@ class window.LessonProposal extends window.LessonForm
       $('#warning').hide()
 
   showHideWarning: ->
-    console.log($('#pay_afterwards').val())
     if $('#pay_afterwards').checked
       $('#warning').show()
     else

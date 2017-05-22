@@ -1,7 +1,6 @@
 = form_for @lesson, url: lesson_path(@lesson), method: :put do |f|
   = render 'lessons/editLesson', :locals => {:f => f}
 :javascript
-  console.log(new Date(#{@lesson.time_start.to_f * 1000}));
   $(document).on('turbolinks:load',  function () {
     $('#datetimepicker2').data("DateTimePicker").date(new Date(#{@lesson.time_start.to_f * 1000}));
   });

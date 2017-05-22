@@ -112,7 +112,6 @@ var ready = function () {
 
     $('#search-topics .topics-list').on('scroll', function(){
         if($(this).scrollTop()==0){
-            console.log('hidetop');
             $(this).siblings('.scroller-up').css({opacity:0.3});
         }
         else{

@@ -31,6 +31,9 @@
           - if current_user
             %a.btn.btn-green.btn-sm.btn-qw{href: '#contact-modal', data:{toggle: 'modal'}}
               %i.fa.fa-envelope
+          - else
+            %a.btn.btn-green.btn-sm.btn-qw{href: new_user_lesson_request_path(@user)}
+              %i.fa.fa-envelope
           = link_to 'Réserver', new_user_lesson_request_path(@user), class: 'btn btn-green btn-sm btn-qw'
     - else
       #cta.text-center

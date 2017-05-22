@@ -1,4 +1,5 @@
 class LessonsController < ApplicationController
+  load_and_authorize_resource
   before_action :authenticate_user!
   before_action :find_lesson_infos, except: [:new, :index, :calendar_index, :index_pagination]
   before_filter :user_time_zone, :if => :current_user
