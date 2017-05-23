@@ -63,7 +63,6 @@ class MangopayService
         returncode = 4
       end
     rescue MangoPay::ResponseError => ex
-      Rails.logger.debug(ex)
       returncode = 1
     end
     return {returncode: returncode, transaction_bonus: transaction_bonus, transaction_normal: transaction_normal}
@@ -73,7 +72,6 @@ class MangopayService
     begin
       @beneficiary_wallet = wallets(@user).first
       bancontact_payin = mangopay_payin_card_web(@user.mango_id, params[:amount] * 100, params[:fees], @beneficiary_wallet['Id'], params[:return_url])
-      Rails.logger.debug(bancontact_payin)
       if bancontact_payin.nil?
         returncode = 1
       else

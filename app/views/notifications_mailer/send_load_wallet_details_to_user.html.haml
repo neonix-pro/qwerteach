@@ -4,11 +4,11 @@
 Montant: #{@amount} EUR
 %br
 Moyen de paiement:
-- if @payment_method == 'creditcard'
+- if @payment_method == 'CB_VISA_MASTERCARD'
   Carte de crédit #{@card.try(:alias)}
-- elsif @payment_method == 'bcmc'
+- elsif @payment_method == 'BCMC'
   Direct banking / Bancontact / Mistercash
-- elsif @payment_method == 'wallet'
+- elsif @payment_method == 'TRANSFER'
   Portefeuille virtuel
 - else
   Autre

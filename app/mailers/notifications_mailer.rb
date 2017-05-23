@@ -94,7 +94,7 @@ class NotificationsMailer < ApplicationMailer
   def send_load_wallet_details_to_user(user, transaction)
     transaction = Hashie::Mash.new(transaction)
     @amount = transaction['credited_funds'].amount / 100
-    @payment_method = transaction.payment_method
+    @payment_method = transaction.type
     @mangopay_payin_id = transaction.id
     card_id = @payment.transactions.find{|tr| tr['payment_type'] == 'CARD'}['card_id'] rescue nil
     @card = @student.mangopay.cards.find{|c| c.id == card_id} if card_id

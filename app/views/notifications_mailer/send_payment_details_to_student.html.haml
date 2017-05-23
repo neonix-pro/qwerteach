@@ -14,7 +14,7 @@ Moyen de paiement:
   Autre
 %br
 
-Référence de transaction: #{@payment.mangopay_payin_id}
+Référence de transaction: #{@payment.mangopay_payin_id || @payment.transfer_eleve_id}
 %br
 
 Raison du paiement:
