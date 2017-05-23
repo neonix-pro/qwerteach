@@ -25,7 +25,7 @@ function animateAdvertFields() {
         });
         var choice = $('.other_name');
         choice.empty();
-        if ($('.topic_choice option:selected').text() == "Other") {
+        if ($('.topic_choice option:selected').text() == "Autre") {
             var l = '<label for="other_name">Autre matière</label>';
             var f = '<input type="text" name="offer[other_name]" id="offer[other_name]" class="form-control" required="required"/>';
             choice.append(l + f);

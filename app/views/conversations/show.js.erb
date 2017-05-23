@@ -10,7 +10,7 @@ $('#compose-message').toggle('slow');
 $('.conversation-preview.active').removeClass('active');
 $('<%= "#conversation_#{@conversation.id}"%>').addClass('active');
 
-var chatbox = $("#chatbox_"+<%= @conversation.id %>+" .conversation-content");
+var chatbox = $(<%= "#chatbox_#{@conversation.id} .conversation-content" %>);
 chatbox.scrollTop(chatbox[0].scrollHeight);
 
 $('<%= "#chatbox_#{@conversation.id} .loader" %>').hide();

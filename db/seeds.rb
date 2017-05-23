@@ -67,11 +67,11 @@ Topic.create!([
   {title: "programmation", topic_group_id:6},# 24
   {title: "reseaux", topic_group_id:6},# 25
   {title: "base de donnees", topic_group_id:6}, # 26
-  {title: "Other", topic_group_id:nil},
-  {title: "Other", topic_group_id:1},
-  {title: "Other", topic_group_id:2},
-  {title: "Other", topic_group_id:3},
-  {title: "Other", topic_group_id:4},
-  {title: "Other", topic_group_id:5},
-  {title: "Other", topic_group_id:6}
+  {title: "Autre", topic_group_id:nil},
+  {title: "Autre", topic_group_id:1},
+  {title: "Autre", topic_group_id:2},
+  {title: "Autre", topic_group_id:3},
+  {title: "Autre", topic_group_id:4},
+  {title: "Autre", topic_group_id:5},
+  {title: "Autre", topic_group_id:6}
 ])

@@ -12,7 +12,7 @@
       %strong
         = model_class.human_attribute_name(:topic)
         \:
-    - if (@offer.topic.title=="Other")
+    - if (@offer.topic.title=="Autre")
       %dd= @offer.other_name
     - else
       %dd
@@ -21,15 +21,11 @@
     - prices.each { |p|
     %dd
       = p.level.fr
-      \: #{p.price}
-    - }
+      \: #{p.price}  }
 .form-actions
-  = link_to t('.back', :default => t("helpers.links.back")), |
-    offers_path, :class => 'btn'                            |
-  = link_to t('.edit', :default => t("helpers.links.edit")), |
-    edit_offer_path(@offer), :class => 'btn'               |
-  = link_to t('.destroy', :default => t("helpers.links.destroy")),                                  |
-    offer_path(@offer),                                                                           |
+  = link_to t('.back', :default => t("helpers.links.back")), offers_path, :class => 'btn'
+  = link_to t('.edit', :default => t("helpers.links.edit")), edit_offer_path(@offer), :class => 'btn'
+  = link_to t('.destroy', :default => t("helpers.links.destroy")), offer_path(@offer),                                                                           |
     :method => 'delete',                                                                            |
     :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), |
     :class => 'btn btn-danger'                                                                      |

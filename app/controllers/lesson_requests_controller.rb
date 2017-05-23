@@ -150,7 +150,6 @@ class LessonRequestsController < ApplicationController
   end
 
   def request_params
-    params[:request][:time_start] = DateTime.strptime(params[:time_start], '%A %d %B [à] %H:%M')
     params.require(:request).permit(:student_id, :level_id, :topic_id, :time_start, :hours, :minutes, :free_lesson, 'start_at(4i)').merge({
       :student_id => current_user.id,
       :teacher_id => @teacher.id
