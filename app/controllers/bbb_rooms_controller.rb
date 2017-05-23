@@ -4,7 +4,12 @@ class BbbRoomsController < Bigbluebutton::RoomsController
   after_action :register_meeting_participation, only:[:join_demo, :join]
 
   def join
-    super
+    if @room.lesson.nil? || @room.lesson == current_user.current_lesson
+      super
+    else
+      flash[:danger]= "Vous ne pouvez pas rejoindre cette classe."
+      redirect_to dashboard_path
+    end
   end
 
   def demo_room
