@@ -24,7 +24,7 @@ class PayLesson < ActiveInteraction::Base
       respond_to do |format|
         format.js {render 'finish', :layout => false}
         format.json {render :json => {:message => "finish"}}
-        format.html {redirect_to lessons_path}
+        format.html {redirect_to lessons_path+'#pending'}
       end
     else
       controller.instnce_variable_set :@card_registration, Mango::CreateCardRegistration.run(user: user).result

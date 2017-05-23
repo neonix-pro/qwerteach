@@ -1,5 +1,8 @@
 .row.history_lesson{class: ('inactive' unless lesson.active?)}
   .col-xs-2
+    - if lesson.is_teacher?(current_user)
+      .pull-left
+        %i.fa.fa-graduation-cap{title: 'Lors de cours vous étiez prof'}
     = link_to user_path(lesson.other(current_user)) do
       = image_tag lesson.other(current_user).avatar(:small)
   .col-xs-10
