@@ -3,7 +3,7 @@ class ExpireBookings
 
   def self.perform(*args)
     #fetch expiring bookings
-    @lessons = Lesson.pending.past
+    @lessons = Lesson.pending.past + Lesson.pending.occuring
     @lessons.each do |l|
       previous_status = l.status
       l.status = :expired

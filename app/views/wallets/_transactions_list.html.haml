@@ -5,7 +5,9 @@
       %i.fa{class: transaction_icon(t)}
     .col-xs-10
       .pull-left
-        - if p.nil?
+        - if t.debited_wallet_id == @user.wallets.third.id
+          Remboursement prépayement cours
+        - elsif p.nil?
           Rechargement du portefeuille
         - elsif !p.lesson.nil?
           Réservation du cours de #{p.lesson.topic.title} avec #{p.lesson.teacher.full_name}

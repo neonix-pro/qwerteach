@@ -6,7 +6,8 @@
   <% @recordings.each do |recording| %>
     <li><hr /></li>
     <li>
-      <b>Cours: <%= BbbRoom.find(recording.room_id).lesson.id unless recording.room.nil? %></b>
+      <% l = BbbRoom.find(recording.room_id).lesson unless recording.room.nil? %>
+      <b>Cours: <%= l.id unless l.nil? %></b>
       <div class="field"><b><%= BigbluebuttonRecording.human_attribute_name(:id) %>:</b> <%= recording.id %></div>
       <div class="field"><b><%= BigbluebuttonRecording.human_attribute_name(:recordid) %>:</b> <%= recording.recordid %></div>
       <div class="field"><b><%= BigbluebuttonRecording.human_attribute_name(:name) %>:</b> <%= recording.name %></div>
