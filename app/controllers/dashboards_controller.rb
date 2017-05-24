@@ -3,7 +3,7 @@ class DashboardsController < ApplicationController
 
   def index
     @user = current_user
-    @upcoming_lessons = @user.planned_lessons
+    @upcoming_lessons = Lesson.created.involving(@user).first(4)
 
     unless(@user.mango_id.nil?)
       @wallets = {normal: @user.wallets.first, bonus: @user.wallets.second, transfer: @user.wallets.third}
