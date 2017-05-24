@@ -13,5 +13,7 @@ class DashboardsController < ApplicationController
     @featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)
     @featured_teachers = Teacher.all.order(score: :desc).limit(4)
     @current_lesson = @user.current_lesson
+
+    @to_unlock_lessons = @user.lessons_received.to_unlock
   end
 end

@@ -65,10 +65,11 @@
                     %dt Référence:
                     %dd ##{payment.id}
                 .card-action
-                  .payment-action.text-green
+                  .payment-action
                     - if @lesson.past? && payment.locked?
-                      .pull-left= link_to 'Valider', lesson_pay_teacher_path(@lesson), class: 'btn btn-green btn-qw'
-                      = link_to lesson_dispute_path(@lesson) do
+                      %h4 Comment s'est passé le cours?
+                      .pull-left= link_to 'Très bien', lesson_pay_teacher_path(@lesson), method: :post, class: 'btn btn-green btn-qw'
+                      = link_to lesson_dispute_path(@lesson), class: 'text-green' do
                         %i.fa.fa-warning
                         Signaler un problème
             -if @lesson.payments.empty? && @lesson.pay_afterwards?

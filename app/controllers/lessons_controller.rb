@@ -164,7 +164,13 @@ class LessonsController < ApplicationController
     if pay_teacher.valid?
       flash[:success] = 'Merci pour votre feedback! Le professeur a été payé.'
       respond_to do |format|
-        format.html {redirect_to lessons_path}
+        format.html {
+          if @lesson.review_needed?(current_user)
+            redirect_to new_user_review_path(@lesson.teacher)
+          else
+            redirect_to lessons_path
+          end
+        }
         format.json {render :json => {:success => "true", :message => "Merci pour votre feedback! Le professeur a été payé."}}
       end
     else

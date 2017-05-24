@@ -8,6 +8,12 @@
           = render partial: 'cards_postuling_teacher'
       - else
         = render partial: 'cards_student'
+  - unless @to_unlock_lessons.empty?
+    .row
+      #cta-lessons
+        - @to_unlock_lessons.each do |l|
+          .col-xs-12
+            = render partial: 'dashboards/cards/to_unlock', locals: {lesson: l}
   %hr
 -if !@user.is_a?(Teacher) && @user.lessons_received.empty?
   .container-fluid

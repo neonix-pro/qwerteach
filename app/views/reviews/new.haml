@@ -1,0 +1,35 @@
+.container-fluid
+  .row#profile-header
+    .col-sm-2.col-xs-4
+      .profilepicture
+        = image_tag(@user.avatar.url(:medium))
+    .col-sm-8.col-xs-4
+      .profile-infos
+        - if @user.is_a?(Teacher)
+          #rating
+            = render partial: "shared/star_rating", locals: {note: @user.avg_reviews}
+            %span.number-of-reviews
+              #{@user.reviews_received.count}
+              %i.fa.fa-user
+        %h2.user-name
+          Evaluez votre prof!
+          %br
+          %small
+            = "#{@user.age} ans - " unless @user.birthdate.nil?
+            #{@user.occupation}
+            = "- #{@user.level_max}" unless @user.level_max.nil?
+        - if @user.is_a?(Teacher)
+          #topics
+            - @user.offers.each do |o|
+              = image_tag(o.topic.pictotype(:small), class: 'offer-picto')
+    .col-sm-2.col-xs-4
+      .booking-infos
+        #pricing.text-center
+        #cta.text-center
+.container
+  #header-anchor
+  .row
+    .col-md-8.col-md-offset-2
+      %br
+      %h2 Qu'avez-vous pensé de vos cours avec #{@user.firstname} #{@user.lastname} ?
+      = render partial: 'form'
