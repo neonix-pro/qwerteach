@@ -1,0 +1,14 @@
+.card.card-search
+  .card-content
+    .row
+      .col-xs-2.col-sm-1.text-center
+        .icon-user-avatar
+          = image_tag lesson.other(current_user).avatar(:small), class: 'img-circle icon-user-avatar'
+      .col-xs-6.col-sm-8.col-md-9
+        .card-title
+          Laissez une évaluation à #{link_to lesson.teacher.name, user_path(lesson.teacher)} !
+        %p
+          Qu'avez-vous pensé de vos cours avec ce professeur?
+      .col-xs-4.col-sm-3.col-md-2
+        = link_to 'Evaluer', new_user_review_path(lesson.teacher), class: 'btn btn-green btn-qw',remote: true
+        %br
