@@ -40,8 +40,10 @@ module Admin
         @conversation_admin = Mailboxer::Conversation.new()
       end
       @messages_admin = @conversation_admin.messages.order(id: :desc)
+      @conversation = Conversation.participant(current_user).where('mailboxer_conversations.id in (?)', Conversation.participant(@user).collect(&:id))
       super
     end
+
     def destroy
       # suspends the user from signing in
       if requested_resource.block
