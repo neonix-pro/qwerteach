@@ -8,6 +8,7 @@ module Admin
   class ApplicationController < Administrate::ApplicationController
     before_filter :authenticate_admin
     before_filter :default_params
+    before_action :statistics
 
     def default_params
       params[:order] ||= "id"
@@ -24,6 +25,11 @@ module Admin
       end
     end
 
+    def statistics
+      @number_of_disputes = Payment.where(status: 4).count
+      @number_of_postuling_teachers = Teacher.where(active: true, postulance_accepted:false).count
+      @number_of_teachers = Teacher.where(active: true, postulance_accepted:true).count
+    end
     # Override this value to specify the number of elements to display at a time
     # on index pages. Defaults to 20.
     # def records_per_page
