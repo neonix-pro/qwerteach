@@ -243,7 +243,7 @@ class Lesson < ActiveRecord::Base
         :allDay => false,
         :user_name => self.teacher.name,
         :color => "#22de80",
-        :url => 'lessons/'+self.id.to_s
+        :url => '/lessons/'+self.id.to_s
     })
   end
 
