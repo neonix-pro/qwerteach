@@ -3,6 +3,8 @@ class LessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_lesson_infos, except: [:new, :index, :calendar_index, :index_pagination]
   before_filter :user_time_zone, :if => :current_user
+  #needs to check that everything went OK before sending mail!
+  #after_action :email_user, only: [:update, :accept, :refuse, :cancel, :dispute, :pay_teacher]
 
   def index
     @user = current_user
@@ -87,6 +89,7 @@ class LessonsController < ApplicationController
     if @lesson.is_student?(current_user) and !@lesson.paid? and !@lesson.prepaid? and !@lesson.pay_afterwards
       redirect_to new_lesson_payment_path(@lesson) and return
     end
+
     accepting = AcceptLesson.run(lesson: @lesson, user: current_user)
     if accepting.valid?
       respond_to do |format|
