@@ -6,7 +6,12 @@
     .col-xs-10
       .pull-left
         - if t.debited_wallet_id == @user.wallets.third.id
-          Remboursement prépayement cours
+          - if t.credited_wallet_id == @user.wallets.first.id
+            Remboursement prépayement cours
+          - elsif t.credited_wallet_id == @user.wallets.second.id
+            Remboursement prépayement cours
+          - elsif !p.nil?
+            Paiement du cours transféré au professeur #{p.lesson.teacher.full_name}
         - elsif p.nil?
           Rechargement du portefeuille
         - elsif !p.lesson.nil?
