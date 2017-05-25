@@ -92,7 +92,7 @@
         .panel-collapse.collapse{:id=>"student-videoconference-two"}
           %div
             %p= t('faq.student.videoconference.answer.two')
-    .panel-group{id: "student-payments", hidden: true}
+    .panel-group{id: "student-payments", hidden: (true unless @section == 'paiements')}
       .panel.panel-default
         %a{href: "#student-payments-one", :data => {:toggle => "collapse", :parent => "#student-payments"}}
           .panel-heading
@@ -558,4 +558,4 @@
     origin.addClass('active');
     origin.closest('.user-type').find('.panel-group').hide();
     $(origin.attr('data-toggle')).fadeIn(350);
-   }
+  }
