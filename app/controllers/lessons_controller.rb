@@ -21,10 +21,13 @@ class LessonsController < ApplicationController
     case params[:lesson_type]
       when 'planned'
         @planned_lessons = Lesson.involving(@user).created.future.page(params[:page]).per(6)
+        render :json => {:upcoming_lessons => @planned_lessons}
       when 'pending'
         @pending_lessons = Lesson.involving(@user).pending.future.page(params[:page]).per(6)
+        render :json => {:to_do_list => @pending_lessons}
       when 'history'
         @history_lessons = Lesson.involving(@user).page(params[:page]).per(12)
+        render :json => {:past_lessons => @history_lessons}
     end
   end
 

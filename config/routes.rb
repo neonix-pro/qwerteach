@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     get 'user/mangopay/transactions_index' => 'wallets#transactions_index'
     
     get 'lessons' => 'lessons#index'
-    get 'get_history_lesson_infos/:lesson_id' => 'lessons#get_history_lesson_infos'
+    get 'lessons/index_pagination' => 'lessons#index_pagination'
     get 'lessons/find_lesson_informations/:lesson_id' => 'lessons#find_lesson_informations'
     get 'lessons/:lesson_id/cancel' => 'lessons#cancel'
     put 'lessons/:id' => 'lessons#update'

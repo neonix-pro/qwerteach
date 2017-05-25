@@ -33,63 +33,15 @@ class Api::LessonsController < LessonsController
     super
   end
   
-  def get_history_lesson_infos
-    lesson = Lesson.find_by_id(params[:lesson_id])
-    
-    render :json => {:topic => lesson.topic.title, :name => lesson.other(current_user).name, 
-      :avatar => lesson.other(current_user).avatar(:small)}
+  def index_pagination
+    super
   end
   
   def find_lesson_informations
     lesson = Lesson.find_by_id(params[:lesson_id])
-    todo = lesson.todo(current_user)
     
-    case todo
-      when :wait
-      if lesson.past?
-        lesson_status = "past"
-      else
-        if lesson.pending?
-          lesson_status = "waiting"
-        else
-          lesson_status = "accepted"
-        end
-      end
-      when :inactive
-      if lesson.expired?
-        lesson_status = "expired"
-      elsif lesson.canceled?
-        lesson_status = "canceled"
-      elsif lesson.refused?
-        lesson_status = "refused"
-      end
-      when :confirm
-      lesson_status = "confirm"
-      when :unlock
-      lesson_status = "pay"
-      when :review
-      lesson_status = "review"
-      when :disputed
-      lesson_status = "disputed"
-      when nil
-      lesson_status = "past&paid"
-    end
-    
-    if lesson.level.nil?
-      level_title = nil
-    else
-      level_title = lesson.level.fr
-    end
-    
-    render :json => {:topic => lesson.topic.title, 
-      :topic_group => lesson.topic_group.title, 
-      :level => level_title, 
-      :duration => lesson.duration,
-      :name => lesson.other(current_user).firstname, 
-      :lesson_status => lesson_status,
-      :avatar => lesson.other(current_user).avatar(:medium),
-      :payments => lesson.payments}
-    
+    render :json => {:topic => lesson.topic.title, :name => lesson.other(current_user).name, 
+      :avatar => lesson.other(current_user).avatar(:small)}
   end
   
 end
