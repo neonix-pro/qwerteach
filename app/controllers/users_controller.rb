@@ -31,7 +31,8 @@ class UsersController < ApplicationController
     # else
       # can't access global variable in sunspot search...
     @sunspot_search = Sunspot.search(Offer) do
-      with(:postulance_accepted, true, active: true)
+      with(:postulance_accepted, true)
+      with(:active, true)
       fulltext search_text unless params[:topic].nil? || params[:topic].empty?
       order_by :online, :desc
       order_by(sorting, sorting_direction(params[:search_sorting]))
