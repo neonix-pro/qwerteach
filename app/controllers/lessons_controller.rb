@@ -87,7 +87,6 @@ class LessonsController < ApplicationController
     if @lesson.is_student?(current_user) and !@lesson.paid? and !@lesson.prepaid? and !@lesson.pay_afterwards
       redirect_to new_lesson_payment_path(@lesson) and return
     end
-
     accepting = AcceptLesson.run(lesson: @lesson, user: current_user)
     if accepting.valid?
       respond_to do |format|
