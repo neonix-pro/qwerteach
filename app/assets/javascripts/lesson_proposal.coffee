@@ -44,7 +44,7 @@ class window.LessonProposal extends window.LessonForm
 
   showHidePayAfter: ->
     id = $('proposal_student_id').val()
-    target = $('[data-student-id='+id+']')
+    $target = $('[data-student-id='+id+']')
     if $target.data('payment') == true
       @$('.pay-afterwards-field').removeClass('hidden')
     else
