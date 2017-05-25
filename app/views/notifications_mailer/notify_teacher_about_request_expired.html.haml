@@ -1,0 +1,9 @@
+%h1 La demande de cours que vous aviez faite auprès de #{@teacher.name} a expiré.
+
+%p
+  Cours de #{@lesson_request.topic.title} d'une durée de #{@lesson_request.duration.hours}h#{@lesson_request.duration.minutes}min,
+  le #{strftime(@lesson_request.time_start, '%d/%m/%Y')}
+
+%p
+  Le professeur n'a pas réagi à votre demande dans le délai impartie, votre demande a donc été annulée.
+  Le montant que vous aviez bloqué pour ce cours a été reversé sur votre portefeuille virtuel. Vous pouvez dès à présent

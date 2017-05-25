@@ -53,7 +53,7 @@ Topic.create!([
   {title: "philosophie", topic_group_id:3},# 10
   {title: "littérature", topic_group_id:3},# 11
   {title: "histoire", topic_group_id:3},# 12
-  {title: "fle", topic_group_id:4},# 13
+  {title: "français langue étrangère", topic_group_id:4},# 13
   {title: "neerlandais", topic_group_id:4},# 14
   {title: "anglais", topic_group_id:4},# 15
   {title: "espagnol", topic_group_id:4},# 16
@@ -67,5 +67,11 @@ Topic.create!([
   {title: "programmation", topic_group_id:6},# 24
   {title: "reseaux", topic_group_id:6},# 25
   {title: "base de donnees", topic_group_id:6}, # 26
-  {title: "Other", topic_group_id:nil}
+  {title: "Autre", topic_group_id:nil},
+  {title: "Autre", topic_group_id:1},
+  {title: "Autre", topic_group_id:2},
+  {title: "Autre", topic_group_id:3},
+  {title: "Autre", topic_group_id:4},
+  {title: "Autre", topic_group_id:5},
+  {title: "Autre", topic_group_id:6}
 ])

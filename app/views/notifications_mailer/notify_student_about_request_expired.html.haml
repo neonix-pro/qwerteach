@@ -1,0 +1,9 @@
+%h1 La proposition de cours que vous aviez faite à de #{@student.name} a expiré.
+
+%p
+  Cours de #{@lesson_request.topic.title} d'une durée de #{@lesson_request.duration.hours}h#{@lesson_request.duration.minutes}min,
+  le #{strftime(@lesson_request.time_start, '%d/%m/%Y')}
+
+%p
+  L'élève n'a pas réagi à votre demande dans le délai impartie, votre demande a donc été annulée.
+  Si un paiement a été réalisé en vue de ce cours, il a été automatiquement remboursé à l'élève, sur son portefeuille virtuel.

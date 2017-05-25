@@ -1,0 +1,18 @@
+.card.card-search
+  .card-content
+    .row
+      .col-xs-2.col-sm-1.text-center
+        .icon-user-avatar
+          = image_tag lesson.other(current_user).avatar(:small), class: 'img-circle icon-user-avatar'
+      .col-xs-6.col-sm-8.col-md-9
+        .card-title
+          Comment s'est passé votre cours avec #{link_to lesson.teacher.name, user_path(lesson.teacher)} ?
+        %p
+          Cours de #{lesson.topic.title} le #{lesson.time_start.strftime("%d/%m/%Y à %H:%M")}
+      .col-xs-4.col-sm-3.col-md-2
+        = link_to 'Très bien', lesson_pay_teacher_path(lesson), method: :post, class: 'btn btn-green btn-qw'
+        %br
+        %small
+          = link_to lesson_dispute_path(lesson), class: 'text-green' do
+            %i.fa.fa-warning
+            Signaler un problème

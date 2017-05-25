@@ -6,7 +6,6 @@ class WalletsController < ApplicationController
   before_action :set_user
   before_action :check_mangopay_account, except: [:edit_mangopay_wallet, :update_mangopay_wallet, :index]
 
-
   helper_method :countries_list # You can use it in view
 
   rescue_from MangoPay::ResponseError, with: :set_error_flash
@@ -23,6 +22,7 @@ class WalletsController < ApplicationController
           flash[:danger] = I18n.translate("mango.response_message."+payin.result_message) + "<br />Vous n'avez pas été débité, et votre portefeuille virtuel Qwerteach n'a pas été chargé."
         else
           flash[:info] = 'Votre portefeuille virtuel a bien été rechargé.'
+          NotificationsMailer.send_load_wallet_details_to_user(current_user, payin).deliver_later
         end
       end
       filters = {page: params[:page], per_page: 10, sort: 'CreationDate:desc'}
@@ -92,7 +92,7 @@ class WalletsController < ApplicationController
   def direct_debit_mangopay_wallet
     @account = Mango::SaveAccount.new(user: current_user)
     @cards = @user.mangopay.cards
-    @amounts = [["20", 20], ["50", 50], ["100", 100], ["autre montant", nil]]
+    @amounts = [["20", 20], ["40", 40], ["100", 100], ["autre montant", nil]]
     # create card registration, in case
     creation = Mango::CreateCardRegistration.run(user: current_user)
     if !creation.valid?
@@ -143,6 +143,7 @@ class WalletsController < ApplicationController
               format.json {render :json => {:message => "redirect url", :url => result.secure_mode_redirect_url}}
             end
           else
+            NotificationsMailer.send_load_wallet_details_to_user(current_user, payin.result).deliver_later
             respond_to do |format|
               format.html {redirect_to index_wallet_path, notice: t('notice.processing_success')}
               format.json {render :json => {:message => "true"}}

@@ -17,14 +17,14 @@ as defined by the routes in the `admin/` namespace
   </li>
   <li>
     <%= link_to(
-            'Postuling Teachers',
+            "Postuling Teachers (#{@number_of_postuling_teachers})",
             '/admin/postuling_teachers',
             class: "sidebar__link sidebar__link--#{nav_link_state(:postuling_teachers)}"
         )%>
   </li>
   <li>
     <%= link_to(
-            'Approved Teachers',
+            "Approved Teachers (#{@number_of_teachers})",
             [namespace, Teacher],
             class: "sidebar__link sidebar__link--#{nav_link_state(:teachers)}"
         )%>
@@ -81,7 +81,7 @@ as defined by the routes in the `admin/` namespace
   </li>
   <li>
     <%= link_to(
-            'Payments',
+            "Payments (#{@number_of_disputes})",
             [namespace, Payment],
             class: "sidebar__link sidebar__link--#{nav_link_state(:payments)}"
         )%>

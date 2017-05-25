@@ -12,7 +12,7 @@ class OffersController < ApplicationController
     topics = Array.new
     offer_prices = Array.new
     @offers.each do |offer|
-      if offer.topic.title == "Other"
+      if offer.topic.title == "Autre"
         topic_title = offer.other_name
       else
         topic_title = offer.topic.title

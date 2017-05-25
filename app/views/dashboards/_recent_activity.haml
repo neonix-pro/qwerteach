@@ -1,0 +1,25 @@
+%p.lead.text-center
+  - if @upcoming_lessons.empty?
+    Vous n'avez aucun cours prévu.
+    - if @user.is_a?(Teacher)
+      .row
+        .col-xs-2
+          .icon-coloured.icon-mauve
+            %i.fa.fa-life-ring.fa-2x
+        .col-xs-10
+          %p Besoin d'un coup de main? Consultez nos trucs pour #{link_to 'trouver des élèves', toolbox_index_path}!
+    -else
+    = form_tag profs_path, method: :post, class: 'form text-center' do
+      .form-group
+        %label Cherchez un prof par matière:
+        .input-group
+          = text_field_tag('topic', '', class: 'form-control', placeholder: 'ex: physique')
+          %span.input-group-btn
+            = button_tag type:'submit', class: 'btn btn-search' do
+              %i.fa.fa-search
+  - else
+    Activité récente:
+  %hr
+- @upcoming_lessons.each do |l|
+  = render partial: 'upcoming_lesson', locals:{lesson: l}
+  %br

@@ -31,7 +31,7 @@
                   .col-xs-9
                     = f.telephone_field :phone_number, class: 'form-control'
                 = f.label :gender
-                = f.select :gender, User::GENDER_TYPES.map{|type|[ t(type.downcase), type]}, {}, class: 'form-control'
+                = f.select :gender, User::GENDER_TYPES.map{|type|[ I18n.t( type.downcase, scope: [:activerecord, :attributes, "user/gender"]), type]}, {}, class: 'form-control'
                 = f.label :time_zone, "Quelle est votre fuseau horaire?"
                 = f.time_zone_select :time_zone, nil, {default: Time.zone.name}, class: 'form-control'
             .actions

@@ -2,7 +2,7 @@ class CreateLessonRequest < ActiveInteraction::Base
   class DurationValidator < ActiveModel::Validator
     def validate(record)
       if record.hours + record.minutes <= 0
-        record.errors[:base] << "la durée doit être supérieure à 0"
+        record.errors[:base] << "la durée doit être supérieure à 0 minutes"
       end
     end
   end
@@ -48,22 +48,6 @@ class CreateLessonRequest < ActiveInteraction::Base
   end
 
   private
-
-  # def validate_price
-  #     if free_lesson
-  #       errors.add(:price, "Le prix d'un cours d'essai est toujours zéro!") if price !=0
-  #     else
-  #       right_price = CalculateLessonPrice.run({
-  #         teacher_id: teacher_id,
-  #         hours: duration.total_hours,
-  #         minutes: duration.minutes,
-  #         level_id: level_id,
-  #         topic_id: topic_id
-  #       }).result
-  #
-  #       errors.add(:price, "Le prix n'est pas correct.") if price.to_f != right_price
-  #     end
-  # end
 
   def student
     @student ||= Student.find(student_id)

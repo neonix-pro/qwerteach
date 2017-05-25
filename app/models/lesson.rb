@@ -35,7 +35,6 @@ class Lesson < ActiveRecord::Base
   scope :to_unlock, ->{created.locked.past} # lessons where we're waiting for student to unlock money
   scope :to_pay, ->{created.payment_pending.past} # lessons that haven't been prepaid and student needs to pay
 
-
   scope :to_review, ->(user){created.locked_or_paid.past.joins('LEFT OUTER JOIN reviews ON reviews.subject_id = lessons.teacher_id
     AND reviews.sender_id = lessons.student_id')
     .where(:student => user.id)
@@ -243,7 +242,8 @@ class Lesson < ActiveRecord::Base
         :end => time_end.rfc822,
         :allDay => false,
         :user_name => self.teacher.name,
-        :color => "#22de80"
+        :color => "#22de80",
+        :url => 'lessons/'+self.id.to_s
     })
   end
 

@@ -172,6 +172,17 @@
       font-size:16px;
     }
   }
+  .lesson-img{
+    padding: 0px 5px;
+    img{
+      width:100%;
+      height:auto;
+    }
+    .picto{
+      max-height:62px;
+      max-width:62px;
+    }
+  }
 }
 #help_request_lesson{
   padding: 100px 0px 50px 0px;

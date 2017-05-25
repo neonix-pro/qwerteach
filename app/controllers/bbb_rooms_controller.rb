@@ -5,8 +5,6 @@ class BbbRoomsController < Bigbluebutton::RoomsController
 
   def join
     super
-    # logging that the user joined a room
-
   end
 
   def demo_room

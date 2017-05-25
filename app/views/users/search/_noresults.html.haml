@@ -2,7 +2,7 @@
   %h4 Recherches populaires:
   %ul
     - popular_topics.each do |topic|
-      -unless topic.title == 'Other'
+      -unless topic.title == 'Autre'
         %li
           = link_to profs_by_topic_path(topic.title) do
             Profs de

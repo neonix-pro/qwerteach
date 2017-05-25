@@ -29,7 +29,7 @@ class Offer < ActiveRecord::Base
   end
 
   def topic_is_other?
-    topic.title == 'Other'
+    topic.title == 'Autre'
   end
 
   def min_price

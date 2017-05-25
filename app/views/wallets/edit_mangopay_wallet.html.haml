@@ -4,7 +4,7 @@
   .container
     .row
       = link_to 'Retour', index_wallet_path
-    - unless @user.mango_id.nil?
+    - unless @user.mango_id.nil? || @user.is_a?(Student)
       .row
         %h3 Comptes bancaires
         .cards-wrapper
@@ -26,23 +26,23 @@
                     %i.fa.fa-plus.fa-2x
                     %br
                     Ajouter un compte bancaire
-
-      .row
-        %h3 Cartes de crédit
-        - @cards.each do |card|
-          -if card.active
-            .col-xs-3
-              .card.card-bank-accounts
-                .card-content
-                  .row
-                    .col-xs-2
-                      %i.material-icons.tiny.text-purple credit_card
-                    .col-xs-10
-                      .card-type=card.card_provider.titleize
-                      .card-number.text-grey
-                        = card.alias
-                        %br
-                        = card.expiration_date.insert(2, "/20")
+      - unless @cards.empty?
+        .row
+          %h3 Cartes de crédit
+          - @cards.each do |card|
+            -if card.active
+              .col-xs-3
+                .card.card-bank-accounts
+                  .card-content
+                    .row
+                      .col-xs-2
+                        %i.material-icons.tiny.text-purple credit_card
+                      .col-xs-10
+                        .card-type=card.card_provider.titleize
+                        .card-number.text-grey
+                          = card.alias
+                          %br
+                          = card.expiration_date.insert(2, "/20")
     .row
       %h3 Mes coordonnéees
       .col-xs-12

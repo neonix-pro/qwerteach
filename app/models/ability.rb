@@ -65,6 +65,13 @@ class Ability
       can :index, Payment, :user_id => user.id
 
       can :manage, Interest, student_id: user.id
+      can :manage, Lesson
+      cannot :update, Lesson do |l|
+        l.teacher_id != user.id && l.student_id != user.id
+      end
+      cannot :show, Lesson do |l|
+        l.teacher_id != user.id && l.student_id != user.id
+      end
 
       can :create_postpayment, Payment do |payment|
         payment.lesson.teacher_id == user.id

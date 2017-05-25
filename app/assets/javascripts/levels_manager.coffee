@@ -14,7 +14,6 @@ class window.LevelsManager
 
   onPriceBoxClick: (e)->
     a = $(e.currentTarget).val();
-    console.log @$el.find('.'+a+'')
     if @$el.find('.'+a+'').attr('disabled')
       @$el.find('.'+a+'').removeAttr('disabled')
       @$el.find('.'+a+'').attr({

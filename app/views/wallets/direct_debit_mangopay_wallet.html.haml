@@ -95,6 +95,13 @@
       e.preventDefault();
       registration.perform();
     }
+    else if(SelectedMethod()){
+
+    }
+    else{
+      e.preventDefault();
+      alert('veuillez sélectionner une méthode de paiement!')
+    }
   });
   $('#easy_pay').on('input', function(){
     checkEasyPay();
@@ -149,3 +156,16 @@
       $('#submit-card-id').val(c);
     }
   }
+
+  function SelectedMethod(){
+    var radio= $('input[name=payment-method]:checked', '#load-wallet-form').val();
+    var check = $('input[name=easy_pay]:checked', '#load-wallet-form').val();
+    if(radio || check)
+    {
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+

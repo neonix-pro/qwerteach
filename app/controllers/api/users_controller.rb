@@ -30,7 +30,7 @@ class Api::UsersController < UsersController
       review_sender_avatars = Array.new
       
       @offers.each do |ad|
-        if ad.topic.title == "Other"
+        if ad.topic.title == "Autre"
           topic_title = ad.other_name
         else
           topic_title = ad.topic.title

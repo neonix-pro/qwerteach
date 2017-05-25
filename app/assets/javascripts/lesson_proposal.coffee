@@ -3,6 +3,8 @@ class window.LessonProposal extends window.LessonForm
   initialize: ->
     super
     @showHideWarning()
+    @showHidePayAfter()
+
 
   initEvents: ->
     super
@@ -35,8 +37,16 @@ class window.LessonProposal extends window.LessonForm
       $('#warning').hide()
 
   showHideWarning: ->
-    console.log($('#pay_afterwards').val())
     if $('#pay_afterwards').checked
       $('#warning').show()
     else
       $('#warning').hide()
+
+  showHidePayAfter: ->
+    id = $('#proposal_student_id').val()
+    $target = $('[data-student-id='+id+']')
+    if $target.data('payment')
+      @$('.pay-afterwards-field').removeClass('hidden')
+    else
+      @$('.pay-afterwards-field').addClass('hidden').find("input[type='checkbox']").prop('checked', false)
+
