@@ -1,5 +1,5 @@
 class LessonsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: :calendar_index
   before_action :authenticate_user!
   before_action :find_lesson_infos, except: [:new, :index, :calendar_index, :index_pagination]
   before_filter :user_time_zone, :if => :current_user
@@ -187,7 +187,7 @@ class LessonsController < ApplicationController
     if dispute.valid?
       @notification_text = "#{@user.name} a déclaré un litige sur le cours ##{@lesson.id}. Le payement est suspendu, un administrateur prendra contact avec vous sous peu."
       @other.send_notification(@notification_text, '#', @user, @lesson)
-      flash[:danger] = "Merci pour votre feedback! Le paiement du professeur été suspendu, un administrateur prendra contact avec vous dans les plus brefs délais."
+      flash[:danger] = "Merci pour votre feedback! Un administrateur examine prendra contact avec vous dans les plus brefs délais."
       email_user
       respond_to do |format|
         format.html {redirect_to root_path}
