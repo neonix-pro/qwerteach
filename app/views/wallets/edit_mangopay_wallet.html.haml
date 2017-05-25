@@ -4,28 +4,29 @@
   .container
     .row
       = link_to 'Retour', index_wallet_path
-    - unless @user.mango_id.nil? || @user.is_a?(Student)
-      .row
-        %h3 Comptes bancaires
-        .cards-wrapper
-          - @bank_accounts.each do |ba|
+    - unless @user.mango_id.nil?
+      -if @user.is_a?(Teacher)
+        .row
+          %h3 Comptes bancaires
+          .cards-wrapper
+            - @bank_accounts.each do |ba|
+              .col-xs-3
+                .card.card-bank-accounts
+                  .card-content
+                    .row
+                      .col-xs-2.text-right
+                        %i.material-icons.tiny.text-blue account_balance
+                      .col-xs-10
+                        .account-type= ba.type
+                        .account.text-grey= ba.iban
             .col-xs-3
-              .card.card-bank-accounts
+              .card
                 .card-content
-                  .row
-                    .col-xs-2.text-right
-                      %i.material-icons.tiny.text-blue account_balance
-                    .col-xs-10
-                      .account-type= ba.type
-                      .account.text-grey= ba.iban
-          .col-xs-3
-            .card
-              .card-content
-                .text-center
-                  = link_to '#modal-add-bank-account', data:{toggle: 'modal'} do
-                    %i.fa.fa-plus.fa-2x
-                    %br
-                    Ajouter un compte bancaire
+                  .text-center
+                    = link_to '#modal-add-bank-account', data:{toggle: 'modal'} do
+                      %i.fa.fa-plus.fa-2x
+                      %br
+                      Ajouter un compte bancaire
       - unless @cards.empty?
         .row
           %h3 Cartes de crédit
