@@ -1,12 +1,19 @@
 .container-fluid
   .row
-    .lesson-payment.col-sm-5.col-sm-offset-1
+    %h2.page-title-green Payer mon cours
+  .row
+    .lesson-payment.col-sm-8.col-sm-offset-2
       .lesson-payment-wrapper
-        %h3 Payment
+        %p.lead
+          Nous espérons que votre cours de #{@lesson.topic.title} avec #{@lesson.teacher.full_name}
+          s'est bien passé et que vous en êtes satisfait.
+          %br
+          Ce cours n'a pas été pré-payé, c'est pourquoi nous vous demandons maintenant de régler le montant dû.
         #payment-errors
         = render 'lesson_requests/payment_method', url: ->(mode){ lesson_payments_path(@lesson, mode: mode)  }
       .loader-wrapper.text-center.lesson-payment-loader.hidden
         %i.fa.fa-spin.fa-3x.fa-spinner.text-green
+      %hr
 
 :javascript
   mangoPay.cardRegistration.baseURL = "#{ MangoPay.configuration.root_url }";

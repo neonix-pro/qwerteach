@@ -1,4 +1,5 @@
 #lesson-payment-form
+  - cta = controller_name == 'payments' ? 'Finaliser le paiement':'Finaliser la demande de cours'
   #pay-by-wallet
     - if @lesson.price > (@user.total_wallets_in_cents / 100)
       Mon portefeuille: #{@user.total_wallets_in_cents/100}€
@@ -20,7 +21,7 @@
     .payment_method.payment_by_bcmc
       En cliquant sur 'ok', vous serez redirigé vers votre insitution bancaire pour procéder au payement.
       .actions
-        = button_to 'Finaliser la demande de cours', url.call('bancontact'), remote: true, method: 'post'
+        = button_to cta, url.call('bancontact'), remote: true, method: 'post'
     .payment_method.payment_by_creditcard
       #credit_card.field.credit_card_choice
         = form_tag  url.call('cd'), :method => :post, remote: true do |f|
@@ -30,9 +31,9 @@
         #new_card{class: ('hidden' unless current_user.mangopay.cards.empty?)}
           = render 'mangopay/card_form', remote: true, no_actions: true
         .actions
-          = submit_tag "Finaliser la demande de cours", class: 'btn-pay-by-card'
+          = submit_tag cta, class: 'btn-pay-by-card'
     .payment_method.payment_by_wallet
       .actions
-        = button_to 'Finaliser la demande de cours', url.call('transfert'), method: 'post'
+        = button_to cta, url.call('transfert'), method: 'post'
 
 = link_to 'retour', new_user_lesson_request_path(@teacher), remote: true, class: 'back-link'
