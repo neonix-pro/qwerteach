@@ -587,3 +587,21 @@ table{
 .inline-block{
   display:inline-block;
 }
+
+#tawk-btn{
+  position:fixed;
+  right:20px;
+  bottom: 100px;
+  width:50px;
+  height:50px;
+  z-index:1000;
+  background-color: $color_qwerteach_purple;
+  color:white;
+  border-radius: 50%;
+  i{
+    line-height:50px;
+  }
+}
+#tawk-btn:hover{
+  cursor:pointer;
+}
