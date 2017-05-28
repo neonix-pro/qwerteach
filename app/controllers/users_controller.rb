@@ -24,32 +24,33 @@ class UsersController < ApplicationController
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
     search_sorting_options
-    if params[:topic].nil? || params[:topic].empty?
-      @search = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
-      @pagin = @search
-      search_text
-    else
+    # if params[:topic].nil? || params[:topic].empty?
+    #   @search = User.where(:postulance_accepted => true).order(score: :desc).page(params[:page]).per(12)
+    #   @pagin = @search
+    #   search_text
+    # else
       # can't access global variable in sunspot search...
-      @sunspot_search = Sunspot.search(Offer) do
-        with(:postulance_accepted, true)
-        fulltext search_text
-        order_by :online, :desc
-        order_by(sorting, sorting_direction(params[:search_sorting]))
-        group :user_id_str
-        with(:first_lesson_free, true) if params[:filter] == 'first_lesson_free'
-        with(:online, true) if params[:filter] == 'online'
-        with(:has_reviews).greater_than(0) if params[:filter] == 'has_reviews'
-        paginate(:page => params[:page], :per_page => 12)
-      end
-      @search = []
-      @total = @sunspot_search.group(:user_id_str).total
-      @sunspot_search.group(:user_id_str).groups.each do |group|
-        group.results.each do |result|
-          @search.push(result.user)
-        end
-      end
-      @pagin = Kaminari.paginate_array(@search, total_count: @total).page(params[:page]).per(12)
+    @sunspot_search = Sunspot.search(Offer) do
+      with(:postulance_accepted, true)
+      with(:active, true)
+      fulltext search_text unless params[:topic].nil? || params[:topic].empty?
+      order_by :online, :desc
+      order_by(sorting, sorting_direction(params[:search_sorting]))
+      group :user_id_str
+      with(:first_lesson_free, true) if params[:filter] == 'first_lesson_free'
+      with(:online, true) if params[:filter] == 'online'
+      with(:has_reviews).greater_than(0) if params[:filter] == 'has_reviews'
+      paginate(:page => params[:page], :per_page => 12)
     end
+    @search = []
+    @total = @sunspot_search.group(:user_id_str).total
+    @sunspot_search.group(:user_id_str).groups.each do |group|
+      group.results.each do |result|
+        @search.push(result.user)
+      end
+    end
+    @pagin = Kaminari.paginate_array(@search, total_count: @total).page(params[:page]).per(12)
+    #end
     if params[:location] == 'landing'
       render 'landing_page_teachers'
     end

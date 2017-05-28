@@ -424,3 +424,4 @@ fr:
   CardRegistration should return a valid JSON response: Réponse invalide, la requête a échoué
   The transaction has been cancelled by the user: Opération annulée par l'utilisateur
   Unsufficient Wallet Balance: Montant insuffisant sur votre portefeuille virtuel transfer
+  Author is not the wallet owner: Vous n'avez pas l'autorisation de réaliser cette opération

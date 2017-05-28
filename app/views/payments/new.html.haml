@@ -4,11 +4,12 @@
   .row
     .lesson-payment.col-sm-8.col-sm-offset-2
       .lesson-payment-wrapper
-        %p.lead
-          Nous espérons que votre cours de #{@lesson.topic.title} avec #{@lesson.teacher.full_name}
-          s'est bien passé et que vous en êtes satisfait.
-          %br
-          Ce cours n'a pas été pré-payé, c'est pourquoi nous vous demandons maintenant de régler le montant dû.
+        -if @lesson.past?
+          %p.lead
+            Nous espérons que votre cours de #{@lesson.topic.title} avec #{@lesson.teacher.full_name}
+            s'est bien passé et que vous en êtes satisfait.
+            %br
+            Ce cours n'a pas été pré-payé, c'est pourquoi nous vous demandons maintenant de régler le montant dû.
         #payment-errors
         = render 'lesson_requests/payment_method', url: ->(mode){ lesson_payments_path(@lesson, mode: mode)  }
       .loader-wrapper.text-center.lesson-payment-loader.hidden

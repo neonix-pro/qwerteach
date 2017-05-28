@@ -10,6 +10,7 @@
     .main-content{:class => ('logged-in clearfix' if current_user)}
       = yield
     = render "layouts/footer"
+    = render "shared/tawk_btn"
     - if (current_user)
       = render partial: 'layouts/signed_in_modals'
       = subscribe_to "/chat/"+current_user.id.to_s

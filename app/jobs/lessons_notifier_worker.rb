@@ -23,7 +23,7 @@ class LessonsNotifierWorker
           :allow_start_stop_recording => 0
       }
       @room = BigbluebuttonRoom.new(bigbluebutton_room)
-      @room.meetingid = @room.name
+      @room.meetingid = @room.name + " " +SecureRandom.urlsafe_base64(nil, false)
       if @room.save
         subject = "Votre classe est disponible. #{ActionController::Base.helpers.link_to 'Cliquez ici pour la rejoindre', "/bigbluebutton/rooms/#{@room.param}/join"}."
         body = " /bigbluebutton/rooms/#{@room.param}/join"
