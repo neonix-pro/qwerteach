@@ -130,6 +130,7 @@ gem 'acts_as_commentable'
 gem 'dotenv-rails'
 gem 'simple_token_authentication', '~> 1.0'
 gem 'pusher'
+gem 'tawk_rails'
 #gem 'bourbon'
 
 # Use Unicorn as the app server

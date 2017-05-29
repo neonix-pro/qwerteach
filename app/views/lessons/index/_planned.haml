@@ -1,9 +1,14 @@
 - if @planned_lessons.empty?
   - if @pending_lessons.empty?
-    .row
-      = render partial: 'dashboards/help_request_lesson', locals:{user: @user}
-    .row
-      = render partial: 'dashboards/featured_teachers', locals:{teachers: @teachers}
+    - if @user.is_a?(Teacher)
+      .row
+        = render partial: 'dashboards/help_find_students', locals:{user:@user}
+      %hr
+    -else
+      .row
+        = render partial: 'dashboards/help_request_lesson', locals:{user: @user}
+      .row
+        = render partial: 'dashboards/featured_teachers', locals:{teachers: @teachers}
   - else
     %h3 Vous n'avez aucun cours à venir
 - else

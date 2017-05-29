@@ -481,6 +481,7 @@ GEM
       rails (>= 3)
       sunspot (= 2.2.7)
     sunspot_solr (2.2.7)
+    tawk_rails (1.2.0)
     thin (1.7.0)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -606,6 +607,7 @@ DEPENDENCIES
   sunspot-rails-tester
   sunspot_rails
   sunspot_solr
+  tawk_rails
   thin
   time_difference
   turbolinks
