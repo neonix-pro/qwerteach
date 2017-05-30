@@ -6,6 +6,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   elsif Rails.env.production?
     #provider :twitter, "zJLgYhx0QVgh6e58EFSIhxHuL", "FTKNu4Oa9W3TH1uN5dX0svMLqNvysVhUn6T69pjRBZl2sYh6f3"
     provider :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], secure_image_url: true , scope: 'email', info_fields: 'email,name,first_name,last_name,gender'
-    provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_SECRET'], { access_type: "offline", approval_prompt: "" }
+    provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_SECRET'], { access_type: "offline", approval_prompt: "", scope: "userinfo.email,userinfo.profile" }
   end
 end
