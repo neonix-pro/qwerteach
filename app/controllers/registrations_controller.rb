@@ -15,14 +15,18 @@ class RegistrationsController < Devise::RegistrationsController
   end
   
   def after_sign_up_path_for(resource)
-    if resource.is_a?(Teacher)
-      become_teacher_path(:general_infos)
-    else
-      if session[:user_redirect_to]
-        session[:user_redirect_to]
+    unless request.env['omniauth.origin']
+      if resource.is_a?(Teacher)
+        become_teacher_path(:general_infos)
       else
-        onboarding_path(:choose_role)
+        if session[:user_redirect_to]
+          session[:user_redirect_to]
+        else
+          onboarding_path(:choose_role)
+        end
       end
+    else
+      request.env['omniauth.origin']
     end
   end
 
