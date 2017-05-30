@@ -1,7 +1,7 @@
 #UPDATE users SET avatar_file_name = REPLACE (avatar_file_name, '/photo', '') WHERE avatar_file_name LIKE '%/photo%'
 
 
-User.where('avatar_file_name LIKE "%Vues%"').each do |user|
+User.where.not(avatar_file_name: '').each do |user|
   if File.file?("#{Rails.root}/public/system/avatars/QWPICS#{user.avatar_file_name}")
     File.open("#{Rails.root}/public/system/avatars/QWPICS#{user.avatar_file_name}") do |f|
       user.avatar = f
@@ -47,4 +47,35 @@ User.where("description LIKE '%\\\\r%'").each do |u|
   u.description = u.description.gsub('\\r\\n', '<br />')
   u.skip_confirmation_notification!
   u.save
+end
+
+User.where.not(id: 26, mango_id: nil).each do |u|
+  params = {description: "wallet transfert #{u.id}", tag: MangoUser::WALLET_TRANSFERT_TAG}
+  MangoPay::Wallet.create({
+                              :owners => [u.mango_id],
+                              :currency => "EUR"
+                          }.merge(params).camelize_keys)
+  MangoPay::Wallet.update(u.wallets.second.id, {tag: 'Bonus'})
+
+end
+for i in 101..110
+  User.where.not(id: 26, mango_id: nil).limit(10).offset(10*i).each do |u|
+    if u.wallets.count <3
+      puts u.wallets.count
+    end
+  end
+end
+
+for i in 101..110
+  User.where.not(id: 26, mango_id: nil).limit(10).offset(10*i).each do |u|
+    if u.wallets.count < 3
+      params = {description: "wallet transfert #{u.id}", tag: MangoUser::WALLET_TRANSFERT_TAG}
+      MangoPay::Wallet.create({
+                                  :owners => [u.mango_id],
+                                  :currency => "EUR"
+                              }.merge(params).camelize_keys)
+      MangoPay::Wallet.update(u.wallets.second.id, {tag: 'Bonus'})
+      puts u.wallets.count
+    end
+  end
 end

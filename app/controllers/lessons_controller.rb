@@ -3,6 +3,7 @@ class LessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_lesson_infos, except: [:new, :index, :calendar_index, :index_pagination]
   before_filter :user_time_zone, :if => :current_user
+  before_filter :check_has_payments, only: :dispute
   #needs to check that everything went OK before sending mail!
   #after_action :email_user, only: [:update, :accept, :refuse, :cancel, :dispute, :pay_teacher]
 
@@ -218,6 +219,13 @@ class LessonsController < ApplicationController
     @user = current_user
     @lesson = params[:id].nil? ? Lesson.find(params[:lesson_id]) : Lesson.find(params[:id])
     @other = @lesson.other(@user)
+  end
+
+  def check_has_payments
+    if @lesson.payments.empty?
+      flash[:danger]= 'Vous ne pouvez pas déclarer de litige sur un cours non pré-payé. Veuillez contacter les administrateur du site si le cours doit être annulé.'
+      redirect_to dashboard_path
+    end
   end
   
 end
