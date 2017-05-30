@@ -9,8 +9,7 @@
         Tous le smots de passe ont été ré-initialisés le 30/05/2017. Votre ancien mot de passe n'est plus valide.
         %br
         Si ce n'est déjà fait, nous vous invitons à
-        = link_to 'définir un nouveau mot de passe', new_password_path(resource_name)
-        .
+        = link_to 'définir un nouveau mot de passe.', new_password_path(resource_name)
       = form_for(resource, as: resource_name, url: session_path(resource_name), html:{class:'form form-horizontal'}) do |f|
         .form-group
           .col-sm-3
