@@ -48,6 +48,16 @@ User.where('avatar_file_name LIKE "%s://%"').order(id: :desc).each do |user|
   end
 end
 
+User.where('avatar_file_name LIKE "%s://%"').order(id: :desc).each do |user|
+  img_url = user.avatar_file_name
+  res = Net::HTTP.get_response(URI.parse(img_url))
+  if res.code.to_i >= 200 && res.code.to_i < 400
+    user.avatar = URI.parse("#{user.avatar_file_name}")
+    user.skip_confirmation_notification!
+    user.save
+  end
+end
+
 User.where(avatar_file_name: '').each do |user|
   File.open("#{Rails.root}/public/system/defaults/small/missing.png") do |f|
     user.avatar = f

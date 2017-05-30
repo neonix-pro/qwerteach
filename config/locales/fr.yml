@@ -425,6 +425,6 @@ fr:
   The transaction has been cancelled by the user: Opération annulée par l'utilisateur
   Unsufficient Wallet Balance: Montant insuffisant sur votre portefeuille virtuel transfer
   Author is not the wallet owner: Vous n'avez pas l'autorisation de réaliser cette opération
-  Blocked due to a Debited User\’s KYC limitations (maximum debited or credited amount reached): Bloqué car la limite KYC a été atteinte
-  "Blocked Due To The Bank Account User&#39;s Kyc Limitations (Maximum Debited Or Creditedmount Reached)": Bloqué car la limite KYC a été atteinte
-  Blocked due to a Debited Users KYC limitations (maximum debited or credited amount reached): Bloqué
+  Blocked due to the Bank Account User\'s KYC limitations (maximum debited or credited amount reached): Bloqué car la limite KYC a été atteinte
+  "Blocked due to the Bank Account User\'s KYC limitations (maximum debited or credited amount reached)": Bloqué car la limite KYC a été atteinte
+  The payment period has expired: Aucun virement n'a été reçu, l'opération a expiré
