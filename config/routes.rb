@@ -142,9 +142,11 @@ Rails.application.routes.draw do
   devise_for :teachers, :controllers => {:registrations => "registrations"}
   resources :onboarding
 
-  get "/auth/:action/callback",
-      :controller => "users/omniauth_callbacks",
-      :constraints => { :action => /google_oauth2|facebook/ }
+  devise_scope :user do
+    get "/auth/:action/callback",
+        :controller => "users/omniauth_callbacks",
+        :constraints => { :action => /google_oauth2|facebook/ }
+  end
 
   resources :users, only: [:update]
 

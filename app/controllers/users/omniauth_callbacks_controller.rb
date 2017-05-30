@@ -1,10 +1,4 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  before_action :set_mapping
-
-  def set_mapping
-    @request.env["devise.mapping"] = Devise.mappings[:user]
-  end
-
   def facebook
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     @user = User.from_omniauth(request.env["omniauth.auth"])
