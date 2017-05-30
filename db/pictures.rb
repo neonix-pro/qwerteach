@@ -102,3 +102,13 @@ for i in 101..110
     end
   end
 end
+
+
+begin
+  pwd = Devise.friendly_token
+  u.password = pwd
+  u.skip_confirmation_notification!
+  u.save
+  u.send_reset_password_instructions
+rescue
+  end
