@@ -111,6 +111,8 @@ class ApplicationController < ActionController::Base
                           "avec #{@current_lesson.other(current_user).name} " \
                           "#{@current_lesson.upcoming? ? 'va commencer' : 'a commencé'}." \
                           "<br /> #{view_context.link_to('Rejoindre ma classe', join_bigbluebutton_room_path(@current_lesson.bbb_room), target: '_blank', class:'btn btn-qw btn-purple')}"
+      else
+        flash[:lesson] = nil
       end
     end
   end
