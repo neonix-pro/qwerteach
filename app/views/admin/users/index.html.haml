@@ -13,3 +13,5 @@
   = render "collection", collection_presenter: page, resources: resources
   = paginate resources
 
+  %h2 Utilisateurs en ligne (#{@online.count})
+  = render "collection", collection_presenter: page, resources: @online

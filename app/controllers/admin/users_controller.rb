@@ -16,6 +16,11 @@ module Admin
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
 
+    def index
+      @online = User.where('last_seen > ?', 10.minutes.ago)
+      super
+    end
+
     def banned_users
       search_term = params[:search].to_s.strip
       resources = User.unscoped.where(:blocked=>true)

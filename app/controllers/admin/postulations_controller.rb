@@ -28,8 +28,8 @@ module Admin
       @text = [greetings, reason, changes].join("\r\n")
     end
 
-    def permitted_attributes
-      dashboard.permitted_attributes.push(:admin_id)
+    def resource_params
+      params.require(resource_name).permit(dashboard.permitted_attributes.push(:admin_id))
     end
   end
 end
