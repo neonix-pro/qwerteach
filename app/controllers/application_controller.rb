@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # loads devise permitted params
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  after_filter :has_lesson?, if: :user_signed_in?
+  before_filter :has_lesson?, if: :user_signed_in?
   after_filter :flash_to_headers
 
   def bigbluebutton_role(room)
@@ -113,8 +113,6 @@ class ApplicationController < ActionController::Base
                           "<br /> #{view_context.link_to('Rejoindre ma classe', join_bigbluebutton_room_path(@current_lesson.bbb_room), target: '_blank', class:'btn btn-qw btn-purple')}"
       else
         flash[:lesson] = nil
-        response.headers['X-Message'] = nil
-        response.headers['X-Message-Type'] = nil
       end
     end
   end
