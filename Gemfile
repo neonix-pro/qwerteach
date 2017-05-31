@@ -176,6 +176,8 @@ end
 gem 'mail_form', '~> 1.5.0.rc'
 gem 'simple_form', '~> 3.0.0.rc'
 
+gem 'rack-google-analytics'
+
 # Development (Optional)
 gem 'better_errors', group: :development
 gem 'quiet_assets', group: :development

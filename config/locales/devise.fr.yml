@@ -76,7 +76,7 @@ fr:
       already_confirmed: "a déjà été validé, veuillez essayer de vous connecter"
       confirmation_period_expired: "à confirmer dans les %{period}, merci de faire une nouvelle demande"
       expired: "a expiré, merci d'en faire une nouvelle demande."
-      not_found: "n'a pas été trouvé(e)"
+      not_found: "n'a pas été trouvé(e) dans notre base de données, vérifiez les informations."
       not_locked: "n'était pas verrouillé(e)"
       not_saved:
         one: "Oops! Il y a eu un problème:"
