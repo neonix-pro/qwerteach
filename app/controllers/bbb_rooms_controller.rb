@@ -2,8 +2,6 @@ class BbbRoomsController < Bigbluebutton::RoomsController
   include ActionView::Helpers::UrlHelper
   before_filter :authenticate_user!, except: [:demo_room, :join_demo]
   after_action :register_meeting_participation, only:[:join_demo, :join]
-  skip_before_action :verify_authenticity_token, only: [:join_demo]
-
 
   def join
     super
@@ -126,53 +124,6 @@ class BbbRoomsController < Bigbluebutton::RoomsController
       meeting = BbbMeeting.find_by(meetingid: @room.meetingid)
       meeting.users << current_user
       meeting.save!
-    end
-  end
-
-  def join_internal(username, role, id)
-    begin
-      # first check if we have to create the room and if the user can do it
-      unless @room.fetch_is_running?
-        if bigbluebutton_can_create?(@room, role)
-          user_opts = bigbluebutton_create_options(@room)
-          if @room.create_meeting(bigbluebutton_user, request, user_opts)
-            logger.info "Meeting created: id: #{@room.meetingid}, name: #{@room.name}, created_by: #{username}, time: #{Time.now.iso8601}"
-          end
-        else
-          flash[:error] = t('bigbluebutton_rails.rooms.errors.join.cannot_create')
-          redirect_to_on_join_error
-          return
-        end
-      end
-
-      # gets the token with the configurations for this user/room
-      token = @room.fetch_new_token
-      options = if token.nil? then {} else { :configToken => token } end
-
-      # set the create time and the user id, if they exist
-      options.merge!({ createTime: @room.create_time }) unless @room.create_time.blank?
-      options.merge!({ userID: id }) unless id.blank?
-
-      # room created and running, try to join it
-      url = @room.join_url(username, role, nil, options)
-      unless url.nil?
-
-        # change the protocol to join with a mobile device
-        if BigbluebuttonRails.use_mobile_client?(browser) && !ActiveRecord::Type::Boolean.new.type_cast_from_database(params[:desktop])
-            #!BigbluebuttonRails.value_to_boolean(params[:desktop])
-          url.gsub!(/^[^:]*:\/\//i, "bigbluebutton://")
-        end
-
-        #redirect_to url
-        render :js => "window.location = #{url}"
-      else
-        flash[:error] = t('bigbluebutton_rails.rooms.errors.join.not_running')
-        redirect_to_on_join_error
-      end
-
-    rescue BigBlueButton::BigBlueButtonException => e
-      flash[:error] = e.to_s[0..200]
-      redirect_to_on_join_error
     end
   end
 
