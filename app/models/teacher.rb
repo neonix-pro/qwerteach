@@ -84,7 +84,6 @@ class Teacher  < Student
     level_codes = TopicGroup.uniq.pluck(:level_code)
     result = {}
     level_codes.each do |lc|
-      logger.debug('topic_groups.level_code LIKE "'+lc+'"')
       result[lc] =  self.offers.joins(:topic_group).where('topic_groups.level_code LIKE "'+lc+'"')
     end
     result

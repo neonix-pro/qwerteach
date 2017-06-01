@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   # loads devise permitted params
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :has_lesson?, if: :user_signed_in?
-  after_filter :flash_to_headers
+  before_filter :flash_to_headers
 
   def bigbluebutton_role(room)
       :moderator
@@ -47,11 +47,7 @@ class ApplicationController < ActionController::Base
 
   def flash_to_headers
     return unless request.xhr?
-    if flash_message.nil?
-      response.headers['X-Message'] = nil
-      response.headers["X-Message-Type"] = nil
-      return
-    end
+    return if flash_message.nil?
     response.headers['X-Message'] = flash_message
     response.headers["X-Message-Type"] = flash_type.to_s
     flash.discard  # discard flash messages after encoding so don't appear twice
@@ -94,14 +90,14 @@ class ApplicationController < ActionController::Base
   end
   
   def flash_message
-    [:error, :warning, :notice, :lesson].each do |type|
+    [:error, :warning, :notice, :lesson, :success].each do |type|
       return flash[type] unless flash[type].blank?
     end
     nil
   end
 
   def flash_type
-    [:error, :warning, :notice, :lesson].each do |type|
+    [:error, :warning, :notice, :lesson, :success].each do |type|
       return type unless flash[type].blank?
     end
     nil

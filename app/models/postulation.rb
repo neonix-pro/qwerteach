@@ -71,7 +71,6 @@ class Postulation < ActiveRecord::Base
     admin_fields.each do |key, value|
       corr << key unless value
     end
-    logger.debug(corr)
     corr
   end
 
