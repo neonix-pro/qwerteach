@@ -1,4 +1,6 @@
 %meta{:content => user_signed_in? ? current_user.id : "", :name => "user-id"}/
+%meta{:content => user_signed_in? ? current_user.email : "", :name => "user-email"}/
+%meta{:content => user_signed_in? ? current_user.name : "", :name => "user-name"}/
 %title Qwerteach
 = javascript_include_tag 'application', 'data-turbolinks-track' => true
 = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
