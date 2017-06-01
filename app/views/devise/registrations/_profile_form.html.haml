@@ -27,7 +27,7 @@
                 = f.label :phone_number
                 .row
                   .col-xs-3
-                    = f.select :phone_country_code, options_for_select(international_prefix_list, :selected => @user.phone_country_code ), {}, :required => true, class:'form-control'
+                    = f.select :phone_country_code, options_for_select(international_prefix_list, :selected => @user.phone_country_code ), {}, :required => false, class:'form-control'
                   .col-xs-9
                     = f.telephone_field :phone_number, class: 'form-control'
                 = f.label :gender

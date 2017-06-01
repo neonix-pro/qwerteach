@@ -4,6 +4,7 @@ class LessonsController < ApplicationController
   before_action :find_lesson_infos, except: [:new, :index, :calendar_index, :index_pagination]
   before_filter :user_time_zone, :if => :current_user
   before_filter :check_has_payments, only: :dispute
+  before_action :filter_options, only: [:index, :index_pagination]
   #needs to check that everything went OK before sending mail!
   #after_action :email_user, only: [:update, :accept, :refuse, :cancel, :dispute, :pay_teacher]
 
@@ -16,6 +17,7 @@ class LessonsController < ApplicationController
       @teachers = Teacher.all.order(score: :desc).limit(4)
     end
     @number_of_pending_lessons = @user.pending_me_lessons.count
+
   end
 
   def index_pagination
@@ -26,9 +28,10 @@ class LessonsController < ApplicationController
       when 'pending'
         @pending_lessons = Lesson.involving(@user).pending.future.page(params[:page]).per(6)
       when 'history'
-        @history_lessons = Lesson.involving(@user).page(params[:page]).per(12)
+        search_history
     end
   end
+
 
   def show
     @room = BbbRoom.where(lesson_id = @lesson.id).first
@@ -226,6 +229,34 @@ class LessonsController < ApplicationController
       flash[:danger]= 'Vous ne pouvez pas déclarer de litige sur un cours non pré-payé. Veuillez contacter les administrateur du site si le cours doit être annulé.'
       redirect_to dashboard_path
     end
+  end
+
+  def search_history
+    case params[:filter]
+      when 'is_teacher'
+        @history_lessons = Lesson.involving(@user).not.is_student(@user).page(params[:page]).per(12)
+      when 'is_student'
+        logger.debug('------'*10)
+        @history_lessons = Lesson.involving(@user).is_student(@user).page(params[:page]).per(12)
+      when 'expired'
+        @history_lessons = Lesson.involving(@user).expired.page(params[:page]).per(12)
+      when 'canceled'
+        @history_lessons = Lesson.involving(@user).canceled.page(params[:page]).per(12)
+      when 'refused'
+        @history_lessons = Lesson.involving(@user).refused.page(params[:page]).per(12)
+      when 'payment_locked'
+        @history_lessons = Lesson.involving(@user).locked.page(params[:page]).per(12)
+      when 'is_unpaid'
+        @history_lessons = Lesson.involving(@user).needs_pay.page(params[:page]).per(12)
+      else
+        @history_lessons = Lesson.involving(@user).page(params[:page]).per(12)
+    end
+  end
+
+  def filter_options
+    @filter_options = {"Tous": 'all' , "Où j'étais prof": 'is_teacher', "Où j'étais élève": 'is_student', "Expirés": 'expired',
+                       "Annulés": 'canceld', "Refusés": 'refused', "Paiement détenur par Qwerteach": 'payment_locked',
+                       "Paiement non effectué par l'élève": 'is_unpaid'}
   end
   
 end

@@ -1,6 +1,13 @@
 .row
   .col-md-2
   .col-md-8
+    .row#filters.text-center
+      = form_tag 'lessons/index_pagination', method: :get , remote: true, class: 'form form-horizontal form-inline' do
+        = hidden_field_tag :lesson_type, 'history'
+        .form-group
+          = select_tag :filter, options_for_select(@filter_options, params[:filter]), class: 'form-control'
+          = submit_tag :filtrer, class: 'btn btn-qw btn-green'
+      %hr
     .row
       - @history_lessons.each do |lesson|
         .col-xs-12

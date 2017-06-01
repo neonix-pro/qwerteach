@@ -26,6 +26,9 @@ module Admin
       end
       changes = @postulation.correction_text
       @text = [greetings, reason, changes].join("\r\n")
+      respond_to do |format|
+        format.js
+      end
     end
 
     def resource_params
