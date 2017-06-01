@@ -36,7 +36,7 @@ class Teacher  < Student
 
 
   def min_price
-    offers.empty? ? 0 : @prices = self.offers.map { |d| d.offer_prices.map { |l| l.price } }.min.first
+    offers.empty? ? 0 : @prices = self.offers.map { |d| d.offer_prices.compact.map { |l| l.price }}.reject(&:empty?).min.first
   end
 
   def similar_teachers(n)
