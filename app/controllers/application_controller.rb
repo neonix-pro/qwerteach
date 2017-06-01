@@ -47,7 +47,11 @@ class ApplicationController < ActionController::Base
 
   def flash_to_headers
     return unless request.xhr?
-    return if flash_message.nil?
+    if flash_message.nil?
+      response.headers['X-Message'] = nil
+      response.headers["X-Message-Type"] = nil
+      return
+    end
     response.headers['X-Message'] = flash_message
     response.headers["X-Message-Type"] = flash_type.to_s
     flash.discard  # discard flash messages after encoding so don't appear twice
