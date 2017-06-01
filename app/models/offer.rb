@@ -10,6 +10,7 @@ class Offer < ActiveRecord::Base
                                 :reject_if => :all_blank
   validates :user, presence: true
   validates :topic_group, presence: true
+  validates :offer_prices, presence: true
   validates_uniqueness_of :user_id, scope: :topic_id, unless: :topic_is_other?
 
   #after_create :create_price
