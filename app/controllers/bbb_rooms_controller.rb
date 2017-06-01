@@ -2,6 +2,8 @@ class BbbRoomsController < Bigbluebutton::RoomsController
   include ActionView::Helpers::UrlHelper
   before_filter :authenticate_user!, except: [:demo_room, :join_demo]
   after_action :register_meeting_participation, only:[:join_demo, :join]
+  skip_before_action :verify_authenticity_token, only: [:join_demo]
+
 
   def join
     super
