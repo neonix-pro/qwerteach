@@ -8,7 +8,7 @@
     //Wrapper for slides
     .carousel-inner{:role => "listbox"}
       .item.active
-        = image_tag(image_path("acceuil/landing_eleve"), :class => "image_carrousel img-responsive img_slide2")
+        = image_tag(image_path("acceuil/landing_eleve.svg"), :class => "image_carrousel img-responsive img_slide2")
         %div{:class => "right"}
           %h2 Les cours particuliers depuis votre canapé
           %p.text-white Grâce à notre classe virtuelle intuitive et simple d’utilisation, combinant tableau interactif et vidéoconférence, trouvez un prof et prenez vos cours particuliers en direct
@@ -19,7 +19,7 @@
               = link_to 'Inscription gratuite', new_user_registration_path, class: 'btn btn-qw btn-green'
 
       .item
-        = image_tag(image_path("acceuil/landing_prof"), :class => "image_carrousel img-responsive img_slide1")
+        = image_tag(image_path("acceuil/landing_prof.svg"), :class => "image_carrousel img-responsive img_slide1")
         %div{:class => "left"}
           %h2 Les meilleurs profs
           %p.text-white Même dans les matières les plus pointues, les professeurs sont certifiés grâce à un entretien individuel, ils sont ensuite évalués à la fin de chaque séance
@@ -28,7 +28,7 @@
             = link_to 'Charte du prof', faq_path('teachers'), class: 'btn btn-qw btn-green' if current_user.is_a?(Teacher)
 
       .item
-        = image_tag(image_path("acceuil/landing_payement"), :class => "image_carrousel img-responsive img_slide1 margin-right-30")
+        = image_tag(image_path("acceuil/landing_payement.svg"), :class => "image_carrousel img-responsive img_slide1 margin-right-30")
         %div{:class => "left"}
           %h2 Le soutien scolaire en toute confiance
           %p.text-white Nous sommes là pour vous aider à trouver le professeur qu’il vous faut. Payez à la réservation, l’argent lui sera versé à la fin du cours.
