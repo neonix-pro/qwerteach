@@ -36,6 +36,7 @@ class LessonDashboard < Administrate::BaseDashboard
     :teacher,
     :topic_group,
     :topic,
+    :status,
     :time_start,
   ]
 
