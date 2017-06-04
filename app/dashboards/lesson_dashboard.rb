@@ -22,6 +22,7 @@ class LessonDashboard < Administrate::BaseDashboard
     time_start: Field::DateTime,
     time_end: Field::DateTime,
     price: Field::String.with_options(searchable: false),
+    comment: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }
@@ -37,6 +38,7 @@ class LessonDashboard < Administrate::BaseDashboard
     :topic_group,
     :topic,
     :status,
+    :price,
     :time_start,
   ]
 
@@ -48,6 +50,7 @@ class LessonDashboard < Administrate::BaseDashboard
     :topic_group,
     :topic,
     :level,
+    :comment,
     :payments,
     :bbb_room,
     :id,
