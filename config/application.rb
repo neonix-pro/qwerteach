@@ -49,6 +49,9 @@ module Qwerteach
 config.action_mailer.default_url_options = {
     host: ENV['DEFAULT_URL']
 }
+    config.to_prepare do
+      Administrate::ApplicationController.helper Qwerteach::Application.helpers
+    end
   end
 end
 
