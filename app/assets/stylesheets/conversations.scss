@@ -154,7 +154,13 @@
 .message-container{
   width:100%;
   padding:10px;
-  position:relative
+  position:relative;
+  time{
+    visibility:hidden;
+  }
+}
+.message-container:hover time{
+  visibility: visible;
 }
 .message{
   padding:10px;
@@ -164,6 +170,13 @@
   p{
     margin:0px;
   }
+}
+.message-datetime{
+  margin-right: 35px;
+  text-align:right;
+  font-size: 12px;
+  color: $text_light_grey;
+  margin-bottom: 3px;
 }
 .message-received{
   float:left;

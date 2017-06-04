@@ -1,4 +1,6 @@
 .message-container.clearfix
+  .message-datetime
+    %time{:datetime => "#{message.created_at}", :title => "#{message.created_at.strftime("%d %b  %Y at %I:%M%p")}"}
+      = message_date message.created_at
   .message.message-sent
     #{simple_format(message.body)}
-    %time{:datetime => "#{message.created_at}", :title => "#{message.created_at.strftime("%d %b  %Y at %I:%M%p")}"}
