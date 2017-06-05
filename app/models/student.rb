@@ -1,6 +1,8 @@
 class Student < User
+  MAX_FREE_LESSONS = 3
   has_many :lessons_received, :class_name => 'Lesson', :foreign_key => 'student_id'
   has_many :interests
+
 
   acts_as_reader
   def self.reader_scope
@@ -15,7 +17,11 @@ class Student < User
   end
 
   def free_lessons_with(teacher)
-    Lesson.where(:student => self, :teacher_id => teacher.id, :free_lesson => true)
+    Lesson.where(:student => self, :teacher_id => teacher.id, :free_lesson => true).active
+  end
+
+  def free_lessons
+    Lesson.where(:free_lesson => true).involving(self).pending
   end
 
   def history_lessons
@@ -42,6 +48,9 @@ class Student < User
     Lesson.where(:status => 2).where('time_end > ?', DateTime.now).where('time_start < ?', DateTime.now + 10.minutes).where( 'student_id=? OR teacher_id=?', self.id, self.id).first
   end
 
+  def can_book_free_lesson_with?(teacher)
+    teacher.first_lesson_free == true && free_lessons_with(teacher).empty? && free_lessons.count <= MAX_FREE_LESSONS
+  end
 
 
 end

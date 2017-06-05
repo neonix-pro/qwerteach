@@ -26,6 +26,7 @@ class window.LessonForm
     @$el.on 'change', '.minutes-select', (e)=> @calculatePrice()
     @$el.on 'change', '#request_time_start', (e)=> @calculatePrice()
     @$el.on 'dp.change', '#time_start_picker', ()=> @calculatePrice()
+    @$el.on 'dp.show', '#time_start_picker', (e) => @onDateTimepickerShow(e)
 
   initDatePicker: ->
     $('#time_start_picker').datetimepicker
@@ -36,7 +37,9 @@ class window.LessonForm
       sideBySide: true
 
   getMinDate: ->
-    moment().startOf('hour').add( Math.ceil(moment().minutes() / 15) * 15, 'minutes' ).add(5, 'minutes')
+    moment().startOf('hour').add( Math.ceil(moment().minutes() / 15) * 15, 'minutes' )
+      .add(10, 'minutes')
+      .add($('[name=booking-delay]').val(), 'hours')
 
   onTopicGroupChange: (e)->
     @displayRecap()
@@ -102,4 +105,8 @@ class window.LessonForm
 
   clearSelect: ($select)->
     $select.find('option[value!=""]').remove()
+
+  onDateTimepickerShow: ->
+    if $('[name=booking-delay]').val() > 0
+      $('#warning-booking-delay').show();
 

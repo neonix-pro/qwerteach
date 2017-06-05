@@ -34,7 +34,21 @@ class Teacher  < Student
     create_postulation
   end
 
-
+  def booking_delay # how many hours of delay for abooking with this teacher
+    if online?
+      0 #(if he's online, no delay)
+    elsif last_seen.nil?
+      48 #(if he hasn't shown up recently, 24 hours)
+    elsif last_seen > Time.now - 24.hours
+      2
+    elsif last_seen > Time.now - 3.days
+      6
+    elsif last_seen > Time.now - 2.weeks
+      24
+    else
+      48#(if he hasn't shown up in the last 2 weeks, 48 hours)
+    end
+  end
   def min_price
     offers.empty? ? 0 : @prices = self.offers.map { |d| d.offer_prices.compact.map { |l| l.price }}.reject(&:empty?).min.first
   end
