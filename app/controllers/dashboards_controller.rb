@@ -20,5 +20,8 @@ class DashboardsController < ApplicationController
     @to_unlock_lessons = @to_unlock_lessons + @to_pay_lessons
 
     @past_lessons = @user.lessons_received.past.created
+    if @user.is_a?(Teacher)
+      @past_lessons_given = @user.lessons_given.past.created
+    end
   end
 end

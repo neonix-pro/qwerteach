@@ -7,7 +7,7 @@
         %span.card-title Vos élèves
         - if @user.lessons_given.count > 0
           Félicitations, vous avez donné
-          = link_to "#{@user.lessons_given.count} cours", lessons_path + "#history"
+          = link_to "#{@past_lessons_given.count} cours", lessons_path + "#history"
           sur Qwerteach!
           %ul
             - @user.lessons_given.group(:student_id).limit(3).each do |l|
