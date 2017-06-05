@@ -97,12 +97,12 @@ class LessonsController < ApplicationController
     if accepting.valid?
       respond_to do |format|
         format.html {redirect_to dashboard_path, notice: "Le cours a été accepté."}
-        format.json {render :json => {:success => "true", :message => "Le cours a été accepté.", :lesson => @lesson}}
+        format.json {render :json => {:success => "true", :message => "Le cours a été accepté."}}
       end
     else
       respond_to do |format|
         format.html {redirect_to dashboard_path, flash: {danger: accepting.errors.full_messages.first}}
-        format.json {render :json => {:success => "false", :message => accepting.errors.full_messages.first, :lesson => @lesson}}
+        format.json {render :json => {:success => "false", :message => accepting.errors.full_messages.first}}
       end
     end
 
@@ -117,7 +117,7 @@ class LessonsController < ApplicationController
       respond_to do |format|
         format.html {redirect_to lessons_path}
         format.json {render :json => {:success => "true", 
-          :message => "Vous avez décliné la demande de cours.", :lesson => @lesson}}
+          :message => "Vous avez décliné la demande de cours."}}
       end
     else
       flash[:danger] = "Il y a eu un problème: #{refuse.errors.full_messages.to_sentence} <br />Le cours n'a pas été refusé".html_safe
