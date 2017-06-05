@@ -83,7 +83,8 @@
                 .card-action
                   .payment-action
                     - if @lesson.is_student?(@user)
-                      = link_to 'Payer', new_lesson_payment_path(@lesson), class: 'btn btn-green btn-qw'
+                      - if @lesson.active?
+                        = link_to 'Payer', new_lesson_payment_path(@lesson), class: 'btn btn-green btn-qw'
                     - else
                       .text-red
                         Si vous acceptez de donner cours avant que l'élève n'ait
