@@ -41,7 +41,7 @@ class Api::LessonsController < LessonsController
     lesson = Lesson.find_by_id(params[:lesson_id])
     
     render :json => {:topic => lesson.topic.title, :name => lesson.other(current_user).name, 
-      :avatar => lesson.other(current_user).avatar(:small)}
+      :avatar => lesson.other(current_user).avatar(:small), :payments => lesson.payments}
   end
   
 end
