@@ -195,7 +195,7 @@ fr:
         answers:
           one: "Afin que vos cours se déroulent dans les meilleures conditions possibles, il est nécessaire de posséder un micro et une webcam. Par ailleurs, de sorte à assurer une connexion internet stable, nous vous conseillons de brancher votre ordinateur à un câble réseau."
           two: "Aucun,
-                Tout a été conçu pour que vous puissiez travailler uniquement via votre navigateur internet : Internet Explorer, Chrome ou Firefox. Cependant, notre espace de visio-conférence nécessite l’installation de Flash sur votre ordinateur. Dès lors, nous vous invitons à vérifier, avant le début de votre premier cours, que vous possédiez bien la dernière version d’Adobe Flash."
+                tout a été conçu pour que vous puissiez travailler uniquement via votre navigateur internet : Internet Explorer, Chrome ou Firefox. Cependant, notre espace de visio-conférence nécessite l’installation de Flash sur votre ordinateur. Dès lors, nous vous invitons à vérifier, avant le début de votre premier cours, que vous possédez bien la dernière version d’Adobe Flash."
           three: "Oui, excepté sur les tablettes de marque Apple.
                   Etant donné que notre espace de visio-conférence nécessite l’utilisation de Flash, vous pourrez travailler sur n’importe quel support multimédia de type ordinateur ou tablette, excepté sur les tablettes de marque Apple."
     student:
@@ -228,7 +228,7 @@ fr:
         question:
           one: "Puis-je payer dans une autre devise que l'Euro?"
           two: "Quels modes de paiement puis-je utiliser sur Qwerteach?"
-          three: "Quelle garrantie offre Qwerteach sur les transactions ?"
+          three: "Quelle garantie offre Qwerteach sur les transactions ?"
           four: "Que se passe-t-il si je ne suis pas satisfait d'un professeur ?"
         answer:
           one: "Non. Pour le moment Qwerteach est configuré de manière à n'accepter que les Euros."
@@ -237,11 +237,11 @@ fr:
                Ce portefeuille virtuel vous permet de vous constituer à l'avance une réserve de crédits, que vous débitez au fur et à mesure de vos activités sur Qwerteach. Ce mécanisme présente l'avantage de permettre à des élèves mineurs de payer directement leur(s) professeur(s) sans recourir à la carte de crédit de leurs parents.
                \r\n\r\n
                Vous pouvez à tout moment charger ou vider votre portefeuille virtuel, c'est-à-dire transférer son solde sur votre compte bancaire. Au moment de vider votre portefeuille, nous prélevons une commission de 15 %."
-          three: "Lorsque vous effectuez une réservation pour un cours sur Qwerteach, l'argent correspondant à ce cours est débité du moyen de payement que vous avez choisi. Ce montant est détenu par Qwerteach, qui joue le rôle de garrant. Si le cours n'est pas accepté par le professeur, vous serez intégralement remboursé. Idem si celui-ci est annulé.\r\n\r\n
+          three: "Lorsque vous effectuez une réservation pour un cours sur Qwerteach, l'argent correspondant à ce cours est débité du moyen de payement que vous avez choisi. Ce montant est détenu par Qwerteach, qui joue le rôle de garant. Si le cours n'est pas accepté par le professeur, vous serez intégralement remboursé. Idem si celui-ci est annulé.\r\n\r\n
                 Si le professeur accepte le cours, l'argent reste détenu par Qwerteach jusqu'à la fin programmée du cours. A ce moment, nous vous demanderons de confirmer que tout s'est bien passé. Une fois cette confirmation reçue, nous débloquons le payement et créditons le professeur. En l'abence de réponse de votre part, l'argent est automatiquement versé sur le compte du professeur 72h après la fin prévue du cours.\r\n\r\n\r\n\r\n
-                En ce qui concerne les payements qui ot lieu en dehors des réservations, Qwerteach ne peut pas offrire de ganrantie ni effectuer de remboursements."
+                En ce qui concerne les payements qui ont lieu en dehors des réservations, Qwerteach ne peut pas offrire de ganrantie ni effectuer de remboursements."
           four: "Après la fin prévue du cours, vous aurez 72h pour nous le signaler. Si vous nous signalez un problème, le payement du cours est automatiquement bloqué.\r\n\r\n\r\n\r\n
-                Un administrateur prendra contact avec vous et avec le professeur afin d'éclaircir la situation. Si besoin, il accèdera aussi à l'enregistrement du cours concerné. Sur base de ces informatiosn, il prendra la décision appropriée: vous rembourser, créditer le professeur, ou répartir le montant entre vous."
+                Un administrateur prendra contact avec vous et avec le professeur afin d'éclaircir la situation. Si besoin, il accèdera aussi à l'enregistrement du cours concerné. Sur base de ces informations, il prendra la décision appropriée: vous rembourser, créditer le professeur, ou répartir le montant entre vous."
       technical:
         question:
           one: Quel est le matériel requis ?
@@ -254,7 +254,7 @@ fr:
                 Tout a été conçu pour que vous puissiez travailler uniquement via votre navigateur internet : Internet Explorer, Chrome ou Firefox. Cependant, notre espace de visio-conférence nécessite l’installation de Flash sur votre ordinateur. Dès lors, nous vous invitons à vérifier, avant le début de votre premier cours, que vous possédiez bien la dernière version d’Adobe Flash."
           three: "Oui, excepté sur les tablettes de marque Apple.
                   Etant donné que notre espace de visio-conférence nécessite l’utilisation de Flash, vous pourrez travailler sur n’importe quel support multimédia de type ordinateur ou tablette, excepté sur les tablettes de marque Apple. "
-          four: "Signalez-nous immédiatement tout comportement inapproprié de la part de votre professeur! Pour ce faire, rendez-vous sur la page de profil du professeur et cliquez sur «! Signaler cet utilisateur» (juste en dessous de la photo). Un espace de texte apparaîtra alors où vous pourrez décrire l'objet de votre plainte. Une fois envoyée, cette dernière sera pris en charge par un membre de notre équipe. En signalant un utilisateur, vous autorisez notre équipe à accéder aux enregistrements de vos cours, de sorte que nous puissions établir objectivement la preuve du délit. En cas de délit affirmé, nous mettrons tout en œuvre pour rétablir le tort. Selon la nature et l’intensité de la faute, nous déterminerons les mesures à prendre et le cas échéant, ordonnerons la clôture du compte du professeur incriminé. "
+          four: "Signalez-nous immédiatement tout comportement inapproprié de la part de votre professeur! Pour ce faire, rendez-vous sur la page de profil du professeur et cliquez sur «! Signaler cet utilisateur» (juste en dessous de la photo). Un espace de texte apparaîtra alors où vous pourrez décrire l'objet de votre plainte. Une fois envoyée, cette dernière sera prise en charge par un membre de notre équipe. En signalant un utilisateur, vous autorisez notre équipe à accéder aux enregistrements de vos cours, de sorte que nous puissions établir objectivement la preuve du délit. En cas de délit affirmé, nous mettrons tout en œuvre pour rétablir le tort. Selon la nature et l’intensité de la faute, nous déterminerons les mesures à prendre et le cas échéant, ordonnerons la clôture du compte du professeur incriminé. "
     parents:
       generalites:
         questions:
