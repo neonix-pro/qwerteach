@@ -172,7 +172,7 @@ class User < ActiveRecord::Base
           when "google_oauth2"
             user.firstname = auth.info.first_name 
             user.lastname = auth.info.last_name 
-            user.birthdate = auth.extra.raw_info.birthdate
+            #user.birthdate = auth.extra.raw_info.birthdate
             user.gender = auth.extra.raw_info.gender
             user.password = Devise.friendly_token[0,20]
             user.email = auth.info.email 

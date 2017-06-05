@@ -3,6 +3,7 @@ class ExpireBookings
 
   def self.perform(*args)
     #fetch expiring bookings
+    #@lessons = Lesson.pending.where('time_start < ?', Time.now)
     @lessons = Lesson.pending.past.merge(Lesson.pending.occuring)
     @lessons.each do |l|
       previous_status = l.status

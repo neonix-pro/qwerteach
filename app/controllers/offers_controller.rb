@@ -76,7 +76,11 @@ class OffersController < ApplicationController
         format.json {render :json => {:success => "true"}}
         format.js {render partial: "#{params[:origin]}/create_offer", locals: {offer: @offer} if params[:origin]}
       else
-        format.html {redirect_to @offer, danger: 'Il y a eu un problème, votre annonce, n\'a pas été mise à jour'}
+        logger.debug('-------'*10)
+        format.html {
+          flash[:danger]="Il y a eu un problème, votre annonce, n'a pas été mise à jour: #{@offer.errors.full_messages.to_sentence}"
+          redirect_to @offer
+        }
         format.json {render :json => {:success => "false", :message => @advert.errors}, :status => :unprocessable_entity}
         format.js {flash[:danger]=@offer.errors.full_messages.to_sentence}
       end

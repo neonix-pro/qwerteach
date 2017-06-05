@@ -17,7 +17,7 @@ module WalletsHelper
       when "PAYIN"
         'fa-arrow-right text-green'
       when "PAYOUT"
-        'fa-arrow-right text-red'
+        'fa-arrow-left text-red'
       when "TRANSFER"
         'fa-exchange text-purple'
     end

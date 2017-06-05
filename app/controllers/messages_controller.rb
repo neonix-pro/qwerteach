@@ -33,7 +33,7 @@ class MessagesController < ApplicationController
         format.json {render :json => {:success => "false", :message => "Votre message est trop court!"}}
       end
     elsif  Mailboxer::Notification.successful_delivery?(receipt)
-      flash[:success] = "Votre message a bien été envoyé!" unless params[:mailbox]
+      flash[:success] = "Votre message a bien été envoyé!" unless !params[:mailbox].nil?
       respond_to do |format|
         format.html {redirect_to messagerie_path}
         format.js

@@ -27,13 +27,16 @@ class Lesson < ActiveRecord::Base
   scope :involving, ->(user){where("teacher_id = ? OR student_id = ?", user.id, user.id).order(time_start: 'desc')}
   scope :is_student, ->(user){where("student_id = ?", user.id)}
   scope :active, ->{where.not("lessons.status IN(?)", [3, 4])} # not canceled or refused or expired
+  scope :canceled, ->{where("lessons.status LIKE ? ", 3)}
+  scope :refused, ->{where("lessons.status LIKE ? ", 4)}
+
 
   scope :upcoming, ->{ active.future } #future and (created or pending)
   scope :passed, ->{past.created} # lessons that already happened
   scope :expired, ->{where("lessons.status LIKE ? ", 5)}
   scope :to_answer, ->{pending.locked.future} # lessons where we're waiting for an answer
   scope :to_unlock, ->{created.locked.past} # lessons where we're waiting for student to unlock money
-  scope :to_pay, ->{created.payment_pending.past} # lessons that haven't been prepaid and student needs to pay
+  #scope :to_pay, ->{created.payment_pending.past} # lessons that haven't been prepaid and student needs to pay
 
   scope :to_review, ->(user){created.locked_or_paid.past.joins('LEFT OUTER JOIN reviews ON reviews.subject_id = lessons.teacher_id
     AND reviews.sender_id = lessons.student_id')

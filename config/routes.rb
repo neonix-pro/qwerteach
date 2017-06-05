@@ -139,14 +139,16 @@ Rails.application.routes.draw do
     put 'desactivate_bank_account/:id' => :desactivate_bank_account, as: 'desactivate_bank_account'
     get 'transactions_index' => :transactions_index
   end
-  # :omniauth_callbacks => "users/omniauth_callbacks",
+  #:omniauth_callbacks => "users/omniauth_callbacks",
   devise_for :users, :controllers => { :registrations=> "registrations"}
   devise_for :teachers, :controllers => {:registrations => "registrations"}
   resources :onboarding
 
-  get "/auth/:action/callback",
-      :controller => "users/omniauth_callbacks",
-      :constraints => { :action => /google_oauth2|facebook/ }
+  devise_scope :user do
+    get "/auth/:action/callback",
+        :controller => "users/omniauth_callbacks",
+        :constraints => { :action => /google_oauth2|facebook/ }
+  end
 
   resources :users, only: [:update]
 

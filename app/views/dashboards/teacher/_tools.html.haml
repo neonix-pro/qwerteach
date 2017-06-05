@@ -10,7 +10,7 @@
           = link_to "#{@user.lessons_given.count} cours", lessons_path + "#history"
           sur Qwerteach!
           %ul
-            - @user.lessons_given.group(:student_id).each do |l|
+            - @user.lessons_given.group(:student_id).limit(3).each do |l|
               - unless l.student.nil?
                 %li #{link_to l.student.name, user_path(l.student.id)}
         - else

@@ -5,17 +5,20 @@
       %i.fa{class: transaction_icon(t)}
     .col-xs-10
       .pull-left
-        - if t.debited_wallet_id == @user.wallets.third.id
-          - if t.credited_wallet_id == @user.wallets.first.id
-            Remboursement prépayement cours
-          - elsif t.credited_wallet_id == @user.wallets.second.id
-            Remboursement prépayement cours
-          - elsif !p.nil?
-            Paiement du cours transféré au professeur #{p.lesson.teacher.full_name}
-        - elsif p.nil?
-          Rechargement du portefeuille
-        - elsif !p.lesson.nil?
-          Réservation du cours de #{p.lesson.topic.title} avec #{p.lesson.teacher.full_name}
+        - if t.type == "PAYOUT"
+          Déchargement du portefeuille virtuel
+        -else
+          - if t.debited_wallet_id == @user.wallets.third.id
+            - if t.credited_wallet_id == @user.wallets.first.id
+              Remboursement prépayement cours
+            - elsif t.credited_wallet_id == @user.wallets.second.id
+              Remboursement prépayement cours
+            - elsif !p.nil?
+              Paiement du cours transféré au professeur #{p.lesson.teacher.full_name}
+          - elsif p.nil?
+            Rechargement du portefeuille
+          - elsif !p.lesson.nil?
+            Réservation du cours de #{p.lesson.topic.title} avec #{p.lesson.teacher.full_name}
         %br
         .text-grey= Time.at(t.creation_date).strftime("le %d/%m/%Y à %H:%M")
       %p.text-right

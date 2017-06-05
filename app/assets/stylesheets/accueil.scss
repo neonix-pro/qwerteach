@@ -121,7 +121,11 @@
 .section_carrousel{
   width: 100%;
   .slide{
+    //background: linear-gradient(10deg, $color_qwerteach_purple 33%, $color_qwerteach_mauve 20%);
     background: $color_qwerteach_purple;
+  }
+  .slide.slide-2{
+    //background: linear-gradient(-10deg, $color_qwerteach_purple 33%, $color_qwerteach_mauve 20%);
   }
   .btn.btn-qw{
     width:210px;
@@ -138,16 +142,23 @@
       display: inline-block;
       top: 50%;
       right: 0;
-      width: 50%;
+      width: 40%;
       height: auto;
       transform: translateY(-50%);
+      max-height: 70%;
+    }
+    img.margin-right-15{
+      margin-right: 10%;
+    }
+    img.margin-left-15{
+      margin-left: 10%;
     }
     .img_slide1{
       float: right;
     }
     .right{
       width: 45%;
-      right: 5%;
+      right: -5%;
       position: absolute;
       top: 40%;
       transform: translateY(-50%);
@@ -185,6 +196,7 @@
     }
   }
   .carousel-control{
+    width:10%;
     background: none !important;
     opacity: 1;
     img{
@@ -440,6 +452,7 @@
 }
 .profs_by_topic{
   background-color:$qwerteach_black;
+  overflow-x: hidden;
 }
 
 .section_choix{

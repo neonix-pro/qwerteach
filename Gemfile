@@ -130,6 +130,7 @@ gem 'acts_as_commentable'
 gem 'dotenv-rails'
 gem 'simple_token_authentication', '~> 1.0'
 gem 'pusher'
+gem 'tawk_rails'
 #gem 'bourbon'
 
 # Use Unicorn as the app server
@@ -174,6 +175,8 @@ end
 # Forms, mail 
 gem 'mail_form', '~> 1.5.0.rc'
 gem 'simple_form', '~> 3.0.0.rc'
+
+gem 'rack-google-analytics'
 
 # Development (Optional)
 gem 'better_errors', group: :development

@@ -36,6 +36,8 @@ as well as a link to its edit page.
   <dl><%= link_to( "#{page.resource.student.firstname} #{page.resource.student.lastname}", [namespace, page.resource.student]) %></dl>
   <dt class="attribute-label">Teacher:</dt>
   <dl><%= link_to( "#{page.resource.teacher.firstname} #{page.resource.teacher.lastname}", [namespace, page.resource.teacher]) %></dl>
+  <dt class="attribute-label">Status:</dt>
+  <dl><%= page.resource.status %></dl>
   <dt class="attribute-label">Topic group:</dt>
   <dl><%= page.resource.topic_group.title %></dl>
   <dt class="attribute-label">Topic:</dt>
@@ -48,6 +50,8 @@ as well as a link to its edit page.
   <dl><%= (( page.resource.time_end - page.resource.time_start) / 1.minute).round %>min</dl>
   <dt class="attribute-label">Price:</dt>
   <dl><%= page.resource.price %>€</dl>
+  <dt class="attribute-label">Comment:</dt>
+  <dl><%= page.resource.comment %></dl>
   <dt class="attribute-label">Created at:</dt>
   <dl><%= page.resource.created_at %></dl>
   <dt class="attribute-label">Updated at:</dt>

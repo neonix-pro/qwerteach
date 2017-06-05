@@ -355,6 +355,9 @@ GEM
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.5)
+    rack-google-analytics (1.2.0)
+      actionpack
+      activesupport
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -486,6 +489,7 @@ GEM
       rails (>= 3)
       sunspot (= 2.2.7)
     sunspot_solr (2.2.7)
+    tawk_rails (1.2.0)
     thin (1.7.0)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -595,6 +599,7 @@ DEPENDENCIES
   progress_bar
   pusher
   quiet_assets
+  rack-google-analytics
   rails (= 4.2.5.1)
   rails-erd
   rails-i18n
@@ -611,6 +616,7 @@ DEPENDENCIES
   sunspot-rails-tester
   sunspot_rails
   sunspot_solr
+  tawk_rails
   thin
   time_difference
   turbolinks

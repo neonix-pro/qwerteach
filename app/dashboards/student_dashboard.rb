@@ -89,7 +89,7 @@ class StudentDashboard < Administrate::BaseDashboard
       :current_sign_in_ip,
       :last_sign_in_ip,
       :reset_password_sent_at,
-
+      :description,
       :confirmed_at,
       :confirmation_sent_at,
       :unconfirmed_email,

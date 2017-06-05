@@ -36,7 +36,7 @@ class Teacher  < Student
 
 
   def min_price
-    offers.empty? ? 0 : @prices = self.offers.map { |d| d.offer_prices.map { |l| l.price } }.min.first
+    offers.empty? ? 0 : @prices = self.offers.map { |d| d.offer_prices.compact.map { |l| l.price }}.reject(&:empty?).min.first
   end
 
   def similar_teachers(n)
@@ -84,7 +84,6 @@ class Teacher  < Student
     level_codes = TopicGroup.uniq.pluck(:level_code)
     result = {}
     level_codes.each do |lc|
-      logger.debug('topic_groups.level_code LIKE "'+lc+'"')
       result[lc] =  self.offers.joins(:topic_group).where('topic_groups.level_code LIKE "'+lc+'"')
     end
     result

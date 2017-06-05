@@ -64,14 +64,15 @@
                       %i.fa.fa-question-circle-o.text-purple.tooltipped{data:{position:'bottom', dalay: 30, tooltip: payment_status(payment.status)}}
                     %dt Référence:
                     %dd ##{payment.id}
-                .card-action
-                  .payment-action
-                    - if @lesson.past? && payment.locked?
-                      %h4 Comment s'est passé le cours?
-                      .pull-left= link_to 'Très bien', lesson_pay_teacher_path(@lesson), method: :post, class: 'btn btn-green btn-qw'
-                      = link_to lesson_dispute_path(@lesson), class: 'text-green' do
-                        %i.fa.fa-warning
-                        Signaler un problème
+                -if @lesson.is_student?(@user)
+                  .card-action
+                    .payment-action
+                      - if @lesson.past? && payment.locked?
+                        %h4 Comment s'est passé le cours?
+                        .pull-left= link_to 'Très bien', lesson_pay_teacher_path(@lesson), method: :post, class: 'btn btn-green btn-qw'
+                        = link_to lesson_dispute_path(@lesson), class: 'text-green' do
+                          %i.fa.fa-warning
+                          Signaler un problème
             -if @lesson.payments.empty? && @lesson.pay_afterwards?
               .card.card-payment
                 .card-content
