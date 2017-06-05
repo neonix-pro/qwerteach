@@ -73,7 +73,7 @@
                         = link_to lesson_dispute_path(@lesson), class: 'text-green' do
                           %i.fa.fa-warning
                           Signaler un problème
-            -if @lesson.payments.empty? && @lesson.pay_afterwards?
+            -if @lesson.payments.empty? && @lesson.pay_afterwards? && @lesson.active?
               .card.card-payment
                 .card-content
                   %h4 Ce cours n'a pas été pré-payé
