@@ -12,6 +12,7 @@ class LessonProposalsController < ApplicationController
   def create
     @proposal = SuggestLesson.run(proposal_params.merge(user: current_user))
     if @proposal.valid?
+      ga_track_event("Booking", "created_by_teacher",  "Credit Card", @proposal.price)
       redirect_to dashboard_path, notice: 'Lesson was created successfully'
     else
       respond_to do |format|
