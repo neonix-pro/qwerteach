@@ -92,6 +92,6 @@ Rails.application.configure do
       :enable_starttls_auto => true
   }
 
-  config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-60202325-2'
+  config.middleware.use Rack::GoogleAnalytics
 
 end
