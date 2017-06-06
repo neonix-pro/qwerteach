@@ -34,7 +34,7 @@ class LessonRequestsController < ApplicationController
       if @lesson.free_lesson
         if @user.can_book_free_lesson_with?(@teacher)
           @lesson.save
-          controller.ga_track_event("Free Booking", "Created", "Prof id: #{@teacher.id}")
+          ga_track_event("Free Booking", "Created", "Prof id: #{@teacher.id}")
           respond_to do |format|
             format.js {render 'finish'}
             format.json {render :json => {:message => "finish"}}

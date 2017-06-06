@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
   
   acts_as_token_authentication_handler_for User, fallback: :none
- 
+
+  require "rack/google-analytics.rb"
+
   # redirects if catches cancan access denied
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
