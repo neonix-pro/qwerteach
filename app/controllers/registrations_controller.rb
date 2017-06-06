@@ -41,7 +41,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def send_google_analytics
     begin
-      ga_track_event("Users", "Inscription", "new")
+      #ga_track_event("Users", "Inscription", "new")
     rescue
     end
   end

@@ -21,7 +21,7 @@ class WalletsController < ApplicationController
         if %w[CREATED SUCCEEDED].exclude? payin.status
           flash[:danger] = I18n.translate("mango.response_message."+payin.result_message) + "<br />Vous n'avez pas été débité, et votre portefeuille virtuel Qwerteach n'a pas été chargé."
         else
-          ga_track_event("Payment", "load_wallet", current_user.id, payin.debited_funds.amount/100.0)
+          #ga_track_event("Payment", "load_wallet", current_user.id, payin.debited_funds.amount/100.0)
           flash[:info] = 'Votre portefeuille virtuel a bien été rechargé.'
           NotificationsMailer.send_load_wallet_details_to_user(current_user, payin).deliver_later
         end

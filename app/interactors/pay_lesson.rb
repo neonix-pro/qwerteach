@@ -20,7 +20,7 @@ class PayLesson < ActiveInteraction::Base
   def transfert
     paying = PayLessonByTransfert.run(user: user, lesson: lesson, wallet: beneficiary_wallet)
     if paying.valid?
-      controller.ga_track_event("Booking", "created_by_student", "Prof id: #{lesson.teacher.id}", lesson.price) if lesson.pending?
+      #controller.ga_track_event("Booking", "created_by_student", "Prof id: #{lesson.teacher.id}", lesson.price) if lesson.pending?
       send_notification
       respond_to do |format|
         format.js {render 'finish', :layout => false}
@@ -77,8 +77,8 @@ class PayLesson < ActiveInteraction::Base
           end
         else
           send_notification
-          controller.ga_track_event("Booking", action, "Prof id: #{lesson.teacher.id}")
-          controller.ga_track_event("Payment", "Created",  "Credit Card", lesson.price)
+          #controller.ga_track_event("Booking", action, "Prof id: #{lesson.teacher.id}")
+          #controller.ga_track_event("Payment", "Created",  "Credit Card", lesson.price)
           respond_to do |format|
             format.js {render 'finish', :layout => false}
             format.json {render :json => {:message => "finish"}}

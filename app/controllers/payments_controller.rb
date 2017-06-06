@@ -23,7 +23,7 @@ class PaymentsController < ApplicationController
   def credit_card_complete
     processing = PayLessonWithCard.run(user: current_user, lesson: @lesson, transaction_id: params[:transactionId])
     if processing.valid?
-      ga_track_event("Payment", "Created",  "Credit Card", @lesson.price)
+      #ga_track_event("Payment", "Created",  "Credit Card", @lesson.price)
       redirect_to lessons_path, notice: t('notice.booking_success')
     else
       redirect_to new_lesson_payment_path(@lesson), notice: t('notice.booking_error')
@@ -33,7 +33,7 @@ class PaymentsController < ApplicationController
   def bancontact_complete
     processing = PayLessonByBancontact.run(user: current_user, lesson: @lesson, transaction_id: params[:transactionId])
     if processing.valid?
-      ga_track_event("Payment", "Created",  "Bancontact", @lesson.price)
+      #ga_track_event("Payment", "Created",  "Bancontact", @lesson.price)
       redirect_to lessons_path, notice: t('notice.booking_success')
     else
       redirect_to new_lesson_payment_path(@lesson), notice: t('notice.booking_error')
