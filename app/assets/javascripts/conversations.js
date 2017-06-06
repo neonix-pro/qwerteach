@@ -1,7 +1,6 @@
 
 var chat = function(id){
     var cb = $("#chatbox_"+id+" .conversation-content");
-
     cbScroll();
 
     $(document).on('click', '[data-toggle="loader"]', function(){
@@ -12,7 +11,7 @@ var chat = function(id){
     });
 
     function cbScroll(){
-        if (cb){
+        if (cb.length){
             cb.scrollTop(cb[0].scrollHeight);
         }
     }
