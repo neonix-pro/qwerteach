@@ -1,6 +1,9 @@
 .section_test_classe
     .left
-        %iframe{:src => "https://qwerteach.com/join_demo/Demo"}
+        -#%iframe{:src => "https://qwerteach.com/join_demo/Demo"}
+        .bg-test-classe
+            .link-wrapper
+                = link_to "Essayer la classe", demo_room_path, class: "btn btn-qw btn-purple"
     .right
         %h2.text-purple Visitez la classe virtuelle
         %hr
