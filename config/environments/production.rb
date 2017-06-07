@@ -92,6 +92,6 @@ Rails.application.configure do
       :enable_starttls_auto => true
   }
 
-  config.middleware.use Rack::GoogleAnalytics
+  #config.middleware.use Rack::GoogleAnalytics
 
 end

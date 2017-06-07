@@ -23,5 +23,6 @@ class DashboardsController < ApplicationController
     if @user.is_a?(Teacher)
       @past_lessons_given = @user.lessons_given.past.created
     end
+
   end
 end

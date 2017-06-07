@@ -34,7 +34,6 @@ class LessonRequestsController < ApplicationController
       if @lesson.free_lesson
         if @user.can_book_free_lesson_with?(@teacher)
           @lesson.save
-          #ga_track_event("Free Booking", "Created", "Prof id: #{@teacher.id}")
           respond_to do |format|
             format.js {render 'finish'}
             format.json {render :json => {:message => "finish"}}
@@ -74,8 +73,10 @@ class LessonRequestsController < ApplicationController
     processing = PayLessonWithCard.run(user: current_user, lesson: @lesson, transaction_id: params[:transactionId])
     if processing.valid?
       send_notification
-      #ga_track_event("Booking", "created_by_student", "Prof id: #{@lesson.teacher.id}")
-      #ga_track_event("Payment", "Created",  "Credit Card", @lesson.price)
+      tracker do |t|
+        t.google_analytics :send, { type: 'event', category: 'Booking', action: 'created_by_student', label: "Prof id: #{@teacher.id}" }
+        t.google_analytics :send, { type: 'event', category: 'Payment', action: 'Booking payment', label: "Credit Card", value: @lesson.price }
+      end
       respond_to do |format|
         format.html {redirect_to lessons_path, notice: t('notice.booking_success')}
         format.json {render :json => {:success => "true"}}
@@ -92,8 +93,10 @@ class LessonRequestsController < ApplicationController
     processing = PayLessonByBancontact.run(user: current_user, lesson: @lesson, transaction_id: params[:transactionId])
     if processing.valid?
       send_notification
-      #ga_track_event("Booking", "created_by_student", "Prof id: #{@lesson.teacher.id}")
-      #ga_track_event("Payment", "Created",  "Bancontact", @lesson.price)
+      tracker do |t|
+        t.google_analytics :send, { type: 'event', category: 'Booking', action: 'created_by_student', label: "Prof id: #{@teacher.id}" }
+        t.google_analytics :send, { type: 'event', category: 'Payment', action: 'Booking payment', label: "Bancontact", value: @lesson.price }
+      end
       respond_to do |format|
         format.html {redirect_to lessons_path, notice: t('notice.booking_success')}
         format.json {render :json => {:success => "true"}}

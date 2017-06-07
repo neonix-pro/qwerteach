@@ -41,7 +41,9 @@ class RegistrationsController < Devise::RegistrationsController
 
   def send_google_analytics
     begin
-      #ga_track_event("Users", "Inscription", "new")
+      tracker do |t|
+        t.google_analytics :send, { type: 'event', category: 'Users', action: 'registration', label: 'new' }
+      end
     rescue
     end
   end
