@@ -3,10 +3,10 @@ fr:
     teacher:
       greetings: "Bonjour %{name},  et bienvenue sur Qwerteach!"
       postulation:
-        contact: "Je te contacte car tu postules pour être prof. "
-        change: "Avant de te faire apparaître comme prof sur le site, nous aimerions augmenter tes chances de te faire contacter par des élèves. Pour ce faire, je vais te demander de corriger les petits détails suivants:"
+        contact: "Je vous contacte car vous postulez pour être professeur. "
+        change: "Avant de vous faire apparaître sur le site, nous aimerions augmenter vos chances de vous faire contacter par des élèves. Pour ce faire, je vais vous demander de corriger les petits détails suivants:"
         corrections:
-          mangopay: "Prends le temps de configurer ton portefeuille virtuel. Nous avons besoin de tes coordonnées bancaires pour pouvoir te payer."
+          mangopay: "Prennez le temps de configurer votre portefeuille virtuel. Nous avons besoin de vos coordonnées bancaires pour pouvoir te payer."
           email: "L'email que tu as introduit n'a pas encore été validé. Nous t'avons envoyé un lien de confirmation par e-mail, clique dessus pour valider ton e-mail."
           bbb: "Tu n'as pas encore essayé la classe virtuelle! Connecte-toi au moins une fois à la classe de démo afin de te familiariser avec l'outil."
           offers: "Veille à remplir convenablement tes annonces de cours. Nous utiliserons ces informations pour permettre aux élèves de te trouver et de réserver un cours avec toi."
