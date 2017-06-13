@@ -83,7 +83,9 @@ class Teacher  < Student
   def qwerteach_score
     s = score
     unless last_seen.nil?
-      s += 1000 if last_seen > 1.hour.ago
+      s += 1000 / ((Time.now - last_seen).seconds / 3600)
+    else
+      s -= 1000
     end
     s
   end
