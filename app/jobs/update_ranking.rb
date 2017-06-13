@@ -1,6 +1,6 @@
 class UpdateRanking
-  EXPIRED_MODIFIER = -100
-  TEACHING_MODIFIER = 50
+  EXPIRED_MODIFIER = -20
+  TEACHING_MODIFIER = 10
 
   @queue = :ranking
 

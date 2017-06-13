@@ -82,10 +82,16 @@ class Teacher  < Student
 
   def qwerteach_score
     s = score
-    unless last_seen.nil?
-      s += 1000 / ((Time.now - last_seen).seconds / 3600)
-    else
+    if last_seen.nil?
       s -= 1000
+    elsif online?
+      s += 1500
+    elsif last_seen > 30.minutes.ago
+
+    else
+      h = ((Time.now - last_seen).seconds / 3600)
+      l = 1.842*1.39**(0.5*h)
+      s +=  1000 / Math.log(l, 2)
     end
     s
   end
