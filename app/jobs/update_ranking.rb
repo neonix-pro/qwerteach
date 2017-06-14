@@ -25,6 +25,10 @@ class UpdateRanking
       u = User.find(h.first)
       u.update(score: u.score + h.second*TEACHING_MODIFIER)
     end
+
+    # of unread messages
+    Mailboxer::Message.where(created_at: 24.hours.ago..Time.now).group(:conversation_id)
+
   end
 
   def self.perform(*attrs)
