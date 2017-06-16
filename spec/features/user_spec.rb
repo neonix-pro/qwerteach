@@ -10,8 +10,8 @@ feature "UserSignsUps" do
     within('.main-content') do 
       fill_in 'user[email]', with:'t@.'
       fill_in 'user[password]', with: 'password'
-      fill_in 'user[password_confirmation]', with: 'password'
-      click_button 'Sign up'
+      #fill_in 'user[password_confirmation]', with: 'password'
+      click_button "S'inscrire"
       expect(page).to have_content 'Inscription'
     end
 
@@ -21,8 +21,8 @@ feature "UserSignsUps" do
     within('.main-content') do 
       fill_in 'user[email]', with:'t@t.t'
       fill_in 'user[password]', with: 'pass'
-      fill_in 'user[password_confirmation]', with: 'pass'
-      click_button 'Sign up'
+      #fill_in 'user[password_confirmation]', with: 'pass'
+      click_button "S'inscrire"
       expect(page).to have_content 'Inscription'
   end
 end
@@ -31,27 +31,14 @@ end
     within('.main-content') do 
       fill_in 'user[email]', with:'t@t.t'
       fill_in 'user[password]', with: 'kaltrina'
-      fill_in 'user[password_confirmation]', with: 'rouilliiiiiiiiiiii'
-      click_button 'Sign up'
+      #fill_in 'user[password_confirmation]', with: 'rouilliiiiiiiiiiii'
+      click_button "S'inscrire"
       expect(page).to have_content 'Inscription'
   end
 end
-  scenario 'with not same passwords' do
-    sign_up_with 'p@p.p', 'password', 'paswor'
-      within ("#body") do
-       expect(page).to have_content("")
-      end
+
   end
-  end
-  def sign_up_with(email, password, password_confirmation)
-    visit new_user_registration_path
-    within(".main-content") do
-      fill_in 'user_email', with: email
-      fill_in 'user[password]', with: password
-      fill_in 'user[password_confirmation]', with: password_confirmation
-      click_button 'Sign up'
-    end
-  end
+
 feature "UserUnlockInstructions" do
   scenario "right unlock information" do
     User.first.lock_access!

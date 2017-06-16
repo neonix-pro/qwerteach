@@ -14,7 +14,7 @@ feature "Wallets" do
      user = FactoryGirl.create(:student, email: FFaker::Internet.email)
      login_user(user.email, user.password)
      visit index_wallet_path
-     expect(page).to have_content("Configurer mon portefeuille virtuel")
+     expect(page).to have_content("vous devez configurer votre portefeuille")
      within(".main-content") do
        fill_in 'account[first_name]', with: user.firstname
        fill_in 'account[last_name]', with: user.lastname

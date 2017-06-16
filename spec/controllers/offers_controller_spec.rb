@@ -29,7 +29,7 @@ RSpec.describe OffersController, type: :controller do
         
         it "delete" do
             get "destroy", :id => Offer.first.id
-            expect(response).to redirect_to offers_path
+            expect(response).to redirect_to edit_user_registration_path(Offer.first.user_id)
         end
         
         it "nombreAdvert-1" do
