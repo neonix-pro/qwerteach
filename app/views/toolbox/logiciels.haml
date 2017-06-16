@@ -4,10 +4,46 @@
     .col-sm-3.col-md-offset-1
       = render :partial => 'navigation'
     .col-sm-9.col-md-7
+      %p
+        Qwerteach met à votre disposition son outil de visioconférence, la classe virtuelle.
+        %br
+        Une fois un cours planifié dans notre système, celui-ci vous donnera automatiquement accès
+        à la classe virtuele à partir de 10mn avant l'heure prévue du cours, et jusqu'à l'heure prévue de fin.
+        %br
+        Cependant, même si elle reste notre outil de référence, rien ne vous empêche d'avoir recours à d'autres outils
+        d'enseignement.
+        On ne s'attaque pas aux maths comme à la littérature, et un élève dyslexique aura des besoins différents.
+        Ainsi, la maîtrise de différents outils pédagogique vous permettra d'enseigner de façon plus optimale,
+        en choisissant le ou les outil(s) le mieux adapté(s) à la situation.
+      %hr
       %h3 Logiciels et outils en ligne
       %h4 Vidéo-conférence
       %p
+        Pouvoir se voir et s'entendre, c'est la base d'un cours particulier. Outre la classe virtuelle, différents
+        systèmes vous permettent d'entrer en communication avec vos élèves:
+      %ul
+        %li
+          = link_to 'Google hangouts', "https://hangouts.google.com/?hl=fr"
+          , l'outil de google a l'avantage d'être très facile d eprise en main, mais nécessite un compte google pour être utilisé.
+        %li
+          = link_to 'Skype', "https://www.skype.com/fr/"
+          est la référence en la matière. Si la qualité audio et vidéo reste inégalée, la nécessité d'installer un
+          programme tiers peut être un frein.
+        %li
+          = link_to 'Webex', "https://www.webex.com/"
+          l'outil de cisco, est aussi une bonne alternative. Cependant, il rste limité dans sa version gratuite.
       %h4 Dessin partagé
       %p
-      %h4 Exercices
+        Certaines matières plus graphiques, comme les mathématique sou les sciences, nécessitent souvent le recours
+        au dessin. Si l'outil de dessin de la classe virtuelle ne vous satisfait pas, voici nos recommandations:
+      %ul
+        %li
+          = link_to 'Whiteboardfox', "https://whiteboardfox.com"
+          selon nous le meileur outil gratuit de dessin partagé.
+        %li
+          = link_to 'Google docs', "http://docs.google.com/"
+          la série documents collaboratifs de google permet une utilisation intuitive et un setup rapide.
+
       %p
+        Si vous avez d'autres suggestions, n'hésitez pas à nous en faire part! Cette liste est en évolution
+        constante pour refléter au plus près les possibilités techniques actuelles.

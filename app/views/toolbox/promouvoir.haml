@@ -1,0 +1,113 @@
+= render :partial => 'header', locals:{title: 'Promouvoir ses cours'}
+.container
+  .row
+    .col-sm-3.col-md-offset-1
+      = render :partial => 'navigation'
+    .col-sm-9.col-md-7
+      %p
+        Une fois approuvé comme professeur sur Qwerteach, vous pourrez être contacté directement par des élèves et des
+        étudiants pour des demandes de cours. Cependant vous n’êtes pas seul au sein de la communauté. Etant donné le
+        nombre de professeurs, selon les disciplines, votre profil risque d’être noyé dans la masse !
+        %br
+        A travers ces lignes, nous allons vous détailler les différents moyens qui s’offrent à vous pour vous garantir
+        une plus grande visibilité sur internet.
+      %hr
+      %h3 Poster une annonce
+      %p
+        Poster une annonce sur un site spécialisé dans la mise en relation de particuliers est un moyen fiable
+        d’accroître votre visibilité auprès des demandeurs de cours. Ces sites internet permettent aux particuliers
+        de poster des annonces, que cela soit pour la vente de biens d’occasions ou pour la proposition de services.
+      %p
+        Plusieurs sites sont à votre disposition, que cela soit des sites français, belge ou suisse:
+      %ul
+        %li= link_to 'Le Bon Coin', "https://www.leboncoin.fr/"
+        %li= link_to 'Les particuliers', "http://www.lesparticuliers.fr/"
+        %li= link_to 'Ebay', "http://ebay.fr"
+        %li= link_to 'Paru vendu', "https://www.paruvendu.fr/"
+        %li= link_to 'Top annonces', "http://www.topannonces.fr/"
+        %li= link_to 'Vivastreet', "http://www.vivastreet.com/"
+        %li= link_to 'Qui cherche trouve', "https://www.quicherchetrouve.be/"
+        %li= link_to 'Que faire', "http://quefaire.be"
+        %li= link_to '2eme main', "https://www.2ememain.be/"
+      %p
+        Grâce au cours par internet, vous pouvez donner des cours partout en France et même dans le monde. Ainsi,
+        <b>pour optimiser au maximum la portée de votre annonce, nous vous conseillons d’en poster le plus possible,
+        au moins dix</b>. Ciblez des villes de tailles moyennes ou même de petites agglomérations (entre 10 000 et 300 000
+        habitants) pour éviter que votre annonce en se noie au milieu des autres offres. En ciblant ainsi de petites
+        villes, vous toucherez plus facilement des personnes ayant réellement besoin de cours en ligne. En effet, les
+        problèmes de transport ainsi que la difficulté à trouver un professeur à proximité sont des problématiques
+        récurrentes en zone faiblement peuplée.
+
+      %p
+        Cependant, <b>certains sites d’annonce tel que Le Bon Coin n’autorisent pas la publication d’annonces identiques
+        dans différents lieux</b>. Vous devrez alors modifier légèrement vos publications. Nous vous conseillons de
+        modifier le titre de l’annonce, cela reste simple à faire et vous permettra de publier le même contenu dans des
+        lieux différents. De plus, certains sites effacent les annonces au bout d’un certain temps après sa publication.
+        Vous devrez donc régulièrement reposter vos offres de cours pour qu’elles soient toujours visibles !
+
+      %p
+        Concernant les villes où poster vos annonce, <b>ciblez des endroits où la demande de cours particuliers peut être
+        basse</b>. Comme vous pouvez le voir ici, si vous cherchez un cours en Mathématiques sur Paris, beaucoup de
+        professeurs proposeront ce type de service. Vous aurez donc peu de chance d'apparaître en haut de page lors
+        d’une recherche, ou bien seulement pendant un temps limité.
+
+      %p
+        Vous pouvez voir ci-dessous la différence d’offre de cours particulier de Maths entre Paris (960) et Aurillac (3):
+
+      = image_tag('toolbox/promouvoir/annonce-cours-particuliers1.png', class: 'toolbox-screenshot materialboxed')
+      = image_tag('toolbox/promouvoir/annonce-cours-particuliers2.png', class: 'toolbox-screenshot materialboxed')
+
+      %p
+        Concernant le contenu de l’annonce, nous présentons la méthodologie à utiliser dans la section
+        = link_to "rédiger son annonce", toolbox_path(:annonces)
+      %hr
+      %h3 Pensez à vos anciens élèves!
+
+      %p
+        Commencer à donner des cours via internet n’est pas chose facile. En effet, il est nécessaire pour un élève
+        (ou pour ses parents) de s’assurer que le professeur est fiable, chose que vous ne pourrez pas prouver grâce
+        aux notations de vos précédents cours si vous venez de vous inscrire. En effet, des professeurs plus
+        expérimentés sur la plateforme auront déjà accumulé des avis positifs de la part de leurs élèves à la suite des
+        cours donnés, ils bénéficieront donc de plus de crédibilité que vous.
+
+      %p
+        Si vous avez déjà de l’expérience dans le soutien scolaire, vous pouvez parler du cours par internet à vos
+        élèves. Ainsi vous obtiendrez facilement vos premières évaluations, qui contribueront à rassurer vos futurs
+        élèves quant à la qualité de vos cours et à votre sérieux.
+      %hr
+      %h3 Utilisez les réseaux sociaux
+
+      %p
+        Une utilisation intelligente des réseaux sociaux vous permettra d'accroître la visibilité de votre service de
+        façon considérable. Dans un premier temps, vous pouvez simplement <b>publier dans vos profils Facebook et LinkedIn</b>
+        que vous dispensez des cours particuliers par internet en incluant un lien permettant d’accéder à votre profil
+        Qwerteach. Par la suite, vous pouvez <b>poster des messages en proposant vos services sur des groupes Facebook
+        d’aide scolaire appropriés</b>. Sur ces mêmes groupes, vous pouvez répondre à quelques questions publiques d’élèves:
+        si les questions s’accumulent ou sont importantes, proposez une séance de cours en ligne, en donnant un lien vers
+        votre profil Qwerteach.
+      %hr
+      %h3 Créez un site web ou un blog
+
+      %p
+        Avoir une page internet peut être un véritable atout si celle-ci est bien gérée. A terme, <b>elle aura l’effet
+        de “vitrine” de vos compétences et de votre savoir-faire</b> en terme d’enseignement.
+      %p
+        Il n’est pas nécessaire d’être informaticien pour créer une page internet, notamment grâce à des outils tel que
+        Wordpress. Dans celle-ci, vous pourrez mettre en avant vos recherches, le contenu de vos cours, votre
+        expérience, etc… Vous pouvez même <b>insérer un extrait vidéo d’un de vos cours pour ainsi donner une idée
+        concrète de la méthode</b> à vos futurs “clients” - si vous réalisez ce type de vidéo, ajoutez la également à votre
+        profil Qwerteach, votre page facebook etc..., c’est un atout majeur! Le but ici est de se différencier par
+        rapport à la concurrence et prouver que vous avez de la valeur (grâce à vos méthodes, à vos compétences, à
+        votre motivation, à vos recherche, ou autre!) et que cela pourra être mis au profit de vos élèves.
+
+      %p
+        Cette page va <b>vous crédibiliser et rassurer vos élèves potentiels</b> quant à la  qualité de vos services.
+        Utilisez cette page comme passerelle vers vos offres de cours particuliers, en incluant le lien de votre profil
+        Qwerteach dans celle-ci.
+
+      %hr
+
+
+
+
+

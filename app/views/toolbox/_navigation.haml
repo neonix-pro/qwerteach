@@ -1,6 +1,7 @@
 #toolbox_navigation
   %ul
-    %li= link_to 'Home', toolbox_index_path, class: ('active' if params[:id].nil?)
-    %li= link_to 'Les Annonces', toolbox_path(:annonces), class: ('active' if params[:id] == 'annonces')
+    %li= link_to 'Accueil', toolbox_index_path, class: ('active' if params[:id].nil?)
+    %li= link_to 'Promouvoir ses cours', toolbox_path(:promouvoir), class: ('active' if params[:id] == 'promouvoir')
+    %li= link_to 'Rédiger son annonce', toolbox_path(:annonces), class: ('active' if params[:id] == 'annonces')
     %li= link_to 'Convaincre', toolbox_path(:convaincre), class: ('active' if params[:id] == 'convaincre')
     %li= link_to 'Logiciels en ligne', toolbox_path(:logiciels), class: ('active' if params[:id] == 'logiciels')
