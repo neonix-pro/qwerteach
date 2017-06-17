@@ -6,18 +6,21 @@ class Api::DashboardsController < DashboardsController
   def index
     super
     
-    if @user.is_a?(Teacher)
-      past_lessons = @user.lessons_given.past
-    else
-      past_lessons = @user.lessons_received.past
-    end
-    
     unless @user.mango_id.nil?
       total_wallet = @user.total_wallets_in_cents/100
     end
     
-    render :json => {:upcoming_lessons => @upcoming_lessons,
-      :to_do_list =>  @pending_lessons, :past_lessons => past_lessons, :total_wallet => total_wallet} 
+    if @user.is_a?(Teacher)
+       past_lessons_given = @user.lessons_given.past.created
+    end
+    
+    render :json => {:upcoming_lessons => @upcoming_lessons, 
+      :to_do_list =>  @pending_lessons, 
+      :past_lessons => @past_lessons,
+      :past_lessons_given => past_lessons_given,
+      :to_unlock_lessons => @to_unlock_lessons,
+      :to_review_lessons =>  @to_review_lessons,
+      :total_wallet => total_wallet} 
   end
   
 end

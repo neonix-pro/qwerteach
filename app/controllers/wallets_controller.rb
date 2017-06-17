@@ -184,7 +184,7 @@ class WalletsController < ApplicationController
       @card_registration = creation.result
       respond_to do |format|
         format.html {}
-        format.json {render :json => {:card_registration => @card_registration}}
+        format.json {render :json => {:card_registration => @card_registration, :user_cards => @user.mangopay.cards}}
       end
     end
   end
