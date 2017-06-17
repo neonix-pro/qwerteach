@@ -41,7 +41,7 @@ $tabs-underline-color: $color_qwerteach_green;
 //@import "materialize/components/modal";
 //@import "materialize/components/collapsible";
 @import "materialize/components/chips";
-//@import "materialize/components/materialbox";
+@import "materialize/components/materialbox";
 .material-form{
   $input-border: 1px solid #ccc;
   @import "materialize/components/forms/forms";

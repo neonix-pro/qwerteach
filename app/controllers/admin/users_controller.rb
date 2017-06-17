@@ -22,6 +22,7 @@ module Admin
     end
 
     def banned_users
+      @online = User.where('last_seen > ?', 10.minutes.ago)
       search_term = params[:search].to_s.strip
       resources = User.unscoped.where(:blocked=>true)
       resources = resources.page(params[:page]).per(records_per_page)

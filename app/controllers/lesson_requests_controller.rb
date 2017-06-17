@@ -20,23 +20,26 @@ class LessonRequestsController < ApplicationController
   end
 
   def new
-    @free_lessons = @user.free_lessons_with(@teacher)
     @lesson_request = @lesson.present? ? CreateLessonRequest.from_lesson(@lesson) : CreateLessonRequest.new
     @offers = @teacher.offers_by_level_code
+    @booking_delay = @teacher.booking_delay
   end
 
   def create
     Lesson.drafts(current_user).destroy_all
     duration_free_lesson
-    @free_lessons = @user.free_lessons_with(@teacher)
     saving = CreateLessonRequest.run(request_params)
     if saving.valid?
       @lesson = saving.result
       if @lesson.free_lesson
-        @lesson.save
-        respond_to do |format|
-          format.js {render 'finish'}
-          format.json {render :json => {:message => "finish"}}
+        if @user.can_book_free_lesson_with?(@teacher)
+          @lesson.save
+          respond_to do |format|
+            format.js {render 'finish'}
+            format.json {render :json => {:message => "finish"}}
+          end
+        else
+          redirect_to new_user_lesson_request_path(@teacher), danger: "Vous ne pouvez pas réserver de cours gratuit avec ce professeur"
         end
       elsif check_mangopay_account
         creation = Mango::CreateCardRegistration.run(user: current_user)
@@ -70,6 +73,10 @@ class LessonRequestsController < ApplicationController
     processing = PayLessonWithCard.run(user: current_user, lesson: @lesson, transaction_id: params[:transactionId])
     if processing.valid?
       send_notification
+      tracker do |t|
+        t.google_analytics :send, { type: 'event', category: 'Booking', action: 'created_by_student', label: "Prof id: #{@teacher.id}" }
+        t.google_analytics :send, { type: 'event', category: 'Payment', action: 'Booking payment', label: "Credit Card", value: @lesson.price }
+      end
       respond_to do |format|
         format.html {redirect_to lessons_path, notice: t('notice.booking_success')}
         format.json {render :json => {:success => "true"}}
@@ -86,6 +93,10 @@ class LessonRequestsController < ApplicationController
     processing = PayLessonByBancontact.run(user: current_user, lesson: @lesson, transaction_id: params[:transactionId])
     if processing.valid?
       send_notification
+      tracker do |t|
+        t.google_analytics :send, { type: 'event', category: 'Booking', action: 'created_by_student', label: "Prof id: #{@teacher.id}" }
+        t.google_analytics :send, { type: 'event', category: 'Payment', action: 'Booking payment', label: "Bancontact", value: @lesson.price }
+      end
       respond_to do |format|
         format.html {redirect_to lessons_path, notice: t('notice.booking_success')}
         format.json {render :json => {:success => "true"}}

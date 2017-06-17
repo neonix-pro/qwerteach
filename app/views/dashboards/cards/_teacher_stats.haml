@@ -1,0 +1,18 @@
+.card.card-search
+  .card-content
+    .row
+      .col-xs-2
+        .icon-coloured.icon-green.icon-title
+          %i.fa.fa-bar-chart.fa-2x
+      .col-xs-10
+        .card-title
+          Mon activité
+        %p
+          %span.text-green #{@past_lessons_given.count}
+          cours donnés à
+          %br
+          %span.text-green #{@past_lessons_given.distinct.count(:student_id)}
+          élèves,
+          %br
+          pour un total de
+          %span.text-green #{@past_lessons_given.sum(:price)}€

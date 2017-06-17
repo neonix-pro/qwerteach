@@ -1,28 +1,46 @@
 .become_teacher_finish
-  %h2.page-title-green.text-center Félicitations, votre candidature est complète!
-  .row
-    .col-sm-2
-    .col-sm-8
-      .alert.alert-info
-        %h4 Nous sommes convaincus que vous ferez un(e) prof fantastique.
-        Cependant, votre annonce et votre profil ne sont
-        %b pas encore visibles
-        par les élèves.
-      %h4 Pourquoi mon annonce n'est-elle pas visible?
-      %p
-        Nous examinons votre demande, afin de nous assurer de la qualité de vos annonces et de votre profil. En effet, il est important pour nous que les élèves trouvent sur notre site des professeurs compétents et motivés.
-      %p
-        Un e-mail vous a été envoyé, récapitulant l'ensemble de la procédure. Surveillez bien votre courrier, car c'est par ce biais que notre équipe vous contactera pour fixer une interview!
-        Si ce n'est déjà le cas, profitez de ce délai pour vous familiariser avec Qwerteach.
-      %p
-        D'ici là, nous vous souhaitons une agréable expérience sur le site!
-      .text-green.pull-right - L'équipe
-  .row
-    .col-sm-2
-    .col-sm-8.text-center
-      %hr
-      %br
-      =link_to("Voir mon profil", '/users/'+current_user.id.to_s, html_options = {class: "btn btn-sm btn-qw btn-green"})
-      = link_to("Tableau de bord", dashboard_path, html_options = {class: "btn btn-sm btn-qw btn-green"})
+  - unless @user.offers.empty?
+    %h2.page-title-green.text-center Félicitations, votre candidature est complète!
+    .row
+      .col-sm-2
+      .col-sm-8
+        .alert.alert-info
+          %h4 Nous sommes convaincus que vous ferez un(e) prof fantastique.
+          Cependant, votre annonce et votre profil ne sont
+          %b pas encore visibles
+          par les élèves.
+        %h4 Pourquoi mon annonce n'est-elle pas visible?
+        %p
+          Nous examinons votre demande, afin de nous assurer de la qualité de vos annonces et de votre profil. En effet, il est important pour nous que les élèves trouvent sur notre site des professeurs compétents et motivés.
+        %p
+          Un e-mail vous a été envoyé, récapitulant l'ensemble de la procédure. Surveillez bien votre courrier, car c'est par ce biais que notre équipe vous contactera pour fixer une interview!
+          Si ce n'est déjà le cas, profitez de ce délai pour vous familiariser avec Qwerteach.
+        %p
+          D'ici là, nous vous souhaitons une agréable expérience sur le site!
+        .text-green.pull-right - L'équipe
+    .row
+      .col-sm-2
+      .col-sm-8.text-center
+        %hr
+        %br
+        =link_to("Voir mon profil", '/users/'+current_user.id.to_s, html_options = {class: "btn btn-sm btn-qw btn-green"})
+        = link_to("Tableau de bord", dashboard_path, html_options = {class: "btn btn-sm btn-qw btn-green"})
+  - else
+    %h2.page-title-green.text-center
+      Dernière étape
+    .row
+      .col-sm-2
+      .col-sm-8
+        %h4 Votre candidature n'est pas encore complète!
+        %p
+          Si vous souhaitez donner des cours sur Qwerteach, vous devez impérativement renseigner les matières dans lesquelles vous enseignez, ainsi que vos tarifs.
+          %br
+          Tant que nous n'aurons pas cette information, votre candidatue ne sera pas prise en considération.
+          %br
+          =link_to 'Ajouter une annonce', become_teacher_path(:offers)
+          %br
+        %p.text-right
+          = link_to "Je ne souhaite pas enseigner, sortez-moi d'ici!", dashboard_path
+        %hr
 
   = tutorial_progress_bar

@@ -33,6 +33,10 @@ class BecomeTeacherController < ApplicationController
         @teacher = current_user
         @path = wizard_path
         @bank_account = Mango::CreateBankAccount.new(user: current_user)
+        if @user.offers.empty?
+          flash[:warning]="Vous n'avez pas enregistré vos annonces de cours. Tant que ceci ne sera pas fait, votre candidature ne sera pas prise en compte. <br />"
+          flash[:warning]+= view_context.link_to 'Ajouter une annonce', become_teacher_path(:offers)
+        end
     end
     render_wizard
   end

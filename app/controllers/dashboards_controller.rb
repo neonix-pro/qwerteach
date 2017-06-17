@@ -15,10 +15,14 @@ class DashboardsController < ApplicationController
     @current_lesson = @user.current_lesson
 
     @to_unlock_lessons = @user.lessons_received.to_unlock
-    @to_pay_lessons = @user.lessons_received.where(pay_afterwards: true).includes(:payments).where(payments: {id: nil})
+    @to_pay_lessons = @user.lessons_received.where(pay_afterwards: true).active.includes(:payments).where(payments: {id: nil})
     @to_review_lessons = @user.lessons_received.to_review(@user).where.not(id: @to_unlock_lessons.ids + @to_pay_lessons.ids).group(:teacher_id)
     @to_unlock_lessons = @to_unlock_lessons + @to_pay_lessons
 
     @past_lessons = @user.lessons_received.past.created
+    if @user.is_a?(Teacher)
+      @past_lessons_given = @user.lessons_given.past.created
+    end
+
   end
 end

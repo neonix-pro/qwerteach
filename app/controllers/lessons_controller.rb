@@ -100,6 +100,9 @@ class LessonsController < ApplicationController
 
     accepting = AcceptLesson.run(lesson: @lesson, user: current_user)
     if accepting.valid?
+      category = @lesson.free_lesson? ? 'Free Booking' : 'Booking'
+      action = @lesson.is_student?(current_user) ? 'accepted_by_student' : 'accepted_by_teacher'
+      #ga_track_event(category, action, "Teacher id: #{@lesson.teacher.id}")
       respond_to do |format|
         format.html {redirect_to dashboard_path, notice: "Le cours a été accepté."}
         format.json {render :json => {:success => "true", :message => "Le cours a été accepté."}}
@@ -119,6 +122,9 @@ class LessonsController < ApplicationController
     if refuse.valid?
       body = "#"
       flash[:success] = 'Vous avez décliné la demande de cours.'
+      category = @lesson.free_lesson? ? 'Free Booking' : 'Booking'
+      action = @lesson.is_student?(current_user) ? 'refused_by_student' : 'refused_by_teacher'
+      #ga_track_event(category, action, "Teacher id: #{@lesson.teacher.id}")
       respond_to do |format|
         format.html {redirect_to lessons_path}
         format.json {render :json => {:success => "true", 
@@ -140,6 +146,9 @@ class LessonsController < ApplicationController
       @lesson.status = 'canceled'
       refuse = RefundLesson.run(user: @user, lesson: @lesson)
       if refuse.valid?
+        category = @lesson.free_lesson? ? 'Free Booking' : 'Booking'
+        action = @lesson.is_student?(current_user) ? 'canceled_by_student' : 'canceled_by_teacher'
+        #ga_track_event(category, action, "Teacher id: #{@lesson.teacher.id}")
         flash[:success] = 'Vous avez annulé la demande de cours.'
         respond_to do |format|
           format.html {redirect_to lessons_path}

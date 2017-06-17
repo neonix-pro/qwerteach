@@ -20,7 +20,7 @@ class SendNotifications
         notifications = Mailboxer::Notification.find(receipts.map(&:notification_id))
         Rails.logger.info "Sending #{notifications.size} notification(s) to #{user.email}"
         NotificationsMailer.notifications_email(user, notifications).deliver
-        receipts.update_all(is_read: true)
+        receipts.update_all(delivery_method: 'email')
       else
         Rails.logger.info "Waiting before sending notifications to #{user.email}"
       end

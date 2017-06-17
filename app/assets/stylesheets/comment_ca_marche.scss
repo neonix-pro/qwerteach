@@ -63,6 +63,20 @@
       height: 100%;
       border: none;
     }
+    .bg-test-classe{
+      background:  image-url('comment_ca_marche/classe_virtuelle.jpg') no-repeat center center;
+      background-size: cover;
+      height:100%;
+      text-align:center;
+      .link-wrapper{
+        height: 100%;
+        background-color: rgba(0,0,0,0.4);
+      }
+      a{
+        position: relative;
+        top: 50%;
+      }
+    }
   }
   .right{
     float: left;

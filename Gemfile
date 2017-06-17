@@ -176,7 +176,7 @@ end
 gem 'mail_form', '~> 1.5.0.rc'
 gem 'simple_form', '~> 3.0.0.rc'
 
-gem 'rack-google-analytics'
+gem 'rack-tracker'
 
 # Development (Optional)
 gem 'better_errors', group: :development

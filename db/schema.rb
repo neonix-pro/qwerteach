@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170510122413) do
+ActiveRecord::Schema.define(version: 20170606165343) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -442,6 +442,7 @@ ActiveRecord::Schema.define(version: 20170510122413) do
     t.boolean  "blocked",                           default: false
     t.text     "tokens"
     t.string   "authentication_token",   limit: 30
+    t.string   "video_url"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true

@@ -73,7 +73,7 @@
                         = link_to lesson_dispute_path(@lesson), class: 'text-green' do
                           %i.fa.fa-warning
                           Signaler un problème
-            -if @lesson.payments.empty? && @lesson.pay_afterwards?
+            -if @lesson.payments.empty? && @lesson.pay_afterwards? && @lesson.active?
               .card.card-payment
                 .card-content
                   %h4 Ce cours n'a pas été pré-payé
@@ -83,7 +83,8 @@
                 .card-action
                   .payment-action
                     - if @lesson.is_student?(@user)
-                      = link_to 'Payer', new_lesson_payment_path(@lesson), class: 'btn btn-green btn-qw'
+                      - if @lesson.active?
+                        = link_to 'Payer', new_lesson_payment_path(@lesson), class: 'btn btn-green btn-qw'
                     - else
                       .text-red
                         Si vous acceptez de donner cours avant que l'élève n'ait

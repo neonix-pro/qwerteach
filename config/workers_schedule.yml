@@ -50,3 +50,10 @@ schedule_notification:
   class: ScheduleNotifications
   queue: messages
   description: "Notifies users that they have unread messages"
+
+update_ranking:
+  every:
+    - "1h"
+  class: UpdateRanking
+  queue: ranking
+  description: "Updates users ranking based on expired / given lessons"

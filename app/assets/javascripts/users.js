@@ -6,7 +6,6 @@ var ready = function () {
      * send an ajax request to our rails app with the sender_id and
      * recipient_id
      */
-
     $('.start-conversation').click(function (e) {
         e.preventDefault();
 
@@ -64,16 +63,6 @@ var ready = function () {
         chatBox.chatWith(conversation_id);
     });
 
-    adjustProfileSidebar();
-    function adjustProfileSidebar(){
-        height= $(window).height();
-        $('#sidebar-profile').height(height);
-    };
-
-    $('#profile-content .offer-flip-toggle').click(function(){
-        $(this).toggleClass('active');
-        $(this).parent().toggleClass('hover');
-    })
 
     $('#rating').click(function(){
         $('html, body').animate({
@@ -190,7 +179,6 @@ var ready1 = function () {
     }
 }
 $(document).on('turbolinks:load',  ready1);
-$(document).on("page:load", ready1);
 
 
 function resizeHeader() {

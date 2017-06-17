@@ -65,8 +65,8 @@ class Offer < ActiveRecord::Base
     self.topic.title == 'Autre' ? self.custom_name : self.topic.title
   end
 
-  def price_for_level(level_id)
-    offer_prices.find_by(level_id: level_id)
+  def price_for_level(level)
+    offer_prices.joins(:level).where("levels.be = '#{level.be}'").first
   end
 
   def possible_levels

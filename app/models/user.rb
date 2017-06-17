@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   GENDER_TYPES = ["Not telling", "Male", "Female"]
   ACCOUNT_TYPES = ["Student", "Teacher"]
+
   devise
   paginates_per 1
   # DEVISE
