@@ -47,6 +47,9 @@ Rails.application.routes.draw do
     get 'conversations/:id' => 'conversations#show'
     get 'conversation/show_more/:id/:page' => 'conversations#show_more'
     post 'users/:user_id/reviews' => 'reviews#create'
+    
+    get 'notifications' => 'notifications#index'
+    get 'notification/infos/:sender_id' => 'notifications#get_notification_infos'
   end
   
   namespace :api, :defaults => { :format => 'json' } do

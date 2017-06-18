@@ -3,7 +3,10 @@ class NotificationsController < ApplicationController
 
   def index
     @notifications = current_user.mailbox.notifications.order('created_at DESC').limit(params[:limit]).offset(params[:offset])
-    render :layout => false
+    respond_to do |format|
+      format.html {render :layout => false}
+      format.json {render :json => {:notifications => @notifications}}
+    end
   end
 
   def show
