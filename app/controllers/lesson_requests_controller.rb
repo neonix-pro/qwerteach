@@ -124,9 +124,9 @@ class LessonRequestsController < ApplicationController
   def calculate
     @calc = CalculateLessonPrice.run(calculating_params)
     if @calc.valid?
-      render json: {price: @calc.result}
+      render :json => {:price => @calc.result}
     else
-      render json: {error: @calc.errors.full_messages.first}
+      render :json => {:error => @calc.errors.full_messages.first}
     end
   end
 

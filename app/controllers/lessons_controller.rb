@@ -25,9 +25,13 @@ class LessonsController < ApplicationController
     case params[:lesson_type]
       when 'planned'
         @planned_lessons = Lesson.involving(@user).created.future.page(params[:page]).per(6)
+        render :json => {:upcoming_lessons => @planned_lessons}
       when 'pending'
         @pending_lessons = Lesson.involving(@user).pending.future.page(params[:page]).per(6)
+        render :json => {:to_do_list => @pending_lessons}
       when 'history'
+        @history_lessons = Lesson.involving(@user).page(params[:page]).per(12)
+        render :json => {:past_lessons => @history_lessons}
         search_history
     end
   end
@@ -101,12 +105,12 @@ class LessonsController < ApplicationController
       #ga_track_event(category, action, "Teacher id: #{@lesson.teacher.id}")
       respond_to do |format|
         format.html {redirect_to dashboard_path, notice: "Le cours a été accepté."}
-        format.json {render :json => {:success => "true", :message => "Le cours a été accepté.", :lesson => @lesson}}
+        format.json {render :json => {:success => "true", :message => "Le cours a été accepté."}}
       end
     else
       respond_to do |format|
         format.html {redirect_to dashboard_path, flash: {danger: accepting.errors.full_messages.first}}
-        format.json {render :json => {:success => "false", :message => accepting.errors.full_messages.first, :lesson => @lesson}}
+        format.json {render :json => {:success => "false", :message => accepting.errors.full_messages.first}}
       end
     end
 
@@ -124,7 +128,7 @@ class LessonsController < ApplicationController
       respond_to do |format|
         format.html {redirect_to lessons_path}
         format.json {render :json => {:success => "true", 
-          :message => "Vous avez décliné la demande de cours.", :lesson => @lesson}}
+          :message => "Vous avez décliné la demande de cours."}}
       end
     else
       flash[:danger] = "Il y a eu un problème: #{refuse.errors.full_messages.to_sentence} <br />Le cours n'a pas été refusé".html_safe

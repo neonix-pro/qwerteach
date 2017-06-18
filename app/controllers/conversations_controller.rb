@@ -67,6 +67,7 @@ class ConversationsController < ApplicationController
     Resque.enqueue(MessageStatWorker, current_user.id)
     @unread_count = @mailbox.inbox({:read => false}).count
     @path = reply_conversation_path(@conversation)
+    Rails.logger.debug("RECIEVER: #{@reciever.inspect}")
   end
 
   def show_more
@@ -99,7 +100,7 @@ class ConversationsController < ApplicationController
     Pusher.trigger("#{@conversation.id}", "#{@conversation.id}", {last_message: @message, avatar: @message.sender.avatar.url(:small)})
     
     #Send notification to android app
-    Pusher.notify(["#{receiver.id}"], {fcm: {notification: {title: @message.subject, body: @message.body,
+    Pusher.notify(["#{receiver.id}"], {fcm: {notification: {title: "Nouveau message sur Qwerteach", body: @message.body,
       icon: 'androidlogo', click_action: "MY_MESSAGES"}}, webhook_url: 'http://requestb.in/wiriy8wi', webhook_level: 'DEBUG'})
     
     @conversation_id = @conversation.id

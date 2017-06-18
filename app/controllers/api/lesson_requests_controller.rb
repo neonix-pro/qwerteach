@@ -1,5 +1,5 @@
 class Api::LessonRequestsController < LessonRequestsController
-  
+  before_action :authenticate_user!
   skip_before_filter :verify_authenticity_token
   respond_to :json
   
@@ -24,6 +24,10 @@ class Api::LessonRequestsController < LessonRequestsController
   end
   
   def topics
+    super
+  end
+  
+  def calculate
     super
   end
   

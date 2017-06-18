@@ -1,5 +1,5 @@
 class Api::ConversationsController < ConversationsController
-  
+  before_action :authenticate_user!
   skip_before_filter :verify_authenticity_token
   respond_to :json
   
@@ -24,7 +24,7 @@ class Api::ConversationsController < ConversationsController
   
   def show
     super
-    render :json => {:messages => @messages.reverse, :avatars => get_sender_avatars}
+    render :json => {:messages => @messages.reverse, :avatars => get_sender_avatars, :recipients => @reciever}
   end
   
   def mark_as_read

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get 'users/:user_id/lesson_requests/topic_groups' => 'lesson_requests#topic_groups'
     get 'users/:user_id/lesson_requests/topics/:topic_group_id' => 'lesson_requests#topics'
     get 'users/:user_id/lesson_requests/levels/:topic_id' => 'lesson_requests#levels'
+    post 'users/:user_id/lesson_requests/calculate' => 'lesson_requests#calculate'
     
     get 'wallets/get_total_wallet/:user_id' => 'wallets#get_total_wallet'
     put 'user/mangopay/edit_wallet' => 'wallets#update_mangopay_wallet'
@@ -29,8 +30,10 @@ Rails.application.routes.draw do
     put 'user/mangopay/desactivate_bank_account/:id' => 'wallets#desactivate_bank_account'
     put 'user/mangopay/make_payout' => 'wallets#make_payout'
     get 'user/mangopay/payout' => 'wallets#payout'
+    get 'user/mangopay/transactions_index' => 'wallets#transactions_index'
     
     get 'lessons' => 'lessons#index'
+    get 'lessons/index_pagination' => 'lessons#index_pagination'
     get 'lessons/find_lesson_informations/:lesson_id' => 'lessons#find_lesson_informations'
     get 'lessons/:lesson_id/cancel' => 'lessons#cancel'
     put 'lessons/:id' => 'lessons#update'
@@ -44,6 +47,9 @@ Rails.application.routes.draw do
     get 'conversations/:id' => 'conversations#show'
     get 'conversation/show_more/:id/:page' => 'conversations#show_more'
     post 'users/:user_id/reviews' => 'reviews#create'
+    
+    get 'notifications' => 'notifications#index'
+    get 'notification/infos/:sender_id' => 'notifications#get_notification_infos'
   end
   
   namespace :api, :defaults => { :format => 'json' } do
@@ -58,7 +64,6 @@ Rails.application.routes.draw do
   end
 
   namespace :api, :defaults => { :format => 'json' } do
-    #get 'topics/:id' => 'topics#show'
     get 'topics' => 'topics#get_all_topics'
     get 'topic_groups' => 'topic_groups#get_all_topic_groups'
   end
