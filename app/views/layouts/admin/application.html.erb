@@ -20,6 +20,7 @@ By default, it renders:
   <meta name="viewport" content="initial-scale=1" />
   <title><%= content_for(:title) %> | <%= Rails.application.class.parent_name.titlecase %></title>
   <%= render "stylesheet" %>
+  <%= render "javascript" %>
   <%= stylesheet_link_tag 'administrate/custom' %>
   <%= csrf_meta_tags %>
 </head>
@@ -40,6 +41,5 @@ By default, it renders:
 
   </div>
 
-  <%= render "javascript" %>
 </body>
 </html>
