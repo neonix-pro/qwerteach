@@ -429,3 +429,10 @@ fr:
   Blocked due to the Bank Account User\'s KYC limitations (maximum debited or credited amount reached): Bloqué car la limite KYC a été atteinte
   "Blocked due to the Bank Account User\'s KYC limitations (maximum debited or credited amount reached)": Bloqué car la limite KYC a été atteinte
   The payment period has expired: Aucun virement n'a été reçu, l'opération a expiré
+
+  dispute:
+    errors:
+      finished: La dispute a été résolu
+      price:
+        small: Il doit être supérieur à zéro
+        big: Ce ne devrait pas être plus que le coût de la leçon

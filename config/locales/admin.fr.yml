@@ -1,5 +1,10 @@
 fr:
   admin:
+    despute:
+      scope:
+        all: tous
+        started: commencé
+        finished: réaliser
     teacher:
       greetings: "Bonjour %{name},  et bienvenue sur Qwerteach!"
       postulation:

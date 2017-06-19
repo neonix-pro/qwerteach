@@ -1,0 +1,40 @@
+.dispute-messages{
+  .nav-tabs{
+    width: 80%;
+    margin-bottom: 5px;
+  }
+  .tab-content{
+    width: 80%;
+    .pre-scrollable{
+      margin-bottom: 5px;
+    }
+
+    .alert{
+      &.alert-info{
+        text-align: left;
+      }
+      &.alert-success{
+        text-align: right;
+      }
+      .notice{
+        display: inline-block;
+        text-align: left;
+        .sign{
+          font-size: 0.8em;
+          color: #999;
+          .time{color:transparent;}
+        }
+        .text{
+          font-size: 0.9em;
+          color: #000;
+        }
+        &:hover{
+          .sign .time{
+            color: #000;
+          }
+        }
+      }
+    }
+
+  }
+}

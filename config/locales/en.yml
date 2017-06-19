@@ -50,3 +50,10 @@ en:
       update:
         galleries: "Not allowed to update this gallery."
         pictures: "Not allowed to update this picture."
+
+  dispute:
+    errors:
+      finished: The dispute has been resolved
+      price:
+        small: This must be greater than zero
+        big: It should be no more than the cost of the lesson

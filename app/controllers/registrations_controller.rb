@@ -14,7 +14,7 @@ class RegistrationsController < Devise::RegistrationsController
     return unless resource.persisted?
     resource.update(time_zone: cookies[:time_zone])
   end
-  
+
   def after_sign_up_path_for(resource)
     unless request.env['omniauth.origin']
       if resource.is_a?(Teacher)
@@ -36,6 +36,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def configure_permitted_parameters
+    # Perhaps you need to add :firstname and :lastname ?
     devise_parameter_sanitizer.for(:account_update).push(:first_lesson_free)
   end
 

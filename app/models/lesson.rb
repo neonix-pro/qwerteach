@@ -16,9 +16,10 @@ class Lesson < ActiveRecord::Base
   has_many :payments, inverse_of: :lesson
 
   has_one :bbb_room
+  has_one :dispute
 
   scope :pending, ->{where("lessons.status IN (?) ", [0, 1])}
-  scope :created, ->{where("lessons.status LIKE ? ", 2)}
+  #scope :created, ->{where("lessons.status LIKE ? ", 2)}
   scope :locked, ->{joins(:payments).where("payments.status LIKE ?", 1)}
   scope :locked_or_paid, ->{joins(:payments).where("payments.status IN (?)", [1, 2])}
   scope :payment_pending, ->{joins(:payments).where("payments.status LIKE ?", 0)} # money isn't locked. Postpay lesson
@@ -27,13 +28,13 @@ class Lesson < ActiveRecord::Base
   scope :involving, ->(user){where("teacher_id = ? OR student_id = ?", user.id, user.id).order(time_start: 'desc')}
   scope :is_student, ->(user){where("student_id = ?", user.id)}
   scope :active, ->{where.not("lessons.status IN(?)", [3, 4, 5])} # not canceled or refused or expired
-  scope :canceled, ->{where("lessons.status LIKE ? ", 3)}
-  scope :refused, ->{where("lessons.status LIKE ? ", 4)}
+  #scope :canceled, ->{where("lessons.status LIKE ? ", 3)}
+  #scope :refused, ->{where("lessons.status LIKE ? ", 4)}
 
 
   scope :upcoming, ->{ active.future } #future and (created or pending)
   scope :passed, ->{past.created} # lessons that already happened
-  scope :expired, ->{where("lessons.status LIKE ? ", 5)}
+  #scope :expired, ->{where("lessons.status LIKE ? ", 5)}
   scope :to_answer, ->{pending.locked.future} # lessons where we're waiting for an answer
   scope :to_unlock, ->{created.locked.past} # lessons where we're waiting for student to unlock money
   #scope :to_pay, ->{created.payment_pending.past} # lessons that haven't been prepaid and student needs to pay
@@ -73,9 +74,9 @@ class Lesson < ActiveRecord::Base
   def self.occuring
     where("time_end > ? AND time_start < ?", DateTime.now, DateTime.now)
   end
-  def self.created
-    where(status: 2)
-  end
+  # def self.created  # default scope enum status
+  #   where(status: 2)
+  # end
 
   def self.async_send_notifications
     Resque.enqueue(LessonsNotifierWorker)
@@ -103,29 +104,15 @@ class Lesson < ActiveRecord::Base
   # le user doit-il confirmer?
   def pending?(user = nil)
     return pending_any? if user.nil?
-    (teacher == user && status == 'pending_teacher') || (student == user && status == 'pending_student')
+    (teacher == user && pending_teacher?) || (student == user && pending_student?)
   end
 
   def to_expire?
-    (status == 'pending_teacher' || status == 'pending_student') && time_start < Time.now
-  end
-
-  def expired?
-    status == 'expired'
-  end
-
-  def canceled?
-    status == 'canceled'
-  end
-  def refused?
-    status == 'refused'
-  end
-  def created?
-    status == 'created'
+    (pending_teacher? || pending_student?) && time_start < Time.now
   end
 
   def active?
-    !(expired? || status == 'canceled' || status == 'refused')
+    !(expired? || canceled? || refused?)
   end
 
   def other(user)
@@ -167,12 +154,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def disputed?
-    payments.each do |p|
-      if p.disputed?
-        return true
-      end
-    end
-    return false
+    dispute.present?
   end
 
   def to_pay?(user)

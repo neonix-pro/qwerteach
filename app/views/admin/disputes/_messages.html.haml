@@ -1,0 +1,36 @@
+.dispute-messages.bootstrap-wrapper
+  %ul.nav.nav-tabs
+    - dispute.conversation_groups(current_user).each do |room, chat|
+      %li(class="#{room.to_s == 'common' ? 'in active' : ''}")
+        %a.tabnav(data-toggle="tab" href="##{room}")
+          =t("dispute_message.group.#{room}", default: room)
+          (#{chat[:conversation].try(:count_messages) || 0})
+
+  .tab-content
+    - dispute.conversation_groups(current_user).each do |room, chat|
+      .tab-pane.fade(id="#{room}" class="#{room.to_s == 'common' ? 'in active' : ''}")
+        - if  chat[:conversation].present?
+          .pre-scrollable
+            - chat[:conversation].messages.includes(:sender).each do |message|
+
+              - message_class = case message.sender_id |
+                  when dispute.user_id; then 'alert-success' |
+                  when current_user.id; then 'alert-warning' |
+                  else 'alert-info' |
+                end |
+
+              .alert(class="#{message_class}")
+                .notice
+                  .text= message.body
+                  .sign
+                    %span.name= message.sender.try(:name) || message.sender_id
+                    %span.time= message.created_at.strftime('%H:%M')
+
+        = form_tag admin_dispute_message_path(dispute) do
+          = hidden_field_tag 'conversation_id', chat[:conversation].try(:id)
+          = hidden_field_tag 'recipient_ids', chat[:recipient_ids]
+          .row
+            .col-sm-10= text_area_tag 'body', nil, cols: 2, class: 'form-control', placeholder: 'Type something...', required: true
+            .col-sm-2= submit_tag 'Submit'
+
+

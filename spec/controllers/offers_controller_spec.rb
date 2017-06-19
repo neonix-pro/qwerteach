@@ -27,9 +27,11 @@ RSpec.describe OffersController, type: :controller do
             expect(response).to be_success
         end
         
-        it "delete" do
-            get "destroy", :id => Offer.first.id
-            expect(response).to redirect_to offers_path
+        it 'delete' do
+            offer_id = Offer.first.id
+            get 'destroy', :id => offer_id
+            expect(Offer.find_by_id(offer_id)).to be_nil
+            expect(response).to have_http_status(:redirect)
         end
         
         it "nombreAdvert-1" do

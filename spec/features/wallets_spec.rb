@@ -10,7 +10,7 @@ feature "Wallets" do
     visit new_user_session_path
     expect(page).to have_content('Se connecter')
   end
-  scenario "GET /wallets logged in", vcr: true do
+  xscenario "GET /wallets logged in", vcr: true do
      user = FactoryGirl.create(:student, email: FFaker::Internet.email)
      login_user(user.email, user.password)
      visit index_wallet_path
@@ -28,7 +28,7 @@ feature "Wallets" do
        select "France", :from => "account[nationality]"
        find('button[type=submit]').click
      end
-     
+
      expect(page).to have_content("0.0 EUR 0.0 EUR de crédit bonus")
      visit load_wallet_path
      expect(page).to have_content("Charger mon portefeuille")

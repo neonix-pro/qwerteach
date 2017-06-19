@@ -10,12 +10,9 @@ RSpec.describe "interests/new", type: :view do
 
   it "renders new interest form" do
     render
-
     assert_select "form[action=?][method=?]", interests_path, "post" do
-
-      assert_select "input#interest_student_id[name=?]", "interest[student_id]"
-
-      assert_select "input#interest_topic_id[name=?]", "interest[topic_id]"
+      assert_select 'input[name=?]', 'interest[student]'
+      assert_select 'input[name=?]', 'interest[topic]'
     end
   end
 end

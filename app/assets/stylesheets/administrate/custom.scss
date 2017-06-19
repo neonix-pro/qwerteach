@@ -5,6 +5,10 @@
 //@import "bootstrap/mixins/clearfix";
 //@import "bootstrap/mixins/grid";
 //@import "bootstrap/grid";
+@import "dispute";
+.bootstrap-wrapper{
+  @import 'bootstrap';
+}
 .conversation-admin{
   .show-more, .mailbox-conversation-details{
     display:none;
