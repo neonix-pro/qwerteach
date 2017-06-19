@@ -5,11 +5,24 @@
       = render :partial => 'navigation'
     .col-sm-9.col-md-7
       %h3  Bienvenue dans la boîte à outils!
-      %p Vous êtes déjà prof, et vous ramez pour trouver des élèves ? Ou alors, vous cherchez des conseils sur comment donner cours en ligne? Ou si vous êtes tout simplement curieux, vous êtes au bon endroit!
-      %p Vous trouverez ici nos conseils pour promouvoir vos cours particuliers en ligne, et vos compétences: Comment entrer en contact avec des élèves, comment parler aux parents, comment covaincre... Autant d'étapes nécessaires, mais assez éloignées de l'enseignement!
-      %p Nous avons aussi rassemblé ici des outils, trucs et astuces pour améliorer vos cours en ligne.
+      %p
+        Vous êtes déjà prof, et vous ramez pour trouver des élèves ? Ou alors, vous cherchez des conseils sur comment
+        donner cours en ligne? Ou si vous êtes tout simplement curieux, vous êtes au bon endroit!
+      %p
+        Vous trouverez ici nos conseils pour promouvoir vos cours particuliers en ligne, et vos compétences:
+        Comment #{link_to 'entrer en contact', toolbox_path(:promouvoir)} avec des élèves, comment parler aux parents,
+        comment #{link_to 'convaincre', toolbox_path(:convaincre)}... Autant d'étapes nécessaires, mais assez éloignées de l'enseignement.
+      %p
+        Nous avons aussi rassemblé ici des #{link_to 'outils, trucs et astuces', toolbox_path(:logiciels)}
+        pour améliorer vos cours en ligne.
       %p
         Cette boîte à outils est en cours de développement, n'hésitez pas à y repasser régulièrement pour la voir évoluer!
         %br
-        Si vous souhaitez contribuer et y ajoutant vos trucs et astuces, partageant vos bons plans, ou pour tout autre forme de commentaires, n'hsitez pas à
+        Si vous souhaitez contribuer en y ajoutant vos trucs et astuces, en y partageant vos bons plans, ou pour tout autre forme de commentaires, n'hésitez pas à
         = link_to 'contacter l\'équipe!', '#', class: 'open-tawk'
+      %hr
+      %blockquote
+        "Qui ne continue pas à apprendre est indigne d'enseigner."
+        %br
+        %small Thoreau
+      %hr

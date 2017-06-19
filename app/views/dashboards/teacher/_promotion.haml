@@ -1,0 +1,19 @@
+.card.card-search
+  .card-content
+    .row
+      .col-xs-2.col-sm-1.text-center
+        .icon-coloured.icon-mauve
+          %i.fa.fa-users.fa-2x
+      .col-xs-10
+        .card-title
+          Comment trouver des élèves ?
+        %p
+          Votre profil est en cours d'évaluation et n'est pas encore visible dans notre moteur de recherche, mais <b>vous
+          pouvez d'ores et déjà commencer à enseigner</b>. Donnez le lien suivant à vos élèves pour leur permettre d'effectuer une
+          réservation de cours avec vous:
+        %blockquote
+          #{link_to user_url(@user)}
+
+        %p
+          Consultez ici nos #{link_to 'trucs et astuces', toolbox_path(:promouvoir)} pour promouvoir vos cours et
+          décrocher vos premiers élèves!
