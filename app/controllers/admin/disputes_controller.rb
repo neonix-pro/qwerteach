@@ -3,8 +3,9 @@ module Admin
 
     def index
       search_term = params[:search].to_s.strip
-      resources = Dispute.ransack(params[:q]).result.order(params[:order] => params[:direction])
-      resources = resources.page(params[:page]).per(records_per_page)
+      search = Dispute.ransack(params[:q])
+      search.sorts = [params[:order], params[:direction]].join ' '
+      resources = search.result.page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
       render locals: {
         resources: resources,
@@ -23,28 +24,34 @@ module Admin
         conversation = Conversation.between(*recipients).last
       end
 
-      receiver = (conversation.participants - [current_user]).first
       path = reply_conversation_path(conversation)
       message = conversation.messages.last
       string_received = render_to_string template: 'messages/_message_received.html.haml', locals:{message: message}, layout: false
       string_sent = render_to_string template: 'messages/_message_sent.html.haml', locals:{message: message}, layout: false
-      PrivatePub.publish_to "/chat/#{receiver.id}", :conversation_id => conversation.id, :receiver_id => receiver
-      PrivatePub.publish_to path, message_received: string_received, message_sent: string_sent, sender_id: current_user.id
-      Pusher.trigger("#{conversation.id}", "#{conversation.id}", {last_message: message, avatar: message.sender.avatar.url(:small)})
-      Pusher.notify(["#{receiver.id}"], {fcm: {notification: {title: message.subject, body: message.body,
-                                                              icon: 'androidlogo', click_action: "MY_MESSAGES"}}, webhook_url: 'http://requestb.in/wiriy8wi', webhook_level: 'DEBUG'})
+      (conversation.participants - [current_user]).each do |receiver|
+        PrivatePub.publish_to "/chat/#{receiver.id}", :conversation_id => conversation.id, :receiver_id => receiver
+        PrivatePub.publish_to path, message_received: string_received, message_sent: string_sent, sender_id: current_user.id
+        Pusher.trigger(conversation.id.to_s, conversation.id.to_s, {last_message: message, avatar: message.sender.avatar.url(:small)})
+        Pusher.notify([receiver.id.to_s], {
+                                            fcm: {
+                                                notification: {
+                                                    title: message.subject,
+                                                    body: message.body,
+                                                    icon: 'androidlogo',
+                                                    click_action: 'MY_MESSAGES'}
+                                                },
+                                                webhook_url: 'http://requestb.in/wiriy8wi',
+                                                webhook_level: 'DEBUG'})
+      end
 
       redirect_to admin_dispute_path(dispute)
     end
 
     def divide_sum
-      resolve = case params[:price].to_s
-        when 'to_teacher', dispute.lesson.price.to_s
-          ResolveDispute.run(dispute: dispute, amount: dispute.lesson.price)
-        when 'to_student', '0', '0.0'
-          RefundLesson.run(user: dispute.user, lesson: dispute.lesson)
-        else
-          ResolveDispute.run(dispute: dispute, amount: params[:price])
+      resolve = if params[:amount].to_s.to_i.zero?
+        RefundLesson.run(user: dispute.user, lesson: dispute.lesson)
+      else
+        ResolveDispute.run(dispute: dispute, amount: params[:amount])
       end
       if resolve.valid?
         dispute.finished!

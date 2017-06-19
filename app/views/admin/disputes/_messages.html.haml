@@ -1,26 +1,20 @@
 .dispute-messages.bootstrap-wrapper
   %ul.nav.nav-tabs
-    - dispute.conversation_groups(current_user).each do |room, chat|
+    - conversation_groups(dispute.lesson, current_user).each do |room, chat|
       %li(class="#{room.to_s == 'common' ? 'in active' : ''}")
         %a.tabnav(data-toggle="tab" href="##{room}")
           =t("dispute_message.group.#{room}", default: room)
           (#{chat[:conversation].try(:count_messages) || 0})
 
   .tab-content
-    - dispute.conversation_groups(current_user).each do |room, chat|
+    - conversation_groups(dispute.lesson, current_user).each do |room, chat|
       .tab-pane.fade(id="#{room}" class="#{room.to_s == 'common' ? 'in active' : ''}")
         - if  chat[:conversation].present?
           .pre-scrollable
             - chat[:conversation].messages.includes(:sender).each do |message|
 
-              - message_class = case message.sender_id |
-                  when dispute.user_id; then 'alert-success' |
-                  when current_user.id; then 'alert-warning' |
-                  else 'alert-info' |
-                end |
-
-              .alert(class="#{message_class}")
-                .notice
+              .dispute-message.alert(class="#{message_class(message, dispute)}")
+                .wrapper
                   .text= message.body
                   .sign
                     %span.name= message.sender.try(:name) || message.sender_id

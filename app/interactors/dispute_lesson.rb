@@ -15,18 +15,10 @@ class DisputeLesson < ActiveInteraction::Base
           raise ActiveRecord::Rollback
         end
       end
+      Dispute.create(
+        user: user,
+        lesson: lesson
+      )
     end
-    dispute
   end
-
-  def dispute
-    @dispute ||= Dispute.create(
-      user: user,
-      lesson: lesson
-    )
-  end
-
-  private
-
-
 end

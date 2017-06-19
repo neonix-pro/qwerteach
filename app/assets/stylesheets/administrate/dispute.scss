@@ -9,14 +9,14 @@
       margin-bottom: 5px;
     }
 
-    .alert{
-      &.alert-info{
+    .dispute-message{
+      &.message-incoming{
         text-align: left;
       }
-      &.alert-success{
+      &.message-outgoing{
         text-align: right;
       }
-      .notice{
+      .wrapper{
         display: inline-block;
         text-align: left;
         .sign{

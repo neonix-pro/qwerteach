@@ -15,27 +15,4 @@ class Dispute < ActiveRecord::Base
   def self.ransackable_scopes(auth_object)
     super + %i[started finished]
   end
-
-  def conversation_groups(user)
-    @conversation_groups ||= {
-      common: {
-        recipient_ids: [lesson.student_id,lesson.teacher_id],
-        conversation: Conversation.between(lesson.student,lesson.teacher).last, # As a rule one
-      },
-      student: {
-        recipient_ids: [user.id, lesson.student_id],
-        conversation: Conversation.between(user,lesson.student).last,
-      },
-      teacher: {
-        recipient_ids: [user.id, lesson.teacher_id],
-        conversation: Conversation.between(user,lesson.teacher).last
-      }
-    }
-  end
-
-  def conversation(user1, user2)
-    Conversation.between(user1,user2).last
-  end
-
-
 end

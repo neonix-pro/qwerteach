@@ -5,16 +5,15 @@ class ResolveDispute < ActiveInteraction::Base
   object :dispute, class: Dispute
   float :amount
 
+  set_callback :execute, :before, :amount_validate
+  set_callback :execute, :before, :dispute_validate
   set_callback :execute, :after, :send_notifications
 
   delegate :lesson, :lesson_id, :user, :payments, to: :dispute
   delegate :student, :teacher, to: :lesson
 
   def execute
-    return add_errors({status: I18n.t('dispute.errors.finished')}, false) if dispute.finished?
     Dispute.transaction do
-      add_errors(amount: I18n.t('dispute.errors.price.small')) if amount <= 0
-      add_errors(amount: I18n.t('dispute.errors.price.big')) if amount > lesson.price
       transfer_price = amount
       payments.disputed.each do |payment|
         next if transfer_price <= 0
@@ -23,17 +22,32 @@ class ResolveDispute < ActiveInteraction::Base
           transfer_price = transfer_price - payment.price
         else
           transfer_generate student_teacher_params(transfer_price)
-          transfer_generate student_student_params(payment.price - transfer_price)
+          transfer_generate({
+            user: student, #user,
+            amount: payment.price - transfer_price,
+            debited_wallet_id: student.transaction_wallet.id,
+            credited_wallet_id: student.normal_wallet.id
+          })
           transfer_price = 0
         end
-        refunded!(payment)
+        refund_payment(payment)
       end
       dispute.finished!
     end
+    dispute
   end
 
 
   private
+
+  def dispute_validate
+    errors.add(:status, I18n.t('dispute.errors.finished')) if dispute.finished?
+  end
+
+  def amount_validate
+    errors.add(:amount, I18n.t('dispute.errors.price.small')) if amount <= 0
+    errors.add(:amount, I18n.t('dispute.errors.price.big')) if amount > lesson.price
+  end
 
   def send_notifications
     return if errors.any?
@@ -43,7 +57,7 @@ class ResolveDispute < ActiveInteraction::Base
       LessonNotificationsJob.perform_async(:notify_student_about_teacher_reject_lesson, lesson_id)
     end
     Pusher.notify(
-      ["#{user.id}"], {
+      [user.id.to_s], {
       fcm: {
         notification: {
           body: "Le conflit extérieur #{user.name} a été fermé", #The dispute was open NAME was closed
@@ -52,7 +66,7 @@ class ResolveDispute < ActiveInteraction::Base
     }}})
   end
 
-  def refunded!(payment)
+  def refund_payment(payment)
     payment.refunded!
   rescue
     errors.add :payment_refunded, payment.errors
@@ -67,60 +81,13 @@ class ResolveDispute < ActiveInteraction::Base
     }
   end
 
-  def student_student_params(price)
-    {
-        user: student, #user,
-        amount: price,
-        debited_wallet_id: student.transaction_wallet.id,
-        credited_wallet_id: student.normal_wallet.id
-    }
-  end
-
   def transfer_generate(*attrs)
     transfer = Mango::TransferBetweenWallets.run(*attrs)
-    return unless transfer.present? && !transfer.valid?
-    add_errors transfer.errors
-  end
-
-  def refund_transfer_generate(*attrs)
-    transfer = Mango::RefundTransferBetweenWallets.run(*attrs)
-    return unless transfer.present? && !transfer.valid?
-    add_errors transfer.errors
-  end
-
-  def add_errors(arr, rise=true)
-    arr.each do |key, error|
+    return if transfer.valid?
+    transfer.errors.each do |key, error|
       errors.add(key, error)
     end
-    rise and raise ActiveRecord::Rollback
+    raise ActiveRecord::Rollback
   end
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

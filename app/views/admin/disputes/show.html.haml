@@ -35,13 +35,13 @@
     %dd.attribute-data
       = link_to( |
         'Transférer la totalité du montant à l\'enseignant', |
-        [namespace, page.resource, :divide_sum, price: 'to_teacher'], |
+        [namespace, page.resource, :divide_sum, amount: page.resource.lesson.price], |
         class: 'button to_teacher', |
         method: :post )
       -#
       = link_to( |
         'Transférer la totalité du montant à l\'étudiant', |
-        [namespace, page.resource, :divide_sum, price: 'to_student'], |
+        [namespace, page.resource, :divide_sum, amount: '0'], |
         class: 'button to_student', |
         method: :post )
       -#
@@ -60,7 +60,7 @@
           %h4.modal-title To devide money
         .modal-body
           %p Quel est le montant devrait être transféré à l'enseignant?
-          = number_field_tag(:price, page.resource.lesson.price, {min: 0, max: page.resource.lesson.price})
+          = number_field_tag(:amount, page.resource.lesson.price, {min: 0, max: page.resource.lesson.price})
           %p.pull-right
             %span.text-danger *
             %span.text-info l'argent restant reste avec l'étudiant

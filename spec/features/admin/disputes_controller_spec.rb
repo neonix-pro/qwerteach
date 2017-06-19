@@ -51,15 +51,15 @@ feature "payment" do
 
   describe 'message' do
     before :each do
-      allow(PrivatePub).to receive(:publish_to)
-      allow(Pusher).to receive(:trigger)
-      allow(Pusher).to receive(:notify)
       login_admin
       visit admin_dispute_path(dispute)
     end
 
 
     scenario 'to common conversation' do
+      expect(PrivatePub).to receive(:publish_to).exactly(4).times
+      expect(Pusher).to receive(:trigger).exactly(2).times
+      expect(Pusher).to receive(:notify).exactly(2).times
       message = 'for common conversation'
       within('#common.tab-pane//form') do
         fill_in 'body', with: message
@@ -69,6 +69,9 @@ feature "payment" do
     end
 
     scenario 'to student conversation' do
+      expect(PrivatePub).to receive(:publish_to).exactly(2).times
+      expect(Pusher).to receive(:trigger)
+      expect(Pusher).to receive(:notify)
       message = 'for student conversation'
       within('#student.tab-pane//form') do
         fill_in 'body', with: message
@@ -80,6 +83,9 @@ feature "payment" do
     end
 
     scenario 'to teacher conversation' do
+      expect(PrivatePub).to receive(:publish_to).exactly(2).times
+      expect(Pusher).to receive(:trigger)
+      expect(Pusher).to receive(:notify)
       message = 'for teacher conversation'
       within('#teacher.tab-pane//form') do
         fill_in 'body', with: message
@@ -100,7 +106,7 @@ feature "payment" do
 
     scenario 'resolve disput, moves all money to the teacher' do
       expect(ResolveDispute).to receive(:run)
-        .with(dispute: dispute, amount: dispute.lesson.price)
+        .with(dispute: dispute, amount: dispute.lesson.price.to_s)
         .and_return(OpenStruct.new('valid?': true))
       page.find('a.button.to_teacher').click
       expect(dispute.valid?).to be_truthy
@@ -119,7 +125,7 @@ feature "payment" do
         .with(dispute: dispute, amount: '20')
         .and_return(OpenStruct.new('valid?': true))
       within('#divide_money.modal//form') do
-        fill_in 'price', with: 20
+        fill_in 'amount', with: 20
         find('input[type=submit]').click
       end
       expect(dispute.valid?).to be_truthy

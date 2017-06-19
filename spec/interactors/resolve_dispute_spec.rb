@@ -19,7 +19,7 @@ RSpec.describe ResolveDispute do
     it 'moves a part of money to the teacher', vcr: true do
       PayLessonByTransfert.run(user: student, lesson: lesson)
       expect(lesson.payments.any?{|p| p.locked?}).to be_truthy
-      dispute = DisputeLesson.run(user: student, lesson: lesson).dispute
+      dispute = DisputeLesson.run(user: student, lesson: lesson).result
       expect(lesson.reload.payments.any?{|p| p.disputed?}).to be_truthy
       student.reload
       expect(teacher.normal_wallet.balance.amount).to eq(0)
@@ -37,7 +37,7 @@ RSpec.describe ResolveDispute do
     it 'moves all money to the teacher', vcr: true do
       PayLessonByTransfert.run(user: student, lesson: lesson)
       expect(lesson.payments.any?{|p| p.locked?}).to be_truthy
-      dispute = DisputeLesson.run(user: student, lesson: lesson).dispute
+      dispute = DisputeLesson.run(user: student, lesson: lesson).result
       expect(lesson.reload.payments.any?{|p| p.disputed?}).to be_truthy
       student.reload
       expect(teacher.normal_wallet.balance.amount).to eq(0)
@@ -57,19 +57,19 @@ RSpec.describe ResolveDispute do
   describe 'Error processing' do
     let(:dispute) { create :dispute }
 
-    it 'You can not re-resolve a dispute' do
+    it 'can not re-resolve a dispute' do
       dispute.finished!
-      dispute_resolve = ResolveDispute.run(dispute: dispute, amount_to_teacher: 0)
+      dispute_resolve = ResolveDispute.run(dispute: dispute, amount: 0)
       expect(dispute_resolve.valid?).to be_falsey
     end
 
     it 'The translation should be less than the cost of the lesson' do
-      dispute_resolve = ResolveDispute.run(dispute: dispute, amount_to_teacher: dispute.lesson.price + 1)
+      dispute_resolve = ResolveDispute.run(dispute: dispute, amount: dispute.lesson.price + 1)
       expect(dispute_resolve.valid?).to be_falsey
     end
 
     it 'The translation must be greater than zero' do
-      dispute_resolve = ResolveDispute.run(dispute: dispute, amount_to_teacher: 0)
+      dispute_resolve = ResolveDispute.run(dispute: dispute, amount: 0)
       expect(dispute_resolve.valid?).to be_falsey
     end
   end

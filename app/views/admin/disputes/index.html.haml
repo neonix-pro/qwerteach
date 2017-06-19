@@ -10,8 +10,11 @@
 
   -# if scopes.present?
   .header__actions
-    - scopes.each do |key, params|
-      = link_to(params.first,[namespace, :disputes, params.last], class: "button #{key}")
+    - DisputeDashboard::COLLECTION_SCOPES.each do |name|
+      = link_to( |
+        t("admin.despute.scope.#{name}", default: name), |
+        [namespace, :disputes, q: {name => true}], |
+        class: "button #{name}") |
 
 
   .header__actions
