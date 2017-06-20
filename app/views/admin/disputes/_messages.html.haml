@@ -14,7 +14,7 @@
             - chat[:conversation].messages.includes(:sender).each do |message|
 
               .dispute-message.alert(class="#{message_class(message, dispute)}")
-                .wrapper
+                .wrapper.text-left
                   .text= message.body
                   .sign
                     %span.name= message.sender.try(:name) || message.sender_id

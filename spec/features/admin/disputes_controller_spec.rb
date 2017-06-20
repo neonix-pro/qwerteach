@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "payment" do
+feature 'admin disputes controller' do
 
   let(:student){ create(:student, email: FFaker::Internet.email) }
   let(:admin){ create(:admin, email: FFaker::Internet.email) }
@@ -104,7 +104,7 @@ feature "payment" do
     end
 
 
-    scenario 'resolve disput, moves all money to the teacher' do
+    scenario 'moves all money to the teacher' do
       expect(ResolveDispute).to receive(:run)
         .with(dispute: dispute, amount: dispute.lesson.price.to_s)
         .and_return(OpenStruct.new('valid?': true))
@@ -112,7 +112,7 @@ feature "payment" do
       expect(dispute.valid?).to be_truthy
     end
 
-    scenario 'resolve disput, moves all money to the student' do
+    scenario 'moves all money to the student' do
       expect(RefundLesson).to receive(:run)
         .with(user: dispute.user, lesson: dispute.lesson)
         .and_return(OpenStruct.new('valid?': true))
@@ -131,11 +131,4 @@ feature "payment" do
       expect(dispute.valid?).to be_truthy
     end
   end
-
-
-
-
-
 end
-
-

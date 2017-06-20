@@ -5,8 +5,10 @@ class ResolveDispute < ActiveInteraction::Base
   object :dispute, class: Dispute
   float :amount
 
-  set_callback :execute, :before, :amount_validate
-  set_callback :execute, :before, :dispute_validate
+  validates :dispute, presence: true, if: :dispute_no_finished?
+  validates :amount, presence: true, if: :amount_greater_zero?
+  validates :amount, presence: true, if: :less_cost_lesson?
+
   set_callback :execute, :after, :send_notifications
 
   delegate :lesson, :lesson_id, :user, :payments, to: :dispute
@@ -40,13 +42,22 @@ class ResolveDispute < ActiveInteraction::Base
 
   private
 
-  def dispute_validate
-    errors.add(:status, I18n.t('dispute.errors.finished')) if dispute.finished?
+  def dispute_no_finished?
+    return true unless dispute.finished?
+    errors.add(:status, I18n.t('dispute.errors.finished'))
+    false
   end
 
-  def amount_validate
-    errors.add(:amount, I18n.t('dispute.errors.price.small')) if amount <= 0
-    errors.add(:amount, I18n.t('dispute.errors.price.big')) if amount > lesson.price
+  def amount_greater_zero?
+    return true if amount > 0
+    errors.add(:amount, I18n.t('dispute.errors.price.small'))
+    false
+  end
+
+  def less_cost_lesson?
+    return true if amount <= lesson.price
+    errors.add(:amount, I18n.t('dispute.errors.price.big'))
+    false
   end
 
   def send_notifications

@@ -1,9 +1,6 @@
 = content_for(:title) do
   = display_resource_name(page.resource_name)
 
-= content_for(:search) do
-  = render 'search', search_term: search_term
-
 %header.header
   %h1.header__heading#page-title= content_for(:title)
 

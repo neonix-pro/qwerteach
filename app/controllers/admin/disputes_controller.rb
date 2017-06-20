@@ -3,8 +3,7 @@ module Admin
 
     def index
       search_term = params[:search].to_s.strip
-      search = Dispute.ransack(params[:q])
-      search.sorts = [params[:order], params[:direction]].join ' '
+      search = Dispute.ransack(search_params)
       resources = search.result.page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
       render locals: {
@@ -66,6 +65,10 @@ module Admin
 
     def dispute
       @dispute ||= Dispute.find(params[:dispute_id])
+    end
+
+    def search_params
+      (params[:q] || {}).merge s: params.values_at(:order, :direction).join(' ')
     end
 
   end
