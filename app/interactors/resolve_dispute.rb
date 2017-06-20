@@ -5,10 +5,8 @@ class ResolveDispute < ActiveInteraction::Base
   object :dispute, class: Dispute
   float :amount
 
-  validates :dispute, presence: true, if: :dispute_no_finished?
-  validates :amount, presence: true, if: :amount_greater_zero?
-  validates :amount, presence: true, if: :less_cost_lesson?
-
+  set_callback :validate, :before, :validate_dispute
+  set_callback :validate, :before, :validate_amount
   set_callback :execute, :after, :send_notifications
 
   delegate :lesson, :lesson_id, :user, :payments, to: :dispute
@@ -20,16 +18,11 @@ class ResolveDispute < ActiveInteraction::Base
       payments.disputed.each do |payment|
         next if transfer_price <= 0
         if payment.price <= transfer_price
-          transfer_generate student_teacher_params(payment.price)
+          make_transfer to_teacher_params(payment.price)
           transfer_price = transfer_price - payment.price
         else
-          transfer_generate student_teacher_params(transfer_price)
-          transfer_generate({
-            user: student, #user,
-            amount: payment.price - transfer_price,
-            debited_wallet_id: student.transaction_wallet.id,
-            credited_wallet_id: student.normal_wallet.id
-          })
+          make_transfer to_teacher_params(transfer_price)
+          make_transfer to_student_params(payment.price - transfer_price)
           transfer_price = 0
         end
         refund_payment(payment)
@@ -42,22 +35,13 @@ class ResolveDispute < ActiveInteraction::Base
 
   private
 
-  def dispute_no_finished?
-    return true unless dispute.finished?
-    errors.add(:status, I18n.t('dispute.errors.finished'))
-    false
+  def validate_dispute
+    errors.add(:status, I18n.t('dispute.errors.finished')) if dispute.finished?
   end
 
-  def amount_greater_zero?
-    return true if amount > 0
-    errors.add(:amount, I18n.t('dispute.errors.price.small'))
-    false
-  end
-
-  def less_cost_lesson?
-    return true if amount <= lesson.price
-    errors.add(:amount, I18n.t('dispute.errors.price.big'))
-    false
+  def validate_amount
+    errors.add(:amount, I18n.t('dispute.errors.price.small')) if amount <= 0
+    errors.add(:amount, I18n.t('dispute.errors.price.big')) if amount > lesson.price
   end
 
   def send_notifications
@@ -83,7 +67,7 @@ class ResolveDispute < ActiveInteraction::Base
     errors.add :payment_refunded, payment.errors
   end
 
-  def student_teacher_params(price)
+  def to_teacher_params(price)
     {
         user: student, #user,
         amount: price,
@@ -92,12 +76,19 @@ class ResolveDispute < ActiveInteraction::Base
     }
   end
 
-  def transfer_generate(*attrs)
+  def to_student_params(price)
+    {
+        user: student, #user,
+        amount: price,
+        debited_wallet_id: student.transaction_wallet.id,
+        credited_wallet_id: student.normal_wallet.id
+    }
+  end
+
+  def make_transfer(*attrs)
     transfer = Mango::TransferBetweenWallets.run(*attrs)
     return if transfer.valid?
-    transfer.errors.each do |key, error|
-      errors.add(key, error)
-    end
+    errors.merge transfer.errors
     raise ActiveRecord::Rollback
   end
 

@@ -154,7 +154,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def disputed?
-    dispute.present?
+    dispute.present? && dispute.started?
   end
 
   def to_pay?(user)

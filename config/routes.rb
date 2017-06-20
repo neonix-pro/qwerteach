@@ -104,7 +104,7 @@ Rails.application.routes.draw do
 
     resources :disputes do
       post 'message' => :message
-      post 'divide_sum' => :divide_sum
+      post 'resolve' => :resolve
     end
 
     # Gestion des serveurs BBB depuis l'admin

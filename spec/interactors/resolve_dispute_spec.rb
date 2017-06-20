@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ResolveDispute do
 
-  describe 'There is a sharing of money' do
+  describe 'Money transferring' do
     let(:student){ create(:student, email: FFaker::Internet.email) }
     let(:teacher){ create(:teacher, email: FFaker::Internet.email) }
     let(:lesson){ create(:lesson, student: student, teacher: teacher) }

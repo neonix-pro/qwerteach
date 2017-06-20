@@ -2,13 +2,12 @@ module Admin
   class DisputesController < Admin::ApplicationController
 
     def index
-      search_term = params[:search].to_s.strip
-      search = Dispute.ransack(search_params)
+      search = Dispute.ransack(params[:q])
       resources = search.result.page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
       render locals: {
         resources: resources,
-        search_term: search_term,
+        search: search,
         page: page
       }
     end
@@ -46,8 +45,8 @@ module Admin
       redirect_to admin_dispute_path(dispute)
     end
 
-    def divide_sum
-      resolve = if params[:amount].to_s.to_i.zero?
+    def resolve
+      resolve = if params[:amount].to_i.zero?
         RefundLesson.run(user: dispute.user, lesson: dispute.lesson)
       else
         ResolveDispute.run(dispute: dispute, amount: params[:amount])
@@ -66,10 +65,5 @@ module Admin
     def dispute
       @dispute ||= Dispute.find(params[:dispute_id])
     end
-
-    def search_params
-      (params[:q] || {}).merge s: params.values_at(:order, :direction).join(' ')
-    end
-
   end
 end

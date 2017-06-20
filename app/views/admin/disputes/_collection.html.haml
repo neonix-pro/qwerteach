@@ -1,0 +1,22 @@
+%table.collection-data{"aria-labelledby" => "page-title"}
+  %thead
+    %tr
+      %th.cell-label.cell-label--number= sort_link(search, :id) #, default_order: :desc)
+      %th.cell-label.cell-label--string= sort_link(search, :status)
+      %th.cell-label.cell-label--false= sort_link(search, :user_id)
+      %th.cell-label.cell-label--false= sort_link(search, :lesson_id)
+      %th(colspan=2 scope="col")
+  %tbody
+    - resources.each do |resource|
+      %tr.table__row{"data-url" => "#{polymorphic_path([namespace, resource])}", :role => "link", :tabindex => "0"}
+        - collection_presenter.attributes_for(resource).each do |attribute|
+          %td{:class => "cell-data cell-data--#{attribute.html_class}"}
+            %a.action-show.table__link-plain{:href => "#{polymorphic_path([namespace, resource])}"}
+              = render_field attribute
+        %td=link_to(t('administrate.actions.show'), [namespace, resource], class: 'table__action--show')
+        %td=link_to( |
+          t('administrate.actions.destroy'), |
+          [namespace, resource],  |
+          class: 'table__action--destroy', |
+          method: :delete,  |
+          data: { confirm: t('administrate.actions.confirm')}) |

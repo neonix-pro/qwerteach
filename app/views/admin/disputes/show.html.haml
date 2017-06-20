@@ -35,13 +35,13 @@
     %dd.attribute-data
       = link_to( |
         t('admin.dispute.link.to_teacher'), |
-        [namespace, page.resource, :divide_sum, amount: page.resource.lesson.price], |
+        [namespace, page.resource, :resolve, amount: page.resource.lesson.price], |
         class: 'button to_teacher', |
         method: :post )
       -#
       = link_to( |
         t('admin.dispute.link.to_student'), |
-        [namespace, page.resource, :divide_sum, amount: '0'], |
+        [namespace, page.resource, :resolve, amount: '0'], |
         class: 'button to_student', |
         method: :post )
       -#
@@ -54,7 +54,7 @@
 .bootstrap-wrapper
   #divide_money.modal(role='dialog')
     .modal-dialog
-      = form_tag [namespace, page.resource, :divide_sum], class: 'modal-content' do
+      = form_tag [namespace, page.resource, :resolve], class: 'modal-content' do
         .modal-header
           %button.close(data-dismiss='modal' type='button') ×
           %h4.modal-title To devide money

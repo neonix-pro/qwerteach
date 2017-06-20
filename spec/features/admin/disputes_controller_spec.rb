@@ -27,24 +27,24 @@ feature 'admin disputes controller' do
     scenario 'Apply the `all` filter, I see all the disputes' do
       page.find('a.button.all').click
       within('table.collection-data//tbody') do
-        expect(page).to have_link('Modifier', href: edit_admin_dispute_path(@dispute_started))
-        expect(page).to have_link('Modifier', href: edit_admin_dispute_path(@dispute_finished))
+        expect(page).to have_link('Détails', href: admin_dispute_path(@dispute_started))
+        expect(page).to have_link('Détails', href: admin_dispute_path(@dispute_finished))
       end
     end
 
     scenario 'Apply the `started` filter, I see all the disputes' do
       page.find('a.button.started').click
       within('table.collection-data//tbody') do
-        expect(page).to have_link('Modifier', href: edit_admin_dispute_path(@dispute_started))
-        expect(page).to have_no_link('Modifier', href: edit_admin_dispute_path(@dispute_finished))
+        expect(page).to have_link('Détails', href: admin_dispute_path(@dispute_started))
+        expect(page).to have_no_link('Détails', href: admin_dispute_path(@dispute_finished))
       end
     end
 
     scenario 'Apply the `started` filter, I see all the disputes' do
       page.find('a.button.finished').click
       within('table.collection-data//tbody') do
-        expect(page).to have_no_link('Modifier', href: edit_admin_dispute_path(@dispute_started))
-        expect(page).to have_link('Modifier', href: edit_admin_dispute_path(@dispute_finished))
+        expect(page).to have_no_link('Détails', href: admin_dispute_path(@dispute_started))
+        expect(page).to have_link('Détails', href: admin_dispute_path(@dispute_finished))
       end
     end
   end

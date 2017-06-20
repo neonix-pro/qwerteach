@@ -1,13 +1,14 @@
 .dispute-messages.bootstrap-wrapper
   %ul.nav.nav-tabs
-    - conversation_groups(dispute.lesson, current_user).each do |room, chat|
+    - groups = conversation_groups(dispute.lesson, current_user)
+    - groups.each do |room, chat|
       %li(class="#{room.to_s == 'common' ? 'in active' : ''}")
         %a.tabnav(data-toggle="tab" href="##{room}")
           =t("dispute_message.group.#{room}", default: room)
           (#{chat[:conversation].try(:count_messages) || 0})
 
   .tab-content
-    - conversation_groups(dispute.lesson, current_user).each do |room, chat|
+    - groups.each do |room, chat|
       .tab-pane.fade(id="#{room}" class="#{room.to_s == 'common' ? 'in active' : ''}")
         - if  chat[:conversation].present?
           .pre-scrollable

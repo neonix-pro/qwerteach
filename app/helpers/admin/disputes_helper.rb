@@ -2,19 +2,19 @@ module Admin
   module DisputesHelper
 
     def conversation_groups(lesson, user)
-      @conversation_groups ||= {
-          common: {
-              recipient_ids: [lesson.student_id,lesson.teacher_id],
-              conversation: Conversation.between(lesson.student,lesson.teacher).last, # As a rule one
-          },
-          student: {
-              recipient_ids: [user.id, lesson.student_id],
-              conversation: Conversation.between(user,lesson.student).last,
-          },
-          teacher: {
-              recipient_ids: [user.id, lesson.teacher_id],
-              conversation: Conversation.between(user,lesson.teacher).last
-          }
+      {
+        common: {
+          recipient_ids: [lesson.student_id,lesson.teacher_id],
+          conversation: Conversation.between(lesson.student,lesson.teacher).last, # As a rule one
+        },
+        student: {
+          recipient_ids: [user.id, lesson.student_id],
+          conversation: Conversation.between(user,lesson.student).last,
+        },
+        teacher: {
+          recipient_ids: [user.id, lesson.teacher_id],
+          conversation: Conversation.between(user,lesson.teacher).last
+        }
       }
     end
 
