@@ -1,6 +1,6 @@
 en:
   admin:
-    despute:
+    dispute:
       link:
         to_teacher: Transfer the entire amount to the teacher
         to_student: Transfer the entire amount to the student

@@ -9,7 +9,7 @@
   .header__actions
     - DisputeDashboard::COLLECTION_SCOPES.each do |name|
       = link_to( |
-        t("admin.despute.scope.#{name}", default: name), |
+        t("admin.dispute.scope.#{name}", default: name), |
         [namespace, :disputes, q: {name => true}], |
         class: "button #{name}") |
 

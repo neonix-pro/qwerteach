@@ -34,19 +34,19 @@
     %dt.attribute-label Divide money
     %dd.attribute-data
       = link_to( |
-        t('admin.despute.link.to_teacher'), |
+        t('admin.dispute.link.to_teacher'), |
         [namespace, page.resource, :divide_sum, amount: page.resource.lesson.price], |
         class: 'button to_teacher', |
         method: :post )
       -#
       = link_to( |
-        t('admin.despute.link.to_student'), |
+        t('admin.dispute.link.to_student'), |
         [namespace, page.resource, :divide_sum, amount: '0'], |
         class: 'button to_student', |
         method: :post )
       -#
       = link_to( |
-        t('admin.despute.link.divide_money'), |
+        t('admin.dispute.link.divide_money'), |
         '#', |
         class: 'button', |
         data: {toggle: 'modal', target: '#divide_money'} ) |
