@@ -1,0 +1,14 @@
+#onboarding
+  #valid-email
+    .content.valign-wrapper
+      .row
+        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
+          %h2 Nous sommes ravis de vous avoir parmis nous :)
+          %p
+            Avant de continuer, nous vous demandons de valider votre adresse e-mail.
+            Pour ce faire, cliquez sur le lien présent dans l'e-mail que nous vous avons envoyé.
+            %br
+            %br
+            = link_to "C'est fait!", next_wizard_path, class: 'btn btn-green btn-qw'
+          %hr
+          %h4.text-right= link_to "Help! Je n'ai pas reçu d'email!", new_confirmation_path(@user), class: 'text-lightgrey'

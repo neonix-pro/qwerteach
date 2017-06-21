@@ -22,7 +22,7 @@
             = link_to 'Protection des données', faq_path, class: 'text-green', target: '_blank'
             = link_to 'Modes de payement sécurisés', faq_path, class: 'text-green', target: '_blank'
 
-= render :partial => 'detailed_pricing_modal', locals: {offers: @offers}
+= render :partial => 'detailed_pricing_modal', locals: {offers: @teacher.offers.joins(:topic_group)}
 
 #detailed-reviews.modal.fade
   .modal-dialog

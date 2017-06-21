@@ -64,6 +64,7 @@ class PostulingTeacherDashboard < Administrate::BaseDashboard
       :id,
       :firstname,
       :lastname,
+      :sign_in_count,
       :offers,
       :postulation,
   ]
