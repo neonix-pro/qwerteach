@@ -1,7 +1,8 @@
 - saved_room = BbbRoom.where(:param => @room.param).first
 - lesson = saved_room.lesson
 - @moi =  current_user.id
-- @autre =  (current_user == lesson.teacher) ? lesson.student.id : lesson.teacher.id
+- unless lesson.nil?
+  - @autre =  (current_user == lesson.teacher) ? lesson.student.id : lesson.teacher.id
 
 %h2.page-title-green Votre classe virtuelle pour #{@room.name}
 .container
