@@ -5,9 +5,7 @@ class Student < User
 
 
   acts_as_reader
-  def self.reader_scope
-    where(:is_admin => true)
-  end
+  scope :reader_scope, -> { where(is_admin: true) }
   # Methode override de User permettant de faire passer un Student à Teacher
 
   def upgrade
@@ -45,7 +43,9 @@ class Student < User
   end
 
   def current_lesson
-    Lesson.where(:status => 2).where('time_end > ?', DateTime.now).where('time_start < ?', DateTime.now + 10.minutes).where( 'student_id=? OR teacher_id=?', self.id, self.id).first
+    Lesson.involving(self).where(status: 2)
+        .where('time_end > ?', DateTime.now)
+        .where('time_start < ?', DateTime.now + 10.minutes).first
   end
 
   def can_book_free_lesson_with?(teacher)

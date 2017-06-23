@@ -2,28 +2,34 @@ module Admin
   module DisputesHelper
 
     def conversation_groups(lesson, user)
-      {
-        common: {
-          recipient_ids: [lesson.student_id,lesson.teacher_id],
-          conversation: Conversation.between(lesson.student,lesson.teacher).last, # As a rule one
-        },
-        student: {
-          recipient_ids: [user.id, lesson.student_id],
-          conversation: Conversation.between(user,lesson.student).last,
-        },
-        teacher: {
-          recipient_ids: [user.id, lesson.teacher_id],
-          conversation: Conversation.between(user,lesson.teacher).last
-        }
-      }
+      conversations = [
+        conversation([lesson.student,lesson.teacher, user]).merge({
+          subject: t('dispute_message.group.common', default: 'Common')
+        }),
+        conversation([user, lesson.student]).merge({
+          subject: t('dispute_message.group.student', default: 'Student')
+        }),
+        conversation([user, lesson.teacher]).merge({
+          subject: t('dispute_message.group.teacher', default: 'Teacher')
+        })
+      ]
+      Kaminari.paginate_array(conversations, total_count: 3).page(1).per(3)
     end
 
-    def message_class(message, dispute)
-      case message.sender_id
-        when dispute.user_id; then 'message-incoming alert-success'
-        when current_user.id; then 'message-outgoing alert-warning'
-        else 'message-incoming alert-info'
+    private
+
+    # Conversation between participants only
+    def conversation(users)
+      conversations = Conversation.between(*users.first(2)).to_a
+      user_ids = users.map(&:id)
+      conversation = conversations.find do |conv|
+        conv.receipts.pluck(:receiver_id).all? {|id| user_ids.include?(id)}
       end
+      (conversation || {}).as_json.merge(
+        recipients: users,
+        count_messages: conversation.try(:count_messages) || 0,
+        messages: conversation.try(:messages) || []
+      ).symbolize_keys
     end
 
   end

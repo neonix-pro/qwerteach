@@ -1,39 +1,20 @@
 .dispute-messages{
   .nav-tabs{
-    width: 80%;
+    margin-right: 1.5em;
     margin-bottom: 5px;
+    .cut{
+      overflow: hidden;
+      max-width: 200px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
   .tab-content{
-    width: 80%;
+    margin-right: 1.5em;
+    border-left: 1px solid #ddd;
     .pre-scrollable{
       margin-bottom: 5px;
+      min-height: 340px;
     }
-
-    .dispute-message{
-      &.message-incoming{
-        text-align: left;
-      }
-      &.message-outgoing{
-        text-align: right;
-      }
-      .wrapper{
-        display: inline-block;
-        .sign{
-          font-size: 0.8em;
-          color: #999;
-          .time{color:transparent;}
-        }
-        .text{
-          font-size: 0.9em;
-          color: #000;
-        }
-        &:hover{
-          .sign .time{
-            color: #000;
-          }
-        }
-      }
-    }
-
   }
 }

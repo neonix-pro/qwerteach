@@ -18,36 +18,18 @@
         - if attribute.data != "" && !attribute.data.nil?
           = render_field attribute
         - else
-          ="-"
-  %div
-    %h2 Discuter avec #{page.resource.name}
-    .actions.pull-right
+          \-
+  %hr
+  %dl
+    %dt.attribute-label Big Blue Button Room
+    %dd.attribute-data
       = link_to 'Inviter dans la classe virtuelle', room_invite_bbb_rooms_path(page.resource), class:'button btn-default'
-    .conversation-admin
-      -if @conversation_admin.id.nil?
-        = render partial: 'users/profile/contactform', locals:{me: current_user, user: @user}
-      -else
-        = render partial: 'conversations/conversation', locals:{conversation: @conversation_admin, page: 0, messages: @messages_admin}
-  %div
-    %h2 Conversations (#{@conversations.total_count})
-    - unless @conversations.empty?
-      %table
-        %thead
-          %tr
-            %th ID
-            %th partner
-            %th last message
-            %th # of messages
-          - @conversations.each do |c|
-            - c.recipients.delete(@user)
-            %tr
-              %td #{link_to c.id, admin_show_conversation_path(c)}
-              %td #{link_to c.recipients.last.name, admin_student_path(c.recipients.last)}
-              %td #{c.messages.last.body}
-              %td #{c.messages.count}
 
-      = paginate @conversations
-    - else
-      Pas encore de conversations!
+    %dt.attribute-label= t('admin.teacher.postulation.conversations')
+    %dd.attribute-data
+      - groups = @conversations
+      - to_back = admin_student_path(page.resource)
+      = render partial: 'admin/disputes/messages', locals: { groups: groups, to_back: to_back }
+  %br
 
 -#=content_for(:javascript)

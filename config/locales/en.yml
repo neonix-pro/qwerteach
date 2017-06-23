@@ -21,7 +21,21 @@
 
 en:
   hello: "Hello world"
+  message_pusher:
+    minimum_chars: Minimum 50 characters.
+    validate:
+      recipients: Recipients can not be found
+      conversation: Conversation does not exist
+      message: The first message should not be short
+      success: Your message has been sent!
+      to_self: You can not send messages for yourself!
   activerecord:
+    errors:
+      models:
+        lesson:
+          attributes:
+            teacher:
+              is_not_approved: Is not approved
     attributes:
       article:
         title: "Title"
@@ -52,8 +66,22 @@ en:
         pictures: "Not allowed to update this picture."
 
   dispute:
+    other_conversations: Other conversations
     errors:
       finished: The dispute has been resolved
       price:
         small: This must be greater than zero
         big: It should be no more than the cost of the lesson
+  conversation:
+    trash:
+      success: The conversation has been placed in your recycle bin
+      danger: There was a problem, the conversation could not be deleted.
+    untrash:
+      success: The conversation has been moved to your inbox
+      danger: There was a problem, the conversation could not be moved.
+    mark_as_read:
+      success: The conversation was marked as read.
+      danger: The conversation don't was marked as read
+    mark_as_unread:
+      success: The conversation was marked as unread
+      danger: There was a problem, the operation could not be carried out.

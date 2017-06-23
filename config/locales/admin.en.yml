@@ -12,6 +12,7 @@ en:
     teacher:
       greetings: "Bonjour %{name},  et bienvenue sur Qwerteach!"
       postulation:
+        conversations: Conversations
         contact: "Je te contacte car tu postules pour être prof. "
         change: "Avant de te faire apparaître comme prof sur le site, nous aimerions augmenter tes chances de te faire contacter par des élèves. Pour ce faire, je vais te demander de corriger les petits détails suivants:"
         corrections:

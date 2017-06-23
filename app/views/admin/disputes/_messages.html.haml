@@ -1,31 +1,32 @@
 .dispute-messages.bootstrap-wrapper
   %ul.nav.nav-tabs
-    - groups = conversation_groups(dispute.lesson, current_user)
-    - groups.each do |room, chat|
-      %li(class="#{room.to_s == 'common' ? 'in active' : ''}")
-        %a.tabnav(data-toggle="tab" href="##{room}")
-          =t("dispute_message.group.#{room}", default: room)
-          (#{chat[:conversation].try(:count_messages) || 0})
-
+    - cut_class = groups.count>2 ? 'cut' : ''
+    - groups.each_with_index do |chat, index|
+      %li
+        - title = "#{chat[:subject]} (#{(chat.try(:count_messages) || chat[:count_messages])})"
+        %a.tabnav(data-toggle="tab" href="#chat_#{index}" title="#{title}" class="#{cut_class}")
+          = title
   .tab-content
-    - groups.each do |room, chat|
-      .tab-pane.fade(id="#{room}" class="#{room.to_s == 'common' ? 'in active' : ''}")
-        - if  chat[:conversation].present?
-          .pre-scrollable
-            - chat[:conversation].messages.includes(:sender).each do |message|
+    - groups.each_with_index do |chat, index|
+      .tab-pane.fade(id="chat_#{index}")
+        .pre-scrollable
+          = render 'conversations/messages', messages: chat.try(:messages) || chat[:messages]
 
-              .dispute-message.alert(class="#{message_class(message, dispute)}")
-                .wrapper.text-left
-                  .text= message.body
-                  .sign
-                    %span.name= message.sender.try(:name) || message.sender_id
-                    %span.time= message.created_at.strftime('%H:%M')
-
-        = form_tag admin_dispute_message_path(dispute) do
-          = hidden_field_tag 'conversation_id', chat[:conversation].try(:id)
-          = hidden_field_tag 'recipient_ids', chat[:recipient_ids]
+        = form_tag messages_path do
+          = hidden_field_tag 'message[conversation_id]', chat[:id]
+          = hidden_field_tag 'message[recipient]', (chat.try(:recipients) || chat[:recipients]).map(&:id).join(' ')
+          = hidden_field_tag 'message[subject]', chat[:subject]
+          = hidden_field_tag 'message[to_back]', to_back
           .row
-            .col-sm-10= text_area_tag 'body', nil, cols: 2, class: 'form-control', placeholder: 'Type something...', required: true
+            .col-sm-10= text_area_tag 'message[body]', nil, rows: 2, class: 'form-control', placeholder: 'Type something...', required: true
             .col-sm-2= submit_tag 'Submit'
-
-
+          - if chat[:id].to_i.zero?
+            %span.text-pink= t 'message_pusher.minimum_chars'
+  = paginate groups
+  = content_for(:javascript) do
+    :javascript
+      if(typeof($) !== 'undefined'){
+        $(document).ready(function(){
+          $('.dispute-messages .nav-tabs li').first().find('a').click()
+        })
+      }

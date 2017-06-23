@@ -1,11 +1,8 @@
 module MessagesHelper
+
   def recipients_options
-    s = ''
-    @users = User.all - [current_user]
-    @users.each do |user|
-      s << "<option value='#{user.id}'>#{user.email}</option>"
-    end
-    s.html_safe
+    @users = User.where.not(id: current_user.id)
+    @users.map{|u| content_tag 'option', u.email, value: u.id }.join.html_safe
   end
 
   def message_date date

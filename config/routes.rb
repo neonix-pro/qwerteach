@@ -103,7 +103,6 @@ Rails.application.routes.draw do
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
 
     resources :disputes do
-      post 'message' => :message
       post 'resolve' => :resolve
     end
 

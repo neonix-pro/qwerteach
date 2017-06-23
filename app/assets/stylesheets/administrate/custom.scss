@@ -43,8 +43,11 @@
 .pull-left{
   float:left;
 }
-
-
+.table__row{
+  img{
+    max-width: 2em;
+  }
+}
 .user-postulation{
   padding: 0px 40px;
 }

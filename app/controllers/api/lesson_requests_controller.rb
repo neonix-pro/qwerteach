@@ -34,7 +34,7 @@ class Api::LessonRequestsController < LessonRequestsController
         levels.push(p.level)
       end
     end
-    render :json => {:levels => levels}  
+    render :json => {:levels => levels}
   end
   
   def topic_groups

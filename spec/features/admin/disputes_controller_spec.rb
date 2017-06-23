@@ -50,6 +50,7 @@ feature 'admin disputes controller' do
   end
 
   describe 'message' do
+    let(:message){ 'The story of the cold north always stirs people\'s minds' }
     before :each do
       login_admin
       visit admin_dispute_path(dispute)
@@ -60,40 +61,39 @@ feature 'admin disputes controller' do
       expect(PrivatePub).to receive(:publish_to).exactly(4).times
       expect(Pusher).to receive(:trigger).exactly(2).times
       expect(Pusher).to receive(:notify).exactly(2).times
-      message = 'for common conversation'
-      within('#common.tab-pane//form') do
-        fill_in 'body', with: message
+      within('#chat_0.tab-pane//form') do
+        fill_in 'message[body]', with: message
         find('input[type=submit]').click
       end
-      expect(page.find('#common.tab-pane')).to have_content(message)
+      expect(page.find('#chat_0.tab-pane')).to have_content(message)
+      expect(page.find('#chat_1.tab-pane')).to have_no_content(message)
+      expect(page.find('#chat_2.tab-pane')).to have_no_content(message)
     end
 
     scenario 'to student conversation' do
       expect(PrivatePub).to receive(:publish_to).exactly(2).times
       expect(Pusher).to receive(:trigger)
       expect(Pusher).to receive(:notify)
-      message = 'for student conversation'
-      within('#student.tab-pane//form') do
-        fill_in 'body', with: message
+      within('#chat_1.tab-pane//form') do
+        fill_in 'message[body]', with: message
         find('input[type=submit]').click
       end
-      expect(page.find('#common.tab-pane')).to have_no_content(message)
-      expect(page.find('#student.tab-pane')).to have_content(message)
-      expect(page.find('#teacher.tab-pane')).to have_no_content(message)
+      expect(page.find('#chat_0.tab-pane')).to have_no_content(message)
+      expect(page.find('#chat_1.tab-pane')).to have_content(message)
+      expect(page.find('#chat_2.tab-pane')).to have_no_content(message)
     end
 
     scenario 'to teacher conversation' do
       expect(PrivatePub).to receive(:publish_to).exactly(2).times
       expect(Pusher).to receive(:trigger)
       expect(Pusher).to receive(:notify)
-      message = 'for teacher conversation'
-      within('#teacher.tab-pane//form') do
-        fill_in 'body', with: message
+      within('#chat_2.tab-pane//form') do
+        fill_in 'message[body]', with: message
         find('input[type=submit]').click
       end
-      expect(page.find('#common.tab-pane')).to have_no_content(message)
-      expect(page.find('#student.tab-pane')).to have_no_content(message)
-      expect(page.find('#teacher.tab-pane')).to have_content(message)
+      expect(page.find('#chat_0.tab-pane')).to have_no_content(message)
+      expect(page.find('#chat_1.tab-pane')).to have_no_content(message)
+      expect(page.find('#chat_2.tab-pane')).to have_content(message)
     end
   end
 

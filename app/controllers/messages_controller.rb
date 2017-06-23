@@ -1,71 +1,48 @@
 class MessagesController < ApplicationController
-  class SendToSelf < StandardError; end
-
-  rescue_from SendToSelf, with: :dont_send_to_self
-
   before_action :authenticate_user!
   after_filter { flash.discard if request.xhr? }
-  before_action :check_users_different, only: :create
+  before_action :get_conversation_and_reply_path, only: [:typing, :seen]
 
   def new
   end
 
-  def dont_send_to_self(exception)
-    flash[:notice]= "Vous ne pouvez pas envoyer de message à vous-même!"
-    flash_to_headers
-  end
-
   def create
-    recipients = User.find(params[:message][:recipient])
-    u1 = current_user
-    u2 = recipients
-    existing_conversation = Conversation.participant(u1).where('mailboxer_conversations.id in (?)', Conversation.participant(u2).collect(&:id))
-    unless existing_conversation.empty?
-      c = existing_conversation.first
-      receipt = current_user.reply_to_conversation(c, params[:message][:body])
-    else
-      receipt = current_user.send_message([recipients], params[:message][:body], params[:message][:subject]) if params[:message][:body].length > 50
-    end
-    if receipt.nil?
-      respond_to do |format|
-        format.html {redirect_to messagerie_path}
-        format.js {render action: 'too_short'}
-        format.json {render :json => {:success => "false", :message => "Votre message est trop court!"}}
+    pushing = PushMessage.run(
+      user: current_user,
+      conversation_id: params[:message][:conversation_id].presence,
+      recipient_ids: params[:message][:recipient].to_s.split,
+      text: params[:message][:body],
+      subject: params[:message][:subject]
+    )
+    status = (pushing.valid? && pushing.message).present?
+    message_status = status ? I18n.t('message_pusher.validate.success') : pushing.errors.full_messages.to_sentence
+    flash[status ? :success : :danger] = message_status
+    respond_to do |format|
+      format.html do
+        way = params[:message].try(:[],:to_back) # request.referer
+        redirect_to way.present? ? way : messagerie_path
       end
-    elsif  Mailboxer::Notification.successful_delivery?(receipt)
-      flash[:success] = "Votre message a bien été envoyé!" unless !params[:mailbox].nil?
-      respond_to do |format|
-        format.html {redirect_to messagerie_path}
-        format.js
-        format.json {render :json => {:success => "true", :message => "Votre message a bien été envoyé!"}}
-      end and return
-    else
-      flash[:danger] = "Votre message n'a pas pu être envoyé!"
-      respond_to do |format|
-        format.html {redirect_to messagerie_path}
-        format.js {render action: 'too_short'}
-        format.json {render :json => {:success => "false", :message => "Votre message n'a pas pu être envoyé!"}}
-      end
+      format.js { render action: 'too_short' unless status }
+      format.json { render :json => {success: status, message: message_status} }
     end
   end
 
   def typing
-    @conversation =  Mailboxer::Conversation.find(params[:conversation_id])
-    @path = reply_conversation_path(@conversation)
   end
 
   def seen
+  end
+
+  def count
+    render json: current_user.mailbox.inbox({read: false}).count
+  end
+
+  private
+
+  def get_conversation_and_reply_path
     @conversation =  Mailboxer::Conversation.find(params[:conversation_id])
     @path = reply_conversation_path(@conversation)
   end
 
-  def count
-    render :json => current_user.mailbox.inbox({:read => false}).count
-  end
-
-  private
-    def check_users_different
-      raise SendToSelf unless User.find(params[:message][:recipient]) != current_user
-    end
 end
 

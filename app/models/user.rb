@@ -58,6 +58,8 @@ class User < ActiveRecord::Base
   delegate :wallets, :normal_wallet, :bonus_wallet, :transaction_wallet,
             :total_wallets_in_cents, :bank_accounts, to: :mangopay
 
+  scope :reader_scope, -> { where(admin: true) }
+
   # MANGOPAY
   def mangopay
     @mangopay ||= MangoUser.new(self)
@@ -83,10 +85,6 @@ class User < ActiveRecord::Base
   def send_notification (subject, body, sender, obj=nil)
     notification = self.notify(subject, body, obj, true, 100, false, sender)
     PrivatePub.publish_to '/notifications/'+self.id.to_s, :notification => notification
-  end
-
-  def self.reader_scope
-    where(:admin => true)
   end
 
   def name

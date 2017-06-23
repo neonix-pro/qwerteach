@@ -28,7 +28,10 @@
 
   %dt.attribute-label Messages
   %dt.attribute-data
-    = render partial: 'messages', locals: {dispute: page.resource}
+    - groups = conversation_groups(page.resource.lesson, current_user)
+    - to_back = admin_dispute_path(page.resource)
+    = render partial: 'messages', locals: { groups: groups, to_back: to_back }
+
 
   - unless page.resource.finished?
     %dt.attribute-label Divide money

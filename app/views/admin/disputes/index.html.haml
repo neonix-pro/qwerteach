@@ -17,6 +17,6 @@
   .header__actions
     = link_to("New #{page.resource_name.titleize.downcase}", [:new, namespace, page.resource_name], class: 'button')
 
-= render 'collection', collection_presenter: page, resources: resources, search: search
+= render 'collection_index', collection_presenter: page, resources: resources, search: search
 
 = paginate resources

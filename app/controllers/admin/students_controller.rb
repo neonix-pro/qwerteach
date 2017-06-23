@@ -30,17 +30,20 @@ module Admin
     end
 
     def show
-      @user = User.find(params[:id])
-      @conversations = @user.mailbox.conversations.page(params[:page]).per(10)
-      @admins = User.where(admin: true)
-      conv_check_1 = Conversation.participant(@user)
-      conv_check_2 = Conversation.participant(current_user)
-      @conversation_admin = (conv_check_1 & conv_check_2).first
-      if @conversation_admin.nil?
-        @conversation_admin = Mailboxer::Conversation.new()
+      user = User.find(params[:id])
+      conversations = user.mailbox.conversations
+      if conversations.between(user, current_user).blank?
+        conversations = conversations.to_a.unshift(
+          subject: "#{current_user.name} vous pose une question!",
+          recipients: [user, current_user],
+          count_messages: 0,
+          messages: []
+        )
       end
-      @messages_admin = @conversation_admin.messages.order(id: :desc)
-      @conversation = Conversation.participant(current_user).where('mailboxer_conversations.id in (?)', Conversation.participant(@user).collect(&:id))
+      @conversations = Kaminari
+        .paginate_array(conversations, total_count: conversations.count)
+        .page(params[:page])
+        .per(5)
       super
     end
 

@@ -18,25 +18,20 @@ class Lesson < ActiveRecord::Base
   has_one :bbb_room
   has_one :dispute
 
-  scope :pending, ->{where("lessons.status IN (?) ", [0, 1])}
-  #scope :created, ->{where("lessons.status LIKE ? ", 2)}
-  scope :locked, ->{joins(:payments).where("payments.status LIKE ?", 1)}
-  scope :locked_or_paid, ->{joins(:payments).where("payments.status IN (?)", [1, 2])}
-  scope :payment_pending, ->{joins(:payments).where("payments.status LIKE ?", 0)} # money isn't locked. Postpay lesson
-  scope :past, ->{where("time_start < ? ", Time.now)}
-  scope :future, ->{where("time_start > ? ", Time.now)}
-  scope :involving, ->(user){where("teacher_id = ? OR student_id = ?", user.id, user.id).order(time_start: 'desc')}
-  scope :is_student, ->(user){where("student_id = ?", user.id)}
-  scope :active, ->{where.not("lessons.status IN(?)", [3, 4, 5])} # not canceled or refused or expired
-  #scope :canceled, ->{where("lessons.status LIKE ? ", 3)}
-  #scope :refused, ->{where("lessons.status LIKE ? ", 4)}
-
-
-  scope :upcoming, ->{ active.future } #future and (created or pending)
-  scope :passed, ->{past.created} # lessons that already happened
-  #scope :expired, ->{where("lessons.status LIKE ? ", 5)}
-  scope :to_answer, ->{pending.locked.future} # lessons where we're waiting for an answer
-  scope :to_unlock, ->{created.locked.past} # lessons where we're waiting for student to unlock money
+  scope :pending, -> { where('lessons.status IN (?) ', [0, 1]) }
+  scope :locked, -> { joins(:payments).where('payments.status LIKE ?', 1) }
+  scope :locked_or_paid, -> { joins(:payments).where('payments.status IN (?)', [1, 2]) }
+  scope :payment_pending, -> { joins(:payments).where('payments.status LIKE ?', 0) } # money isn't locked. Postpay lesson
+  scope :past, -> { where('time_end < ?', DateTime.now) }
+  scope :future, -> { where('time_start > ? ', Time.now) }
+  scope :involving, ->(user) { where('teacher_id = ? OR student_id = ?', user.id, user.id).order(time_start: 'desc') }
+  scope :is_student, ->(user) { where('student_id = ?', user.id) }
+  scope :active, ->{ where.not('lessons.status IN(?)', [3, 4, 5]) } # not canceled or refused or expired
+  scope :upcoming, -> { where('time_start > ?', DateTime.now) }
+  scope :occuring, -> { where('time_end > ? AND time_start < ?', DateTime.now, DateTime.now) }
+  scope :passed, -> { past.created } # lessons that already happened
+  scope :to_answer, -> { pending.locked.future } # lessons where we're waiting for an answer
+  scope :to_unlock, -> { created.locked.past } # lessons where we're waiting for student to unlock money
   #scope :to_pay, ->{created.payment_pending.past} # lessons that haven't been prepaid and student needs to pay
 
   scope :to_review, ->(user){created.locked_or_paid.past.joins('LEFT OUTER JOIN reviews ON reviews.subject_id = lessons.teacher_id
@@ -45,7 +40,7 @@ class Lesson < ActiveRecord::Base
     .where('reviews.id is NULL')
     .where('time_end < ?', DateTime.now)
     .group(:teacher_id)}
-  
+
   scope :with_room, -> {joins(:bbb_room).select("DISTINCT lessons.*")}
   scope :without_room, -> {includes(:bbb_room).where(:bigbluebutton_rooms => { :id => nil })}
 
@@ -53,30 +48,19 @@ class Lesson < ActiveRecord::Base
 
   has_drafts
 
-  validates :student_id, presence: true
-  validates :teacher_id, presence: true
+  validate :teacher_approved?, on: :create
+  validates :student, presence: true
+  validates :teacher, presence: true
+  validates :level, presence: true
   validates :status, presence: true
   validates :time_start, presence: true
   #validates_datetime :time_start, :on_or_after => lambda { DateTime.current }
   validates :time_end, presence: true
   validates_datetime :time_end, :after => :time_start
   validates :topic_group_id, presence: true
-  validates :level_id, presence: true
   validates :price, presence: true
   validates :price, :numericality => { :greater_than_or_equal_to => 0 }
 
-  def self.past
-    where("time_end < ?", DateTime.now)
-  end
-  def self.upcoming
-    where("time_start > ?", DateTime.now)
-  end
-  def self.occuring
-    where("time_end > ? AND time_start < ?", DateTime.now, DateTime.now)
-  end
-  # def self.created  # default scope enum status
-  #   where(status: 2)
-  # end
 
   def self.async_send_notifications
     Resque.enqueue(LessonsNotifierWorker)
@@ -134,7 +118,7 @@ class Lesson < ActiveRecord::Base
     if user.id != student_id
       return false
     else
-      Review.where('sender_id = ? AND subject_id = ?', student.id, teacher.id).empty? && past?
+      past? && Review.where('sender_id = ? AND subject_id = ?', student_id, teacher_id).empty?
     end
   end
 
@@ -233,4 +217,8 @@ class Lesson < ActiveRecord::Base
   end
 
   private
+
+  def teacher_approved?
+    errors.add(:teacher, :is_not_approved) if teacher.present? && !teacher.postulance_accepted
+  end
 end
