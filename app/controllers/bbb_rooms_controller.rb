@@ -28,6 +28,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     else
       @user_name = 'Invité'
     end
+    @user_role =  :moderator
     join_internal(@user_name, @user_role, @user_id)
   end
 
