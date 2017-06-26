@@ -43,6 +43,7 @@ fr:
         galleries: "Vous n'êtes pas autorisé à mettre à jour une gallerie de vous appartenant pas."
         pictures: "Vous n'êtes pas autorisé à mettre à jour une photo de vous appartenant pas."
   become_teacher:
+    valid_email: 'validez votre e-mail'
     general_infos: "Informations générales"
     avatar: "Photo de profil"
     crop: "Recadrer"

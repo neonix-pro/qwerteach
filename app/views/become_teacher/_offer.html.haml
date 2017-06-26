@@ -1,6 +1,6 @@
 .offer-form{id: "offer-form-#{id}"}
   #new-offer
-    %h3.offer-title Nouveau cours
+    %h3.offer-title Nouvelle annonce
     = form_for offer, remote: true do |f|
       = hidden_field_tag :origin, 'become_teacher'
       .fom-group

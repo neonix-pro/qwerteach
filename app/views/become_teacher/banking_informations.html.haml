@@ -1,5 +1,8 @@
 .become-teacher-banking-informations
-  %h2.page-title-green.text-center Mes informations bancaires
+  .row
+    .text-center
+      = tutorial_progress_bar
+  %h2.text-center Mes informations bancaires
   .row
     .col-sm-2
     .col-sm-8
@@ -13,7 +16,6 @@
         = render partial: 'bank_account', locals:{bank_account: @bank_account}
         .actions
           = submit_tag 'Terminer', :class => 'btn btn-qw btn-sm btn-green'
-  = tutorial_progress_bar
 
 :javascript
   $(document).on('turbolinks:load', function(){

@@ -1,6 +1,8 @@
 .become-teacher-avatar
   .row
-    %h2.page-title-green Choisissez votre photo de profil
+    = tutorial_progress_bar
+  .row
+    %h2.text-center Choisissez votre photo de profil
     .col-sm-2
     .col-sm-8.text-center
       .alert.alert-info.text-left
@@ -25,11 +27,9 @@
             parcourir
             %i.fa.fa-folder-open
           = f.button "Enregistrer", class: 'btn btn-sm btn-qw btn-green', type: 'submit', disable_with: '<i class="fa fa-spinner fa-spin"></i>en cours'
-        %hr
         .text-right
           = link_to 'Pas maintenant', next_wizard_path
-  .row
-    = tutorial_progress_bar
+        %hr
 
 :javascript
   new AvatarUploader()

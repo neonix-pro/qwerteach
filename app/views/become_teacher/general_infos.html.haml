@@ -1,47 +1,50 @@
 .become-teacher-general-infos
+  .text-center
+    = tutorial_progress_bar
   .row
-    %h2.page-title-green.text-center Informations générales
+    %h2.text-center Informations générales
     .col-sm-2
     .col-sm-8
       .alert.alert-info
-        %p Complétez  ici  les  informations  concernant  votre  identité,  votre  formation  et  vos  expériences éventuelles.
-      = form_for @user, as: :user, url: wizard_path, method: :put do |f|
+        %p Complétez  ici  les  informations  concernant  votre  identite,  votre  formation  et  vos  expériences éventuelles.
+      = form_for @user, as: :user, url: wizard_path, method: :put, html: {class: 'form-horizontal'} do |f|
         .form-group
-          = f.label :firstname
-          = f.text_field :firstname, :required => true, class: 'form-control'
+          .col-sm-6
+            = f.label :firstname
+            = f.text_field :firstname, :required => true, class: 'form-control'
+          .col-sm-6
+            = f.label :lastname
+            = f.text_field :lastname, :required => true, class: 'form-control'
         .form-group
-          = f.label :lastname
-          = f.text_field :lastname, :required => true, class: 'form-control'
-        .form-inline
-          .form-group
+          .col-sm-6.form-inline
             = f.label :birthdate
             %br
             = f.date_select :birthdate, {start_year: 1930, end_year:2020}, :required => true, class: 'form-control'
-            -#= f.text_field :birthdate, value: @user.birthdate.strftime("%d/%m/%Y"),:required => true, class: 'form-control datepicker'
+          .col-sm-6
+            = f.label :level_id, "Niveau de formation atteint"
+            = f.select :level_id, options_for_select(@levels, selected: @user.level), {}, required: true, class: 'form-control'
         .form-group
-          = f.label :level_id, "Niveau de formation atteint"
-          = f.select :level_id, options_for_select(@levels, selected: @user.level), {}, required: true, class:'form-control'
+          .col-sm-6
+            = f.label :gender
+            = f.select :gender, User::GENDER_TYPES.map{|k| [t(k), k]}, {}, class: 'form-control'
+          .col-sm-6
+            .row
+              .col-xs-12
+                = f.label :phone_number
+              .col-xs-3
+                = f.select :phone_country_code, options_for_select(international_prefix_list, :selected => @user.phone_country_code), {}, class:'form-control'
+              .col-xs-9
+                = f.telephone_field :phone_number, class: 'form-control'
         .form-group
-          = f.label :gender
-          = f.select :gender, User::GENDER_TYPES.map{|k| [t(k), k]}, {}, class: 'form-control'
-        .form-group
-          = f.label :phone_number
-          .row
-            .col-xs-3
-              = f.select :phone_country_code, options_for_select(international_prefix_list, :selected => @user.phone_country_code), {}, :required => true, class:'form-control'
-            .col-xs-9
-              = f.telephone_field :phone_number, class: 'form-control'
-        .form-group
-          = f.label :occupation, "Profession / branche d'études"
-          = f.text_field :occupation, :required => true, class: 'form-control'
+          .col-xs-6
+            = f.label :occupation, "Profession / branche d'études"
+            = f.text_field :occupation, :required => true, class: 'form-control'
+        %hr
+        %br
         - @description_questions.each_with_index do |question, index|
           .form-group
-            = label_tag "description_#{index}", question
-            = text_area_tag "description_#{index}", '', class: 'form-control'
-        - if devise_mapping.confirmable? && @user.pending_reconfirmation?
-          %div
-            Currently waiting confirmation for: #{@user.unconfirmed_email}
+            .col-sm-12
+              = label_tag "description_#{index}", question
+              = text_area_tag "description_#{index}", '', class: 'form-control', rows: 5
         .actions
           = f.submit "Mon profil est complet!", class: 'submit action'
-  .text-center
-    = tutorial_progress_bar
