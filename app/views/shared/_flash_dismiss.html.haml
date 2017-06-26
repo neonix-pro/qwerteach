@@ -2,6 +2,6 @@
   %button.close{"aria-label" => "Close", :type => "button", data:{dismiss: 'alert'}}
     %span{"aria-hidden" => "true"}
       =image_tag 'close.png'
-  #{content.is_a?(String) ? content.html_safe : content.joins(', ').html_safe}
+  #{content.is_a?(String) ? content.html_safe : content.join(', ').html_safe}
 
 // types: info, danger, warning, success
