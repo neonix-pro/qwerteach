@@ -1,0 +1,53 @@
+%div.become-teacher-page
+  .section_video
+    .left
+      %h2 Devenir prof sur Qwerteach
+      %hr
+      %p
+        Rejoignez la communauté et partagez vos connaissances!
+        %br
+        %br
+        - if current_user
+          = link_to become_teacher_path(:general_infos), class: 'btn btn-qw btn-pink signup-teacher' do
+            %i.fa.fa-long-arrow-right
+            C'est parti!
+        - else
+          = link_to new_user_registration_path, class: 'btn btn-qw btn-pink signup-teacher become-teacher' do
+            %i.fa.fa-long-arrow-right
+            C'est parti!
+    .right
+      %iframe{:src => "https://www.youtube.com/embed/EpWOXwVAyfQ"}
+  .section_test_classe
+    .left
+      = image_tag('become_teacher/accueil.jpg')
+    .right
+      %h2 Une nouvelle façon d'enseigner
+      %hr
+      %p
+        Dans un environnement flexible, apportez votre soutien à des élèves issus du monde entier !
+        %br
+        %br
+        -if current_user
+          = link_to become_teacher_path(:general_infos), class: 'btn btn-qw btn-pink' do
+            Poser ma candidature
+        -else
+          = link_to new_user_registration_path, class: 'btn btn-qw btn-pink become-teacher' do
+            Poser ma candidature
+  .section_etapes
+    .col
+      =image_tag("comment_ca_marche/ico_com.png", :alt => "Communiquez en direct avec votre professeur.")
+      %p La qualité de votre travail est reconnue
+    .col
+      =image_tag("comment_ca_marche/ico_formes.png", :alt => "Tracez et créez des formes géométriques grâce aux outils graphiques")
+      %p Variez vos durées de cours, innovez dans vos méthodes
+    .col
+      =image_tag("comment_ca_marche/ico_partager.png", :alt => "Partagez tout type de document avec votre professeur")
+      %p Gagnez du temps: Vous enseignez où et quand vous voulez
+    .col
+      =image_tag("comment_ca_marche/ico_record.png", :alt => "Les cours sont enregistrés pour que vous puissiez les revoir.")
+      %p Vous fixez votre prix en toute liberté
+
+:javascript
+  $('.become-teacher').click(function(){
+    ga('send', 'event', 'click-teacher-application', $(this).text() );
+  });
