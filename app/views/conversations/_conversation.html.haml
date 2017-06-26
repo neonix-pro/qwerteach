@@ -11,8 +11,8 @@
       = submit_tag "Envoyer", class: 'btn btn-green btn-qw'
 .mailbox-conversation-details
   .conversation-participants
-    -conversation.participants.each do |p|
-      = render 'conversations/conversation_participant', user: p unless p == current_user
+    -conversation.receipts.group(:receiver_id).each do |r|
+      = render 'conversations/conversation_participant', user: r.receiver unless r.receiver == current_user || r.receiver.nil?
 
 = subscribe_to reply_conversation_path(conversation)
 

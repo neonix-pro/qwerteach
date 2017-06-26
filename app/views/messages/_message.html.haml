@@ -1,4 +1,6 @@
-- if (message.sender == current_user)
+- if message.sender.nil?
+  = render 'messages/message_deleted_user', message: message
+- elsif (message.sender == current_user)
   = render 'messages/message_sent', message: message
 - else
   = render 'messages/message_received', message: message

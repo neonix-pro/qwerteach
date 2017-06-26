@@ -1,0 +1,9 @@
+.message-container.clearfix
+  .message-sender
+    Utilisateur supprimé
+    %time{:datetime => "#{message.created_at}", :title => "#{message.created_at.strftime("%d %b  %Y à %I:%M%p")}"}
+      = message_date message.created_at
+  .message.message-received
+    .avatar
+      = image_tag("avatar.jpg", class: "img img-circle")
+    #{simple_format(message.body)}
