@@ -12,7 +12,7 @@
             %i.fa.fa-long-arrow-right
             C'est parti!
         - else
-          = link_to new_user_registration_path, class: 'btn btn-qw btn-pink signup-teacher', data: {toggle: 'modal'} do
+          = link_to new_user_registration_path, class: 'btn btn-qw btn-pink signup-teacher become-teacher' do
             %i.fa.fa-long-arrow-right
             C'est parti!
     .right
@@ -31,7 +31,7 @@
           = link_to become_teacher_path(:general_infos), class: 'btn btn-qw btn-pink' do
             Poser ma candidature
         -else
-          = link_to new_user_registration_path, class: 'btn btn-qw btn-pink', data: {toggle: 'modal'} do
+          = link_to new_user_registration_path, class: 'btn btn-qw btn-pink become-teacher' do
             Poser ma candidature
   .section_etapes
     .col
@@ -46,4 +46,8 @@
     .col
       =image_tag("comment_ca_marche/ico_record.png", :alt => "Les cours sont enregistrés pour que vous puissiez les revoir.")
       %p Vous fixez votre prix en toute liberté
-        
+
+:javascript
+  $('.become-teacher').click(function(){
+    ga('send', 'event', 'click-teacher-application', $(this).text() );
+  });
