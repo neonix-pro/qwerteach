@@ -11,6 +11,7 @@ class window.CardRegistrationForm
   initialize: ->
     @initMango()
     @initEvents()
+    @toggleCardFields()
 
   initMango: ->
     mangoPay.cardRegistration.init({
