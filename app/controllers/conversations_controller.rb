@@ -32,24 +32,24 @@ class ConversationsController < ApplicationController
 
   def trash
     @conversation = @mailbox.conversations.find(params[:id])
-    set_flash @conversation.move_to_trash(current_user)
+    set_result_flash @conversation.move_to_trash(current_user)
     refresh_mailbox
   end
 
   def untrash
     @conversation = @mailbox.conversations.find(params[:id])
-    set_flash @conversation.untrash(current_user)
+    set_result_flash @conversation.untrash(current_user)
     refresh_mailbox
   end
 
   def mark_as_unread
     @conversation = @mailbox.conversations.find(params[:id])
-    set_flash @conversation.mark_as_unread(current_user)
+    set_result_flash @conversation.mark_as_unread(current_user)
     refresh_mailbox
   end
 
   def mark_as_read
-    set_flash @conversation.mark_as_read(current_user)
+    set_result_flash @conversation.mark_as_read(current_user)
     respond_to do |format|
       format.html { redirect_to conversations_path }
       format.js{}
@@ -79,20 +79,14 @@ class ConversationsController < ApplicationController
   end
 
   def reply
-    pushing = PushMessage.run(
-      user: current_user,
-      conversation_id: @conversation.id,
-      text: params[:body],
-      subject: @conversation.subject
-    )
-    status = (pushing.valid? && pushing.message).present?
+    sending = SendMessage.run(reply_params)
     respond_to do |format|
       format.html do
-        message_status = status ? I18n.t('message_pusher.validate.success') : pushing.errors.full_messages.to_sentence
-        redirect_to conversation_path(@conversation), notice: message_status
+        notice = sending.valid? ? I18n.t('message_pusher.validate.success') : sending.errors.full_messages.to_sentence
+        redirect_to conversation_path(@conversation), notice: notice
       end
       format.js
-      format.json { render json: {success: status} }
+      format.json { render json: {success: sending.valid?} }
     end
   end
 
@@ -101,12 +95,12 @@ class ConversationsController < ApplicationController
       @conversation = current_user.mailbox.conversations.where(:id => params[:conversation_id])
     else
       recipients = [User.find(params[:recipient_id])]
-      current_user.mailbox.conversations.each do |c|
-        if (c.participants - recipients - [current_user]).empty? && (recipients - c.participants).empty?
-          @conversation = c
-        end
+      @conversation = current_user.mailbox.conversations.find do |c|
+        (c.participants - recipients - [current_user]).empty? && (recipients - c.participants).empty?
       end
     end
+    # TO DO: not neded anymore
+    @conversation ||= current_user.send_message([current_user, (User.find(params[:recipient_id]))], "init_conv_via_chat", "chat").conversation
     render json: {conversation_id: @conversation.id}
   end
 
@@ -127,7 +121,7 @@ class ConversationsController < ApplicationController
 
   private
 
-  def set_flash(result)
+  def set_result_flash(result)
     status = result ? :success : :danger
     flash[status] = I18n.t("conversation.#{action_name}.#{status}")
   end
@@ -147,5 +141,13 @@ class ConversationsController < ApplicationController
       format.js {render :index}
       format.html {}
     end
+  end
+
+  def reply_params
+    {
+      user: current_user,
+      conversation_id: @conversation.id,
+      body: params[:body]
+    }
   end
 end

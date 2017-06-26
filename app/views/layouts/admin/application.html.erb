@@ -21,6 +21,7 @@ By default, it renders:
   <title><%= content_for(:title) %> | <%= Rails.application.class.parent_name.titlecase %></title>
   <%= render "stylesheet" %>
   <%= stylesheet_link_tag 'administrate/custom' %>
+  <%= render "javascript" %>
   <%= csrf_meta_tags %>
 </head>
 
@@ -40,6 +41,5 @@ By default, it renders:
 
   </div>
 
-  <%= render "javascript" %>
 </body>
 </html>

@@ -1,4 +1,3 @@
-
 = content_for(:title) { page.page_title }
 
 %header.header
@@ -28,9 +27,8 @@
 
   %dt.attribute-label Messages
   %dt.attribute-data
-    - groups = conversation_groups(page.resource.lesson, current_user)
-    - to_back = admin_dispute_path(page.resource)
-    = render partial: 'messages', locals: { groups: groups, to_back: to_back }
+    - conversations = disput_conversations(dispute)
+    = render 'messages', {conversations: conversations}
 
 
   - unless page.resource.finished?
@@ -38,13 +36,13 @@
     %dd.attribute-data
       = link_to( |
         t('admin.dispute.link.to_teacher'), |
-        [namespace, page.resource, :resolve, amount: page.resource.lesson.price], |
+        resolve_admin_dispute_path(dispute, amount: dispute.lesson.price), |
         class: 'button to_teacher', |
         method: :post )
       -#
       = link_to( |
         t('admin.dispute.link.to_student'), |
-        [namespace, page.resource, :resolve, amount: '0'], |
+        resolve_admin_dispute_path(dispute, amount: 0), |
         class: 'button to_student', |
         method: :post )
       -#
@@ -57,13 +55,13 @@
 .bootstrap-wrapper
   #divide_money.modal(role='dialog')
     .modal-dialog
-      = form_tag [namespace, page.resource, :resolve], class: 'modal-content' do
+      = form_tag resolve_admin_dispute_path(dispute), class: 'modal-content' do
         .modal-header
           %button.close(data-dismiss='modal' type='button') ×
           %h4.modal-title To devide money
         .modal-body
           %p Quel est le montant devrait être transféré à l'enseignant?
-          = number_field_tag(:amount, page.resource.lesson.price, {min: 0, max: page.resource.lesson.price})
+          = number_field_tag(:amount, dispute.lesson.price, {min: 0, max: dispute.lesson.price})
           %p.pull-right
             %span.text-danger *
             %span.text-info l'argent restant reste avec l'étudiant

@@ -1,5 +1,5 @@
+- content_for(:title) { page.resource.full_name }
 %body
-  - content_for(:title) { "#{page.resource.firstname} #{page.resource.lastname}"}
   %header.header
     %h1.header__heading
       = content_for(:title)
@@ -10,26 +10,24 @@
       = link_to("Suspendre", admin_user_path(page.resource), method: :delete, class: "button")
       = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "button"
   %hr
+  .main-content__body
+    %dl
+      - page.attributes.each do |attribute|
+        %dt.attribute-label= attribute.name.titleize
+        %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}
+          - if attribute.data != "" && !attribute.data.nil?
+            = render_field attribute
+          - else
+            ="-"
+    .clearfix
+    %div
+      .actions.pull-right
+        = link_to 'Inviter dans la classe virtuelle', room_invite_bbb_rooms_path(page.resource), class:'button btn-default'
+      %h2 Discuter avec #{page.resource.name}
+      .clearfix
+      .conversation-admin
+        = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: student
 
-  %dl
-    - page.attributes.each do |attribute|
-      %dt.attribute-label= attribute.name.titleize
-      %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}
-        - if attribute.data != "" && !attribute.data.nil?
-          = render_field attribute
-        - else
-          \-
-  %hr
-  %dl
-    %dt.attribute-label Big Blue Button Room
-    %dd.attribute-data
-      = link_to 'Inviter dans la classe virtuelle', room_invite_bbb_rooms_path(page.resource), class:'button btn-default'
-
-    %dt.attribute-label= t('admin.teacher.postulation.conversations')
-    %dd.attribute-data
-      - groups = @conversations
-      - to_back = admin_student_path(page.resource)
-      = render partial: 'admin/disputes/messages', locals: { groups: groups, to_back: to_back }
-  %br
+    = render 'admin/shared/conversations', conversations: @conversations, user: student
 
 -#=content_for(:javascript)

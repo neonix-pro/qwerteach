@@ -9,23 +9,23 @@ class Postulation < ActiveRecord::Base
 
   def admin_fields
     {
-      avatar: self.avatar_ok,
-      general_informations: self.gen_informations_ok,
-      offers: self.offer_ok,
+      avatar: avatar_ok,
+      general_informations: gen_informations_ok,
+      offers: offer_ok,
       mangopay: mangopay,
       email: email,
       test_classe: test_classe,
-      interview: self.interview_ok
+      interview: interview_ok
     }
   end
   alias dashboard_fields admin_fields
 
   def mangopay
-    !self.teacher.mango_id.nil?
+    teacher.mango_id.present?
   end
 
   def email
-    !self.teacher.confirmed_at.nil?
+    teacher.confirmed_at.present?
   end
 
   def test_classe
@@ -33,7 +33,7 @@ class Postulation < ActiveRecord::Base
   end
 
   def ok_fields
-    admin_fields.delete_if { |key, value| value==false }
+    admin_fields.delete_if { |_, value| !value }
   end
 
   def correction_text
@@ -52,5 +52,9 @@ class Postulation < ActiveRecord::Base
 
   def corrections_needed
     admin_fields.select{|k,v| !v}.keys
+  end
+
+  def completed?
+    corrections_needed.blank?
   end
 end

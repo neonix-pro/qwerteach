@@ -1,6 +1,8 @@
 module Admin
   class DisputesController < Admin::ApplicationController
 
+    helper_method :dispute
+
     def index
       search = Dispute.ransack(params[:q])
       resources = search.result.page(params[:page]).per(records_per_page)
@@ -30,7 +32,7 @@ module Admin
     private
 
     def dispute
-      @dispute ||= Dispute.find(params[:dispute_id])
+      requested_resource
     end
   end
 end

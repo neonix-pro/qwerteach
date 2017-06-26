@@ -1,29 +1,20 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
-  after_filter { flash.discard if request.xhr? }
   before_action :get_conversation_and_reply_path, only: [:typing, :seen]
 
   def new
   end
 
   def create
-    pushing = PushMessage.run(
-      user: current_user,
-      conversation_id: params[:message][:conversation_id].presence,
-      recipient_ids: params[:message][:recipient].to_s.split,
-      text: params[:message][:body],
-      subject: params[:message][:subject]
-    )
-    status = (pushing.valid? && pushing.message).present?
-    message_status = status ? I18n.t('message_pusher.validate.success') : pushing.errors.full_messages.to_sentence
-    flash[status ? :success : :danger] = message_status
+    sending = SendMessage.run(send_params.merge(user: current_user))
+    notice = sending.valid? ? I18n.t('send_message.validate.success') : sending.errors.full_messages.to_sentence
     respond_to do |format|
       format.html do
-        way = params[:message].try(:[],:to_back) # request.referer
-        redirect_to way.present? ? way : messagerie_path
+        flash[sending.valid? ? :success : :danger] = notice
+        redirect_to params[:redirect_to].presence || messagerie_path
       end
       format.js { render action: 'too_short' unless status }
-      format.json { render :json => {success: status, message: message_status} }
+      format.json { render :json => {success: sending.valid?, message: notice} }
     end
   end
 
@@ -42,6 +33,12 @@ class MessagesController < ApplicationController
   def get_conversation_and_reply_path
     @conversation =  Mailboxer::Conversation.find(params[:conversation_id])
     @path = reply_conversation_path(@conversation)
+  end
+
+  def send_params
+    params.require(:message).slice(:conversation_id, :body, :subject).tap do |p|
+      p[:recipient_ids] = params[:message][:recipient].to_s.split.map(&:to_i)
+    end.permit!
   end
 
 end

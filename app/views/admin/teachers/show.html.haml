@@ -13,29 +13,30 @@
         = page.resource.postulance_accepted ? (f.submit 'Suspend') : (f.submit 'Approve', :class => 'action-destroy')
       = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "button"
   %hr
-  .user-postulation
+
+  %section.main-content__body.user-postulation
     %h2 Postulation:
     = render :partial => 'admin/postulations/postulation', locals:{postulation: page.resource.postulation}
     = link_to "Modifier", [:edit, namespace, page.resource.postulation], class: 'pull-right'
   %hr
-  %dl
-    - page.attributes.each do |attribute|
-      %dt.attribute-label= attribute.name.titleize
-      %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}
-        - if attribute.data != "" && !attribute.data.nil?
-          = render_field attribute
-        - else
-          \-
-  %hr
-  %dl
-    %dt.attribute-label Big Blue Button Room
-    %dd.attribute-data= link_to 'Inviter dans la classe virtuelle', room_invite_bbb_rooms_path(page.resource), class:'button btn-default'
-
-    %dt.attribute-label= t('admin.teacher.postulation.conversations')
-    %dd.attribute-data
-      - groups = @conversations
-      - to_back = admin_teacher_path(page.resource)
-      = render partial: 'admin/disputes/messages', locals: { groups: groups, to_back: to_back }
-  %br
+  %section.main-content__body
+    %dl
+      - page.attributes.each do |attribute|
+        %dt.attribute-label= attribute.name.titleize
+        %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}
+          - if attribute.data != "" && !attribute.data.nil?
+            = render_field attribute
+          - else
+            ="-"
+    %div
+      %h2 Discuter avec #{page.resource.name}
+      #generated-text
+      .actions.pull-right
+        = link_to 'Interview', room_invite_bbb_rooms_path(teacher), class:'button btn-default'
+        %br
+        = link_to 'generate text', admin_postulation_generate_text_path(page.resource.postulation), remote:true, class:'button btn-default'
+      .conversation-admin
+        = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: teacher
+    = render 'admin/shared/conversations', conversations: @conversations, user: teacher
 
 =content_for(:javascript)

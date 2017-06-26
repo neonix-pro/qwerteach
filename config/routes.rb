@@ -103,7 +103,7 @@ Rails.application.routes.draw do
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
 
     resources :disputes do
-      post 'resolve' => :resolve
+      post 'resolve' => :resolve, on: :member
     end
 
     # Gestion des serveurs BBB depuis l'admin

@@ -1,32 +1,34 @@
 .dispute-messages.bootstrap-wrapper
   %ul.nav.nav-tabs
-    - cut_class = groups.count>2 ? 'cut' : ''
-    - groups.each_with_index do |chat, index|
-      %li
-        - title = "#{chat[:subject]} (#{(chat.try(:count_messages) || chat[:count_messages])})"
-        %a.tabnav(data-toggle="tab" href="#chat_#{index}" title="#{title}" class="#{cut_class}")
-          = title
+    %li
+      %a.tabnav.cut(data-toggle="tab" href="#conversation-0")
+        #{ t('dispute_message.group.common', default: 'Common') }(#{conversations.first.count_messages})
+    %li
+      %a.tabnav.cut(data-toggle="tab" href="#conversation-1")
+        #{ t('dispute_message.group.student', default: 'Student') }(#{conversations.second.count_messages})
+    %li
+      %a.tabnav.cut(data-toggle="tab" href="#conversation-2")
+        #{ t('dispute_message.group.teacher', default: 'Teacher') }(#{conversations.third.count_messages})
+
   .tab-content
-    - groups.each_with_index do |chat, index|
-      .tab-pane.fade(id="chat_#{index}")
+    - conversations.each_with_index do |conversation, index|
+      .tab-pane.fade(id="conversation-#{index}")
         .pre-scrollable
-          = render 'conversations/messages', messages: chat.try(:messages) || chat[:messages]
+          - messages = conversation.id ? conversation.messages.reorder(id: :desc) : []
+          = render 'conversations/messages', messages: messages
 
         = form_tag messages_path do
-          = hidden_field_tag 'message[conversation_id]', chat[:id]
-          = hidden_field_tag 'message[recipient]', (chat.try(:recipients) || chat[:recipients]).map(&:id).join(' ')
-          = hidden_field_tag 'message[subject]', chat[:subject]
-          = hidden_field_tag 'message[to_back]', to_back
+          = hidden_field_tag('message[conversation_id]', conversation.id) if conversation.id
+          = hidden_field_tag 'message[recipient]', conversation.recipients.map(&:id).join(' ')
+          = hidden_field_tag 'message[subject]', 'Lesson dispute'
+          = hidden_field_tag 'redirect_to', request.fullpath
           .row
-            .col-sm-10= text_area_tag 'message[body]', nil, rows: 2, class: 'form-control', placeholder: 'Type something...', required: true
+            .col-sm-10= text_area_tag 'message[body]', nil, rows: 2, class: 'form-control', required: true
             .col-sm-2= submit_tag 'Submit'
-          - if chat[:id].to_i.zero?
+          - if conversation.id.present?
             %span.text-pink= t 'message_pusher.minimum_chars'
-  = paginate groups
   = content_for(:javascript) do
     :javascript
-      if(typeof($) !== 'undefined'){
-        $(document).ready(function(){
-          $('.dispute-messages .nav-tabs li').first().find('a').click()
-        })
-      }
+      $(function(){
+        $('.dispute-messages .nav-tabs li').first().find('a').click()
+      })

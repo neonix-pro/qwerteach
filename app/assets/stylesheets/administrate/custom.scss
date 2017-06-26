@@ -9,6 +9,9 @@
 .bootstrap-wrapper{
   @import 'bootstrap';
 }
+.main-content__body {
+  padding: 1.5em;
+}
 .conversation-admin{
   .show-more, .mailbox-conversation-details{
     display:none;
@@ -47,7 +50,4 @@
   img{
     max-width: 2em;
   }
-}
-.user-postulation{
-  padding: 0px 40px;
 }

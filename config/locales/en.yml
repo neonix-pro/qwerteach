@@ -21,7 +21,7 @@
 
 en:
   hello: "Hello world"
-  message_pusher:
+  send_message:
     minimum_chars: Minimum 50 characters.
     validate:
       recipients: Recipients can not be found

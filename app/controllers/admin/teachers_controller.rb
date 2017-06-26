@@ -15,6 +15,7 @@ module Admin
 
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
+    helper_method :teacher
 
     def destroy
       # suspends the user from signing in
@@ -39,20 +40,9 @@ module Admin
     end
 
     def show
-      user = User.find(params[:id])
-      conversations = user.mailbox.conversations
-      if conversations.between(user, current_user).blank?
-        conversations = conversations.to_a.unshift(
-          subject: "#{current_user.name} vous pose une question!",
-          recipients: [user, current_user],
-          count_messages: 0,
-          messages: []
-        )
-      end
-      @conversations = Kaminari
-       .paginate_array(conversations, total_count: conversations.count)
-       .page(params[:page])
-       .per(5)
+      @conversations = teacher.mailbox.conversations.page(params[:page]).per(10)
+      @conversation_admin = SendMessage.conversation_between(current_user, teacher)
+      @conversation_admin ||= Mailboxer::Conversation.new()
       super
     end
 
@@ -107,6 +97,12 @@ module Admin
           search_term: search_term,
           page: page,
       }
+    end
+
+    private
+
+    def teacher
+      requested_resource
     end
 
   end

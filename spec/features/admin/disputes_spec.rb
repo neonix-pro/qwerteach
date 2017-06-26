@@ -57,43 +57,34 @@ feature 'admin disputes controller' do
     end
 
 
-    scenario 'to common conversation' do
-      expect(PrivatePub).to receive(:publish_to).exactly(4).times
-      expect(Pusher).to receive(:trigger).exactly(2).times
-      expect(Pusher).to receive(:notify).exactly(2).times
-      within('#chat_0.tab-pane//form') do
+    scenario 'Admin can send a message to common conversation' do
+      within('#conversation-0.tab-pane//form') do
         fill_in 'message[body]', with: message
         find('input[type=submit]').click
       end
-      expect(page.find('#chat_0.tab-pane')).to have_content(message)
-      expect(page.find('#chat_1.tab-pane')).to have_no_content(message)
-      expect(page.find('#chat_2.tab-pane')).to have_no_content(message)
+      expect(page.find('#conversation-0.tab-pane')).to have_content(message)
+      expect(page.find('#conversation-1.tab-pane')).to have_no_content(message)
+      expect(page.find('#conversation-2.tab-pane')).to have_no_content(message)
     end
 
     scenario 'to student conversation' do
-      expect(PrivatePub).to receive(:publish_to).exactly(2).times
-      expect(Pusher).to receive(:trigger)
-      expect(Pusher).to receive(:notify)
-      within('#chat_1.tab-pane//form') do
+      within('#conversation-1.tab-pane//form') do
         fill_in 'message[body]', with: message
         find('input[type=submit]').click
       end
-      expect(page.find('#chat_0.tab-pane')).to have_no_content(message)
-      expect(page.find('#chat_1.tab-pane')).to have_content(message)
-      expect(page.find('#chat_2.tab-pane')).to have_no_content(message)
+      expect(page.find('#conversation-0.tab-pane')).to have_no_content(message)
+      expect(page.find('#conversation-1.tab-pane')).to have_content(message)
+      expect(page.find('#conversation-2.tab-pane')).to have_no_content(message)
     end
 
     scenario 'to teacher conversation' do
-      expect(PrivatePub).to receive(:publish_to).exactly(2).times
-      expect(Pusher).to receive(:trigger)
-      expect(Pusher).to receive(:notify)
-      within('#chat_2.tab-pane//form') do
+      within('#conversation-2.tab-pane//form') do
         fill_in 'message[body]', with: message
         find('input[type=submit]').click
       end
-      expect(page.find('#chat_0.tab-pane')).to have_no_content(message)
-      expect(page.find('#chat_1.tab-pane')).to have_no_content(message)
-      expect(page.find('#chat_2.tab-pane')).to have_content(message)
+      expect(page.find('#conversation-0.tab-pane')).to have_no_content(message)
+      expect(page.find('#conversation-1.tab-pane')).to have_no_content(message)
+      expect(page.find('#conversation-2.tab-pane')).to have_content(message)
     end
   end
 
@@ -109,7 +100,6 @@ feature 'admin disputes controller' do
         .with(dispute: dispute, amount: dispute.lesson.price.to_s)
         .and_return(OpenStruct.new('valid?': true))
       page.find('a.button.to_teacher').click
-      expect(dispute.valid?).to be_truthy
     end
 
     scenario 'moves all money to the student' do
@@ -117,7 +107,6 @@ feature 'admin disputes controller' do
         .with(user: dispute.user, lesson: dispute.lesson)
         .and_return(OpenStruct.new('valid?': true))
       page.find('a.button.to_student').click
-      expect(dispute.valid?).to be_truthy
     end
 
     scenario 'moves a part of money to the teacher' do
@@ -128,7 +117,6 @@ feature 'admin disputes controller' do
         fill_in 'amount', with: 20
         find('input[type=submit]').click
       end
-      expect(dispute.valid?).to be_truthy
     end
   end
 end

@@ -7,6 +7,8 @@ class Teacher  < Student
 
   has_many :reviews, class_name: 'Review', :foreign_key => 'subject_id'
 
+  validate :validate_postulance_accepted, if: ->{ postulance_accepted_changed? }, on: :update
+
   acts_as_reader
   after_create :create_postulation_user
   after_save :reindex_adverts
@@ -85,5 +87,11 @@ class Teacher  < Student
 
   def reindex_adverts
     Sunspot.index! offers
+  end
+
+  def validate_postulance_accepted
+    if postulance_accepted? and (postulation.nil? or !postulation.completed?)
+      errors.add(:postulance_accepted, 'Can not be accepted because postulation has uncompleted fields')
+    end
   end
 end

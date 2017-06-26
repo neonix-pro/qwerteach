@@ -144,6 +144,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   #gem 'byebug'
   gem 'byebug',      '3.4.0'
+  gem 'pry-rails'
   gem 'ffaker'
   gem 'webmock'
   gem 'vcr'

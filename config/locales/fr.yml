@@ -335,7 +335,7 @@ fr:
     attributes:
       teacher:
         Male: Homme
-  message_pusher:
+  send_message:
     minimum_chars: Minimum 50 caractères.
     validate:
       recipients: Les bénéficiaires ne peuvent pas être trouvés
