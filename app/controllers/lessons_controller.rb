@@ -72,11 +72,11 @@ class LessonsController < ApplicationController
         flash[:success] = "La modification s'est correctement déroulée."
         if @lesson.is_teacher?(current_user)
           LessonNotificationsJob.perform_async(:notify_student_about_reschedule_lesson, @lesson.id)
-          Pusher.notify(["#{@lesson.student.id}"], {fcm: {notification: {body: "#{@lesson.teacher.name} a déplacé le votre demande de cours. veuillez confirmer le nouvel horaire.", 
+          Pusher.notify(["#{@lesson.student.id}"], {fcm: {notification: {body: "#{@lesson.teacher.name} a déplacé le votre demande de cours. Veuillez confirmer le nouvel horaire.", 
             icon: 'androidlogo', click_action: "MY_LESSONS"}}})
         else
           LessonNotificationsJob.perform_async(:notify_teacher_about_reschedule_lesson, @lesson.id)
-          Pusher.notify(["#{@lesson.teacher.id}"], {fcm: {notification: {body: "#{@lesson.student.name} a déplacé le votre demande de cours. veuillez confirmer le nouvel horaire.", 
+          Pusher.notify(["#{@lesson.teacher.id}"], {fcm: {notification: {body: "#{@lesson.student.name} a déplacé le votre demande de cours. Veuillez confirmer le nouvel horaire.", 
             icon: 'androidlogo', click_action: "MY_LESSONS"}}})
         end
         respond_to do |format|
@@ -188,7 +188,8 @@ class LessonsController < ApplicationController
             redirect_to lessons_path
           end
         }
-        format.json {render :json => {:success => "true", :message => "Merci pour votre feedback! Le professeur a été payé."}}
+        format.json {render :json => {:success => "true", :message => "Merci pour votre feedback! Le professeur a été payé.", 
+          :review_needed => @lesson.review_needed?(current_user)}}
       end
     else
       flash[:danger] = "Il y a eu un problème: #{pay_teacher.errors.full_messages.to_sentence} <br />Nous n'avons pas pu procéder au payement du professeur".html_safe
