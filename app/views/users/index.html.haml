@@ -23,6 +23,12 @@
   #more-results
     .more-results-button
       = link_to_next_page @pagin, 'voir plus', params: params, remote: true, data: {disable_with: "<i class='fa fa-spinner fa-spin'></i>"}
+- unless action_name == 'unapproved_teachers'
+  = action_name
+  .container
+    .row
+      .text-center
+        = link_to 'Voir les profs non approuvés', unapproved_teachers_path
 %div
   = render 'pages/accueil/partie_commentaire'
   = render 'pages/accueil/tri_colonne'

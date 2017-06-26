@@ -157,6 +157,7 @@ Rails.application.routes.draw do
 
   get 'dashboard' => 'dashboards#index', :as => 'dashboard'
   get 'featured_reviews' => 'reviews#featured_reviews'
+  get 'unapproved-teachers' => "users#unapproved_teachers"
 
   resources :users, :only => [:show] do
     resources :require_lesson
