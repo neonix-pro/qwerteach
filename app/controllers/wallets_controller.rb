@@ -33,7 +33,7 @@ class WalletsController < ApplicationController
       end
 
       @account = Mango::SaveAccount.new(user: current_user)
-      @cards = @user.mangopay.cards
+      @cards = @user.mangopay.cards.last(3)
 
       @bank_accounts = @user.mangopay.bank_accounts.select{|ba| ba if ba.active}
       @pagin = Kaminari.paginate_array(@transactions, total_count: filters['total_items']).page(params[:page]).per(10)
