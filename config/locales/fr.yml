@@ -450,6 +450,9 @@ fr:
         small: Il doit être supérieur à zéro
         big: Ce ne devrait pas être plus que le coût de la leçon
 
+  dispute_lesson:
+    already_in_dispute: Already in dispute
+
   conversation:
     trash:
       success: La conversation a bien été placée dans votre corbeille
