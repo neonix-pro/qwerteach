@@ -202,6 +202,7 @@ Rails.application.routes.draw do
 
   get "/pages/*page" => "pages#show", as: :pages
   get "faq(/:target(/:section))/" => "pages#faq", as: :faq
+  get "static/:page/:version" => "pages#abtest", as: :abtest
 
   get '/become_teacher/accueil' => "pages#devenir-prof"
   get '/index' => "pages#index"
