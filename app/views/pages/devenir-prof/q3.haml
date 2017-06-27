@@ -1,61 +1,128 @@
-%div.become-teacher-page
-  .section_bigimage.valign-wrapper{"data-vide-bg" => "poster: #{image_path('become_teacher/abtest/q3.jpg')}",
-      "data-vide-options" => "posterType: jpg, loop: ture, muted: true, position: 50% 50%",
-      "data-turbolinks-temporary" => true}
-    .title
-      %h1
-        Donnez des cours particuliers<br />Au monde entier
-      %h2 Trouvez vos élèves et enseignez, depuis votre canapé!
-      %br
-      = link_to 'Devenez prof', new_user_registration_path, class: 'btn btn-qw btn-green become-teacher'
-  .section_video
-    .left
-      %h2 Devenir prof sur Qwerteach
-      %hr
-      %p
-        Rejoignez la communauté et partagez vos connaissances!
-        %br
-        %br
-        - if current_user
-          = link_to become_teacher_path(:general_infos), class: 'btn btn-qw btn-pink signup-teacher' do
-            %i.fa.fa-long-arrow-right
-            C'est parti!
-        - else
-          = link_to new_user_registration_path, class: 'btn btn-qw btn-pink signup-teacher become-teacher' do
-            %i.fa.fa-long-arrow-right
-            C'est parti!
-    .right
-      %iframe{:src => "https://www.youtube.com/embed/kAPEzIuIg94"}
-  .section_test_classe
-    .left
-      = image_tag('become_teacher/accueil.jpg')
-    .right
-      %h2 Une nouvelle façon d'enseigner
-      %hr
-      %p
-        Dans un environnement flexible, apportez votre soutien à des élèves issus du monde entier !
-        %br
-        %br
-        -if current_user
-          = link_to become_teacher_path(:general_infos), class: 'btn btn-qw btn-pink' do
-            Poser ma candidature
-        -else
-          = link_to new_user_registration_path, class: 'btn btn-qw btn-pink become-teacher' do
-            Poser ma candidature
-  .section_etapes
-    .col
-      =image_tag("comment_ca_marche/ico_com.png", :alt => "Communiquez en direct avec votre professeur.")
-      %p La qualité de votre travail est reconnue
-    .col
-      =image_tag("comment_ca_marche/ico_formes.png", :alt => "Tracez et créez des formes géométriques grâce aux outils graphiques")
-      %p Variez vos durées de cours, innovez dans vos méthodes
-    .col
-      =image_tag("comment_ca_marche/ico_partager.png", :alt => "Partagez tout type de document avec votre professeur")
-      %p Gagnez du temps: Vous enseignez où et quand vous voulez
-    .col
-      =image_tag("comment_ca_marche/ico_record.png", :alt => "Les cours sont enregistrés pour que vous puissiez les revoir.")
-      %p Vous fixez votre prix en toute liberté
-
+.test-become-teacher
+  %header.q3.section_bigimage
+    .header-content
+      .header-content-inner
+        %h1#homeHeading Donnez des cours particuliers<br />au monde entier
+        %hr/
+        %p Trouvez vos élèves et enseignez, depuis votre canapé!
+        = link_to 'Devenez prof', new_user_registration_path, class: 'btn btn-primary btn-qw become-teacher'
+  %section#about.bg-primary
+    .container
+      .row
+        .col-lg-8.col-lg-offset-2.text-center
+          %h2.section-heading Enseignez en toute liberté
+          %hr.light/
+          %p.text-faded
+            Vous en avez assez de perdre votre temps dans les transports, et de travailler pour des agences? <br />Qwerteach est fait pour vous!
+          %p.text-faded
+            Donnez vos cours particuliers où et quand vous voulez, à votre rythme et à votre propre tarif.
+            Grâce à Qwerteach, vous pouvez vous concentrer sur l'essentiel: accompagner vos élèves vers la réussite!
+          = link_to 'Poser ma candidature', new_user_registration_path, class: 'btn btn-default btn-qw become-teacher'
+  %section#services
+    .container
+      .row
+        .col-lg-12.text-center
+          %h2.section-heading A votre service
+          %hr.primary/
+    .container
+      .row
+        .col-lg-3.col-md-6.text-center
+          .service-box
+            %i.fa.fa-4x.fa-diamond.text-primary.sr-icons
+            %h3 Votre travail est reconnu
+            %p.text-muted Bénéficiez du feedback de vos élèves et créez votre réputation
+        .col-lg-3.col-md-6.text-center
+          .service-box
+            %i.fa.fa-4x.fa-paper-plane.text-primary.sr-icons
+            %h3 En toute liberté
+            %p.text-muted Vous choisissez vos élèves, votre tarif, vos plages horaires
+        .col-lg-3.col-md-6.text-center
+          .service-box
+            %i.fa.fa-4x.fa-newspaper-o.text-primary.sr-icons
+            %h3 Une nouvelle façon d'enseigner
+            %p.text-muted Variez vos durées de cours, innovez dans vos méthodes
+        .col-lg-3.col-md-6.text-center
+          .service-box
+            %i.fa.fa-4x.fa-heart.text-primary.sr-icons
+            %h3 L'essentiel
+            %p.text-muted Accompagnez vos élèves vers la réussite!
+  %section#portfolio.no-padding
+    .container-fluid
+      .row.no-gutter.popup-gallery
+        .col-lg-4.col-sm-6
+          %a.portfolio-box{:href => "img/portfolio/fullsize/1.jpg"}
+            %img.img-responsive{:alt => "", :src => "img/portfolio/thumbnails/1.jpg"}/
+            .portfolio-box-caption
+              .portfolio-box-caption-content
+                .project-category.text-faded
+                  Category
+                .project-name
+                  Project Name
+        .col-lg-4.col-sm-6
+          %a.portfolio-box{:href => "img/portfolio/fullsize/2.jpg"}
+            %img.img-responsive{:alt => "", :src => "img/portfolio/thumbnails/2.jpg"}/
+            .portfolio-box-caption
+              .portfolio-box-caption-content
+                .project-category.text-faded
+                  Category
+                .project-name
+                  Project Name
+        .col-lg-4.col-sm-6
+          %a.portfolio-box{:href => "img/portfolio/fullsize/3.jpg"}
+            %img.img-responsive{:alt => "", :src => "img/portfolio/thumbnails/3.jpg"}/
+            .portfolio-box-caption
+              .portfolio-box-caption-content
+                .project-category.text-faded
+                  Category
+                .project-name
+                  Project Name
+        .col-lg-4.col-sm-6
+          %a.portfolio-box{:href => "img/portfolio/fullsize/4.jpg"}
+            %img.img-responsive{:alt => "", :src => "img/portfolio/thumbnails/4.jpg"}/
+            .portfolio-box-caption
+              .portfolio-box-caption-content
+                .project-category.text-faded
+                  Category
+                .project-name
+                  Project Name
+        .col-lg-4.col-sm-6
+          %a.portfolio-box{:href => "img/portfolio/fullsize/5.jpg"}
+            %img.img-responsive{:alt => "", :src => "img/portfolio/thumbnails/5.jpg"}/
+            .portfolio-box-caption
+              .portfolio-box-caption-content
+                .project-category.text-faded
+                  Category
+                .project-name
+                  Project Name
+        .col-lg-4.col-sm-6
+          %a.portfolio-box{:href => "img/portfolio/fullsize/6.jpg"}
+            %img.img-responsive{:alt => "", :src => "img/portfolio/thumbnails/6.jpg"}/
+            .portfolio-box-caption
+              .portfolio-box-caption-content
+                .project-category.text-faded
+                  Category
+                .project-name
+                  Project Name
+  %aside.bg-dark
+    .container.text-center
+      .call-to-action
+        %h2 Rejoignez la communauté!
+        = link_to 'Devenir prof', new_user_registration_path, class: 'btn btn-default btn-qw become-teacher'
+  %section#contact
+    .container
+      .row
+        .col-lg-8.col-lg-offset-2.text-center
+          %h2.section-heading Contactez-nous!
+          %hr.primary/
+          %p Vous êtes prêts à découvrir une nouvelle façon d'enseigner, mais il vous reste quelques questions? Notre équipe est à votre disposition.
+        .col-lg-4.col-lg-offset-2.text-center
+          = link_to '#', class: 'open-tawk' do
+            %i.fa.fa-comments-o.fa-3x.sr-chat.text-black
+            %p "chat"
+        .col-lg-4.text-center
+          %i.fa.fa-envelope-o.fa-3x.sr-contact
+          %p
+            = link_to "mailto:hello@qwerteach.com", "mailto:hello@qwerteach.com"
 :javascript
   $('.become-teacher').click(function(){
     ga('send', 'event', 'click-teacher-application', $(this).text() );

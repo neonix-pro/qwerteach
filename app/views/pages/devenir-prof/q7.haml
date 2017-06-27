@@ -1,5 +1,5 @@
 .test-become-teacher
-  %header.q2.section_bigimage
+  %header.section_bigimage
     .header-content
       .header-content-inner
         %h1#homeHeading Donnez des cours particuliers<br />au monde entier
@@ -123,7 +123,3 @@
           %i.fa.fa-envelope-o.fa-3x.sr-contact
           %p
             = link_to "mailto:hello@qwerteach.com", "mailto:hello@qwerteach.com"
-:javascript
-  $('.become-teacher').click(function(){
-    ga('send', 'event', 'click-teacher-application', $(this).text() );
-  });
