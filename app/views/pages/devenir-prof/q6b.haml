@@ -1,11 +1,13 @@
 .test-become-teacher
-  %header.q2.section_bigimage
+  %header.q6.section_bigimage{"data-vide-bg" => "mp4: #{video_path('landing.mp4')} , webm: #{video_path('landing.webm')} , poster: #{image_path('acceuil/bigimage.jpg')}",
+      "data-vide-options" => "posterType: jpg, loop: ture, muted: true, position: 50% 50%",
+      "data-turbolinks-temporary" => true}
     .header-content
       .header-content-inner
-        %h1#homeHeading Passez à<br />l'aide scolaire 2.0
+        %h1#homeHeading Donnez des cours particuliers<br />au monde entier
         %hr/
-        %p Fini les déplacements,<br />démarrez vos cours en un clic!
-        = link_to 'Devenez prof', new_user_registration_path, class: 'btn btn-primary btn-qw become-teacher'
+        %p trouvez des élèves, donnez des cours, soyez payé,,<br />depuis votre canapé!
+        = link_to 'Lancez-vous!', new_user_registration_path, class: 'btn btn-primary btn-qw become-teacher'
   %section#about.bg-primary
     .container
       .row
@@ -66,6 +68,7 @@
           %i.fa.fa-envelope-o.fa-3x.sr-contact
           %p
             = link_to "mailto:hello@qwerteach.com", "mailto:hello@qwerteach.com"
+
 :javascript
   $('.become-teacher').click(function(){
     ga('send', 'event', 'click-teacher-application', $(this).text() );
