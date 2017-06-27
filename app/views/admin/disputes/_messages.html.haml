@@ -1,0 +1,54 @@
+.dispute-messages.bootstrap-wrapper
+  %ul.nav.nav-tabs
+    %li.active
+      %a.tabnav.cut(data-toggle="tab" href="#conversation-0")
+        #{ t('dispute_message.group.common', default: 'Common') }(#{conversations.first.count_messages})
+    %li
+      %a.tabnav.cut(data-toggle="tab" href="#conversation-1")
+        #{ t('dispute_message.group.student', default: 'Student') }(#{conversations.second.count_messages})
+    %li
+      %a.tabnav.cut(data-toggle="tab" href="#conversation-2")
+        #{ t('dispute_message.group.teacher', default: 'Teacher') }(#{conversations.third.count_messages})
+
+  .tab-content
+    - conversations.each_with_index do |conversation, index|
+      .tab-pane.fade(id="conversation-#{index}" class="#{'in active' if index == 0}")
+        .pre-scrollable(id="conversation-messages-#{index}")
+          - messages = conversation.id ? conversation.messages.reorder(id: :desc) : []
+          = render 'conversations/messages', messages: messages
+
+        = form_tag messages_path, remote: conversation.id.present? do
+          = hidden_field_tag('message[conversation_id]', conversation.id) if conversation.id
+          = hidden_field_tag 'message[recipient]', conversation.recipients.map(&:id).join(' ')
+          = hidden_field_tag 'message[subject]', 'Lesson dispute'
+          = hidden_field_tag 'redirect_to', request.fullpath
+          .row
+            .col-sm-10= text_area_tag 'message[body]', nil, rows: 2, class: 'form-control message-input', required: true
+            .col-sm-2= submit_tag 'Submit'
+          - if conversation.id.present?
+            %span.text-pink= t 'send_message.minimum_chars'
+
+      = subscribe_to reply_conversation_path(conversation)
+
+  = content_for(:javascript) do
+    :javascript
+      window.buildMessageCallbackForConversation = function(conversationId) {
+        return function(data, channel) {
+          var chatBox = $("#conversation-messages-" + conversationId);
+          var currentUserId = #{current_user.id};
+          if (data.sender_id != currentUserId) {
+            chatBox.append(data.message_received);
+          } else {
+            chatBox.append(data.message_sent);
+            $('#conversation-' + conversationId + ' .message-input').val('');
+          }
+          chatBox.scrollTop(chatBox.get(0).scrollHeight);
+        }
+      }
+
+    - conversations.each_with_index do |conversation, index|
+      - next unless conversation.id
+      :javascript
+        PrivatePub.subscribe(
+          "#{reply_conversation_path(conversation)}",
+          buildMessageCallbackForConversation(#{index}))

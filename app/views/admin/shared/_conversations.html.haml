@@ -1,0 +1,21 @@
+#conversations
+  %h2 Conversations (#{conversations.total_count})
+  - if conversations.any?
+    %table
+      %thead
+        %tr
+          %th ID
+          %th partner
+          %th last message
+          %th # of messages
+        - conversations.each do |c|
+          - recipient = c.recipients.reject { |r| r.id == user.id } .last
+          %tr
+            %td= link_to c.id, admin_show_conversation_path(c)
+            %td= link_to(recipient.name, admin_student_path(recipient)) if recipient
+            %td= c.messages.last.body
+            %td= c.messages.count
+
+    = paginate conversations
+  - else
+    Pas encore de conversations!

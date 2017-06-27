@@ -27,4 +27,4 @@
       .clearfix
 - if @user.is_a?(Teacher)
   = render partial: 'lesson_requests/detailed_pricing_modal', locals:{offers: @user.offers.joins(:topic_group)}
-= render partial: 'users/profile/contactform', locals:{me: @me, user: @user} if current_user
+= render partial: 'users/profile/contactform', locals:{me: @me, user: @user, new: @conversation.empty?} if current_user

@@ -5,17 +5,17 @@ class Api::ConversationsController < ConversationsController
   
   def index
     super
-    
+
     participant_avatars = Array.new
     @mailbox.conversations.each do |conv|
       conv.recipients.select{|participant| @user.id != participant.id}.each do |p|
         participant_avatars.push(p.avatar.url(:small))
       end
     end
-    
-    render :json => {:participant_avatars => participant_avatars, :recipients => @recipient_options, 
+
+    render :json => {:participant_avatars => participant_avatars, :recipients => @recipient_options,
       :conversations => @conversations, :messages => get_last_messages}
-    
+
   end
   
   def reply

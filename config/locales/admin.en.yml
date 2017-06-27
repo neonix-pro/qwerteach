@@ -1,8 +1,18 @@
 en:
   admin:
+    dispute:
+      link:
+        to_teacher: Transfer the entire amount to the teacher
+        to_student: Transfer the entire amount to the student
+        divide_money: To divide money
+      scope:
+        all: All
+        started: Started
+        finished: Finished
     teacher:
       greetings: "Bonjour %{name},  et bienvenue sur Qwerteach!"
       postulation:
+        conversations: Conversations
         contact: "Je te contacte car tu postules pour être prof. "
         change: "Avant de te faire apparaître comme prof sur le site, nous aimerions augmenter tes chances de te faire contacter par des élèves. Pour ce faire, je vais te demander de corriger les petits détails suivants:"
         corrections:

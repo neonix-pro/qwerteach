@@ -1,4 +1,3 @@
-
 fr:
   lesson:
     payment:
@@ -327,12 +326,24 @@ fr:
           seven: "Contactez l'équipe du site afin que nous procédions à la fermeture de votre compte, ainsi qu'au remboursement du solde encore présent sur votre portefeuille virtuel."
   activerecord:
     errors:
+      models:
+        lesson:
+          attributes:
+            teacher:
+              is_not_approved: N'est pas approuvé
       messages:
         taken: "est déjà pris"
     attributes:
       teacher:
         Male: Homme
-
+  send_message:
+    minimum_chars: Minimum 50 caractères.
+    validate:
+      recipients: Les bénéficiaires ne peuvent pas être trouvés
+      conversation: La conversation n'existe pas
+      message: Le premier rapport devrait être plus de 50 caractères
+      success: Votre message a bien été envoyé!
+      to_self: Vous ne pouvez pas envoyer de message à vous-même!
   active_interaction:
     errors:
       messages:
@@ -430,3 +441,25 @@ fr:
   Blocked due to the Bank Account User\'s KYC limitations (maximum debited or credited amount reached): Bloqué car la limite KYC a été atteinte
   "Blocked due to the Bank Account User\'s KYC limitations (maximum debited or credited amount reached)": Bloqué car la limite KYC a été atteinte
   The payment period has expired: Aucun virement n'a été reçu, l'opération a expiré
+
+  dispute:
+    other_conversations: le reste de la conversation
+    errors:
+      finished: La dispute a été résolu
+      price:
+        small: Il doit être supérieur à zéro
+        big: Ce ne devrait pas être plus que le coût de la leçon
+
+  conversation:
+    trash:
+      success: La conversation a bien été placée dans votre corbeille
+      danger: il y a eu un problème, la conversation n'a pas pu être supprimée.
+    untrash:
+      success: La conversation a bien été déplacée vers votre boîte de réception
+      danger: il y a eu un problème, la conversation n'a pas pu être déplacée.
+    mark_as_read:
+      success: La conversation a été marquée comme lue #The conversation was marked as read.
+      danger: La conversation n'a pas été marquée comme lue #The conversation don't was marked as read
+    mark_as_unread:
+      success: La conversation a bien été marquée comme non lue
+      danger: il y a eu un problème, l'opération n'a pas pu être effectuée.

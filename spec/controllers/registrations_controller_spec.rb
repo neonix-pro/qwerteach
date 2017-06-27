@@ -24,6 +24,7 @@ RSpec.describe RegistrationsController, type: :controller do
       expect(response).to_not be_success
       expect(User.last.email).to_not eq(@attr[:email])
     end
+
     # it "should put update" do
     #   @attr = {:lastname => "bouuuuuh", :email => "y@y.y", :current_password => "password"}
     #   put :update, :id => subject.current_user, :user => @attr
@@ -31,6 +32,7 @@ RSpec.describe RegistrationsController, type: :controller do
     #   subject.current_user.reload
     #   expect(subject.current_user.lastname).to eq @attr[:lastname]
     # end
+
     it "should get destroy" do
       get :destroy, :id => subject.current_user
       expect(response).to redirect_to root_path
