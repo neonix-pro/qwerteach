@@ -86,6 +86,11 @@ feature 'admin disputes controller' do
       expect(page.find('#conversation-1.tab-pane')).to have_no_content(message)
       expect(page.find('#conversation-2.tab-pane')).to have_content(message)
     end
+
+    scenario 'I can not see input in teach and student conversation' do
+      expect(page).to_not have_selector('#conversation-4.tab-pane//form')
+    end
+
   end
 
   describe 'resolve disput' do

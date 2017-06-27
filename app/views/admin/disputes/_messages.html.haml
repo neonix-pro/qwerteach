@@ -9,6 +9,9 @@
     %li
       %a.tabnav.cut(data-toggle="tab" href="#conversation-2")
         #{ t('dispute_message.group.teacher', default: 'Teacher') }(#{conversations.third.count_messages})
+    %li
+      %a.tabnav.cut(data-toggle="tab" href="#conversation-3")
+        #{ t('dispute_message.group.student_and_teacher', default: 'Student and Teacher') }(#{conversations.fourth.count_messages})
 
   .tab-content
     - conversations.each_with_index do |conversation, index|
@@ -16,17 +19,17 @@
         .pre-scrollable(id="conversation-messages-#{index}")
           - messages = conversation.id ? conversation.messages.reorder(id: :desc) : []
           = render 'conversations/messages', messages: messages
-
-        = form_tag messages_path, remote: conversation.id.present? do
-          = hidden_field_tag('message[conversation_id]', conversation.id) if conversation.id
-          = hidden_field_tag 'message[recipient]', conversation.recipients.map(&:id).join(' ')
-          = hidden_field_tag 'message[subject]', 'Lesson dispute'
-          = hidden_field_tag 'redirect_to', request.fullpath
-          .row
-            .col-sm-10= text_area_tag 'message[body]', nil, rows: 2, class: 'form-control message-input', required: true
-            .col-sm-2= submit_tag 'Submit'
-          - if conversation.id.present?
-            %span.text-pink= t 'send_message.minimum_chars'
+        - if index < 3
+          = form_tag messages_path, remote: conversation.id.present? do
+            = hidden_field_tag('message[conversation_id]', conversation.id) if conversation.id
+            = hidden_field_tag 'message[recipient]', conversation.recipients.map(&:id).join(' ')
+            = hidden_field_tag 'message[subject]', 'Lesson dispute'
+            = hidden_field_tag 'redirect_to', request.fullpath
+            .row
+              .col-sm-10= text_area_tag 'message[body]', nil, rows: 2, class: 'form-control message-input', required: true
+              .col-sm-2= submit_tag 'Submit'
+            - if conversation.id.present?
+              %span.text-pink= t 'send_message.minimum_chars'
 
       = subscribe_to reply_conversation_path(conversation)
 

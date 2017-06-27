@@ -7,7 +7,8 @@ module Admin
       [
         conversation_between(current_user, dispute.student, dispute.teacher),
         conversation_between(current_user, dispute.student),
-        conversation_between(current_user, dispute.teacher)
+        conversation_between(current_user, dispute.teacher),
+        conversation_between(dispute.student, dispute.teacher)
       ]
     end
 
