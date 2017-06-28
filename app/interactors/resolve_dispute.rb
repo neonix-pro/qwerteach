@@ -13,27 +13,37 @@ class ResolveDispute < ActiveInteraction::Base
   delegate :student, :teacher, to: :lesson
 
   def execute
-    Dispute.transaction do
-      transfer_price = amount
-      payments.disputed.each do |payment|
-        next if transfer_price <= 0
-        if payment.price <= transfer_price
-          make_transfer to_teacher_params(payment.price)
-          transfer_price = transfer_price - payment.price
-        else
-          make_transfer to_teacher_params(transfer_price)
-          make_transfer to_student_params(payment.price - transfer_price)
-          transfer_price = 0
-        end
-        refund_payment(payment)
+    bonus_rest = [student_amount, payments.disputed.sum(:transfer_bonus_amount)].min
+    student_rest = {
+      student.bonus_wallet.id => bonus_rest,
+      student.normal_wallet.id => student_amount - bonus_rest
+    }
+
+    payments.disputed.each do |payment|
+      payment_rest = payment.price
+      student_rest.each do |wallet_id, amount|
+        next if amount <= 0
+        transfer_amount = payment_rest > amount ? amount : payment_rest
+        payment_rest -= transfer_amount
+        student_rest[wallet_id] -= transfer_amount
+        make_transfer wallet_id, transfer_amount
       end
-      dispute.finished!
+      if payment_rest > 0
+        make_transfer teacher.normal_wallet.id, payment_rest
+        payment.paid!
+      else
+        payment.refunded!
+      end
     end
+    dispute.finished!
     dispute
   end
 
-
   private
+
+  def student_amount
+    @student_amount ||= lesson.price - amount
+  end
 
   def validate_dispute
     errors.add(:status, I18n.t('dispute.errors.finished')) if dispute.finished?
@@ -61,32 +71,13 @@ class ResolveDispute < ActiveInteraction::Base
     }}})
   end
 
-  def refund_payment(payment)
-    payment.refunded!
-  rescue
-    errors.add :payment_refunded, payment.errors
-  end
-
-  def to_teacher_params(price)
-    {
-        user: student, #user,
-        amount: price,
-        debited_wallet_id: student.transaction_wallet.id,
-        credited_wallet_id: teacher.normal_wallet.id
-    }
-  end
-
-  def to_student_params(price)
-    {
-        user: student, #user,
-        amount: price,
-        debited_wallet_id: student.transaction_wallet.id,
-        credited_wallet_id: student.normal_wallet.id
-    }
-  end
-
-  def make_transfer(*attrs)
-    transfer = Mango::TransferBetweenWallets.run(*attrs)
+  def make_transfer(receiver_wallet_id, amount)
+    transfer = Mango::TransferBetweenWallets.run({
+      user: student,
+      amount: amount,
+      debited_wallet_id: student.transaction_wallet.id,
+      credited_wallet_id: receiver_wallet_id
+    })
     return if transfer.valid?
     errors.merge transfer.errors
     raise ActiveRecord::Rollback

@@ -5,7 +5,8 @@ RSpec.describe ResolveDispute do
   describe 'Money transferring' do
     let(:student){ create(:student, email: FFaker::Internet.email) }
     let(:teacher){ create(:teacher, email: FFaker::Internet.email) }
-    let(:lesson){ create(:lesson, student: student, teacher: teacher) }
+    let(:lesson){ create(:lesson, student: student, teacher: teacher, price: 30) }
+
 
     before :each do
       #@lesson = create(:lesson, student: student, teacher: teacher)
@@ -16,40 +17,50 @@ RSpec.describe ResolveDispute do
       expect_any_instance_of(ResolveDispute).to receive(:send_notifications)
     end
 
-    it 'moves a part of money to the teacher', vcr: true do
-      PayLessonByTransfert.run(user: student, lesson: lesson)
-      expect(lesson.payments.any?{|p| p.locked?}).to be_truthy
-      dispute = DisputeLesson.run(user: student, lesson: lesson).result
-      expect(lesson.reload.payments.any?{|p| p.disputed?}).to be_truthy
-      student.reload
-      expect(teacher.normal_wallet.balance.amount).to eq(0)
-      expect(student.normal_wallet.balance.amount).to eq(1500)
-      expect(student.transaction_wallet.balance.amount).to eq(3000)
-      ResolveDispute.run(dispute: dispute, amount: lesson.price - 10)
-      expect(dispute.finished?).to be_truthy
-      student.reload
-      teacher.reload
-      expect(student.normal_wallet.balance.amount).to eq(2500)
-      expect(student.transaction_wallet.balance.amount).to eq(0)
-      expect(teacher.normal_wallet.balance.amount).to eq(2000)
+    context 'Without bonus wallet' do
+
+      it 'moves a part of money to the teacher', vcr: true do
+        PayLessonByTransfert.run(user: student, lesson: lesson)
+        DisputeLesson.run(user: student, lesson: lesson)
+        resolve = ResolveDispute.run(dispute: lesson.reload.dispute, amount: lesson.price - 10)
+        expect(resolve).to be_valid
+        student.reload
+        teacher.reload
+        #expect(student.normal_wallet.balance.amount).to eq(2500)
+        expect(student.bonus_wallet.balance.amount).to eq(0)
+        expect(student.transaction_wallet.balance.amount).to eq(0)
+        expect(teacher.normal_wallet.balance.amount).to eq(2000)
+      end
+
+      it 'moves all money to the teacher', vcr: true do
+        PayLessonByTransfert.run(user: student, lesson: lesson)
+        DisputeLesson.run(user: student, lesson: lesson)
+        resolve = ResolveDispute.run(dispute: lesson.reload.dispute, amount: lesson.price)
+        expect(resolve).to be_valid
+        student.reload
+        teacher.reload
+        expect(student.normal_wallet.balance.amount).to eq(1500)
+        expect(student.transaction_wallet.balance.amount).to eq(0)
+        expect(teacher.normal_wallet.balance.amount).to eq(3000)
+      end
+
     end
 
-    it 'moves all money to the teacher', vcr: true do
-      PayLessonByTransfert.run(user: student, lesson: lesson)
-      expect(lesson.payments.any?{|p| p.locked?}).to be_truthy
-      dispute = DisputeLesson.run(user: student, lesson: lesson).result
-      expect(lesson.reload.payments.any?{|p| p.disputed?}).to be_truthy
-      student.reload
-      expect(teacher.normal_wallet.balance.amount).to eq(0)
-      expect(student.normal_wallet.balance.amount).to eq(1500)
-      expect(student.transaction_wallet.balance.amount).to eq(3000)
-      ResolveDispute.run(dispute: dispute, amount: lesson.price)
-      expect(dispute.finished?).to be_truthy
-      student.reload
-      teacher.reload
-      expect(student.normal_wallet.balance.amount).to eq(1500)
-      expect(student.transaction_wallet.balance.amount).to eq(0)
-      expect(teacher.normal_wallet.balance.amount).to eq(3000)
+    context 'With bonus wallet' do
+
+      it 'returns bonus and normal part to the relevant wallets', vcr: true do
+        Mango::PayinTestCard.run(user: student, amount: 10, wallet: 'bonus')
+        PayLessonByTransfert.run(user: student.reload, lesson: lesson)
+        DisputeLesson.run(user: student, lesson: lesson).result
+        resolve = ResolveDispute.run(dispute: lesson.reload.dispute, amount: 10)
+        expect(resolve).to be_valid
+        student.reload
+        teacher.reload
+        expect(student.normal_wallet.balance.amount).to eq(3500)
+        expect(student.bonus_wallet.balance.amount).to eq(1000)
+        expect(student.transaction_wallet.balance.amount).to eq(0)
+        expect(teacher.normal_wallet.balance.amount).to eq(1000)
+      end
     end
 
   end
