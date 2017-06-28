@@ -24,7 +24,7 @@
           %h2 Les meilleurs profs
           %p.text-white Même dans les matières les plus pointues, les professeurs sont certifiés grâce à un entretien individuel, ils sont ensuite évalués à la fin de chaque séance
           %div
-            = link_to 'Devenir prof', pages_path('devenir-prof'), class: 'btn btn-qw btn-green' unless current_user.is_a?(Teacher)
+            = link_to 'Devenir prof', become_teacher_accueil_path, class: 'btn btn-qw btn-green', data: {turbolinks: false} unless current_user.is_a?(Teacher)
             = link_to 'Charte du prof', faq_path('teachers'), class: 'btn btn-qw btn-green' if current_user.is_a?(Teacher)
 
       .item
