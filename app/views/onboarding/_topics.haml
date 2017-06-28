@@ -10,7 +10,7 @@
             = render partial: 'interests/tag', locals: {interest: i}
       .section_recherche
         = form_tag interests_path, method: :post, id: 'search-form', remote: true do |f|
-          = autocomplete_field_tag 'interest[topic_id]', '', autocomplete_topic_title_topics_path, :size => 75, :class => "recherche-bar"
+          = autocomplete_field_tag 'interest[topic_id]', '', autocomplete_topic_title_topics_path, :size => 75, :class => "recherche-bar", placeholder: 'ex: mathématiques'
           %button{type: "submit"}
             %i.fa.fa-search
           = hidden_field_tag 'interest[student_id]', current_user.id

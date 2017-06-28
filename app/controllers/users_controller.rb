@@ -157,7 +157,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:firstname, :lastname, :birthdate, :phone_country_code, :phone_number,
                                    :gender, :occupation, :description, :level_id,
                                    :time_zone, :avatar, :crop_x, :crop_y, :crop_h, :crop_w,
-                                  :first_lesson_free)
+                                  :first_lesson_free, :video_url)
     end
   
     def filter_param

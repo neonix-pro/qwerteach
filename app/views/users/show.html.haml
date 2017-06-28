@@ -6,6 +6,7 @@
     .col-sm-7
       #profile-description
         %h3 A propos de #{@user.firstname}
+        = render partial: 'users/profile/video' if @user.video_url.present?
         %hr
         %p
           #{@user.description.gsub(/\n/, '<br />').html_safe unless @user.description.nil?}
