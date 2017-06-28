@@ -1,0 +1,37 @@
+.container-fluid
+  .row
+    .col-md-offset-1
+      %h2.booking-title Réservation de votre cours avec #{@teacher.name}
+  .row
+    .col-sm-1
+    .col-sm-5
+      #lesson-details
+        = render partial: 'finish', locals: {remote: false}
+    .col-sm-5
+      .additional-infos
+        #step1-infos.booking-infos.active
+          .teacher-recap
+            = render :partial => 'teacher_card', locals: {teacher: @teacher}
+            = render :partial => 'teacher_topics', locals: {teacher: @teacher}
+            = render partial: 'lesson_recap', locals: {lesson_request: @lesson_request}
+            = render :partial => 'teacher_references', locals:{teacher: @teacher} unless @teacher.reviews_received.empty?
+            = render :partial => 'teacher_reactivity', locals:{teacher: @teacher}
+          .additional-links
+            Pour plus d'informations à propos de:
+            = link_to 'Garantie remboursement', faq_path, class: 'text-green', target: '_blank'
+            = link_to 'Protection des données', faq_path, class: 'text-green', target: '_blank'
+            = link_to 'Modes de payement sécurisés', faq_path, class: 'text-green', target: '_blank'
+
+= render :partial => 'detailed_pricing_modal', locals: {offers: @teacher.offers.joins(:topic_group)}
+
+#detailed-reviews.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-body
+        = render partial: 'users/profile/profile_reviews', locals:{reviews: @teacher.reviews_received}
+
+#empty-fields-alert.hidden= render partial: 'shared/flash_dismiss', locals: {type: 'danger', content: 'Veuillez remplir tous les champs'}
+
+:javascript
+  var r = new RequestLesson( $('#lesson-details'), {teacher_id: #{@teacher.id}} );
+  $('#lesson-details').trigger('update');

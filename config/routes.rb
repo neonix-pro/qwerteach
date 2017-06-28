@@ -169,6 +169,7 @@ Rails.application.routes.draw do
       get :credit_card_process, on: :collection
       get :bancontact_process, on: :collection
       post :create_account, on: :collection
+      get :finish
     end
     resources :reviews, only: [:index, :create, :new]
   end

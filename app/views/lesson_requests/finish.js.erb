@@ -2,6 +2,6 @@ $('#lesson-details').html("<%= j render(:partial => 'finish') %>").trigger('upda
 ga('send', 'event', '<%= @lesson.free_lesson? ? 'Free Booking': 'Booking' %> ', 'created_by_student');
 <% unless @lesson.payments.empty? %>
   <% @lesson.payments.each do |p| %>
-    ga('send', 'event', 'Payment', 'Lesson payment', '<%= p.transactions.first[card_id].nil? ? 'Bancontact': 'Credit Card'%>',<%= p.price.to_s %>);
+    ga('send', 'event', 'Payment', 'Lesson payment', '<%= p.transactions.first['card_id'].nil? ? 'Bancontact': 'Credit Card'%>',<%= p.price.to_s %>);
   <% end %>
 <% end %>
