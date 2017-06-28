@@ -65,6 +65,6 @@ Rails.application.configure do
   }
   #config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-60202325-2'
   config.middleware.use(Rack::Tracker) do
-    handler :google_analytics, { tracker: 'UA-60202325-2', position: :body }
+    handler :google_analytics, { tracker: 'UA-60202325-2'}
   end
 end
