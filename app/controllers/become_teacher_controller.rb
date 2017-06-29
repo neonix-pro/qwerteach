@@ -25,6 +25,7 @@ class BecomeTeacherController < ApplicationController
       when :general_infos
         @levels = Level.where(code: 'scolaire').group(:be).order(:id).map{|l| [l.be, l.id]}
         @description_questions = DESCRIPTION_QUESTIONS
+        @user.upgrade
       when :pictures
         @gallery = Gallery.find_by user_id: @user.id
       when :avatar
