@@ -44,14 +44,14 @@ class UsersController < ApplicationController
       end
     end
     @pagin = Kaminari.paginate_array(@search, total_count: @total).page(params[:page]).per(12)
-    #end
     if params[:location] == 'landing'
       render 'landing_page_teachers'
     end
   end
 
   def profs_by_topic
-    redirect_to profs_by_topic_path(params[:topic], params: params)
+    sort_params = params.slice(:filter, :search_sorting)
+    redirect_to profs_by_topic_path(topic: params[:topic], params: sort_params)
   end
 
   def unapproved_teachers

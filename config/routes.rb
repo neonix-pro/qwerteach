@@ -180,7 +180,7 @@ Rails.application.routes.draw do
   resources :topics do
     get :autocomplete_topic_title, :on => :collection
   end
-  match "/profs/" => "users#profs_by_topic", as: :profs, via: :post
+  match "/profs/(:topic)" => "users#profs_by_topic", as: :profs, via: :post
   match "/profs/:topic" => "users#index", :as => :profs_by_topic, :via => [:get]
   get "/profs" => "users#index", as: :all_teachers
 

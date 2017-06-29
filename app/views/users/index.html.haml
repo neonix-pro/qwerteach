@@ -24,7 +24,6 @@
     .more-results-button
       = link_to_next_page @pagin, 'voir plus', params: params, remote: true, data: {disable_with: "<i class='fa fa-spinner fa-spin'></i>"}
 - unless action_name == 'unapproved_teachers'
-  = action_name
   .container
     .row
       .text-center
