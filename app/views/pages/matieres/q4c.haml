@@ -1,19 +1,25 @@
 .test-lp-matiere
-  %header.q1.bgimage
-    .header-content
-      .header-content-inner
-        %h1#homeHeading Le bon prof<br />au bon moment
-        %hr/
-        %p Les meilleurs profs de maths sont sur Qwerteach!
-        = link_to "S'inscrire", new_user_registration_path, class: 'btn btn-primary btn-qw'
-  %section#search-results.clearfix
-    .container
+  #search-results.clearfix
+    .container-fluid
       .row
-        %h4.section-heading
-          %span.text-green #{@total}
-          professeurs de maths disponibles!
-        - @search.each do |u|
-          = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
+        - @search.each_with_index do |u, i|
+          .col-xs-3
+            .card.prof
+              .card-image.waves-effect.waves-block.waves-light
+                = image_tag u.avatar.url(:medium), class: 'activator'
+              .card-content
+                %span.card-title.activator
+                  = u.name
+                %p.topics-list= u.offers.map{|ad| link_to ad.title, profs_by_topic_path(ad.title)}.join(', ').html_safe
+              .card-reveal
+                %span.card-title.activator
+                  %i.fa.fa-times.right
+                  = u.name
+                %p
+                  = sanitize(u.description, tags: %w(a p)).truncate_words(50).html_safe
+                  %hr
+                .text-center
+                  = link_to 'profil complet', user_path(u), class: 'btn btn-qw btn-sm btn-green'
       .row
         #more-results
           = link_to "Voir tous les profs", profs_path, class: 'text-green'
@@ -96,10 +102,33 @@
           %p
             = link_to "hello@qwerteach.com", "mailto:hello@qwerteach.com"
 
+  #sign-up-modal.modal.fade.in{:role => "dialog"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"data-dismiss" => "modal", :type => "button"} ×
+          .text-center
+            = image_tag 'logoQ.png'
+          %h1.modal-title.text-center
+            Trouvez votre prof particulier de maths!
+            %br
+            %small Suivez votre cours particulier en ligne, tranquille à la maison
+        .modal-body
+          .omniauth-signup
+            .row
+              .col-sm-10.col-sm-offset-1
+                = render partial: 'users/shared/omniauth_signin'
+          %hr
+          .material-form
+            .row
+              .col-sm-10.col-sm-offset-1
+                = render :partial => 'devise/registrations/new_form'
+
+
 - if current_user
   :javascript
     $(window).scrollTop(450);
 
-:javascript
-  $('.bgimage').height($(window).height()*0.7)
 
+:javascript
+  $('#sign-up-modal').modal();

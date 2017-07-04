@@ -1,6 +1,8 @@
 .test-lp-matiere
-  %header.q1.bgimage
-    .header-content
+  %header.bgimage.bg-primary
+    .header-image
+      = image_tag(image_path("acceuil/landing_eleve.svg"), class: "")
+    .header-content.header-content-right
       .header-content-inner
         %h1#homeHeading Le bon prof<br />au bon moment
         %hr/

@@ -160,6 +160,7 @@ Rails.application.routes.draw do
   get 'unapproved-teachers' => "users#unapproved_teachers"
 
   resources :users, :only => [:show] do
+    get 'sign_up' => "users#sign_up_show", :as => 'sign_up_show'
     resources :require_lesson
     post '/lesson_requests/payment' => 'lesson_requests/payment'
     resources :lesson_requests, only: [:new, :create] do

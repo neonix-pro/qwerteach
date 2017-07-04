@@ -21,8 +21,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def sign_up_show
+    @teacher = Teacher.find(params[:user_id])
+    session[:user_redirect_to]= user_url(@teacher)
+  end
+
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
+    per_page = params[:per_page] || 12
     search_sorting_options
     @sunspot_search = Sunspot.search(Offer) do
       with(:postulance_accepted, true)
@@ -34,7 +40,7 @@ class UsersController < ApplicationController
       with(:first_lesson_free, true) if params[:filter] == 'first_lesson_free'
       with(:online, true) if params[:filter] == 'online'
       with(:has_reviews).greater_than(0) if params[:filter] == 'has_reviews'
-      paginate(:page => params[:page], :per_page => 12)
+      paginate(:page => params[:page], :per_page => per_page)
     end
     @search = []
     @total = @sunspot_search.group(:user_id_str).total
@@ -43,13 +49,15 @@ class UsersController < ApplicationController
         @search.push(result.user)
       end
     end
-    @pagin = Kaminari.paginate_array(@search, total_count: @total).page(params[:page]).per(12)
+    @pagin = Kaminari.paginate_array(@search, total_count: @total).page(params[:page]).per(per_page)
     if params[:location] == 'landing'
       render 'landing_page_teachers'
     end
   end
 
   def abtest
+    params[:per_page] = 20 if params[:version] == 'q4'
+    params[:topic] = 'mathématiques' if params[:topic] == 'maths'
     index
     render template: "pages/matieres/#{params[:version]}"
   end
