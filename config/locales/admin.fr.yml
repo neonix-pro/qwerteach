@@ -3,13 +3,13 @@ fr:
     teacher:
       greetings: "Bonjour %{name},  et bienvenue sur Qwerteach!"
       postulation:
-        contact: "Je vous contacte car vous postulez pour être professeur. "
-        change: "Avant de vous faire apparaître sur le site, nous aimerions augmenter vos chances de vous faire contacter par des élèves. Pour ce faire, je vais vous demander de corriger les petits détails suivants:"
+        contact: "Je vous contacte car vous postulez comme professeur. "
+        change: "Avant de vous faire apparaître sur le site, nous avons besoin de vérifier certaines informations. Pour ce faire, nous avons besoin que vous complétiez entièrement votre profil:"
         corrections:
-          mangopay: "Prennez le temps de configurer votre portefeuille virtuel. Nous avons besoin de vos coordonnées bancaires pour pouvoir vous payer."
-          email: "L'email que vous avez introduit n'a pas encore été validé. Nous vous avons envoyé un lien de confirmation par e-mail, cliquez dessus pour valider votre e-mail."
-          bbb: "Vous n'avez pas encore essayé la classe virtuelle! Connectez-vous au moins une fois à la classe de démo afin de vous familiariser avec l'outil."
-          offers: "Veillez à remplir convenablement vos annonces de cours. Nous utiliserons ces informations pour permettre aux élèves de vous trouver et de réserver un cours avec vous."
-          description: "Relis ta description. C'est sur base de ce texte que les élèves décideront de prendre ou non cours avec vous."
-          avatar: "Changez votre photo de profil. Nous recommandons une photo de vous avec le visage bien visible."
-          interview: "Avant d'approuver votre candidature, nous souhaitons réaliser un petit entretien vidéo avec vous. Pourriez-vous me communiquer 3 créneaux horaire qui conviendraient, pour que nous puissions fixer un rendez-vous?"
+          mangopay: "Prenez le temps de configurer votre portefeuille virtuel: nous avons besoin de vos coordonnées bancaires pour pouvoir vous payer."
+          email: "Validez votre e-mail: nous vous avons envoyé un lien de confirmation par e-mail, cliquez dessus pour le valider."
+          bbb: "Essayez la classe virtuelle: connectez-vous au moins une fois à la classe de démo afin de vous familiariser avec l'outil."
+          offers: "Veillez à remplir convenablement vos annonces de cours: nous utiliserons ces informations pour permettre aux élèves de vous trouver et de réserver un cours avec vous."
+          description: "Complétez votre description: c'est sur base de ce texte que les élèves décideront de prendre ou non cours avec vous."
+          avatar: "Changez votre photo de profil: nous recommandons une photo de vous avec le visage bien visible."
+          interview: "Une fois que vous avez complété votre profil, recontactez-moi et nous fixerons un rendez-vous afin de discuter de vive voix et de vous accompagner dans la recherche de vos élèves. Je vous souhaite une très bonne journée, n’hésitez pas à revenir vers moi pour toute question!"

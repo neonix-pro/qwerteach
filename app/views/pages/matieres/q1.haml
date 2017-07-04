@@ -1,0 +1,40 @@
+= render partial: 'pages/accueil/partie_comment_ca_marche'
+= render partial: 'users/search/header'
+= render partial: 'users/search/search_options', locals: {topics_options: search_topic_options, sorting_options: @sorting_options}
+.section#search-filters.text-right
+  .container
+    = render partial: 'users/search/search_filters'
+.container
+  #search-results.clearfix
+    - if @search.empty?
+      %h4.noresult
+        #{search_total_results(@pagin)}
+        %b.text-green
+          &laquo; #{@search_text} &raquo;
+        - unless @filter.nil? || @filter == ''
+          , #{t("search.filters.#{@filter}")}
+    - unless @search.empty?
+      .row
+        - @search.each do |u|
+          = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
+    - else
+      =render partial: 'users/search/noresults', locals:{popular_topics: popular_topics}
+- unless @search.empty?
+  #more-results
+    .more-results-button
+      = link_to_next_page @pagin, 'voir plus', params: params, remote: true, data: {disable_with: "<i class='fa fa-spinner fa-spin'></i>"}
+- unless action_name == 'unapproved_teachers'
+  .container
+    .row
+      .text-center
+        = link_to 'Voir les profs non approuvés', unapproved_teachers_path
+%div
+  = render 'pages/accueil/partie_commentaire'
+  = render 'pages/accueil/tri_colonne'
+  = render 'pages/accueil/presse'
+
+- if current_user
+  :javascript
+    $(window).scrollTop(450);
+
+

@@ -49,6 +49,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def abtest
+    index
+    render template: "pages/matieres/#{params[:version]}"
+  end
+
   def profs_by_topic
     sort_params = params.slice(:filter, :search_sorting)
     redirect_to profs_by_topic_path(topic: params[:topic], params: sort_params)
