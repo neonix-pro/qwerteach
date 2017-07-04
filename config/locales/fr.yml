@@ -336,6 +336,9 @@ fr:
     attributes:
       teacher:
         Male: Homme
+    models:
+      postuling_teacher: Profs postulants
+
   send_message:
     minimum_chars: Minimum 50 caractères.
     validate:

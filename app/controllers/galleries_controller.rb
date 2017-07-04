@@ -8,7 +8,7 @@ class GalleriesController < ApplicationController
     @galleries = Gallery.where(:user=>current_user)
     @gallery = @galleries.last
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # _index.html.erb
       format.json { render json: @gallery }
     end
   end

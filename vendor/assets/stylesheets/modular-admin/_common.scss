@@ -1,0 +1,54 @@
+.col-left-auto {
+  margin-left: auto;
+}
+
+.text-right {
+  text-align: right;
+}
+
+dt, dd { display: inline; }
+
+dd {
+  margin: 0;
+}
+
+dd:after {
+  content: "\A";
+  white-space: pre;
+}
+
+.autocomplete-suggestions {
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid $input-border-color;
+}
+
+.autocomplete-suggestion {
+  padding: 0.5rem 1rem;
+  &:hover {
+    background-color: $gray-lightest;
+  }
+}
+
+.form-errors {
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.form-group-many {
+  .form-control {
+  }
+  .group-item {
+    display: flex;
+    margin-bottom: 10px;
+    .group-input {
+      flex-grow: 1;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}

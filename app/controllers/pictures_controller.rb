@@ -10,7 +10,7 @@ class PicturesController < ApplicationController
     @pictures = @gallery.pictures
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # _index.html.erb
       format.json { render json: @pictures }
     end
   end

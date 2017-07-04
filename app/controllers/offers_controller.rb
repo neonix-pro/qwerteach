@@ -22,7 +22,7 @@ class OffersController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # _index.html.erb
       format.json {render :json => {:offers => @offers, :topic_titles => topics, 
         :offer_prices => offer_prices}}
     end
