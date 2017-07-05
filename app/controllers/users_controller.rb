@@ -40,6 +40,7 @@ class UsersController < ApplicationController
       with(:first_lesson_free, true) if params[:filter] == 'first_lesson_free'
       with(:online, true) if params[:filter] == 'online'
       with(:has_reviews).greater_than(0) if params[:filter] == 'has_reviews'
+      with(:avatar_score).greater_than(2) if params[:filter] == 'avatar_score'
       paginate(:page => params[:page], :per_page => per_page)
     end
     @search = []
@@ -58,6 +59,7 @@ class UsersController < ApplicationController
   def abtest
     params[:per_page] = 20 if params[:version] == 'q4'
     params[:topic] = 'mathématiques' if params[:topic] == 'maths'
+    params[:filter] = 'avatar_score'
     index
     render template: "pages/matieres/#{params[:version]}"
   end

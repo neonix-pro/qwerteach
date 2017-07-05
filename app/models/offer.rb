@@ -123,5 +123,6 @@ class Offer < ActiveRecord::Base
     integer(:min_price) {|a| a.user.min_price if a.user.is_a?(Teacher)}
     time(:last_seen){|a| a.user.last_seen}
     integer(:qwerteach_score) { |a| a.user.qwerteach_score}
+    integer(:avatar_score) { |a| a.user.avatar_score}
   end
 end
