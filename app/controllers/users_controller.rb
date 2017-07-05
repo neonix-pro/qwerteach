@@ -57,11 +57,16 @@ class UsersController < ApplicationController
   end
 
   def abtest
-    params[:per_page] = 20 if params[:version] == 'q4'
-    params[:topic] = 'mathématiques' if params[:topic] == 'maths'
-    params[:filter] = 'avatar_score'
-    index
-    render template: "pages/matieres/#{params[:version]}"
+    if params[:version] == 'origine'
+      index
+      render template: 'users/index'
+    else
+      params[:per_page] = 20 if params[:version] == 'q4'
+      params[:topic] = 'mathématiques' if params[:topic] == 'maths'
+      params[:filter] = 'avatar_score'
+      index
+      render template: "pages/matieres/#{params[:version]}"
+    end
   end
 
   def profs_by_topic
