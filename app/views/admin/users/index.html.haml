@@ -1,4 +1,4 @@
-%body
+.card-header.bordered
   - content_for(:title) do
     = display_resource_name(page.resource_name)
   - content_for(:search) do
@@ -8,10 +8,19 @@
       %input.search__input{"aria-label" => "Search", :name => "search", :placeholder => "Search", :type => "text", :value => search_term}/
       %span.search__hint
         Press enter to search
-  %header.header
-    %h1#page-title.header__heading= content_for(:title).pluralize
-  = render "collection", collection_presenter: page, resources: resources
+  .header-block
+    %h3.title= content_for(:title).pluralize
+
+.card-block
+  .table-responsive
+    = render "collection", collection_presenter: page, resources: resources
   = paginate resources
 
-  %h2 Utilisateurs en ligne (#{@online.count})
-  = render "collection", collection_presenter: page, resources: @online
+
+.card-header.bordered
+  .header-block
+    %h3.title Utilisateurs en ligne (#{@online.count})
+
+.card-block
+  .table-responsive
+    = render "collection", collection_presenter: page, resources: @online

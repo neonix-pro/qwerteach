@@ -2,11 +2,18 @@
 	label {
 		margin-bottom: 0;
 	}
-	
+
 	.checkbox + span {
 		margin-bottom: 0;
 		&:before {
 			line-height: 20px;
 		}
 	}
+}
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  min-height: 0%;
+  overflow-x: auto;
 }

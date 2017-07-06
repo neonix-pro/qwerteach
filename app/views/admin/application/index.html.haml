@@ -1,4 +1,3 @@
-
 - content_for(:title) do
   = display_resource_name(page.resource_name)
 - content_for(:search) do
@@ -15,5 +14,6 @@
           class: "btn btn-primary",                                                            |
         ) if valid_action? :new
 .card-block
-  = render "collection", collection_presenter: page, resources: resources
+  .table-responsive
+    = render "collection", collection_presenter: page, resources: resources
   = paginate resources

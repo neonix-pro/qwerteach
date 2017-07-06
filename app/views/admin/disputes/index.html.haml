@@ -13,5 +13,6 @@
           class: "btn btn-primary #{name}") |
       = link_to("New #{page.resource_name.titleize.downcase}", [:new, namespace, page.resource_name], class: 'btn btn-primary')
 .card-block
-  = render 'collection_index', collection_presenter: page, resources: resources, search: search
+  .table-responsive
+    = render 'collection_index', collection_presenter: page, resources: resources, search: search
   = paginate resources
