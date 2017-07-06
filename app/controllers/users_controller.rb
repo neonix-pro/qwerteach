@@ -66,6 +66,7 @@ class UsersController < ApplicationController
       params[:topic] = 'mathématiques' if params[:topic] == 'maths'
       params[:filter] = 'avatar_score'
       index
+      @total = Teacher.where(postulance_accepted: true, active: true).count
       render template: "pages/matieres/#{params[:version]}"
     end
   end
