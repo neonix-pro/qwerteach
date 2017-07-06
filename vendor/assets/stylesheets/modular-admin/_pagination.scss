@@ -1,5 +1,56 @@
 .pagination {
 	margin-top: 0;
+	/* anton start*/
+	text-align: right;
+	justify-content: flex-end;
+	span {
+		display: inline-block;
+		margin-left: -1px;
+		font-size: 1rem;
+		line-height: 1;
+		&.current {
+			padding: 0.5rem 0.75rem;
+			border: 1px solid $color-primary;
+			background-color: $color-primary;
+			color: #fff;
+			&:first-child {
+				border-bottom-left-radius: 0.25rem;
+				border-top-left-radius: 0.25rem;
+			}
+		}
+		&.gap {
+			padding: 0.5rem 0.75rem;
+			border: 1px solid #ddd;
+			background-color: #fff;
+		}
+		&:first-child {
+			a {
+				border-bottom-left-radius: 0.25rem;
+				border-top-left-radius: 0.25rem;
+			}
+		}
+		&:last-child {
+			a {
+				border-bottom-right-radius: 0.25rem;
+				border-top-right-radius: 0.25rem;
+			}
+		}
+		a {
+			font-size: 1rem;
+			line-height: 1;
+			display: inline-block;
+			color: $color-primary;
+			position: relative;
+			background-color: #fff;
+			padding: 0.5rem 0.75rem;
+			border: 1px solid #ddd;
+			&:hover {
+				background-color: #eceeef;
+				border-color: #ddd;
+			}
+		}
+	}
+	/* anton end*/
 
 	.page-item {
 		.page-link {

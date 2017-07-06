@@ -312,7 +312,6 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    mysql2 (0.4.5)
     nexmo (4.5.0)
       jwt
     nokogiri (1.8.0)
@@ -616,7 +615,6 @@ DEPENDENCIES
   materialize-sass
   minitest
   momentjs-rails (~> 2.10.6)
-  mysql2
   nexmo
   omniauth
   omniauth-facebook
