@@ -15,7 +15,7 @@
         .field-unit__field
           = f.select :teacher_status, options_for_select(Teacher::TEACHER_STATUS, :selected => f.object.teacher_status)
     - else
-      %div{:class => "field-unit field-unit--#{attribute.html_class}"}
+      %div{:class => "form-group row field-unit field-unit--#{attribute.html_class}"}
         = render_field attribute, f: f
   .form-actions
     = f.submit
