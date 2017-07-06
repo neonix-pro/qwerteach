@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   def index
     per_page = params[:per_page] || 12
     search_sorting_options
+    params[:topic] = 'maths' if params[:topic] == 'math' # TODO: find better way to do this ! (sunspot dictionary?)
     @sunspot_search = Sunspot.search(Offer) do
       with(:postulance_accepted, true)
       with(:active, true)
