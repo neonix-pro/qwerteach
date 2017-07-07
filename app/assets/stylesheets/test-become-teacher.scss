@@ -93,6 +93,18 @@
   header.q6{
     background-image: image_url('become_teacher/abtest/q6.jpg');
   }
+  header.q7{
+    background-image: image_url('become_teacher/abtest/q7.jpg');
+  }
+  header.q8{
+    background-image: image_url('become_teacher/abtest/q8.jpg');
+  }
+  header.q9{
+    background-image: image_url('become_teacher/abtest/q9.jpg');
+    .header-content{
+      padding-right:50%;
+    }
+  }
   header .header-content {
     position: relative;
     text-align: center;
