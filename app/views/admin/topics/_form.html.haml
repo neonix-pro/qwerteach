@@ -8,11 +8,8 @@
         - page.resource.errors.full_messages.each do |message|
           %li= message
   - page.attributes.each do |attribute|
-    %div{:class => "form-group row field-unit field-unit--#{attribute.html_class}"}
+    %div{:class => "form-group row field-unit--#{attribute.html_class}"}
       = render_field attribute, f: f
-  %div{:class => "form-group row field-unit--belongs-to"}
-    %label.field-unit__label.col-sm-2.form-control-label.text-xs-right Admin responsable
-    .field-unit__field.col-sm-10
-      = select_tag("postulation[admin_id]", options_for_select(User.where(admin:true).map{|u| [u.name, u.id]}, selected: page.resource.admin_id), class: 'c-select form-control boxed')
+
   .form-actions
     = f.submit nil, class: 'btn btn-primary'

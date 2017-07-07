@@ -3,9 +3,10 @@
     = hidden_field_tag 'message[subject]', "#{current_user.name} vous pose une question!"
     = hidden_field_tag 'message[recipient]', recipient.id
     = hidden_field_tag 'redirect_to', local_assigns[:redirect_to] || request.fullpath
-    .form-group
-      = text_area_tag 'message[body]', nil, rows: 5, placeholder: "Posez une question à #{recipient.firstname}", class: "form-control character-count", data:{length:50}, required: true
-      %span.text-pink Minimum 50 caractères.
-    = submit_tag 'Envoyer', class: 'btn btn-qw btn-green'
+    .form-group.row
+      .col-sm-10
+        = text_area_tag 'message[body]', nil, rows: 2, placeholder: "Posez une question à #{recipient.firstname}", class: "form-control character-count boxed", data:{length:50}, required: true
+        %span.text-pink Minimum 50 caractères.
+      .col-sm-2= submit_tag 'Envoyer', class: 'btn btn-primary'
 - else
   = render 'conversations/conversation', conversation: conversation, page: 0, messages: conversation.messages.reorder(id: :desc)

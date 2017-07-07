@@ -1,23 +1,25 @@
-%body
+.card-header.bordered
   - content_for(:title) { "#{page.resource.firstname} #{page.resource.lastname}"}
-  %header.header
-    %h1.header__heading
+  .header-block
+    %h3.title
       = content_for(:title)
       %small= page.resource.postulance_accepted ? '(Teacher)' : '(Postuling teacher)'
-    =image_tag page.resource.avatar.url(:medium)
-    .header__actions
-      = link_to("Edit",[:edit, namespace, page.resource], class: "button")
+    .header-block.pull-right
+      = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
 
       = form_for([namespace, page.resource], html: {class: "form"}) do |f|
         = f.hidden_field :postulance_accepted, value: !page.resource.postulance_accepted
-        = page.resource.postulance_accepted ? (f.submit 'Suspend') : (f.submit 'Approve', :class => 'action-destroy')
-      = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "button"
-  %hr
-
+        = page.resource.postulance_accepted ? (f.submit 'Suspend') : (f.submit 'Approve', :class => 'btn btn-secondary')
+      = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "btn btn-secondary"
+    =image_tag page.resource.avatar.url(:medium)
+.card-block
   %section.main-content__body.user-postulation
-    %h2 Postulation:
+    .card-header
+      %h3.title Postulation:
+      .header-block.pull-right
+        = link_to "Modifier", [:edit, namespace, page.resource.postulation], class: 'btn btn-primary'
     = render :partial => 'admin/postulations/postulation', locals:{postulation: page.resource.postulation}
-    = link_to "Modifier", [:edit, namespace, page.resource.postulation], class: 'pull-right'
+
   %hr
   %section.main-content__body
     %dl
@@ -28,13 +30,12 @@
             = render_field attribute
           - else
             ="-"
-    %div
-      %h2 Discuter avec #{page.resource.name}
-      #generated-text
-      .actions.pull-right
-        = link_to 'Interview', room_invite_bbb_rooms_path(teacher), class:'button btn-default'
-        %br
-        = link_to 'generate text', admin_postulation_generate_text_path(page.resource.postulation), remote:true, class:'button btn-default'
+    #generated-text
+      .card-header
+        %h3.title Discuter avec #{page.resource.name}
+        .actions.header-block.pull-right
+          = link_to 'Interview', room_invite_bbb_rooms_path(teacher), class:'btn btn-secondary'
+          = link_to 'generate text', admin_postulation_generate_text_path(page.resource.postulation), remote:true, class:'btn btn-secondary'
       .conversation-admin
         = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: teacher
     = render 'admin/shared/conversations', conversations: @conversations, user: teacher

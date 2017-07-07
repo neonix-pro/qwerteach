@@ -1,4 +1,4 @@
-%body
+.card-header.bordered
   - content_for(:title) do
     = display_resource_name(page.resource_name)
   - content_for(:search) do
@@ -8,13 +8,16 @@
       %input.search__input{"aria-label" => "Search", :name => "search", :placeholder => "Search", :type => "text", :value => search_term}/
       %span.search__hint
         Press enter to search
-  %header.header
-    %h1#page-title.header__heading= content_for(:title)
-    .header__actions
-      = link_to(                                         |
-          "New #{page.resource_name.titleize.downcase}", |
-          [:new, namespace, page.resource_name],         |
-          class: "button",                               |
-        )                                                |
-  = render "collection", collection_presenter: page, resources: resources
+  .header-block
+    %h3#page-title.title= content_for(:title)
+  .header-block.pull-right
+    = link_to(                                         |
+        "New #{page.resource_name.titleize.downcase}", |
+        [:new, namespace, page.resource_name],         |
+        class: "btn btn-primary",                               |
+      )                                                |
+
+.card-block
+  .table-responsive
+    = render "collection", collection_presenter: page, resources: resources
   = paginate resources

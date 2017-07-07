@@ -1,5 +1,5 @@
-%h3 Responsable: #{postulation.responsible_admin.name unless postulation.responsible_admin.nil?}
-%table.collection-data
+%h4 Responsable: #{postulation.responsible_admin.name unless postulation.responsible_admin.nil?}
+%table.table.table-striped.table-bordered.table-hover
   %thead
     %tr
       - postulation.admin_fields.keys.each do |key|

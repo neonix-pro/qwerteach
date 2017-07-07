@@ -1,16 +1,16 @@
 .dispute-messages.bootstrap-wrapper
-  %ul.nav.nav-tabs
+  %ul.btn-group.nav.nav-tabs
     %li.active
-      %a.tabnav.cut(data-toggle="tab" href="#conversation-0")
+      %a.btn.btn-secondary.tabnav.cut(data-toggle="tab" href="#conversation-0")
         #{ t('dispute_message.group.common', default: 'Common') }(#{conversations.first.count_messages})
     %li
-      %a.tabnav.cut(data-toggle="tab" href="#conversation-1")
+      %a.btn.btn-secondary.tabnav.cut(data-toggle="tab" href="#conversation-1")
         #{ t('dispute_message.group.student', default: 'Student') }(#{conversations.second.count_messages})
     %li
-      %a.tabnav.cut(data-toggle="tab" href="#conversation-2")
+      %a.btn.btn-secondary.tabnav.cut(data-toggle="tab" href="#conversation-2")
         #{ t('dispute_message.group.teacher', default: 'Teacher') }(#{conversations.third.count_messages})
     %li
-      %a.tabnav.cut(data-toggle="tab" href="#conversation-3")
+      %a.btn.btn-secondary.tabnav.cut(data-toggle="tab" href="#conversation-3")
         #{ t('dispute_message.group.student_and_teacher', default: 'Student and Teacher') }(#{conversations.fourth.count_messages})
 
   .tab-content
@@ -26,8 +26,8 @@
             = hidden_field_tag 'message[subject]', 'Lesson dispute'
             = hidden_field_tag 'redirect_to', request.fullpath
             .row
-              .col-sm-10= text_area_tag 'message[body]', nil, rows: 2, class: 'form-control message-input', required: true
-              .col-sm-2= submit_tag 'Submit'
+              .col-sm-10= text_area_tag 'message[body]', nil, rows: 2, class: 'form-control boxed', required: true
+              .col-sm-2= submit_tag 'Submit', class: 'btn btn-primary'
             - if conversation.id.present?
               %span.text-pink= t 'send_message.minimum_chars'
 

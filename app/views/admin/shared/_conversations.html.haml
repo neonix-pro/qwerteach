@@ -1,7 +1,9 @@
-#conversations
-  %h2 Conversations (#{conversations.total_count})
+.card-header.bordered
+  #conversations.header-block
+    %h4.title Conversations (#{conversations.total_count})
+.card-block
   - if conversations.any?
-    %table
+    %table.table.table-striped.table-bordered.table-hover
       %thead
         %tr
           %th ID

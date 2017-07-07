@@ -1,33 +1,36 @@
 - content_for(:title) { page.resource.full_name }
-%body
-  %header.header
-    %h1.header__heading
+.card-header.bordered
+  .header-block
+    %h3.title
       = content_for(:title)
       %small (Student)
     =image_tag page.resource.avatar.url(:medium)
-    .header__actions
-      = link_to("Edit",[:edit, namespace, page.resource], class: "button")
-      = link_to("Suspendre", admin_user_path(page.resource), method: :delete, class: "button")
-      = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "button"
+  .header-block.pull-right
+    = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
+    = link_to("Suspendre", admin_user_path(page.resource), method: :delete, class: "btn btn-secondary")
+    = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "btn btn-secondary"
   %hr
-  .main-content__body
-    %dl
-      - page.attributes.each do |attribute|
-        %dt.attribute-label= attribute.name.titleize
-        %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}
-          - if attribute.data != "" && !attribute.data.nil?
-            = render_field attribute
-          - else
-            ="-"
-    .clearfix
-    %div
-      .actions.pull-right
-        = link_to 'Inviter dans la classe virtuelle', room_invite_bbb_rooms_path(page.resource), class:'button btn-default'
-      %h2 Discuter avec #{page.resource.name}
-      .clearfix
-      .conversation-admin
-        = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: student
 
-    = render 'admin/shared/conversations', conversations: @conversations, user: student
+.card-block.main-content__body
+  %dl
+    - page.attributes.each do |attribute|
+      %dt.attribute-label= attribute.name.titleize
+      %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}
+        - if attribute.data != "" && !attribute.data.nil?
+          = render_field attribute
+        - else
+          ="-"
+  .clearfix
+
+.card-header.bordered
+  .header-block
+    %h4.title Discuter avec #{page.resource.name}
+  .header-block.actions.pull-right
+    = link_to 'Inviter dans la classe virtuelle', room_invite_bbb_rooms_path(page.resource), class:'btn btn-secondary'
+  .clearfix
+.card-block.conversation-admin
+  = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: student
+
+= render 'admin/shared/conversations', conversations: @conversations, user: student
 
 -#=content_for(:javascript)

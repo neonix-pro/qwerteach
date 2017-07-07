@@ -1,4 +1,4 @@
-%table.collection-data{"aria-labelledby" => "page-title"}
+%table.table.table-striped.table-bordered.table-hover{"aria-labelledby" => "page-title"}
   %thead
     %tr
       - collection_presenter.attribute_types.each do |attr_name, attr_type|
@@ -9,7 +9,7 @@
 
   %tbody
     - resources.each do |resource|
-      %tr.table__row{"data-url" => "#{polymorphic_path([namespace, resource])}", :role => "link", :tabindex => "0"}
+      %tr.js-table-row{"data-url" => "#{polymorphic_path([namespace, resource])}", :role => "link", :tabindex => "0"}
         - collection_presenter.attributes_for(resource).each do |attribute|
           %td{:class => "cell-data cell-data--#{attribute.html_class}"}
             = render_field attribute

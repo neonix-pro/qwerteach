@@ -8,8 +8,8 @@
         - page.resource.errors.full_messages.each do |message|
           %li= message
   - page.attributes.each do |attribute|
-    %div{:class => "field-unit field-unit--#{attribute.html_class}"}
+    %div{:class => "field-unit form-group row field-unit--#{attribute.html_class}"}
       = render_field attribute, f: f
   = f.hidden_field(:commentable_id)
   .form-actions
-    = f.submit
+    = f.submit nil, class: 'btn btn-primary'

@@ -1,8 +1,8 @@
-%body
+.card-header.bordered
   - content_for(:title) { "Nouveau commentaire sur #{@commentable.name}" }
-  %header.header
-    %h1.header__heading= content_for(:title)
-    .header__actions
-      = link_to 'Back', :back, class: "button"
+  .header-block
+    %h3.title= content_for(:title)
+  .header-block.pull-right
+    = link_to 'Back', :back, class: "btn btn-secondary"
+.card-block
   = render 'admin/comments/form', page: @page
-

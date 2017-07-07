@@ -2,8 +2,15 @@
   - content_for(:title) { page.page_title }
   .header-block
     %h3.title= content_for(:title)
+
   .header-block.pull-right
-.card-block  
+    = link_to(                             |
+        "Edit",                            |
+        [:edit, namespace, page.resource], |
+        class: "btn btn-primary",                   |
+      )                                    |
+
+.card-block      
   %dl
     - page.attributes.each do |attribute|
       %dt.attribute-label= attribute.name.titleize

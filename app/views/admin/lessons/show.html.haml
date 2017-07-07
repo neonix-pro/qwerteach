@@ -1,0 +1,87 @@
+.card-header.bordered
+  - content_for(:title) { page.page_title }
+  .header-block
+    %h3.title= content_for(:title)
+  .header-block.pull-right
+    = link_to(                             |
+        "Edit",                            |
+        [:edit, namespace, page.resource], |
+        class: "btn btn-primary",          |
+      )                                    |
+
+.card-block
+  %dl
+    %dt.attribute-label ID:
+    %dl= page.resource.id
+    %dt.attribute-label Student:
+    %dl= link_to( "#{page.resource.student.firstname} #{page.resource.student.lastname}", [namespace, page.resource.student])
+    %dt.attribute-label Teacher:
+    %dl= link_to( "#{page.resource.teacher.firstname} #{page.resource.teacher.lastname}", [namespace, page.resource.teacher])
+    %dt.attribute-label Status:
+    %dl= page.resource.status
+    %dt.attribute-label Topic group:
+    %dl= page.resource.topic_group.title
+    %dt.attribute-label Topic:
+    %dl= page.resource.topic.title
+    %dt.attribute-label Level:
+    %dl= page.resource.level.fr
+    %dt.attribute-label Time start:
+    %dl= page.resource.time_start
+    %dt.attribute-label Duration:
+    %dl
+      = (( page.resource.time_end - page.resource.time_start) / 1.minute).round
+      min
+    %dt.attribute-label Price:
+    %dl
+      = page.resource.price
+      €
+    %dt.attribute-label Comment:
+    %dl= page.resource.comment
+    %dt.attribute-label Created at:
+    %dl= page.resource.created_at
+    %dt.attribute-label Updated at:
+    %dl= page.resource.updated_at
+
+.card-header.bordered
+  .header-block
+    %h3.title Payments
+
+.card-block
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %th ID
+      %th Amount
+      %th Status
+      %th Type
+      %th Payin ID
+      %th created at
+    %tbody
+      - page.resource.payments.each do |payment|
+        %tr
+          %td= payment.id
+          %td= payment.price
+          %td= payment.status
+          %td= payment.payment_type
+          %td= payment.mangopay_payin_id || payment.transfer_eleve_id
+          %td= payment.created_at
+
+.card-header.bordered
+  .header-block
+    %h3.title Recordings
+
+.card-block
+  - unless page.resource.bbb_room.nil?
+    %table.table.table-striped.table-bordered.table-hover
+      %thead
+        %th ID
+        %th Link
+        %th Created at
+      %tbody
+        - recordings = BigbluebuttonRecording.where(:room_id => page.resource.bbb_room)
+        - recordings.each do |rec|
+          %tr
+            %td= rec.id
+            %td= link_to "link", rec.playback_formats.first.url
+            %td= rec.created_at
+  - else
+    %p Pas de recordings
