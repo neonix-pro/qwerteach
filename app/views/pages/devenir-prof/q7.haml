@@ -1,11 +1,18 @@
 .test-become-teacher
-  %header.section_bigimage
+  %header.q2.section_bigimage
     .header-content
       .header-content-inner
-        %h1#homeHeading Donnez des cours particuliers<br />au monde entier
-        %hr/
-        %p Trouvez vos élèves et enseignez, depuis votre canapé!
-        = link_to 'Devenez prof', new_user_registration_path, class: 'btn btn-primary btn-qw become-teacher'
+        .row
+          .col-md-6
+            %h1#homeHeading Passez à l'aide scolaire 2.0
+            %hr/
+            %p Avec Qwerteach, vous enseignez depuis chez vous, à des élèves du monde entier. Fini les déplacements, démarrez vos cours en un clic!
+            -#= link_to 'Devenez prof', new_user_registration_path, class: 'btn btn-primary btn-qw become-teacher'
+          .col-xs-8.col-md-6.col-xs-offset-2.col-md-offset-0
+            .form-transparent.material-form
+              %h2.text-center DEVENEZ PROF
+              %hr/
+              =render partial: 'devise/registrations/new_form'
   %section#about.bg-primary
     .container
       .row
