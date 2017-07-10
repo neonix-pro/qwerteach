@@ -4,10 +4,7 @@
       %th.cell-label.cell-label Image
       - collection_presenter.attribute_types.each do |attr_name, attr_type|
         %th.cell-label.cell-label #{attr_name}
-        - if collection_presenter.ordered_by?(attr_name)
-          %span{:class => "cell-label__sort-indicator cell-label__sort-indicator--#{collection_presenter.ordered_html_class(attr_name)}"}
-          = svg_tag("administrate/sort_arrow.svg","sort_arrow",width: "13",height: "13")                              
-          %th{:colspan => "2", :scope => "col"}
+        %th{:colspan => "2", :scope => "col"}
   %tbody
     - resources.each do |resource|
       %tr.table__row{"data-url" => polymorphic_path([namespace, resource]), :role => "link", :tabindex => "0"}

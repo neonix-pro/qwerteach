@@ -14,7 +14,7 @@
   %body{class: content_for(:body_class)}
     .flash= render 'flashes'
     .main-wrapper
-      .app#app
+      .app#app.header-fixed.sidebar-fixed
         = render 'header'
         %aside.sidebar
           .sidebar-container

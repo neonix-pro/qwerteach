@@ -6,3 +6,10 @@
 //= require modular-admin/sidebar
 //= require modular-admin/metisMenu
 //= require modular-admin/main
+//= require selectize
+//= require moment
+//= require datetime_picker
+// require administrate/components/search
+//= require administrate/components/date_time_picker
+//= require administrate/components/has_many_form
+//= require administrate/components/table

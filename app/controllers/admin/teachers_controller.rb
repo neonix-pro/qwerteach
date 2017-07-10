@@ -26,18 +26,18 @@ module Admin
     end
 
 
-    def index
-      search_term = params[:search].to_s.strip
-      resources = Teacher.where(postulance_accepted: true, active: true).order(params[:order] => params[:direction])
-      resources = resources.page(params[:page]).per(records_per_page)
-      page = Administrate::Page::Collection.new(dashboard, order: order)
-
-      render locals: {
-          resources: resources,
-          search_term: search_term,
-          page: page,
-      }
-    end
+    # def index
+    #   search_term = params[:search].to_s.strip
+    #   resources = Teacher.where(postulance_accepted: true, active: true).order(params[:order] => params[:direction])
+    #   resources = resources.page(params[:page]).per(records_per_page)
+    #   page = Administrate::Page::Collection.new(dashboard, order: order)
+    #
+    #   render locals: {
+    #       resources: resources,
+    #       search_term: search_term,
+    #       page: page,
+    #   }
+    # end
 
     def show
       @conversations = teacher.mailbox.conversations.page(params[:page]).per(10)
@@ -87,22 +87,28 @@ module Admin
     end
 
     def inactive_teachers
-      search_term = params[:search].to_s.strip
-      resources = Teacher.unscoped.where(:active=>false)
-      resources = resources.page(params[:page]).per(records_per_page)
-      page = Administrate::Page::Collection.new(dashboard, order: order)
-
-      render :index, locals: {
-          resources: resources,
-          search_term: search_term,
-          page: page,
-      }
+      index
     end
 
     private
 
     def teacher
       requested_resource
+    end
+
+    def scoped_resource
+      if action_name == 'index'
+        case params[:scope]
+        when :postuling
+          Teacher.active.where(postulance_accepted: false)
+        when :inactive
+          Teacher.unscoped.where(active: false)
+        else
+          Teacher.active.where(postulance_accepted: true)
+        end
+      else
+        super
+      end
     end
 
   end

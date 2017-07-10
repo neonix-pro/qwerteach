@@ -1,34 +1,55 @@
-%ul#sidebar-menu.nav.metismenu(role='navigation')
-  - users_active = %i[users postuling_teachers teachers inactive_teachers].any?{|resource| nav_link_state(resource) == :active }
-  %li{class: ('active open' if users_active)}
-    = link_to '' do
-      = icon('users')
-      Users
-      %i.fa.arrow
-    %ul.collapse
-      %li{class: nav_link_state(:users)}
-        = link_to 'All Users', [namespace, User]
-      %li{class: nav_link_state(:postuling_teachers)}
-        = link_to("Postuling Teachers (#{@number_of_postuling_teachers})", [namespace, :postuling_teachers])
-      %li{class: nav_link_state(:teachers)}
-        = link_to("Approved Teachers (#{@number_of_teachers})", [namespace, Teacher])
-      %li{class: nav_link_state(:inactive_teachers)}
-        = link_to('Inactive Teachers', [namespace, :inactive_teachers])
-  %li{class: nav_link_state(:pictures)}
-    = link_to('Avatars', [namespace, Picture])
-  %li{class: nav_link_state(:conversations)}
-    = link_to('Conversations', [namespace, Conversation])
-  %li{class: nav_link_state(:comments)}
-    = link_to('Reviews', [namespace, Comment])
-  %li{class: nav_link_state(:bigbluebutton_servers)}
-    = link_to('BBB Server', [namespace, BigbluebuttonServer])
-  %li{class: nav_link_state(:bigbluebutton_recordings)}
-    = link_to('All Recordings', [namespace, BigbluebuttonRecording])
-  %li{class: nav_link_state(:lessons)}
-    = link_to('Lessons', [namespace, Lesson])
-  %li{class: nav_link_state(:payments)}
-    = link_to("Payments (#{@number_of_disputes})", [namespace, Payment])
-  %li{class: nav_link_state(:banned_users)}
-    = link_to('Banned users', [namespace, :banned_users])
-  %li{class: nav_link_state(:disputes)}
-    = link_to("Disputes (#{@number_of_disputes_started})", [namespace, :disputes])
+%nav.menu
+  %ul#sidebar-menu.nav.metismenu(role='navigation')
+    %li{class: nav_link_state(:users)}
+      = link_to [namespace, User] do
+        = icon 'users'
+        All Users
+    - teachers_active = %i[postuling_teachers teachers inactive_teachers].any?{|resource| nav_link_state(resource) == :active }
+    %li{class: ('active open' if teachers_active)}
+      = link_to '' do
+        = icon 'graduation-cap'
+        Teachers
+        %i.fa.arrow
+      %ul.collapse
+        %li{class: nav_link_state(:postuling_teachers)}
+          = link_to("Postuling (#{@number_of_postuling_teachers})", [:postuling, namespace, Teacher])
+        %li{class: nav_link_state(:teachers)}
+          = link_to("Approved (#{@number_of_teachers})", [namespace, Teacher])
+        %li{class: nav_link_state(:inactive_teachers)}
+          = link_to('Inactive ', [:inactive, namespace, Teacher])
+    %li{class: nav_link_state(:pictures)}
+      = link_to([namespace, Picture]) do
+        = icon 'user-circle-o'
+        Avatars
+    %li{class: nav_link_state(:conversations)}
+      = link_to([namespace, Conversation]) do
+        = icon 'weixin'
+        Conversations
+    %li{class: nav_link_state(:comments)}
+      = link_to([namespace, Comment]) do
+        = icon 'comment-o'
+        Reviews
+    %li{class: nav_link_state(:bigbluebutton_servers)}
+      = link_to([namespace, BigbluebuttonServer]) do
+        = icon('server')
+        BBB Server
+    %li{class: nav_link_state(:bigbluebutton_recordings)}
+      = link_to([namespace, BigbluebuttonRecording]) do
+        = icon('video-camera')
+        All Recordings
+    %li{class: nav_link_state(:lessons)}
+      = link_to([namespace, Lesson]) do
+        = icon('book')
+        Lessons
+    %li{class: nav_link_state(:payments)}
+      = link_to([namespace, Payment]) do
+        = icon('money')
+        Payments (#{@number_of_disputes})
+    %li{class: nav_link_state(:banned_users)}
+      = link_to([namespace, :banned_users]) do
+        = icon 'user-times'
+        Banned users
+    %li{class: nav_link_state(:disputes)}
+      = link_to([namespace, :disputes]) do
+        = icon 'thumbs-o-down'
+        Disputes (#{@number_of_disputes_started})

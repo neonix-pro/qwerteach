@@ -59,6 +59,7 @@ class User < ActiveRecord::Base
             :total_wallets_in_cents, :bank_accounts, to: :mangopay
 
   scope :reader_scope, -> { where(admin: true) }
+  scope :active, ->{ where(active: true) }
 
   # MANGOPAY
   def mangopay

@@ -86,6 +86,8 @@ Rails.application.routes.draw do
     resources :teachers do
       post 'deactivate' => :deactivate
       post 'reactivate' => :reactivate
+      get 'inactive' => :index, on: :collection, defaults: {scope: :inactive}, as: :inactive
+      get 'postuling' => :index, on: :collection, defaults: {scope: :postuling}, as: :postuling
     end
     resources :pictures
     resources :galleries
@@ -93,7 +95,6 @@ Rails.application.routes.draw do
       get "generate_text" => :generate_text
     end
     resources :comments
-    resources :postuling_teachers
     resources :lessons
     resources :topics
     resources :topic_groups
@@ -115,8 +116,6 @@ Rails.application.routes.draw do
     resources :bigbluebutton_servers
     resources :bigbluebutton_recordings
     resources :bbb_rooms
-
-    get "inactive_teachers" => "teachers#inactive_teachers"
     get "banned_users" => "users#banned_users"
 
     root to: "users#index"

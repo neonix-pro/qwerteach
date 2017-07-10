@@ -1,7 +1,8 @@
 - content_for(:title) do
   = display_resource_name(page.resource_name)
-- content_for(:search) do
-  - if local_assigns[:show_search_bar]
+
+- if local_assigns[:show_search_bar]
+  - content_for(:search) do
     = render "search", search_term: search_term
 .card-header.bordered
   .header-block
@@ -16,4 +17,4 @@
 .card-block
   .table-responsive
     = render "collection", collection_presenter: page, resources: resources
-  = paginate resources
+  = paginate_admin resources

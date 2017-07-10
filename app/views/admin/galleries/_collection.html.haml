@@ -3,10 +3,6 @@
     %tr
       - collection_presenter.attribute_types.each do |attr_name, attr_type|
         %th.cell-label.cell-label #{attr_name}
-        - if collection_presenter.ordered_by?(attr_name)
-          %span.cell-label__sort-indicator.cell-label__sort-indicator
-          #{collection_presenter.ordered_html_class(attr_name)}"}
-          = svg_tag("administrate/sort_arrow.svg","sort_arrow",width: "13",height: "13")  
       %th.cell-label{:colspan => "2", :scope => "col"} Actions
   %tbody
     - resources.each do |resource|
