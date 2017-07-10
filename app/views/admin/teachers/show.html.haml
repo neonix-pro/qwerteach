@@ -1,17 +1,18 @@
 .card-header.bordered
   - content_for(:title) { "#{page.resource.firstname} #{page.resource.lastname}"}
   .header-block
+    =image_tag page.resource.avatar.url(:small), class: "header-avatar rounded"
     %h3.title
       = content_for(:title)
       %small= page.resource.postulance_accepted ? '(Teacher)' : '(Postuling teacher)'
-    .header-block.pull-right
-      = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
+  .header-block.pull-right
+    = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
 
-      = form_for([namespace, page.resource], html: {class: "form"}) do |f|
-        = f.hidden_field :postulance_accepted, value: !page.resource.postulance_accepted
-        = page.resource.postulance_accepted ? (f.submit 'Suspend') : (f.submit 'Approve', :class => 'btn btn-secondary')
-      = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "btn btn-secondary"
-    =image_tag page.resource.avatar.url(:medium)
+    = form_for([namespace, page.resource], html: {class: "form"}) do |f|
+      = f.hidden_field :postulance_accepted, value: !page.resource.postulance_accepted
+      = page.resource.postulance_accepted ? (f.submit 'Suspend') : (f.submit 'Approve', :class => 'btn btn-secondary')
+    = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "btn btn-secondary"
+
 .card-block
   %section.main-content__body.user-postulation
     .card-header
@@ -22,14 +23,15 @@
 
   %hr
   %section.main-content__body
-    %dl
+    %table.table-min.table-striped.table-bordered
       - page.attributes.each do |attribute|
-        %dt.attribute-label= attribute.name.titleize
-        %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}
-          - if attribute.data != "" && !attribute.data.nil?
-            = render_field attribute
-          - else
-            ="-"
+        %tr
+          %td.attribute-label= attribute.name.titleize
+          %td{:class => "attribute-data attribute-data--#{attribute.html_class}"}
+            - if attribute.data != "" && !attribute.data.nil?
+              = render_field attribute
+            - else
+              ="-"
     #generated-text
       .card-header
         %h3.title Discuter avec #{page.resource.name}

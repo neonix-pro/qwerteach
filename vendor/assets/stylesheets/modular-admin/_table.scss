@@ -22,3 +22,27 @@
 		margin-bottom: 0;
 	}
 }
+
+.table-min {
+	tr {
+		td {
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+		td:first-child {
+			font-weight: bold;
+		}
+	}
+	.table, .table-striped, .table-bordered, .table-hover {
+		width: auto;
+		background-color: transparent !important;
+		margin: 0;
+		tr {
+			background-color: transparent !important;
+			td, th {
+				padding: 0 5px;
+				background-color: transparent !important;
+			}
+		}
+	}
+}

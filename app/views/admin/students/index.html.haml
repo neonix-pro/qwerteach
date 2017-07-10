@@ -10,12 +10,12 @@
         Press enter to search
   .header-block
     %h3.title= content_for(:title)
-    .header-block.pull-right
-      = link_to(                                         |
-          "New #{page.resource_name.titleize.downcase}", |
-          [:new, namespace, page.resource_name],         |
-          class: "btn btn-primary",                               |
-        )                                                |
+  .header-block.pull-right
+    = link_to(                                         |
+        "New #{page.resource_name.titleize.downcase}", |
+        [:new, namespace, page.resource_name],         |
+        class: "btn btn-primary",                      |
+      )                                                |
 
 .card-block
   .table-responsive

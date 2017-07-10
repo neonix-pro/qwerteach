@@ -5,7 +5,7 @@
 	.card {
 		box-shadow: none;
 	}
-	
+
 	margin-bottom: $card-margin-bottom;
 	border-radius: 0;
 	border: none;
@@ -37,10 +37,25 @@
 
 		.pull-right {
 			margin-left: auto;
+			display: flex;
+	    flex-direction: row;
+	    flex-wrap: wrap;
+	    justify-content: flex-end;
+	    align-content: flex-start;
+	    align-items: center;
+			& > * {
+				margin:3px 0 3px 5px;
+			}
 		}
 
 		.header-block {
 			padding: 0.5rem $card-padding-x;;
+			display: flex;
+	    flex-direction: row;
+	    flex-wrap: nowrap;
+	    justify-content: flex-start;
+	    align-content: flex-start;
+	    align-items: center;
 
 
 			@include media(xs) {
@@ -54,11 +69,11 @@
 
 		.title {
 			color: $color-text;
-			display: inline-flex;
+			display: inline-block;
 		}
 
 		.btn {
-			margin: 0;
+
 		}
 
 		.nav-tabs {
@@ -197,4 +212,8 @@
 
 .card-footer {
 	background-color: #fafafa;
+}
+
+.header-avatar {
+	margin-right: 10px;
 }

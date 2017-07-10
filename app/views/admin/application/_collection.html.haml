@@ -1,23 +1,24 @@
-%table.table.table-striped.table-bordered.table-hover
-  %thead
-    %tr
-      - collection_presenter.attribute_types.each do |attr_name, attr_type|
-        %th{:class => "cell-label cell-label--#{attr_type.html_class} cell-label--#{collection_presenter.ordered_html_class(attr_name)}", :scope => "col"}
-          = link_to(sanitized_order_params.merge( collection_presenter.order_params_for(attr_name))) do
-            = t( "helpers.label.#{resource_name}.#{attr_name}", default: attr_name.to_s).titleize
-            - if collection_presenter.ordered_by?(attr_name)
-              %span{:class => "cell-label__sort-indicator cell-label__sort-indicator--#{collection_presenter.ordered_html_class(attr_name)}"}
-                = svg_tag( "administrate/sort_arrow.svg", "sort_arrow", width: "13", height: "13" )
-      - [valid_action?(:edit), valid_action?(:destroy)].count(true).times do
-        %th{:scope => "col"}
-  %tbody
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %tr
+        - collection_presenter.attribute_types.each do |attr_name, attr_type|
+          %th{:class => "cell-label cell-label--#{attr_type.html_class} cell-label--#{collection_presenter.ordered_html_class(attr_name)}", :scope => "col"}
+            = link_to(sanitized_order_params.merge( collection_presenter.order_params_for(attr_name))) do
+              = t( "helpers.label.#{resource_name}.#{attr_name}", default: attr_name.to_s).titleize
+              - if collection_presenter.ordered_by?(attr_name)
+                %span{:class => "cell-label__sort-indicator cell-label__sort-indicator--#{collection_presenter.ordered_html_class(attr_name)}"}
+                  = svg_tag( "administrate/sort_arrow.svg", "sort_arrow", width: "13", height: "13" )
+        - [valid_action?(:edit), valid_action?(:destroy)].count(true).times do
+          %th{:scope => "col"}
+    %tbody
 
-    - resources.each do |resource|
-      %tr.js-table-row{:tabindex => "0", role: valid_action?(:show) ? 'link' : false, 'data-url'=>valid_action?(:show) ? polymorphic_path([namespace, resource]) : false}
-      - collection_presenter.attributes_for(resource).each do |attribute|
-        %td.cell-data{class: "cell-data--#{attribute.html_class}"}
-          = link_to render_field(attribute), polymorphic_path([namespace, resource]), class: 'action-show'
-      - if valid_action? :edit
-        %td= link_to(t('administrate.actions.edit'), [:edit, namespace, resource], class: 'action-edit')
-      - if valid_action? :destroy
-        %td= link_to(t('administrate.actions.destroy'), [namespace, resource], class: 'text-color-red', method: :delete, data: { confirm: t('administrate.actions.confirm') })
+      - resources.each do |resource|
+        %tr.js-table-row{:tabindex => "0", role: valid_action?(:show) ? 'link' : false, 'data-url'=>valid_action?(:show) ? polymorphic_path([namespace, resource]) : false}
+        - collection_presenter.attributes_for(resource).each do |attribute|
+          %td.cell-data{class: "cell-data--#{attribute.html_class}"}
+            = link_to render_field(attribute), polymorphic_path([namespace, resource]), class: 'action-show'
+        - if valid_action? :edit
+          %td= link_to(t('administrate.actions.edit'), [:edit, namespace, resource], class: 'action-edit')
+        - if valid_action? :destroy
+          %td= link_to(t('administrate.actions.destroy'), [namespace, resource], class: 'text-color-red', method: :delete, data: { confirm: t('administrate.actions.confirm') })

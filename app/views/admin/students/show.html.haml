@@ -1,10 +1,10 @@
 - content_for(:title) { page.resource.full_name }
 .card-header.bordered
   .header-block
+    =image_tag page.resource.avatar.url(:small), class: "header-avatar rounded"
     %h3.title
       = content_for(:title)
       %small (Student)
-    =image_tag page.resource.avatar.url(:medium)
   .header-block.pull-right
     = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
     = link_to("Suspendre", admin_user_path(page.resource), method: :delete, class: "btn btn-secondary")
@@ -12,14 +12,15 @@
   %hr
 
 .card-block.main-content__body
-  %dl
+  %table.table-min.table-striped.table-bordered
     - page.attributes.each do |attribute|
-      %dt.attribute-label= attribute.name.titleize
-      %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}
-        - if attribute.data != "" && !attribute.data.nil?
-          = render_field attribute
-        - else
-          ="-"
+      %tr
+        %td.attribute-label= attribute.name.titleize
+        %td{:class => "attribute-data attribute-data--#{attribute.html_class}"}
+          - if attribute.data != "" && !attribute.data.nil?
+            = render_field attribute
+          - else
+            ="-"
   .clearfix
 
 .card-header.bordered

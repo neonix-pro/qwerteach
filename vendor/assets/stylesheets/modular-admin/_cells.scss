@@ -1,0 +1,31 @@
+.cell-label {
+  position: relative;
+
+  a {
+    color: inherit;
+    display: inline-block;
+    position: relative;
+  }
+}
+
+.cell-label--asc,
+.cell-label--desc {
+  font-weight: 700;
+}
+
+.cell-label__sort-indicator {
+  display: inline-block;
+  overflow: hidden;
+  position: absolute;
+  left: 100%;
+
+  svg {
+    fill: $color-text;
+    height: 13px;
+    width: 13px;
+  }
+}
+
+.cell-label__sort-indicator--desc {
+  transform: rotate(180deg);
+}
