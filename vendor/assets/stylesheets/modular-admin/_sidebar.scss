@@ -1,7 +1,6 @@
 .sidebar {
 	background-color: $sidebar-color-primary;
 	width: $sidebar-width;
-	padding-bottom: 60px;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -26,14 +25,20 @@
 	.sidebar-container {
 		position: absolute;
 		top: 0;
-		bottom: 51px;
+		bottom: 0;
 		width: 100%;
+		max-height: 100%;
 		left: 0;
-		overflow-y: auto;
 		overflow-x: hidden;
+		display: flex;
+		flex-direction: column;
 
 		&::-webkit-scrollbar-track {
 			background-color: darken($sidebar-color-primary, 6.5%);
+		}
+		& > .menu {
+			flex-grow: 1;
+		  	overflow-y: auto;
 		}
 	}
 
@@ -90,8 +95,8 @@
 
 			// First level items links
 			& > a {
-				padding-top: 15px;
-				padding-bottom: 15px;
+				padding-top: 10px;
+				padding-bottom: 12px;
 				padding-left: 20px;
 				padding-right: 10px;
 			}
@@ -143,9 +148,9 @@
 			// Have bit darker background and more padding 
 			// from left side
 			a {
-				padding-top: 10px;
+				padding-top: 8px;
 				padding-bottom: 10px;
-				padding-left: 50px;
+				padding-left: 30px;
 				background-color: darken($sidebar-color-primary, 3%);
 			}
 
@@ -160,6 +165,7 @@
 }
 
 .sidebar-header {
+  flex: 0 0;
   .brand {
     color: #fff;
     text-align: left;
