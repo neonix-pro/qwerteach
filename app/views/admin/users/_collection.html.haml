@@ -7,8 +7,8 @@
           = link_to(params.merge(collection_presenter.order_params_for(attr_name))) do
             = attr_name.to_s.titleize
             - if collection_presenter.ordered_by?(attr_name)
-              %span{:class => "cell-label__sort-indicator cell-label__sort-indicator--#{collection_presenter.ordered_html_class(attr_name)}"}
-                = svg_tag("administrate/sort_arrow.svg", "sort_arrow",width: "13",height: "13")
+              %span{:class => "cell-label__sort-indicator"}
+                = icon("sort-amount-#{collection_presenter.ordered_html_class(attr_name)}")
       %th{:colspan => "2", :scope => "col"}
   %tbody
     - resources.each do |resource|

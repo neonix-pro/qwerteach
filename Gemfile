@@ -62,7 +62,7 @@ gem 'jcrop-rails-v2'
 # datepicker calendar
 gem 'bootstrap-datepicker-rails'
 #interface admin
-gem 'administrate', '~> 0.7'
+gem 'administrate', github: 'thoughtbot/administrate' #'~> 0.7'
 gem 'ransack', github: 'activerecord-hackery/ransack'
 
 # autocomplete search

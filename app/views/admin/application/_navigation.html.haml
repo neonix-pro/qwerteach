@@ -12,11 +12,11 @@
         %i.fa.arrow
       %ul.collapse
         %li{class: nav_link_state(:postuling_teachers)}
-          = link_to("Postuling (#{@number_of_postuling_teachers})", [namespace, :postuling_teachers])
+          = link_to("Postuling (#{@number_of_postuling_teachers})", [:postuling, namespace, Teacher])
         %li{class: nav_link_state(:teachers)}
           = link_to("Approved (#{@number_of_teachers})", [namespace, Teacher])
         %li{class: nav_link_state(:inactive_teachers)}
-          = link_to('Inactive ', [namespace, :inactive_teachers])
+          = link_to('Inactive ', [:inactive, namespace, Teacher])
     %li{class: nav_link_state(:pictures)}
       = link_to([namespace, Picture]) do
         = icon 'user-circle-o'
