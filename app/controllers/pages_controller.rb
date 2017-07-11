@@ -20,6 +20,7 @@ class PagesController < ApplicationController
 	end
 
   def abtest
+		index
 		render template: "pages/#{params[:page]}/#{params[:version]}"
 	end
 
