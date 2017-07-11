@@ -9,6 +9,10 @@
 //= require selectize
 //= require moment
 //= require datetime_picker
+//= require administrate/date_picker
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
 // require administrate/components/search
 //= require administrate/components/date_time_picker
 //= require administrate/components/has_many_form

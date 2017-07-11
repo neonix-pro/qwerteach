@@ -73,7 +73,6 @@ class LessonDashboard < Administrate::BaseDashboard
     :topic_group,
     :topic,
     :level,
-    :payments,
     :bbb_room,
     :student_id,
     :teacher_id,
