@@ -10,15 +10,17 @@
         class: "btn btn-primary",                               |
       ) if valid_action? :edit
 .card-block
-  %dl
+  %table.table-min.table-striped.table-bordered
     - page.attributes.each do |attribute|
-      %dt.attribute-label
-        = t("helpers.label.#{resource_name}.#{attribute.name}", default: attribute.name.titleize)
-      %dd.attribute-data(class="attribute-data--#{attribute.html_class}")=render_field attribute
+      %tr
+        %td.attribute-label
+          = t("helpers.label.#{resource_name}.#{attribute.name}", default: attribute.name.titleize)
+        %td.attribute-data(class="attribute-data--#{attribute.html_class}")=render_field attribute
+    %tr
+      %dt.attribute-label Price
+      %dd.attribute-data= page.resource.lesson.price
 
-    %dt.attribute-label Price
-    %dd.attribute-data= page.resource.lesson.price
-
+  %dl
     - if page.resource.bbb_room.present?
       %dt.attribute-label Big blue button room
       %dd.attribute-data
