@@ -108,7 +108,7 @@ Rails.application.routes.draw do
 
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
 
-    resources :disputes, except: [:new, :create] do
+    resources :disputes, except: [:new, :create, :edit, :update] do
       post 'resolve' => :resolve, on: :member
     end
 
