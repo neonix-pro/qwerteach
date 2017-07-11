@@ -10,11 +10,12 @@
       ) if valid_action? :edit                                  |
 
 .card-block.main-content__body
-  %dl
+  %table.table-min.table-striped.table-bordered
     - page.attributes.each do |attribute|
-      %dt.attribute-label
-        = t(                                                    |
-            "helpers.label.#{resource_name}.#{attribute.name}", |
-            default: attribute.name.titleize,                   |
-          )                                                     |
-      %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}= render_field attribute
+      %tr
+        %td.attribute-label
+          = t(                                                    |
+              "helpers.label.#{resource_name}.#{attribute.name}", |
+              default: attribute.name.titleize,                   |
+            )                                                     |
+        %td{:class => "attribute-data attribute-data--#{attribute.html_class}"}= render_field attribute

@@ -10,37 +10,50 @@
       )                                    |
 
 .card-block
-  %dl
-    %dt.attribute-label ID:
-    %dl= page.resource.id
-    %dt.attribute-label Student:
-    %dl= link_to( "#{page.resource.student.firstname} #{page.resource.student.lastname}", [namespace, page.resource.student])
-    %dt.attribute-label Teacher:
-    %dl= link_to( "#{page.resource.teacher.firstname} #{page.resource.teacher.lastname}", [namespace, page.resource.teacher])
-    %dt.attribute-label Status:
-    %dl= page.resource.status
-    %dt.attribute-label Topic group:
-    %dl= page.resource.topic_group.title
-    %dt.attribute-label Topic:
-    %dl= page.resource.topic.title
-    %dt.attribute-label Level:
-    %dl= page.resource.level.fr
-    %dt.attribute-label Time start:
-    %dl= page.resource.time_start
-    %dt.attribute-label Duration:
-    %dl
-      = (( page.resource.time_end - page.resource.time_start) / 1.minute).round
-      min
-    %dt.attribute-label Price:
-    %dl
-      = page.resource.price
-      €
-    %dt.attribute-label Comment:
-    %dl= page.resource.comment
-    %dt.attribute-label Created at:
-    %dl= page.resource.created_at
-    %dt.attribute-label Updated at:
-    %dl= page.resource.updated_at
+  %table.table-min.table-striped.table-bordered
+    %tr
+      %td.attribute-label ID:
+      %td= page.resource.id
+    %tr
+      %td.attribute-label Student:
+      %td= link_to( "#{page.resource.student.firstname} #{page.resource.student.lastname}", [namespace, page.resource.student])
+    %tr
+      %td.attribute-label Teacher:
+      %td= link_to( "#{page.resource.teacher.firstname} #{page.resource.teacher.lastname}", [namespace, page.resource.teacher])
+    %tr
+      %td.attribute-label Status:
+      %td= page.resource.status
+    %tr
+      %td.attribute-label Topic group:
+      %td= page.resource.topic_group.title
+    %tr
+      %td.attribute-label Topic:
+      %td= page.resource.topic.title
+    %tr
+      %td.attribute-label Level:
+      %td= page.resource.level.fr
+    %tr
+      %td.attribute-label Time start:
+      %td= page.resource.time_start
+    %tr
+      %td.attribute-label Duration:
+      %td
+        = (( page.resource.time_end - page.resource.time_start) / 1.minute).round
+        min
+    %tr
+      %td.attribute-label Price:
+      %td
+        = page.resource.price
+        €
+    %tr
+      %td.attribute-label Comment:
+      %td= page.resource.comment
+    %tr
+      %td.attribute-label Created at:
+      %td= page.resource.created_at
+    %tr
+      %td.attribute-label Updated at:
+      %td= page.resource.updated_at
 
 .card-header.bordered
   .header-block
