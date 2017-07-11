@@ -12,7 +12,6 @@
     = javascript_include_tag 'administrate', 'data-turbolinks-track': 'reload'
     = csrf_meta_tags
   %body{class: content_for(:body_class)}
-    .flash= render 'flashes'
     .main-wrapper
       .app#app.header-fixed.sidebar-fixed
         = render 'header'
@@ -30,6 +29,7 @@
             = render 'navigation'
         .sidebar-overlay#sidebar-overlay
         %article.content.dashboard-page
+          .flash= render 'flashes'
           %section.section
             .row
               .col.col-xs-12

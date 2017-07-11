@@ -8,10 +8,11 @@
   .header-block.pull-right
     = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
 
-    = form_for([namespace, page.resource], html: {class: "form"}) do |f|
-      = f.hidden_field :postulance_accepted, value: !page.resource.postulance_accepted
-      = page.resource.postulance_accepted ? (f.submit 'Suspend') : (f.submit 'Approve', :class => 'btn btn-secondary')
-    = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "btn btn-secondary"
+    - if page.resource.postulance_accepted
+      = link_to 'Suspend', [namespace, page.resource, {postulance_accepted: false}], method: :post, class: 'btn btn-secondary'
+    - else
+      = link_to 'Approve', [namespace, page.resource, {postulance_accepted: true}], method: :post, class: 'btn btn-secondary'
+    = link_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: 'btn btn-secondary'
 
 .card-block
   %section.main-content__body.user-postulation
@@ -32,14 +33,15 @@
               = render_field attribute
             - else
               ="-"
+  %section.main-content__body.user-conversations
     #generated-text
-      .card-header
-        %h3.title Discuter avec #{page.resource.name}
-        .actions.header-block.pull-right
-          = link_to 'Interview', room_invite_bbb_rooms_path(teacher), class:'btn btn-secondary'
-          = link_to 'generate text', admin_postulation_generate_text_path(page.resource.postulation), remote:true, class:'btn btn-secondary'
-      .conversation-admin
-        = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: teacher
+    .card-header
+      %h3.title Discuter avec #{page.resource.name}
+      .actions.header-block.pull-right
+        = link_to 'Interview', room_invite_bbb_rooms_path(teacher), class:'btn btn-secondary'
+        = link_to 'generate text', admin_postulation_generate_text_path(page.resource.postulation), remote:true, class:'btn btn-secondary'
+    .conversation-admin
+      = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: teacher
     = render 'admin/shared/conversations', conversations: @conversations, user: teacher
 
 =content_for(:javascript)

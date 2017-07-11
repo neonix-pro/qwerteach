@@ -56,6 +56,7 @@ class TeacherDashboard < Administrate::BaseDashboard
       mango_id: Field::Number,
       score: Field::Number,
       avatar_score: Field::Number,
+      avatar: Field::Image.with_options(thumb: :small)
   }
 
   # COLLECTION_ATTRIBUTES
@@ -64,6 +65,7 @@ class TeacherDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
+      :avatar,
       :id,
       :gallery,
       :postulation,

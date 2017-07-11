@@ -1,0 +1,5 @@
+= f.label field.attribute, class: 'col-sm-2 form-control-label text-xs-right'
+.col-sm-10
+  = f.file_field field.attribute, class: 'form-control'
+  - if field.data.present?
+    = image_tag(field.thumb)

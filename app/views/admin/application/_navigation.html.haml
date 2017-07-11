@@ -4,8 +4,7 @@
       = link_to [namespace, User] do
         = icon 'users'
         All Users
-    - teachers_active = %i[postuling_teachers teachers inactive_teachers].any?{|resource| nav_link_state(resource) == :active }
-    %li{class: ('active open' if teachers_active)}
+    %li{class: ('active open' if nav_link_state(:teachers) == :active)}
       = link_to '' do
         = icon 'graduation-cap'
         Teachers
@@ -13,7 +12,7 @@
       %ul.collapse
         %li{class: nav_link_state(:postuling_teachers)}
           = link_to("Postuling (#{@number_of_postuling_teachers})", [:postuling, namespace, Teacher])
-        %li{class: nav_link_state(:teachers)}
+        %li{class: nav_link_state(:approved_teachers)}
           = link_to("Approved (#{@number_of_teachers})", [namespace, Teacher])
         %li{class: nav_link_state(:inactive_teachers)}
           = link_to('Inactive ', [:inactive, namespace, Teacher])
