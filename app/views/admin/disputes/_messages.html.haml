@@ -1,21 +1,21 @@
 .dispute-messages.bootstrap-wrapper
-  %ul.btn-group.nav.nav-tabs
-    %li.active
-      %a.btn.btn-secondary.tabnav.cut(data-toggle="tab" href="#conversation-0")
+  %ul.nav.nav-tabs.nav-tabs-bordered
+    %li.nav-item
+      %a.nav-link.active(data-toggle="tab" data-target="#conversation-0" href="#conversation-0" aria-controls="conversation-0" role="tab" aria-expanded="true")
         #{ t('dispute_message.group.common', default: 'Common') }(#{conversations.first.count_messages})
-    %li
-      %a.btn.btn-secondary.tabnav.cut(data-toggle="tab" href="#conversation-1")
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#conversation-1" href="#conversation-1" aria-controls="conversation-1" role="tab" aria-expanded="false")
         #{ t('dispute_message.group.student', default: 'Student') }(#{conversations.second.count_messages})
-    %li
-      %a.btn.btn-secondary.tabnav.cut(data-toggle="tab" href="#conversation-2")
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#conversation-2" href="#conversation-2" aria-controls="conversation-2" role="tab" aria-expanded="false")
         #{ t('dispute_message.group.teacher', default: 'Teacher') }(#{conversations.third.count_messages})
-    %li
-      %a.btn.btn-secondary.tabnav.cut(data-toggle="tab" href="#conversation-3")
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#conversation-3" href="#conversation-3" aria-controls="conversation-3" role="tab" aria-expanded="false")
         #{ t('dispute_message.group.student_and_teacher', default: 'Student and Teacher') }(#{conversations.fourth.count_messages})
 
-  .tab-content
+  .tab-content.tabs-bordered
     - conversations.each_with_index do |conversation, index|
-      .tab-pane.fade(id="conversation-#{index}" class="#{'in active' if index == 0}")
+      .tab-pane(id="conversation-#{index}" class="#{'active' if index == 0}")
         .pre-scrollable(id="conversation-messages-#{index}")
           - messages = conversation.id ? conversation.messages.reorder(id: :desc) : []
           = render 'conversations/messages', messages: messages

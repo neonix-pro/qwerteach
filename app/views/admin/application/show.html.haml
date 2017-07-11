@@ -14,8 +14,9 @@
     - page.attributes.each do |attribute|
       %tr
         %td.attribute-label
-          = t(                                                    |
-              "helpers.label.#{resource_name}.#{attribute.name}", |
-              default: attribute.name.titleize,                   |
-            )                                                     |
-        %td{:class => "attribute-data attribute-data--#{attribute.html_class}"}= render_field attribute
+          = t("helpers.label.#{resource_name}.#{attribute.name}", default: attribute.name.titleize)
+        %td{:class => "attribute-data attribute-data--#{attribute.html_class}"}
+          - if attribute.data != "" && !attribute.data.nil?
+            = render_field attribute
+          - else
+            ="-"

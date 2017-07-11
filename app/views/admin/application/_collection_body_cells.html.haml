@@ -1,0 +1,3 @@
+- collection_presenter.attributes_for(resource).each do |attribute|
+  %td.cell-data{class: "cell-data--#{attribute.html_class}"}
+    = link_to render_field(attribute), polymorphic_path([namespace, resource]), class: 'action-show'

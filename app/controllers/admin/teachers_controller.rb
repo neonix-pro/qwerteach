@@ -25,20 +25,6 @@ module Admin
       end
     end
 
-
-    # def index
-    #   search_term = params[:search].to_s.strip
-    #   resources = Teacher.where(postulance_accepted: true, active: true).order(params[:order] => params[:direction])
-    #   resources = resources.page(params[:page]).per(records_per_page)
-    #   page = Administrate::Page::Collection.new(dashboard, order: order)
-    #
-    #   render locals: {
-    #       resources: resources,
-    #       search_term: search_term,
-    #       page: page,
-    #   }
-    # end
-
     def show
       @conversations = teacher.mailbox.conversations.page(params[:page]).per(10)
       @conversation_admin = SendMessage.conversation_between(current_user, teacher)
@@ -47,25 +33,13 @@ module Admin
     end
 
     def nav_link_state(resource)
-      case params[:action]
-        when 'inactive_teachers'
-          resource_name = :inactive_teacher
-        when 'banned_users'
-          resource_name = :banned_user
-        when 'index'
-          if params[:controller] == 'admin/teachers'
-            resource_name = :teacher
-          end
-          if params[:controller] == 'admin/postulling_teachers'
-            resource_name = :postulling_teacher
-          end
-      end
-
-      if resource_name.to_s.pluralize == resource.to_s
-        :active
-      else
-        :inactive
-      end
+      case resource
+        when :teachers then true
+        when :postuling_teachers then action_name == 'postuling_teachers'
+        when :approved_teachers then action_name == 'index'
+        when :inactive_teachers then action_name == 'inactive_teachers'
+        else false
+      end ? :active : :inactive
     end
 
     def deactivate
@@ -86,6 +60,10 @@ module Admin
       end
     end
 
+    def postuling_teachers
+      index
+    end
+
     def inactive_teachers
       index
     end
@@ -97,15 +75,13 @@ module Admin
     end
 
     def scoped_resource
-      if action_name == 'index'
-        case params[:scope]
-        when :postuling
-          Teacher.active.where(postulance_accepted: false)
-        when :inactive
-          Teacher.unscoped.where(active: false)
-        else
-          Teacher.active.where(postulance_accepted: true)
-        end
+      case action_name
+      when 'index'
+        Teacher.active.where(postulance_accepted: true)
+      when 'postuling_teachers'
+        Teacher.active.where(postulance_accepted: false)
+      when 'inactive_teachers'
+        Teacher.unscoped.where(active: false)
       else
         super
       end

@@ -3,18 +3,16 @@
 
 - if local_assigns[:show_search_bar]
   - content_for(:search) do
-    = render "search", search_term: search_term
+    = render 'search', search_term: search_term
 .card-header.bordered
   .header-block
     %h3.title= content_for(:title)
-  .header-block.pull-right
-    %div
-      = link_to(                                                                      |
-          "#{t("administrate.actions.new")} #{page.resource_name.titleize.downcase}", |
-          [:new, namespace, page.resource_path],                                      |
-          class: "btn btn-primary",                                                            |
-        ) if valid_action? :new
+  - if valid_action? :new
+    .header-block.pull-right
+      = link_to("#{t("administrate.actions.new")} #{page.resource_name.titleize.downcase}", [:new, namespace, page.resource_path], class: "btn btn-primary")
+- if content_for?(:filters)
+  .card-block.filters= content_for(:filters)
 .card-block
   .table-responsive
-    = render "collection", collection_presenter: page, resources: resources
+    = render 'collection', collection_presenter: page, resources: resources
   = paginate_admin resources

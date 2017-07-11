@@ -6,12 +6,6 @@
 //@import "bootstrap/mixins/grid";
 //@import "bootstrap/grid";
 @import "dispute";
-.bootstrap-wrapper{
-  @import 'bootstrap';
-}
-.main-content__body {
-  padding: 1.5em;
-}
 .conversation-admin{
   .show-more, .mailbox-conversation-details{
     display:none;
@@ -49,5 +43,15 @@
 .table__row{
   img{
     max-width: 2em;
+  }
+}
+
+.form-filters {
+  flex-wrap: nowrap;
+  .form-group {
+    flex-shrink: 1;
+    & > select, & > input {
+      width: 100%;
+    }
   }
 }

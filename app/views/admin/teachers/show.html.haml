@@ -8,10 +8,11 @@
   .header-block.pull-right
     = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
 
-    = form_for([namespace, page.resource], html: {class: "form"}) do |f|
-      = f.hidden_field :postulance_accepted, value: !page.resource.postulance_accepted
-      = page.resource.postulance_accepted ? (f.submit 'Suspend') : (f.submit 'Approve', :class => 'btn btn-secondary')
-    = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "btn btn-secondary"
+    - if page.resource.postulance_accepted
+      = link_to 'Suspend', [namespace, page.resource, {postulance_accepted: false}], method: :post, class: 'btn btn-secondary'
+    - else
+      = link_to 'Approve', [namespace, page.resource, {postulance_accepted: true}], method: :post, class: 'btn btn-secondary'
+    = link_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: 'btn btn-secondary'
 
 .card-block
   %ul.nav.nav-tabs.nav-tabs-bordered
@@ -24,10 +25,9 @@
     %li.nav-item
       %a.nav-link(data-toggle="tab" data-target="#conversations" href="#conversations" aria-controls="conversations" role="tab" aria-expanded="false") Conversations
 
+
   .tab-content.tabs-bordered
     #information.tab-pane.active(aria-expanded="true")
-      .card-header
-        %h4.title Information
       %table.table-min.table-striped.table-bordered
         - page.attributes.each do |attribute|
           %tr
@@ -39,11 +39,10 @@
                 ="-"
 
     #postulation.tab-pane(aria-expanded="false")
-      .card-header
-        %h4.title Postulation:
-        .header-block.pull-right
-          = link_to "Modifier", [:edit, namespace, page.resource.postulation], class: 'btn btn-primary'
       = render :partial => 'admin/postulations/postulation', locals:{postulation: page.resource.postulation}
+      .pull-right
+        = link_to "Modifier", [:edit, namespace, page.resource.postulation], class: 'btn btn-primary'
+      .clearfix
 
     #discuter.tab-pane(aria-expanded="false")
       .card-header
