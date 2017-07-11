@@ -4,8 +4,11 @@
   .header-block
     %h3.title= content_for(:title)
   .header-block.pull-right
-    %div
-      = link_to('Edit', [:edit, namespace, page.resource], class: 'btn btn-primary') unless page.resource.finished?
+    = link_to(                                                  |
+        "#{t("administrate.actions.edit")} #{page.page_title}", |
+        [:edit, namespace, page.resource],                      |
+        class: "btn btn-primary",                               |
+      ) if valid_action? :edit
 .card-block
   %dl
     - page.attributes.each do |attribute|
