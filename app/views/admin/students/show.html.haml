@@ -9,29 +9,39 @@
     = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
     = link_to("Suspendre", admin_user_path(page.resource), method: :delete, class: "btn btn-secondary")
     = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "btn btn-secondary"
-  %hr
 
-.card-block.main-content__body
-  %table.table-min.table-striped.table-bordered
-    - page.attributes.each do |attribute|
-      %tr
-        %td.attribute-label= attribute.name.titleize
-        %td{:class => "attribute-data attribute-data--#{attribute.html_class}"}
-          - if attribute.data != "" && !attribute.data.nil?
-            = render_field attribute
-          - else
-            ="-"
-  .clearfix
+.card-block
+  %ul.nav.nav-tabs.nav-tabs-bordered
+    %li.nav-item
+      %a.nav-link.active(data-toggle="tab" data-target="#information" href="#information" aria-controls="information" role="tab" aria-expanded="true") Information
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#discuter" href="#discuter" aria-controls="discuter" role="tab" aria-expanded="false") Discuter
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#conversations" href="#conversations" aria-controls="conversations" role="tab" aria-expanded="false") Conversations
 
-.card-header.bordered
-  .header-block
-    %h4.title Discuter avec #{page.resource.name}
-  .header-block.actions.pull-right
-    = link_to 'Inviter dans la classe virtuelle', room_invite_bbb_rooms_path(page.resource), class:'btn btn-secondary'
-  .clearfix
-.card-block.conversation-admin
-  = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: student
+  .tab-content.tabs-bordered
+    #information.tab-pane.active(aria-expanded="true")
+      .card-header
+        %h4.title Information
+      %table.table-min.table-striped.table-bordered
+        - page.attributes.each do |attribute|
+          %tr
+            %td.attribute-label= attribute.name.titleize
+            %td{:class => "attribute-data attribute-data--#{attribute.html_class}"}
+              - if attribute.data != "" && !attribute.data.nil?
+                = render_field attribute
+              - else
+                ="-"
 
-= render 'admin/shared/conversations', conversations: @conversations, user: student
+    #discuter.tab-pane(aria-expanded="false")
+      .card-header
+        %h4.title Discuter avec #{page.resource.name}
+        .header-block.actions.pull-right
+          = link_to 'Inviter dans la classe virtuelle', room_invite_bbb_rooms_path(page.resource), class:'btn btn-secondary'
+      .conversation-admin
+        = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: student
+
+    #conversations.tab-pane(aria-expanded="false")
+      = render 'admin/shared/conversations', conversations: @conversations, user: student
 
 -#=content_for(:javascript)

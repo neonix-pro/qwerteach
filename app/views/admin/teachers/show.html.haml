@@ -14,32 +14,47 @@
     = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "btn btn-secondary"
 
 .card-block
-  %section.main-content__body.user-postulation
-    .card-header
-      %h3.title Postulation:
-      .header-block.pull-right
-        = link_to "Modifier", [:edit, namespace, page.resource.postulation], class: 'btn btn-primary'
-    = render :partial => 'admin/postulations/postulation', locals:{postulation: page.resource.postulation}
+  %ul.nav.nav-tabs.nav-tabs-bordered
+    %li.nav-item
+      %a.nav-link.active(data-toggle="tab" data-target="#information" href="#information" aria-controls="information" role="tab" aria-expanded="true") Information
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#postulation" href="#postulation" aria-controls="postulation" role="tab" aria-expanded="false") Postulation
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#discuter" href="#discuter" aria-controls="discuter" role="tab" aria-expanded="false") Discuter
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#conversations" href="#conversations" aria-controls="conversations" role="tab" aria-expanded="false") Conversations
 
-  %hr
-  %section.main-content__body
-    %table.table-min.table-striped.table-bordered
-      - page.attributes.each do |attribute|
-        %tr
-          %td.attribute-label= attribute.name.titleize
-          %td{:class => "attribute-data attribute-data--#{attribute.html_class}"}
-            - if attribute.data != "" && !attribute.data.nil?
-              = render_field attribute
-            - else
-              ="-"
-    #generated-text
+  .tab-content.tabs-bordered
+    #information.tab-pane.active(aria-expanded="true")
       .card-header
-        %h3.title Discuter avec #{page.resource.name}
+        %h4.title Information
+      %table.table-min.table-striped.table-bordered
+        - page.attributes.each do |attribute|
+          %tr
+            %td.attribute-label= attribute.name.titleize
+            %td{:class => "attribute-data attribute-data--#{attribute.html_class}"}
+              - if attribute.data != "" && !attribute.data.nil?
+                = render_field attribute
+              - else
+                ="-"
+
+    #postulation.tab-pane(aria-expanded="false")
+      .card-header
+        %h4.title Postulation:
+        .header-block.pull-right
+          = link_to "Modifier", [:edit, namespace, page.resource.postulation], class: 'btn btn-primary'
+      = render :partial => 'admin/postulations/postulation', locals:{postulation: page.resource.postulation}
+
+    #discuter.tab-pane(aria-expanded="false")
+      .card-header
+        %h4.title Discuter avec #{page.resource.name}
         .actions.header-block.pull-right
           = link_to 'Interview', room_invite_bbb_rooms_path(teacher), class:'btn btn-secondary'
           = link_to 'generate text', admin_postulation_generate_text_path(page.resource.postulation), remote:true, class:'btn btn-secondary'
       .conversation-admin
         = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: teacher
-    = render 'admin/shared/conversations', conversations: @conversations, user: teacher
+
+    #conversations.tab-pane(aria-expanded="false")
+      = render 'admin/shared/conversations', conversations: @conversations, user: teacher
 
 =content_for(:javascript)
