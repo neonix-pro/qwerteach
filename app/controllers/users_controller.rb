@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :authenticate_user!, only: :update
+  before_filter :authenticate_user!, only: [:update]
   before_action :filter_param, only: :index
 
   def show
@@ -21,9 +21,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def sign_up_show
+    @teacher = Teacher.find(params[:user_id])
+    session[:user_redirect_to]= user_url(@teacher)
+  end
+
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
+    per_page = params[:per_page] || 12
     search_sorting_options
+    params[:topic] = 'maths' if params[:topic] == 'math' # TODO: find better way to do this ! (sunspot dictionary?)
     @sunspot_search = Sunspot.search(Offer) do
       with(:postulance_accepted, true)
       with(:active, true)
@@ -34,7 +41,8 @@ class UsersController < ApplicationController
       with(:first_lesson_free, true) if params[:filter] == 'first_lesson_free'
       with(:online, true) if params[:filter] == 'online'
       with(:has_reviews).greater_than(0) if params[:filter] == 'has_reviews'
-      paginate(:page => params[:page], :per_page => 12)
+      with(:avatar_score).greater_than(2) if params[:filter] == 'avatar_score'
+      paginate(:page => params[:page], :per_page => per_page)
     end
     @search = []
     @total = @sunspot_search.group(:user_id_str).total
@@ -43,15 +51,29 @@ class UsersController < ApplicationController
         @search.push(result.user)
       end
     end
-    @pagin = Kaminari.paginate_array(@search, total_count: @total).page(params[:page]).per(12)
-    #end
+    @pagin = Kaminari.paginate_array(@search, total_count: @total).page(params[:page]).per(per_page)
     if params[:location] == 'landing'
       render 'landing_page_teachers'
     end
   end
 
+  def abtest
+    if params[:version] == 'origine'
+      index
+      render template: 'users/index'
+    else
+      params[:per_page] = 20 if params[:version] == 'q4'
+      params[:topic] = 'mathématiques' if params[:topic] == 'maths'
+      params[:filter] = 'avatar_score'
+      index
+      @total = Teacher.where(postulance_accepted: true, active: true).count
+      render template: "pages/matieres/#{params[:version]}"
+    end
+  end
+
   def profs_by_topic
-    redirect_to profs_by_topic_path(params[:topic], params: params)
+    sort_params = params.slice(:filter, :search_sorting)
+    redirect_to profs_by_topic_path(topic: params[:topic], params: sort_params)
   end
 
   def unapproved_teachers
@@ -157,7 +179,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:firstname, :lastname, :birthdate, :phone_country_code, :phone_number,
                                    :gender, :occupation, :description, :level_id,
                                    :time_zone, :avatar, :crop_x, :crop_y, :crop_h, :crop_w,
-                                  :first_lesson_free)
+                                  :first_lesson_free, :video_url)
     end
   
     def filter_param

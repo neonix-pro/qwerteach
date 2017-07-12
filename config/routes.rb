@@ -162,6 +162,7 @@ Rails.application.routes.draw do
   get 'unapproved-teachers' => "users#unapproved_teachers"
 
   resources :users, :only => [:show] do
+    get 'sign_up' => "users#sign_up_show", :as => 'sign_up_show'
     resources :require_lesson
     post '/lesson_requests/payment' => 'lesson_requests/payment'
     resources :lesson_requests, only: [:new, :create] do
@@ -171,6 +172,7 @@ Rails.application.routes.draw do
       get :credit_card_process, on: :collection
       get :bancontact_process, on: :collection
       post :create_account, on: :collection
+      get :finish
     end
     resources :reviews, only: [:index, :create, :new]
   end
@@ -181,7 +183,7 @@ Rails.application.routes.draw do
   resources :topics do
     get :autocomplete_topic_title, :on => :collection
   end
-  match "/profs/" => "users#profs_by_topic", as: :profs, via: :post
+  match "/profs/(:topic)" => "users#profs_by_topic", as: :profs, via: :post
   match "/profs/:topic" => "users#index", :as => :profs_by_topic, :via => [:get]
   get "/profs" => "users#index", as: :all_teachers
 
@@ -204,6 +206,8 @@ Rails.application.routes.draw do
 
   get "/pages/*page" => "pages#show", as: :pages
   get "faq(/:target(/:section))/" => "pages#faq", as: :faq
+  get "static/:page/:version" => "pages#abtest", as: :abtest
+  get "cours/:topic/:version" => "users#abtest", as: :users_abtest
 
   get '/become_teacher/accueil' => "pages#devenir-prof"
   get '/index' => "pages#index"

@@ -1,0 +1,135 @@
+.test-lp-matiere
+  #search-results.clearfix
+    .container-fluid
+      .row
+        - @search.each_with_index do |u, i|
+          .col-xs-3
+            .card.prof
+              .card-image.waves-effect.waves-block.waves-light
+                = image_tag u.avatar.url(:medium), class: 'activator'
+              .card-content
+                %span.card-title.activator
+                  = u.name
+                %p.topics-list= u.offers.map{|ad| link_to ad.title, profs_by_topic_path(ad.title)}.join(', ').html_safe
+              .card-reveal
+                %span.card-title.activator
+                  %i.fa.fa-times.right
+                  = u.name
+                %p
+                  = sanitize(u.description, tags: %w(a p)).truncate_words(50).html_safe
+                  %hr
+                .text-center
+                  = link_to 'profil complet', user_path(u), class: 'btn btn-qw btn-sm btn-green'
+      .row
+        #more-results
+          = link_to "Voir tous les profs", profs_path, class: 'text-green'
+  = render 'pages/accueil/partie_commentaire'
+  %section#services
+    .container
+      .row
+        .col-lg-12.text-center
+          %h2.section-heading Un nouveau genre de soutien scolaire
+          %hr.primary/
+    .container
+      .row
+        .col-lg-3.col-md-6.text-center
+          .service-box
+            %i.fa.fa-4x.fa-diamond.text-primary.sr-icons
+            %h3 Les meilleurs profs
+            %p.text-muted Nous vérifions les capacités de chaque professeur
+        .col-lg-3.col-md-6.text-center
+          .service-box
+            %i.fa.fa-4x.fa-paper-plane.text-primary.sr-icons
+            %h3 Où vous voulez
+            %p.text-muted Suivez vos cours et exercices de maths n'importe où dans le monde
+        .col-lg-3.col-md-6.text-center
+          .service-box
+            %i.fa.fa-4x.fa-newspaper-o.text-primary.sr-icons
+            %h3 Pédagogie revisitée
+            %p.text-muted Variez les durées de cours, apprenez les maths différemment
+        .col-lg-3.col-md-6.text-center
+          .service-box
+            %i.fa.fa-4x.fa-heart.text-primary.sr-icons
+            %h3 L'essentiel
+            %p.text-muted Nos professeurs vous accompagnent vers la réussite!
+
+  %section#about.bg-primary
+    .container
+      .row
+        .col-lg-8.col-lg-offset-2.text-center
+          %h2.section-heading Le cours particulier, un passage parfois nécessaire
+          %hr.light/
+        .col-lg-6
+          %p.text-faded
+            Tout le monde n'a pas la bosse des maths! <br />Entre les théorèmes de Pythagore et Thalès, les fonctions
+            trigonométriques et les dérivées, l'aide d'un professeur particulier peut s'avérer salutaire. En cours
+            particulier, le professeur pourra prendre le temps de cerner les besoins spécifiques son élève, combler ses
+            lacunes en maths et lui ré-expliquer les notions qui lui posent problème.
+          %p.text-faded
+            Nos professeurs de maths ont tous été interviewés individuellement, afin de nous assurer de leur compétences
+            et aptitudes pédagogiques. Ainsi, que ce soit pour un problème de maths en 3ème année, ou des intégrales
+            en terminale, vous trouverez ici le professeur particulier qu'il vous faut! Les cours et exercices de maths
+            que vous trouverez sur Qwerteach vous permettront de rattrapper une mauvaise moyenne.
+        .col-lg-6
+          %p.text-faded
+            Aujourd'hui, plus de 60% des jeunes redoublent au moins une année lors de leur parcours scolaire. Entre un
+            enseignement qui n' pas évolué depuis le siècle dernier et des profs de moins en moins motivés, difficile de s'en étonner!
+            Nombreux sont les parents qui ont recours aux cours particuliers, surtout en mathématiques.
+          %p.text-faded
+            Le jeune en difficulté scolaire a besoin de reprendre confiance en lui et en ses capacités. Prendre des
+            cours de soutien lui permettra de se confronter à ses difficultés en mathématiques, et de les surmonter petit à petit.
+            La relation de confiance qui se développe entre le professeur particulier et son élève est très importante dans ce processus,
+            c'est pourquoi le choix du professeur est primordial.
+        .col-lg-12.text-center
+          = link_to "S'inscrire", new_user_registration_path, class: 'btn btn-default btn-qw'
+  %aside.bg-dark
+    .container.text-center
+      .call-to-action
+        %h2 Trouvez votre professeur particulier!
+        = link_to "S'inscrire", new_user_registration_path, class: 'btn btn-default btn-qw'
+  %section#contact
+    .container
+      .row
+        .col-lg-8.col-lg-offset-2.text-center
+          %h2.section-heading Contactez-nous!
+          %hr.primary/
+          %p Vous êtes prêts à découvrir le futur des cours particuliers, mais il vous reste quelques questions? Notre équipe est à votre disposition.
+        .col-lg-4.col-lg-offset-2.text-center
+          = link_to '#', class: 'open-tawk' do
+            %i.fa.fa-comments-o.fa-3x.sr-chat.text-black
+            %p "chat"
+        .col-lg-4.text-center
+          %i.fa.fa-envelope-o.fa-3x.sr-contact
+          %p
+            = link_to "hello@qwerteach.com", "mailto:hello@qwerteach.com"
+
+  #sign-up-modal.modal.fade.in{:role => "dialog"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"data-dismiss" => "modal", :type => "button"} ×
+          .text-center
+            = image_tag 'logoQ.png'
+          %h1.modal-title.text-center
+            Trouvez votre prof particulier de maths!
+            %br
+            %small Suivez votre cours particulier en ligne, tranquille à la maison
+        .modal-body
+          .omniauth-signup
+            .row
+              .col-sm-10.col-sm-offset-1
+                = render partial: 'users/shared/omniauth_signin'
+          %hr
+          .material-form
+            .row
+              .col-sm-10.col-sm-offset-1
+                = render :partial => 'devise/registrations/new_form'
+
+
+- if current_user
+  :javascript
+    $(window).scrollTop(450);
+
+
+:javascript
+  $('#sign-up-modal').modal();

@@ -12,6 +12,5 @@
           [namespace, :disputes, q: {name => true}], |
           class: "btn btn-secondary #{name}") |
 .card-block
-  .table-responsive
-    = render 'collection', collection_presenter: page, resources: resources
+  = render 'collection', collection_presenter: page, resources: resources
   = paginate_admin resources

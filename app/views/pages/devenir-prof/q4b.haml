@@ -1,0 +1,72 @@
+.test-become-teacher
+  %header.q4.section_bigimage
+    .header-content
+      .header-content-inner
+        %h1#homeHeading Donnez des cours particuliers<br />au monde entier
+        %hr/
+        %p Trouvez des élèves, donnez des cours, soyez payé,<br />depuis votre canapé!
+        = link_to 'Devenez prof', new_user_registration_path, class: 'btn btn-primary btn-qw become-teacher'
+  %section#about.bg-primary
+    .container
+      .row
+        .col-lg-8.col-lg-offset-2.text-center
+          %h2.section-heading Enseignez en toute liberté
+          %hr.light/
+          %p.text-faded
+            Vous en avez assez de perdre votre temps dans les transports, et de travailler pour des agences? <br />Qwerteach est fait pour vous!
+          %p.text-faded
+            Donnez vos cours particuliers où et quand vous voulez, à votre rythme et à votre propre tarif.
+            Grâce à Qwerteach, vous pouvez vous concentrer sur l'essentiel: accompagner vos élèves vers la réussite!
+          = link_to 'Poser ma candidature', new_user_registration_path, class: 'btn btn-default btn-qw become-teacher'
+  %section#services
+    .container
+      .row
+        .col-lg-12.text-center
+          %h2.section-heading A votre service
+          %hr.primary/
+    .container
+      .row
+        .col-lg-3.col-md-6.text-center
+          .service-box
+            %i.fa.fa-4x.fa-diamond.text-primary.sr-icons
+            %h3 Votre travail est reconnu
+            %p.text-muted Bénéficiez du feedback de vos élèves et créez votre réputation
+        .col-lg-3.col-md-6.text-center
+          .service-box
+            %i.fa.fa-4x.fa-paper-plane.text-primary.sr-icons
+            %h3 En toute liberté
+            %p.text-muted Vous choisissez vos élèves, votre tarif, vos plages horaires
+        .col-lg-3.col-md-6.text-center
+          .service-box
+            %i.fa.fa-4x.fa-newspaper-o.text-primary.sr-icons
+            %h3 Une nouvelle façon d'enseigner
+            %p.text-muted Variez vos durées de cours, innovez dans vos méthodes
+        .col-lg-3.col-md-6.text-center
+          .service-box
+            %i.fa.fa-4x.fa-heart.text-primary.sr-icons
+            %h3 L'essentiel
+            %p.text-muted Accompagnez vos élèves vers la réussite!
+  %aside.bg-dark
+    .container.text-center
+      .call-to-action
+        %h2 Rejoignez la communauté!
+        = link_to 'Devenir prof', new_user_registration_path, class: 'btn btn-default btn-qw become-teacher'
+  %section#contact
+    .container
+      .row
+        .col-lg-8.col-lg-offset-2.text-center
+          %h2.section-heading Contactez-nous!
+          %hr.primary/
+          %p Vous êtes prêts à découvrir une nouvelle façon d'enseigner, mais il vous reste quelques questions? Notre équipe est à votre disposition.
+        .col-lg-4.col-lg-offset-2.text-center
+          = link_to '#', class: 'open-tawk' do
+            %i.fa.fa-comments-o.fa-3x.sr-chat.text-black
+            %p "chat"
+        .col-lg-4.text-center
+          %i.fa.fa-envelope-o.fa-3x.sr-contact
+          %p
+            = link_to "mailto:hello@qwerteach.com", "mailto:hello@qwerteach.com"
+:javascript
+  $('.become-teacher').click(function(){
+    ga('send', 'event', 'click-teacher-application', $(this).text() );
+  });

@@ -78,12 +78,12 @@ class LessonRequestsController < ApplicationController
         t.google_analytics :send, { type: 'event', category: 'Payment', action: 'Booking payment', label: "Credit Card", value: @lesson.price }
       end
       respond_to do |format|
-        format.html {redirect_to lessons_path, notice: t('notice.booking_success')}
+        format.html {render 'finish'}
         format.json {render :json => {:success => "true"}}
       end
     else
       respond_to do |format|
-        format.html {redirect_to user_path(@lesson.teacher), notice: t('notice.booking_error')}
+        format.html {redirect_to new_user_lesson_request_path(@teacher), notice: t('notice.booking_error')}
         format.json {render :json => {:success => "false"}}
       end
     end
@@ -98,15 +98,20 @@ class LessonRequestsController < ApplicationController
         t.google_analytics :send, { type: 'event', category: 'Payment', action: 'Booking payment', label: "Bancontact", value: @lesson.price }
       end
       respond_to do |format|
-        format.html {redirect_to lessons_path, notice: t('notice.booking_success')}
+        #format.html {redirect_to lessons_path, notice: t('notice.booking_success')}
+        format.html {render 'finish'}
         format.json {render :json => {:success => "true"}}
       end
     else
       respond_to do |format|
-        format.html {redirect_to user_path(@lesson.teacher), notice: t('notice.booking_error')}
+        format.html {redirect_to new_user_lesson_request_path(@teacher), notice: t('notice.booking_error')}
         format.json {render :json => {:success => "false"}}
       end
     end
+  end
+
+  def finish
+
   end
 
   def topics

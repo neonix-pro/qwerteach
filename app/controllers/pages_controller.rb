@@ -19,4 +19,9 @@ class PagesController < ApplicationController
 		@section = params[:section] || 'generalites'
 	end
 
+  def abtest
+		index
+		render template: "pages/#{params[:page]}/#{params[:version]}"
+	end
+
 end

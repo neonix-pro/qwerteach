@@ -16,6 +16,7 @@ class window.OffersManager
   initEvents: ->
     @$el.on 'input', '.topic-group-select', (e)=> @onTopicGroupSelect(e)
     @$el.on 'input', '.topic-select', (e)=> @onTopicSelect(e)
+    @$el.on 'focus', 'textarea', (e)=> @onDescriptionFocus(e)
 
   onTopicGroupSelect: (e)->
     $.ajax({
@@ -40,9 +41,18 @@ class window.OffersManager
       @$otherName.append('<input type="text" class="form-control" name="offer[other_name]" required>')
     else
       @$otherName.html('')
+    @$el.find('.topic-select').siblings('.feedback').remove()
+    @$el.find('.topic-select').parent().removeClass('has-error')
 
   onTopicSelectSuccess: (e)->
     @$el.on 'input', '.price-input',(e) => @onPriceIntroduced(e)
 
   onPriceIntroduced: (e)->
     @$submit.show()
+
+  onDescriptionFocus: (e)->
+    console.log(@$el.find('.topic-select').val())
+    if (@$el.find('.topic-select').val() == null || @$el.find('.topic-select').val() == '')
+      @$el.find('.topic-select').parent().addClass('has-error')
+      if @$el.find('.topic-select').siblings('.feedback').length < 1
+        @$el.find('.topic-select').parent().append('<div class="feedback text-danger">Vous devez sélectionner une sous-catégorie</div>')
