@@ -7,8 +7,7 @@
     %h3.title= content_for(:title).pluralize
 
 .card-block
-  .table-responsive
-    = render 'collection', collection_presenter: page, resources: resources
+  = render 'collection', collection_presenter: page, resources: resources
   = paginate_admin resources
 
 
@@ -17,5 +16,4 @@
     %h3.title Utilisateurs en ligne (#{@online.count})
 
 .card-block
-  .table-responsive
-    = render 'collection', collection_presenter: page, resources: @online
+  = render 'collection', collection_presenter: page, resources: @online

@@ -7,13 +7,15 @@
       %small (Student)
   .header-block.pull-right
     = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
-    = link_to("Suspendre", admin_user_path(page.resource), method: :delete, class: "btn btn-secondary")
-    = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "btn btn-secondary"
+    = link_to("Suspendre", admin_user_path(page.resource), method: :delete, class: "btn btn-warning")
+    = link_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "btn btn-secondary"
 
 .card-block
   %ul.nav.nav-tabs.nav-tabs-bordered
     %li.nav-item
       %a.nav-link.active(data-toggle="tab" data-target="#information" href="#information" aria-controls="information" role="tab" aria-expanded="true") Information
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#lessons" href="#discuter" aria-controls="lessons" role="tab" aria-expanded="false") Received Lessons
     %li.nav-item
       %a.nav-link(data-toggle="tab" data-target="#discuter" href="#discuter" aria-controls="discuter" role="tab" aria-expanded="false") Discuter
     %li.nav-item
@@ -21,7 +23,7 @@
 
   .tab-content.tabs-bordered
     #information.tab-pane.active(aria-expanded="true")
-      %table.table-min.table-striped.table-bordered
+      %table.table-min.table-striped
         - page.attributes.each do |attribute|
           %tr
             %td.attribute-label= attribute.name.titleize
@@ -30,6 +32,15 @@
                 = render_field attribute
               - else
                 ="-"
+        %tr
+          %td.attribute-label Balance
+          %td{:class => "attribute-data"}
+            - if page.resource.mango_id.present?
+              = wallet_balance(page.resource.normal_wallet) rescue '-'
+            - else
+              ="-"
+    #lessons.tab-pane(aria-expanded="false")
+      = render_field resource_field(page, :lessons_received)
 
     #discuter.tab-pane(aria-expanded="false")
       .card-header

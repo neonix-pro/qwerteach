@@ -10,7 +10,7 @@
         class: "btn btn-primary",                               |
       ) if valid_action? :edit
 .card-block
-  %table.table-min.table-striped.table-bordered
+  %table.table-min.table-striped
     - page.attributes.each do |attribute|
       %tr
         %td.attribute-label

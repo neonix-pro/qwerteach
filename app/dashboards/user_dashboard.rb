@@ -53,7 +53,8 @@ class UserDashboard < Administrate::BaseDashboard
       avatar_updated_at: Field::DateTime,
       avatar_score: Field::Number,
       score: Field::Number,
-      avatar: Field::Image.with_options(thumb: :small)
+      avatar: Field::Image.with_options(thumb: :small),
+      name: Field::Text
   }
 
   # COLLECTION_ATTRIBUTES
@@ -64,14 +65,10 @@ class UserDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
       :avatar,
       :id,
-      :firstname,
-      :lastname,
-      :email,
+      :name,
       :type,
-      :confirmed_at,
-      :sign_in_count,
-      :score,
-      :avatar_score,
+      :created_at,
+      :confirmed_at
   ]
 
   # SHOW_PAGE_ATTRIBUTES

@@ -8,9 +8,14 @@
         [:edit, namespace, page.resource],                      |
         class: "btn btn-primary",                               |
       ) if valid_action? :edit                                  |
+    = link_to(                                                      |
+        "#{t("administrate.actions.destroy")} #{page.page_title}",  |
+        [:edit, namespace, page.resource],                          |
+        class: "btn btn-danger",                                    |
+      ) if valid_action? :destroy                                   |
 
 .card-block.main-content__body
-  %table.table-min.table-striped.table-bordered
+  %table.table-min.table-striped
     - page.attributes.each do |attribute|
       %tr
         %td.attribute-label

@@ -9,26 +9,31 @@
     = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
 
     - if page.resource.postulance_accepted
-      = link_to 'Suspend', [namespace, page.resource, {postulance_accepted: false}], method: :post, class: 'btn btn-secondary'
+      = link_to 'Suspend', [namespace, page.resource, {postulance_accepted: false}], method: :post, class: 'btn btn-warning'
     - else
-      = link_to 'Approve', [namespace, page.resource, {postulance_accepted: true}], method: :post, class: 'btn btn-secondary'
+      = link_to 'Approve', [namespace, page.resource, {postulance_accepted: true}], method: :post, class: 'btn btn-info'
     = link_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: 'btn btn-secondary'
 
 .card-block
   %ul.nav.nav-tabs.nav-tabs-bordered
     %li.nav-item
-      %a.nav-link.active(data-toggle="tab" data-target="#information" href="#information" aria-controls="information" role="tab" aria-expanded="true") Information
+      %a.nav-link.active(data-toggle="tab" href="#information-tab" role="tab" aria-expanded="true") Information
     %li.nav-item
-      %a.nav-link(data-toggle="tab" data-target="#postulation" href="#postulation" aria-controls="postulation" role="tab" aria-expanded="false") Postulation
+      %a.nav-link(data-toggle="tab" href="#postulation-tab" role="tab" aria-expanded="false") Postulation
     %li.nav-item
-      %a.nav-link(data-toggle="tab" data-target="#discuter" href="#discuter" aria-controls="discuter" role="tab" aria-expanded="false") Discuter
+      %a.nav-link(data-toggle="tab" href="#received_lessons-tab" role="tab" aria-expanded="false") Received Lessons
     %li.nav-item
-      %a.nav-link(data-toggle="tab" data-target="#conversations" href="#conversations" aria-controls="conversations" role="tab" aria-expanded="false") Conversations (#{@conversations.total_count})
-
+      %a.nav-link(data-toggle="tab" href="#given_lessons-tab" role="tab" aria-expanded="false") Given Lessons
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" href="#offers-tab" role="tab" aria-expanded="false") Offers
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" href="#dialog-tab" role="tab" aria-expanded="false") Discuter
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" href="#conversations-tab" role="tab" aria-expanded="false") Conversations (#{@conversations.total_count})
 
   .tab-content.tabs-bordered
-    #information.tab-pane.active(aria-expanded="true")
-      %table.table-min.table-striped.table-bordered
+    #information-tab.tab-pane.active(aria-expanded="true")
+      %table.table-min.table-striped
         - page.attributes.each do |attribute|
           %tr
             %td.attribute-label= attribute.name.titleize
@@ -37,14 +42,30 @@
                 = render_field attribute
               - else
                 ="-"
+        %tr
+          %td.attribute-label Balance
+          %td{:class => "attribute-data"}
+            - if page.resource.mango_id.present?
+              = wallet_balance(page.resource.normal_wallet) rescue '-'
+            - else
+              ="-"
 
-    #postulation.tab-pane(aria-expanded="false")
+    #postulation-tab.tab-pane(aria-expanded="false")
       = render :partial => 'admin/postulations/postulation', locals:{postulation: page.resource.postulation}
       .form-group.pull-right
         = link_to "Modifier", [:edit, namespace, page.resource.postulation], class: 'btn btn-primary'
       .clearfix
 
-    #discuter.tab-pane(aria-expanded="false")
+    #received_lessons-tab.tab-pane(aria-expanded="false")
+      = render_field resource_field(page, :lessons_received)
+
+    #given_lessons-tab.tab-pane(aria-expanded="false")
+      = render_field resource_field(page, :lessons_given)
+
+    #offers-tab.tab-pane(aria-expanded="false")
+      = render_field resource_field(page, :offers)
+
+    #dialog-tab.tab-pane(aria-expanded="false")
       .card-header
         %h4.title Discuter avec #{page.resource.name}
         .actions.header-block.pull-right

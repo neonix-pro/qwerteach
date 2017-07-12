@@ -56,7 +56,10 @@ class TeacherDashboard < Administrate::BaseDashboard
       mango_id: Field::Number,
       score: Field::Number,
       avatar_score: Field::Number,
-      avatar: Field::Image.with_options(thumb: :small)
+      avatar: Field::Image.with_options(thumb: :small),
+      name: Field::Text,
+      lessons_received: Field::HasMany,
+      lessons_given: Field::HasMany
   }
 
   # COLLECTION_ATTRIBUTES
@@ -67,14 +70,10 @@ class TeacherDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
       :avatar,
       :id,
-      :gallery,
-      :postulation,
-      :login,
-      :postulance_accepted,
-      :teacher_status,
-      :offers,
-      :score,
-      :avatar_score,
+      :name,
+      :email,
+      :created_at,
+      :confirmed_at
   ]
 
   # SHOW_PAGE_ATTRIBUTES
@@ -94,7 +93,6 @@ class TeacherDashboard < Administrate::BaseDashboard
       :phone_number,
       :first_lesson_free,
       :description,
-      :offers,
       :degrees,
       :postulance_accepted,
       :teacher_status,

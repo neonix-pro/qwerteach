@@ -20,7 +20,7 @@
 
   .tab-content.tabs-bordered
     #information.tab-pane.active(aria-expanded="true")
-      %table.table-min.table-striped.table-bordered
+      %table.table-min.table-striped
         %tr
           %td.attribute-label ID:
           %td= page.resource.id
@@ -62,7 +62,7 @@
           %td= page.resource.updated_at
 
     #payments.tab-pane(aria-expanded="true")
-      %table.table.table-striped.table-bordered.table-hover
+      %table.table.table-striped
         %thead
           %th ID
           %th Amount
@@ -83,7 +83,7 @@
     #recordings.tab-pane(aria-expanded="true")
       - if page.resource.bbb_room.present?
 
-        %table.table.table-striped.table-bordered.table-hover
+        %table.table.table-striped
           %thead
             %th ID
             %th Link

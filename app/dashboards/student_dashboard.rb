@@ -51,6 +51,7 @@ class StudentDashboard < Administrate::BaseDashboard
       avatar_file_size: Field::Number,
       avatar_updated_at: Field::DateTime,
       mango_id: Field::Number,
+      lessons_received: Field::HasMany
   }
 
   # COLLECTION_ATTRIBUTES
@@ -64,7 +65,6 @@ class StudentDashboard < Administrate::BaseDashboard
       :email,
       :phone_country_code,
       :phone_number,
-      :offers,
   ]
 
   # SHOW_PAGE_ATTRIBUTES

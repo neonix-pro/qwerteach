@@ -13,6 +13,5 @@
 - if content_for?(:filters)
   .card-block.filters= content_for(:filters)
 .card-block
-  .table-responsive
-    = render 'collection', collection_presenter: page, resources: resources
+  = render 'collection', collection_presenter: page, resources: resources
   = paginate_admin resources
