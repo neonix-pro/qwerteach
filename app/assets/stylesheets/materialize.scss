@@ -59,6 +59,15 @@ $tabs-underline-color: $color_qwerteach_green;
       color:initial;
     }
   }
+  .materialize_autocomplete-content.dropdown-content{
+    display:block;
+    opacity: 1;
+    width: 100%;
+    top:48px;
+  }
+  .dropdown-content{
+    width:100%;
+  }
 }
 @import "materialize/components/table_of_contents";
 //@import "materialize/components/sideNav";

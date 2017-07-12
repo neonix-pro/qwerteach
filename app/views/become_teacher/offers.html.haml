@@ -1,18 +1,30 @@
 #become-teacher
-  .become-teacher-offers
+  .become-teacher-offers.text-left
     .row
       = tutorial_progress_bar
+    .row
+      .col-sm-8.col-sm-offset-2.offer-form-wrapper
+        = render partial: 'offer', locals:{offer: @offer, id: 1}
     .row
       .col-sm-8.col-sm-offset-2
         .card
           .card-content
-            %span.card-title.text-center Quelle(s) matière(s) enseignez-vous ?
-            = render partial: 'offer', locals:{offer: @offer, id: 1}
-      - @user.offers.each do |offer|
-        .col-sm-8.col-sm-offset-2
-          = render partial: 'edit_offer', locals:{offer: offer}
-    .row
-      .col-sm-2
-      .col-sm-8
-        %nav.text-right
-          = link_to 'Continuer', next_wizard_path, class:'btn btn-qw btn-sm btn-green'
+            .offers-list
+              %span.card-title.text-center
+                %span.count #{@user.offers.count}
+                #{@user.offers.count == 1 ? 'annonce enregistrée' : 'annonces enregistrées'}
+                %br
+              - @user.offers.each do |offer|
+                = render partial: 'edit_offer', locals:{offer: offer}
+            %nav.text-right
+              = link_to 'Continuer', next_wizard_path, class:'btn btn-qw btn-sm btn-green'
+
+:javascript
+  $('nav a').click(function(e){
+    if ($('.offers-list .offer-edit-form').length <1 ){
+      e.preventDefault();
+      var div = '<div class="text-danger">Vous devez enregistrer au moins une annonce pour continuer!</div>'
+      $(this).parent().find('.text-danger').remove();
+      $(this).parent().append(div);
+    }
+  });

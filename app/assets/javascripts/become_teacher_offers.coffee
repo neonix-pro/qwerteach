@@ -1,71 +1,101 @@
 class window.OffersManager
-  CONSTANT1 = 'test'
+  TOPICAUTRE = [3, 7, 12, 18, 22, 27]
 
-  constructor: (id) ->
+  constructor: (id, topics) ->
     @id = id
     @$el = $('#offer-form-'+@id)
     @$submit = $('#offer-form-'+@id+' input[type=submit]')
     @$title = @$el.children('.offer-title')
-    @$otherName = @$el.find('.topic-name')
+    @$otherName = @$el.find('.other_name')
+    @$topicGroupSelect = @$el.find('.input-field.topic_group_select')
+    @$textarea = @$el.find('textarea').parent()
+    @topics = topics
     @initialize()
 
   initialize: ->
     @initEvents()
-    @$submit.hide()
+    @$textarea.hide()
     @autocompleted = false
-    @$el.find('select').material_select();
+    @$el.find('select').material_select()
+    @$el.find('.materialize_autocomplete').materialize_autocomplete({
+        data: @topics,
+        limit: 20,
+        onAutocomplete:(val) => @onAutocomplete(val),
+        minLength: 1})
+    @$topicGroupSelect.hide()
 
   initEvents: ->
-    @$el.on 'input', '.topic-group-select', (e)=> @onTopicGroupSelect(e)
-    @$el.on 'input', '.topic-select', (e)=> @onTopicSelect(e)
-    @$el.on 'focus', 'textarea', (e)=> @onDescriptionFocus(e)
-    @$el.bind 'railsAutocomplete.select', '.autocomplete', (e, data) => @onAutocomplete(e, data)
+    @$el.on 'autocomplete', '.materialize_autocomplete', (val) => @onAutocomplete(val)
+    @$el.on 'keypress', '.materialize_autocomplete', (e) => @onTypeInField(e)
+    @$el.on 'input', '.other_name', (e) => @onOtherNameInput(e)
+    @$el.on 'change', '.topic_group_select select', (e) => @onTopicGroupSelect(e)
+    @$el.on 'blur', '.materialize_autocomplete', (e) => @onTopicBlur(e)
+    @$el.on 'submit', (e) => @onSubmit(e)
 
-  onAutocomplete: (e, data)->
-    unless data.item.title == 'Autre'
-      @$el.find('.topic_id').val(data.item.id)
-      @$el.find('.topic_group_id').val(data.item.topic_group_id)
-      @autocompleted = true
+  onSubmit: (e)->
+    e.preventDefault()
+    @isTopicValid()
+
+  isTopicValid: ->
+    t = $('.materialize_autocomplete').val()
+    g = @$topicGroupSelect.find('select').val()
+    if t == '' || t == 'undefined'
+      $('.materialize_autocomplete').addClass('invalid')
+      return false
+    else if !@autocompleted && !(g?)
+      @$topicGroupSelect.find('input').addClass('invalid')
+      return false
     else
-      @autocompleted = false
+      return true
 
-    console.log(data)
+  onTopicBlur: (e)->
+    unless @autocompleted
+      @$topicGroupSelect.show()
+      @$otherName.val($('.materialize_autocomplete').val())
+    else
+      @$topicGroupSelect.hide()
 
-  onTopicGroupSelect: (e)->
-    $.ajax({
-      method: 'GET',
-      url: "/topic_choice",
-      data: {group_id: $(e.currentTarget).val() }
-    })
-    @$title.attr('class', 'offer-title topic_'+$(e.currentTarget).val())
-    @$title.text($(e.currentTarget).find('option:selected').text())
-    @$otherName.html('')
+  onAutocomplete: (val)->
+    @autocompleted = true
+    @$el.find('.materialize_autocomplete').removeClass('invalid').parent().find('span').remove()
+    unless val == 'Autre'
+      @$el.find('.topic_id').val(val.id)
+      @$el.find('.topic_group_id').val(val.topic_group_id)
+      @$topicGroupSelect.hide()
+      @onTopicSelect(val.id)
+      @$textarea.show()
+    else
+      @$textarea.hide()
+      @$topicGroupSelect.show()
 
-  onTopicSelect: (e)->
+  onTopicSelect: (id)->
     $.ajax({
       method: 'GET',
       url: "/level_choice",
-      data: {topic_id: $(e.currentTarget).val() },
-      success: @onTopicSelectSuccess(e)
+      data: {topic_id: id}
     })
-    @$title.html($(e.currentTarget).find('option:selected').text())
-    if ($(e.currentTarget).find('option:selected').text() == 'Autre') #TODO: check if other from ID ?
-      @$otherName.append('<label for="offer_topic_other_name">Précisez le nom de la matière</label>')
-      @$otherName.append('<input type="text" class="form-control" name="offer[other_name]" required>')
-    else
-      @$otherName.html('')
-    @$el.find('.topic-select').siblings('.feedback').remove()
-    @$el.find('.topic-select').parent().removeClass('has-error')
 
-  onTopicSelectSuccess: (e)->
-    @$el.on 'input', '.price-input',(e) => @onPriceIntroduced(e)
+  onTypeInField: (e)->
+    @$el.find('.materialize_autocomplete').removeClass('invalid')
+    @autocompleted = false
+    @$el.find('.topic_id').val(null)
+    @$el.find('.topic_group_id').val(null)
+    @$textarea.hide()
+    @$topicGroupSelect.hide()
+    @$el.find('.level_choice_levels').html('')
 
-  onPriceIntroduced: (e)->
-    @$submit.show()
+  onOtherNameInput: (e)->
+    @showDescriptionLevels() if @$otherName.val() != ''
 
-  onDescriptionFocus: (e)->
-    console.log(@$el.find('.topic-select').val())
-    if (@$el.find('.topic-select').val() == null || @$el.find('.topic-select').val() == '')
-      @$el.find('.topic-select').parent().addClass('has-error')
-      if @$el.find('.topic-select').siblings('.feedback').length < 1
-        @$el.find('.topic-select').parent().append('<div class="feedback text-danger">Vous devez sélectionner une sous-catégorie</div>')
+  onTopicGroupSelect: (e)->
+    @showDescriptionLevels() if @$topicGroupSelect.find('select').val()
+    @$el.find('.topic_group_id').val(@$topicGroupSelect.find('select').val())
+    @$el.find('.topic_id').val(TOPICAUTRE[+@$topicGroupSelect.find('select').val()-1])
+
+  showDescriptionLevels: ->
+    n = @$otherName.val()
+    topicGroup = @$topicGroupSelect.find('select')
+    g = topicGroup.val()
+    if n != '' && g !=''
+      @$textarea.show()
+      @onTopicSelect(TOPICAUTRE[+g-1])

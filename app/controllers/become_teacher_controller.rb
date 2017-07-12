@@ -35,7 +35,8 @@ class BecomeTeacherController < ApplicationController
       when :offers
         @offer = Offer.new
         @offers = Offer.where(:user => current_user)
-        #@topics = Topic.where.not(title: 'Autre').map{|t| [t.title, nil]}
+        @topics = Topic.where.not(title: 'Autre').where.not(title: current_user.offers.map{|o| o.title})
+        @topics = @topics.map{|t| ["#{t.title}", {id: t.id, topic_group_id: t.topic_group_id}]}.to_h
       when :banking_informations
         @account = Mango::SaveAccount.new(user: current_user, first_name: current_user.firstname, last_name: current_user.lastname)
         @teacher = current_user
