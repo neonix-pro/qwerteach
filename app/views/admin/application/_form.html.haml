@@ -1,6 +1,6 @@
 = form_for([namespace, page.resource], html: { class: "form" }) do |f|
   - if page.resource.errors.any?
-    = redner 'form_errors', page: page
+    = render 'form_errors', page: page
   - page.attributes.each do |attribute|
     %div{:class => "form-group row"}
       = render_field attribute, f: f
