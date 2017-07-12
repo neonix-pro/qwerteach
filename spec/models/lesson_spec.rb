@@ -43,4 +43,13 @@ RSpec.describe Lesson, type: :model do
 
   end
 
+  describe 'Validate' do
+    let(:lesson){ FactoryGirl.build(:lesson, teacher: create(:teacher, postulance_accepted: false )) }
+
+    it 'dont create, teacher is not valid' do
+      expect(lesson.valid?).to be_falsey
+      expect(lesson.teacher.present?).to be_truthy
+      expect(lesson.errors[:teacher].any?).to be_truthy
+    end
+  end
 end

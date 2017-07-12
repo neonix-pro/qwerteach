@@ -1,5 +1,14 @@
 fr:
   admin:
+    dispute:
+      link:
+        to_teacher: Transférer la totalité du montant à l\'enseignant
+        to_student: Transférer la totalité du montant à l'étudiant
+        divide_money: Diviser l'argent
+      scope:
+        all: tous
+        started: commencé
+        finished: réaliser
     teacher:
       greetings: "Bonjour %{name},  et bienvenue sur Qwerteach!"
       postulation:

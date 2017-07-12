@@ -11,7 +11,7 @@
       = submit_tag "Envoyer", class: 'btn btn-green btn-qw'
 .mailbox-conversation-details
   .conversation-participants
-    -conversation.receipts.group(:receiver_id).each do |r|
+    - conversation.receipts.group(:receiver_id).each do |r|
       = render 'conversations/conversation_participant', user: r.receiver unless r.receiver == current_user || r.receiver.nil?
 
 = subscribe_to reply_conversation_path(conversation)
@@ -21,10 +21,10 @@
     var id = "#{conversation.id}";
     var chatbox = $("#chatbox_" + id + " .conversation-content");
     var sender_id = data.sender_id;
-    var reciever_id = $('meta[name=user-id]').attr("content");
+    var current_user_id = #{current_user.id};
 
     $('#chatbox_' + id).find('.seen').hide();
-    if (parseInt(sender_id) != parseInt(reciever_id)) {
+    if (sender_id != current_user_id) {
       chatbox.append(data.message_received);
       chatbox.scrollTop(chatbox[0].scrollHeight);
     } else {
