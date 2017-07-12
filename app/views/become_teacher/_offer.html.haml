@@ -15,15 +15,13 @@
           = f.submit :enregistrer
 
 :javascript
-  new OffersManager("#{id}")
+  //new OffersManager("#{id}")
 
   $(document).on('turbolinks:load', function(){
     Materialize.updateTextFields();
-    $('#interest_topic_id').bind('railsAutocomplete.select', function(event, data){
-      alert(data.item.id);
-    });
-    $('#interest_topic_id').bind('railsAutocomplete.select', function(event, data){
-      alert(data.item.id);
+
+    $('#interest_topic_id').bind('railsAutocomplete.select', function(){
+      alert('test');
     });
 
   });
