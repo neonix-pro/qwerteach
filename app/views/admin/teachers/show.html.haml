@@ -50,6 +50,7 @@
         .actions.header-block.pull-right
           = link_to 'Interview', room_invite_bbb_rooms_path(teacher), class:'btn btn-secondary'
           = link_to 'generate text', admin_postulation_generate_text_path(page.resource.postulation), remote:true, class:'btn btn-secondary'
+      #generated-text
       .conversation-admin
         = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: teacher
 

@@ -20,16 +20,15 @@
           - messages = conversation.id ? conversation.messages.reorder(id: :desc) : []
           = render 'conversations/messages', messages: messages
         - if index < 3
-          = form_tag messages_path, remote: conversation.id.present? do
+          = form_tag messages_path, remote: conversation.id.present?, class: 'reply-form' do
             = hidden_field_tag('message[conversation_id]', conversation.id) if conversation.id
             = hidden_field_tag 'message[recipient]', conversation.recipients.map(&:id).join(' ')
             = hidden_field_tag 'message[subject]', 'Lesson dispute'
             = hidden_field_tag 'redirect_to', request.fullpath
-            .row
-              .col-sm-10= text_area_tag 'message[body]', nil, rows: 2, class: 'form-control boxed', required: true
-              .col-sm-2= submit_tag 'Submit', class: 'btn btn-primary'
-            - if conversation.id.present?
-              %span.text-pink= t 'send_message.minimum_chars'
+            = text_area_tag 'message[body]', nil, rows: 2, class: 'form-control reply-form__textarea message-input', required: true
+            = submit_tag 'Submit', class: 'btn reply-form__send-button'
+          - if conversation.id.present?
+            %span.text-pink= t 'send_message.minimum_chars'
 
       = subscribe_to reply_conversation_path(conversation)
 

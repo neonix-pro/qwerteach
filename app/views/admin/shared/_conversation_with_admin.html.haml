@@ -1,12 +1,11 @@
 - if conversation.new_record?
-  = form_tag messages_path, method: :post do
+  = form_tag messages_path, method: :post, class: 'reply-form' do
     = hidden_field_tag 'message[subject]', "#{current_user.name} vous pose une question!"
     = hidden_field_tag 'message[recipient]', recipient.id
     = hidden_field_tag 'redirect_to', local_assigns[:redirect_to] || request.fullpath
-    .form-group.row
-      .col-sm-10
-        = text_area_tag 'message[body]', nil, rows: 2, placeholder: "Posez une question à #{recipient.firstname}", class: "form-control character-count boxed", data:{length:50}, required: true
-        %span.text-pink Minimum 50 caractères.
-      .col-sm-2= submit_tag 'Envoyer', class: 'btn btn-primary'
+
+    = text_area_tag 'message[body]', nil, rows: 2, placeholder: "Posez une question à #{recipient.firstname}", class: "form-control reply-form__textarea", data:{length:50}, required: true
+    = submit_tag 'Envoyer', class: 'btn reply-form__send-button'
+  %span.text-pink Minimum 50 caractères.
 - else
   = render 'conversations/conversation', conversation: conversation, page: 0, messages: conversation.messages.reorder(id: :desc)

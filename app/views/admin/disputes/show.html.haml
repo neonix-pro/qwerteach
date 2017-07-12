@@ -33,47 +33,48 @@
           %td.attribute-label &nbsp;
           %td.attribute-label=record.name
 
-  .card-header
+.card-header.bordered
+  .header-block
     %h3.title Messages
-  .card-block
-    - conversations = disput_conversations(dispute)
-    = render 'messages', {conversations: conversations}
+.card-block
+  - conversations = disput_conversations(dispute)
+  = render 'messages', {conversations: conversations}
 
-  - unless page.resource.finished?
-    .attribute-label Divide money
-    .attribute-data
-      = link_to( |
-        t('admin.dispute.link.to_teacher'), |
-        resolve_admin_dispute_path(dispute, amount: dispute.lesson.price), |
-        class: 'btn btn-secondary to_teacher', |
-        method: :post )
-      -#
-      = link_to( |
-        t('admin.dispute.link.to_student'), |
-        resolve_admin_dispute_path(dispute, amount: 0), |
-        class: 'btn btn-secondary to_student', |
-        method: :post )
-      -#
-      = link_to( |
-        t('admin.dispute.link.divide_money'), |
-        '#', |
-        class: 'btn btn-secondary ', |
-        data: {toggle: 'modal', target: '#divide_money'} ) |
+- unless page.resource.finished?
+  .attribute-label Divide money
+  .attribute-data
+    = link_to( |
+      t('admin.dispute.link.to_teacher'), |
+      resolve_admin_dispute_path(dispute, amount: dispute.lesson.price), |
+      class: 'btn btn-secondary to_teacher', |
+      method: :post )
+    -#
+    = link_to( |
+      t('admin.dispute.link.to_student'), |
+      resolve_admin_dispute_path(dispute, amount: 0), |
+      class: 'btn btn-secondary to_student', |
+      method: :post )
+    -#
+    = link_to( |
+      t('admin.dispute.link.divide_money'), |
+      '#', |
+      class: 'btn btn-secondary ', |
+      data: {toggle: 'modal', target: '#divide_money'} ) |
 
-  .bootstrap-wrapper
-    #divide_money.modal(role='dialog')
-      .modal-dialog
-        = form_tag resolve_admin_dispute_path(dispute), class: 'modal-content' do
-          .modal-header
-            %button.close(data-dismiss='modal' type='button') ×
-            %h4.modal-title To devide money
-          .modal-body
-            %p Quel est le montant devrait être transféré à l'enseignant?
-            = number_field_tag(:amount, dispute.lesson.price, {min: 0, max: dispute.lesson.price})
-            %p.pull-right
-              %span.text-danger *
-              %span.text-info l'argent restant reste avec l'étudiant
-            %br
-          .modal-footer
-            = submit_tag 'Diviser l\'argent', class: 'btn btn-default'
-            %button.btn.btn-default(data-dismiss='modal' type='button') Cancel
+
+#divide_money.modal(role='dialog')
+  .modal-dialog
+    = form_tag resolve_admin_dispute_path(dispute), class: 'modal-content' do
+      .modal-header
+        %button.close(data-dismiss='modal' type='button') ×
+        %h4.modal-title To devide money
+      .modal-body
+        %p Quel est le montant devrait être transféré à l'enseignant?
+        = number_field_tag(:amount, dispute.lesson.price, {min: 0, max: dispute.lesson.price})
+        %p.pull-right
+          %span.text-danger *
+          %span.text-info l'argent restant reste avec l'étudiant
+        %br
+      .modal-footer
+        = submit_tag 'Diviser l\'argent', class: 'btn btn-default'
+        %button.btn.btn-default(data-dismiss='modal' type='button') Cancel

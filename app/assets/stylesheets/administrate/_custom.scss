@@ -1,11 +1,11 @@
 //commentaire
-@import 'conversations';
+//@import 'conversations';
 //@import "bootstrap/variables";
 //@import "bootstrap/mixins/grid-framework";
 //@import "bootstrap/mixins/clearfix";
 //@import "bootstrap/mixins/grid";
 //@import "bootstrap/grid";
-@import "dispute";
+//@import "dispute";
 .conversation-admin{
   .show-more, .mailbox-conversation-details{
     display:none;
@@ -14,8 +14,8 @@
     border: 1px solid lightgrey;
   }
   .conversation-content{
-    height:400px;
-    overflow:scroll;
+    height: 400px;
+    overflow-y: auto;
   }
 }
 .clearfix{

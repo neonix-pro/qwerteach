@@ -1,6 +1,5 @@
 .dispute-messages{
   .nav-tabs{
-    margin-right: 1.5em;
     .cut{
       overflow: hidden;
       max-width: 200px;
@@ -9,11 +8,11 @@
     }
   }
   .tab-content{
-    margin-right: 1.5em;
     border-left: 1px solid #ddd;
     .pre-scrollable{
       margin-bottom: 5px;
       min-height: 340px;
     }
+    padding: 0 !important;
   }
 }

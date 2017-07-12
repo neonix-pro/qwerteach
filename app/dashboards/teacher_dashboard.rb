@@ -28,7 +28,7 @@ class TeacherDashboard < Administrate::BaseDashboard
       first_lesson_free: Field::Boolean,
       occupation: Field::String,
       postulance_accepted: Field::Boolean,
-      teacher_status: Field::String,
+      teacher_status: Field::Select.with_options(collection: Teacher::TEACHER_STATUS),
       email: Field::String,
       encrypted_password: Field::String,
       reset_password_token: Field::String,
