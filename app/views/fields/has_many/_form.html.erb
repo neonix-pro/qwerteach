@@ -1,4 +1,4 @@
-<%= f.label field.attribute_key, field.attribute, class: 'col-sm-2 form-control-label text-xs-right' %>
+<%= f.label field.attribute_key, field.attribute, class: 'col-sm-2 col-form-label text-xs-right' %>
 <div class="col-sm-10">
   <%= f.select(field.attribute_key, nil, {}, multiple: true, class: 'form-control') do %>
     <%= options_for_select(field.associated_resource_options, field.selected_options) %>

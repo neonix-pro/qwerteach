@@ -1,0 +1,7 @@
+#error_explanation.alert.alert-danger
+  %h2
+    = pluralize(page.resource.errors.count, "error")
+    prohibited this #{page.resource_name} from being saved:
+  %ul
+    - page.resource.errors.full_messages.each do |message|
+      %li.flash-error= message

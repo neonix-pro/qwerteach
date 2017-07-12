@@ -1,7 +1,7 @@
 - content_for(:title) { "#{t("administrate.actions.new")} #{page.resource_name.titleize}" }
 %header.card-header.bordered.main-content__header{:role => "banner"}
-  %h3.header-block
-    = content_for(:title)
+  .header-block
+    %h3.title= content_for(:title)
   .header-block.pull-right
     = link_to t("administrate.actions.back"), :back, class: "btn btn-secondary"
 %section.card-block.main-content__body

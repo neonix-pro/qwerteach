@@ -6,4 +6,7 @@
         %th.cell-label #{key.to_s.titleize}
     %tr
       -postulation.admin_fields.each do |key, attr|
-        %td #{attr ? 'OK' : 'X'}
+        - if attr
+          %td.text-primary= icon('check-square-o', class: 'text-strong')
+        - else
+          %td.text-danger= icon('square-o', class: 'text-strong')

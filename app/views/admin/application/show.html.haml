@@ -1,7 +1,7 @@
 .card-header.bordered
   - content_for(:title) { "#{t("administrate.actions.show")} #{page.page_title}" }
   .header-block{:role => "banner"}
-    %h3#page-title.title= content_for(:title)
+    %h3.title= content_for(:title)
   .header-block.pull-right
     = link_to(                                                  |
         "#{t("administrate.actions.edit")} #{page.page_title}", |

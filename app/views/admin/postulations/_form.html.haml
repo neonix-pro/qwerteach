@@ -1,18 +1,26 @@
 = form_for([namespace, page.resource], html: { class: "form" }) do |f|
   - if page.resource.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(page.resource.errors.count, "error")
-        prohibited this #{page.resource_name} from being saved:
-      %ul
-        - page.resource.errors.full_messages.each do |message|
-          %li= message
+    = render 'form_errors', page: page
+  .form-group.row
+    .form-control-label.offset-sm-2.col-sm-10
+      = f.check_box :mangopay, class: 'checkbox squared'
+      %span= f.label :mangopay, for: '_'
+  .form-group.row
+    .form-control-label.offset-sm-2.col-sm-10
+      = f.check_box :email, class: 'checkbox squared'
+      %span= f.label :email, for: '_'
+  .form-group.row
+    .form-control-label.offset-sm-2.col-sm-10
+      = f.check_box :test_classe, class: 'checkbox squared'
+      %span= f.label :test_classe, for: '_'
+
+
   - page.attributes.each do |attribute|
-    %div{:class => "form-group row field-unit field-unit--#{attribute.html_class}"}
+    .form-group.row.field-unit{:class => "field-unit--#{attribute.html_class}"}
       = render_field attribute, f: f
-  %div{:class => "form-group row field-unit--belongs-to"}
-    %label.field-unit__label.col-sm-2.form-control-label.text-xs-right Admin responsable
-    .field-unit__field.col-sm-10
-      = select_tag("postulation[admin_id]", options_for_select(User.where(admin:true).map{|u| [u.name, u.id]}, selected: page.resource.admin_id), class: 'c-select form-control boxed')
+  .form-group.row.field-unit--belongs-to
+    %label.col-sm-2.col-form-label.text-xs-right Admin responsable
+    .col-sm-10
+      = f.select(:admin_id, User.where(admin:true).map{|u| [u.name, u.id]}, {}, class: 'c-select form-control boxed')
   .form-actions
     = f.submit nil, class: 'btn btn-primary'

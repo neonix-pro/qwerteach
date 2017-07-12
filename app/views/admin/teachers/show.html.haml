@@ -40,7 +40,7 @@
 
     #postulation.tab-pane(aria-expanded="false")
       = render :partial => 'admin/postulations/postulation', locals:{postulation: page.resource.postulation}
-      .pull-right
+      .form-group.pull-right
         = link_to "Modifier", [:edit, namespace, page.resource.postulation], class: 'btn btn-primary'
       .clearfix
 
