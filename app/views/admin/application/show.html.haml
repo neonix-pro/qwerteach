@@ -3,16 +3,10 @@
   .header-block{:role => "banner"}
     %h3.title= content_for(:title)
   .header-block.pull-right
-    = link_to(                                                  |
-        "#{t("administrate.actions.edit")} #{page.page_title}", |
-        [:edit, namespace, page.resource],                      |
-        class: "btn btn-primary",                               |
-      ) if valid_action? :edit                                  |
-    = link_to(                                                      |
-        "#{t("administrate.actions.destroy")} #{page.page_title}",  |
-        [:edit, namespace, page.resource],                          |
-        class: "btn btn-danger",                                    |
-      ) if valid_action? :destroy                                   |
+    - if valid_action? :edit
+      = link_to("#{t("administrate.actions.edit")} #{page.page_title}", [:edit, namespace, page.resource], class: "btn btn-primary")
+    - if valid_action? :destroy
+      = link_to("#{t("administrate.actions.destroy")} #{page.page_title}", [namespace, page.resource], method: :delete, class: "btn btn-danger", data: { confirm: t('administrate.actions.confirm') })
 
 .card-block.main-content__body
   %table.table-min.table-striped

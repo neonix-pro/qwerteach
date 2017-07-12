@@ -9,9 +9,9 @@
     = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
 
     - if page.resource.postulance_accepted
-      = link_to 'Suspend', [namespace, page.resource, {postulance_accepted: false}], method: :post, class: 'btn btn-warning'
+      = link_to 'Suspend', [namespace, page.resource, teacher: {postulance_accepted: false}], method: :put, class: 'btn btn-warning'
     - else
-      = link_to 'Approve', [namespace, page.resource, {postulance_accepted: true}], method: :post, class: 'btn btn-info'
+      = link_to 'Approve', [namespace, page.resource, teacher: {postulance_accepted: true}], method: :put, class: 'btn btn-info'
     = link_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: 'btn btn-secondary'
 
 .card-block
