@@ -1,26 +1,18 @@
-.become-teacher-offers
-  .row
-    = tutorial_progress_bar
-  .row
-    %h2.text-center Les cours que vous donnez
-
-    - model_class = @offer.class
-    .col-sm-2
-    .col-sm-8.text-center
-      .alert.alert-info.text-left
-        %p
-          Vos annonces rassemblent les informations pratiques concernant vos cours: matières, niveaux et tarifs.
-          Elles sont utiles pour permettre aux élèves d'effectuer des recherches par matière enseignée, niveau, ou prix.
-          <br />
-          <b>Vous pouvez introduire plusieurs annonces</b>, pour des matières différentes.
-    .col-sm-2
-    .col-sm-8.offers-list
+#become-teacher
+  .become-teacher-offers
+    .row
+      = tutorial_progress_bar
+    .row
+      .col-sm-8.col-sm-offset-2
+        .card
+          .card-content
+            %span.card-title.text-center Quelle(s) matière(s) enseignez-vous ?
+            = render partial: 'offer', locals:{offer: @offer, id: 1}
       - @user.offers.each do |offer|
-        = render partial: 'edit_offer', locals:{offer: offer}
-      = render partial: 'offer', locals:{offer: @offer, id: 1}
-  .row
-    .col-sm-2
-    .col-sm-8
-      %nav.text-right
-        = link_to 'Continuer', next_wizard_path, class:'btn btn-qw btn-sm btn-green'
-  %hr
+        .col-sm-8.col-sm-offset-2
+          = render partial: 'edit_offer', locals:{offer: offer}
+    .row
+      .col-sm-2
+      .col-sm-8
+        %nav.text-right
+          = link_to 'Continuer', next_wizard_path, class:'btn btn-qw btn-sm btn-green'

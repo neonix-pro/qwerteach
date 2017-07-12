@@ -1,22 +1,29 @@
 .offer-form{id: "offer-form-#{id}"}
   #new-offer
-    %h3.offer-title Nouvelle annonce
-    = form_for offer, remote: true do |f|
-      = hidden_field_tag :origin, 'become_teacher'
-      .fom-group
-        = f.label :topic_group_id, 'Type de matière'
-        = f.select :topic_group_id, options_for_select(TopicGroup.all.map{|t| [t.title, t.id]}), {}, class:'form-control topic-group-select'
-      .form-group
-        = f.label :topic_id, 'Sous-catégorie'
-        .group_choice_topic
-          = f.select :topic_id, {}, {}, class: 'topic-select form-control'
-      .form-gorup.topic-name
-      .form-group.level_choice_levels
-      .form-group
-        = f.label :description
-        = f.text_area :description, class:'form-control', rows: 5
-      .actions
-        = f.submit :enregistrer
+    .material-form
+      = form_for offer, remote: true do |f|
+        = hidden_field_tag :origin, 'become_teacher'
+        .input-field
+          = autocomplete_field_tag 'interest[topic_id]', '', autocomplete_topic_title_topics_path, :size => 75, :class => "autocomplete", placeholder: 'ex: mathématiques', autofocus: true
+        = hidden_field_tag :topic_id
+        .form-gorup.topic-name
+        .form-group.level_choice_levels
+        .form-group
+          = f.label :description
+          = f.text_area :description, class:'form-control', rows: 5
+        .actions
+          = f.submit :enregistrer
 
 :javascript
   new OffersManager("#{id}")
+
+  $(document).on('turbolinks:load', function(){
+    Materialize.updateTextFields();
+    $('#interest_topic_id').bind('railsAutocomplete.select', function(event, data){
+      alert(data.item.id);
+    });
+    $('#interest_topic_id').bind('railsAutocomplete.select', function(event, data){
+      alert(data.item.id);
+    });
+
+  });

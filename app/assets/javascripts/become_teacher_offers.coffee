@@ -7,6 +7,7 @@ class window.OffersManager
     @$submit = $('#offer-form-'+@id+' input[type=submit]')
     @$title = @$el.children('.offer-title')
     @$otherName = @$el.find('.topic-name')
+    @autocompleted = false
     @initialize()
 
   initialize: ->
@@ -17,6 +18,10 @@ class window.OffersManager
     @$el.on 'input', '.topic-group-select', (e)=> @onTopicGroupSelect(e)
     @$el.on 'input', '.topic-select', (e)=> @onTopicSelect(e)
     @$el.on 'focus', 'textarea', (e)=> @onDescriptionFocus(e)
+    @$el.on 'autocomplete', '.autocomplete', (e) => @onTopicAutocomplete(e)
+
+  onTopicAutocomplete: (e)->
+    alert('test')
 
   onTopicGroupSelect: (e)->
     $.ajax({
