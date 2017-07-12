@@ -7,17 +7,29 @@ class window.OffersManager
     @$submit = $('#offer-form-'+@id+' input[type=submit]')
     @$title = @$el.children('.offer-title')
     @$otherName = @$el.find('.topic-name')
-    @autocompleted = false
     @initialize()
 
   initialize: ->
     @initEvents()
     @$submit.hide()
+    @autocompleted = false
+    @$el.find('select').material_select();
 
   initEvents: ->
     @$el.on 'input', '.topic-group-select', (e)=> @onTopicGroupSelect(e)
     @$el.on 'input', '.topic-select', (e)=> @onTopicSelect(e)
     @$el.on 'focus', 'textarea', (e)=> @onDescriptionFocus(e)
+    @$el.bind 'railsAutocomplete.select', '.autocomplete', (e, data) => @onAutocomplete(e, data)
+
+  onAutocomplete: (e, data)->
+    unless data.item.title == 'Autre'
+      @$el.find('.topic_id').val(data.item.id)
+      @$el.find('.topic_group_id').val(data.item.topic_group_id)
+      @autocompleted = true
+    else
+      @autocompleted = false
+
+    console.log(data)
 
   onTopicGroupSelect: (e)->
     $.ajax({
