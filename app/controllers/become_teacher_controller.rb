@@ -6,7 +6,7 @@ class BecomeTeacherController < ApplicationController
   before_filter :confirm_email, only: :show
 
   def confirm_email
-    jump_to(:valid_email) unless current_user.confirmed? || step == :valid_email
+    jump_to(:general_infos) if step == :valid_email
   end
 
   steps :valid_email, :general_infos, :avatar, :offers, :banking_informations, :finish_postulation
@@ -25,6 +25,7 @@ class BecomeTeacherController < ApplicationController
       when :general_infos
         @levels = Level.where(code: 'scolaire').group(:be).order(:id).map{|l| [l.be, l.id]}
         @description_questions = DESCRIPTION_QUESTIONS
+        @user.upgrade
       when :pictures
         @gallery = Gallery.find_by user_id: @user.id
       when :avatar

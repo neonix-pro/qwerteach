@@ -16,12 +16,12 @@
       color:white;
     }
     .role-teacher:hover{
-      cursor:pointer;
+      //cursor:pointer;
       transform:skew(-10deg,0deg) translateX(100px);
       z-index:5;
     }
     .role-student:hover{
-      cursor:pointer;
+      //cursor:pointer;
       transform:skew(-10deg,0deg) translateX(-100px);
     }
     .role-teacher{

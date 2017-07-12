@@ -49,6 +49,16 @@
                 = f.select :level_id, levels.all.collect { |p| [p[I18n.locale[0..3]], p.id] }, {}, class: 'form-control'
                 .actions
                   = submit_tag "Envoyer", :class => "submit action"
+    -if @user.is_a?(Teacher)
+      .row
+        .col-sm-12
+          .card
+            .card-content
+              .card-title Ajouter une vidéo
+              %p Ajouter une vidéo à votre profil augmente vos chances d'être contacté par les élève!
+              = f.text_field :video_url, class: 'form-control', placeholder: 'URL Youtube'
+              .actions
+                = submit_tag "Enregistrer", :class => "submit action"
     .row
       .col-sm-12
         .card

@@ -1,0 +1,15 @@
+.test-become-teacher
+  %header.q6.section_bigimage{"data-vide-bg" => "mp4: #{video_path('landing.mp4')} , webm: #{video_path('landing.webm')} , poster: #{image_path('acceuil/bigimage.jpg')}",
+      "data-vide-options" => "posterType: jpg, loop: ture, muted: true, position: 50% 50%",
+      "data-turbolinks-temporary" => true}
+    .header-content
+      .header-content-inner
+        %h1#homeHeading Passez à<br />l'aide scolaire 2.0
+        %hr/
+        %p Fini les déplacements,<br />démarrez vos cours en un clic!
+        = link_to 'Devenez prof', new_user_registration_path, class: 'btn btn-primary btn-qw become-teacher'
+
+:javascript
+  $('.become-teacher').click(function(){
+    ga('send', 'event', 'click-teacher-application', $(this).text() );
+  });

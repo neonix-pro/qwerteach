@@ -7,3 +7,4 @@ var choice = $('.level_choice_levels');
 
 choice.empty();
 choice.append("#{j render :partial => 'level_choice', locals:{offer: @offer, levels:@levels}}");
+choice.children('option:nth-child(2)').attr('selected', 'selected')

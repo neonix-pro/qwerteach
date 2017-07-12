@@ -20,12 +20,14 @@ class PayLesson < ActiveInteraction::Base
   def transfert
     paying = PayLessonByTransfert.run(user: user, lesson: lesson, wallet: beneficiary_wallet)
     if paying.valid?
-      #controller.ga_track_event("Booking", "created_by_student", "Prof id: #{lesson.teacher.id}", lesson.price) if lesson.pending?
+      controller.tracker do |t|
+        t.google_analytics :send, { type: 'event', category: 'Booking', action: 'created_by_student', label: "Prof id: #{lesson.teacher.id}" }
+      end
       send_notification
       respond_to do |format|
         format.js {render 'finish', :layout => false}
         format.json {render :json => {:message => "finish"}}
-        format.html {redirect_to lessons_path+'#pending'}
+        format.html {render 'finish' }
       end
     else
       controller.instnce_variable_set :@card_registration, Mango::CreateCardRegistration.run(user: user).result

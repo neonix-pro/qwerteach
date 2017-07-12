@@ -3,7 +3,6 @@
     = render partial: 'header'
   #profile-navigation
     = render :partial => 'menu_edit_registrations'
-
   .container
     #general-infos
       = render :partial => 'profile_form'
@@ -12,22 +11,3 @@
     -if @user.is_a?(Teacher)
       #offers
         = render :template => 'offers/index'
--#.backgroundEdit.edit_profile#edit_profile
--#  .container-fluid
--#    .row.flex
--#      .col-md-2.menu
--#        = render :partial => 'menu_edit_registrations'
--#      .col-md-10.right
--#        %div#passcode.collapse.profile-section
--#          = render :partial => 'password_form'
--#        %div#annonces.collapse.profile-section
--#          = render :template => 'offers/index'
--#        %div#calendear.collapse.profile-section
--#          Calendrier
--#        %div#degrees.collapse.profile-section
--#          Diplômes
--#        %div#profil.collapse.in.profile-section
--#          = render :partial => 'profile_form'
-
-
-

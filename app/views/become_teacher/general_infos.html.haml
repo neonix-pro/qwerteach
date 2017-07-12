@@ -39,8 +39,14 @@
           .col-xs-6
             = f.label :occupation, "Profession / branche d'études"
             = f.text_field :occupation, :required => true, class: 'form-control'
+        .form-group
+          .col-xs-12
+            = f.label "Vidéo de présentation"
+            %p Si vous avez une vidéo, introduisez ici son URL vidéo.<br />Une vidéo de vous, sur votre profil, augmente vos chances d'être contacté par des élèves!
+            = f.text_field :video_url, class: 'form-control', placeholder: 'URL Youtube'
         %hr
         %br
+
         - @description_questions.each_with_index do |question, index|
           .form-group
             .col-sm-12

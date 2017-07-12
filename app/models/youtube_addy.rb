@@ -1,4 +1,4 @@
-class YouTubeAddy
+class YoutubeAddy
   URL_FORMATS = {
       regular: /^(https?:\/\/)?(www\.)?youtube.com\/watch\?(.*\&)?v=(?<id>[^&]+)/,
       shortened: /^(https?:\/\/)?(www\.)?youtu.be\/(?<id>[^&]+)/,
