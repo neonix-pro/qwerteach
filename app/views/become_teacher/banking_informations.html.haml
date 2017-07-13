@@ -1,21 +1,20 @@
-.become-teacher-banking-informations
-  .row
-    .text-center
-      = tutorial_progress_bar
-  %h2.text-center Mes informations bancaires
-  .row
-    .col-sm-2
-    .col-sm-8
-
-      = form_tag @path, method: :put do
-        = render partial: 'mangopay_account'
-        %hr
-        .alert.alert-info
-          %h4 Comment souhaitez-vous être payé ?
-          %p Les coordonnées bancaires que vous introduirez ici correspondent à celles auxquelles nous verserons le solde de votre portefeuille virtuel. Ces coordonnées sont strictement confidentielles et n'apparaîtront nulle part sur le site.
-        = render partial: 'bank_account', locals:{bank_account: @bank_account}
-        .actions
-          = submit_tag 'Terminer', :class => 'btn btn-qw btn-sm btn-green'
+#become-teacher
+  .become-teacher-banking-informations
+    .row
+      .text-center
+        = tutorial_progress_bar
+    .row
+      .col-sm-8.col-sm-offset-2
+        .card
+          .card-content.text-left
+            %span.card-title.text-center Comment souhaitez-vous être payé?
+            %p Les coordonnées bancaires que vous introduirez ici correspondent à celles auxquelles nous verserons le solde de votre portefeuille virtuel. Ces coordonnées sont strictement confidentielles et n'apparaîtront nulle part sur le site.
+            %hr
+            = form_tag @path, method: :put do
+              .row= render partial: 'bank_account', locals:{bank_account: @bank_account}
+              .row= render partial: 'mangopay_account'
+              .actions
+                = submit_tag 'Terminer', :class => 'btn btn-qw btn-sm btn-green'
 
 :javascript
   $(document).on('turbolinks:load', function(){

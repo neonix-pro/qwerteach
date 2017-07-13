@@ -1,46 +1,131 @@
-.become_teacher_finish
-  - unless @user.offers.empty?
-    %h2.page-title-green.text-center Félicitations, votre candidature est complète!
-    .row
-      .col-sm-2
-      .col-sm-8
-        .alert.alert-info
-          %h4 Nous sommes convaincus que vous ferez un(e) prof fantastique.
-          Cependant, votre annonce et votre profil ne sont
-          %b pas encore visibles
-          par les élèves.
-        %h4 Pourquoi mon annonce n'est-elle pas visible?
-        %p
-          Nous examinons votre demande, afin de nous assurer de la qualité de vos annonces et de votre profil. En effet, il est important pour nous que les élèves trouvent sur notre site des professeurs compétents et motivés.
-        %p
-          Un e-mail vous a été envoyé, récapitulant l'ensemble de la procédure. Surveillez bien votre courrier, car c'est par ce biais que notre équipe vous contactera pour fixer une interview!
-          Si ce n'est déjà le cas, profitez de ce délai pour vous familiariser avec Qwerteach.
-        %p
-          D'ici là, nous vous souhaitons une agréable expérience sur le site!
-        .text-green.pull-right - L'équipe
-    .row
-      .col-sm-2
-      .col-sm-8.text-center
-        %hr
-        %br
-        =link_to("Voir mon profil", '/users/'+current_user.id.to_s, html_options = {class: "btn btn-sm btn-qw btn-green"})
-        = link_to("Tableau de bord", dashboard_path, html_options = {class: "btn btn-sm btn-qw btn-green"})
-  - else
-    %h2.page-title-green.text-center
-      Dernière étape
-    .row
-      .col-sm-2
-      .col-sm-8
-        %h4 Votre candidature n'est pas encore complète!
-        %p
-          Si vous souhaitez donner des cours sur Qwerteach, vous devez impérativement renseigner les matières dans lesquelles vous enseignez, ainsi que vos tarifs.
-          %br
-          Tant que nous n'aurons pas cette information, votre candidatue ne sera pas prise en considération.
-          %br
-          =link_to 'Ajouter une annonce', become_teacher_path(:offers)
-          %br
-        %p.text-right
-          = link_to "Je ne souhaite pas enseigner, sortez-moi d'ici!", dashboard_path
-        %hr
+#become-teacher
+  .become_teacher_finish
+    = tutorial_progress_bar
+    - unless @user.offers.empty?
+      .row
+        .col-sm-8.col-sm-offset-2
+          .card
+            .card-content
+              %span.card-title.text-center Félicitations, votre candidature est complète!
+              %p Nous sommes convaincus que vous ferez un(e) prof fantastique.
+              %hr
+              .row
+                .col-sm-8.text-left
+                  %span.card-title Et maintenant ?
+                  %p
+                    Avant d'être approuvé comme professeur, notre équipe va examiner votre profil et
+                    vous contacter pour une <b>interview en ligne</b>.
+                  %p
+                    Un e-mail vous a été envoyé, récapitulant l'ensemble de la procédure. <b>Surveillez bien votre
+                    courrier</b>, car c'est par ce biais que notre équipe vous contactera pour la suite des événements!
+                  %p
+                    En attendant, vous pouvez consulter ici notre
+                    #{link_to 'dossier addressé aux nouveaux professeurs', toolbox_path}
+                    , ou encore essayer la classe virtuelle.
+                  %p
+                    <br />
+                    Nous vous souhaitons une agréable expérience sur le site!
+                  .text-green.pull-right - L'équipe
+                .col-sm-4
+                  %ul.collapsible.popout.text-left{data: {collapsible:"accordion"}}
+                    %li
+                      .collapsible-header
+                        E-mail validé
+                        - if @user.confirmed?
+                          %i.fa.fa-check.text-green
+                        - else
+                          %i.fa.fa-times
+                      .collapsible-body
+                        - if @user.confirmed?
+                          Félicitations, votre e-mail est confirmé!
+                        - else
+                          rendez-vous dans votre boîte mail et cliquez sur le lien de validation que nous vous avons envoyé.<br />
+                          Vérifiez bien vos dossiers "spam", ainsi que l'onglet "promotions" de votre boîte.
 
-  = tutorial_progress_bar
+                    %li
+                      .collapsible-header
+                        Profil
+                        - if @user.description != ''
+                          %i.fa.fa-check.text-green
+                        - else
+                          %i.fa.fa-times
+                      .collapsible-body
+                        - if  @user.description != ''
+                          Votre profil est correctement rempli.
+                        - else
+                          Pour que votre candidature soit prise en compte, vous devez remplir le champ
+                          #{link_to "description", become_teacher_path(:general_infos)}.
+                    %li
+                      .collapsible-header
+                        Annonces
+                        - if @user.offers.count > 0
+                          %i.fa.fa-check.text-green
+                        - else
+                          %i.fa.fa-times
+                      .collapsible-body
+                        - if @user.offers.count > 0
+                          Vous avez correctement enregistré au moins une annonce de cours.
+                        - else
+                          Pour que votre candidature soit prise en compte, vous devez enregistrer au moins une
+                          #{link_to "annonce", become_teacher_path(:offers)}.
+                    %li
+                      .collapsible-header
+                        Photo
+                        - if @user.avatar_file_name !=nil
+                          %i.fa.fa-check.text-green
+                        - else
+                          %i.fa.fa-times
+                      .collapsible-body
+                        - if @user.avatar_file_name !=nil
+                          Vous avez correctement ajouté une photo à votre profil.
+                        - else
+                          Pour que votre candidature soit prise en compte, vous devez ajouter une
+                          #{link_to "photo", become_teacher_path(:avatar)}.
+                    %li
+                      .collapsible-header
+                        Infos bancaires
+                        - if @user.mango_id !=nil
+                          %i.fa.fa-check.text-green
+                        - else
+                          %i.fa.fa-times
+                      .collapsible-body
+                        - if @user.mango_id !=nil
+                          Vos informations bancaires ont été enregistrées.
+                        - else
+                          Pour que votre candidature soit prise en compte, vous devez renseigner vos
+                          #{link_to "coordonnées bancaires", become_teacher_path(:banking_infos)}.
+                    %li
+                      .collapsible-header
+                        Classe virtuelle
+                        - if @user.postulation.test_classe
+                          %i.fa.fa-check.text-green
+                        - else
+                          %i.fa.fa-times
+                      .collapsible-body
+                        - if @user.postulation.test_classe
+                          Vous avez déjà essayé la classe virtuelle.
+                        - else
+                          En attendant d'être contacté par un admin, vous pouvez déjà
+                          #{link_to "essayer la classe virtuelle", demo_room_path}.
+              %hr
+              %br
+              =link_to("Voir mon profil", '/users/'+current_user.id.to_s, html_options = {class: "btn btn-sm btn-qw btn-green"})
+              = link_to("Tableau de bord", dashboard_path, html_options = {class: "btn btn-sm btn-qw btn-green"})
+    - else
+      %h2.page-title-green.text-center
+        Dernière étape
+      .row
+        .col-sm-2
+        .col-sm-8
+          %h4 Votre candidature n'est pas encore complète!
+          %p
+            Si vous souhaitez donner des cours sur Qwerteach, vous devez impérativement renseigner les matières dans lesquelles vous enseignez, ainsi que vos tarifs.
+            %br
+            Tant que nous n'aurons pas cette information, votre candidatue ne sera pas prise en considération.
+            %br
+            =link_to 'Ajouter une annonce', become_teacher_path(:offers)
+            %br
+          %p.text-right
+            = link_to "Je ne souhaite pas enseigner, sortez-moi d'ici!", dashboard_path
+          %hr
+
