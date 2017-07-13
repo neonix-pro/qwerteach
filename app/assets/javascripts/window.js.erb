@@ -99,4 +99,13 @@ $(document).on('turbolinks:load',  function(){
     }).on('hidden.bs.collapse', function(){
         $(this).parent().find(".fa-angle-down").removeClass("fa-angle-down").addClass("fa-angle-right");
     });
+
+    $('select').on('change', function(){
+        $(this).parent().removeClass('open');
+    });
+    $(body).click(function(){
+        $('select').parent().removeClass('open');
+    });
+
+    $('.material-form select').material_select();
 });

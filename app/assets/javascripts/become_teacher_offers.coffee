@@ -16,7 +16,6 @@ class window.OffersManager
     @initEvents()
     @$textarea.hide()
     @autocompleted = false
-    @$el.find('select').material_select()
     @$el.find('.materialize_autocomplete').materialize_autocomplete({
         data: @topics,
         limit: 20,

@@ -31,10 +31,4 @@
   $(document).on('turbolinks:load', function(){
     Materialize.updateTextFields();
     var o = new OffersManager("#{id}", #{(Hash[*@topics.flatten]).to_json});
-    $('select').on('change', function(){
-      $(this).parent().removeClass('open');
-    });
-    $(body).click(function(){
-      $('select').parent().removeClass('open');
-    });
   });
