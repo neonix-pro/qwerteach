@@ -1,35 +1,59 @@
-.become-teacher-avatar
-  .row
-    = tutorial_progress_bar
-  .row
-    %h2.text-center Choisissez votre photo de profil
-    .col-sm-2
-    .col-sm-8.text-center
-      .alert.alert-info.text-left
-        %p Nous sommes curieux de vous connaître!
-      = form_for(resource, as: resource_name, url: wizard_path, html: { method: :put, class: 'avatar-uploader' }) do |f|
-        #avatar_select.field.hidden
-          - resource.crop_x=0
-          = f.label 'Sélectionnez un fichier'
-          = f.file_field :avatar, value: '', :required => true
-        .form-group
-          = f.hidden_field :crop_x, :id => 'crop_x'
-          = f.hidden_field :crop_y, :id => 'crop_y'
-          = f.hidden_field :crop_w, :id => 'crop_w'
-          = f.hidden_field :crop_h, :id => 'crop_h'
+#become-teacher
+  .become-teacher-avatar
+    .row
+      = tutorial_progress_bar
+    .row
+      .col-sm-8.col-sm-offset-2
+        .card
+          .card-content
+            %span.card-title.text-center Ajoutez une photo!
+            %p
+              Cela rassurera les autres membres et vous trouverez plus facilement des élèves.
+            %hr
+            .row
+              .col-sm-8
+                = form_for(resource, as: resource_name, url: wizard_path, html: { method: :put, class: 'avatar-uploader' }) do |f|
+                  #avatar_select.field.hidden
+                    - resource.crop_x=0
+                    = f.label 'Sélectionnez un fichier'
+                    = f.file_field :avatar, value: '', :required => true
+                    = f.hidden_field :crop_x, :id => 'crop_x'
+                    = f.hidden_field :crop_y, :id => 'crop_y'
+                    = f.hidden_field :crop_w, :id => 'crop_w'
+                    = f.hidden_field :crop_h, :id => 'crop_h'
 
-        .avatar-uploaded-view
-          %img.avatar-uploaded-view-image
-        .avatar-uploaded-preview
-          =image_tag(current_user.avatar(:medium), class: 'avatar-uploaded-preview-image', width: 200)
-        .edit-user-avatar.text-center
-          %button.btn.btn-sm.btn-qw.btn-green.browse{type: 'button'}
-            parcourir
-            %i.fa.fa-folder-open
-          = f.button "Enregistrer", class: 'btn btn-sm btn-qw btn-green', type: 'submit', disable_with: '<i class="fa fa-spinner fa-spin"></i>en cours'
-        .text-right
-          = link_to 'Pas maintenant', next_wizard_path
-        %hr
+                  .avatar-uploaded-view
+                    %img.avatar-uploaded-view-image
+                  .avatar-uploaded-preview
+                    =image_tag(current_user.avatar(:medium), class: 'avatar-uploaded-preview-image')
+                  .edit-user-avatar.text-center
+                    %button.btn.btn-sm.btn-qw.btn-green.browse{type: 'button'}
+                      Choisir une photo
+                      %i.fa.fa-folder-open
+                    = f.button "Enregistrer", class: 'btn btn-sm btn-qw btn-green', type: 'submit', disable_with: '<i class="fa fa-spinner fa-spin"></i>en cours'
+              .col-sm-4.hidden-sm
+                .text-center.lead Choisir la bonne photo
+                .list-group.text-left
+                  %div
+                    .chip
+                      %i.fa.fa-sun-o
+                      Bien éclairée
+                  %div
+                    .chip
+                      %i.fa.fa-user
+                      De face
+                  %div
+                    .chip
+                      %i.fa.fa-users
+                      Une seule personne
+                  %div
+                    .chip
+                      %i.fa.fa-snowflake-o
+                      Originale
+
+            .row
+              .col-sm-12.text-right
+                = link_to 'Pas maintenant', next_wizard_path
 
 :javascript
   new AvatarUploader()

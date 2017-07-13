@@ -64,13 +64,15 @@
   background-position: center;
   background-image: image_url('become_teacher/abtest/q4.jpg');
   text-align: center;
-  .become-teacher-offers, .become-teacher-general-infos{
+  .become-teacher-offers, .become-teacher-general-infos, .become-teacher-avatar{
     height: 100vh;
     overflow-y: scroll;
     overflow-x: hidden;
     .highlight{
       font-weight:800;
     }
-
+    .edit-user-avatar{
+      margin-top:10px;
+    }
   }
 }
