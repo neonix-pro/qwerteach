@@ -26,7 +26,7 @@ RSpec.describe OffersController, type: :controller do
             get 'edit', :id => Offer.last.id
             expect(response).to be_success
         end
-        
+
         it "delete" do
             get "destroy", :id => Offer.first.id
             expect(response).to redirect_to edit_user_registration_path(Offer.first.user_id)

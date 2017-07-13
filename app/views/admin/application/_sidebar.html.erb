@@ -93,4 +93,11 @@ as defined by the routes in the `admin/` namespace
             class: "sidebar__link sidebar__link--#{nav_link_state(:banned_users)}"
         )%>
   </li>
+  <li>
+    <%= link_to(
+            "Disputes (#{@number_of_disputes_started})",
+            '/admin/disputes',
+            class: "sidebar__link sidebar__link--#{nav_link_state(:disputes)}"
+        )%>
+  </li>
 </ul>

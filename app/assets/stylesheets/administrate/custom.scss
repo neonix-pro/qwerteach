@@ -5,6 +5,13 @@
 //@import "bootstrap/mixins/clearfix";
 //@import "bootstrap/mixins/grid";
 //@import "bootstrap/grid";
+@import "dispute";
+.bootstrap-wrapper{
+  @import 'bootstrap';
+}
+.main-content__body {
+  padding: 1.5em;
+}
 .conversation-admin{
   .show-more, .mailbox-conversation-details{
     display:none;
@@ -39,8 +46,8 @@
 .pull-left{
   float:left;
 }
-
-
-.user-postulation{
-  padding: 0px 40px;
+.table__row{
+  img{
+    max-width: 2em;
+  }
 }

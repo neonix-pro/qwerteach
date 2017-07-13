@@ -20,6 +20,7 @@ FactoryGirl.define do
       email { FFaker::Internet.email }
       firstname { FFaker::Name.first_name }
       lastname { FFaker::Name.last_name }
+      postulance_accepted true
     end
   end
   factory :admin, class: User do
