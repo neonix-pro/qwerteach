@@ -11,3 +11,4 @@ new OffersManager("#{@user.offers.count +1}", #{(Hash[*@topics.flatten]).to_json
 $('select').on('change', function(){$(this).parent().removeClass('open');});
 $('.offers-list .card-title .count').text("#{current_user.offers.count}")
 $('nav').find('.text-danger').remove();
+$('.material-form select').material_select();
