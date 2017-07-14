@@ -1,0 +1,3 @@
+= f.label field.attribute_key, field.attribute, class: 'col-sm-2 col-form-label text-xs-right'
+.col-sm-10
+  = f.select(field.attribute_key, options_for_select(field.associated_resource_options, field.selected_options), {}, multiple: true, class: 'form-control')

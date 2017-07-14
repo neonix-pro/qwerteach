@@ -51,6 +51,7 @@ class StudentDashboard < Administrate::BaseDashboard
       avatar_file_size: Field::Number,
       avatar_updated_at: Field::DateTime,
       mango_id: Field::Number,
+      lessons_received: Field::HasMany
   }
 
   # COLLECTION_ATTRIBUTES
@@ -64,7 +65,6 @@ class StudentDashboard < Administrate::BaseDashboard
       :email,
       :phone_country_code,
       :phone_number,
-      :offers,
   ]
 
   # SHOW_PAGE_ATTRIBUTES
@@ -108,9 +108,9 @@ class StudentDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-      :gallery,
-      :offers,
-      :level,
+      #:gallery,
+      #:offers,
+      #:level,
       :login,
       :firstname,
       :lastname,
@@ -122,25 +122,25 @@ class StudentDashboard < Administrate::BaseDashboard
       :type,
       :first_lesson_free,
       :occupation,
-      :postulance_accepted,
+      #:postulance_accepted,
       :teacher_status,
       :email,
-      :encrypted_password,
-      :reset_password_token,
-      :reset_password_sent_at,
-      :remember_created_at,
-      :sign_in_count,
-      :current_sign_in_at,
-      :last_sign_in_at,
-      :current_sign_in_ip,
-      :last_sign_in_ip,
-      :confirmation_token,
-      :confirmed_at,
-      :confirmation_sent_at,
-      :unconfirmed_email,
-      :failed_attempts,
-      :unlock_token,
-      :locked_at,
+      # :encrypted_password,
+      # :reset_password_token,
+      # :reset_password_sent_at,
+      # :remember_created_at,
+      # :sign_in_count,
+      # :current_sign_in_at,
+      # :last_sign_in_at,
+      # :current_sign_in_ip,
+      # :last_sign_in_ip,
+      # :confirmation_token,
+      # :confirmed_at,
+      # :confirmation_sent_at,
+      # :unconfirmed_email,
+      # :failed_attempts,
+      # :unlock_token,
+      # :locked_at,
       :admin,
   ]
 

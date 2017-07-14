@@ -1,4 +1,5 @@
 require "administrate/base_dashboard"
+PostulingTeacher = Class.new(Teacher)
 
 class PostulingTeacherDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES

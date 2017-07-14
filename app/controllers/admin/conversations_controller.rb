@@ -15,5 +15,11 @@ module Admin
 
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
+
+    private
+
+    def resource_includes
+      [:messages]
+    end
   end
 end

@@ -1,0 +1,16 @@
+= content_for(:title) do
+  = display_resource_name(page.resource_name)
+
+.card-header.bordered
+  .header-block
+    %h3.title= content_for(:title)
+  .header-block.pull-right
+    %div
+      - DisputeDashboard::COLLECTION_SCOPES.each do |name|
+        = link_to( |
+          t("admin.dispute.scope.#{name}", default: name), |
+          [namespace, :disputes, q: {name => true}], |
+          class: "btn btn-secondary #{name}") |
+.card-block
+  = render 'collection', collection_presenter: page, resources: resources
+  = paginate_admin resources

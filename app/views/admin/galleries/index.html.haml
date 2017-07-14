@@ -2,12 +2,7 @@
   - content_for(:title) do
     = display_resource_name(page.resource_name)
   - content_for(:search) do
-    %form.search
-      %span.search__icon
-        = svg_tag "administrate/search.svg", "search", width: 16, height: 16
-      %input.search__input{"aria-label" => "Search", :name => "search", :placeholder => "Search", :type => "text", :value => search_term}/
-      %span.search__hint
-        Press enter to search
+    = render 'search', search_term: search_term
   %header.header
     %h1#page-title.header__heading= content_for(:title)
     .header__actions
@@ -17,4 +12,4 @@
           class: "button",                               |
         )                                                |
   = render "collection", collection_presenter: page, resources: resources
-  = paginate resources
+  = paginate_admin resources

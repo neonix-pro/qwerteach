@@ -25,30 +25,6 @@ class Payment < ActiveRecord::Base
   validates :transfert_date, presence: true
   validates :payment_method, presence: true
 
-  scope :locked, ->{where("status LIKE ? ", 1)}
-  scope :paid, ->{ where(status: 2) }
-
-  def pending?
-    status == 'pending'
-  end
-  def paid?
-    status == 'paid'
-  end
-  def locked?
-    status == 'locked'
-  end
-  def canceled?
-    status == 'canceled'
-  end
-  def disputed?
-    status == 'disputed'
-  end
-  def prepayment?
-    payment_type == 'prepayment'
-  end
-
-  def postpayment?
-    payment_type == 'postpayment'
-  end
+  scope :locked, -> { where(status: [statuses[:locked], statuses[:disputed]]) }
 
 end

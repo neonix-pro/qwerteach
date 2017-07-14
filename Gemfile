@@ -42,6 +42,7 @@ gem 'devise', '3.4.1'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'materialize-sass'
+gem 'bootstrap4', github: 'shredder-rull/bootstrap-rubygem'
 
 gem 'jquery-turbolinks'
 # droits d'accès
@@ -61,7 +62,8 @@ gem 'jcrop-rails-v2'
 # datepicker calendar
 gem 'bootstrap-datepicker-rails'
 #interface admin
-gem "administrate", github: 'thoughtbot/administrate'
+gem 'administrate', github: 'thoughtbot/administrate' #'~> 0.7'
+gem 'ransack', github: 'activerecord-hackery/ransack'
 
 # autocomplete search
 gem 'rails-jquery-autocomplete'
@@ -143,6 +145,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   #gem 'byebug'
   gem 'byebug',      '3.4.0'
+  gem 'pry-rails'
   gem 'ffaker'
   gem 'webmock'
   gem 'vcr'

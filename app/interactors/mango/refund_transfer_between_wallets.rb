@@ -11,7 +11,7 @@ module Mango
       @transfer = MangoPay::Transfer.fetch(transfer_id)
       refund = Mango.normalize_response MangoPay::Transfer.refund(transfer_id, mango_params)
       if refund.status != 'SUCCEEDED'
-        self.errors.add(:base, transfer.result_message)
+        self.errors.add(:base, refund.result_message)
       end
       refund
     rescue MangoPay::ResponseError => error

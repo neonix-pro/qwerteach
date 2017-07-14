@@ -1,0 +1,4 @@
+= f.label field.permitted_attribute, class: 'col-sm-2 col-form-label text-xs-right'
+.field-unit__field.col-sm-10
+  = f.select(field.permitted_attribute, nil, {}, class: 'form-control boxed') do
+    = options_for_select(field.associated_resource_options, field.selected_option)

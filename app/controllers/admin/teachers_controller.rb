@@ -15,6 +15,7 @@ module Admin
 
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
+    helper_method :teacher
 
     def destroy
       # suspends the user from signing in
@@ -24,55 +25,21 @@ module Admin
       end
     end
 
-
-    def index
-      search_term = params[:search].to_s.strip
-      resources = Teacher.where(postulance_accepted: true, active: true).order(params[:order] => params[:direction])
-      resources = resources.page(params[:page]).per(records_per_page)
-      page = Administrate::Page::Collection.new(dashboard, order: order)
-
-      render locals: {
-          resources: resources,
-          search_term: search_term,
-          page: page,
-      }
-    end
-
     def show
-      @user = User.find(params[:id])
-      @conversations = @user.mailbox.conversations.page(params[:page]).per(10)
-      @admins = User.where(admin: true)
-      conv_check_1 = Conversation.participant(@user)
-      conv_check_2 = Conversation.participant(current_user)
-      @conversation_admin = (conv_check_1 & conv_check_2).first
-      if @conversation_admin.nil?
-        @conversation_admin = Mailboxer::Conversation.new()
-      end
-      @messages_admin = @conversation_admin.messages.order(id: :desc)
-      @conversation = Conversation.participant(current_user).where('mailboxer_conversations.id in (?)', Conversation.participant(@user).collect(&:id))
+      @conversations = teacher.mailbox.conversations.page(params[:page]).per(10)
+      @conversation_admin = SendMessage.conversation_between(current_user, teacher)
+      @conversation_admin ||= Mailboxer::Conversation.new()
       super
     end
 
     def nav_link_state(resource)
-      case params[:action]
-        when 'inactive_teachers'
-          resource_name = :inactive_teacher
-        when 'banned_users'
-          resource_name = :banned_user
-        when 'index'
-          if params[:controller] == 'admin/teachers'
-            resource_name = :teacher
-          end
-          if params[:controller] == 'admin/postulling_teachers'
-            resource_name = :postulling_teacher
-          end
-      end
-
-      if resource_name.to_s.pluralize == resource.to_s
-        :active
-      else
-        :inactive
-      end
+      case resource
+        when :teachers then true
+        when :postuling_teachers then action_name == 'postuling_teachers'
+        when :approved_teachers then action_name == 'index'
+        when :inactive_teachers then action_name == 'inactive_teachers'
+        else false
+      end ? :active : :inactive
     end
 
     def deactivate
@@ -93,17 +60,31 @@ module Admin
       end
     end
 
-    def inactive_teachers
-      search_term = params[:search].to_s.strip
-      resources = Teacher.unscoped.where(:active=>false)
-      resources = resources.page(params[:page]).per(records_per_page)
-      page = Administrate::Page::Collection.new(dashboard, order: order)
+    def postuling_teachers
+      index
+    end
 
-      render :index, locals: {
-          resources: resources,
-          search_term: search_term,
-          page: page,
-      }
+    def inactive_teachers
+      index
+    end
+
+    private
+
+    def teacher
+      requested_resource
+    end
+
+    def scoped_resource
+      case action_name
+      when 'index'
+        Teacher.active.where(postulance_accepted: true)
+      when 'postuling_teachers'
+        Teacher.active.where(postulance_accepted: false)
+      when 'inactive_teachers'
+        Teacher.unscoped.where(active: false)
+      else
+        super
+      end
     end
 
   end

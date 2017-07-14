@@ -5,13 +5,16 @@ class Teacher  < Student
   has_many :degrees, foreign_key:  "user_id"
   has_many :lessons_given, :class_name => 'Lesson', :foreign_key => 'teacher_id'
 
+  has_many :reviews, class_name: 'Review', :foreign_key => 'subject_id'
+
+  validate :validate_postulance_accepted, if: ->{ postulance_accepted_changed? }, on: :update
+
   acts_as_reader
   after_create :create_postulation_user
   after_save :reindex_adverts
 
-  def self.reader_scope
-    where(:is_admin => true)
-  end
+  scope :reader_scope, -> { where(is_admin: true) }
+  scope :with_lessons, -> { joins(:lessons_given) }
 
   def mark_as_inactive
     self.update active: false
@@ -54,30 +57,17 @@ class Teacher  < Student
   end
 
   def similar_teachers(n)
-    ids_user = []
-    idsProfSimi = []
-    a = Offer.where(user_id: id) #Get Advert from User
-    ids = a.map{|ad| ad.topic_id }  #Get Topic from User
-    offers = Offer.where(topic_id: ids) #Check offer where Topic = Topic
-    ids_user = offers.map{|adv|adv.user_id} #Get User.id from offer
-    
-    ids_user.each{|id| #Récup idTeacher Double 
-      if ids_user.include?(id) == true
-        idsProfSimi.push(id)
-      end
-    }
-      if idsProfSimi.size <= 4 #Si - de 4 teachers sont récup 
-        idsProfSimi = ids_user.uniq
-      end 
-      @profSimis = User.where.not(:id => id).where(:id => idsProfSimi , :postulance_accepted => true).limit(n).order("RANDOM()")
+    User.where.not(id: id)
+      .where(
+        id: offers.includes(:topic).map(&:topic).map{|t| t.offers.pluck(:user_id)}.flatten.uniq,
+        :postulance_accepted => true)
+      .limit(n)
+      .order('RANDOM()')
   end
 
   def featured_review
-    review = Review.where(subject_id: self.id).where.not(review_text: '').order("note DESC").first
-    if review.nil?
-      review = Review.where(subject_id: self.id).order("note DESC").first
-    end
-    review
+    #reviews.reorder('note DESC, length(review_text) DESC').first
+    reviews.where.not(review_text: '').order("note DESC").first || reviews.order("note DESC").first
   end
 
   def qwerteach_score
@@ -99,19 +89,21 @@ class Teacher  < Student
   def avg_reviews
     @notes = self.reviews_received.map { |r| r.note }
     @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size
-    return @avg
   end
 
   def offers_by_level_code
-    level_codes = TopicGroup.uniq.pluck(:level_code)
-    result = {}
-    level_codes.each do |lc|
-      result[lc] =  self.offers.joins(:topic_group).where('topic_groups.level_code LIKE "'+lc+'"')
+    TopicGroup.uniq.pluck(:level_code).each_with_object({}) do |code, hash|
+      hash[code] = offers.joins(:topic_group).where(%Q(topic_groups.level_code LIKE "#{code}"))
     end
-    result
   end
 
   def reindex_adverts
     Sunspot.index! offers
+  end
+
+  def validate_postulance_accepted
+    if postulance_accepted? and (postulation.nil? or !postulation.completed?)
+      errors.add(:postulance_accepted, 'Can not be accepted because postulation has uncompleted fields')
+    end
   end
 end

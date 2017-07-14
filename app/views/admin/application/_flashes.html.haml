@@ -1,0 +1,8 @@
+- keys = %i[notice alert danger warning info success]
+- flash.each do |key, notice|
+  - next unless keys.include?(key.to_sym)
+  - bs_key = %w[notice alert].include?(key) ? :info : key
+  .alert.alert-dismissible.fade.show{:role => "alert", class: "alert-#{bs_key}"}
+    %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+      %span{"aria-hidden" => "true"} &times;
+    = notice.try(:html_safe)

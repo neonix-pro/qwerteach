@@ -1,0 +1,82 @@
+= content_for(:title) { page.page_title }
+
+.card-header.bordered
+  .header-block
+    %h3.title= content_for(:title)
+  .header-block.pull-right
+    = link_to(                                                  |
+        "#{t("administrate.actions.edit")} #{page.page_title}", |
+        [:edit, namespace, page.resource],                      |
+        class: "btn btn-primary",                               |
+      ) if valid_action? :edit
+.card-block
+  %table.table-min.table-striped
+    - page.attributes.each do |attribute|
+      %tr
+        %td.attribute-label
+          = t("helpers.label.#{resource_name}.#{attribute.name}", default: attribute.name.titleize)
+        %td.attribute-data(class="attribute-data--#{attribute.html_class}")=render_field attribute
+    %tr
+      %td.attribute-label Price
+      %td.attribute-data= page.resource.lesson.price
+
+    - if page.resource.bbb_room.present?
+      %tr
+        %td.attribute-label Big blue button room
+        %td.attribute-data
+          = page.resource.bbb_room.name
+          - if page.resource.bbb_room.recordings.present?
+            = link_to('Recordings', recordings_bigbluebutton_room_path(page.resource.bbb_room))
+
+      - page.resource.bbb_room.recordings.each do |record|
+        %tr
+          %td.attribute-label &nbsp;
+          %td.attribute-label=record.name
+
+.card-header.bordered
+  .header-block
+    %h3.title Messages
+.card-block
+  - conversations = disput_conversations(dispute)
+  = render 'messages', {conversations: conversations}
+
+- unless page.resource.finished?
+  .card-header.bordered
+    .header-block
+      %h3.title Divide money
+  .card-block
+    = link_to( |
+      t('admin.dispute.link.to_teacher'), |
+      resolve_admin_dispute_path(dispute, amount: dispute.lesson.price), |
+      class: 'btn btn-secondary to_teacher', |
+      method: :post )
+    -#
+    = link_to( |
+      t('admin.dispute.link.to_student'), |
+      resolve_admin_dispute_path(dispute, amount: 0), |
+      class: 'btn btn-secondary to_student', |
+      method: :post )
+    -#
+    = link_to( |
+      t('admin.dispute.link.divide_money'), |
+      '#', |
+      class: 'btn btn-secondary ', |
+      data: {toggle: 'modal', target: '#divide_money'} ) |
+
+
+#divide_money.modal(role='dialog')
+  .modal-dialog
+    = form_tag resolve_admin_dispute_path(dispute), class: 'modal-content' do
+      .modal-header
+        %h4.modal-title To devide money
+        %button.close(data-dismiss='modal' type='button') ×
+      .modal-body
+        %p Quel est le montant devrait être transféré à l'enseignant?
+        = number_field_tag(:amount, dispute.lesson.price, {min: 0, max: dispute.lesson.price})
+        %p.pull-right
+          %span.text-danger *
+          %span.text-info l'argent restant reste avec l'étudiant
+        %br
+      .modal-footer
+        = submit_tag 'Diviser l\'argent', class: 'btn btn-primary-outline'
+        %button.btn.btn-warning-outline(data-dismiss='modal' type='button') Cancel

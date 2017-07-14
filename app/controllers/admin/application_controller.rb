@@ -29,11 +29,13 @@ module Admin
       @number_of_disputes = Payment.where(status: 4).count
       @number_of_postuling_teachers = Teacher.where(active: true, postulance_accepted:false).count
       @number_of_teachers = Teacher.where(active: true, postulance_accepted:true).count
+      @number_of_disputes_started = Dispute.started.count
     end
     # Override this value to specify the number of elements to display at a time
     # on index pages. Defaults to 20.
     # def records_per_page
     #   params[:per_page] || 20
     # end
+
   end
 end

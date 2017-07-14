@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
 
   namespace :api, :defaults => { :format => 'json' } do
-    get 'dashboard' => 'dashboards#index' 
-    
+    get 'dashboard' => 'dashboards#index'
+
     get 'users/find_level' => 'users#find_level'
     put 'users/:id' => 'users#update'
     patch 'users/:id' => 'users#update'
     get 'profs' => 'users#index'
     get 'users/:id' => 'users#show'
     get 'get_infos_for_detailed_prices_modal' => 'users#get_infos_for_detailed_prices_modal'
-    
+
     get 'users/:user_id/lesson_requests/new' => 'lesson_requests#new'
     post 'users/:user_id/lesson_requests' => 'lesson_requests#create'
     put 'users/:user_id/lesson_requests/payment' => 'lesson_requests#payment'
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     get 'users/:user_id/lesson_requests/topics/:topic_group_id' => 'lesson_requests#topics'
     get 'users/:user_id/lesson_requests/levels/:topic_id' => 'lesson_requests#levels'
     post 'users/:user_id/lesson_requests/calculate' => 'lesson_requests#calculate'
-    
+
     get 'wallets/get_total_wallet/:user_id' => 'wallets#get_total_wallet'
     put 'user/mangopay/edit_wallet' => 'wallets#update_mangopay_wallet'
     get 'user/mangopay/index_wallet' => 'wallets#index'
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     put 'user/mangopay/make_payout' => 'wallets#make_payout'
     get 'user/mangopay/payout' => 'wallets#payout'
     get 'user/mangopay/transactions_index' => 'wallets#transactions_index'
-    
+
     get 'lessons' => 'lessons#index'
     get 'lessons/index_pagination' => 'lessons#index_pagination'
     get 'lessons/find_lesson_informations/:lesson_id' => 'lessons#find_lesson_informations'
@@ -86,6 +86,8 @@ Rails.application.routes.draw do
     resources :teachers do
       post 'deactivate' => :deactivate
       post 'reactivate' => :reactivate
+      get 'inactive' => :inactive_teachers, on: :collection, as: :inactive
+      get 'postuling' => :postuling_teachers, on: :collection, as: :postuling
     end
     resources :pictures
     resources :galleries
@@ -93,27 +95,27 @@ Rails.application.routes.draw do
       get "generate_text" => :generate_text
     end
     resources :comments
-    resources :postuling_teachers
     resources :lessons
     resources :topics
     resources :topic_groups
     resources :level
     resources :offer_prices
     resources :offers
-    resources :payments
+    resources :payments, except: [:new, :create]
     resources :reviews
-    resources :conversations
+    resources :conversations, only: [:index, :show]
     resources :mailboxer_messages
 
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
-    
-   
+
+    resources :disputes, except: [:new, :create, :edit, :update] do
+      post 'resolve' => :resolve, on: :member
+    end
+
     # Gestion des serveurs BBB depuis l'admin
     resources :bigbluebutton_servers
     resources :bigbluebutton_recordings
     resources :bbb_rooms
-
-    get "inactive_teachers" => "teachers#inactive_teachers"
     get "banned_users" => "users#banned_users"
 
     root to: "users#index"

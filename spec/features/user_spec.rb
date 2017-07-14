@@ -7,37 +7,35 @@ feature "UserSignsUps" do
   end
   scenario 'with invalid email' do
     visit new_user_registration_path
-    within('.main-content') do 
+    within('.main-content') do
       fill_in 'user[email]', with:'t@.'
       fill_in 'user[password]', with: 'password'
       #fill_in 'user[password_confirmation]', with: 'password'
       click_button "S'inscrire"
       expect(page).to have_content 'Inscription'
     end
-
   end
   scenario 'with invalid password' do
     visit new_user_registration_path
-    within('.main-content') do 
+    within('.main-content') do
       fill_in 'user[email]', with:'t@t.t'
       fill_in 'user[password]', with: 'pass'
       #fill_in 'user[password_confirmation]', with: 'pass'
       click_button "S'inscrire"
       expect(page).to have_content 'Inscription'
+    end
   end
-end
   scenario 'with different password' do
     visit new_user_registration_path
-    within('.main-content') do 
+    within('.main-content') do
       fill_in 'user[email]', with:'t@t.t'
       fill_in 'user[password]', with: 'kaltrina'
       #fill_in 'user[password_confirmation]', with: 'rouilliiiiiiiiiiii'
       click_button "S'inscrire"
       expect(page).to have_content 'Inscription'
+    end
   end
 end
-
-  end
 
 feature "UserUnlockInstructions" do
   scenario "right unlock information" do

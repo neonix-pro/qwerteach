@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606165343) do
+ActiveRecord::Schema.define(version: 20170609082530) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -178,6 +178,14 @@ ActiveRecord::Schema.define(version: 20170606165343) do
   add_index "degrees", ["level_id"], name: "index_degrees_on_level_id"
   add_index "degrees", ["user_id"], name: "index_degrees_on_user_id"
 
+  create_table "disputes", force: :cascade do |t|
+    t.integer  "status",     default: 0
+    t.integer  "user_id"
+    t.integer  "lesson_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "drafts", force: :cascade do |t|
     t.string   "target_type", null: false
     t.integer  "user_id"
@@ -199,11 +207,14 @@ ActiveRecord::Schema.define(version: 20170606165343) do
   end
 
   create_table "interests", force: :cascade do |t|
-    t.integer  "student_id", null: false
-    t.integer  "topic_id",   null: false
+    t.integer  "student_id"
+    t.integer  "topic_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "interests", ["student_id"], name: "index_interests_on_student_id"
+  add_index "interests", ["topic_id"], name: "index_interests_on_topic_id"
 
   create_table "lessons", force: :cascade do |t|
     t.integer  "student_id",                                             null: false

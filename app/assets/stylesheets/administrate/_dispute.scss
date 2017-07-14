@@ -1,0 +1,18 @@
+.dispute-messages{
+  .nav-tabs{
+    .cut{
+      overflow: hidden;
+      max-width: 200px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+  .tab-content{
+    border-left: 1px solid #ddd;
+    .pre-scrollable{
+      margin-bottom: 5px;
+      min-height: 340px;
+    }
+    padding: 0 !important;
+  }
+}

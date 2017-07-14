@@ -1,0 +1,48 @@
+.table {
+	label {
+		margin-bottom: 0;
+	}
+
+	.checkbox + span {
+		margin-bottom: 0;
+		&:before {
+			line-height: 20px;
+		}
+	}
+}
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  min-height: 0%;
+  overflow-x: auto;
+	margin-bottom: 15px;
+
+	table {
+		margin-bottom: 0;
+	}
+}
+
+.table-min {
+	margin-bottom: 15px;
+	tr {
+		td {
+			padding: 6px 10px;
+		}
+		td:first-child {
+			font-weight: bold;
+		}
+	}
+	.table, .table-striped, .table-bordered, .table-hover {
+		width: auto;
+		background-color: transparent !important;
+		margin: 0;
+		tr {
+			background-color: transparent !important;
+			td, th {
+				padding: 0 5px;
+				background-color: transparent !important;
+			}
+		}
+	}
+}

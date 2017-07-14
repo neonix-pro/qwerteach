@@ -15,6 +15,7 @@ module Admin
 
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
+    helper_method :student
 
     def index
       search_term = params[:search].to_s.strip
@@ -30,17 +31,9 @@ module Admin
     end
 
     def show
-      @user = User.find(params[:id])
-      @conversations = @user.mailbox.conversations.page(params[:page]).per(10)
-      @admins = User.where(admin: true)
-      conv_check_1 = Conversation.participant(@user)
-      conv_check_2 = Conversation.participant(current_user)
-      @conversation_admin = (conv_check_1 & conv_check_2).first
-      if @conversation_admin.nil?
-        @conversation_admin = Mailboxer::Conversation.new()
-      end
-      @messages_admin = @conversation_admin.messages.order(id: :desc)
-      @conversation = Conversation.participant(current_user).where('mailboxer_conversations.id in (?)', Conversation.participant(@user).collect(&:id))
+      @conversations = student.mailbox.conversations.page(params[:page]).per(10)
+      @conversation_admin = SendMessage.conversation_between(current_user, student)
+      @conversation_admin ||= Mailboxer::Conversation.new()
       super
     end
 
@@ -50,6 +43,12 @@ module Admin
         flash[:notice] = translate_with_resource("blocked.success")
         redirect_to action: :index
       end
+    end
+
+    private
+
+    def student
+      requested_resource
     end
 
   end

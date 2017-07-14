@@ -1,0 +1,8 @@
+= form_for([namespace, page.resource], html: { class: "form" }) do |f|
+  - if page.resource.errors.any?
+    = render 'form_errors', page: page
+  - page.attributes.each do |attribute|
+    %div{:class => "form-group row"}
+      = render_field attribute, f: f
+  .form-actions
+    = f.submit nil, class: 'btn btn-primary'

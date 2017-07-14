@@ -1,53 +1,56 @@
-%body
-  - content_for(:title) { "#{page.resource.firstname} #{page.resource.lastname}"}
-  %header.header
-    %h1.header__heading
+- content_for(:title) { page.resource.full_name }
+.card-header.bordered
+  .header-block
+    =image_tag page.resource.avatar.url(:small), class: "header-avatar rounded"
+    %h3.title
       = content_for(:title)
       %small (Student)
-    =image_tag page.resource.avatar.url(:medium)
-    .header__actions
-      = link_to("Edit",[:edit, namespace, page.resource], class: "button")
-      = link_to("Suspendre", admin_user_path(page.resource), method: :delete, class: "button")
-      = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "button"
-  %hr
+  .header-block.pull-right
+    = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
+    = link_to("Suspendre", admin_user_path(page.resource), method: :delete, class: "btn btn-warning")
+    = link_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "btn btn-secondary"
 
-  %dl
-    - page.attributes.each do |attribute|
-      %dt.attribute-label= attribute.name.titleize
-      %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}
-        - if attribute.data != "" && !attribute.data.nil?
-          = render_field attribute
-        - else
-          ="-"
-  %div
-    %h2 Discuter avec #{page.resource.name}
-    .actions.pull-right
-      = link_to 'Inviter dans la classe virtuelle', room_invite_bbb_rooms_path(page.resource), class:'button btn-default'
-    .conversation-admin
-      -if @conversation_admin.id.nil?
-        = render partial: 'users/profile/contactform', locals:{me: current_user, user: @user}
-      -else
-        = render partial: 'conversations/conversation', locals:{conversation: @conversation_admin, page: 0, messages: @messages_admin}
-  %div
-    %h2 Conversations (#{@conversations.total_count})
-    - unless @conversations.empty?
-      %table
-        %thead
+.card-block
+  %ul.nav.nav-tabs.nav-tabs-bordered
+    %li.nav-item
+      %a.nav-link.active(data-toggle="tab" data-target="#information" href="#information" aria-controls="information" role="tab" aria-expanded="true") Information
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#lessons" href="#discuter" aria-controls="lessons" role="tab" aria-expanded="false") Received Lessons
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#discuter" href="#discuter" aria-controls="discuter" role="tab" aria-expanded="false") Discuter
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#conversations" href="#conversations" aria-controls="conversations" role="tab" aria-expanded="false") Conversations
+
+  .tab-content.tabs-bordered
+    #information.tab-pane.active(aria-expanded="true")
+      %table.table-min.table-striped
+        - page.attributes.each do |attribute|
           %tr
-            %th ID
-            %th partner
-            %th last message
-            %th # of messages
-          - @conversations.each do |c|
-            - c.recipients.delete(@user)
-            %tr
-              %td #{link_to c.id, admin_show_conversation_path(c)}
-              %td #{link_to c.recipients.last.name, admin_student_path(c.recipients.last)}
-              %td #{c.messages.last.body}
-              %td #{c.messages.count}
+            %td.attribute-label= attribute.name.titleize
+            %td{:class => "attribute-data attribute-data--#{attribute.html_class}"}
+              - if attribute.data != "" && !attribute.data.nil?
+                = render_field attribute
+              - else
+                ="-"
+        %tr
+          %td.attribute-label Balance
+          %td{:class => "attribute-data"}
+            - if page.resource.mango_id.present?
+              = wallet_balance(page.resource.normal_wallet) rescue '-'
+            - else
+              ="-"
+    #lessons.tab-pane(aria-expanded="false")
+      = render_field resource_field(page, :lessons_received)
 
-      = paginate @conversations
-    - else
-      Pas encore de conversations!
+    #discuter.tab-pane(aria-expanded="false")
+      .card-header
+        %h4.title Discuter avec #{page.resource.name}
+        .header-block.actions.pull-right
+          = link_to 'Inviter dans la classe virtuelle', room_invite_bbb_rooms_path(page.resource), class:'btn btn-secondary'
+      .conversation-admin
+        = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: student
+
+    #conversations.tab-pane(aria-expanded="false")
+      = render 'admin/shared/conversations', conversations: @conversations, user: student
 
 -#=content_for(:javascript)

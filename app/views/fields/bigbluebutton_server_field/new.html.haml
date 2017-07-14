@@ -1,38 +1,35 @@
-%h1
-  New #{BigbluebuttonServer.model_name.human}:
-= form_for @server, :url => admin_bigbluebutton_servers_path do |f|
-  - if @server.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@server.errors.count, "error")
-        \:
-      %ul
-        - @server.errors.full_messages.each do |msg|
-          %li= msg
-  .field
-    = f.label :id
-    %br/
-    = @server.id
-  .field
-    = f.label :name
-    %br/
-    = f.text_field :name
-  .field
-    = f.label :url
-    %br/
-    = f.text_field :url
-  .field
-    = f.label :secret
-    %br/
-    = f.text_field :secret
-  .field
-    = f.label :version
-    %br/
-    = f.text_field :version, :disabled => true
-  .field
-    = f.label :param
-    %br/
-    = f.text_field :param
-  .actions
-    = f.submit
-= link_to 'Back', admin_bigbluebutton_servers_path
+.card-header.bordered
+  .header-block
+    %h3.title New #{BigbluebuttonServer.model_name.human}:
+
+.card-block
+  = form_for @server, :url => admin_bigbluebutton_servers_path do |f|
+    - if @server.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@server.errors.count, "error")
+          \:
+        %ul
+          - @server.errors.full_messages.each do |msg|
+            %li= msg
+    .form-group.row
+      = f.label :id, class: 'col-sm-2 form-control-label text-xs-right'
+      .col-sm-10= @server.id
+    .form-group.row
+      = f.label :name, class: 'col-sm-2 form-control-label text-xs-right'
+      .col-sm-10= f.text_field :name, class: 'form-control'
+    .form-group.row
+      = f.label :url, class: 'col-sm-2 form-control-label text-xs-right'
+      .col-sm-10= f.text_field :url, class: 'form-control'
+    .form-group.row
+      = f.label :secret, class: 'col-sm-2 form-control-label text-xs-right'
+      .col-sm-10= f.text_field :secret, class: 'form-control'
+    .form-group.row
+      = f.label :version, class: 'col-sm-2 form-control-label text-xs-right'
+      .col-sm-10= f.text_field :version, :disabled => true, class: 'form-control'
+    .form-group.row
+      = f.label :param, class: 'col-sm-2 form-control-label text-xs-right'
+      .col-sm-10= f.text_field :param, class: 'form-control'
+    .form-actions
+      = f.submit nil, class: 'btn btn-primary'
+      = link_to 'Back', admin_bigbluebutton_servers_path, class: 'btn btn-secondary'
