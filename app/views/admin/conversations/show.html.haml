@@ -1,0 +1,8 @@
+= render(template: 'admin/application/show', locals: local_assigns)
+.card-header.bordered
+  .header-block
+    %h3.title Messages
+.card-block
+  .mailbox-conversation{:id => "chatbox_#{conversation.id}", data: {id: conversation.id}}
+    .conversation-content
+      = render 'conversations/messages', messages: conversation.messages
