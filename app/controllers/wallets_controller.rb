@@ -105,12 +105,14 @@ class WalletsController < ApplicationController
       respond_to do |format|
         format.html {redirect_to load_wallet_path, notice: t('notice.processing_error')}
         format.json {render :json => {:message => "error"}}
+        format.js {}
       end and return
     else
       @card_registration = creation.result
       respond_to do |format|
         format.json {render :json => {:message => @card_registration}}
         format.html {}
+        format.js {}
       end
     end
   end
@@ -127,12 +129,14 @@ class WalletsController < ApplicationController
         respond_to do |format|
           format.html {redirect_to payin.result.redirect_url}
           format.json {render :json => {:message => "redirect url", :url => payin.result.redirect_url}}
+          format.js {}
         end and return
       else
         #TODO: render direct_debit_mangopay_wallet with filled fields
         respond_to do |format|
           format.html {redirect_to load_wallet_path, alert: payin.errors.full_messages.join(' ')}
           format.json {render :json => {:message => "error", :errors => payin.errors.full_messages}}
+          format.js {}
         end and return
       end
 
@@ -147,12 +151,14 @@ class WalletsController < ApplicationController
             respond_to do |format|
               format.html {redirect_to result.secure_mode_redirect_url}
               format.json {render :json => {:message => "redirect url", :url => result.secure_mode_redirect_url}}
-            end
+              format.js {}
+            end and return
           else
             NotificationsMailer.send_load_wallet_details_to_user(current_user, payin.result).deliver_later
             respond_to do |format|
               format.html {redirect_to index_wallet_path, notice: t('notice.processing_success')}
               format.json {render :json => {:message => "true"}}
+              format.js {}
             end and return
           end
         else
@@ -160,6 +166,7 @@ class WalletsController < ApplicationController
           respond_to do |format|
             format.html {redirect_to load_wallet_path, alert: payin.errors.full_messages.join(' ')}
             format.json {render :json => {:message => "error", :errors => payin.errors.full_messages}}
+            format.js {}
           end and return
         end
       end
@@ -170,6 +177,7 @@ class WalletsController < ApplicationController
         respond_to do |format|
           format.html {render :load_wallet}
           format.json {render :json => {:message => "bank wire", :bank_wire => @bank_wire.result}}
+          format.js {}
         end
       else
         #TODO: render direct_debit_mangopay_wallet with filled fields
@@ -184,12 +192,14 @@ class WalletsController < ApplicationController
       respond_to do |format|
         format.html {redirect_to load_wallet_path, notice: t('notice.processing_error')}
         format.json {render :json => {:message => "error"}}
+        format.js {}
       end and return
     else
       @card_registration = creation.result
       respond_to do |format|
         format.html {}
         format.json {render :json => {:card_registration => @card_registration, :user_cards => @user.mangopay.cards}}
+        format.js {}
       end
     end
   end
@@ -222,12 +232,14 @@ class WalletsController < ApplicationController
       respond_to do |format|
         format.html {redirect_to index_wallet_path, notice: 'Le compte en banque a été supprimé'}
         format.json {render :json => {:success => "true", :message => "Le compte en banque a été supprimé"}}
+        format.js {}
       end
     else
       respond_to do |format|
         format.html {redirect_to index_wallet_path, danger: 'Il y a eu un problème: '+desactivation.errors.full_messages.to_sentence}
         format.json {render :json => {:succes => "false", 
           :message => 'Il y a eu un problème: '+desactivation.errors.full_messages.to_sentence}}
+        format.js {}
       end
     end
   end
@@ -238,19 +250,22 @@ class WalletsController < ApplicationController
       respond_to do |format|
         format.html {redirect_to index_wallet_path, notice:t('notice.bank_account_creation_success')}
         format.json {render :json => {:success => "true", :message => t('notice.bank_account_creation_success')}}
+        format.js {}
       end
     else
       flash[:danger] = t('notice.bank_account_creation_error', message: creation.errors.full_messages.to_sentence)
       respond_to do |format|
         format.html {redirect_to index_wallet_path}
         format.json {render :json => {:success => "false", :message => creation.errors.full_messages.to_sentence}}
+        format.js {}
       end
     end
   rescue MangoPay::ResponseError => ex
     flash[:danger] = t('notice.bank_account_creation_error', message: ex.details["Message"].to_s)
     respond_to do |format|
-        format.html {redirect_to index_wallet_path}
-        format.json {render :json => {:success => "false", :message => ex.details["Message"].to_s}}
+      format.html {redirect_to index_wallet_path}
+      format.json {render :json => {:success => "false", :message => ex.details["Message"].to_s}}
+      format.js {}
       end and return
   end
 
@@ -260,12 +275,14 @@ class WalletsController < ApplicationController
         format.html {redirect_to bank_accounts_path, alert: "Vous devez enregistrer un compte en banque pour pouvoir décharger votre portefueille virtuel!"}
         format.json {render :json => {:success => "false", 
           :message => "Vous devez enregistrer un numéro de compte en banque afin de transférer votre solde."}}
+        format.js {}
       end
     end
     if @user.normal_wallet.balance.amount.to_f == 0.0
       respond_to do |format|
         format.html {redirect_to index_wallet_path, alert: "Vous n'avez rien à récupérer."}
         format.json {render :json => {:success => "true"}}
+        format.js {}
       end
     end
   end
@@ -276,11 +293,13 @@ class WalletsController < ApplicationController
       respond_to do |format|
         format.html {redirect_to index_wallet_path, notice: t('notice.payout_success')}
         format.json {render :json => {:success => "true", :message => t('notice.payout_success')}}
+        format.js {}
       end
     else
       respond_to do |format|
         format.html {redirect_to payout_path, alert: t('notice.processing_error')}
         format.json {render :json => {:success => "false", :url => payout_path}}
+        format.js {}
       end
     end
   end

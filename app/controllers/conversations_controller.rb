@@ -67,7 +67,6 @@ class ConversationsController < ApplicationController
     Resque.enqueue(MessageStatWorker, current_user.id)
     @unread_count = @mailbox.inbox({:read => false}).count
     @path = reply_conversation_path(@conversation)
-    Rails.logger.debug("RECIEVER: #{@reciever.inspect}")
   end
 
   def show_more
