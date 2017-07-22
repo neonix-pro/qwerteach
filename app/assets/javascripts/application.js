@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery.min
+//= require jquery2.min
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui

@@ -1,5 +1,14 @@
 // Insert offer edit form
-$('.become-teacher-offers .offers-list .offer-form').remove();
+$('.become-teacher-offers .offer-form').fadeOut(300, function(){$(this).remove();});
 $('.become-teacher-offers .offers-list').append("#{j render partial: 'become_teacher/edit_offer', locals:{offer: @offer}}");
 // insert new offer form with correct id
-$('.become-teacher-offers .offers-list').append("#{j render partial: 'become_teacher/offer', locals:{offer: Offer.new(), id: (@user.offers.count +1)}}");
+$('.become-teacher-offers .offer-form-wrapper').prepend("#{j render partial: 'become_teacher/offer', locals:{offer: Offer.new(), id: (@user.offers.count +1)}}");
+$('.offer-form .card-title').text('Ajouter une annonce');
+$('.offer-form .card-title').append('<br /><small>Votre annonce a bien été enregistrée. Vous pouvez en ajouter une nouvelle, ou passer à #{link_to "l'étape suivante", become_teacher_path(:general_infos)}.</small>');
+$('.become-teacher-offers').animate({scrollTop: $( '.offer-form' ).offset().top}, 500);
+Materialize.updateTextFields();
+new OffersManager("#{@user.offers.count +1}", #{(Hash[*@topics.flatten]).to_json.html_safe});
+$('select').on('change', function(){$(this).parent().removeClass('open');});
+$('.offers-list .card-title .count').text("#{current_user.offers.count}")
+$('nav').find('.text-danger').remove();
+$('.material-form select').material_select();

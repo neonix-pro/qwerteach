@@ -1,26 +1,30 @@
-.become-teacher-offers
-  .row
-    = tutorial_progress_bar
-  .row
-    %h2.text-center Les cours que vous donnez
+#become-teacher
+  .become-teacher-offers.text-left
+    .row
+      = tutorial_progress_bar
+    .row
+      .col-sm-8.col-sm-offset-2.offer-form-wrapper
+        = render partial: 'offer', locals:{offer: @offer, id: 1}
+    .row
+      .col-sm-8.col-sm-offset-2
+        .card
+          .card-content
+            .offers-list
+              %span.card-title.text-center
+                %span.count #{@user.offers.count}
+                #{@user.offers.count == 1 ? 'annonce enregistrée' : 'annonces enregistrées'}
+                %br
+              - @user.offers.each do |offer|
+                = render partial: 'edit_offer', locals:{offer: offer}
+            %nav.text-right
+              = link_to 'Continuer', next_wizard_path, class:'btn btn-qw btn-sm btn-green'
 
-    - model_class = @offer.class
-    .col-sm-2
-    .col-sm-8.text-center
-      .alert.alert-info.text-left
-        %p
-          Vos annonces rassemblent les informations pratiques concernant vos cours: matières, niveaux et tarifs.
-          Elles sont utiles pour permettre aux élèves d'effectuer des recherches par matière enseignée, niveau, ou prix.
-          <br />
-          <b>Vous pouvez introduire plusieurs annonces</b>, pour des matières différentes.
-    .col-sm-2
-    .col-sm-8.offers-list
-      - @user.offers.each do |offer|
-        = render partial: 'edit_offer', locals:{offer: offer}
-      = render partial: 'offer', locals:{offer: @offer, id: 1}
-  .row
-    .col-sm-2
-    .col-sm-8
-      %nav.text-right
-        = link_to 'Continuer', next_wizard_path, class:'btn btn-qw btn-sm btn-green'
-  %hr
+:javascript
+  $('nav a').click(function(e){
+    if ($('.offers-list .offer-edit-form').length <1 ){
+      e.preventDefault();
+      var div = '<div class="text-danger">Vous devez enregistrer au moins une annonce pour continuer!</div>'
+      $(this).parent().find('.text-danger').remove();
+      $(this).parent().append(div);
+    }
+  });

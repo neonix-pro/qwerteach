@@ -14,7 +14,8 @@ def tutorial_progress_bar
               link_to wizard_path(every_step) do
                 name = content_tag(:div, I18n.t(every_step, scope: 'become_teacher'), class:'step-name')
                 number = content_tag(:span, "#{index+1}", class:'step-number')
-                number + name
+                #number + name
+                name
               end
             end
           )
