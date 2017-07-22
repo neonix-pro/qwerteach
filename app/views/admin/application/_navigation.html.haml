@@ -16,10 +16,30 @@
           = link_to("Approved (#{@number_of_teachers})", [namespace, Teacher])
         %li{class: nav_link_state(:inactive_teachers)}
           = link_to('Inactive ', [:inactive, namespace, Teacher])
-    %li{class: nav_link_state(:pictures)}
-      = link_to([namespace, Picture]) do
-        = icon 'user-circle-o'
-        Avatars
+    -#%li{class: nav_link_state(:pictures)}
+    -#  = link_to([namespace, Picture]) do
+    -#    = icon 'user-circle-o'
+    -#    Avatars
+    -#%li{class: nav_link_state(:bigbluebutton_servers)}
+    -#  = link_to([namespace, BigbluebuttonServer]) do
+    -#    = icon('server')
+    -#    BBB Server
+    -#%li{class: nav_link_state(:bigbluebutton_recordings)}
+    -#  = link_to([namespace, BigbluebuttonRecording]) do
+    -#    = icon('video-camera')
+    -#    All Recordings
+    %li{class: nav_link_state(:lessons)}
+      = link_to([namespace, Lesson]) do
+        = icon('book')
+        Lessons
+    %li{class: nav_link_state(:disputes)}
+      = link_to([namespace, :disputes]) do
+        = icon 'thumbs-o-down'
+        Disputes (#{@number_of_disputes_started})
+    -#%li{class: nav_link_state(:payments)}
+    -#  = link_to([namespace, Payment]) do
+    -#    = icon('money')
+    -#    Payments (#{@number_of_disputes})
     %li{class: nav_link_state(:conversations)}
       = link_to([namespace, Conversation]) do
         = icon 'weixin'
@@ -28,27 +48,7 @@
       = link_to([namespace, Comment]) do
         = icon 'comment-o'
         Reviews
-    %li{class: nav_link_state(:bigbluebutton_servers)}
-      = link_to([namespace, BigbluebuttonServer]) do
-        = icon('server')
-        BBB Server
-    %li{class: nav_link_state(:bigbluebutton_recordings)}
-      = link_to([namespace, BigbluebuttonRecording]) do
-        = icon('video-camera')
-        All Recordings
-    %li{class: nav_link_state(:lessons)}
-      = link_to([namespace, Lesson]) do
-        = icon('book')
-        Lessons
-    %li{class: nav_link_state(:payments)}
-      = link_to([namespace, Payment]) do
-        = icon('money')
-        Payments (#{@number_of_disputes})
     %li{class: nav_link_state(:banned_users)}
       = link_to([namespace, :banned_users]) do
         = icon 'user-times'
         Banned users
-    %li{class: nav_link_state(:disputes)}
-      = link_to([namespace, :disputes]) do
-        = icon 'thumbs-o-down'
-        Disputes (#{@number_of_disputes_started})

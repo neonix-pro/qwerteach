@@ -16,12 +16,12 @@
           %a.dropdown-item{:href => edit_admin_user_path(current_user)}
             %i.fa.fa-user.icon
             Profile
-          %a.dropdown-item{:href => "#"}
-            %i.fa.fa-bell.icon
-            Notifications
-          %a.dropdown-item{:href => "#"}
-            %i.fa.fa-gear.icon
-            Settings
+          -#%a.dropdown-item{:href => "#"}
+          -#  %i.fa.fa-bell.icon
+          -#  Notifications
+          -#%a.dropdown-item{:href => "#"}
+          -#  %i.fa.fa-gear.icon
+          -#  Settings
           .dropdown-divider
           = link_to destroy_user_session_path, class: 'dropdown-item', method: :delete do
             %i.fa.fa-power-off.icon
