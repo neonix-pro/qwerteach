@@ -206,6 +206,11 @@ class LessonsController < ApplicationController
       @notification_text = "#{@user.name} a déclaré un litige sur le cours ##{@lesson.id}. Le payement est suspendu, un administrateur prendra contact avec vous sous peu."
       @other.send_notification(@notification_text, '#', @user, @lesson)
       flash[:danger] = "Merci pour votre feedback! Un administrateur examine prendra contact avec vous dans les plus brefs délais."
+      if @lesson.is_teacher?(current_user)
+        Pusher.notify(["#{@lesson.student.id}"], {fcm: {notification: {body: @notification_text, icon: 'androidlogo', click_action: "MY_NOTIFICATIONS"}}})
+      else
+        Pusher.notify(["#{@lesson.teacher.id}"], {fcm: {notification: {body: @notification_text, icon: 'androidlogo', click_action: "MY_NOTIFICATIONS"}}})
+      end
       email_user
       respond_to do |format|
         format.html {redirect_to root_path}

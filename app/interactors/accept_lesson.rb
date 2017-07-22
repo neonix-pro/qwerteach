@@ -48,12 +48,12 @@ class AcceptLesson < ActiveInteraction::Base
     if teacher?
       LessonNotificationsJob.perform_async(:notify_student_about_teacher_accepts_lesson, lesson.id)
       LessonNotificationsJob.perform_async(:notify_teacher_about_teacher_accepts_lesson, lesson.id)
-      Pusher.notify(["#{@lesson.student.id}"], {fcm: {notification: {body: "#{@lesson.teacher.name} a accepté votre demande de cours.", 
+      Pusher.notify(["#{lesson.student.id}"], {fcm: {notification: {body: "#{lesson.teacher.name} a accepté votre demande de cours.", 
             icon: 'androidlogo', click_action: "MY_LESSONS"}}})
     else
       LessonNotificationsJob.perform_async(:notify_student_about_student_accepts_lesson, lesson.id)
       LessonNotificationsJob.perform_async(:notify_teacher_about_student_accepts_lesson, lesson.id)
-      Pusher.notify(["#{@lesson.teacher.id}"], {fcm: {notification: {body: "#{@lesson.student.name} a accepté votre demande de cours.", 
+      Pusher.notify(["#{lesson.teacher.id}"], {fcm: {notification: {body: "#{lesson.student.name} a accepté votre demande de cours.", 
             icon: 'androidlogo', click_action: "MY_LESSONS"}}})
     end
   end

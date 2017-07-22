@@ -65,11 +65,11 @@ class RefundLesson < ActiveInteraction::Base
     return if lesson.expired?
     if lesson.is_student?(user)
       LessonNotificationsJob.perform_async(:notify_teacher_about_student_reject_lesson, lesson.id)
-      Pusher.notify(["#{@lesson.teacher.id}"], {fcm: {notification: {body: "#{@lesson.student.name} a refusé votre demande de cours.",
+      Pusher.notify(["#{lesson.teacher.id}"], {fcm: {notification: {body: "#{lesson.student.name} a refusé votre demande de cours.",
             icon: 'androidlogo', click_action: "MY_LESSONS"}}})
     else
       LessonNotificationsJob.perform_async(:notify_student_about_teacher_reject_lesson, lesson.id)
-      Pusher.notify(["#{@lesson.student.id}"], {fcm: {notification: {body: "#{@lesson.teacher.name} a refusé votre demande de cours.",
+      Pusher.notify(["#{lesson.student.id}"], {fcm: {notification: {body: "#{lesson.teacher.name} a refusé votre demande de cours.",
             icon: 'androidlogo', click_action: "MY_LESSONS"}}})
     end
   end
