@@ -1,5 +1,5 @@
 class window.OffersManager
-  TOPICAUTRE = <%= Topic.where(title: 'Autre').ids %>
+  TOPICAUTRE = <%= Topic.where(title: 'Autre').ids.to_s %>
 
   constructor: (id, topics) ->
     @id = id
