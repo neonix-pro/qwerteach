@@ -18,6 +18,7 @@ class WalletsController < ApplicationController
     else
       if params[:transactionId]
         payin =  Mango.normalize_response MangoPay::PayIn.fetch(params[:transactionId])
+        Rails.logger.debug("PAYIN: #{payin.inspect}")
         if %w[CREATED SUCCEEDED].exclude? payin.status
           flash[:danger] = I18n.translate("mango.response_message."+payin.result_message) + "<br />Vous n'avez pas été débité, et votre portefeuille virtuel Qwerteach n'a pas été chargé."
         else
@@ -41,8 +42,12 @@ class WalletsController < ApplicationController
       respond_to do |format|
         format.html {}
         format.js {}
-        format.json {render :json => {:success => "loaded", :account => @account, 
-          :bank_accounts => @bank_accounts, :user_cards => @cards, :transactions => @pagin, 
+        format.json {render :json => {:success => "loaded", 
+          :transaction => (Mango.normalize_response MangoPay::PayIn.fetch(params[:transactionId]) if params[:transactionId].present?), 
+          :account => @account, 
+          :bank_accounts => @bank_accounts, 
+          :user_cards => @cards, 
+          :transactions => @pagin, 
           :transaction_infos => get_transaction_infos(@pagin)}}
       end
       
@@ -252,7 +257,7 @@ class WalletsController < ApplicationController
   def payout
     if @user.bank_accounts.blank?
       respond_to do |format|
-        format.html {redirect_to bank_accounts_path, alert: "Vous devez enregistrer un compte en banque pour pouvoir décharger votre portfeueille virtuel!"}
+        format.html {redirect_to bank_accounts_path, alert: "Vous devez enregistrer un compte en banque pour pouvoir décharger votre portefueille virtuel!"}
         format.json {render :json => {:success => "false", 
           :message => "Vous devez enregistrer un numéro de compte en banque afin de transférer votre solde."}}
       end
@@ -306,10 +311,26 @@ class WalletsController < ApplicationController
     transaction_infos = Array.new
     transactions.each do |t|
       p = Payment.find_by(mangopay_payin_id: t.id) || Payment.find_by(transfer_eleve_id: t.id)
-      if p.nil?
-        transaction_infos.push("Rechargement du portefeuille")
+      if t.type == "PAYOUT"
+        transaction_infos.push("Déchargement du portefeuille virtuel")
       else
-        transaction_infos.push("Réservation du cours de #{p.lesson.topic.title} avec #{p.lesson.teacher.full_name}")
+        if t.debited_wallet_id == @user.wallets.third.id
+          if t.credited_wallet_id == @user.wallets.first.id
+            transaction_infos.push("Remboursement prépayement cours")
+          elsif t.credited_wallet_id == @user.wallets.second.id
+            transaction_infos.push("Remboursement prépayement cours")
+          elsif !p.nil?
+            transaction_infos.push("Paiement du cours transféré au professeur #{p.lesson.teacher.full_name}")
+          else
+            transaction_infos.push("")
+          end
+        elsif p.nil?
+          transaction_infos.push("Rechargement du portefeuille")
+        elsif !p.lesson.nil?
+          transaction_infos.push("Réservation du cours de #{p.lesson.topic.title} avec #{p.lesson.teacher.full_name}")
+        else
+          transaction_infos.push("")
+        end
       end
     end and return transaction_infos
   end
