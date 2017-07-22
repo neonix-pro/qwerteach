@@ -59,6 +59,8 @@ class User < ActiveRecord::Base
             :total_wallets_in_cents, :bank_accounts, to: :mangopay
 
   scope :reader_scope, -> { where(admin: true) }
+  scope :active, ->{ where(active: true) }
+  scope :for_select, ->{ select(:id, :firstname, :lastname, :email).reorder(:firstname).distinct }
 
   # MANGOPAY
   def mangopay

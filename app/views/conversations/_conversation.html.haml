@@ -6,9 +6,9 @@
       = link_to 'voir plus', conversation_show_page_path(conversation, page+1), remote:true, data:{toggle:'loader'}
     = render 'conversations/messages', messages: messages
   .conversation-reply
-    = form_tag reply_conversation_path(conversation), id: "conversation_form_#{conversation.id}", method: :post, :remote => true do
-      = text_area_tag 'body', nil, cols: 3, class: 'form-control chatboxtextarea', placeholder: 'Écrivez ici...', required: true, "data-cid" => conversation.id
-      = submit_tag "Envoyer", class: 'btn btn-green btn-qw'
+    = form_tag reply_conversation_path(conversation), id: "conversation_form_#{conversation.id}", class: 'reply-form', method: :post, :remote => true do
+      = text_area_tag 'body', nil, cols: 3, class: 'form-control chatboxtextarea reply-form__textarea', placeholder: 'Écrivez ici...', required: true, "data-cid" => conversation.id
+      = submit_tag "Envoyer", class: 'btn btn-green btn-qw reply-form__send-button'
 .mailbox-conversation-details
   .conversation-participants
     - conversation.receipts.group(:receiver_id).each do |r|

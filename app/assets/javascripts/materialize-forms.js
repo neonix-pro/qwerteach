@@ -397,8 +397,9 @@
                     }
 
                     var materialize_autocompleteOption = $('<li></li>');
-                    if (!!data[key]) {
-                      materialize_autocompleteOption.append('<img src="'+ data[key] +'" class="right circle"><span>'+ key +'</span>');
+                    materialize_autocompleteOption.attr("data-val", JSON.stringify(data[key]));
+                    if (!!data[key].image) {
+                      materialize_autocompleteOption.append('<img src="'+ data[key].image +'" class="right circle"><span>'+ key +'</span>');
                     } else {
                       materialize_autocompleteOption.append('<span>'+ key +'</span>');
                     }
@@ -410,7 +411,6 @@
                 }
               }
             }
-
             // Update oldVal
             oldVal = val;
           });
@@ -456,13 +456,14 @@
           // Set input value
           $materialize_autocomplete.on('mousedown.materialize_autocomplete touchstart.materialize_autocomplete', 'li', function () {
             var text = $(this).text().trim();
+            var data = JSON.parse($(this).attr('data-val'));
             $input.val(text);
             $input.trigger('change');
             removeAutocomplete();
 
             // Handle onAutocomplete callback.
             if (typeof(options.onAutocomplete) === "function") {
-              options.onAutocomplete.call(this, text);
+              options.onAutocomplete.call(this, data);
             }
           });
         }

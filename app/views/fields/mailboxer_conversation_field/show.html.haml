@@ -1,9 +1,10 @@
 - content_for(:title) do
   = "Conversation ##{@conversation.id}"
-%header.header
-  %h1#page-title.header__heading= content_for(:title)
+.card-header.bordered
+  .header-block
+    %h3.title= content_for(:title)
 
-%body
+.card-block
   %dl
     %dt.attribute-label Participants:
     %dd.attribute-data

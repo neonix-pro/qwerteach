@@ -27,6 +27,7 @@ class ConversationDashboard < Administrate::BaseDashboard
     :id,
     :originator,
     :messages,
+    :updated_at
   ]
 
   # SHOW_PAGE_ATTRIBUTES
@@ -34,9 +35,8 @@ class ConversationDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :id,
     :originator,
-    :messages,
     :created_at,
-    :updated_at,
+    :updated_at
   ]
 
   # FORM_ATTRIBUTES

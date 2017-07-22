@@ -3,13 +3,13 @@ class BecomeTeacherController < ApplicationController
   include MangopayAccount
 
   before_filter :authenticate_user!
-  before_filter :confirm_email, only: :show
+  #before_filter :confirm_email, only: :show
 
-  def confirm_email
-    jump_to(:general_infos) if step == :valid_email
-  end
+  # def confirm_email
+  #   jump_to(:general_infos) if step == :valid_email
+  # end
 
-  steps :valid_email, :general_infos, :avatar, :offers, :banking_informations, :finish_postulation
+  steps :offers, :general_infos, :avatar, :banking_informations, :finish_postulation
 
   DESCRIPTION_QUESTIONS = ["Présentez-vous en quelques lignes",
                            "Quel a été votre parcours ?",
@@ -23,9 +23,8 @@ class BecomeTeacherController < ApplicationController
 
     case step
       when :general_infos
-        @levels = Level.where(code: 'scolaire').group(:be).order(:id).map{|l| [l.be, l.id]}
+        @levels = Level.where(code: 'scolaire').group(:be).order(:level).map{|l| [l.be, l.id]}
         @description_questions = DESCRIPTION_QUESTIONS
-        @user.upgrade
       when :pictures
         @gallery = Gallery.find_by user_id: @user.id
       when :avatar
@@ -35,6 +34,8 @@ class BecomeTeacherController < ApplicationController
       when :offers
         @offer = Offer.new
         @offers = Offer.where(:user => current_user)
+        @topics = Topic.where.not(title: 'Autre').where.not(title: current_user.offers.map{|o| o.title})
+        @topics = @topics.map{|t| ["#{t.title}", {id: t.id, topic_group_id: t.topic_group_id}]}.to_h
       when :banking_informations
         @account = Mango::SaveAccount.new(user: current_user, first_name: current_user.firstname, last_name: current_user.lastname)
         @teacher = current_user

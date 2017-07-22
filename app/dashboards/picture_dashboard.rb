@@ -11,7 +11,7 @@ class PictureDashboard < Administrate::BaseDashboard
     gallery: Field::BelongsTo,
     id: Field::Number,
     description: Field::String,
-    image: Field::String,
+    image: Field::Image.with_options(thumb: :small),
     gallery_token: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -27,10 +27,10 @@ class PictureDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
+    :image,
     :gallery,
     :id,
-    :description,
-    :image,
+    :description
   ]
 
   # SHOW_PAGE_ATTRIBUTES
@@ -56,11 +56,7 @@ class PictureDashboard < Administrate::BaseDashboard
     :gallery,
     :description,
     :image,
-    :gallery_token,
-    :image_file_name,
-    :image_content_type,
-    :image_file_size,
-    :image_updated_at,
+    :gallery_token
   ]
 
   # Overwrite this method to customize how pictures are displayed

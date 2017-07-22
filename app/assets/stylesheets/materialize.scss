@@ -36,10 +36,10 @@ $tabs-underline-color: $color_qwerteach_green;
 @import "materialize/components/tabs";
 @import "materialize/components/tooltip";
 @import "materialize/components/buttons";
-//@import "materialize/components/dropdown";
+@import "materialize/components/dropdown";
 //@import "materialize/components/waves";
 //@import "materialize/components/modal";
-//@import "materialize/components/collapsible";
+@import "materialize/components/collapsible";
 @import "materialize/components/chips";
 @import "materialize/components/materialbox";
 .material-form{
@@ -47,6 +47,26 @@ $tabs-underline-color: $color_qwerteach_green;
   @import "materialize/components/forms/forms";
   .material-form .input-field label{
     left: auto;
+  }
+  .caret {
+    border-color: transparent !important;
+  }
+  .select-wrapper.open ul.select-dropdown{
+    display:block;
+    opacity:1;
+    top: 45px;
+    li span{
+      color:initial;
+    }
+  }
+  .materialize_autocomplete-content.dropdown-content{
+    display:block;
+    opacity: 1;
+    width: 100%;
+    top:48px;
+  }
+  .dropdown-content{
+    width:100%;
   }
 }
 @import "materialize/components/table_of_contents";

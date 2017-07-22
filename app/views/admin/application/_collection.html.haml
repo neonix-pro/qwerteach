@@ -1,0 +1,16 @@
+.table-responsive
+  %table.table.table-striped.table-hover
+    %thead
+      %tr
+        = render 'collection_head_cells', local_assigns
+        - if valid_action?(:edit) || valid_action?(:destroy)
+          %th{:scope => "col"}
+    %tbody
+      - resources.each do |resource|
+        %tr.js-table-row{:tabindex => "0", role: valid_action?(:show) ? 'link' : false, 'data-url'=>valid_action?(:show) ? polymorphic_path([namespace, resource]) : false}
+          = render 'collection_body_cells', collection_presenter: collection_presenter, resource: resource
+          %td
+            - if valid_action? :edit
+              = link_to(t('administrate.actions.edit'), [:edit, namespace, resource], class: 'btn btn-sm btn-primary-outline')
+            - if valid_action? :destroy
+              = link_to(t('administrate.actions.destroy'), [namespace, resource], class: 'btn btn-sm btn-danger-outline', method: :delete, data: { confirm: t('administrate.actions.confirm') })

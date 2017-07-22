@@ -1,0 +1,19 @@
+- content_for :filters do
+  - search_form_for search, url: [:admin, Lesson], html: {class: 'form-inline form-filters'} do |f|
+    .form-group.mr-sm-2
+      = f.select(:status_eq, Lesson.defined_enums['status'], {include_blank: 'Status'}, class: 'form-control')
+    .form-group.mr-sm-2
+      = f.collection_select(:teacher_id_eq, Teacher.for_select.with_lessons, :id, :name, {include_blank: 'Teacher'}, class: 'form-control')
+    .form-group.mr-sm-2
+      = f.collection_select(:student_id_eq, Student.for_select.with_lessons, :id, :name, {include_blank: 'Student'}, class: 'form-control')
+    .form-group.mr-sm-2
+      = f.text_field(:price_gteq, class: 'form-control', placeholder: 'Min price')
+    .form-group.mr-sm-2
+      = f.text_field(:time_start_gteq, value: f.object.time_start_gteq.try(:strftime, '%d/%m/%Y'), class: 'form-control form-datepicker', placeholder: 'From')
+    .form-group.mr-sm-2
+      = f.text_field(:time_start_lt, value: f.object.time_start_lt.try(:strftime, '%d/%m/%Y'), class: 'form-control form-datepicker', placeholder: 'To')
+    .form-group
+      = f.submit nil, class: 'btn btn-primary'
+
+
+= render template: 'admin/application/index', locals: local_assigns

@@ -14,6 +14,7 @@ class Teacher  < Student
   after_save :reindex_adverts
 
   scope :reader_scope, -> { where(is_admin: true) }
+  scope :with_lessons, -> { joins(:lessons_given) }
 
   def mark_as_inactive
     self.update active: false

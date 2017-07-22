@@ -1,17 +1,19 @@
-%body
+.card-header.bordered
   - content_for(:title) do
     = display_resource_name(page.resource_name)
   - content_for(:search) do
-    %form.search
-      %span.search__icon
-        = svg_tag "administrate/search.svg", "search", width: 16, height: 16
-      %input.search__input{"aria-label" => "Search", :name => "search", :placeholder => "Search", :type => "text", :value => search_term}/
-      %span.search__hint
-        Press enter to search
-  %header.header
-    %h1#page-title.header__heading= content_for(:title).pluralize
-  = render "collection", collection_presenter: page, resources: resources
-  = paginate resources
+    = render 'search', search_term: search_term
+  .header-block
+    %h3.title= content_for(:title).pluralize
 
-  %h2 Utilisateurs en ligne (#{@online.count})
-  = render "collection", collection_presenter: page, resources: @online
+.card-block
+  = render 'collection', collection_presenter: page, resources: resources
+  = paginate_admin resources
+
+
+.card-header.bordered
+  .header-block
+    %h3.title Utilisateurs en ligne (#{@online.count})
+
+.card-block
+  = render 'collection', collection_presenter: page, resources: @online

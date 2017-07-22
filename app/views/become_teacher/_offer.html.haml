@@ -1,22 +1,34 @@
-.offer-form{id: "offer-form-#{id}"}
-  #new-offer
-    %h3.offer-title Nouvelle annonce
-    = form_for offer, remote: true do |f|
-      = hidden_field_tag :origin, 'become_teacher'
-      .fom-group
-        = f.label :topic_group_id, 'Type de matière'
-        = f.select :topic_group_id, options_for_select(TopicGroup.all.map{|t| [t.title, t.id]}), {}, class:'form-control topic-group-select'
-      .form-group
-        = f.label :topic_id, 'Sous-catégorie'
-        .group_choice_topic
-          = f.select :topic_id, {}, {}, class: 'topic-select form-control'
-      .form-gorup.topic-name
-      .form-group.level_choice_levels
-      .form-group
-        = f.label :description
-        = f.text_area :description, class:'form-control', rows: 5
-      .actions
-        = f.submit :enregistrer
+.offer-form
+  .card
+    .card-content
+      %span.card-title.text-center Quelle(s) matière(s) enseignez-vous ?
+      .o-form{id: "offer-form-#{id}"}
+        #new-offer
+          .material-form
+            = form_for offer, remote: true do |f|
+              = hidden_field_tag :origin, 'become_teacher'
+              .input-field
+                -#= autocomplete_field_tag 'topic_title', '', autocomplete_topic_title_topics_path, :size => 75, :class => "autocomplete", placeholder: 'ex: mathématiques', autofocus: true
+                = text_field_tag :topic_title, nil, class: 'materialize_autocomplete', autocomplete: 'off'
+                = label_tag :topic_title, 'Nom de la matière'
+                = f.hidden_field :topic_id, class: 'topic_id'
+                = f.hidden_field :topic_group_id, class: 'topic_group_id'
+              .input-field.topic_group_select
+                = select_tag :topic_group_select, options_for_select(TopicGroup.all.map{|tg| [tg.title, tg.id]}), prompt: 'Sélectionnez une catégorie'
+                = label_tag :topic_group_select, 'Dans quelle catégorie se trouve cette matière?'
+                = f.hidden_field :other_name, class: 'other_name'
+              .row
+                .col-xs-12
+                  .form-group.level_choice_levels
+              .input-field
+                = f.text_area :description, class:'materialize-textarea', rows: 5
+                = f.label :description
+              .actions
+                = f.submit "Enregistrer mon annonce"
 
 :javascript
-  new OffersManager("#{id}")
+
+  $(document).on('turbolinks:load', function(){
+    Materialize.updateTextFields();
+    var o = new OffersManager("#{id}", #{(Hash[*@topics.flatten]).to_json});
+  });

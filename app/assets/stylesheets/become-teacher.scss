@@ -1,98 +1,78 @@
 @import "global_variables";
 .become-teacher-progress-bar{
-  margin:0px;
-  padding: 0px;
-  margin-bottom:30px;
+  z-index: 1;
+  position: relative;
+  margin-top:10px;
+  color: white;
+  margin-bottom:20px;
   ul{
-    padding: 0px;
-    margin-bottom: 5px;
-  }
-  ul:after {
-    content : "";
-    position: relative;
-    left    : 10%;
-    bottom  : 0;
-    height  : 1px;
-    width   : 80%;  /* or 100px */
-    border-bottom:1px solid $text_light_grey;
-    display:block;
-    margin-top:20px;
-  }
-  .become-teacher-step{
-    display: inline-block;
-    margin: 5px 0px;
-    text-align:center;
-  }
-  .become-teacher-step{
-    width:16%;
-  }
-  ul li:first-child:before{
-    border-color:transparent;
-  }
-  ul li:before{
-    content:'';
-    width:100%;
-    height:2px;
-    border: 2px solid $color_qwerteach_green;
-    display: block;
-    position: relative;
-    top: 13px;
-    z-index: 1;
-    right: 50%;
-  }
-  .step-name{
-    display:block;
-    text-align:center;
-    font-size: 12px;
-  }
-  .step-number{
-    display:inline-block;
-    width:25px;
-    padding-top: 2px;
-    height:25px;
-    border: 1px solid;
-    border-radius:50%;
-    background-color:white;
-    z-index:3;
-    position:relative;
-  }
-  .finished{
-    .step-number {
-      color:white;
-      background-color: $color_qwerteach_green;
-      border:none;
+    counter-reset: step;
+    li{
+      list-style-type: none;
+      color: white;
+      font-size: 9px;
+      width: 20%;
+      float: left;
+      position: relative;
+      text-align: center;
+      a{
+        color:white;
+      }
     }
-  }
-  .current{
-    .step-number{
-
+    li:before {
+      content: counter(step);
+      counter-increment: step;
+      width: 20px;
+      line-height: 20px;
+      display: block;
+      font-size: 10px;
+      color: #333;
+      background: white;
+      border-radius: 3px;
+      margin: 0 auto 5px auto;
     }
-  }
-  .unfinished{
-    .step-number, a .step-name{
-      color: $text_grey;
-      border-color: $text_grey;
+    li:after {
+      content: '';
+      width: 100%;
+      height: 2px;
+      background: white;
+      position: absolute;
+      left: -50%;
+      top: 9px;
+      z-index: -1;
     }
-  }
-  ul li.unfinished:before{
-    border: 2px solid $text_grey;
+    li:first-child:after {
+      /*connector not needed before the first step*/
+      content: none;
+    }
+    /*marking active/completed steps green*/
+    /*The number of the step and the connector before it = green*/
+    li.finished:before, li.finished:after , li.current:after{
+      background: $color_qwerteach_green;
+      color: white;
+    }
   }
 
 }
-.become-teacher-offers{
-  .offer-edit-form, .offer-form{
-    margin-top: 30px;
-    width:80%;
-    margin-left:10%;
-    background-color: rgb(240, 240, 240);
-    padding: 30px;
-    h3.offer-title{
-      margin: -30px;
-      margin-bottom: 20px;
-      padding: 15px 30px;
-    }
-    h3.offer-title{
 
+#become-teacher {
+  height: 100vh;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-image: image_url('become_teacher/abtest/q4.jpg');
+  text-align: center;
+  .become-teacher-offers, .become-teacher-general-infos, .become-teacher-avatar, .become-teacher-banking-informations, .become_teacher_finish{
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    .highlight{
+      font-weight:800;
+    }
+    .edit-user-avatar{
+      margin-top:10px;
     }
   }
 }

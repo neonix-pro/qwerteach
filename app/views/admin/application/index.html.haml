@@ -1,0 +1,17 @@
+- content_for(:title) do
+  = display_resource_name(page.resource_name)
+
+- if local_assigns[:show_search_bar]
+  - content_for(:search) do
+    = render 'search', search_term: search_term
+.card-header.bordered
+  .header-block
+    %h3.title= content_for(:title)
+  - if valid_action? :new
+    .header-block.pull-right
+      = link_to("#{t("administrate.actions.new")} #{page.resource_name.titleize.downcase}", [:new, namespace, page.resource_path], class: "btn btn-primary")
+- if content_for?(:filters)
+  .card-block.filters= content_for(:filters)
+.card-block
+  = render 'collection', collection_presenter: page, resources: resources
+  = paginate_admin resources

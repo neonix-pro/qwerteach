@@ -24,28 +24,22 @@ feature 'admin disputes controller' do
     end
 
 
-    scenario 'Apply the `all` filter, I see all the disputes' do
-      page.find('a.button.all').click
-      within('table.collection-data//tbody') do
-        expect(page).to have_link('Détails', href: admin_dispute_path(@dispute_started))
-        expect(page).to have_link('Détails', href: admin_dispute_path(@dispute_finished))
-      end
+    scenario 'I see all the disputes' do
+      page.find('a.btn.all').click
+      expect(page).to have_link(href: admin_dispute_path(@dispute_started))
+      expect(page).to have_link(href: admin_dispute_path(@dispute_finished))
     end
 
-    scenario 'Apply the `started` filter, I see all the disputes' do
-      page.find('a.button.started').click
-      within('table.collection-data//tbody') do
-        expect(page).to have_link('Détails', href: admin_dispute_path(@dispute_started))
-        expect(page).to have_no_link('Détails', href: admin_dispute_path(@dispute_finished))
-      end
+    scenario 'I see only started disputes' do
+      page.find('a.btn.started').click
+      expect(page).to have_link(href: admin_dispute_path(@dispute_started))
+      expect(page).to have_no_link(href: admin_dispute_path(@dispute_finished))
     end
 
-    scenario 'Apply the `started` filter, I see all the disputes' do
-      page.find('a.button.finished').click
-      within('table.collection-data//tbody') do
-        expect(page).to have_no_link('Détails', href: admin_dispute_path(@dispute_started))
-        expect(page).to have_link('Détails', href: admin_dispute_path(@dispute_finished))
-      end
+    scenario 'I see only resolved disputes' do
+      page.find('a.btn.finished').click
+      expect(page).to have_no_link(href: admin_dispute_path(@dispute_started))
+      expect(page).to have_link(href: admin_dispute_path(@dispute_finished))
     end
   end
 
@@ -104,14 +98,14 @@ feature 'admin disputes controller' do
       expect(ResolveDispute).to receive(:run)
         .with(dispute: dispute, amount: dispute.lesson.price.to_s)
         .and_return(OpenStruct.new('valid?': true))
-      page.find('a.button.to_teacher').click
+      page.find('a.btn.to_teacher').click
     end
 
     scenario 'moves all money to the student' do
       expect(RefundLesson).to receive(:run)
         .with(user: dispute.user, lesson: dispute.lesson)
         .and_return(OpenStruct.new('valid?': true))
-      page.find('a.button.to_student').click
+      page.find('a.btn.to_student').click
     end
 
     scenario 'moves a part of money to the teacher' do
