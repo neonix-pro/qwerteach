@@ -1,42 +1,81 @@
-%body
+.card-header.bordered
   - content_for(:title) { "#{page.resource.firstname} #{page.resource.lastname}"}
-  %header.header
-    %h1.header__heading
+  .header-block
+    =image_tag page.resource.avatar.url(:small), class: "header-avatar rounded"
+    %h3.title
       = content_for(:title)
       %small= page.resource.postulance_accepted ? '(Teacher)' : '(Postuling teacher)'
-    =image_tag page.resource.avatar.url(:medium)
-    .header__actions
-      = link_to("Edit",[:edit, namespace, page.resource], class: "button")
+  .header-block.pull-right
+    = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
 
-      = form_for([namespace, page.resource], html: {class: "form"}) do |f|
-        = f.hidden_field :postulance_accepted, value: !page.resource.postulance_accepted
-        = page.resource.postulance_accepted ? (f.submit 'Suspend') : (f.submit 'Approve', :class => 'action-destroy')
-      = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "button"
-  %hr
+    - if page.resource.postulance_accepted
+      = link_to 'Suspend', [namespace, page.resource, teacher: {postulance_accepted: false}], method: :put, class: 'btn btn-warning'
+    - else
+      = link_to 'Approve', [namespace, page.resource, teacher: {postulance_accepted: true}], method: :put, class: 'btn btn-info'
+    = link_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: 'btn btn-secondary'
 
-  %section.main-content__body.user-postulation
-    %h2 Postulation:
-    = render :partial => 'admin/postulations/postulation', locals:{postulation: page.resource.postulation}
-    = link_to "Modifier", [:edit, namespace, page.resource.postulation], class: 'pull-right'
-  %hr
-  %section.main-content__body
-    %dl
-      - page.attributes.each do |attribute|
-        %dt.attribute-label= attribute.name.titleize
-        %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}
-          - if attribute.data != "" && !attribute.data.nil?
-            = render_field attribute
-          - else
-            ="-"
-    %div
-      %h2 Discuter avec #{page.resource.name}
+.card-block
+  %ul.nav.nav-tabs.nav-tabs-bordered
+    %li.nav-item
+      %a.nav-link.active(data-toggle="tab" href="#information-tab" role="tab" aria-expanded="true") Information
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" href="#postulation-tab" role="tab" aria-expanded="false") Postulation
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" href="#received_lessons-tab" role="tab" aria-expanded="false") Received Lessons
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" href="#given_lessons-tab" role="tab" aria-expanded="false") Given Lessons
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" href="#offers-tab" role="tab" aria-expanded="false") Offers
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" href="#dialog-tab" role="tab" aria-expanded="false") Discuter
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" href="#conversations-tab" role="tab" aria-expanded="false") Conversations (#{@conversations.total_count})
+
+  .tab-content.tabs-bordered
+    #information-tab.tab-pane.active(aria-expanded="true")
+      %table.table-min.table-striped
+        - page.attributes.each do |attribute|
+          %tr
+            %td.attribute-label= attribute.name.titleize
+            %td{:class => "attribute-data attribute-data--#{attribute.html_class}"}
+              - if attribute.data != "" && !attribute.data.nil?
+                = render_field attribute
+              - else
+                ="-"
+        %tr
+          %td.attribute-label Balance
+          %td{:class => "attribute-data"}
+            - if page.resource.mango_id.present?
+              = wallet_balance(page.resource.normal_wallet) rescue '-'
+            - else
+              ="-"
+
+    #postulation-tab.tab-pane(aria-expanded="false")
+      = render :partial => 'admin/postulations/postulation', locals:{postulation: page.resource.postulation}
+      .form-group.pull-right
+        = link_to "Modifier", [:edit, namespace, page.resource.postulation], class: 'btn btn-primary'
+      .clearfix
+
+    #received_lessons-tab.tab-pane(aria-expanded="false")
+      = render_field resource_field(page, :lessons_received)
+
+    #given_lessons-tab.tab-pane(aria-expanded="false")
+      = render_field resource_field(page, :lessons_given)
+
+    #offers-tab.tab-pane(aria-expanded="false")
+      = render_field resource_field(page, :offers)
+
+    #dialog-tab.tab-pane(aria-expanded="false")
+      .card-header
+        %h4.title Discuter avec #{page.resource.name}
+        .actions.header-block.pull-right
+          = link_to 'Interview', room_invite_bbb_rooms_path(teacher), class:'btn btn-secondary'
+          = link_to 'generate text', admin_postulation_generate_text_path(page.resource.postulation), remote:true, class:'btn btn-secondary'
       #generated-text
-      .actions.pull-right
-        = link_to 'Interview', room_invite_bbb_rooms_path(teacher), class:'button btn-default'
-        %br
-        = link_to 'generate text', admin_postulation_generate_text_path(page.resource.postulation), remote:true, class:'button btn-default'
       .conversation-admin
         = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: teacher
-    = render 'admin/shared/conversations', conversations: @conversations, user: teacher
+
+    #conversations.tab-pane(aria-expanded="false")
+      = render 'admin/shared/conversations', conversations: @conversations, user: teacher
 
 =content_for(:javascript)

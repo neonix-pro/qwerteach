@@ -1,9 +1,12 @@
-%h3 Responsable: #{postulation.responsible_admin.name unless postulation.responsible_admin.nil?}
-%table.collection-data
+%h4 Responsable: #{postulation.responsible_admin.name unless postulation.responsible_admin.nil?}
+%table.table.table-striped
   %thead
     %tr
       - postulation.admin_fields.keys.each do |key|
         %th.cell-label #{key.to_s.titleize}
     %tr
       -postulation.admin_fields.each do |key, attr|
-        %td #{attr ? 'OK' : 'X'}
+        - if attr
+          %td.text-primary= icon('check-square-o', class: 'text-strong')
+        - else
+          %td.text-danger= icon('square-o', class: 'text-strong')

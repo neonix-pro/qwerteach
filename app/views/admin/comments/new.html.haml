@@ -1,8 +1,0 @@
-%body
-  - content_for(:title) { "Nouveau commentaire sur #{@commentable.name}" }
-  %header.header
-    %h1.header__heading= content_for(:title)
-    .header__actions
-      = link_to 'Back', :back, class: "button"
-  = render 'admin/comments/form', page: @page
-

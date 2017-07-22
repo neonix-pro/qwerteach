@@ -6,6 +6,7 @@ class Student < User
 
   acts_as_reader
   scope :reader_scope, -> { where(is_admin: true) }
+  scope :with_lessons, -> { joins(:lessons_received) }
   # Methode override de User permettant de faire passer un Student à Teacher
 
   def upgrade

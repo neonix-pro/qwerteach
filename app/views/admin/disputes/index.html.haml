@@ -1,22 +1,16 @@
 = content_for(:title) do
   = display_resource_name(page.resource_name)
 
-%header.header
-  %h1.header__heading#page-title= content_for(:title)
-
-
-  -# if scopes.present?
-  .header__actions
-    - DisputeDashboard::COLLECTION_SCOPES.each do |name|
-      = link_to( |
-        t("admin.dispute.scope.#{name}", default: name), |
-        [namespace, :disputes, q: {name => true}], |
-        class: "button #{name}") |
-
-
-  .header__actions
-    = link_to("New #{page.resource_name.titleize.downcase}", [:new, namespace, page.resource_name], class: 'button')
-
-= render 'collection_index', collection_presenter: page, resources: resources, search: search
-
-= paginate resources
+.card-header.bordered
+  .header-block
+    %h3.title= content_for(:title)
+  .header-block.pull-right
+    %div
+      - DisputeDashboard::COLLECTION_SCOPES.each do |name|
+        = link_to( |
+          t("admin.dispute.scope.#{name}", default: name), |
+          [namespace, :disputes, q: {name => true}], |
+          class: "btn btn-secondary #{name}") |
+.card-block
+  = render 'collection', collection_presenter: page, resources: resources
+  = paginate_admin resources

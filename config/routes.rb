@@ -86,6 +86,8 @@ Rails.application.routes.draw do
     resources :teachers do
       post 'deactivate' => :deactivate
       post 'reactivate' => :reactivate
+      get 'inactive' => :inactive_teachers, on: :collection, as: :inactive
+      get 'postuling' => :postuling_teachers, on: :collection, as: :postuling
     end
     resources :pictures
     resources :galleries
@@ -93,21 +95,20 @@ Rails.application.routes.draw do
       get "generate_text" => :generate_text
     end
     resources :comments
-    resources :postuling_teachers
     resources :lessons
     resources :topics
     resources :topic_groups
     resources :level
     resources :offer_prices
     resources :offers
-    resources :payments
+    resources :payments, except: [:new, :create]
     resources :reviews
-    resources :conversations
+    resources :conversations, only: [:index, :show]
     resources :mailboxer_messages
 
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
 
-    resources :disputes do
+    resources :disputes, except: [:new, :create, :edit, :update] do
       post 'resolve' => :resolve, on: :member
     end
 
@@ -115,8 +116,6 @@ Rails.application.routes.draw do
     resources :bigbluebutton_servers
     resources :bigbluebutton_recordings
     resources :bbb_rooms
-
-    get "inactive_teachers" => "teachers#inactive_teachers"
     get "banned_users" => "users#banned_users"
 
     root to: "users#index"

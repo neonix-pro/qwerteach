@@ -1,0 +1,5 @@
+= f.label field.attribute, class: 'col-sm-2 col-form-label text-xs-right'
+.col-sm-10
+  = f.select(field.attribute, nil, {}, class: 'form-control') do
+    = options_from_collection_for_select(field.selectable_options, :to_s, :to_s, field.data.presence)
+

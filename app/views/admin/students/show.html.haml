@@ -1,33 +1,56 @@
 - content_for(:title) { page.resource.full_name }
-%body
-  %header.header
-    %h1.header__heading
+.card-header.bordered
+  .header-block
+    =image_tag page.resource.avatar.url(:small), class: "header-avatar rounded"
+    %h3.title
       = content_for(:title)
       %small (Student)
-    =image_tag page.resource.avatar.url(:medium)
-    .header__actions
-      = link_to("Edit",[:edit, namespace, page.resource], class: "button")
-      = link_to("Suspendre", admin_user_path(page.resource), method: :delete, class: "button")
-      = button_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "button"
-  %hr
-  .main-content__body
-    %dl
-      - page.attributes.each do |attribute|
-        %dt.attribute-label= attribute.name.titleize
-        %dd{:class => "attribute-data attribute-data--#{attribute.html_class}"}
-          - if attribute.data != "" && !attribute.data.nil?
-            = render_field attribute
-          - else
-            ="-"
-    .clearfix
-    %div
-      .actions.pull-right
-        = link_to 'Inviter dans la classe virtuelle', room_invite_bbb_rooms_path(page.resource), class:'button btn-default'
-      %h2 Discuter avec #{page.resource.name}
-      .clearfix
+  .header-block.pull-right
+    = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
+    = link_to("Suspendre", admin_user_path(page.resource), method: :delete, class: "btn btn-warning")
+    = link_to "Se connecter en tant que", admin_user_become_path(page.resource), method: :post, class: "btn btn-secondary"
+
+.card-block
+  %ul.nav.nav-tabs.nav-tabs-bordered
+    %li.nav-item
+      %a.nav-link.active(data-toggle="tab" data-target="#information" href="#information" aria-controls="information" role="tab" aria-expanded="true") Information
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#lessons" href="#discuter" aria-controls="lessons" role="tab" aria-expanded="false") Received Lessons
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#discuter" href="#discuter" aria-controls="discuter" role="tab" aria-expanded="false") Discuter
+    %li.nav-item
+      %a.nav-link(data-toggle="tab" data-target="#conversations" href="#conversations" aria-controls="conversations" role="tab" aria-expanded="false") Conversations
+
+  .tab-content.tabs-bordered
+    #information.tab-pane.active(aria-expanded="true")
+      %table.table-min.table-striped
+        - page.attributes.each do |attribute|
+          %tr
+            %td.attribute-label= attribute.name.titleize
+            %td{:class => "attribute-data attribute-data--#{attribute.html_class}"}
+              - if attribute.data != "" && !attribute.data.nil?
+                = render_field attribute
+              - else
+                ="-"
+        %tr
+          %td.attribute-label Balance
+          %td{:class => "attribute-data"}
+            - if page.resource.mango_id.present?
+              = wallet_balance(page.resource.normal_wallet) rescue '-'
+            - else
+              ="-"
+    #lessons.tab-pane(aria-expanded="false")
+      = render_field resource_field(page, :lessons_received)
+
+    #discuter.tab-pane(aria-expanded="false")
+      .card-header
+        %h4.title Discuter avec #{page.resource.name}
+        .header-block.actions.pull-right
+          = link_to 'Inviter dans la classe virtuelle', room_invite_bbb_rooms_path(page.resource), class:'btn btn-secondary'
       .conversation-admin
         = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: student
 
-    = render 'admin/shared/conversations', conversations: @conversations, user: student
+    #conversations.tab-pane(aria-expanded="false")
+      = render 'admin/shared/conversations', conversations: @conversations, user: student
 
 -#=content_for(:javascript)

@@ -53,6 +53,8 @@ class UserDashboard < Administrate::BaseDashboard
       avatar_updated_at: Field::DateTime,
       avatar_score: Field::Number,
       score: Field::Number,
+      avatar: Field::Image.with_options(thumb: :small),
+      name: Field::Text
   }
 
   # COLLECTION_ATTRIBUTES
@@ -61,15 +63,12 @@ class UserDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
+      :avatar,
       :id,
-      :firstname,
-      :lastname,
-      :email,
+      :name,
       :type,
-      :confirmed_at,
-      :sign_in_count,
-      :score,
-      :avatar_score,
+      :created_at,
+      :confirmed_at
   ]
 
   # SHOW_PAGE_ATTRIBUTES
@@ -94,7 +93,6 @@ class UserDashboard < Administrate::BaseDashboard
       :postulance_accepted,
       :teacher_status,
       :email,
-      :encrypted_password,
       :reset_password_token,
       :reset_password_sent_at,
       :remember_created_at,
@@ -124,7 +122,7 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-      :gallery,
+      #:gallery,
       :offers,
       # :conversations,
       #:sent_comment,
@@ -144,22 +142,21 @@ class UserDashboard < Administrate::BaseDashboard
       :postulance_accepted,
       :teacher_status,
       :email,
-      :encrypted_password,
-      :reset_password_token,
-      :reset_password_sent_at,
-      :remember_created_at,
-      :sign_in_count,
-      :current_sign_in_at,
-      :last_sign_in_at,
-      :current_sign_in_ip,
-      :last_sign_in_ip,
-      :confirmation_token,
-      :confirmed_at,
-      :confirmation_sent_at,
-      :unconfirmed_email,
-      :failed_attempts,
-      :unlock_token,
-      :locked_at,
+      # :reset_password_token,
+      # :reset_password_sent_at,
+      # :remember_created_at,
+      # :sign_in_count,
+      # :current_sign_in_at,
+      # :last_sign_in_at,
+      # :current_sign_in_ip,
+      # :last_sign_in_ip,
+      # :confirmation_token,
+      # :confirmed_at,
+      # :confirmation_sent_at,
+      # :unconfirmed_email,
+      # :failed_attempts,
+      # :unlock_token,
+      # :locked_at,
       :admin,
       :avatar_score,
   ]

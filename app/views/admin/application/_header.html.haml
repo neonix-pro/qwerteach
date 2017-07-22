@@ -1,0 +1,31 @@
+%header.header
+  .header-block.header-block-collapse.d-lg-none
+    %button.collapse-btn#sidebar-collapse-btn
+      %i.fa.fa-bars
+  - if content_for?(:search)
+    .header-block.header-block-search.hidden-sm-down
+      = content_for(:search)
+  .header-block.header-block-nav
+    %ul.nav-profile
+      %li.profile.dropdown
+        %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+          - if current_user.avatar.present?
+            .img{:style => "background-image: url('#{current_user.avatar.url(:small)}')"}
+          %span.name= current_user.full_name.presence || current_user.email
+        .dropdown-menu.profile-dropdown-menu.animated.flipInX{"aria-labelledby" => "dropdownMenu1"}
+          %a.dropdown-item{:href => edit_admin_user_path(current_user)}
+            %i.fa.fa-user.icon
+            Profile
+          %a.dropdown-item{:href => "#"}
+            %i.fa.fa-bell.icon
+            Notifications
+          %a.dropdown-item{:href => "#"}
+            %i.fa.fa-gear.icon
+            Settings
+          .dropdown-divider
+          = link_to destroy_user_session_path, class: 'dropdown-item', method: :delete do
+            %i.fa.fa-power-off.icon
+            Logout
+
+
+

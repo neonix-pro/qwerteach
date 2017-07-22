@@ -1,0 +1,12 @@
+.card-header.bordered
+  - content_for(:title) do
+    = "Profs postulants"
+  - content_for(:search) do
+    = render 'search', search_term: search_term
+  .header-block
+    %h3#page-title.title= content_for(:title)
+
+.card-block
+  .table-responsive
+    = render "collection", collection_presenter: page, resources: resources
+  = paginate_admin resources

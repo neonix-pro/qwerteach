@@ -1,0 +1,10 @@
+%form.search{:role => 'search'}
+  .input-container
+    %i.fa.fa-search
+    %input#search.search__input{placeholder: t("administrate.search.label", resource: resource_name, default: 'Search'), type: 'search', name: 'search', value: search_term}
+    .underline
+    -#= link_to clear_search_params, class: "search__clear-link" do
+    -#  %svg.search__clear-icon{:role => "img"}
+    -#    %title= t("administrate.search.clear")
+    -#    %use{"xlink:href" => "#icon-cancel"}
+    -#

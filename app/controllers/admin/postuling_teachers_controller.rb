@@ -22,7 +22,7 @@ module Admin
       resources = resources.page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
 
-      render 'admin/postuling_teachers/index', locals: {
+      render :index, locals: {
           resources: resources,
           search_term: search_term,
           page: page,

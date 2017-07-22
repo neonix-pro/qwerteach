@@ -25,6 +25,7 @@ class MessageDashboard < Administrate::BaseDashboard
     :id,
     :sender,
     :body,
+    :created_at
   ]
 
   # SHOW_PAGE_ATTRIBUTES

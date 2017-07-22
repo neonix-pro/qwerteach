@@ -1,12 +1,16 @@
-%body
+.card-header.bordered
   - content_for(:title) {"Postulation of #{page.resource.teacher.name}"}
-  %header.header
-    %h1.header__heading Postulation of #{page.resource.teacher.name}
-    .header__actions
-      = link_to(                             |
-          "Edit",                            |
-          [:edit, namespace, page.resource], |
-          class: "button",                   |
-        )                                    |
-  = render :partial => 'postulation', locals:{postulation: page.resource}
-  = link_to 'back to user', admin_teacher_path(page.resource.teacher)
+  .header-block
+    %h3.title Postulation of #{page.resource.teacher.name}
+  .header-block.pull-right
+    = link_to(                             |
+        "Edit",                            |
+        [:edit, namespace, page.resource], |
+        class: "btn btn-primary",          |
+      )                                    |
+
+.card-block
+  .table-responsive
+    = render :partial => 'postulation', locals:{postulation: page.resource}
+  .form-actions
+    = link_to 'back to user', admin_teacher_path(page.resource.teacher), class: 'btn btn-secondary'

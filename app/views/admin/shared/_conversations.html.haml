@@ -1,7 +1,6 @@
-#conversations
-  %h2 Conversations (#{conversations.total_count})
-  - if conversations.any?
-    %table
+- if conversations.any?
+  .table-responsive
+    %table.table.table-striped.table-hover
       %thead
         %tr
           %th ID
@@ -16,6 +15,6 @@
             %td= c.messages.last.body
             %td= c.messages.count
 
-    = paginate conversations
-  - else
-    Pas encore de conversations!
+  = paginate_admin conversations
+- else
+  Pas encore de conversations!

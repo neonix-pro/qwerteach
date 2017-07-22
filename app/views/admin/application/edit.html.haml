@@ -1,0 +1,13 @@
+%body
+  - content_for(:title) { "#{t("administrate.actions.edit")} #{page.page_title}" }
+  %header.card-header.bordered{:role => "banner"}
+    .header-block
+      %h3.title= content_for(:title)
+    .header-block.pull-right
+      = link_to(                                                  |
+          "#{t("administrate.actions.show")} #{page.page_title}", |
+          [namespace, page.resource],                             |
+          class: "btn btn-primary",                               |
+        ) if valid_action? :show                                  |
+  %section.card-block.main-content__body
+    = render "form", page: page
