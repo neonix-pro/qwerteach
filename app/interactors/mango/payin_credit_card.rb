@@ -16,10 +16,10 @@ module Mango
     def execute
       payin = Mango.normalize_response MangoPay::PayIn::Card::Direct.create(mango_params)
       if %w[CREATED SUCCEEDED].exclude? payin.status
-        if payin.result_message.include?('not enrolled with 3DSecure')
-          @secure_mode = false
-          payin = Mango.normalize_response MangoPay::PayIn::Card::Direct.create(mango_params)
-        end
+        # if payin.result_message.include?('not enrolled with 3DSecure')
+        #   #@secure_mode = false
+        #   #payin = Mango.normalize_response MangoPay::PayIn::Card::Direct.create(mango_params)
+        # end
         self.errors.add(:base, payin.result_message) if %w[CREATED SUCCEEDED].exclude?(payin.status)
       end
       payin
@@ -38,8 +38,8 @@ module Mango
     end
 
     def secure_mode
-      #@secure_mode.nil? ? (card.validity != 'VALID') : @secure_mode
-      'FORCE'
+      @secure_mode.nil? ? (card.validity != 'VALID') : @secure_mode
+      #true
     end
 
     def mango_params
