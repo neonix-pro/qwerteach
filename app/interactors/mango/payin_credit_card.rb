@@ -38,7 +38,8 @@ module Mango
     end
 
     def secure_mode
-      @secure_mode#.nil? ? (card.validity != 'VALID') : @secure_mode
+      #@secure_mode.nil? ? (card.validity != 'VALID') : @secure_mode
+      'FORCE'
     end
 
     def mango_params
