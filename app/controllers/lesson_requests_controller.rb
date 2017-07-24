@@ -16,7 +16,10 @@ class LessonRequestsController < ApplicationController
   def dont_book_with_self(exception)
     flash[:notice]= "Vous ne pouvez pas réserver de cours avec vous-même!"
     flash_to_headers
-    redirect_to dashboard_path
+    respond_to do |format|
+      format.js {redirect_to dashboard_path}
+      format.json {render :json => {:message => "Vous ne pouvez pas réserver de cours avec vous-mêmes."}}
+    end
   end
 
   def new
