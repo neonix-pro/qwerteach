@@ -75,7 +75,7 @@
       .conversation-admin
         = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: teacher
 
-    #conversations.tab-pane(aria-expanded="false")
+    #conversations-tab.tab-pane(aria-expanded="false")
       = render 'admin/shared/conversations', conversations: @conversations, user: teacher
 
 =content_for(:javascript)

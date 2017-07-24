@@ -149,8 +149,6 @@ class WalletsController < ApplicationController
           result = payin.result
           if result.secure_mode_redirect_url.present?
             respond_to do |format|
-              logger.debug('----------------------------'*5)
-              logger.debug(result.secure_mode_redirect_url)
               format.html {redirect_to result.secure_mode_redirect_url}
               format.json {render :json => {:message => "redirect url", :url => result.secure_mode_redirect_url}}
               format.js {}
