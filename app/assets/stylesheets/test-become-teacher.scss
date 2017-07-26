@@ -1,4 +1,9 @@
 .test-become-teacher {
+  background-color:white;
+  font-family: 'Helvetica neue';
+  h1, h2, h3, h4, h5, h6, p, .btn{
+    font-family: 'Helvetica neue';
+  }
   .form-transparent{
     background-color: rgba(200, 200, 200, 0.5);
     padding: 0px 30px;
@@ -14,7 +19,7 @@
       -webkit-transition: all 0.35s;
       -moz-transition: all 0.35s;
       transition: all 0.35s;
-      font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
       border: none;
       border-radius: 300px;
       font-weight: 700;
@@ -65,10 +70,23 @@
     padding: 0;
   }
 
+  .empty-nav{
+    border-top:40px solid $text_light_grey;
+    margin-bottom: 50px;
+    .logo{
+      width:100px;
+      background-color: $dark_grey;
+      margin-top:-20px;
+      img{
+        width:100%;
+      }
+    }
+  }
+
   header {
     position: relative;
     width: 100%;
-    min-height: auto;
+    min-height: 30%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -77,6 +95,49 @@
     //background-image: image_url('become_teacher/abtest/q2.jpg');
     text-align: center;
     color: white;
+    h1{
+      font-size:46px;
+      text-transform: none;
+      font-family: 'Helvetica Neue';
+      font-weight:300;
+    }
+    .text-light{
+      font-weight:100;
+    }
+    h1.text-light{
+      margin-top:0px;
+      margin-bottom:70px;
+    }
+    .form.absolute{
+      width: 360px;
+      border-top: 8px solid #F1F1F1;
+      background-color: #F8F8F8;
+      position:absolute;
+      right: 80px;
+      top: 0px;
+      z-index:30;
+      padding:32px 47px;
+      color:black;
+      h3{
+        font-family: 'Helvetica neue';
+        font-size: 24px;
+        margin-left: -15px;
+        margin-top:0;
+        font-weight: 300;
+      }
+      .actions input[type='submit']{
+        border-radius: 0px;
+        color: white;
+        font-family: 'Helvetica neue';
+        font-size: 18px;
+        font-weight: 300;
+        display: block;
+        width: 100%;
+        margin-left: 0;
+        padding: 10px;
+
+      }
+    }
   }
   header.q2{
     background-image: image_url('become_teacher/abtest/q2.jpg');
@@ -105,18 +166,16 @@
       padding-right:50%;
     }
   }
+  header.f1{
+    background-image: image_url('become_teacher/abtest/q7.jpg');
+    height:640px;
+    color: black;
+  }
   header .header-content {
     position: relative;
     text-align: center;
     padding: 100px 15px 100px;
     width: 100%;
-  }
-  header .header-content .header-content-inner h1 {
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 30px;
   }
   header .header-content .header-content-inner hr {
     margin: 30px auto;
@@ -156,6 +215,43 @@
   }
   .section-heading {
     margin-top: 0;
+  }
+  #white{
+    padding-bottom:0px;
+    h2{
+      font-size:32px;
+      font-weight:400;
+      color:black;
+      margin-bottom:10px;
+    }
+    h2.text-light{
+      font-weight:200;
+      margin-top:0px;
+    }
+    .overflow {
+      position: relative;
+      top: -150px;
+      background-color: white;
+      padding:50px;
+      padding-bottom:0px;
+      #arguments{
+        position:relative;
+        top:50px;
+      }
+      .service-box{
+        text-align:center;
+        img{
+          height:100px;
+        }
+        h3{
+          font-weight:200;
+          font-size: 24px;
+        }
+        p{
+          font-weight:300;
+        }
+      }
+    }
   }
   .service-box {
     max-width: 400px;
@@ -198,7 +294,7 @@
   }
   .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category,
   .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
-    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     padding: 0 15px;
   }
   .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
@@ -330,7 +426,7 @@
     background-color: white;
   }
   .btn {
-    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     border: none;
     border-radius: 300px;
     font-weight: 700;

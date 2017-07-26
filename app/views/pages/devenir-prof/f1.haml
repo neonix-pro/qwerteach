@@ -1,18 +1,44 @@
 .test-become-teacher
-  %header.q7.section_bigimage
-    .header-content
+  %nav.empty-nav
+    .container
+      .pull-left
+        =link_to root_path do
+          .logo= image_tag('logo.ico')
+  %header
+    .container
       %div
-        .row
-          .col-md-6
-            %h1#homeHeading Passez à l'aide scolaire 2.0
-            %hr/
-            %p Avec Qwerteach, vous enseignez depuis chez vous, à des élèves du monde entier. Fini les déplacements, démarrez vos cours en un clic!
-            -#= link_to 'Devenez prof', new_user_registration_path, class: 'btn btn-primary btn-qw become-teacher'
-          .col-xs-8.col-md-6.col-xs-offset-2.col-md-offset-0
-            .form-transparent.material-form
-              %h2.text-center DEVENEZ PROF
-              %hr/
-              =render partial: 'devise/registrations/new_form'
+        %h1.text-black.text-left
+          L'aide scolaire 2.0
+        %h1.text-black.text-left.text-light Enseignez depuis votre canapé
+      .form.absolute.material-form
+        %h3.text-black.text-left S'inscrire maintenant
+        =render partial: 'devise/registrations/new_form'
+  %header.f1
+    .header-content
+      .header-content-inner
+  %section#white
+    .container
+      .overflow
+        %h2.section-heading
+          Une nouvelle façon
+        %h2.section-heading.text-light
+          d'enseigner
+        .row#arguments
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/teacher.svg')
+              %h3 Enseignez où vous voulez
+              %p.text-left Depuis votre canapé, en vacances à l'étranger... Avec Qwerteach vous êtes libres d'enseigner où vous voulez!
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/timing.svg')
+              %h3 A vos horaires
+              %p.text-left Donnez cours le week-end, en soirée, ou à temps plein, à vous de choisir. Vous êtes le patron, vous fixez vos horaires de travail.
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/landing_payement.svg')
+              %h3 Gagnez de l'argent
+              %p.text-left Vous choisissez vous-même votre tarif, et Qwerteach sécurise vos payements. Ainsi, vous pouvez vous concentrer sur l'essentiel: la réussite de vos élèves.
   %section#about.bg-primary
     .container
       .row

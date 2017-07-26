@@ -200,6 +200,10 @@
   float:right;
   margin-right:20px;
   background-color: $color_qwerteach_green;
+  a{
+    color:black!important;
+    text-decoration:underline;
+  }
 }
 
 .mailbox-conversation-details{

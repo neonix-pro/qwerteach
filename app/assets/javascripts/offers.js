@@ -3,7 +3,7 @@ $(document).on('turbolinks:load', function () {
     changeText();
     $("#cmn-toggle-4").on('change', function(){
         changeText();
-        $(this).closest('form').submit();
+        //$(this).closest('form').submit();
     });
 
     function changeText(){

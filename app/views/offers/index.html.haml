@@ -3,7 +3,7 @@
     .card
       .card-content
         .first-lesson-free
-          = form_for @user, as: :user, url: user_path(@user), html: { method: :put }, remote: true do |f|
+          = form_for @user, as: :user, url: user_path(@user), method: :put, remote: true do |f|
             .card-title.text-center
               Premier cours gratuit
               .switch
@@ -30,23 +30,4 @@
           .card-title Ajouter un annonce
           = image_tag("plus_annonce.png")
         #new-offer
-  -#  -c = 0
-  -#  - layout = offers_layout(@user.offers.count+1)
-  -#  - layout.each do |cl|
-  -#    -if cl == "br"
-  -#      .edit-offer.clearfix
-  -#    -else
-  -#      - unless @user.offers[c].nil?
-  -#        .offer{class: "#{cl} topic_#{@user.offers[c].topic_group.id}", id: "offer_#{@user.offers[c].id}"}
-  -#          = link_to edit_offer_path(@user.offers[c]), remote: true do
-  -#            = image_tag "option.png", :class => "option"
-  -#          = image_tag @user.offers[c].topic.pictotype('medium'), :class => "icon"
-  -#          %h3 #{@user.offers[c].topic.title}
-  -#        - c+=1
-  -#  .add-new-offer.offer.text-center{class: layout.last}
-  -#    = link_to new_offer_path, remote: true do
-  -#      = image_tag("plus_annonce.png")
-  -#    %p Ajouter un annonce
-  -#  .edit-offer
-  -#
 
