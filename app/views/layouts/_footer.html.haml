@@ -46,7 +46,7 @@
                 %a.social{:href => "https://plus.google.com/+Qwerteach", :target => "_blank"}
                     =image_tag("googleplus.png")
             .copyright
-                %p © 2013 Qwerteach • Conditions d'utilisation
+                %p © 2013 Qwerteach • #{link_to "Conditions d'utilisation", pages_path('conditions-generales'), style: 'display:inline-block'}
             #notification_sound_path.hidden= asset_path('blop.mp3')
 
 - if current_user
