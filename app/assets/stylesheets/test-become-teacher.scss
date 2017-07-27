@@ -1,8 +1,9 @@
 .test-become-teacher {
+  @import url('https://fonts.googleapis.com/css?family=Roboto:100');
   background-color:white;
-  font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+  font-family: 'Roboto';
   h1, h2, h3, h4, h5, h6, p, .btn{
-    font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+    font-family: 'Roboto';
   }
   .form-transparent{
     background-color: rgba(200, 200, 200, 0.5);
@@ -19,7 +20,7 @@
       -webkit-transition: all 0.35s;
       -moz-transition: all 0.35s;
       transition: all 0.35s;
-      font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+      font-family: 'Roboto';
       border: none;
       border-radius: 300px;
       font-weight: 700;
@@ -103,8 +104,8 @@
     h1{
       font-size:46px;
       text-transform: none;
-      font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
-      font-weight:300;
+      font-family: 'Roboto';
+      font-weight:400;
     }
     .text-light{
       font-weight:100;
@@ -124,18 +125,18 @@
       padding:32px 47px;
       color:black;
       h3{
-        font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+        font-family: 'Roboto';
         font-size: 24px;
         margin-left: -15px;
         margin-top:0;
-        font-weight: 300;
+        font-weight: 400;
       }
       .actions input[type='submit']{
         border-radius: 0px;
         color: white;
-        font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+        font-family: 'Roboto';
         font-size: 18px;
-        font-weight: 300;
+        font-weight: 400;
         display: block;
         width: 100%;
         margin-left: 0;
@@ -186,7 +187,7 @@
     margin: 30px auto;
   }
   header .header-content .header-content-inner p {
-    font-weight: 300;
+    font-weight: 400;
     color: rgba(255, 255, 255, 0.7);
     font-size: 16px;
     margin-bottom: 50px;
@@ -250,9 +251,9 @@
         .btn.btn-cta{
           border-radius: 0px;
           color: white;
-          font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+          font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', Arial;
           font-size: 18px;
-          font-weight: 300;
+          font-weight: 400;
           margin-left: 0;
           margin-top:20px;
           padding: 10px 30px;
@@ -271,7 +272,7 @@
           font-size: 24px;
         }
         p{
-          font-weight:300;
+          font-weight:400;
         }
       }
     }
@@ -317,7 +318,7 @@
   }
   .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category,
   .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Roboto';
     padding: 0 15px;
   }
   .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
@@ -449,7 +450,7 @@
     background-color: white;
   }
   .btn {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Roboto';
     border: none;
     border-radius: 300px;
     font-weight: 700;
