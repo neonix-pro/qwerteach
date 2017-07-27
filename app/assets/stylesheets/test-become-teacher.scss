@@ -81,6 +81,9 @@
         width:100%;
       }
     }
+    .pull-right a{
+      font-weight: 800;
+    }
   }
 
   header {
@@ -237,6 +240,24 @@
       #arguments{
         position:relative;
         top:50px;
+      }
+      #ready{
+        position:relative;
+        top:150px;
+        margin-bottom: 100px;
+        .btn.btn-cta{
+          border-radius: 0px;
+          color: white;
+          font-family: 'Helvetica neue';
+          font-size: 18px;
+          font-weight: 300;
+          margin-left: 0;
+          margin-top:20px;
+          padding: 10px 30px;
+          text-transform: none;
+          height:auto;
+          line-height:initial;
+        }
       }
       .service-box{
         text-align:center;
