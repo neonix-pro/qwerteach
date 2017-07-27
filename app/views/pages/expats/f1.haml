@@ -6,13 +6,12 @@
           .logo= image_tag('logo.ico')
       .pull-right
         %br
-        = link_to 'PRENDRE DES COURS >', root_path
+        = link_to 'DONNER DES COURS >', root_path
   %header
     .container
       .titles
-        %h1.text-black.text-left
-          Passez à l'aide scolaire 2.0
-        %h1.text-black.text-left.text-light Démarrez vos cours particuliers en un clic!
+        %h1.text-black.text-left Les cours particuliers 2.0
+        %h1.text-black.text-left.text-light Où vous voulez, quand vous voulez
       .form.absolute.material-form
         %h3.text-black.text-left S'inscrire maintenant
         =render partial: 'devise/registrations/new_form'
@@ -30,18 +29,18 @@
           .col-md-4
             .service-box
               =image_tag('acceuil/teacher.svg')
-              %h3 Enseignez où vous voulez
-              %p.text-left Depuis votre canapé, en vacances à l'étranger... Avec Qwerteach vous êtes libres d'enseigner où vous voulez!
+              %h3 Vos cours particuliers, où vous voulez
+              %p.text-left
           .col-md-4
             .service-box
               =image_tag('acceuil/timing.svg')
               %h3 A vos horaires
-              %p.text-left Donnez cours le week-end, en soirée, ou à temps plein, à vous de choisir. Vous êtes le patron, vous fixez vos horaires de travail.
+              %p.text-left
           .col-md-4
             .service-box
               =image_tag('acceuil/landing_payement.svg')
               %h3 Gagnez de l'argent
-              %p.text-left Vous choisissez vous-même votre tarif, et Qwerteach sécurise vos payements. Ainsi, vous pouvez vous concentrer sur l'essentiel: la réussite de vos élèves.
+              %p.text-left Payez en toute sécurité
         #ready
           %h2.section-heading
             Prêt à démarrer ?
