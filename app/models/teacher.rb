@@ -24,6 +24,10 @@ class Teacher  < Student
     self.update active: true
   end
 
+  def responsible_admin
+    postulation.responsible_admin.name
+  end
+
   # Methode override de User bloquant le type de User à Teacher au maximum
   def upgrade
     self.type = User::ACCOUNT_TYPES[1]

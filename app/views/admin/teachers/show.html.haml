@@ -1,7 +1,8 @@
 .card-header.bordered
   - content_for(:title) { "#{page.resource.firstname} #{page.resource.lastname}"}
   .header-block
-    =image_tag page.resource.avatar.url(:small), class: "header-avatar rounded"
+    = link_to page.resource.avatar.url(:original), target:'_blank' do
+      =image_tag page.resource.avatar.url(:small), class: "header-avatar rounded"
     %h3.title
       = content_for(:title)
       %small= page.resource.postulance_accepted ? '(Teacher)' : '(Postuling teacher)'

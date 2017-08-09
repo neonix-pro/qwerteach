@@ -59,7 +59,8 @@ class TeacherDashboard < Administrate::BaseDashboard
       avatar: Field::Image.with_options(thumb: :small),
       name: Field::Text,
       lessons_received: Field::HasMany,
-      lessons_given: Field::HasMany
+      lessons_given: Field::HasMany,
+      responsible_admin: Field::String
   }
 
   # COLLECTION_ATTRIBUTES
@@ -73,7 +74,9 @@ class TeacherDashboard < Administrate::BaseDashboard
       :name,
       :email,
       :created_at,
-      :confirmed_at
+      :confirmed_at,
+      :responsible_admin,
+      :score,
   ]
 
   # SHOW_PAGE_ATTRIBUTES

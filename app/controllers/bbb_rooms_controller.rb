@@ -66,7 +66,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
       if @room.save
         message = t('bigbluebutton_rails.rooms.notice.create.success')
         subject = current_user.firstname + " vous invite dans une classe. "
-        subject += link_to('Cliquez ici', join_bigbluebutton_room_path(@room)) + " pour la rejoindre."
+        subject += link_to('Cliquez ici', join_bigbluebutton_room_path(@room), target: '_blank') + " pour la rejoindre."
         body = "" + join_bigbluebutton_room_path(@room).to_s
         @interviewee.send_notification(subject, body, current_user)
         format.html {
