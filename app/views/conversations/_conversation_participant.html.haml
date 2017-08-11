@@ -1,9 +1,12 @@
 .participant.clearfix
   .avatar.pull-left
-    = image_tag(user.avatar.url(:small), class: 'img img-circle')
+    = image_tag(user.avatar.url(:small), class: "img img-circle #{'avatar-admin' if user.is_admin?}")
   .name
     = link_to user.name, user_path(user)
-    - if user.is_a?(Teacher)
+    - if user.is_admin?
+      %br
+      %small Admin Qwerteach
+    - elsif user.is_a?(Teacher)
       %br
       %small Professeur
 - if user.is_a?(Teacher)

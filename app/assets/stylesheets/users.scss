@@ -3,6 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "global_variables";
 
+.avatar-admin{
+  border: 2px solid $color_qwerteach_green;
+}
+
 .section-recherche {
   margin: 0;
   padding: 0;
