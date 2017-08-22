@@ -26,7 +26,7 @@
           #{" - "}
           = link_to edit_lesson_path(@lesson), remote: true do
             Déplacer
-        - elsif @lesson.future?
+        - elsif @lesson.upcoming?
           = link_to lesson_cancel_path(@lesson) do
             Annuler
   .container
