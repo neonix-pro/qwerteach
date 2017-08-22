@@ -23,7 +23,7 @@
               .card
                 .card-content
                   .text-center
-                    = link_to '#modal-add-bank-account', data:{toggle: 'modal'} do
+                    = link_to '#add-bank-account-modal', data:{toggle: 'modal'} do
                       %i.fa.fa-plus.fa-2x
                       %br
                       Ajouter un compte bancaire
@@ -53,7 +53,7 @@
           .card-content
             = render 'mangopay_form', :path => @path
 - unless @user.mango_id.nil?
-  .modal.fade#modal-add-bank-account
+  .modal.fade#add-bank-account-modal
     .modal-dialog
       .modal-content
         .modal-body
