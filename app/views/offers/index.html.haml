@@ -3,7 +3,8 @@
     .card
       .card-content
         .first-lesson-free
-          = form_for @user, as: :user, url: user_path(@user), method: :put, remote: true do |f|
+          -# TODO: put back with remote: true... But causes a CSRF Token verification problem :-/
+          = form_for @user, as: :user, url: user_path(@user), method: :put do |f|
             .card-title.text-center
               Premier cours gratuit
               .switch
