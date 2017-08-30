@@ -1,8 +1,8 @@
 class Teacher  < Student
   TEACHER_STATUS = ["Actif", "Suspendu"]
 
-  has_one :postulation, foreign_key:  "user_id"
-  has_many :degrees, foreign_key:  "user_id"
+  has_one :postulation, foreign_key:  "user_id", dependent: :destroy
+  has_many :degrees, foreign_key:  "user_id", dependent: :destroy
   has_many :lessons_given, :class_name => 'Lesson', :foreign_key => 'teacher_id'
 
   has_many :reviews, class_name: 'Review', :foreign_key => 'subject_id'

@@ -26,4 +26,5 @@ var chat = function(id){
                 Messages.numberOfUnreadMessages();
             });
     }
+    markMessagesAsRead();
 }

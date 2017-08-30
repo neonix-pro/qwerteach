@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 
   phony_normalize :phone_number, as: :full_number, default_country_code: :phone_country_code
 
-  has_one :gallery
+  has_one :gallery, dependent: :destroy
   has_many :offers, dependent: :destroy
   #before_save -> { skip_reconfirmation! }
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
