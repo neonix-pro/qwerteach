@@ -5,13 +5,13 @@
         - codes = offers.distinct.pluck(:level_code)
         - codes.each do |code|
         %h5.title-green.text-center #{code}
-        - levels = Level.where(code: code).group_by{|l| l.be}.collect{|k,v| v.last}
+        - levels = Level.where(code: code).group_by{|l| l.fr}.collect{|k,v| v.last}
           %table
             %thead
               %tr
                 %th tarifs €/h
                 -levels.each do |level|
-                  %th{class: "level_col_#{level.id}"} #{t level.be, locale: :abv}
+                  %th{class: "level_col_#{level.id}"} #{t level.fr, locale: :abv}
               %tbody
                 - offers.where("topic_groups.level_code = '#{code}'").each do |ad|
                   %tr.topic_row{id: "topic_row_#{ad.topic.id}"}

@@ -1,7 +1,7 @@
 class YoutubeAddy
   URL_FORMATS = {
       regular: /^(https?:\/\/)?(www\.)?youtube.com\/watch\?(.*\&)?v=(?<id>[^&]+)/,
-      shortened: /^(https?:\/\/)?(www\.)?youtu.be\/(?<id>[^&]+)/,
+      shortened: /^(https?:\/\/)?(www\.)?youtu.fr\/(?<id>[^&]+)/,
       embed: /^(https?:\/\/)?(www\.)?youtube.com\/embed\/(?<id>[^&]+)/,
       embed_as3: /^(https?:\/\/)?(www\.)?youtube.com\/v\/(?<id>[^?]+)/,
       chromeless_as3: /^(https?:\/\/)?(www\.)?youtube.com\/apiplayer\?video_id=(?<id>[^&]+)/

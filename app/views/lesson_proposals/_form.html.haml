@@ -26,7 +26,7 @@
   .form-group
     = f.label :level_id, 'Choisissez le niveau'
     - if f.object.topic_id.present?
-      - options = current_user.offers.includes(offer_prices: :level).where(topic_id: f.object.topic_id).uniq.pluck('levels.be', 'levels.id')
+      - options = current_user.offers.includes(offer_prices: :level).where(topic_id: f.object.topic_id).uniq.pluck('levels.fr', 'levels.id')
     - else
       - options = []
     = f.select :level_id, options, {prompt: 'niveau'}, {class: 'form-control level-select', required: true}
