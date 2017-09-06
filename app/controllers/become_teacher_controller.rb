@@ -9,7 +9,7 @@ class BecomeTeacherController < ApplicationController
   #   jump_to(:general_infos) if step == :valid_email
   # end
 
-  steps :offers, :general_infos, :avatar, :banking_informations, :finish_postulation
+  steps :offers, :avatar, :general_infos, :banking_informations, :finish_postulation
 
   DESCRIPTION_QUESTIONS = ["Présentez-vous en quelques lignes",
                            "Quel a été votre parcours ?",

@@ -3,6 +3,7 @@
   %p Aucun niveau disponible pour cette catégorie
 - else
   %div{id: "levels-offer-#{offer.id}"}
+    %small le tarif horaire minimum est de 10€/h
     - levels.each do |c|
       - if offer.offer_prices.map(&:level_id).include?(c.id)
         - a = offer.offer_prices.find_by(level_id: c.id)
@@ -13,7 +14,7 @@
             = check_box_tag "offer[offer_prices_attributes][][level_id]", c.id, 'checked', class: 'price_box', id: "level_#{c.id}"
             = label_tag "level_#{c.id}", c[I18n.locale[0..3]]
           .col-sm-4
-            = number_field_tag "offer[offer_prices_attributes][][price]", nil, min: 0, disabled: false, value: offer.offer_prices.detect{|lp| lp.level_id == c.id}.price, class: "#{c.id} form-control"
+            = number_field_tag "offer[offer_prices_attributes][][price]", nil, min: 10, disabled: false, value: offer.offer_prices.detect{|lp| lp.level_id == c.id}.price, class: "#{c.id} form-control"
       - else
         .row.level-row
           .col-sm-8
@@ -22,7 +23,7 @@
             = check_box_tag 'offer[offer_prices_attributes][][level_id]', c.id, nil, class: 'price_box', id: "level_#{c.id}"
             = label_tag "level_#{c.id}", c[I18n.locale[0..3]]
           .col-sm-4
-            = number_field_tag 'offer[offer_prices_attributes][][price]', nil, min: 0, disabled: true, placeholder: "...€/h", class: "form-control price-input #{c.id}"
+            = number_field_tag 'offer[offer_prices_attributes][][price]', nil, min: 10, disabled: true, placeholder: "...€/h", class: "form-control price-input #{c.id}"
 
 :javascript
   new LevelsManager("#{offer.id}");
