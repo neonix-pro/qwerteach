@@ -48,6 +48,12 @@
         = f.text_field :time_start, class: 'form-control', :required => true
         %span.input-group-addon
           %span.glyphicon.glyphicon-calendar
+      - if @user.time_zone_hours_offset != @teacher.time_zone_hours_offset
+        .alert.alert-warning
+          Le professeur et vous n'êtes pas dans le même fuseau horaire!<br />
+          Chez le professeur: zone #{t @teacher.time_zone}, il est #{Time.now.in_time_zone(@teacher.time_zone).strftime("%H:%M")}h<br />
+          Chez vous: zone #{t @user.time_zone}, il est #{Time.now.in_time_zone(@user.time_zone).strftime("%H:%M")}h<br />
+          %small #{link_to 'Modifier mon fuseau horaire', edit_user_registration_path}
       %small
         Toutes les heures sont affichées dans votre timezone ("#{t @user.time_zone}")
     .actions
