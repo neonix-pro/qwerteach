@@ -48,6 +48,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def save_user_timezone
+    return unless resource.persisted?
+    resource.update(time_zone: cookies[:time_zone])
+  end
+
   def current_timestamp
     Time.now.to_i
   end
