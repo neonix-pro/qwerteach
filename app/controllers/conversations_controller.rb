@@ -12,7 +12,7 @@ class ConversationsController < ApplicationController
     @user = current_user
     @mailbox_type = params[:mailbox].nil? ? 'inbox': params[:mailbox]
     @unread_count = @mailbox.inbox({:read => false}).count
-    @conversations = @mailbox.conversations
+    @conversations = @mailbox.conversations.limit(100)
     @recipient_options = []
     @mailbox.conversations.each do |conv|
       conv.receipts.map{|r| @recipient_options.push(r.receiver) unless r.receiver.nil? || r.receiver.id == @user.id}
