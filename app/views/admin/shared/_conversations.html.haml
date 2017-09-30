@@ -8,7 +8,7 @@
           %th last message
           %th # of messages
         - conversations.each do |c|
-          - recipient = c.receipts.group(:receiver_id).select{|r| !r.receiver.nil? && current_user.id != r.receiver.id}.last
+          - recipient = c.receipts.group(:receiver_id).select{|r| !r.receiver.nil? && current_user.id != r.receiver.id}.last.receiver
           %tr
             %td= link_to c.id, admin_show_conversation_path(c)
             %td= link_to(recipient.name, admin_student_path(recipient)) if recipient
