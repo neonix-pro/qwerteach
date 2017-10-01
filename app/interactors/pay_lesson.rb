@@ -30,10 +30,11 @@ class PayLesson < ActiveInteraction::Base
         format.html {render 'finish' }
       end
     else
-      controller.instnce_variable_set :@card_registration, Mango::CreateCardRegistration.run(user: user).result
+      controller.instance_variable_set :@card_registration, Mango::CreateCardRegistration.run(user: user).result
       respond_to do |format|
         format.js {render 'errors', :layout=>false, locals: {object: paying}}
         format.json {render :json => {:message => "errors"}}
+        format.html {render 'finish', locals: {object: paying} }
       end
     end
   end

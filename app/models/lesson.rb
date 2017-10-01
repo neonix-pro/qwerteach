@@ -50,7 +50,7 @@ class Lesson < ActiveRecord::Base
 
   has_drafts
 
-  validate :validate_teacher_on_postulation_approval, on: :create
+  #validate :validate_teacher_on_postulation_approval, on: :create
   validates :student, presence: true
   validates :teacher, presence: true
   validates :level, presence: true
