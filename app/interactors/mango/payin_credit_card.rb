@@ -39,8 +39,8 @@ module Mango
 
     #always secure mode at this moment (some cards only OK if secure mode)
     def secure_mode
-      #@secure_mode.nil? ? (card.validity != 'VALID') : @secure_mode
-      true
+      @secure_mode.nil? ? (card.validity != 'VALID') : @secure_mode
+      #true
     end
 
     def mango_params
