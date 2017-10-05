@@ -3,9 +3,9 @@ module Admin
 
     def index
       @all_students = Student.joins(:lessons_received).merge(Lesson.created.this_month).where("lessons.price > 0").uniq
-      @all_teachers = Teacher.joins(:lessons_received).merge(Lesson.created.this_month).where("lessons.price > 0").uniq
+      @all_teachers = Teacher.joins(:lessons_given).merge(Lesson.created.this_month).where("lessons.price > 0").uniq
       @old_students = Student.joins(:lessons_received).merge(Lesson.created.not_this_month).where("lessons.price > 0").uniq
-      @old_teachers = Teacher.joins(:lessons_received).merge(Lesson.created.not_this_month).where("lessons.price > 0").uniq
+      @old_teachers = Teacher.joins(:lessons_given).merge(Lesson.created.not_this_month).where("lessons.price > 0").uniq
 
       @new_students = @all_students.where.not(id: @old_students.ids)
       @new_teachers = @all_teachers.where.not(id: @old_teachers.ids)
