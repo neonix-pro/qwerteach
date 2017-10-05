@@ -47,7 +47,8 @@ class Lesson < ActiveRecord::Base
   scope :without_room, -> {includes(:bbb_room).where(:bigbluebutton_rooms => { :id => nil })}
 
   scope :needs_pay, ->{ created.where('price > 0').where('NOT EXISTS( SELECT 1 FROM payments WHERE status = 2 AND lesson_id = lessons.id )') }
-
+  scope :this_month, ->{ where(time_start: Time.now.beginning_of_month..Time.now.end_of_month) }
+  scope :not_this_month, ->{where.not(time_start: Time.now.beginning_of_month..Time.now.end_of_month)}
   has_drafts
 
   #validate :validate_teacher_on_postulation_approval, on: :create
