@@ -19,7 +19,8 @@ module Admin
     def generate_text
       @postulation = Postulation.find(params[:postulation_id])
       @user = @postulation.teacher
-      greetings = t('admin.teacher.greetings', name: @user.name)
+      greetings = "(Vous venez d'être pris en charge par un administrateur) <br />"
+      greetings += t('admin.teacher.greetings', name: @user.name)
       reason = t('admin.teacher.postulation.contact')
       if @postulation.corrections_needed
         reason += t('admin.teacher.postulation.change')

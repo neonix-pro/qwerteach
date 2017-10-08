@@ -1,0 +1,57 @@
+.test-become-teacher
+  %nav.empty-nav
+    .container
+      .pull-left
+        =link_to root_path do
+          .logo= image_tag('logo.ico')
+      .pull-right
+        %br
+        = link_to 'DONNER DES COURS >', root_path
+  %header
+    .container
+      .titles
+        %h1.text-black.text-left Le bon prof au bon moment
+        %h1.text-black.text-left.text-light Les meilleurs professeurs particuliers<br />sont sur Qwerteach
+      .form.absolute.material-form
+        %h3.text-black.text-left S'inscrire maintenant
+        =render partial: 'devise/registrations/new_form'
+  %header.f1
+    .header-content
+      .header-content-inner
+  %section#white
+    .container
+      .overflow
+        %h2.section-heading
+          Les cours particuliers,
+        %h2.section-heading.text-light
+          nouvelle génération
+        .row#arguments
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/teacher.svg')
+              %h3.text-left Vos cours particuliers, où vous voulez
+              %p.text-left Où que vous soyez dans le monde, retrouvez votre professeur particulier dans la classe virtuelle Qwerteach. Le cours en ligne, c'est un vrai cours particulier, sans devoir se déplacer.
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/timing.svg')
+              %h3.text-left A vos horaires
+              %p.text-left Discutez avec votre profeseur et fixez enemble les horaires qui vous arrangent. Sur Qwerteach nous vous encourageons à étaler vos cours sur la semaine. Des scéances plus courtes, plus souvent: l'idéal pour bien apprendre.
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/landing_payement.svg')
+              %h3.text-left Payez en toute sécurité
+              %p.text-left Grâce à notre système de paiement sécurisé, vous réservez vos cours en un clic. En cas de problème lors d'un cours, vous serez intégralement remboursé. Sans discussion.
+        #ready
+          %h2.section-heading
+            Prêt à démarrer ?
+          %h2.section-heading.text-light
+            Passez aux cours en ligne et boostez vos notes!
+          = link_to "C'est parti", 'body', class: 'btn btn-cta btn-green'
+
+:javascript
+  $('.btn-cta').click(function(e){
+    e.preventDefault();
+    $('html, body').animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top
+    }, 500);
+  });

@@ -2,11 +2,11 @@
   = link_to conversation_path(conversation), class: 'text-grey', remote: true, data:{toggle:'loader'} do
     .avatars
       - conversation.receipts.group(:receiver_id).select{|r| !r.receiver.nil? && user.id != r.receiver.id}.each do |p|
-        = image_tag(p.receiver.avatar.url(:small), class: 'img img-circle')
+        = image_tag(p.receiver.avatar.url(:small), class: "img img-circle #{'avatar-admin' if p.receiver.is_admin?}", data: p.receiver.is_admin? ? nil : {toggle:'tooltip', title: 'Admin'})
     .participants
       = conversation.receipts.group(:receiver_id).select{|r| !r.receiver.nil? && user.id != r.receiver.id}.map{ |r| r.receiver.firstname unless r.receiver.nil?}.join(', ')
     .last-message
-      #{truncate(conversation.last_message.body, length: 40, separator: ' ')}
+      #{truncate(conversation.last_message.body.html_safe, length: 40, separator: ' ')}
     .last-message-date
       #{time_ago_in_words(conversation.last_message.created_at)}
     - unless conversation.is_read?(user)

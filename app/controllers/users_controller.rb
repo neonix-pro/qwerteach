@@ -163,6 +163,7 @@ class UsersController < ApplicationController
         format.html {redirect_to edit_user_registration_path(@user)}
         format.json {render :json => {:user => @user, :success => "true", 
           :message => "Votre profil a bien été modifié."}}
+        format.js {}
       end and return
     else
       flash[:error] = "La modification a échoué"
@@ -170,6 +171,7 @@ class UsersController < ApplicationController
         format.html {redirect_to edit_user_registration_path(@user)}
         format.json {render :json => {:user => @user, :success => "false", 
           :message => "La modification a échoué."}}
+        format.js {}
       end
     end
   end

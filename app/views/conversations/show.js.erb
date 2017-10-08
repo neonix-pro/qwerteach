@@ -14,10 +14,8 @@ chatbox.scrollTop(chatbox[0].scrollHeight);
 
 $('<%= "#chatbox_#{@conversation.id} .loader" %>').hide();
 
-$('#chatbox_#{@conversation.id} .chatboxinput').click(function () {
-  $.ajax({
-    url: "/seen",
-    data: {conversation_id: "#{@conversation.id}"},
-    method: 'post'
-  });
+$.ajax({
+  url: "/seen",
+  data: {conversation_id: "<%=@conversation.id %>"},
+  method: 'post'
 });

@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 
   phony_normalize :phone_number, as: :full_number, default_country_code: :phone_country_code
 
-  has_one :gallery
+  has_one :gallery, dependent: :destroy
   has_many :offers, dependent: :destroy
   before_save -> { skip_reconfirmation! }
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
@@ -248,6 +248,10 @@ class User < ActiveRecord::Base
 
   def full_name
     [firstname.presence, lastname.presence].compact.join(' ')
+  end
+
+  def time_zone_hours_offset
+    ActiveSupport::TimeZone.new(time_zone).utc_offset / 3600
   end
 
   protected

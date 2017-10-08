@@ -14,6 +14,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  rescue_from Mango::DailyLimitReached do |exception|
+    respond_to do |format|
+      format.html {redirect_to dashboard_path, alert: t('notice.daily_limit_reached')}
+      format.json {render :json => {:message => "daily limit reached"}}
+    end
+  end
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
@@ -46,6 +53,11 @@ class ApplicationController < ActionController::Base
       room = BbbRoom.find(room.id)
       (room.lesson.present? && room.lesson.eql?(current_user.current_lesson) ) || room.name == 'Demo'
     end
+  end
+
+  def save_user_timezone
+    return unless resource.persisted?
+    resource.update(time_zone: cookies[:time_zone])
   end
 
   def current_timestamp

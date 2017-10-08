@@ -1,5 +1,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require private_pub
-//= require bootstrap4-sprockets
+//= require bootstrap
 //= require modular-admin/sidebar

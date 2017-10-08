@@ -1,7 +1,8 @@
 .card-header.bordered
   - content_for(:title) { "#{page.resource.firstname} #{page.resource.lastname}"}
   .header-block
-    =image_tag page.resource.avatar.url(:small), class: "header-avatar rounded"
+    = link_to page.resource.avatar.url(:original), target:'_blank' do
+      =image_tag page.resource.avatar.url(:small), class: "header-avatar rounded"
     %h3.title
       = content_for(:title)
       %small= page.resource.postulance_accepted ? '(Teacher)' : '(Postuling teacher)'
@@ -21,9 +22,9 @@
     %li.nav-item
       %a.nav-link(data-toggle="tab" href="#postulation-tab" role="tab" aria-expanded="false") Postulation
     %li.nav-item
-      %a.nav-link(data-toggle="tab" href="#received_lessons-tab" role="tab" aria-expanded="false") Received Lessons
+      %a.nav-link(data-toggle="tab" href="#received_lessons-tab" role="tab" aria-expanded="false") Received Lessons (#{page.resource.lessons_received.created.count} / #{page.resource.lessons_received.created.sum(:price)}€)
     %li.nav-item
-      %a.nav-link(data-toggle="tab" href="#given_lessons-tab" role="tab" aria-expanded="false") Given Lessons
+      %a.nav-link(data-toggle="tab" href="#given_lessons-tab" role="tab" aria-expanded="false") Given Lessons (#{page.resource.lessons_given.created.count} / #{page.resource.lessons_given.created.sum(:price)}€)
     %li.nav-item
       %a.nav-link(data-toggle="tab" href="#offers-tab" role="tab" aria-expanded="false") Offers
     %li.nav-item

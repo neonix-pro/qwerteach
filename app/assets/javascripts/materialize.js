@@ -7,7 +7,7 @@
 //= require materialize/global
 //= require materialize/collapsible
 //= require materialize/dropdown
-//= require materialize/modal
+
 //= require materialize/materialbox
 //= require materialize/parallax
 //= require materialize/tabs

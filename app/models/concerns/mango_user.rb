@@ -48,7 +48,7 @@ class MangoUser
 
   def cards
     @cards ||= Mango.normalize_response(
-      MangoPay::User.cards(id_for_api, {'sort' => 'CreationDate:desc', 'per_page' => 100}))
+      MangoPay::User.cards(id_for_api, {'sort' => 'CreationDate:desc', 'per_page' => 100, 'active'=>true}))
   end
 
   def valid_cards

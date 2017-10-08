@@ -81,3 +81,4 @@ class window.AvatarUploader
   onClickSubmit: (e)->
     $(e.currentTarget).html($(e.currentTarget).attr('disable_with'))
     $(e.currentTarget).prop('disabled', true)
+    @$el.get(0).submit()

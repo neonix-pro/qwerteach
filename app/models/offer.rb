@@ -42,7 +42,7 @@ class Offer < ActiveRecord::Base
   end
 
   def max_level
-    @max_level ||= offer_prices.order('level_id DESC').last.level.be
+    @max_level ||= offer_prices.order('level_id DESC').last.level.fr
   end
 
   def topic_group_title
@@ -66,11 +66,12 @@ class Offer < ActiveRecord::Base
   end
 
   def price_for_level(level)
-    offer_prices.joins(:level).where("levels.be = '#{level.be}'").first
+    offer_prices.joins(:level).where("levels.fr = '#{level.fr}'").first
   end
 
   def possible_levels
-    Level.where(:code => self.topic.topic_group.level_code).group(I18n.locale[0..3]).order(level: :asc)
+    #Level.where(:code => self.topic.topic_group.level_code).group(I18n.locale[0..3]).order(level: :asc)
+    Level.where(:code => self.topic.topic_group.level_code).group(:fr).order(level: :asc)
   end
 
   # Pour Sunspot, définition des champs sur lesquels les recherches sont faites et des champs sur lesquels les filtres sont réalisés

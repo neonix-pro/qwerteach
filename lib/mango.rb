@@ -2,6 +2,8 @@ module Mango
 
   class UserDoesNotHaveAccount < StandardError; end
 
+  class DailyLimitReached < StandardError; end
+
   def self.normalize_response(response)
     normalize_keys = ->(h){ Hashie::Mash.new( h.underscore_keys ) }
     if response.is_a?(Array)

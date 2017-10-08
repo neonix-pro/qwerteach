@@ -9,7 +9,7 @@ class BecomeTeacherController < ApplicationController
   #   jump_to(:general_infos) if step == :valid_email
   # end
 
-  steps :offers, :general_infos, :avatar, :banking_informations, :finish_postulation
+  steps :offers, :avatar, :general_infos, :banking_informations, :finish_postulation
 
   DESCRIPTION_QUESTIONS = ["Présentez-vous en quelques lignes",
                            "Quel a été votre parcours ?",
@@ -23,7 +23,7 @@ class BecomeTeacherController < ApplicationController
 
     case step
       when :general_infos
-        @levels = Level.where(code: 'scolaire').group(:be).order(:level).map{|l| [l.be, l.id]}
+        @levels = Level.where(code: 'scolaire').group(:fr).order(:level).map{|l| [l.fr, l.id]}
         @description_questions = DESCRIPTION_QUESTIONS
       when :pictures
         @gallery = Gallery.find_by user_id: @user.id

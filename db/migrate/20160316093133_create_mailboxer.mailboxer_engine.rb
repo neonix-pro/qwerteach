@@ -18,6 +18,9 @@ class CreateMailboxer < ActiveRecord::Migration
       t.column :mailbox_type, :string, :limit => 25
       t.column :created_at, :datetime, :null => false
       t.column :updated_at, :datetime, :null => false
+      t.column :is_delivered, :boolean, default: false
+      t.column :delivery_method, :string
+      t.column :message_id, :string
     end    
   	#Notifications and Messages
     create_table :mailboxer_notifications do |t|
