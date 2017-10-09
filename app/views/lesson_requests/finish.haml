@@ -6,16 +6,7 @@
     .col-sm-1
     .col-sm-5
       #lesson-details
-        - if object.present?
-          %h3.text-black Il y a eu un problème avec votre réservation!
-          = render partial: 'shared/errors', locals: {object: object}
-          %p
-            Vous n'avez pas été débité du montant du cours, et celui-ci n'a pas été réservé.
-            Vous pouvez ré-essayer en cliquant sur
-            #{link_to 'ce lien', new_user_lesson_request_path(@teacher)}.
-
-        - else
-          = render partial: 'finish', locals: {remote: false}
+        = render partial: 'finish', locals: {remote: false}
     .col-sm-5
       .additional-infos
         #step1-infos.booking-infos.active

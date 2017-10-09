@@ -7,7 +7,7 @@ module Mango
     string :card_id
     string :return_url
     string :wallet, default: 'normal'
-    float :daily_limit, default: 10000
+    float :daily_limit, default: 20000
 
     validates :amount, :return_url, :card_id, presence: true
     validates :wallet, presence: true
