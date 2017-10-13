@@ -6,13 +6,13 @@ class ConversationsController < ApplicationController
   after_filter { flash.discard if request.xhr? }
 
   include Mailboxer
-  MESSAGES_PER_PAGE = 20
+  MESSAGES_PER_PAGE = 10
 
   def index
     @user = current_user
     @mailbox_type = params[:mailbox].nil? ? 'inbox': params[:mailbox]
     @unread_count = @mailbox.inbox({:read => false}).count
-    @conversations = @mailbox.conversations.limit(100)
+    @conversations = @mailbox.conversations.page(params[:page]).per(MESSAGES_PER_PAGE)
     @recipient_options = []
     @mailbox.conversations.each do |conv|
       conv.receipts.map{|r| @recipient_options.push(r.receiver) unless r.receiver.nil? || r.receiver.id == @user.id}
@@ -21,7 +21,6 @@ class ConversationsController < ApplicationController
                         .where(id: @recipient_options.map(&:id), last_seen: 1.hour.ago..Time.now)
                         .order(last_seen: :desc)
                         .limit(10)
-    # @page = params[:page]
     @page = 1
     @messages = @conversations
                         .first
@@ -29,6 +28,11 @@ class ConversationsController < ApplicationController
                         .page(@page)
                         .per(MESSAGES_PER_PAGE)
                         .order(id: :desc) if @conversations.present?
+    respond_to do |format|
+      format.html{}
+      format.js{}
+      format.json{}
+    end
   end
 
   def trash
