@@ -70,7 +70,10 @@ class Api::UsersController < UsersController
       format.json {render :json => {:pagin => @pagin, :options => @sorting_options}}
       format.js {}
     end
-    
+  end
+  
+  def profs_by_topic
+    super
   end
   
 end
