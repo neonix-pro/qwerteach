@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
 
   has_one :gallery, dependent: :destroy
   has_many :offers, dependent: :destroy
-  before_save -> { skip_reconfirmation! }
+  #before_save -> { skip_reconfirmation! }
   has_many :sent_comment, :class_name => 'Comment', :foreign_key => 'sender_id'
   has_many :received_comment, :class_name => 'Comment', :foreign_key => 'subject_id'
   has_many :reviews_sent, :class_name => 'Review', :foreign_key => 'sender_id'
@@ -269,7 +269,7 @@ class User < ActiveRecord::Base
       self.avatar_score = 0
     end
   
-  def skip_confirmation!
-    self.confirmed_at = Time.now
-  end
+  #def skip_confirmation!
+    #self.confirmed_at = Time.now
+  #end
 end
