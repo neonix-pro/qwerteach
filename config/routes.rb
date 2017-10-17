@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     put 'users/:id' => 'users#update'
     patch 'users/:id' => 'users#update'
     get 'profs' => 'users#index'
+    get 'profs/:topic' => 'users#index'
     get 'users/:id' => 'users#show'
     get 'get_infos_for_detailed_prices_modal' => 'users#get_infos_for_detailed_prices_modal'
 
