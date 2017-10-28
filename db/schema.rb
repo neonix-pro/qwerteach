@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609082530) do
+ActiveRecord::Schema.define(version: 20171028162346) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20170609082530) do
     t.string   "meetingid"
     t.string   "name"
     t.datetime "start_time"
-    t.boolean  "running",                      default: false
-    t.boolean  "recorded",                     default: false
+    t.boolean  "running",                                default: false
+    t.boolean  "recorded",                               default: false
     t.integer  "creator_id"
     t.string   "creator_name"
     t.datetime "created_at"
@@ -28,7 +28,8 @@ ActiveRecord::Schema.define(version: 20170609082530) do
     t.boolean  "ended"
     t.string   "server_url"
     t.string   "server_secret"
-    t.decimal  "create_time",   precision: 14
+    t.decimal  "create_time",             precision: 14
+    t.integer  "finish_time",   limit: 8
   end
 
   add_index "bigbluebutton_meetings", ["meetingid", "create_time"], name: "index_bigbluebutton_meetings_on_meetingid_and_create_time", unique: true
@@ -124,6 +125,7 @@ ActiveRecord::Schema.define(version: 20170609082530) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "lesson_id"
+    t.integer  "masterclass_id"
   end
 
   add_index "bigbluebutton_rooms", ["meetingid"], name: "index_bigbluebutton_rooms_on_meetingid", unique: true
@@ -298,6 +300,13 @@ ActiveRecord::Schema.define(version: 20170609082530) do
 
   add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
+
+  create_table "masterclasses", force: :cascade do |t|
+    t.integer  "admin_id"
+    t.datetime "time_start"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "offer_prices", force: :cascade do |t|
     t.integer  "offer_id",                                         null: false

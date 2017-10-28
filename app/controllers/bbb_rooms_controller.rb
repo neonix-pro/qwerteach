@@ -68,7 +68,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
         subject = current_user.firstname + " vous invite dans une classe. "
         subject += link_to('Cliquez ici', join_bigbluebutton_room_path(@room), target: '_blank') + " pour la rejoindre."
         body = "" + join_bigbluebutton_room_path(@room).to_s
-        @interviewee.send_notification(subject, body, current_user)
+        @interviewee.send_notification(subject, body, current_user) unless @interviewee.nil?
         format.html {
           redirect_to_using_params join_bigbluebutton_room_path(@room)
         }
@@ -78,7 +78,12 @@ class BbbRoomsController < Bigbluebutton::RoomsController
       else
         format.html {
           message = t('bigbluebutton_rails.rooms.notice.create.failure')
-          redirect_to user_path(@interviewee), :notice => message
+          unless @interviewee.nil?
+            redirect_to user_path(@interviewee), :notice => message
+          else
+            redirect_to admin_users_path, :notice => @room.errors.full_messages.to_sentence
+          end
+
         }
         format.json { render :json => @room.errors.full_messages, :status => :unprocessable_entity }
       end
@@ -95,13 +100,32 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     super
   end
 
+  def masterclass_room
+    bigbluebutton_room = {
+        :lesson_id => 0,
+        :masterclass_id => params[:id],
+        :owner_type => 'Admin',
+        :owner_id => current_user.id.to_s,
+        :server_id => 1,
+        :name => "Formation nouveaux professeurs du #{Time.now.strftime('%d %B %Y')} ##{current_timestamp.to_s}",
+        :param => 'Masterclass_'+current_timestamp.to_s,
+        :record_meeting => 0,
+        :logout_url => ENV['MAILER_HOST']+':3000', #TODO: make dynamic
+        :duration => 0,
+        :auto_start_recording => 1,
+        :allow_start_stop_recording => 0
+    }
+    params.merge!(:bigbluebutton_room => bigbluebutton_room)
+    create
+  end
+
   private
   def room_allowed_params
     [:name, :server_id, :meetingid, :attendee_key, :moderator_key, :welcome_msg,
      :private, :logout_url, :dial_number, :voice_bridge, :max_participants, :owner_id,
      :owner_type, :external, :param, :record_meeting, :duration, :default_layout, :presenter_share_only,
      :auto_start_video, :auto_start_audio, :background,
-     :moderator_only_message, :auto_start_recording, :allow_start_stop_recording, :lesson_id,
+     :moderator_only_message, :auto_start_recording, :allow_start_stop_recording, :lesson_id, :masterclass_id,
      :metadata_attributes => [:id, :name, :content, :_destroy, :owner_id]]
   end
 
