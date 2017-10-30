@@ -2,15 +2,10 @@
   .card-content
     .row
       .col-xs-2
-        .icon-coloured.icon-mauve
-          %i.fa.fa-check.fa-2x
+        .icon-coloured.icon-purple
+          %i.fa.fa-list.fa-2x
       .col-xs-10
         .card-title
-          Validation de votre candidature:
-          étape #{@user.postulation.ok_fields.length}/7
-        .row
-          %p
-            Nous avons bien reçu vos informations. Un
-            = link_to 'administrateur', mailbox_path(:inbox)
-            prendra contact avec vous sous peu pour valider votre profil.
-          %p #{link_to 'Modifier', become_teacher_path(:general_infos)} ma candidature
+          Candidature en attente
+        %p
+          Nous avons bien reçu vos informations. Cependant, vous n'êtes <b>pas encore visible sur le site</b>.<br />

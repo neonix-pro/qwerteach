@@ -42,3 +42,5 @@
   - else
     = render partial: 'featured_teachers', locals: {teachers: @featured_teachers}
   %hr
+
+= render partial: 'contact_admin', locals:{me: current_user, user: @admin, new: @conversation.empty?}

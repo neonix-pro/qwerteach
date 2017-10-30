@@ -1,0 +1,32 @@
+.card.light-grey
+  .card-content
+    .row
+      .col-xs-2
+        .icon-coloured.icon-pink
+          %i.fa.fa-life-buoy.fa-2x
+      .col-xs-10
+        - if @masterclass.running?
+          .card-title
+            Une session de coaching est en cours,
+            = link_to 'rejoignez-la!', join_bigbluebutton_room_path(@masterclass.bbb_room), target: '_blank'
+          %p
+            Les premiers pas dans les cours en lignes peuvent être stressants, c'est pourquoi nous souhaitons
+            accompagner les nouveaux professeurs dans leurs démarches, jusqu'à leur premier cours payant.
+            <br />
+            Un administrateur est en ligne en ce moment, disponible pour répondre à toutes vos questions!
+          .row
+            .col-xs-12.text-left
+              %br
+              = link_to 'Rejoindre la session', join_bigbluebutton_room_path(@masterclass.bbb_room), target: '_blank', class: 'btn btn-green btn-qw'
+        - else
+
+          .card-title
+            Trouvez vos premiers élèves!
+          %p
+            Les premiers pas dans les cours en lignes peuvent être stressants, c'est pourquoi nous souhaitons
+            accompagner les nouveaux professeurs dans leurs démarches, jusqu'à leur premier cours payant.
+          %p
+            La prochaine session de coaching aura lieu le #{t @masterclass.time_start.strftime("%d %b à %H:%M")}. Si vous souhaitez une session
+            personnalisée,
+            = link_to 'contactez un administrateur!', '#contact-modal', data:{toggle: 'modal'}
+

@@ -1,0 +1,26 @@
+- new_conversation = local_assigns[:new]
+#contact-modal.modal.fade
+  .modal-dialog{role:'document'}
+    .modal-content
+      = form_tag messages_path, method: :post, remote: true do
+        .modal-header
+          %button.close{type:'button', data:{dismiss: 'modal'}}
+            %span &times
+          %h4 Envoyer un message à un administrateur
+          %p Surveillez bien vos messages Qwerteach, car c'est par ce biais que l'administrateur vous répondra!
+        .modal-body
+          = hidden_field_tag 'message[subject]', "#{me.name} a une question sur la recherche d'élèves"
+          = hidden_field_tag 'message[recipient]', user.id
+          .form-group
+            = text_area_tag 'message[body]', "Bonjour, je souhaiterais en savoir plus sur l'aide que vous pouvez m'apporter pour décrocher mes premiers élèves. Je suis disponible pour un entretien le _____ à ____h ou le _____ à ____h. Bien à vous, #{current_user.name}", rows: 5,
+              class: "form-control #{ "character-count" if new_conversation }", data:{length:50}, required: true
+            - if new_conversation
+              %span.text-pink Minimum 50 caractères.
+          = submit_tag 'Envoyer', class: 'btn btn-qw btn-green'
+:javascript
+  $('#contact-modal form').submit(function(){
+    $('#contact-modal').modal('hide');
+  });
+- if new_conversation
+  :javascript
+    $('#message_body').characterCounter();

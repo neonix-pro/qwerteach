@@ -5,6 +5,9 @@ class Masterclass < ActiveRecord::Base
   scope :with_room, -> {includes(:bbb_room).where.not(:bigbluebutton_rooms => { :id => nil })}
 
   def running?
-
+    if bbb_room && bbb_room.fetch_is_running?
+      return true
+    end
+    false
   end
 end

@@ -15,5 +15,8 @@ module Admin
 
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
+    def find_resource(param)
+      BbbRoom.find_by!(param: param)
+    end
   end
 end

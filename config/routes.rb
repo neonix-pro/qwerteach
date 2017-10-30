@@ -106,6 +106,9 @@ Rails.application.routes.draw do
     resources :reviews
     resources :conversations, only: [:index, :show]
     resources :mailboxer_messages
+    resources :masterclasses do
+      get 'join' => "masterclasses#join"
+    end
 
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
 
