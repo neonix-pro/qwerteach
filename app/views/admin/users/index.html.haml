@@ -7,9 +7,6 @@
     %h3.title= content_for(:title).pluralize
 
 .card-block
-  =button_to 'créer une masterclass', masterclass_index_path
-
-.card-block
   = render 'collection', collection_presenter: page, resources: resources
   = paginate_admin resources
 
