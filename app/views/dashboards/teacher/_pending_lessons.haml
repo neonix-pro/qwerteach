@@ -1,0 +1,11 @@
+.card.card-search
+  .card-content
+    .row
+      .col-xs-2
+        .icon-coloured.icon-orange.icon-title
+          %i.fa.fa-question.fa-2x
+      .col-xs-10
+        .card-title
+          = pluralize(@user.lessons_given.pending.length,'demande reçue', 'demandes reçues')
+        - unless @user.lessons_given.pending.length > 0
+          = link_to 'Comment obtenir des demandes?' , toolbox_path('promouvoir')

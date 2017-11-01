@@ -6,6 +6,20 @@
           %i.fa.fa-list.fa-2x
       .col-xs-10
         .card-title
-          Candidature en attente
+          Vous êtes dans la pépinière
         %p
           Nous avons bien reçu vos informations. Cependant, vous n'êtes <b>pas encore visible sur le site</b>.<br />
+          Transmettez ce lien à vos élèves pour leur permettre de réserver avec vous.
+        .input-group
+          %input#personal-link.form-control{value:"#{ user_url(@user)}"}
+          .input-group-addon#copy-link
+            %i.fa.fa-copy
+            Copier
+
+:javascript
+  $('#personal-link').select();
+  $('#copy-link').click(function(){
+    $('#personal-link').select();
+    document.execCommand('copy');
+    $(this).html('<i class="fa fa-check"></i> Copié!');
+  });
