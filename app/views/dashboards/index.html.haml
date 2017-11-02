@@ -24,11 +24,11 @@
   .container-fluid
     .row
       = render 'help_request_lesson'
-- if @user.is_a?(Teacher)
+- if @user.is_a?(Teacher) && @user.lessons_given.empty?
   .container-fluid
     .row
       = render partial: 'dashboards/cards/masterclass'
-- else
+- unless (!@user.is_a?(Teacher) && @user.lessons_received.empty?) || (@user.is_a?(Teacher) && @user.lessons_given.empty?)
   .container
     .cards-wrapper
       .card.card-search
