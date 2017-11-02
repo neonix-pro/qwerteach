@@ -23,7 +23,7 @@ class DashboardsController < ApplicationController
     if @user.is_a?(Teacher)
       @past_lessons_given = @user.lessons_given.past.created
     end
-    if @user.is_a?(Teacher) && !@user.postulance_accepted?
+    if @user.is_a?(Teacher) #&& !@user.postulance_accepted?
       @masterclass = Masterclass.last
     end
     @admin = User.where(admin: true).last
