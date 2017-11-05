@@ -107,6 +107,8 @@ class Ability
       can :bloquerpayment, Payment do |payment|
         payment.lesson.student_id == user_id
       end
+
+      can :manage, Masterclass if user.admin?
     end
   end
 end

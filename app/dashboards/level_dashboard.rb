@@ -70,6 +70,6 @@ class LevelDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(level)
-    level.be
+    level.fr
   end
 end

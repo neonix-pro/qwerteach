@@ -96,7 +96,7 @@ class SendMessage < ActiveInteraction::Base
       sender_id: user.id
     )
 
-    Pusher.trigger(conversation.id.to_s, conversation.id.to_s,
+    Pusher.trigger_async(conversation.id.to_s, conversation.id.to_s,
       last_message: message,
       avatar: message.sender.avatar.url(:small)
     )

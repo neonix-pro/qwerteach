@@ -1,0 +1,80 @@
+%ul.collapsible.popout.text-left{data: {collapsible:"accordion"}}
+  %li
+    .collapsible-header
+      E-mail validé
+      - if @user.confirmed?
+        %i.fa.fa-check.text-green
+      - else
+        %i.fa.fa-times
+    .collapsible-body
+      - if @user.confirmed?
+        Félicitations, votre e-mail est confirmé!
+      - else
+        rendez-vous dans votre boîte mail et cliquez sur le lien de validation que nous vous avons envoyé.<br />
+        Vérifiez bien vos dossiers "spam", ainsi que l'onglet "promotions" de votre boîte.
+
+  %li
+    .collapsible-header
+      Description perso
+      - if @user.description != ''
+        %i.fa.fa-check.text-green
+      - else
+        %i.fa.fa-times
+    .collapsible-body
+      - if  @user.description != ''
+        Votre profil est correctement rempli.
+      - else
+        Nous vous conseillons de répondre aux questions posées. Ces informations sont utilisées pour compiler une description, qui permet aux parents de se faire une idée.
+        #{link_to "description", become_teacher_path(:general_infos)}.
+  %li
+    .collapsible-header
+      Annonces
+      - if @user.offers.count > 0
+        %i.fa.fa-check.text-green
+      - else
+        %i.fa.fa-times
+    .collapsible-body
+      - if @user.offers.count > 0
+        Vous avez correctement enregistré au moins une annonce de cours.
+      - else
+        Nous ne pouvons pas vous compter comme professeur si nous ne savons pas dans quelle matière vous enseignez!
+        #{link_to "annonce", become_teacher_path(:offers)}.
+  %li
+    .collapsible-header
+      Photo
+      - if @user.avatar_file_name !=nil
+        %i.fa.fa-check.text-green
+      - else
+        %i.fa.fa-times
+    .collapsible-body
+      - if @user.avatar_file_name !=nil
+        Vous avez correctement ajouté une photo à votre profil.
+      - else
+        Votre
+        #{link_to "photo", become_teacher_path(:avatar)} est un élément essentiel de votre profil. Sans avoir d'image de vous, il est très peu probable qu'un parent ne vous contacte.
+  %li
+    .collapsible-header
+      Infos bancaires
+      - if @user.mango_id !=nil
+        %i.fa.fa-check.text-green
+      - else
+        %i.fa.fa-times
+    .collapsible-body
+      - if @user.mango_id !=nil
+        Vos informations bancaires ont été enregistrées.
+      - else
+        Pour que nous puissions vous payer à l'issue de vos cours, nous avons besoin de vos
+        #{link_to "coordonnées bancaires", become_teacher_path(:banking_infos)}.
+  %li
+    .collapsible-header
+      Classe virtuelle
+      - if @user.postulation.test_classe
+        %i.fa.fa-check.text-green
+      - else
+        %i.fa.fa-times
+    .collapsible-body
+      - if @user.postulation.test_classe
+        Vous avez déjà essayé la classe virtuelle.
+      - else
+        Familiarisez-vous avec notre outil de visio-conférence, la
+        #{link_to "essayer la classe virtuelle", demo_room_path}.

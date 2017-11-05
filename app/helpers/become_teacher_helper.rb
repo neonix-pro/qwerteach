@@ -4,7 +4,7 @@ def tutorial_progress_bar
   content_tag(:section, class: "container") do
     content_tag(:div, class: "row navigator become-teacher-progress-bar ") do
       content_tag(:ul) do
-        wizard_steps.each_with_index do |every_step, index|
+        wizard_steps.reject{|s| s==:valid_email }.each_with_index do |every_step, index|
           finished_state = "unfinished"
           finished_state = "current"  if every_step == step
           finished_state = "finished" if past_step?(every_step)

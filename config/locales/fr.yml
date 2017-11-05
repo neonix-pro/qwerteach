@@ -60,6 +60,7 @@ fr:
     processing_error: Il y a eu une erreur lors de la transaction. Veuillez réessayer.
     processing_success: La transaction s'est correctement déroulée.
     missing_account: Vous devez d'abord correctement compléter vos informations de paiement.
+    daily_limit_reached: Vous ne pouvez pas procéder à plus de 100€ de transaction par carte de crédit par jour. Pour lever cette limite, contactez un administrateur via notre chat, ou par e-mail (hello@qwerteach.com)
     bank_account_creation_success: Le compte en banque a correctement été ajouté.
     bank_account_creation_error: Il y a eu un problème lors de l'enregistrement de ce compte bancaire. %{message}
     payout_success: La transaction s'est correctement effectuée. Vous verrez votre solde sur votre compte de peu.

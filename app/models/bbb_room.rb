@@ -1,6 +1,7 @@
 class BbbRoom < BigbluebuttonRoom
 
   belongs_to :lesson
+  belongs_to :masterclass
 
   def params_interview(interviewee)
     bigbluebutton_room = {

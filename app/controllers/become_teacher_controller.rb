@@ -3,13 +3,13 @@ class BecomeTeacherController < ApplicationController
   include MangopayAccount
 
   before_filter :authenticate_user!
-  #before_filter :confirm_email, only: :show
+  before_filter :confirm_email, only: :show
 
-  # def confirm_email
-  #   jump_to(:general_infos) if step == :valid_email
-  # end
+  def confirm_email
+    jump_to(:valid_email) unless step == :valid_email || current_user.confirmed?
+  end
 
-  steps :offers, :general_infos, :avatar, :banking_informations, :finish_postulation
+  steps :valid_email, :offers, :avatar, :general_infos, :banking_informations, :finish_postulation
 
   DESCRIPTION_QUESTIONS = ["Présentez-vous en quelques lignes",
                            "Quel a été votre parcours ?",
@@ -22,8 +22,10 @@ class BecomeTeacherController < ApplicationController
     @user = current_user
 
     case step
+      when :valid_email
+        session[:user_redirect_to] = become_teacher_path(:offers)
       when :general_infos
-        @levels = Level.where(code: 'scolaire').group(:be).order(:level).map{|l| [l.be, l.id]}
+        @levels = Level.where(code: 'scolaire').group(:fr).order(:level).map{|l| [l.fr, l.id]}
         @description_questions = DESCRIPTION_QUESTIONS
       when :pictures
         @gallery = Gallery.find_by user_id: @user.id

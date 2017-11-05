@@ -15,5 +15,14 @@
     .form-group
       = f.submit nil, class: 'btn btn-primary'
 
+.card-header.bordered
+  .header-block
+    %h3 Statistiques:
+  .card-block
+    Nouveaux élèves ce mois: #{@new_students.count} / Total des élèves: #{@new_students.count + @old_students.count}
+    <br />
+    Nouveaux profs ce mois: #{@new_teachers.count} / Total des profs: #{@new_teachers.count + @old_teachers.count}
+    <br />
+    Cours ce mois: #{@amount_this_month}€ / Total des cours: #{@amount_total}€
 
 = render template: 'admin/application/index', locals: local_assigns

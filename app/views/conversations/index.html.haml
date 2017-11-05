@@ -6,6 +6,7 @@
         -#= render partial: 'new_conversation_preview'
         - @conversations.each do |conversation|
           = render partial: 'last_message', :locals=> {conversation: conversation, user: @user}
+        = paginate @conversations
         - if @conversations.empty?
           %p.text-white.text-center
             %br

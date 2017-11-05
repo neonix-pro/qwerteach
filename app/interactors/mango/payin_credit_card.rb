@@ -7,6 +7,7 @@ module Mango
     string :card_id
     string :return_url
     string :wallet, default: 'normal'
+    float :daily_limit, default: 20000
 
     validates :amount, :return_url, :card_id, presence: true
     validates :wallet, presence: true
@@ -37,9 +38,16 @@ module Mango
       @card ||= Mango.normalize_response MangoPay::Card::fetch(card_id)
     end
 
+    #always secure mode at this moment (some cards only OK if secure mode)
     def secure_mode
+      raise Mango::DailyLimitReached if daily_limit_reached?
       @secure_mode.nil? ? (card.validity != 'VALID') : @secure_mode
       #true
+    end
+
+    def daily_limit_reached?
+      amount = Payment.joins(:lesson => :student).where("users.id = #{user.id} ").where("payments.status= 1 OR payments.status = 2").where("payments.created_at > '#{Time.now - 24.hours}'").sum(:price)
+      amount > daily_limit
     end
 
     def mango_params

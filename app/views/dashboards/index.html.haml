@@ -20,12 +20,15 @@
         - @to_review_lessons.each do |l|
           .col-xs-12
             = render partial: 'dashboards/cards/to_review', locals: {lesson: l}
-  %hr
 -if !@user.is_a?(Teacher) && @user.lessons_received.empty?
   .container-fluid
     .row
       = render 'help_request_lesson'
-- else
+- if @user.is_a?(Teacher) && @user.lessons_given.empty?
+  .container-fluid
+    .row
+      = render partial: 'dashboards/cards/masterclass'
+- unless (!@user.is_a?(Teacher) && @user.lessons_received.empty?) || (@user.is_a?(Teacher) && @user.lessons_given.empty?)
   .container
     .cards-wrapper
       .card.card-search
@@ -38,7 +41,12 @@
                 = render :partial => 'recent_activity'
 .container
   - if @user.is_a?(Teacher)
-    = render 'dashboards/teacher/tools'
+    - if @user.postulance_accepted?
+      = render 'dashboards/teacher/tools'
+    - else
+      = render 'dashboards/teacher/incubator_tools'
   - else
     = render partial: 'featured_teachers', locals: {teachers: @featured_teachers}
   %hr
+
+= render partial: 'contact_admin', locals:{me: current_user, user: @admin, new: @conversation.empty?}

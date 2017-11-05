@@ -16,6 +16,10 @@
           = link_to("Approved (#{@number_of_teachers})", [namespace, Teacher])
         %li{class: nav_link_state(:inactive_teachers)}
           = link_to('Inactive ', [:inactive, namespace, Teacher])
+    %li{class: nav_link_state(:masterclasses)}
+      = link_to([namespace, :masterclasses]) do
+        = icon 'bullseye'
+        Masterclasses
     -#%li{class: nav_link_state(:pictures)}
     -#  = link_to([namespace, Picture]) do
     -#    = icon 'user-circle-o'

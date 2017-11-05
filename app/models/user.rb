@@ -250,6 +250,10 @@ class User < ActiveRecord::Base
     [firstname.presence, lastname.presence].compact.join(' ')
   end
 
+  def time_zone_hours_offset
+    ActiveSupport::TimeZone.new(time_zone).utc_offset / 3600
+  end
+
   protected
   # def confirmation_required?
   #   false

@@ -6,7 +6,7 @@ class OfferPrice < ActiveRecord::Base
   validates :offer, presence: true
   validates :level, presence: true
   validates :price, presence: true
-  validates :price, :numericality => { :greater_than_or_equal_to => 0 }
+  validates :price, :numericality => { :greater_than_or_equal_to => 10 }
   validates_uniqueness_of :offer_id, scope: :level_id
 
 end

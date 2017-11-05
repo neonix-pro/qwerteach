@@ -41,7 +41,7 @@ gem 'devise', '3.4.1'
 #bootstrap-sass is not relevant to the tutorial, but I like it for styling.
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
-gem 'materialize-sass'
+gem 'materialize-sass', '~> 0.98.2'
 gem 'bootstrap4', github: 'shredder-rull/bootstrap-rubygem'
 
 gem 'jquery-turbolinks'
@@ -107,7 +107,7 @@ gem 'coffee-script-source', '1.8.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'bigbluebutton_rails', github: 'mconf/bigbluebutton_rails'
+gem 'bigbluebutton_rails'#, github: 'mconf/bigbluebutton_rails'
 
 gem 'resque', :require => "resque/server"
 
