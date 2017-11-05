@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     get 'lessons/:lesson_id/pay_teacher' => 'lessons#pay_teacher'
     get 'lessons/:lesson_id/dispute' => 'lessons#dispute'
     post 'messages' => 'messages#create'
-    get 'mailbox/:mailbox' => 'conversations#index'
+    get 'conversations' => 'conversations#index'
     post 'conversations/:id/reply' => 'conversations#reply'
     get 'conversations/:id' => 'conversations#show'
     get 'conversation/show_more/:id/:page' => 'conversations#show_more'
