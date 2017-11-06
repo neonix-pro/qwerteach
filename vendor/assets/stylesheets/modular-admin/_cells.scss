@@ -5,6 +5,7 @@
     color: inherit;
     display: inline-block;
     position: relative;
+    width: 100%;
   }
 }
 
@@ -28,4 +29,9 @@
 
 .cell-label__sort-indicator--desc {
   transform: rotate(180deg);
+}
+
+.cell-avatar {
+  height: 30px;
+  border-radius: 3px;
 }

@@ -10,7 +10,7 @@
         %tr.js-table-row{:tabindex => "0", role: valid_action?(:show) ? 'link' : false, 'data-url'=>valid_action?(:show) ? polymorphic_path([namespace, resource]) : false}
           = render 'collection_body_cells', collection_presenter: collection_presenter, resource: resource
           %td
-            - if valid_action? :edit
+            - if valid_action? :edit, resource.class.to_s.underscore
               = link_to(t('administrate.actions.edit'), [:edit, namespace, resource], class: 'btn btn-sm btn-primary-outline')
-            - if valid_action? :destroy
+            - if valid_action? :destroy, resource.class.to_s.underscore
               = link_to(t('administrate.actions.destroy'), [namespace, resource], class: 'btn btn-sm btn-danger-outline', method: :delete, data: { confirm: t('administrate.actions.confirm') })
