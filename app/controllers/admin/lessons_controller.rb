@@ -23,6 +23,13 @@ module Admin
       }
     end
 
+    def export
+      @lessons = Lesson.includes(:teacher, :student, :topic_group, :topic)
+      respond_to do |format|
+        format.csv { render :export }
+      end
+    end
+
     private
 
     def search_params

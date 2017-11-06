@@ -96,7 +96,9 @@ Rails.application.routes.draw do
       get "generate_text" => :generate_text
     end
     resources :comments
-    resources :lessons, only: %i[index show]
+    resources :lessons, only: %i[index show] do
+      get :export, on: :collection
+    end
     resources :topics
     resources :topic_groups
     resources :level
