@@ -105,7 +105,7 @@ Rails.application.routes.draw do
     resources :offer_prices
     resources :offers
     resources :payments, except: [:new, :create]
-    resources :reviews
+    resources :reviews, only: [:index, :show, :destroy]
     resources :conversations, only: [:index, :show]
     resources :mailboxer_messages
     resources :masterclasses do

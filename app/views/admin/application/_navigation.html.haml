@@ -51,6 +51,10 @@
     %li{class: nav_link_state(:comments)}
       = link_to([namespace, Comment]) do
         = icon 'comment-o'
+        Comments
+    %li{class: nav_link_state(:reviews)}
+      = link_to([namespace, Review]) do
+        = icon 'star-half-full'
         Reviews
     %li{class: nav_link_state(:banned_users)}
       = link_to([namespace, :banned_users]) do
