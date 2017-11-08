@@ -125,6 +125,7 @@ Rails.application.routes.draw do
     get "banned_users" => "users#banned_users"
 
     root to: "users#index"
+    resources :reports, only: :index
   end
   resources "contact", only: [:new, :create]
     

@@ -1,0 +1,8 @@
+- content_for(:title, 'Reports')
+
+.card-header.bordered
+  .header-block
+    %h3.title= content_for(:title)
+.card-block
+  = render 'collection', resources: @entities
+  = paginate_admin @entities

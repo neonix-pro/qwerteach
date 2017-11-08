@@ -18,15 +18,19 @@ class LessonsReport < ApplicationReport
     new_teachers_count: { from: :first_teacher_lessons, expression: 'COUNT(DISTINCT lessons.teacher_id)' },
   }.freeze
 
-  date :start_date
-  date :end_date
+  date :start_date, default: ->{ Date.today.beginning_of_year.to_date }
+  date :end_date, default: ->{ Date.today.end_of_year.to_date }
   symbol :gradation, default: :monthly
   integer :page, default: 1
   integer :per_page, default: 20
   validates :gradation, inclusion: { in: GRADATIONS.keys }
 
   def execute
-    load
+    Kaminari.paginate_array(load,
+      offset: (page - 1) * per_page,
+      limit: per_page,
+      total_count: gradation_values.total_count
+    )
   end
 
   def arel
@@ -34,6 +38,10 @@ class LessonsReport < ApplicationReport
       .project(periods[:period])
       .from(periods_cte)
       .tap { |scope| add_metrics_expressions(scope) }
+  end
+
+  def total_count
+    gradation_values.total_count
   end
 
   private
@@ -64,7 +72,7 @@ class LessonsReport < ApplicationReport
   end
 
   def gradation_values
-    Kaminari
+    @gradation_values ||= Kaminari
       .paginate_array(date_range.map { |d| d.strftime(gradation_format) }.uniq)
       .page(page).per(per_page)
   end
