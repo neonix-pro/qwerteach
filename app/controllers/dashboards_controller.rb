@@ -28,5 +28,9 @@ class DashboardsController < ApplicationController
     end
     @admin = User.where(admin: true).last
     @conversation = Conversation.participant(@user).where('mailboxer_conversations.id in (?)', Conversation.participant(@admin).collect(&:id))
+
+    unless @user.is_a?(Teacher)
+      @contact = Contact.new()
+    end
   end
 end

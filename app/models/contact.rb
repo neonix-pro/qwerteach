@@ -4,6 +4,7 @@ class Contact < MailForm::Base
   attribute :email,     :validate => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
   attribute :subject,      :validate => true
   attribute :message
+  attribute :to,        :validate => true
 
   attribute :nickname,  :captcha  => true
 
@@ -12,7 +13,7 @@ class Contact < MailForm::Base
   def headers
     {
       :subject => subject,
-      :to => "hello@qwerteach.com",
+      :to => to,
       :from => %("#{name}" <#{email}>)
     }
   end
