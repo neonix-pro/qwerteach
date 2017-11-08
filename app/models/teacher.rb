@@ -94,8 +94,8 @@ class Teacher  < Student
     #lessons_given.sum("strftime('%s', time_end) - strftime('%s', time_start)") / 3600).round
     t = 0
     lessons_given.each do |l|
-      t += strftime('%s', time_end)
-      t -= strftime('%s', time_start)
+      t += l.time_end.strftime('%s').to_i
+      t -= l.time_start.strftime('%s').to_i
     end
     t/3600
   end
