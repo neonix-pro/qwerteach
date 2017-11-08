@@ -91,7 +91,13 @@ class Teacher  < Student
   end
 
   def duration_taught
-  (lessons_given.sum("strftime('%s', time_end) - strftime('%s', time_start)") / 3600).round
+    #lessons_given.sum("strftime('%s', time_end) - strftime('%s', time_start)") / 3600).round
+    t = 0;
+    lessons_given.each do |l|
+      t += strftime('%s', time_end)
+      t -= strftime('%s', time_start)
+    end
+    t/3600
   end
 
   def avg_reviews
