@@ -12,5 +12,19 @@ FactoryGirl.define do
     price 30.0
     free_lesson false
 
+    trait :paid do
+      status { Lesson.statuses[:created] }
+      payments { FactoryGirl.build_list :payment, 1 }
+    end
+
+    trait :created do
+      status { Lesson.statuses[:created] }
+    end
+
+    trait :today do
+      time_start { Time.current.midday }
+      time_end { Time.current.midday + 2.hours }
+    end
+
   end
 end

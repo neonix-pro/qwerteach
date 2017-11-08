@@ -15,6 +15,7 @@ module Qwerteach
     config.autoload_paths += %W(#{config.root}/jobs)
 
     paths.add 'notificators', eager_load: true
+    paths.add 'reports', eager_load: true
 
     config.active_record.default_timezone = :local
     # Settings in config/environments/* take precedence over those specified here.

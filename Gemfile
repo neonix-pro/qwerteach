@@ -161,6 +161,7 @@ group :test do
   gem 'sqlite3', '1.3.11'
   gem 'capybara-screenshot'
   gem 'sunspot-rails-tester'
+  gem 'timecop'
 end
 
 group :development do
