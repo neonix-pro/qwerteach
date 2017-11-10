@@ -9,18 +9,20 @@
 			line-height: 20px;
 		}
 	}
+	tr {
+		outline: none;
+	}
 }
 
 .table-responsive {
   display: block;
   width: 100%;
   min-height: 0%;
-  overflow-x: auto;
-	margin-bottom: 15px;
+  margin-bottom: 15px;
 
-	table {
-		margin-bottom: 0;
-	}
+  table {
+	  margin-bottom: 0;
+  }
 }
 
 .table-min {

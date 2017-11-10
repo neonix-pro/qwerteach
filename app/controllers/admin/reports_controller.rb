@@ -10,7 +10,9 @@ module Admin
     private
 
     def lessons_report_params
-      params.slice(:start_date, :end_date, :page)
+      params.slice(:page, :gradation, :date_range).tap do |p|
+        p[:start_date], p[:end_date] = (p[:date_range] || '').split(' - ')
+      end
     end
 
   end
