@@ -19,7 +19,7 @@ class LessonsReport < ApplicationReport
   }.freeze
 
   date :start_date, default: ->{ Date.today.beginning_of_year.to_date }
-  date :end_date, default: ->{ Date.today.end_of_year.to_date }
+  date :end_date, default: ->{ Date.today.end_of_month.to_date }
   symbol :gradation, default: :monthly
   integer :page, default: 1
   integer :per_page, default: 20
@@ -46,15 +46,8 @@ class LessonsReport < ApplicationReport
 
   private
 
-  def add_metrics_expressions(scope)
-    METRICS.each_key do |metric|
-      cte_table = Arel::Table.new("#{metric}_cte")
-      expression = build_metric_expression(metric)
-      composed_cte = Arel::Nodes::As.new(expression, cte_table)
-      scope
-        .project(coalence(cte_table[:value], 0).as(metric.to_s))
-        .join(composed_cte, Arel::Nodes::OuterJoin).on(cte_table[:period].eq periods[:period])
-    end
+  def primary_key
+    :period
   end
 
   def periods
@@ -145,7 +138,7 @@ class LessonsReport < ApplicationReport
     return table
       .project(
         Arel.sql(params[:expression] || 'COUNT(*)').as('value'),
-        Arel.sql(period_expression).as('period')
+        Arel.sql(period_expression).as('foreign_key')
       )
       .where(
         Arel.sql(date_column.to_s).gt(start_date.beginning_of_day)
@@ -160,10 +153,6 @@ class LessonsReport < ApplicationReport
     else
       "DATE_FORMAT(#{column}, '#{gradation_format}')"
     end
-  end
-
-  def coalence(*arrts)
-    Arel::Nodes::NamedFunction.new('COALESCE', arrts)
   end
 
 end
