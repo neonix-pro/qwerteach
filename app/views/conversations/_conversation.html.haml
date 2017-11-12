@@ -17,6 +17,10 @@
 = subscribe_to reply_conversation_path(conversation)
 
 :javascript
+  $('form#conversation_form_'+#{conversation.id}+'input[type="submit"]' ).on('click', function(){
+    alert('t');
+    $(this).children('textarea').val()
+  });
   PrivatePub.subscribe("#{reply_conversation_path(conversation)}", function(data, channel) {
     var id = "#{conversation.id}";
     var chatbox = $("#chatbox_" + id + " .conversation-content");
