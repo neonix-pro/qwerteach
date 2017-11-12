@@ -20,3 +20,7 @@
             = render_field attribute
           - else
             ="-"
+    %tr
+      %td.attribute-label
+        Lien direct
+      %td.attribute-data= join_bigbluebutton_room_url(page.resource.bbb_room)
