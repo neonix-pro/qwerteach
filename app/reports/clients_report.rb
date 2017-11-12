@@ -13,10 +13,8 @@ class ClientsReport < ApplicationReport
 
   date :start_date, default: ->{ Date.today.beginning_of_month.to_date }
   date :end_date, default: ->{ Date.today.end_of_month.to_date }
-
-  def execute
-    load
-  end
+  integer :page, default: 1
+  integer :per_page, default: 20
 
   private
 
@@ -29,25 +27,30 @@ class ClientsReport < ApplicationReport
   end
 
   def arel
-    clients
+    clients_in_period
       .project(
         clients[:id],
         clients[:firstname].as('first_name'),
         clients[:lastname].as('last_name'),
         clients[:avatar_file_name],
         clients[:last_seen])
-      .from(clients)
-      .where(lessons
-        .project(1)
-        .where(
-          lessons[:time_start].between(start_date.beginning_of_day..end_date.end_of_day)
-          .and lessons[:student_id].eq clients[:id]
-        ).exists)
       .tap{ |scope| add_metrics_expressions(scope) }
+      .take(limit).skip(offset)
   end
 
   def clients
     User.arel_table
+  end
+
+  def clients_in_period
+    clients.where(
+      lessons
+        .project(1)
+        .where(
+          lessons[:time_start].between(start_date.beginning_of_day..end_date.end_of_day)
+            .and lessons[:student_id].eq clients[:id]
+        ).exists
+    )
   end
 
   def lessons
@@ -78,6 +81,12 @@ class ClientsReport < ApplicationReport
         Arel.sql(foreign_column).as('foreign_key')
       )
       .group(foreign_column)
+  end
+
+  def total_count
+    ReportEntity.connection.execute(
+      clients_in_period.project(clients[:id].count.as('total_count')).to_sql
+    ).first['total_count']
   end
 
 end

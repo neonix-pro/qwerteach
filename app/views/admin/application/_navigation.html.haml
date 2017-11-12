@@ -56,10 +56,16 @@
       = link_to([namespace, Review]) do
         = icon 'star-half-full'
         Reviews
-    %li{class: nav_link_state(:reports)}
-      = link_to([namespace, :reports]) do
+    %li{class: ('active open' if nav_link_state(:reports) == :active)}
+      = link_to '' do
         = icon 'th-list'
         Reports
+        %i.fa.arrow
+      %ul.collapse
+        %li{class: nav_link_state(:lessons_reports)}
+          = link_to("Lessons reports", [namespace, :reports])
+        %li{class: nav_link_state(:clients_reports)}
+          = link_to("Clients reports", [:clients, namespace, :reports])
     %li{class: nav_link_state(:banned_users)}
       = link_to([namespace, :banned_users]) do
         = icon 'user-times'

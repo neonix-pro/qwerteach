@@ -138,11 +138,11 @@ RSpec.describe ClientsReport, type: :report do
       it 'returns first client lesson date' do
         expect(result.first.as_json.symbolize_keys).to include(
           id: first_student.id,
-          first_lesson_date: match(/#{yan_lessons.first.time_start.localtime.strftime('%Y-%m-%d %H:%M')}/)
+          first_lesson_date: be_within(1.second).of(yan_lessons.first.time_start)
         )
         expect(result[1].as_json.symbolize_keys).to include(
           id: second_student.id,
-          first_lesson_date: match(/#{feb_lessons.first.time_start.localtime.strftime('%Y-%m-%d %H:%M')}/)
+          first_lesson_date: be_within(1.second).of(feb_lessons.first.time_start)
         )
       end
     end
@@ -160,5 +160,37 @@ RSpec.describe ClientsReport, type: :report do
       end
     end
 
+  end
+
+  describe 'Pagination' do
+    let!(:students) { create_list(:student, 10) }
+    let!(:lessons) do
+      (Date.parse('2017-01-01')..Date.parse('2017-01-10')).map.with_index do |date, i|
+        student = students[i]
+        Timecop.freeze(date.midday) { create_list(:lesson, 2, :paid, :today, student: student) }
+      end
+    end
+
+    subject { ClientsReport.run(start_date: '2017-01-01', end_date: '2017-01-10', per_page: 5, page: page) }
+
+    context 'The first page' do
+      let(:page) { 1 }
+
+      it 'returns first 5 entities' do
+        expect(subject).to be_valid
+        expect(result.map(&:id)).to eq(students[0..4].map(&:id))
+        expect(result.map(&:lessons_count)).to eq(Array.new(5) { 2 })
+      end
+    end
+
+    context 'The second page' do
+      let(:page) { 2 }
+
+      it 'returns second 5 entities' do
+        expect(subject).to be_valid
+        expect(result.map(&:id)).to eq(students[5..9].map(&:id))
+        expect(result.map(&:lessons_count)).to eq(Array.new(5) { 2 })
+      end
+    end
   end
 end

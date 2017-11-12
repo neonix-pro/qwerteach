@@ -162,6 +162,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'sunspot-rails-tester'
   gem 'timecop'
+  gem 'database_cleaner'
 end
 
 group :development do

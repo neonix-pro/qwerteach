@@ -25,14 +25,6 @@ class LessonsReport < ApplicationReport
   integer :per_page, default: 20
   validates :gradation, inclusion: { in: GRADATIONS.keys }
 
-  def execute
-    Kaminari.paginate_array(load,
-      offset: (page - 1) * per_page,
-      limit: per_page,
-      total_count: gradation_values.total_count
-    )
-  end
-
   def arel
     periods
       .project(periods[:period])
@@ -46,8 +38,12 @@ class LessonsReport < ApplicationReport
 
   private
 
+  def metrics
+    METRICS
+  end
+
   def primary_key
-    :period
+    periods[:period]
   end
 
   def periods

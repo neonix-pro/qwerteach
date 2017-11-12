@@ -1,5 +1,13 @@
 class ApplicationReport < ActiveInteraction::Base
 
+  def execute
+    Kaminari.paginate_array(load,
+      offset: offset,
+      limit: limit,
+      total_count: total_count
+    )
+  end
+
   private
 
   def load
@@ -33,9 +41,20 @@ class ApplicationReport < ActiveInteraction::Base
     raise NotImplementedError, 'To be implemented in a derivative class'
   end
 
-
   def coalence(*arrts)
     Arel::Nodes::NamedFunction.new('COALESCE', arrts)
+  end
+
+  def total_count
+    raise NotImplementedError, 'To be implemented in a derivative class'
+  end
+
+  def limit
+    per_page
+  end
+
+  def offset
+    (page - 1) * per_page
   end
 
 end
