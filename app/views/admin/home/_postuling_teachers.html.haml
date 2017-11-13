@@ -1,0 +1,19 @@
+%section.section
+  .card
+    .card-header
+      .header-block
+        %h4.title Postulling teachers
+      .header-block.pull-right
+        Total #{@postulling_teachers.count}
+    .card-block
+      .table-responsive
+        %table.table.table-striped.table-hover
+          %thead
+            %tr
+              %th Name
+              %th
+          %tbody
+            - @postulling_teachers.limit(10).each do |teacher|
+              %tr
+                %td= teacher.name
+                %td= link_to 'Edit', edit_admin_postulation_path(teacher.postulation), class: 'btn btn-sm btn-primary-outline'
