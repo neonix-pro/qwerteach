@@ -15,15 +15,15 @@
     %table.table.table-striped.table-hover
       %thead
         %tr
-          %th{:class => "cell-label", :scope => "col"} Client ID
-          %th{:class => "cell-label", :scope => "col"} Avatar
-          %th{:class => "cell-label", :scope => "col"} Client firstname + lastname
-          %th{:class => "cell-label", :scope => "col"} # of lessons of the period (and for any time)
-          %th{:class => "cell-label", :scope => "col"} Sum(price) of the period (and for any time)
-          %th{:class => "cell-label", :scope => "col"} # of teachers of the period (and for any time)
-          %th{:class => "cell-label", :scope => "col"} First lesson date
-          %th{:class => "cell-label", :scope => "col"} Last lesson date
-          %th{:class => "cell-label", :scope => "col"} Last seen date
+          %th{:class => "cell-label", :scope => "col"}= t('reports.clients.client_id')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.clients.avatar')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.clients.name')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.clients.lessons_count')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.clients.lessons_amount')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.clients.teachers_count')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.clients.first_lesson_date')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.clients.last_lesson_date')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.clients.last_seen')
       %tbody
         - @entities.each do |resource|
           %tr.js-table-row{:tabindex => "0"}

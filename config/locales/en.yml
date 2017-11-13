@@ -87,3 +87,25 @@ en:
     mark_as_unread:
       success: The conversation was marked as unread
       danger: There was a problem, the operation could not be carried out.
+  reports:
+    lessons:
+      month: Month
+      day: Day
+      total_count: All lessons
+      created_count: Created lessons
+      expired_count: Expired lessons
+      created_amount: Sum(price) on created lessons
+      unpaid_count: Unpaid lessons
+      unpaid_amount: Sum(price) unpaid lessons
+      students_count: Students (#new)
+      teachers_count: Teachers (#new)
+    clients:
+      client_id: Client ID
+      avatar: Avatar
+      name: Client firstname + lastname
+      lessons_count: '# of lessons of the period (and for any time)'
+      lessons_amount: Sum(price) of the period (and for any time)
+      teachers_count: '# of teachers of the period (and for any time)'
+      first_lesson_date: First lesson date
+      last_lesson_date: Last lesson date
+      last_seen: Last seen date

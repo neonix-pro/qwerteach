@@ -18,15 +18,16 @@
     %table.table.table-striped.table-hover
       %thead
         %tr
-          %th{:class => "cell-label", :scope => "col"} Month
-          %th{:class => "cell-label", :scope => "col"} All lessons
-          %th{:class => "cell-label", :scope => "col"} Created lessons
-          %th{:class => "cell-label", :scope => "col"} Expired lessons
-          %th{:class => "cell-label", :scope => "col"} Sum(price) on created lessons
-          %th{:class => "cell-label", :scope => "col"} Unpaid lessons
-          %th{:class => "cell-label", :scope => "col"} Sum(price) unpaid lessons
-          %th{:class => "cell-label", :scope => "col"} Students (#new)
-          %th{:class => "cell-label", :scope => "col"} Teachers (#new)
+          %th{:class => "cell-label", :scope => "col"}
+            = params[:gradation] == 'daily' ? t('reports.lessons.day') : t('reports.lessons.month')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.lessons.total_count')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.lessons.created_count')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.lessons.expired_count')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.lessons.created_amount')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.lessons.unpaid_count')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.lessons.unpaid_amount')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.lessons.students_count')
+          %th{:class => "cell-label", :scope => "col"}= t('reports.lessons.teachers_count')
       %tbody
         - @entities.each do |resource|
           %tr.js-table-row{:tabindex => "0"}
