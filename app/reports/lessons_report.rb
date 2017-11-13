@@ -55,10 +55,7 @@ class LessonsReport < ApplicationReport
 
   def periods_cte
     Arel::Nodes::As.new(
-      Arel.sql("(#{
-        gradation_values.map { |period| "SELECT '#{period}' AS period" }
-        .join(' UNION ')
-        })"),
+      ReportsHelper.build_static_sql_table('period', gradation_values),
       periods
     )
   end

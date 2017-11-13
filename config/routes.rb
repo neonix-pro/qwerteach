@@ -78,6 +78,7 @@ Rails.application.routes.draw do
   end 
   
   namespace :admin do
+    get '/' => 'home#index'
     resources :users do
       get 'new_comment' => :new_comment
       post 'unblock' => :unblock
