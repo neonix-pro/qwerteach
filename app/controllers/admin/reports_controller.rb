@@ -12,6 +12,11 @@ module Admin
       @entities = @report.result
     end
 
+    def teachers
+      @report = TeachersReport.run(clients_report_params)
+      @entities = @report.result
+    end
+
     private
 
     def lessons_report_params

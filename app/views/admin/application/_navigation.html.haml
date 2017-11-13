@@ -66,6 +66,8 @@
           = link_to("Lessons reports", [namespace, :reports])
         %li{class: nav_link_state(:clients_reports)}
           = link_to("Clients reports", [:clients, namespace, :reports])
+        %li{class: nav_link_state(:clients_reports)}
+          = link_to("Teachers reports", [:teachers, namespace, :reports])
     %li{class: nav_link_state(:banned_users)}
       = link_to([namespace, :banned_users]) do
         = icon 'user-times'

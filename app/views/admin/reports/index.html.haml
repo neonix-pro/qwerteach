@@ -41,5 +41,7 @@
             %td.cell-data
               = link_to clients_admin_reports_path(date_range: period_to_range(resource.period)) do
                 #{resource.students_count} (#{resource.new_students_count})
-            %td.cell-data #{resource.teachers_count} (#{resource.new_teachers_count})
+            %td.cell-data
+              = link_to teachers_admin_reports_path(date_range: period_to_range(resource.period)) do
+                #{resource.teachers_count} (#{resource.new_teachers_count})
   = paginate_admin @entities

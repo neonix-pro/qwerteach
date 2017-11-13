@@ -128,6 +128,7 @@ Rails.application.routes.draw do
     resources :reports, only: :index do
       collection do
         get :clients
+        get :teachers
       end
     end
   end
