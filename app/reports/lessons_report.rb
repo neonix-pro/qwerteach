@@ -23,6 +23,9 @@ class LessonsReport < ApplicationReport
   symbol :gradation, default: :monthly
   integer :page, default: 1
   integer :per_page, default: 20
+  string :order, default: 'id'
+  string :direction, default: 'asc'
+
   validates :gradation, inclusion: { in: GRADATIONS.keys }
 
   def arel

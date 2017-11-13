@@ -192,4 +192,64 @@ RSpec.describe TeachersReport, type: :report do
       end
     end
   end
+
+  describe 'Ordering' do
+    let(:first_teacher){ create(:teacher, last_seen: Time.current.midday) }
+    let(:second_teacher){ create(:teacher, last_seen: 1.day.ago) }
+    let(:third_teacher){ create(:teacher, last_seen: 2.day.ago) }
+
+    let!(:first_lesson){ create :lesson, :today, :paid, time_start: 1.day.ago, teacher: first_teacher }
+    let!(:second_lesson){ create :lesson, :today, :paid, time_start: Time.current.midday, teacher: second_teacher }
+    let!(:third_lesson){ create :lesson, :today, :paid, time_start: 1.day.since, time_end: 25.hours.since, teacher: third_teacher }
+
+    subject { TeachersReport.run(start_date: 2.days.ago.to_date, end_date: 2.days.since.to_date, order: order, direction: direction) }
+
+    context 'First lesson date' do
+      let(:order) { 'first_lesson_date' }
+      context 'asc' do
+        let(:direction) { 'asc' }
+        it 'returns clients in asc order' do
+          expect(result.map(&:id)).to eq([first_teacher.id, second_teacher.id, third_teacher.id])
+        end
+      end
+      context 'desc' do
+        let(:direction) { 'desc' }
+        it 'returns clients in asc order' do
+          expect(result.map(&:id)).to eq([third_teacher.id, second_teacher.id, first_teacher.id])
+        end
+      end
+    end
+
+    context 'Last lesson date' do
+      let(:order) { 'last_lesson_date' }
+      context 'asc' do
+        let(:direction) { 'asc' }
+        it 'returns clients in asc order' do
+          expect(result.map(&:id)).to eq([first_teacher.id, second_teacher.id, third_teacher.id])
+        end
+      end
+      context 'desc' do
+        let(:direction) { 'desc' }
+        it 'returns clients in asc order' do
+          expect(result.map(&:id)).to eq([third_teacher.id, second_teacher.id, first_teacher.id])
+        end
+      end
+    end
+
+    context 'Last seen date' do
+      let(:order) { 'last_seen' }
+      context 'asc' do
+        let(:direction) { 'asc' }
+        it 'returns clients in asc order' do
+          expect(result.map(&:id)).to eq([third_teacher.id, second_teacher.id, first_teacher.id])
+        end
+      end
+      context 'desc' do
+        let(:direction) { 'desc' }
+        it 'returns clients in asc order' do
+          expect(result.map(&:id)).to eq([first_teacher.id, second_teacher.id, third_teacher.id])
+        end
+      end
+    end
+  end
 end

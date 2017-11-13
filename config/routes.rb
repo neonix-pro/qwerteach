@@ -125,11 +125,10 @@ Rails.application.routes.draw do
     get "banned_users" => "users#banned_users"
 
     root to: "users#index"
-    resources :reports, only: :index do
-      collection do
-        get :clients
-        get :teachers
-      end
+    namespace :reports do
+      get '/' => 'lessons_reports#index', as: :lessons
+      get '/clients' => 'clients_reports#index', as: :clients
+      get '/teachers' => 'teachers_reports#index', as: :teachers
     end
   end
   resources "contact", only: [:new, :create]

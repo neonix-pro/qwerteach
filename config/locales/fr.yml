@@ -492,3 +492,13 @@ fr:
       first_lesson_date: First lesson date
       last_lesson_date: Last lesson date
       last_seen: Last seen date
+    clients:
+      teacher_id: Teacher ID
+      avatar: Avatar
+      name: Teacher firstname + lastname
+      lessons_count: '# of lessons (given) of the period (and for any time)'
+      lessons_amount: Sum(price) of the period (and for any time)
+      students_count: '# of students of the period (and for any time)'
+      first_lesson_date: First lesson date
+      last_lesson_date: Last lesson date
+      last_seen: Last seen date

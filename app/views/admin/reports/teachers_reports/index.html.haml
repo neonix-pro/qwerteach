@@ -22,9 +22,11 @@
           %th{:class => "cell-label", :scope => "col"}= t('reports.teachers.lessons_amount')
           %th{:class => "cell-label", :scope => "col"}= t('reports.teachers.students_count')
           %th{:class => "cell-label", :scope => "col"}
-            = sort_link(@search, :first_lesson_date, t('reports.teachers.first_lesson_date'))
-          %th{:class => "cell-label", :scope => "col"}= t('reports.teachers.last_lesson_date')
-          %th{:class => "cell-label", :scope => "col"}= t('reports.teachers.last_seen')
+            = admin_sort_link page, :first_lesson_date, t('reports.teachers.first_lesson_date')
+          %th{:class => "cell-label", :scope => "col"}
+            = admin_sort_link page, :last_lesson_date, t('reports.teachers.last_lesson_date')
+          %th{:class => "cell-label", :scope => "col"}
+            = admin_sort_link page, :last_seen, t('reports.teachers.last_seen')
       %tbody
         - @entities.each do |resource|
           %tr.js-table-row{:tabindex => "0"}

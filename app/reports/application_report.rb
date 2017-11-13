@@ -30,7 +30,13 @@ class ApplicationReport < ActiveInteraction::Base
       scope
         .project(coalence(cte_table[:value], 0).as(metric.to_s))
         .join(composed_cte, Arel::Nodes::OuterJoin).on(cte_table[:foreign_key].eq primary_key)
+        .tap { |scope| scope.order(cte_table[:value].send(direction)) if order == metric.to_s }
     end
+  end
+
+  def add_default_ordering(scope)
+    return if metrics.has_key?(order.to_sym)
+    scope.order(Arel.sql(order).send(direction))
   end
 
   def build_metric_expression(metric)
@@ -61,6 +67,10 @@ class ApplicationReport < ActiveInteraction::Base
 
   def total_count
     raise NotImplementedError, 'To be implemented in a derivative class'
+  end
+
+  def default_order
+    clients[:id].asc
   end
 
   def limit

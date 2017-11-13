@@ -15,6 +15,11 @@ class ClientsReport < ApplicationReport
   date :end_date, default: ->{ Date.today.end_of_month.to_date }
   integer :page, default: 1
   integer :per_page, default: 20
+  string :order, default: 'id'
+  string :direction, default: 'asc'
+
+  validates :direction, inclusion: { in: %w[asc desc] }
+  validates :order, inclusion: { in: %w[id last_seen first_lesson_date last_lesson_date]}
 
   private
 
@@ -35,7 +40,7 @@ class ClientsReport < ApplicationReport
         clients[:avatar_file_name],
         clients[:last_seen])
       .tap{ |scope| add_metrics_expressions(scope) }
-      .order(clients[:id].asc)
+      .tap{ |scope| add_default_ordering(scope)}
       .take(limit).skip(offset)
   end
 

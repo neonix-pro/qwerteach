@@ -63,11 +63,11 @@
         %i.fa.arrow
       %ul.collapse
         %li{class: nav_link_state(:lessons_reports)}
-          = link_to("Lessons reports", [namespace, :reports])
+          = link_to("Lessons reports", [namespace, :reports, :lessons])
         %li{class: nav_link_state(:clients_reports)}
-          = link_to("Clients reports", [:clients, namespace, :reports])
-        %li{class: nav_link_state(:clients_reports)}
-          = link_to("Teachers reports", [:teachers, namespace, :reports])
+          = link_to("Clients reports", [namespace, :reports, :clients])
+        %li{class: nav_link_state(:teachers_reports)}
+          = link_to("Teachers reports", [namespace, :reports, :teachers])
     %li{class: nav_link_state(:banned_users)}
       = link_to([namespace, :banned_users]) do
         = icon 'user-times'
