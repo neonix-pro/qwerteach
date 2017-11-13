@@ -30,9 +30,10 @@
         .sidebar-overlay#sidebar-overlay
         %article.content.dashboard-page
           .flash= render 'flashes'
-          %section.section
-            .row
-              .col.col-xs-12
-                .card
-                  = yield
+          - if content_for?(:no_wrap)
+            = yield
+          - else
+            %section.section
+              .card
+                = yield
     = content_for :javascript

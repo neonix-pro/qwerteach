@@ -78,7 +78,6 @@ Rails.application.routes.draw do
   end 
   
   namespace :admin do
-    get '/' => 'home#index'
     resources :users do
       get 'new_comment' => :new_comment
       post 'unblock' => :unblock
@@ -125,7 +124,7 @@ Rails.application.routes.draw do
     resources :bbb_rooms
     get "banned_users" => "users#banned_users"
 
-    root to: "users#index"
+    root to: "home#index"
     namespace :reports do
       get '/' => 'lessons_reports#index', as: :lessons
       get '/clients' => 'clients_reports#index', as: :clients

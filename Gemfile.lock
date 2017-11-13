@@ -315,6 +315,8 @@ GEM
     money (6.9.0)
       i18n (>= 0.6.4, < 0.9)
     mono_logger (1.1.0)
+    morrisjs-rails (0.5.1.2)
+      railties (> 3.1, < 6)
     multi_json (1.12.2)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
@@ -430,6 +432,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (12.2.1)
+    raphael-rails (2.1.2)
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
@@ -632,6 +635,7 @@ DEPENDENCIES
   materialize-sass (~> 0.98.2)
   minitest
   momentjs-rails (~> 2.10.6)
+  morrisjs-rails
   mysql2
   nexmo
   omniauth
@@ -652,6 +656,7 @@ DEPENDENCIES
   rails-i18n
   rails-jquery-autocomplete
   ransack!
+  raphael-rails
   resque
   rspec-rails (~> 3.0)
   ruby-duration

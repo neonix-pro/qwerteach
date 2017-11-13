@@ -2,7 +2,7 @@ class DashboardReport < ApplicationReport
   DATE_FORMAT = '%Y-%m-%d'
 
   integer :days, default: 30
-  validates :days, numericality: { less_than_or_equal_to: 30 }
+  validates :days, numericality: { less_than_or_equal_to: 90 }
 
   def execute
     load

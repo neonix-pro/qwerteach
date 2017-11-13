@@ -1,5 +1,9 @@
 %nav.menu
   %ul#sidebar-menu.nav.metismenu(role='navigation')
+    %li{class: nav_link_state(:dashboard)}
+      = link_to admin_root_path do
+        = icon 'home'
+        Dashboard
     %li{class: nav_link_state(:users)}
       = link_to [namespace, User] do
         = icon 'users'

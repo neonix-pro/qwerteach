@@ -1,8 +1,29 @@
 module Admin
   class HomeController < ApplicationController
 
-    def index
+    helper_method :days
 
+    def index
+      @report = DashboardReport.run(report_params)
+      @entities = @report.result
+    end
+
+    private
+
+    def days
+      (params[:days].try(:to_i) || 30)
+    end
+
+    def start_date
+      days.days.ago
+    end
+
+    def end_date
+      Time.current
+    end
+
+    def report_params
+      { days: days }
     end
 
   end

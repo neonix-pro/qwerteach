@@ -18,3 +18,7 @@
 //= require administrate/components/date_time_picker
 //= require administrate/components/has_many_form
 //= require administrate/components/table
+//= require raphael
+//= require morris
+
+//= require administrate/dashboard

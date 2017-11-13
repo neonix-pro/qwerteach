@@ -1,0 +1,57 @@
+- provide :no_wrap, true
+.title-block.title-block__dashboard
+  %h3.title Dashboard
+  .header-block
+    = link_to '7 days', admin_root_path(days: 7), class: days == 7 && 'active'
+    = link_to '30 days', admin_root_path(days: 30), class: days == 30 && 'active'
+    = link_to '90 days', admin_root_path(days: 90), class: days == 90 && 'active'
+
+%section.section
+  .row
+    .col-md-6
+      .card
+        .card-header
+          .header-block
+            %h4.title Lessons count by date
+        .card-block
+          #lessons-count-chart
+
+    .col-md-6
+      .card
+        .card-header
+          .header-block
+            %h4.title Lessons amount by date
+        .card-block
+          #lessons-amount-chart
+
+:javascript
+  function drawMorrisCharts() {
+    $('#lessons-count-chart').empty();
+    $('#lessons-amount-chart').empty();
+
+    var primaryColor = '#85CE36';
+
+    Morris.Bar({
+      element: 'lessons-count-chart',
+      data: #{data_for_lesson_counts_chart(@entities).to_json},
+      xkey: 'period',
+      ykeys: ['count'],
+      hideHover: 'auto',
+      labels: ['Lessons count'],
+      resize: true,
+      barColors: [ primaryColor ]
+    });
+
+    Morris.Bar({
+      element: 'lessons-amount-chart',
+      data: #{data_for_lesson_amounts_chart(@entities).to_json},
+      xkey: 'period',
+      ykeys: ['count'],
+      hideHover: 'auto',
+      labels: ['Lessons amount'],
+      resize: true,
+      barColors: [ primaryColor ]
+    });
+  }
+
+  drawMorrisCharts()
