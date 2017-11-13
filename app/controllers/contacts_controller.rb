@@ -49,7 +49,7 @@ class ContactsController < ApplicationController
       subject: "Demande d'entretien pédagogique",
       message: merged_message,
       name: current_user.name,
-      email: current_user.email,
+      email: 'admin@qwerteach.com',
       to: 'spanierity@gmail.com'
 
                                    }).permit(:subject, :message, :name, :email, :to)
