@@ -7,6 +7,7 @@ module Admin
       @report = DashboardReport.run(report_params)
       @entities = @report.result
       @postulling_teachers = Teacher.joins(:postulation).where(postulations: { admin_id: nil })
+      @online_users = User.online
     end
 
     private

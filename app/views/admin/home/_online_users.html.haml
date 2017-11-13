@@ -1,0 +1,25 @@
+%section.section
+  .card
+    .card-header
+      .header-block
+        %h4.title Online users
+      .header-block.pull-right
+        Total #{User.count}
+    .card-block
+      .table-responsive
+        %table.table.table-striped.table-hover.table-min
+          %thead
+            %tr
+              %th{width: 30} Avatar
+              %th Name
+              %th{width: 50}
+          %tbody
+            - @online_users.limit(5).each do |user|
+              %tr
+                %td= image_tag user.avatar.url(:small), class: 'cell-avatar'
+                %td= user.name
+                %td
+                  - if user.is_a? Teacher
+                    = link_to 'Show', admin_teacher_path(user), class: 'btn btn-sm btn-primary-outline'
+                  - else
+                    = link_to 'Show', admin_student_path(user), class: 'btn btn-sm btn-primary-outline'
