@@ -28,13 +28,13 @@
         - @entities.each do |resource|
           %tr.js-table-row{:tabindex => "0"}
             %td.cell-data= resource.id
-            %td.cell-data= resource.avatar_file_name
+            %td.cell-data= image_tag(resource.avatar.url(:small), class: 'cell-avatar cell-avatar__big')
             %td.cell-data #{resource.first_name} #{resource.last_name}
             %td.cell-data #{resource.lessons_count} (#{resource.total_lessons_count})
             %td.cell-data #{resource.lessons_amount} (#{resource.total_lessons_amount})
             %td.cell-data #{resource.teachers_count} (#{resource.total_teachers_count})
-            %td.cell-data= resource.first_lesson_date
-            %td.cell-data= resource.last_lesson_date
-            %td.cell-data= resource.last_seen
+            %td.cell-data= resource.first_lesson_date ? l(resource.first_lesson_date) : '-'
+            %td.cell-data= resource.last_lesson_date ? l(resource.last_lesson_date) : '-'
+            %td.cell-data= resource.last_seen ? l(resource.last_seen) : '-'
 
   = paginate_admin @entities

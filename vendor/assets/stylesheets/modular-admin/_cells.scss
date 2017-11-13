@@ -34,4 +34,7 @@
 .cell-avatar {
   height: 30px;
   border-radius: 3px;
+  &__big {
+    height: 60px;
+  }
 }
