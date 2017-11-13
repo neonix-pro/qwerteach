@@ -9,6 +9,7 @@
 //= require selectize
 //= require moment
 //= require modular-admin/bootstrap-datetimepicker
+// #http://www.daterangepicker.com/
 //= require modular-admin/bootstrap-daterangepicker
 //= require administrate/date_picker
 //= require bootstrap-datepicker/core

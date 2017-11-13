@@ -35,9 +35,11 @@
             %td.cell-data= resource.total_count
             %td.cell-data= resource.created_count
             %td.cell-data= resource.expired_count
-            %td.cell-data= resource.created_amount
+            %td.cell-data= number_to_currency(resource.created_amount)
             %td.cell-data= resource.unpaid_count
-            %td.cell-data= resource.unpaid_amount
-            %td.cell-data #{resource.students_count} (#{resource.new_students_count})
+            %td.cell-data= number_to_currency(resource.unpaid_amount)
+            %td.cell-data
+              = link_to clients_admin_reports_path(date_range: period_to_range(resource.period)) do
+                #{resource.students_count} (#{resource.new_students_count})
             %td.cell-data #{resource.teachers_count} (#{resource.new_teachers_count})
   = paginate_admin @entities

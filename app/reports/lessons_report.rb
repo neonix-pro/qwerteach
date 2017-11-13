@@ -12,9 +12,9 @@ class LessonsReport < ApplicationReport
     expired_count: { from: :expired_lessons },
     unpaid_count: { from: :unpaid_lessons },
     unpaid_amount: { from: :unpaid_lessons, expression: 'SUM(lessons.price)' },
-    students_count: { from: :created_lessons, expression: 'COUNT(DISTINCT lessons.student_id)' },
+    students_count: { from: :lessons, expression: 'COUNT(DISTINCT lessons.student_id)' },
     new_students_count: { from: :first_student_lessons, expression: 'COUNT(DISTINCT lessons.student_id)' },
-    teachers_count: { from: :created_lessons, expression: 'COUNT(DISTINCT lessons.teacher_id)' },
+    teachers_count: { from: :lessons, expression: 'COUNT(DISTINCT lessons.teacher_id)' },
     new_teachers_count: { from: :first_teacher_lessons, expression: 'COUNT(DISTINCT lessons.teacher_id)' },
   }.freeze
 
@@ -128,7 +128,7 @@ class LessonsReport < ApplicationReport
     params = METRICS[metric]
     table = self.send(params[:from])
 
-    date_column = params[:date_column] || :created_at
+    date_column = params[:date_column] || :time_start
     period_expression = period_sql(date_column)
 
     return table

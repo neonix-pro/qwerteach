@@ -35,6 +35,7 @@ class ClientsReport < ApplicationReport
         clients[:avatar_file_name],
         clients[:last_seen])
       .tap{ |scope| add_metrics_expressions(scope) }
+      .order(clients[:id].asc)
       .take(limit).skip(offset)
   end
 

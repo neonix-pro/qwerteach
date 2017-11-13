@@ -31,7 +31,8 @@
             %td.cell-data= image_tag(resource.avatar.url(:small), class: 'cell-avatar cell-avatar__big')
             %td.cell-data #{resource.first_name} #{resource.last_name}
             %td.cell-data #{resource.lessons_count} (#{resource.total_lessons_count})
-            %td.cell-data #{resource.lessons_amount} (#{resource.total_lessons_amount})
+            %td.cell-data
+              #{number_to_currency(resource.lessons_amount)} (#{number_to_currency(resource.total_lessons_amount)})
             %td.cell-data #{resource.teachers_count} (#{resource.total_teachers_count})
             %td.cell-data= resource.first_lesson_date ? l(resource.first_lesson_date) : '-'
             %td.cell-data= resource.last_lesson_date ? l(resource.last_lesson_date) : '-'
