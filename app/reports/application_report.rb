@@ -34,6 +34,20 @@ class ApplicationReport < ActiveInteraction::Base
   end
 
   def build_metric_expression(metric)
+    params = metrics[metric]
+    table = self.send(params[:from])
+
+    foreign_column = params[:foreign_key] || default_foreign_column
+
+    return table
+      .project(
+        Arel.sql(params[:expression] || 'COUNT(*)').as('value'),
+        Arel.sql(foreign_column).as('foreign_key')
+      )
+      .group(foreign_column)
+  end
+
+  def default_foreign_column
     raise NotImplementedError, 'To be implemented in a derivative class'
   end
 
