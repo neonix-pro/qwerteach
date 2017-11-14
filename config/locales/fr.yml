@@ -492,7 +492,7 @@ fr:
       first_lesson_date: First lesson date
       last_lesson_date: Last lesson date
       last_seen: Last seen date
-    clients:
+    teachers:
       teacher_id: Teacher ID
       avatar: Avatar
       name: Teacher firstname + lastname
@@ -502,3 +502,10 @@ fr:
       first_lesson_date: First lesson date
       last_lesson_date: Last lesson date
       last_seen: Last seen date
+    activity:
+      month: Month
+      lessons_count: '# of lessons status created'
+      lessons_amount: Total amount
+      students_count: '#active students (#new students)'
+      teachers_count: '#active teachers (#new teachers)'
+      disputes_count: '# of disputes'

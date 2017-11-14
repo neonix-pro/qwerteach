@@ -4,6 +4,10 @@
       = link_to admin_root_path do
         = icon 'home'
         Dashboard
+    %li{class: nav_link_state(:activity_report)}
+      = link_to admin_reports_activity_path do
+        = icon 'flash'
+        Monthly Activity
     %li{class: nav_link_state(:users)}
       = link_to [namespace, User] do
         = icon 'users'
