@@ -17,6 +17,7 @@ module Admin
       def show
         @report = DashboardReport.run(details_params)
         @entities = @report.result
+        @teachers = teachers
       end
 
       private
@@ -39,6 +40,23 @@ module Admin
 
       def nav_link_state(resource)
         %i[activity_reports].include?(resource) ? :active : :inactive
+      end
+
+      def teachers
+        Teacher
+          .distinct
+          .from(
+            Teacher
+              .select('users.*, min(lessons.time_start) as first_lesson_date')
+              .joins(:lessons_given)
+              .group('users.id'),
+            :users
+          )
+          .joins(:lessons_given)
+          .where(lessons: {
+            status: Lesson.statuses[:created],
+            time_start: @report.start_date..@report.end_date
+          })
       end
 
     end

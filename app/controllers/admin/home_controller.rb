@@ -33,7 +33,7 @@ module Admin
         .joins(:lessons_given)
         .where(lessons: {
           status: Lesson.statuses[:created],
-          time_start: (days - 1).days.ago..Time.current
+          time_start: (days - 1).days.ago.beginning_of_day..Time.current
         })
         .group('users.id').order('count(lessons.id) desc').limit(5)
     end
