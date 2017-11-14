@@ -1,0 +1,25 @@
+%section.section
+  .card.sameheight-item
+    .card-header.bordered
+      .header-block
+        %h4.title Students
+    .card-block
+      .table-responsive
+        %table.table.table-striped.table-hover.table-min
+          %thead
+            %tr
+              %th{width: 30} Avatar
+              %th Name
+              %th{width: 50} New
+              %th{width: 50}
+          %tbody
+            - @students.each do |student|
+              %tr
+                %td= image_tag avatar_url(student), class: 'cell-avatar'
+                %td= student.name
+                %td
+                  - if (@report.start_date..@report.end_date).include?(student.first_lesson_date.to_date)
+                    Yes
+                  - else
+                    No
+                %td= link_to 'Show', admin_student_path(student), class: 'btn btn-sm btn-primary-outline'

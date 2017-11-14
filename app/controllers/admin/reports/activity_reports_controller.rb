@@ -18,6 +18,7 @@ module Admin
         @report = DashboardReport.run(details_params)
         @entities = @report.result
         @teachers = teachers
+        @students = students
       end
 
       private
@@ -47,12 +48,29 @@ module Admin
           .distinct
           .from(
             Teacher
-              .select('users.*, min(lessons.time_start) as first_lesson_date')
+              .select('users.*', Lesson.arel_table[:time_start].minimum.as('first_lesson_date'))
               .joins(:lessons_given)
               .group('users.id'),
             :users
           )
           .joins(:lessons_given)
+          .where(lessons: {
+            status: Lesson.statuses[:created],
+            time_start: @report.start_date..@report.end_date
+          })
+      end
+
+      def students
+        Student
+          .distinct
+          .from(
+            Student
+              .select('users.*', Lesson.arel_table[:time_start].minimum.as('first_lesson_date'))
+              .joins(:lessons_received)
+              .group('users.id'),
+            :users
+          )
+          .joins(:lessons_received)
           .where(lessons: {
             status: Lesson.statuses[:created],
             time_start: @report.start_date..@report.end_date
