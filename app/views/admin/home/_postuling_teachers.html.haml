@@ -1,21 +1,20 @@
-%section.section
-  .card
-    .card-header.bordered
-      .header-block
-        %h4.title Postulling teachers
-      .header-block.pull-right
-        Total #{@postulling_teachers.count}
-    .card-block
-      .table-responsive
-        %table.table.table-striped.table-hover.table-min
-          %thead
+.card.sameheight-item
+  .card-header.bordered
+    .header-block
+      %h4.title Postulling teachers
+    .header-block.pull-right
+      Total #{@postulling_teachers.count}
+  .card-block
+    .table-responsive
+      %table.table.table-striped.table-hover.table-min
+        %thead
+          %tr
+            %th{width: 30} Avatar
+            %th Name
+            %th{width: 50}
+        %tbody
+          - @postulling_teachers.limit(5).each do |teacher|
             %tr
-              %th{width: 30} Avatar
-              %th Name
-              %th{width: 50}
-          %tbody
-            - @postulling_teachers.limit(5).each do |teacher|
-              %tr
-                %td= image_tag teacher.avatar.url(:small), class: 'cell-avatar'
-                %td= teacher.name
-                %td= link_to 'Edit', edit_admin_postulation_path(teacher.postulation), class: 'btn btn-sm btn-primary-outline'
+              %td= image_tag avatar_url(teacher), class: 'cell-avatar'
+              %td= teacher.name
+              %td= link_to 'Edit', edit_admin_postulation_path(teacher.postulation), class: 'btn btn-sm btn-primary-outline'

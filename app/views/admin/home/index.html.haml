@@ -12,5 +12,10 @@
       = render 'stats'
     .col.col-12.col-sm-12.col-md-6.col-xl-7.history-col
       = render 'history'
-= render 'postuling_teachers'
-= render 'online_users'
+%section.section
+  .row.sameheight-container
+    .col.col-12.col-sm-12.col-md-6
+      = render 'postuling_teachers'
+    .col.col-12.col-sm-12.col-md-6
+      = render 'online_users'
+= render 'top_teachers'
