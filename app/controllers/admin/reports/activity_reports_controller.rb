@@ -14,10 +14,21 @@ module Admin
         }
       end
 
+      def show
+        @report = DashboardReport.run(details_params)
+        @entities = @report.result
+      end
+
       private
 
       def report_params
         params.slice(:page, :date_range, :order, :direction).tap do |p|
+          p[:start_date], p[:end_date] = (p[:date_range] || '').split(' - ')
+        end
+      end
+
+      def details_params
+        params.slice(:date_range).tap do |p|
           p[:start_date], p[:end_date] = (p[:date_range] || '').split(' - ')
         end
       end

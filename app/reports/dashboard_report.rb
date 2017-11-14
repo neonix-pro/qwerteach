@@ -1,8 +1,8 @@
 class DashboardReport < ApplicationReport
   DATE_FORMAT = '%Y-%m-%d'
 
-  integer :days, default: 30
-  validates :days, numericality: { less_than_or_equal_to: 90 }
+  date :start_date, default: ->{ 29.days.ago.to_date }
+  date :end_date, default: ->{ Time.current.to_date }
 
   def execute
     load
@@ -43,14 +43,6 @@ class DashboardReport < ApplicationReport
 
   def date_range
     @date_range ||= start_date..end_date
-  end
-
-  def start_date
-    @start_date ||= (days - 1).days.ago.to_date
-  end
-
-  def end_date
-    @end_date ||= Time.current.to_date
   end
 
   def lessons

@@ -130,6 +130,7 @@ Rails.application.routes.draw do
       get '/clients' => 'clients_reports#index', as: :clients
       get '/teachers' => 'teachers_reports#index', as: :teachers
       get '/activity' => 'activity_reports#index', as: :activity
+      get '/activity/details' => 'activity_reports#show', as: :activity_details
     end
   end
   resources "contact", only: [:new, :create]

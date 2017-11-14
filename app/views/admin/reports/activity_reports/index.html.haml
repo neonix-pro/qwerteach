@@ -31,5 +31,6 @@
             %td.cell-data= entity.lessons_count
             %td.cell-data= number_to_currency(entity.lessons_amount)
             %td.cell-data= entity.disputes_count
-            %td.cell-data -
+            %td.cell-data
+              = link_to 'Show', admin_reports_activity_details_path(date_range: period_to_range(entity.period)), class: 'btn btn-sm btn-primary-outline'
   = paginate_admin @entities

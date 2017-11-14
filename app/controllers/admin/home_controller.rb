@@ -20,7 +20,7 @@ module Admin
     end
 
     def report_params
-      { days: days }
+      { start_date: (days - 1).days.ago.to_date }
     end
 
     def nav_link_state(resource)

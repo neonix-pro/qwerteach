@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe DashboardReport, type: :report do
 
-  subject { DashboardReport.run(days: days) }
+  subject { DashboardReport.run(start_date: (days - 1).days.ago.to_date) }
   let(:result) { subject.result }
 
   describe 'Lessons' do
