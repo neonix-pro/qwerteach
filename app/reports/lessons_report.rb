@@ -125,7 +125,7 @@ class LessonsReport < ApplicationReport
   end
 
   def build_metric_expression(metric)
-    params = METRICS[metric]
+    params = metrics[metric]
     table = self.send(params[:from])
 
     date_column = params[:date_column] || :time_start
@@ -137,8 +137,7 @@ class LessonsReport < ApplicationReport
         Arel.sql(period_expression).as('foreign_key')
       )
       .where(
-        Arel.sql(date_column.to_s).gt(start_date.beginning_of_day)
-          .and Arel.sql(date_column.to_s).lt(end_date.end_of_day)
+        Arel.sql(date_column.to_s).between(start_date.beginning_of_day..end_date.end_of_day)
       )
       .group(period_expression)
   end

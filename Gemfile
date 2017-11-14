@@ -42,8 +42,7 @@ gem 'devise', '3.4.1'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'materialize-sass', '~> 0.98.2'
-#gem 'bootstrap4', github: 'shredder-rull/bootstrap-rubygem'
-gem 'bootstrap4', path: '~/rails/bootstrap-rubygem'
+gem 'bootstrap4', github: 'shredder-rull/bootstrap-rubygem'
 
 gem 'jquery-turbolinks'
 # droits d'accès
