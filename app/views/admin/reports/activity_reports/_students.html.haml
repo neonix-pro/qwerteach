@@ -8,6 +8,7 @@
         %table.table.table-striped.table-hover.table-min
           %thead
             %tr
+              %th{width: 20} ID
               %th{width: 30} Avatar
               %th Name
               %th{width: 50} New
@@ -15,6 +16,7 @@
           %tbody
             - @students.each do |student|
               %tr
+                %td= student.id
                 %td= image_tag avatar_url(student), class: 'cell-avatar'
                 %td= student.name
                 %td

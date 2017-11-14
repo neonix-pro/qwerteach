@@ -16,9 +16,19 @@ module Admin
 
       def show
         @report = DashboardReport.run(details_params)
-        @entities = @report.result
-        @teachers = teachers
-        @students = students
+        if @report.valid?
+          @entities = @report.result
+          @teachers = teachers
+          @students = students
+          @disputes = disputes
+          @disputes_presenter = Administrate::Page::Collection.new(DisputeDashboard.new, order: order)
+        else
+          flash[:danger] = @report.errors.full_messages.first
+          @entities = []
+          @teachers = []
+          @students = []
+          @disputes = []
+        end
       end
 
       private
@@ -56,7 +66,7 @@ module Admin
           .joins(:lessons_given)
           .where(lessons: {
             status: Lesson.statuses[:created],
-            time_start: @report.start_date..@report.end_date
+            time_start: @report.start_date.beginning_of_day..@report.end_date.end_of_day
           })
       end
 
@@ -75,6 +85,12 @@ module Admin
             status: Lesson.statuses[:created],
             time_start: @report.start_date..@report.end_date
           })
+      end
+
+      def disputes
+        Dispute
+          .includes(:user)
+          .where(created_at: @report.start_date.beginning_of_day..@report.end_date.end_of_day)
       end
 
     end
