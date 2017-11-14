@@ -1,6 +1,6 @@
 %nav.menu
-  %ul#sidebar-menu.nav.metismenu(role='navigation')
-    %li{class: nav_link_state(:dashboard)}
+  %ul#sidebar-menu.sidebar-menu.metismenu(role='navigation')
+    %li{class: nav_link_state(:home)}
       = link_to admin_root_path do
         = icon 'home'
         Dashboard
@@ -13,7 +13,7 @@
         = icon 'graduation-cap'
         Teachers
         %i.fa.arrow
-      %ul.collapse
+      %ul.sidebar-nav.collapse
         %li{class: nav_link_state(:postuling_teachers)}
           = link_to("Postuling (#{@number_of_postuling_teachers})", [:postuling, namespace, Teacher])
         %li{class: nav_link_state(:approved_teachers)}
@@ -65,7 +65,7 @@
         = icon 'th-list'
         Reports
         %i.fa.arrow
-      %ul.collapse
+      %ul.sidebar-nav.collapse
         %li{class: nav_link_state(:lessons_reports)}
           = link_to("Lessons reports", [namespace, :reports, :lessons])
         %li{class: nav_link_state(:clients_reports)}

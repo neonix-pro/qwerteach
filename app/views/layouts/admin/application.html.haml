@@ -28,7 +28,7 @@
                 = Rails.application.class.parent_name.titlecase
             = render 'navigation'
         .sidebar-overlay#sidebar-overlay
-        %article.content.dashboard-page
+        %article.content
           .flash= render 'flashes'
           - if content_for?(:no_wrap)
             = yield

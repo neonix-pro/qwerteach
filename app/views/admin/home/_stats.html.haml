@@ -1,0 +1,70 @@
+.card.sameheight-item.stats{"data-exclude" => "xs"}
+  .card-header.card-header-sm.bordered
+    .header-block
+      %h3.title Stats
+  .card-block
+    .row.row-sm.stats-container
+      .col-12.col-sm-6.stat-col
+        .stat-icon
+          %i.fa.fa-rocket
+        .stat
+          .value= @stats.today_lessons_count
+          .name Lessons today
+        .progress.stat-progress
+          .progress-bar{:style => "width: 100%;"}
+      .col-12.col-sm-6.stat-col
+        .stat-icon
+          %i.fa.fa-shopping-cart
+        .stat
+          .value= @stats.finished_lesson_count
+          .name Lessons completed
+        .progress.stat-progress
+          .progress-bar{:style => "width: 100%;"}
+      .col-12.col-sm-6.stat-col
+        .stat-icon
+          %i.fa.fa-users
+        .stat
+          .value= @stats.total_users_count
+          .name Total users
+        .progress.stat-progress
+          .progress-bar{:style => "width: 100%;"}
+      .col-12.col-sm-6.stat-col
+        .stat-icon
+          %i.fa.fa-list-alt
+        .stat
+          .value= @stats.scheduled_lessons_count
+          .name Scheduled lessons
+        .progress.stat-progress
+          .progress-bar{:style => "width: 100%;"}
+      .col-12.col-sm-6.stat-col
+        .stat-icon
+          %i.fa.fa-line-chart
+        .stat
+          .value= number_to_currency(@stats.last_days_income)
+          .name Last #{days} days income
+        .progress.stat-progress
+          .progress-bar{:style => "width: 100%;"}
+      .col-12.col-sm-6.stat-col
+        .stat-icon
+          %i.fa.fa-dollar
+        .stat
+          .value= number_to_currency(@stats.total_income)
+          .name Total income
+        .progress.stat-progress
+          .progress-bar{:style => "width: 100%;"}
+      .col-12.col-sm-6.stat-col
+        .stat-icon
+          %i.fa.fa-user-circle
+        .stat
+          .value= @stats.new_student_count
+          .name New students
+        .progress.stat-progress
+          .progress-bar{:style => "width: 100%;"}
+      .col-12.col-sm-6.stat-col
+        .stat-icon
+          %i.fa.fa-user-circle-o
+        .stat
+          .value= @stats.new_teachers_count
+          .name New teachers
+        .progress.stat-progress
+          .progress-bar{:style => "width: 100%;"}

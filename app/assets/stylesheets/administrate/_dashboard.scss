@@ -1,8 +1,15 @@
-.title-block__dashboard {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  .title {
-    flex-grow: 1;
+@import 'administrate/dashboard/stats';
+.dashboard-page {
+  .title-block__dashboard {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .title {
+      flex-grow: 1;
+    }
   }
+}
+
+.dashboard-chart {
+  height: 280px;
 }

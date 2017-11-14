@@ -1,0 +1,73 @@
+#dashboard-history.card.sameheight-item{"data-exclude" => "xs"}
+  .card-header.card-header-sm.bordered
+    .header-block
+      %h3.title History
+    %ul.nav.nav-tabs.pull-right{:role => "tablist"}
+      %li.nav-item
+        %a.nav-link.active{"data-toggle" => "tab", :href => "#lessons-counts", :role => "tab"} Lessons
+      %li.nav-item
+        %a.nav-link{"data-toggle" => "tab", :href => "#lessons-amounts", :role => "tab"} Price sum
+  .card-block
+    .tab-content
+      #lessons-counts.tab-pane.active.fade.show{:role => "tabpanel"}
+        %p.title-description Number of lessons last #{days} days
+        #dashboard-lessons-count-chart.dashboard-chart
+      #lessons-amounts.tab-pane.fade{:role => "tabpanel"}
+        %p.title-description Price amount of lessons last #{days} days
+        #dashboard-lessons-amount-chart.dashboard-chart
+
+:javascript
+
+  var primaryColor = '#85CE36';
+
+  function switchHistoryCharts(item){
+    if (item == 'lessons-counts') {
+      drawCountsChart()
+    } else if (item == 'lessons-amounts') {
+      drawAmountsChart()
+    }
+  }
+
+  function drawCountsChart() {
+    $('#dashboard-lessons-count-chart').empty();
+    Morris.Line({
+      element: 'dashboard-lessons-count-chart',
+      data: #{data_for_lesson_counts_chart(@entities).to_json},
+      xkey: 'period',
+      ykeys: ['count'],
+      hideHover: 'auto',
+      labels: ['Lessons count'],
+      resize: true,
+      lineColors: [ primaryColor ],
+      pointFillColors: [ primaryColor ],
+    });
+  }
+
+  function drawAmountsChart() {
+    console.log('draw amount chart')
+    $('#dashboard-lessons-amount-chart').empty();
+    Morris.Line({
+      element: 'dashboard-lessons-amount-chart',
+      data: #{data_for_lesson_amounts_chart(@entities).to_json},
+      xkey: 'period',
+      ykeys: ['count'],
+      hideHover: 'auto',
+      labels: ['Lessons amount'],
+      resize: true,
+      lineColors: [ primaryColor ],
+      pointFillColors: [ primaryColor ],
+    });
+  }
+
+  $(function() {
+    drawCountsChart();
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      var el = e.target;
+      var item = $(el).attr('href').replace('#', '');
+      console.log('swith', item)
+      switchHistoryCharts(item);
+    });
+  })
+
+

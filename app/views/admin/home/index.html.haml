@@ -1,3 +1,4 @@
+- provide :body_class, 'dashboard-page'
 - provide :no_wrap, true
 .title-block.title-block__dashboard
   %h3.title Dashboard
@@ -5,6 +6,11 @@
     = link_to '7 days', admin_root_path(days: 7), class: days == 7 && 'active'
     = link_to '30 days', admin_root_path(days: 30), class: days == 30 && 'active'
     = link_to '90 days', admin_root_path(days: 90), class: days == 90 && 'active'
-= render 'activity_graph'
+%section.section
+  .row.sameheight-container
+    .col.col-12.col-sm-12.col-md-6.col-xl-5.stats-col
+      = render 'stats'
+    .col.col-12.col-sm-12.col-md-6.col-xl-7.history-col
+      = render 'history'
 = render 'postuling_teachers'
 = render 'online_users'

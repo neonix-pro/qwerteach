@@ -1,5 +1,5 @@
 module Admin
-  class HomeController < ApplicationController
+  class HomeController < Admin::ApplicationController
 
     helper_method :days
 
@@ -8,6 +8,8 @@ module Admin
       @entities = @report.result
       @postulling_teachers = Teacher.joins(:postulation).where(postulations: { admin_id: nil })
       @online_users = User.online
+
+      @stats ||= Stats.new(days)
     end
 
     private
@@ -26,6 +28,10 @@ module Admin
 
     def report_params
       { days: days }
+    end
+
+    def nav_link_state(resource)
+      resource == :home ? :active : :inactive
     end
 
   end
