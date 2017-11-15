@@ -1,0 +1,10 @@
+- content_for :filters do
+  - search_form_for @search, url: [:admin, Review], html: {class: 'form-inline form-filters'} do |f|
+    .form-group.mr-sm-2
+      = f.collection_select(:sender_id_eq, User.review_senders.for_select, :id, :name, {include_blank: 'Sender'}, class: 'form-control', 'data-role': 'select-sender')
+    .form-group.mr-sm-2
+      = f.collection_select(:subject_id_eq, User.review_receivers.for_select, :id, :name, {include_blank: 'Subject'}, class: 'form-control')
+    .form-group
+      = f.submit nil, class: 'btn btn-primary'
+
+= render template: 'admin/application/index', locals: local_assigns

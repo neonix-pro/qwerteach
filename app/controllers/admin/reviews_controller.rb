@@ -15,5 +15,19 @@ module Admin
 
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
+    private
+
+    def search
+      @search ||= Review.ransack(search_params)
+    end
+
+    def scoped_resource
+      search.result
+    end
+
+    def search_params
+      params[:q]
+    end
+
   end
 end

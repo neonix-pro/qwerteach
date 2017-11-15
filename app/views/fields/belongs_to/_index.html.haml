@@ -1,5 +1,5 @@
 - if field.data
-  - if valid_action?(:show, field.attribute)
+  - if valid_action?(:show, field.send(:associated_class_name))
     = link_to(                             |
         field.display_associated_resource, |
         [namespace, field.data],           |

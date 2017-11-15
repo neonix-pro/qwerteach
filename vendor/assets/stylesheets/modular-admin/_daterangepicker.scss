@@ -1,0 +1,473 @@
+//colors
+$color_electric_violet_approx: $color-primary;
+$white: #fff;
+$color_alto_approx: #ddd;
+$black_10: rgba(0, 0, 0, .1);
+$color_celeste_approx: #ccc;
+$color_mountain_mist_approx: #999;
+$color_mine_shaft_approx: #333;
+$color_pumice_20_approx: rgba(200, 200, 200, 0.2);
+$mercury: #e5e5e5;
+
+//fonts
+$font_0: icomoon;
+
+//@extend-elements
+//original selectors
+//.daterangepicker td.active, .daterangepicker td.active:focus, .daterangepicker td.active:hover
+%extend_1 {
+  background-color: $color_electric_violet_approx;
+  color: $white;
+  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+  border-radius: 3px;
+}
+
+//original selectors
+//.daterangepicker select.ampmselect, .daterangepicker select.hourselect, .daterangepicker select.minuteselect, .daterangepicker select.secondselect
+%extend_2 {
+  width: 60px;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 0;
+}
+
+
+.daterangepicker {
+  position: absolute;
+  left: 0;
+  margin-top: 5px;
+  width: auto;
+  padding: 0;
+  .btn-primary {
+    background-color: $color_electric_violet_approx;
+    border-color: $color_electric_violet_approx;
+    &:hover {
+      background-color: $color_electric_violet_approx;
+      border-color: $color_electric_violet_approx;
+    }
+    &:focus {
+      background-color: $color_electric_violet_approx;
+      border-color: $color_electric_violet_approx;
+    }
+    &.disabled {
+      background-color: $color_electric_violet_approx;
+      border-color: $color_electric_violet_approx;
+    }
+    &:disabled {
+      background-color: $color_electric_violet_approx;
+      border-color: $color_electric_violet_approx;
+    }
+  }
+  &.dropdown-menu {
+    max-width: none;
+    background-color: transparent;
+    border: 0;
+    z-index: 1000;
+    //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    box-shadow: none;
+  }
+  &.shown {
+    display: flex;
+  }
+  &.dropup {
+    margin-top: -7px;
+  }
+  .calendar {
+    float: left;
+    display: none;
+    background-color: $white;
+    border: 1px solid $color_alto_approx;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 3px;
+    margin: 7px;
+    padding: 14px;
+    //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    box-shadow: 0 1px 3px $black_10;
+  }
+  &.single {
+    .calendar {
+      float: none;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .ranges {
+      display: none;
+    }
+  }
+  table {
+    width: 100%;
+    margin: 0;
+    tbody {
+      td {
+        cursor: pointer;
+      }
+      th {
+        cursor: pointer;
+      }
+    }
+  }
+  td {
+    white-space: nowrap;
+    text-align: center;
+    &.week {
+      font-size: 80%;
+      color: $color_celeste_approx;
+    }
+    &.available {
+      &:focus {
+        background-color: $color_pumice_20_approx;
+        //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+        border-radius: 3px;
+      }
+      &:hover {
+        background-color: $color_pumice_20_approx;
+        //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+        border-radius: 3px;
+      }
+    }
+    &.disabled {
+      color: $color_celeste_approx;
+      cursor: not-allowed;
+    }
+    &.off {
+      color: $color_celeste_approx;
+    }
+    &.in-range {
+      background-color: $color_pumice_20_approx;
+    }
+    &.active {
+      @extend %extend_1;
+      &:focus {
+        @extend %extend_1;
+      }
+      &:hover {
+        @extend %extend_1;
+      }
+    }
+  }
+  th {
+    white-space: nowrap;
+    text-align: center;
+    color: $color_mountain_mist_approx;
+    font-weight: 400;
+    font-size: 12px;
+    &.week {
+      font-size: 80%;
+      color: $color_celeste_approx;
+    }
+    > i {
+      top: 0;
+    }
+    &.next {
+      cursor: pointer;
+      i {
+        font-size: 20px;
+      }
+    }
+    &.prev {
+      cursor: pointer;
+      i {
+        font-size: 20px;
+      }
+    }
+    &.available {
+      &:focus {
+        color: $color_mine_shaft_approx;
+      }
+      &:hover {
+        color: $color_mine_shaft_approx;
+      }
+    }
+  }
+  .table-condensed {
+    tr {
+      > td {
+        padding: 9px;
+        line-height: 1;
+      }
+      > th {
+        padding: 9px;
+        line-height: 1;
+      }
+    }
+    .month {
+      font-size: 15px;
+      line-height: 1;
+      color: $color_mine_shaft_approx;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      font-weight: 400;
+    }
+    thead tr:last-child th {
+      padding-top: 14px;
+    }
+  }
+  select {
+    display: inline-block;
+    &.monthselect {
+      margin-right: 2%;
+      width: 56%;
+    }
+    &.yearselect {
+      width: 40%;
+    }
+    &.ampmselect {
+      @extend %extend_2;
+    }
+    &.hourselect {
+      @extend %extend_2;
+    }
+    &.minuteselect {
+      @extend %extend_2;
+    }
+    &.secondselect {
+      @extend %extend_2;
+    }
+  }
+  .daterangepicker_input {
+    position: relative;
+    i {
+      position: absolute;
+      right: 11px;
+      top: 7px;
+      bottom: 2px;
+      color: $color_mountain_mist_approx;
+      font-size: 24px;
+    }
+    input {
+      padding-left: 11px;
+      padding-right: 34px;
+      width: 100%;
+    }
+  }
+  .calendar-time {
+    text-align: center;
+    margin: 12px 0;
+    select.disabled {
+      color: $color_celeste_approx;
+      cursor: not-allowed;
+    }
+  }
+  &.opensleft .calendars {
+    float: left;
+  }
+  &.opensright .calendars {
+    float: right;
+  }
+  &.show-calendar .calendar {
+    display: block;
+  }
+}
+.ranges {
+  background-color: $white;
+  position: relative;
+  border: 1px solid $color_alto_approx;
+  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+  border-radius: 3px;
+  width: 200px;
+  margin-top: 7px;
+  //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+  box-shadow: 0 1px 3px $black_10;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 7px 0;
+    li {
+      color: $color_mine_shaft_approx;
+      padding: 8px 12px;
+      cursor: pointer;
+      margin-top: 1px;
+      &:first-child {
+        margin-top: 0;
+      }
+      &:focus {
+        background-color: $color_pumice_20_approx;
+      }
+      &:hover {
+        background-color: $color_pumice_20_approx;
+      }
+      &.active {
+        color: $white;
+        background-color: $color_electric_violet_approx;
+      }
+    }
+    + .daterangepicker-inputs {
+      border-top: 1px solid $mercury;
+    }
+  }
+  .daterangepicker-inputs {
+    padding: 12px;
+    padding-top: 19px;
+    .daterangepicker_input {
+      > span {
+        display: block;
+        font-size: 12px;
+        margin-bottom: 7px;
+        color: $color_mountain_mist_approx;
+      }
+      + .daterangepicker_input {
+        margin-top: 19px;
+      }
+    }
+    + .range_inputs {
+      border-top: 1px solid $mercury;
+    }
+  }
+  .range_inputs {
+    padding: 12px;
+    .btn {
+      display: block;
+      width: 100%;
+      + .btn {
+        margin-top: 12px;
+      }
+    }
+  }
+}
+@media(min-width:769px) {
+  .ranges {
+    margin: 7px;
+  }
+}
+.daterange-custom {
+  cursor: pointer;
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  .badge {
+    margin: 4px 0 0 7px;
+    vertical-align: top;
+  }
+  .label {
+    margin: 4px 0 0 7px;
+    vertical-align: top;
+  }
+  .label-icon {
+    margin-top: 0;
+    margin-right: 5px;
+  }
+  &.is-opened .daterange-custom-display:after {
+    //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+    transform: rotate(180deg);
+  }
+}
+.daterange-custom-display {
+  display: inline-block;
+  position: relative;
+  padding-left: 21px;
+  line-height: 1;
+  &:after {
+    content: '\e9c9';
+    font-family: $font_0;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -8px;
+    //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+    transition: all ease-in-out .2s;
+  }
+  > i {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: -.015em;
+  }
+  b {
+    display: inline-block;
+    margin-left: 4px;
+    font-weight: 400;
+    > i {
+      font-size: 11px;
+      display: block;
+      line-height: 12px;
+      text-transform: uppercase;
+      font-style: normal;
+      font-weight: 400;
+    }
+  }
+  em {
+    line-height: 30px;
+    vertical-align: top;
+    margin: 0 4px;
+  }
+}
+@media(max-width:769px) {
+  .opensleft {
+    left: 0!important;
+    right: 0;
+    .calendars {
+      float: none;
+    }
+  }
+  .opensright {
+    left: 0!important;
+    right: 0;
+    .calendars {
+      float: none;
+    }
+  }
+  .daterangepicker {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    &.opensleft {
+      .calendar {
+        float: none;
+      }
+      .calendars {
+        float: none;
+      }
+      .ranges {
+        float: none;
+      }
+    }
+    &.opensright {
+      .calendar {
+        float: none;
+      }
+      .calendars {
+        float: none;
+      }
+      .ranges {
+        float: none;
+      }
+    }
+    .calendar {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .ranges {
+      width: 100%;
+    }
+  }
+}
+.input-daterange input {
+  text-align: center;
+  &:first-child {
+    //Instead of the line below you could use @include border-bottom-left-radius($radius)
+    border-bottom-left-radius: 3px;
+    //Instead of the line below you could use @include border-top-left-radius($radius)
+    border-top-left-radius: 3px;
+  }
+  &:last-child {
+    //Instead of the line below you could use @include border-bottom-right-radius($radius)
+    border-bottom-right-radius: 3px;
+    //Instead of the line below you could use @include border-top-right-radius($radius)
+    border-top-right-radius: 3px;
+  }
+}
+.opensright .ranges {
+  margin-left: 0;
+}
+.opensleft .ranges {
+  margin-right: 0;
+}
+.form-group {
+  &__daterangepicker {
+    position: relative;
+  }
+}

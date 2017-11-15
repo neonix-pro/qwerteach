@@ -19,7 +19,7 @@
 //= require moment
 //= require private_pub
 //= require autocomplete-rails
-//= require_tree .
+//= require popper
 //= require chosen-jquery
 //= require jquery.form-validator
 //= require fullcalendar
@@ -34,4 +34,8 @@
 //= require i18n
 //= require i18n/translations
 //= require turbolinks
+<<<<<<< HEAD
+//= require_directory .
+=======
 //= require typed.min
+>>>>>>> master

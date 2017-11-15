@@ -96,14 +96,16 @@ Rails.application.routes.draw do
       get "generate_text" => :generate_text
     end
     resources :comments
-    resources :lessons
+    resources :lessons, only: %i[index show] do
+      get :export, on: :collection
+    end
     resources :topics
     resources :topic_groups
     resources :level
     resources :offer_prices
     resources :offers
     resources :payments, except: [:new, :create]
-    resources :reviews
+    resources :reviews, only: [:index, :show, :destroy]
     resources :conversations, only: [:index, :show]
     resources :mailboxer_messages
     resources :masterclasses do
@@ -122,7 +124,14 @@ Rails.application.routes.draw do
     resources :bbb_rooms
     get "banned_users" => "users#banned_users"
 
-    root to: "users#index"
+    root to: "home#index"
+    namespace :reports do
+      get '/' => 'lessons_reports#index', as: :lessons
+      get '/clients' => 'clients_reports#index', as: :clients
+      get '/teachers' => 'teachers_reports#index', as: :teachers
+      get '/activity' => 'activity_reports#index', as: :activity
+      get '/activity/details' => 'activity_reports#show', as: :activity_details
+    end
   end
   resources "contact", only: [:new, :create]
   post 'entretien_pedagogique' => 'contacts#entretien_pedagogique'

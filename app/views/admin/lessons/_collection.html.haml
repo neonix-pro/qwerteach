@@ -1,0 +1,22 @@
+.table-responsive
+  %table.table.table-striped.table-hover
+    %thead
+      %tr
+        = render 'collection_head_cells', local_assigns
+        %td
+    %tbody
+      - resources.each do |resource|
+        %tr.js-table-row{:tabindex => "0", role: 'link', 'data-url'=>polymorphic_path([namespace, resource])}
+          - collection_presenter.attributes_for(resource).each do |attribute|
+            %td.cell-data{class: "cell-data--#{attribute.html_class}"}
+              - if %w[topic topic_group].include?(attribute.name)
+                = attribute.display_associated_resource
+              - elsif %w[teacher student].include?(attribute.name)
+                = link_to [namespace, attribute.data] do
+                  - if attribute.data.avatar.present?
+                    = image_tag attribute.data.avatar.url(:small), class: "cell-avatar"
+                  = attribute.display_associated_resource
+              - else
+                = render_field(attribute)
+          %td
+            = link_to(t('administrate.actions.show'), [namespace, resource], class: 'btn btn-sm btn-primary-outline')

@@ -35,6 +35,11 @@ module ApplicationHelper
   def action?(*action)
     action.include?(params[:action])
   end
+
+  # TODO: replace avatar.jpg with no avatar image
+  def avatar_url(user, style = :small)
+    user.avatar.present? ? user.avatar.url(style) : image_path('avatar.jpg')
+  end
 end
 
 

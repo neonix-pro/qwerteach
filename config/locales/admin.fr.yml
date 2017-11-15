@@ -22,3 +22,6 @@ fr:
           description: "Complétez votre description: c'est sur la base de ce texte que les élèves décideront de prendre ou non cours avec vous."
           avatar: "Changez votre photo de profil: nous recommandons une photo de vous avec le visage bien visible."
           interview: "Une fois que vous avez complété votre profil, recontactez-moi et nous fixerons un rendez-vous afin de discuter de vive voix et de vous accompagner dans la recherche de vos élèves. Je vous souhaite une très bonne journée, n’hésitez pas à revenir vers moi pour toute question!"
+  administrate:
+    actions:
+      export: 'Export'

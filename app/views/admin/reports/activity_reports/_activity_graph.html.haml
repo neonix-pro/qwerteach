@@ -1,0 +1,56 @@
+%section.section
+  .row.sameheight-container
+    .col.col-12.col-sm-12.col-md-6.stats-col
+      .card.sameheight-item{"data-exclude" => "xs"}
+        .card-header.card-header-sm.bordered
+          .header-block
+            %h3.title Number of lessons
+        .card-block
+          #dashboard-lessons-count-chart.activity-chart
+
+    .col.col-12.col-sm-12.col-md-6.history-col
+      .card.sameheight-item{"data-exclude" => "xs"}
+        .card-header.card-header-sm.bordered
+          .header-block
+            %h3.title Price amount of lessons
+        .card-block
+          #dashboard-lessons-amount-chart.activity-chart
+
+:javascript
+  var primaryColor = '#85CE36';
+
+  $(function(){
+    drawCountsChart();
+    drawAmountsChart();
+  })
+
+  function drawCountsChart() {
+    $('#dashboard-lessons-count-chart').empty();
+    Morris.Line({
+      element: 'dashboard-lessons-count-chart',
+      data: #{data_for_lesson_counts_chart(@entities).to_json},
+      xkey: 'period',
+      ykeys: ['count'],
+      hideHover: 'auto',
+      labels: ['Lessons count'],
+      resize: true,
+      lineColors: [ primaryColor ],
+      pointFillColors: [ primaryColor ],
+    });
+  }
+
+  function drawAmountsChart() {
+    console.log('draw amount chart')
+    $('#dashboard-lessons-amount-chart').empty();
+    Morris.Line({
+      element: 'dashboard-lessons-amount-chart',
+      data: #{data_for_lesson_amounts_chart(@entities).to_json},
+      xkey: 'period',
+      ykeys: ['count'],
+      hideHover: 'auto',
+      labels: ['Lessons amount'],
+      resize: true,
+      lineColors: [ primaryColor ],
+      pointFillColors: [ primaryColor ],
+    });
+  }

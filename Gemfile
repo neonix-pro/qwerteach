@@ -140,6 +140,9 @@ gem 'tawk_rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'csv_shaper'
+gem 'morrisjs-rails'
+gem 'raphael-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -153,6 +156,7 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'timecop'
 
 end
 
@@ -160,6 +164,7 @@ group :test do
   gem 'sqlite3', '1.3.11'
   gem 'capybara-screenshot'
   gem 'sunspot-rails-tester'
+  gem 'database_cleaner'
 end
 
 group :development do

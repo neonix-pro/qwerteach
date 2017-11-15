@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171028162346) do
+ActiveRecord::Schema.define(version: 20171113031305) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -234,6 +234,9 @@ ActiveRecord::Schema.define(version: 20171028162346) do
     t.text     "comment"
     t.boolean  "pay_afterwards",                         default: false, null: false
   end
+
+  add_index "lessons", ["created_at"], name: "index_lessons_on_created_at"
+  add_index "lessons", ["time_start"], name: "index_lessons_on_time_start"
 
   create_table "levels", force: :cascade do |t|
     t.datetime "created_at"

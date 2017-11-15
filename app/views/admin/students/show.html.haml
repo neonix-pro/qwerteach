@@ -13,16 +13,19 @@
 .card-block
   %ul.nav.nav-tabs.nav-tabs-bordered
     %li.nav-item
-      %a.nav-link.active(data-toggle="tab" data-target="#information" href="#information" aria-controls="information" role="tab" aria-expanded="true") Information
+      %a.nav-link(data-toggle="tab" href="#information" aria-controls="information" role="tab" aria-expanded="true"){class: tab_state('info', true)}
+        Information
     %li.nav-item
-      %a.nav-link(data-toggle="tab" data-target="#lessons" href="#discuter" aria-controls="lessons" role="tab" aria-expanded="false") Received Lessons
+      %a.nav-link(data-toggle="tab" href="#lessons" aria-controls="lessons" role="tab" aria-expanded="false"){class: tab_state('received_lessons')}
+        Received Lessons
     %li.nav-item
-      %a.nav-link(data-toggle="tab" data-target="#discuter" href="#discuter" aria-controls="discuter" role="tab" aria-expanded="false") Discuter
+      %a.nav-link(data-toggle="tab" href="#discuter" aria-controls="discuter" role="tab" aria-expanded="false") Discuter
     %li.nav-item
-      %a.nav-link(data-toggle="tab" data-target="#conversations" href="#conversations" aria-controls="conversations" role="tab" aria-expanded="false") Conversations
+      %a.nav-link(data-toggle="tab" href="#conversations" aria-controls="conversations" role="tab" aria-expanded="false"){class: tab_state('conversations')}
+        Conversations
 
   .tab-content.tabs-bordered
-    #information.tab-pane.active(aria-expanded="true")
+    #information.tab-pane(aria-expanded="true"){class: tab_state('info', true)}
       %table.table-min.table-striped
         - page.attributes.each do |attribute|
           %tr
@@ -39,7 +42,7 @@
               = wallet_balance(page.resource.normal_wallet) rescue '-'
             - else
               ="-"
-    #lessons.tab-pane(aria-expanded="false")
+    #lessons.tab-pane(aria-expanded="false"){class: tab_state('received_lessons')}
       = render_field resource_field(page, :lessons_received)
 
     #discuter.tab-pane(aria-expanded="false")
@@ -50,7 +53,7 @@
       .conversation-admin
         = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: student
 
-    #conversations.tab-pane(aria-expanded="false")
+    #conversations.tab-pane(aria-expanded="false"){class: tab_state('conversations')}
       = render 'admin/shared/conversations', conversations: @conversations, user: student
 
 -#=content_for(:javascript)
