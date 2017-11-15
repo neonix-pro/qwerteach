@@ -1,0 +1,41 @@
+%hr
+.row.cards-wrapper
+  .col-sm-12.col-md-4.tools-list
+    .card
+      .card-content
+        %span.card-title Votre candidature
+        = render partial: 'become_teacher/recap'
+  .col-sm-12.col-md-4.tools-list
+    .card
+      .card-content
+        %span.card-title Liens utiles
+        %ul
+          %li= link_to "Posez vos questions à un coach", '#contact-modal', data:{toggle: 'modal'}
+          %li= link_to 'Trouver des élèves', toolbox_index_path
+          %li= link_to "Essayer la classe virtuelle", demo_room_path
+          %li
+            %a{href: 'https://www.facebook.com/groups/1492069747501897/'} Groupe facebook
+          %li= link_to "Autres outils d'enseignement", toolbox_path(:logiciels)
+          %li= link_to "Questions fréquentes", faq_path
+  .col-sm-12.col-md-4.tools-list
+    .card
+      .card-content
+        %span.card-title L'incubateur ?
+        %p
+          Pour que votre aterrissage dans le monde des cours en ligne se fasse en douceur, nous accompagnons
+          les nouveaux professeurs jusqu'à ce qu'ils aient donné leur premier cours, et puissent voler de leurs propres ailes.
+          %br
+          Nous avons mis au point #{link_to 'une méthode', toolbox_path('promouvoir')} qui vous permettra de décrocher
+          vos premiers élèves en quelques jours.
+        %p
+          %br
+          Votre profil sera <b>visible publiquement sur le site</b> dès que vous aurez donné votre premier cours payant.
+        .text-left
+          %br
+          %i.fa.fa-long-arrow-right
+          = link_to 'Trouver des élèves!', toolbox_path('promouvoir')
+
+
+
+
+

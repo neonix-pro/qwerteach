@@ -1,0 +1,2 @@
+module MasterclassHelper
+end

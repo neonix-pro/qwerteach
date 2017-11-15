@@ -106,6 +106,9 @@ Rails.application.routes.draw do
     resources :reviews
     resources :conversations, only: [:index, :show]
     resources :mailboxer_messages
+    resources :masterclasses do
+      get 'join' => "masterclasses#join"
+    end
 
     get "/user_conversation/:id", to: "users#show_conversation", as: 'show_conversation'
 
@@ -122,7 +125,7 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
   resources "contact", only: [:new, :create]
-    
+  post 'entretien_pedagogique' => 'contacts#entretien_pedagogique'
 
 
   scope '/user/mangopay', controller: :payments do
@@ -278,6 +281,7 @@ Rails.application.routes.draw do
   resource :bbb_rooms do
     get "/room_invite/:user_id" => "bbb_rooms#room_invite", as: 'room_invite'
     get "/end_room/:room_id" => "bbb_rooms#end_room", as: 'end_room'
+    get "/masterclass/:id" => "bbb_rooms#masterclass_room", as: 'masterclass'
   end
   bigbluebutton_routes :default, :only => 'recordings', :controllers => {:rooms => 'bbb_recordings'}
   get 'demo_room', to: "bbb_rooms#demo_room", as: 'demo_room'
@@ -288,6 +292,7 @@ Rails.application.routes.draw do
   mount Resque::Server, :at => "/resque"
 
   resources :interests
+  resources :masterclass, only: [:index, :create], path_names: {create: 'create_masterclass'}
 
   #root to: 'pages#index'
 end

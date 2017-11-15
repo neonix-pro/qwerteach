@@ -3,3 +3,19 @@
     = autocomplete_field_tag 'topic', '', autocomplete_topic_title_topics_path, :size => 75, :class => "recherche-bar"
     %button{type: "submit"}
       %i.fa.fa-search
+
+:javascript
+  var options = {
+    strings: ["Dans quelle matière cherchez-vous un professeur? ^1000","prof de mathématiques", "prof de français", "sciences", "aide aux devoirs", "latin", "philo"],
+    typeSpeed: 40,
+    loop: true,
+    bindInputFocusEvents: true
+  };
+  var typed = new Typed("#topic", options);
+  $('#topic').on('focus', function(){
+    typed.stop();
+    $(this).val('');
+  });
+  $('#topic').on('blur', function(){
+    typed.start();
+  });
