@@ -134,7 +134,7 @@ Rails.application.routes.draw do
     end
   end
   resources "contact", only: [:new, :create]
-    
+  post 'entretien_pedagogique' => 'contacts#entretien_pedagogique'
 
 
   scope '/user/mangopay', controller: :payments do

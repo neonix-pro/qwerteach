@@ -56,6 +56,7 @@ class ApplicationController < ActionController::Base
 
   def save_user_timezone
     return unless resource.persisted?
+    tz = cookies[:time_zone] || "Europe/Paris"
     resource.update(time_zone: cookies[:time_zone])
   end
 

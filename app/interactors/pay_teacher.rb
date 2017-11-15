@@ -21,6 +21,7 @@ class PayTeacher < ActiveInteraction::Base
           raise ActiveRecord::Rollback
         end
         payment.status = 'paid'
+        payment.transfer_prof_id = transfer.id
         if !payment.save
           self.errors.merge! payment.errors
           raise ActiveRecord::Rollback

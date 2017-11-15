@@ -24,9 +24,13 @@ class DashboardsController < ApplicationController
       @past_lessons_given = @user.lessons_given.past.created
     end
     if @user.is_a?(Teacher) #&& !@user.postulance_accepted?
-      @masterclass = Masterclass.where(time_start: Time.now..(Time.now + 1.year)).first
+      @masterclass = Masterclass.where(time_start: (Time.now-1.hour)..(Time.now + 1.year)).first
     end
     @admin = User.where(admin: true).last
     @conversation = Conversation.participant(@user).where('mailboxer_conversations.id in (?)', Conversation.participant(@admin).collect(&:id))
+
+    unless @user.is_a?(Teacher)
+      @contact = Contact.new()
+    end
   end
 end
