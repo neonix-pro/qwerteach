@@ -78,7 +78,7 @@ class TeachersReport < ApplicationReport
   def total_count
     ReportEntity.connection.execute(
       teachers_in_period.project(teachers[:id].count.as('total_count')).to_sql
-    ).first['total_count']
+    ).first[sqlite? ? 'total_count' : 0]
   end
 
 end
