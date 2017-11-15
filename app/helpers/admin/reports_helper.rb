@@ -12,10 +12,10 @@ module Admin
       link_to(params.merge( presenter.order_params_for(attr_name))) do
         %Q{
           #{title || t("helpers.label.#{resource_name}.#{attr_name}", default: attr_name.to_s).titleize}
-          #{ presenter.ordered_by?(attr_name) &&
+          #{ presenter.ordered_by?(attr_name) ?
              content_tag(:span, class: 'cell-label__sort-indicator') do
                icon("sort-amount-#{presenter.ordered_html_class(attr_name)}")
-             end
+             end : nil
           }
         }.html_safe
       end

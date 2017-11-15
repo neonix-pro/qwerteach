@@ -50,7 +50,7 @@ module Admin
       end
 
       def nav_link_state(resource)
-        %i[activity_reports].include?(resource) ? :active : :inactive
+        %i[activity_report].include?(resource) ? :active : :inactive
       end
 
       def teachers
