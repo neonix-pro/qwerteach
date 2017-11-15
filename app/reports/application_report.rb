@@ -80,5 +80,9 @@ class ApplicationReport < ActiveInteraction::Base
   def offset
     (page - 1) * per_page
   end
+  
+  def sqlite?
+    ActiveRecord::Base.connection.adapter_name == 'SQLite'
+  end
 
 end

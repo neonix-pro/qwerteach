@@ -143,7 +143,7 @@ class LessonsReport < ApplicationReport
   end
 
   def period_sql(column)
-    if ActiveRecord::Base.connection.adapter_name == 'SQLite'
+    if sqlite?
       "strftime('#{gradation_format}', #{column})"
     else
       "DATE_FORMAT(#{column}, '#{gradation_format}')"

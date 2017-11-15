@@ -82,7 +82,7 @@ class ClientsReport < ApplicationReport
   def total_count
     ReportEntity.connection.execute(
       clients_in_period.project(clients[:id].count.as('total_count')).to_sql
-    ).first['total_count']
+    ).first[sqlite? ? 'total_count' : 0]
   end
 
 end

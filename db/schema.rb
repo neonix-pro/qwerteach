@@ -326,7 +326,7 @@ ActiveRecord::Schema.define(version: 20171113031305) do
     t.string   "other_name"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.text     "description",    default: ""
+    t.text     "description"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -415,7 +415,7 @@ ActiveRecord::Schema.define(version: 20171113031305) do
     t.string   "firstname",                         default: "",            null: false
     t.string   "lastname",                          default: "",            null: false
     t.date     "birthdate",                         default: '2016-01-01',  null: false
-    t.text     "description",                       default: "",            null: false
+    t.text     "description",                                               null: false
     t.string   "gender",                            default: "Not telling", null: false
     t.string   "phone_number",                      default: "",            null: false
     t.string   "type",                              default: "Student",     null: false
