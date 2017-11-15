@@ -9,9 +9,9 @@ class TeacherDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
       gallery: Field::HasOne,
-      offers: Field::HasMany,
+      offers: Field::HasMany.with_options(tab: 'offers'),
       postulation: Field::HasOne,
-      conversations: Field::HasMany,
+      conversations: Field::HasMany.with_options(tab: 'conversations'),
       admin_comments: AdminCommentField.with_options(class_name: "Comment"),
       level: Field::BelongsTo,
       degrees: Field::HasMany,
@@ -58,8 +58,8 @@ class TeacherDashboard < Administrate::BaseDashboard
       avatar_score: Field::Number,
       avatar: Field::Image.with_options(thumb: :small),
       name: Field::Text,
-      lessons_received: Field::HasMany,
-      lessons_given: Field::HasMany,
+      lessons_received: Field::HasMany.with_options(tab: 'received_lessons'),
+      lessons_given: Field::HasMany.with_options(tab: 'given_lessons'),
       responsible_admin: Field::String
   }
 

@@ -18,22 +18,26 @@
 .card-block
   %ul.nav.nav-tabs.nav-tabs-bordered
     %li.nav-item
-      %a.nav-link.active(data-toggle="tab" href="#information-tab" role="tab" aria-expanded="true") Information
+      %a.nav-link(data-toggle="tab" href="#information-tab" role="tab" aria-expanded="true"){class: tab_state('info', true)} Information
     %li.nav-item
       %a.nav-link(data-toggle="tab" href="#postulation-tab" role="tab" aria-expanded="false") Postulation
     %li.nav-item
-      %a.nav-link(data-toggle="tab" href="#received_lessons-tab" role="tab" aria-expanded="false") Received Lessons (#{page.resource.lessons_received.created.count} / #{page.resource.lessons_received.created.sum(:price)}€)
+      %a.nav-link(data-toggle="tab" href="#received_lessons-tab" role="tab" aria-expanded="false"){class: tab_state('received_lessons')}
+        Received Lessons (#{page.resource.lessons_received.created.count} / #{page.resource.lessons_received.created.sum(:price)}€)
     %li.nav-item
-      %a.nav-link(data-toggle="tab" href="#given_lessons-tab" role="tab" aria-expanded="false") Given Lessons (#{page.resource.lessons_given.created.count} / #{page.resource.lessons_given.created.sum(:price)}€)
+      %a.nav-link(data-toggle="tab" href="#given_lessons-tab" role="tab" aria-expanded="false"){class: tab_state('given_lessons')}
+        Given Lessons (#{page.resource.lessons_given.created.count} / #{page.resource.lessons_given.created.sum(:price)}€)
     %li.nav-item
       %a.nav-link(data-toggle="tab" href="#offers-tab" role="tab" aria-expanded="false") Offers
     %li.nav-item
-      %a.nav-link(data-toggle="tab" href="#dialog-tab" role="tab" aria-expanded="false") Discuter
+      %a.nav-link(data-toggle="tab" href="#dialog-tab" role="tab" aria-expanded="false"){class: tab_state('offers')}
+        Discuter
     %li.nav-item
-      %a.nav-link(data-toggle="tab" href="#conversations-tab" role="tab" aria-expanded="false") Conversations (#{@conversations.total_count})
+      %a.nav-link(data-toggle="tab" href="#conversations-tab" role="tab" aria-expanded="false"){class: tab_state('conversations')}
+        Conversations (#{@conversations.total_count})
 
   .tab-content.tabs-bordered
-    #information-tab.tab-pane.active(aria-expanded="true")
+    #information-tab.tab-pane(aria-expanded="true"){class: tab_state('info', true)}
       %table.table-min.table-striped
         - page.attributes.each do |attribute|
           %tr
@@ -57,13 +61,13 @@
         = link_to "Modifier", [:edit, namespace, page.resource.postulation], class: 'btn btn-primary'
       .clearfix
 
-    #received_lessons-tab.tab-pane(aria-expanded="false")
+    #received_lessons-tab.tab-pane(aria-expanded="false"){class: tab_state('received_lessons')}
       = render_field resource_field(page, :lessons_received)
 
-    #given_lessons-tab.tab-pane(aria-expanded="false")
+    #given_lessons-tab.tab-pane(aria-expanded="false"){class: tab_state('given_lessons')}
       = render_field resource_field(page, :lessons_given)
 
-    #offers-tab.tab-pane(aria-expanded="false")
+    #offers-tab.tab-pane(aria-expanded="false"){class: tab_state('offers')}
       = render_field resource_field(page, :offers)
 
     #dialog-tab.tab-pane(aria-expanded="false")
@@ -76,7 +80,7 @@
       .conversation-admin
         = render 'admin/shared/conversation_with_admin', conversation: @conversation_admin, recipient: teacher
 
-    #conversations-tab.tab-pane(aria-expanded="false")
+    #conversations-tab.tab-pane(aria-expanded="false"){class: tab_state('conversations')}
       = render 'admin/shared/conversations', conversations: @conversations, user: teacher
 
 =content_for(:javascript)
