@@ -34,8 +34,5 @@
 //= require i18n
 //= require i18n/translations
 //= require turbolinks
-<<<<<<< HEAD
 //= require_directory .
-=======
 //= require typed.min
->>>>>>> master
