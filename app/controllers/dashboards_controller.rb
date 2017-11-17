@@ -26,7 +26,7 @@ class DashboardsController < ApplicationController
     if @user.is_a?(Teacher) #&& !@user.postulance_accepted?
       @masterclass = Masterclass.where(time_start: (Time.now-1.hour)..(Time.now + 1.year)).first
     end
-    @admin = User.find(8934)
+    @admin = User.where(id: 8934).first || User.where(admin: true).last
     @conversation = Conversation.participant(@user).where('mailboxer_conversations.id in (?)', Conversation.participant(@admin).collect(&:id))
 
     unless @user.is_a?(Teacher)

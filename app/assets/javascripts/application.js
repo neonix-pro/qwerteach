@@ -35,3 +35,5 @@
 //= require i18n/translations
 //= require turbolinks
 //= require typed.min
+//= require intlTelInput
+//= require libphonenumber/utils

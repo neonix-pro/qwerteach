@@ -1,0 +1,39 @@
+#onboarding
+  #choose-topics
+    .container
+      .row.text-center.text-white
+        %h1 Un dernier détail...
+        %p Entrez votre numéro de téléphone pour profiter pleinement de Qwerteach !
+      .row
+        .col-md-8.col-md-offset-2
+          = form_for @user, as: :user, url: wizard_path, method: :put, html: {class: 'text-left'} do |f|
+            .col-sm-8.col-sm-offset-2.text-center
+              = f.phone_field :number, class:'form-control', required: true, value:nil
+              = f.hidden_field :phone_country_code, class:'form-control'
+              = f.hidden_field :phone_number, class: 'form-control'
+              = f.submit "Go!", class:'btn btn-green btn-qw'
+              .text-right
+                %hr
+                %small= link_to 'pas maintenant', root_path
+
+:javascript
+  $("#user_number").intlTelInput({
+    formatOnInit: true,
+    separateDialCode: true,
+    nationalMode: false,
+    initialCountry: 'auto',
+    utilsScript: "assets/libphonenumber/utils.js",
+    geoIpLookup: function(callback) {
+        $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+          var countryCode = (resp && resp.country) ? resp.country : "";
+          callback(countryCode);
+        });
+      }
+  });
+
+  $('#edit_user').submit(function(e){
+    var c = $('#user_number').intlTelInput("getSelectedCountryData").dialCode;
+    var n =  $("#user_number").intlTelInput("getNumber").replace('+'+c, '');
+    $('#user_phone_number').val(n);
+    $('#user_phone_country_code').val(c);
+  });
