@@ -8,15 +8,19 @@
         .col-md-8.col-md-offset-2
           = form_for @user, as: :user, url: wizard_path, method: :put, html: {class: 'text-left'} do |f|
             .col-sm-8.col-sm-offset-2.text-center
-              = f.phone_field :number, class:'form-control', required: true, value:nil
-              = f.hidden_field :phone_country_code, class:'form-control'
-              = f.hidden_field :phone_number, class: 'form-control'
-              = f.submit "Go!", class:'btn btn-green btn-qw'
+              .form-group
+                = f.phone_field :number, class:'form-control', required: true, value:nil
+                = f.hidden_field :phone_country_code, class:'form-control'
+                = f.hidden_field :phone_number, class: 'form-control'
+                = f.submit "Go!", class:'btn btn-green btn-qw'
+                .text-white.text-center
+                  %small#phone_error_message Numéro invalide
               .text-right
                 %hr
                 %small= link_to 'pas maintenant', root_path
 
 :javascript
+  $("#phone_error_message").hide();
   $("#user_number").intlTelInput({
     formatOnInit: true,
     separateDialCode: true,
@@ -28,7 +32,27 @@
           var countryCode = (resp && resp.country) ? resp.country : "";
           callback(countryCode);
         });
+      },
+    preferredCountries: ['fr', 'be', 'ch', 'ca']
+  });
+
+  var telInput = $("#user_number");
+
+  telInput.blur(function() {
+    if ($.trim(telInput.val())) {
+      if (telInput.intlTelInput("isValidNumber")) {
+        $("#user_number").parent().removeClass("has-error");
+        $("#phone_error_message").hide();
+      } else {
+        $("#user_number").parent().addClass("has-error");
+        $("#phone_error_message").show();
       }
+    }
+  });
+
+  telInput.focus(function(){
+    telInput.parent().removeClass('has-error');
+    $("#phone_error_message").hide();
   });
 
   $('#edit_user').submit(function(e){
@@ -36,4 +60,10 @@
     var n =  $("#user_number").intlTelInput("getNumber").replace('+'+c, '');
     $('#user_phone_number').val(n);
     $('#user_phone_country_code').val(c);
+    if(telInput.intlTelInput("isValidNumber")){
+
+    }
+    else{
+      e.preventDefault();
+    }
   });
