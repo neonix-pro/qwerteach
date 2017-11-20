@@ -6,7 +6,7 @@ RSpec.describe ClientsReport, type: :report do
 
   describe 'Client Data' do
     let!(:student) { create(:student) }
-    let(:lesson_date) { Time.parse('2017-01-02') }
+    let(:lesson_date) { Time.zone.parse('2017-01-02') }
 
     let!(:lesson) { Timecop.freeze(lesson_date) { create(:lesson, :paid, student: student) } }
 

@@ -1,9 +1,6 @@
 class LessonsReport < ApplicationReport
 
-  GRADATIONS = {
-    monthly: '%Y-%m',
-    daily: '%Y-%m-%d'
-  }
+  GRADATIONS = %i[daily weekly monthly quarterly]
 
   METRICS = {
     total_count: { from: :lessons },
@@ -23,16 +20,17 @@ class LessonsReport < ApplicationReport
   symbol :gradation, default: :monthly
   integer :page, default: 1
   integer :per_page, default: 20
-  string :order, default: 'id'
+  string :order, default: 'period'
   string :direction, default: 'asc'
 
-  validates :gradation, inclusion: { in: GRADATIONS.keys }
+  validates :gradation, inclusion: { in: GRADATIONS }
 
   def arel
     periods
       .project(periods[:period])
       .from(periods_cte)
       .tap { |scope| add_metrics_expressions(scope) }
+      .tap{ |scope| add_default_ordering(scope) }
   end
 
   def total_count
@@ -62,16 +60,12 @@ class LessonsReport < ApplicationReport
 
   def gradation_values
     @gradation_values ||= Kaminari
-      .paginate_array(date_range.map { |d| d.strftime(gradation_format) }.uniq)
+      .paginate_array(date_range.map { |d| beginning_of_period(d, gradation) }.uniq)
       .page(page).per(per_page)
   end
 
   def date_range
     @date_range ||= start_date..end_date
-  end
-
-  def gradation_format
-    GRADATIONS[gradation]
   end
 
   def lessons
@@ -144,10 +138,32 @@ class LessonsReport < ApplicationReport
 
   def period_sql(column)
     if sqlite?
-      "strftime('#{gradation_format}', #{column})"
+      sqlite_period(column, gradation)
     else
-      "DATE_FORMAT(#{column}, '#{gradation_format}')"
+      mysql_period(column, gradation)
     end
+  end
+
+  def mysql_period(column, period_key)
+    case period_key
+    when :monthly then "LAST_DAY(#{column} - INTERVAL 1 MONTH) + INTERVAL 1 DAY"
+    when :daily then "DATE(#{column}) + INTERVAL 0 SECOND"
+    when :weekly then "DATE(#{column}) + INTERVAL 0 SECOND - INTERVAL WEEKDAY(#{column}) DAY"
+    when :quarterly then "LAST_DAY(#{column} - INTERVAL MONTH(#{column}) MONTH) + INTERVAL 24 HOUR + INTERVAL QUARTER(#{column}) - 1 QUARTER"
+    end
+  end
+
+  def beginning_of_period(date, period_key)
+    case period_key
+    when :monthly then date.beginning_of_month.beginning_of_day
+    when :daily then date.beginning_of_day
+    when :weekly then date.beginning_of_week.beginning_of_day
+    when :quarterly then date.beginning_of_quarter.beginning_of_day
+    end
+  end
+
+  def sqlite_period(column, period_key)
+    #TODO: write for sqlite
   end
 
 end

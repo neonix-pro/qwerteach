@@ -38,7 +38,7 @@ class DashboardReport < ApplicationReport
   end
 
   def gradation_values
-    date_range.map { |d| d.strftime(DATE_FORMAT) }.uniq
+    date_range.map { |d| d.beginning_of_day }.uniq
   end
 
   def date_range
@@ -67,11 +67,7 @@ class DashboardReport < ApplicationReport
   end
 
   def period_sql(column)
-    if ActiveRecord::Base.connection.adapter_name == 'SQLite'
-      "strftime('#{DATE_FORMAT}', #{column})"
-    else
-      "DATE_FORMAT(#{column}, '#{DATE_FORMAT}')"
-    end
+    "DATE(#{column}) + INTERVAL 0 SECOND"
   end
 
 end

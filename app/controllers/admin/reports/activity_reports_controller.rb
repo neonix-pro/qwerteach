@@ -1,6 +1,7 @@
 module Admin
   module Reports
     class ActivityReportsController < Admin::ApplicationController
+      skip_before_filter :default_params
 
       def index
         @report = ActivityReport.run(report_params)
@@ -34,7 +35,7 @@ module Admin
       private
 
       def report_params
-        params.slice(:page, :date_range, :order, :direction).tap do |p|
+        params.slice(:page, :date_range, :order, :direction, :gradation).tap do |p|
           p[:start_date], p[:end_date] = (p[:date_range] || '').split(' - ')
         end
       end
@@ -50,7 +51,8 @@ module Admin
       end
 
       def nav_link_state(resource)
-        %i[activity_report].include?(resource) ? :active : :inactive
+        return :active if %i[reports activity_reports].include?(resource)
+        :inactive
       end
 
       def teachers
@@ -58,7 +60,11 @@ module Admin
           .distinct
           .from(
             Teacher
-              .select('users.*', Lesson.arel_table[:time_start].minimum.as('first_lesson_date'))
+              .select(
+                'users.*',
+                Lesson.arel_table[:time_start].minimum.as('first_lesson_date'),
+                Lesson.arel_table[:price].sum.as('lessons_amount')
+              )
               .joins(:lessons_given)
               .group('users.id'),
             :users
@@ -75,7 +81,11 @@ module Admin
           .distinct
           .from(
             Student
-              .select('users.*', Lesson.arel_table[:time_start].minimum.as('first_lesson_date'))
+              .select(
+                'users.*',
+                Lesson.arel_table[:time_start].minimum.as('first_lesson_date'),
+                Lesson.arel_table[:price].sum.as('lessons_amount')
+              )
               .joins(:lessons_received)
               .group('users.id'),
             :users

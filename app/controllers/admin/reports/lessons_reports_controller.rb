@@ -1,6 +1,8 @@
 module Admin
   module Reports
     class LessonsReportsController < Admin::ApplicationController
+      skip_before_filter :default_params
+
       def index
         @report = LessonsReport.run(search_params)
         @entities = @report.result
