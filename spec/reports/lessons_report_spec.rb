@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe LessonsReport, type: :report do
   describe 'Monthly' do
     let!(:yan_lessons) do
-      Timecop.freeze(Time.parse('2017-01-02')) { create_list(:lesson, 2) }
+      Timecop.freeze(Time.zone.parse('2017-01-02').midday) { create_list(:lesson, 2) }
     end
 
     let!(:feb_lessons) do
-      Timecop.freeze(Time.parse('2017-02-02')) { create_list(:lesson, 2) }
+      Timecop.freeze(Time.zone.parse('2017-02-02').midday) { create_list(:lesson, 2) }
     end
 
     let(:result) { subject.result }
@@ -17,17 +17,17 @@ RSpec.describe LessonsReport, type: :report do
     it 'returns 2 report entities' do
       expect(subject).to be_valid
       expect(result[0].total_count).to eq(2)
-      expect(result[0].period).to eq('2017-01')
+      expect(result[0].period).to be_within(1.second).of Time.zone.parse('2017-01-01')
       expect(result[1].total_count).to eq(2)
-      expect(result[1].period).to eq('2017-02')
+      expect(result[1].period).to be_within(1.second).of Time.zone.parse('2017-02-01')
       expect(result[2].total_count).to eq(0)
-      expect(result[2].period).to eq('2017-03')
+      expect(result[2].period).to be_within(1.second).of Time.zone.parse('2017-03-01')
     end
   end
 
   describe 'Daily' do
     let!(:lessons) do
-      (Date.parse('2017-01-01')..Date.parse('2017-01-02')).map do |date|
+      (Date.parse('2017-01-01').to_date..Date.parse('2017-01-02')).map do |date|
         Timecop.freeze(date.midday) { create_list(:lesson, 2, :paid, :today) }
       end
     end
@@ -38,11 +38,11 @@ RSpec.describe LessonsReport, type: :report do
     it 'returns 2 report entities' do
       expect(subject).to be_valid
       expect(result[0].total_count).to eq(2)
-      expect(result[0].period).to eq('2017-01-01')
+      expect(result[0].period).to be_within(1.second).of Time.zone.parse('2017-01-01')
       expect(result[1].total_count).to eq(2)
-      expect(result[1].period).to eq('2017-01-02')
+      expect(result[1].period).to be_within(1.second).of Time.zone.parse('2017-01-02')
       expect(result[2].total_count).to eq(0)
-      expect(result[2].period).to eq('2017-01-03')
+      expect(result[2].period).to be_within(1.second).of Time.zone.parse('2017-01-03')
     end
   end
 
@@ -61,7 +61,7 @@ RSpec.describe LessonsReport, type: :report do
 
       it 'returns first 5 entities' do
         expect(subject).to be_valid
-        expect(result.map(&:period)).to eq(%w[2017-01-01 2017-01-02 2017-01-03 2017-01-04 2017-01-05])
+        expect(result.map(&:period)).to eq(%w[2017-01-01 2017-01-02 2017-01-03 2017-01-04 2017-01-05].map { |d| Time.zone.parse(d) })
         expect(result.map(&:total_count)).to eq(Array.new(5) { 2 })
       end
     end
@@ -70,7 +70,7 @@ RSpec.describe LessonsReport, type: :report do
       let(:page) { 2 }
       it 'returns second 5 entities' do
         expect(subject).to be_valid
-        expect(result.map(&:period)).to eq(%w[2017-01-06 2017-01-07 2017-01-08 2017-01-09 2017-01-10])
+        expect(result.map(&:period)).to eq(%w[2017-01-06 2017-01-07 2017-01-08 2017-01-09 2017-01-10].map { |d| Time.zone.parse(d) })
         expect(result.map(&:total_count)).to eq(Array.new(5) { 2 })
       end
     end

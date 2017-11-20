@@ -23,7 +23,7 @@ class LessonsReport < ApplicationReport
   symbol :gradation, default: :monthly
   integer :page, default: 1
   integer :per_page, default: 20
-  string :order, default: 'id'
+  string :order, default: 'period'
   string :direction, default: 'asc'
 
   validates :gradation, inclusion: { in: GRADATIONS.keys }
@@ -33,6 +33,7 @@ class LessonsReport < ApplicationReport
       .project(periods[:period])
       .from(periods_cte)
       .tap { |scope| add_metrics_expressions(scope) }
+      .tap{ |scope| add_default_ordering(scope) }
   end
 
   def total_count
@@ -62,7 +63,7 @@ class LessonsReport < ApplicationReport
 
   def gradation_values
     @gradation_values ||= Kaminari
-      .paginate_array(date_range.map { |d| d.strftime(gradation_format) }.uniq)
+      .paginate_array(date_range.map { |d| beginning_of_period(d, gradation) }.uniq)
       .page(page).per(per_page)
   end
 
@@ -144,10 +145,28 @@ class LessonsReport < ApplicationReport
 
   def period_sql(column)
     if sqlite?
-      "strftime('#{gradation_format}', #{column})"
+      sqlite_period(column, gradation)
     else
-      "DATE_FORMAT(#{column}, '#{gradation_format}')"
+      mysql_period(column, gradation)
     end
+  end
+
+  def mysql_period(column, period_key)
+    case period_key
+    when :monthly then "LAST_DAY(#{column} - INTERVAL 1 MONTH) + INTERVAL 1 DAY"
+    when :daily then "DATE(#{column}) + INTERVAL 0 SECOND"
+    end
+  end
+
+  def beginning_of_period(date, period_key)
+    case period_key
+    when :monthly then date.beginning_of_month.beginning_of_day
+    when :daily then date.beginning_of_day
+    end
+  end
+
+  def sqlite_period(column, period_key)
+    #TODO: write for sqlite
   end
 
 end

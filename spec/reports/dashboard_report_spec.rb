@@ -23,13 +23,13 @@ RSpec.describe DashboardReport, type: :report do
       expect(result.size).to eq(days)
 
       expect(result[0].as_json.symbolize_keys).to include(
-        period: 2.days.ago.strftime(DashboardReport::DATE_FORMAT),
+        period: 2.days.ago.beginning_of_day,
         lessons_count: 2,
         lessons_amount: yestarday_lessons.sum(&:price)
       )
 
       expect(result[1].as_json.symbolize_keys).to include(
-        period: 1.days.ago.strftime(DashboardReport::DATE_FORMAT),
+        period: 1.days.ago.beginning_of_day,
         lessons_count: 2,
         lessons_amount: before_yestarday_lessons.sum(&:price)
       )
@@ -37,7 +37,7 @@ RSpec.describe DashboardReport, type: :report do
 
     it 'does not return not created lessons' do
       expect(result[2].as_json.symbolize_keys).to include(
-        period: Time.current.strftime(DashboardReport::DATE_FORMAT),
+        period: Time.current.beginning_of_day,
         lessons_count: 0,
         lessons_amount: 0
       )
