@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe LessonsReport, type: :report do
+  let(:result) { subject.result }
+
   describe 'Monthly' do
     let!(:yan_lessons) do
       Timecop.freeze(Time.zone.parse('2017-01-02').midday) { create_list(:lesson, 2) }
@@ -9,8 +11,6 @@ RSpec.describe LessonsReport, type: :report do
     let!(:feb_lessons) do
       Timecop.freeze(Time.zone.parse('2017-02-02').midday) { create_list(:lesson, 2) }
     end
-
-    let(:result) { subject.result }
 
     subject { LessonsReport.run(start_date: '2017-01-01', end_date: '2017-03-30') }
 
@@ -33,9 +33,8 @@ RSpec.describe LessonsReport, type: :report do
     end
 
     subject { LessonsReport.run(start_date: '2017-01-01', end_date: '2017-01-03', gradation: :daily) }
-    let(:result) { subject.result }
 
-    it 'returns 2 report entities' do
+    it 'returns report entities for 3 days' do
       expect(subject).to be_valid
       expect(result[0].total_count).to eq(2)
       expect(result[0].period).to be_within(1.second).of Time.zone.parse('2017-01-01')
@@ -43,6 +42,48 @@ RSpec.describe LessonsReport, type: :report do
       expect(result[1].period).to be_within(1.second).of Time.zone.parse('2017-01-02')
       expect(result[2].total_count).to eq(0)
       expect(result[2].period).to be_within(1.second).of Time.zone.parse('2017-01-03')
+    end
+  end
+
+  describe 'Weekly' do
+    let(:dates) { %w[2017-11-06 2017-11-14 2017-11-28] }
+    let!(:lessons) do
+      dates.map do |date|
+        Timecop.freeze(Date.parse(date).midday) { create_list(:lesson, 2, :paid, :today) }
+      end
+    end
+
+    subject { LessonsReport.run(start_date: '2017-11-06', end_date: '2017-11-22', gradation: :weekly) }
+
+    it 'returns report entities for 3 weeks' do
+      expect(subject).to be_valid
+      expect(result[0].total_count).to eq(2)
+      expect(result[0].period).to be_within(1.second).of Time.zone.parse('2017-11-06')
+      expect(result[1].total_count).to eq(2)
+      expect(result[1].period).to be_within(1.second).of Time.zone.parse('2017-11-13')
+      expect(result[2].total_count).to eq(0)
+      expect(result[2].period).to be_within(1.second).of Time.zone.parse('2017-11-20')
+    end
+  end
+
+  describe 'Quarterly' do
+    let(:dates) { %w[2017-01-06 2017-04-06 2017-10-06] }
+    let!(:lessons) do
+      dates.map do |date|
+        Timecop.freeze(Date.parse(date).midday) { create_list(:lesson, 2, :paid, :today) }
+      end
+    end
+
+    subject { LessonsReport.run(start_date: '2017-01-01', end_date: '2017-09-30', gradation: :quarterly) }
+
+    it 'returns report entities for 3 quarters' do
+      expect(subject).to be_valid
+      expect(result[0].total_count).to eq(2)
+      expect(result[0].period).to be_within(1.second).of Time.zone.parse('2017-01-01')
+      expect(result[1].total_count).to eq(2)
+      expect(result[1].period).to be_within(1.second).of Time.zone.parse('2017-04-01')
+      expect(result[2].total_count).to eq(0)
+      expect(result[2].period).to be_within(1.second).of Time.zone.parse('2017-07-01')
     end
   end
 
@@ -54,7 +95,6 @@ RSpec.describe LessonsReport, type: :report do
     end
 
     subject { LessonsReport.run(start_date: '2017-01-01', end_date: '2017-01-10', gradation: :daily, per_page: 5, page: page) }
-    let(:result) { subject.result }
 
     context 'The first page' do
       let(:page) { 1 }

@@ -1,9 +1,6 @@
 class LessonsReport < ApplicationReport
 
-  GRADATIONS = {
-    monthly: '%Y-%m',
-    daily: '%Y-%m-%d'
-  }
+  GRADATIONS = %i[monthly daily weekly quarterly]
 
   METRICS = {
     total_count: { from: :lessons },
@@ -26,7 +23,7 @@ class LessonsReport < ApplicationReport
   string :order, default: 'period'
   string :direction, default: 'asc'
 
-  validates :gradation, inclusion: { in: GRADATIONS.keys }
+  validates :gradation, inclusion: { in: GRADATIONS }
 
   def arel
     periods
@@ -69,10 +66,6 @@ class LessonsReport < ApplicationReport
 
   def date_range
     @date_range ||= start_date..end_date
-  end
-
-  def gradation_format
-    GRADATIONS[gradation]
   end
 
   def lessons
@@ -155,6 +148,8 @@ class LessonsReport < ApplicationReport
     case period_key
     when :monthly then "LAST_DAY(#{column} - INTERVAL 1 MONTH) + INTERVAL 1 DAY"
     when :daily then "DATE(#{column}) + INTERVAL 0 SECOND"
+    when :weekly then "DATE(#{column}) + INTERVAL 0 SECOND - INTERVAL WEEKDAY(#{column}) DAY"
+    when :quarterly then "LAST_DAY(#{column} - INTERVAL MONTH(#{column}) MONTH) + INTERVAL 24 HOUR + INTERVAL QUARTER(time_start) - 1 QUARTER"
     end
   end
 
@@ -162,6 +157,8 @@ class LessonsReport < ApplicationReport
     case period_key
     when :monthly then date.beginning_of_month.beginning_of_day
     when :daily then date.beginning_of_day
+    when :weekly then date.beginning_of_week.beginning_of_day
+    when :quarterly then date.beginning_of_quarter.beginning_of_day
     end
   end
 
