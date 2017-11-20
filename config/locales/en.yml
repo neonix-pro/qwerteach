@@ -88,6 +88,19 @@ en:
       success: The conversation was marked as unread
       danger: There was a problem, the operation could not be carried out.
   reports:
+    gradation:
+      monthly:
+        name: Monthly
+        period: Month
+      daily:
+        name: Daily
+        period: Day
+      weekly:
+        name: Weekly
+        period: Week
+      quarterly:
+        name: Quarterly
+        period: Quarter
     lessons:
       month: Month
       day: Day

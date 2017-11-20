@@ -1,10 +1,11 @@
 module Admin
   module ReportsHelper
-    def period_to_range(period)
-      if period.match(/^\d{4}-\d{2}$/)
-        "#{period}-01 - #{ Date.parse("#{period}-01").end_of_month.to_s }"
-      else
-        "#{period} - #{period}"
+    def period_to_range(period, gradation)
+      case gradation
+      when :monthly then "#{period.beginning_of_month.strftime('%Y-%m-%d')} - #{period.end_of_month.strftime('%Y-%m-%d')}"
+      when :daily then "#{period.strftime('%Y-%m-%d')} - #{period.strftime('%Y-%m-%d')}"
+      when :weekly then "#{period.beginning_of_week.strftime('%Y-%m-%d')} - #{period.end_of_week.strftime('%Y-%m-%d')}"
+      when :quarterly then "#{period.beginning_of_quarter.strftime('%Y-%m-%d')} - #{period.end_of_quarter.strftime('%Y-%m-%d')}"
       end
     end
 
@@ -18,6 +19,15 @@ module Admin
              end : nil
           }
         }.html_safe
+      end
+    end
+
+    def period_format(date, gradation)
+      case gradation
+      when :monthly then date.strftime('%m-%Y')
+      when :daily then date.strftime('%d-%m-%Y')
+      when :weekly then "#{date.strftime('%d')} - #{date.end_of_week.strftime('%d-%m-%Y')}"
+      when :quarterly then "#{date.strftime('%d-%m')} - #{date.end_of_quarter.strftime('%d-%m-%Y')}"
       end
     end
   end

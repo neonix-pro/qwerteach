@@ -1,6 +1,6 @@
 class LessonsReport < ApplicationReport
 
-  GRADATIONS = %i[monthly daily weekly quarterly]
+  GRADATIONS = %i[daily weekly monthly quarterly]
 
   METRICS = {
     total_count: { from: :lessons },
@@ -149,7 +149,7 @@ class LessonsReport < ApplicationReport
     when :monthly then "LAST_DAY(#{column} - INTERVAL 1 MONTH) + INTERVAL 1 DAY"
     when :daily then "DATE(#{column}) + INTERVAL 0 SECOND"
     when :weekly then "DATE(#{column}) + INTERVAL 0 SECOND - INTERVAL WEEKDAY(#{column}) DAY"
-    when :quarterly then "LAST_DAY(#{column} - INTERVAL MONTH(#{column}) MONTH) + INTERVAL 24 HOUR + INTERVAL QUARTER(time_start) - 1 QUARTER"
+    when :quarterly then "LAST_DAY(#{column} - INTERVAL MONTH(#{column}) MONTH) + INTERVAL 24 HOUR + INTERVAL QUARTER(#{column}) - 1 QUARTER"
     end
   end
 

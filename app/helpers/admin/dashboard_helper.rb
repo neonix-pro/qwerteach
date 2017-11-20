@@ -4,7 +4,7 @@ module Admin
     def data_for_lesson_counts_chart(entities)
       entities.map do |entity|
         {
-          period: entity.period,
+          period: entity.period.to_date,
           count: entity.lessons_count
         }
       end
@@ -13,7 +13,7 @@ module Admin
     def data_for_lesson_amounts_chart(entities)
       entities.map do |entity|
         {
-          period: entity.period,
+          period: entity.period.to_date,
           count: entity.lessons_amount
         }
       end

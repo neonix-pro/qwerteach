@@ -22,3 +22,4 @@
 //= require morris
 
 //= require administrate/dashboard
+//= require administrate/forms

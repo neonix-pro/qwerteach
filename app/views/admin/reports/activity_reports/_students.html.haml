@@ -2,7 +2,7 @@
   .card.sameheight-item
     .card-header.bordered
       .header-block
-        %h4.title Students
+        %h4.title= title
     .card-block
       .table-responsive
         %table.table.table-striped.table-hover.table-min
@@ -11,17 +11,15 @@
               %th{width: 20} ID
               %th{width: 30} Avatar
               %th Name
-              %th{width: 50} New
+              %th{width: 100} Paid
+              %th{width: 60} Lessons
               %th{width: 50}
           %tbody
-            - @students.each do |student|
+            - students.each do |student|
               %tr
                 %td= student.id
                 %td= image_tag avatar_url(student), class: 'cell-avatar'
                 %td= student.name
-                %td
-                  - if (@report.start_date..@report.end_date).include?(student.first_lesson_date.to_date)
-                    Yes
-                  - else
-                    No
+                %td= number_to_currency(student.lessons_amount)
+                %td= link_to('Lessons', admin_lessons_path(q: { student_id_eq: student.id, time_start_gteq: @report.start_date, time_start_lt: @report.end_date + 1.day }))
                 %td= link_to 'Show', admin_student_path(student), class: 'btn btn-sm btn-primary-outline'

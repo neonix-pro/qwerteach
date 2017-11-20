@@ -38,6 +38,11 @@ $(function () {
       alwaysShowCalendars: true,
       parentEl: $el.closest('.form-group').get(0) || 'body'
     })
+    if ($el.hasClass('autosubmit')) {
+      $el.on('apply.daterangepicker', function () {
+        $el.closest('form').submit()
+      })
+    }
   })
 
 

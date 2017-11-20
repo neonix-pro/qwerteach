@@ -4,10 +4,6 @@
       = link_to admin_root_path do
         = icon 'home'
         Dashboard
-    %li{class: nav_link_state(:activity_report)}
-      = link_to admin_reports_activity_path do
-        = icon 'flash'
-        Monthly Activity
     %li{class: nav_link_state(:users)}
       = link_to [namespace, User] do
         = icon 'users'
@@ -71,11 +67,13 @@
         %i.fa.arrow
       %ul.sidebar-nav.collapse
         %li{class: nav_link_state(:lessons_reports)}
-          = link_to("Lessons reports", [namespace, :reports, :lessons])
+          = link_to 'Lessons reports', [namespace, :reports, :lessons]
         %li{class: nav_link_state(:clients_reports)}
-          = link_to("Clients reports", [namespace, :reports, :clients])
+          = link_to 'Clients reports', [namespace, :reports, :clients]
         %li{class: nav_link_state(:teachers_reports)}
-          = link_to("Teachers reports", [namespace, :reports, :teachers])
+          = link_to 'Teachers reports', [namespace, :reports, :teachers]
+        %li{class: nav_link_state(:activity_report)}
+          = link_to 'Activity reports', [namespace, :reports, :activity]
     %li{class: nav_link_state(:banned_users)}
       = link_to([namespace, :banned_users]) do
         = icon 'user-times'
