@@ -1,0 +1,11 @@
+csv.headers :student, :teacher, :topic_group, :topic, :status, :price, :time_start
+csv.rows @lessons do |csv, lesson|
+  csv.cells :status, :price
+  csv.cell :student, lesson.student.try(:name)
+  csv.cell :teacher, lesson.teacher.try(:name)
+  csv.cell :topic, lesson.topic.try(:title)
+  csv.cell :topic_group, lesson.topic_group.try(:title)
+  if lesson.time_start
+    csv.cell :time_start, lesson.time_start.utc.iso8601
+  end
+end

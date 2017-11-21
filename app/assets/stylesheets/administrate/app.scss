@@ -1,6 +1,9 @@
 @import 'modular-admin/variables';
+@import 'modular-admin/mixins';
 //@import 'bootstrap4/variables';
 @import 'bootstrap4/mixins';
 @import 'administrate/custom';
 @import 'administrate/dispute';
 @import 'administrate/messages';
+@import 'administrate/dashboard';
+@import 'administrate/monthly_activity';

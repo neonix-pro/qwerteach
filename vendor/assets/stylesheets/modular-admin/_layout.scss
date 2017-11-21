@@ -1,72 +1,74 @@
-.app {
-  position: relative;
-  width: 100%;
-  padding-left: $sidebar-width;
-  min-height: 100vh;
-  margin: 0 auto;
-  left: 0;
-  background-color: $color-bg;
-  box-shadow: 0 0 3px #ccc;
-  transition: left 0.3s ease, padding-left 0.3s ease;
-  overflow: hidden;
+.row {
+  .col {
+    padding-left: $grid-gutter-width/2;
+    padding-right: $grid-gutter-width/2;
+    float: left;
+  }
+}
 
-  .content {
 
-    $padding-x: $content-padding-x-md;
-    $padding-y: $content-padding-y-md;
+.row-sm {
+  margin-left: -10px;
+  margin-right: -10px;
 
-    padding: $header-height + $padding-y $padding-x $footer-height + $padding-y $padding-x;
-    min-height: 100vh;
+  [class^='col'] {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
 
-    @include media(xl) {
-      $padding-x: $content-padding-x-xl;
-      $padding-y: $content-padding-y-xl;
 
-      padding: $header-height + $padding-y $padding-x $footer-height + $padding-y $padding-x;
-    }
+.title-block {
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid $color-divider;
 
-    @include media(lg) {
-      $padding-x: $content-padding-x-lg;
-      $padding-y: $content-padding-y-lg;
+  @include clearfix();
 
-      padding: $header-height + $padding-y $padding-x $footer-height + $padding-y $padding-x;
-    }
+  @include media-down(sm) {
+    margin-bottom: 20px;
+  }
+}
 
-    @include media(md) {
-      $padding-x: $content-padding-x-md;
-      $padding-y: $content-padding-y-md;
 
-      padding: $header-height + $padding-y $padding-x $footer-height + $padding-y $padding-x;
-    }
+.subtitle-block {
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px dashed lighten($color-divider, 3%);
+}
 
-    @include media-down(sm) {
-      $padding-x: $content-padding-x-sm;
-      $padding-y: $content-padding-y-sm;
+.section {
+  display: block;
+  margin-bottom: $content-padding-y-md - $card-margin-bottom;
 
-      padding: $header-height-xs + $padding-y $padding-x $footer-height + $padding-y $padding-x;
-    }
+
+  @include media(xl) {
+    margin-bottom: $content-padding-y-xl - $card-margin-bottom;
+  }
+
+  @include media(lg) {
+    margin-bottom: $content-padding-y-lg - $card-margin-bottom;
+  }
+
+  @include media(md) {
+    margin-bottom: $content-padding-y-md - $card-margin-bottom;
+  }
+
+  @include media-down(sm) {
+    margin-bottom: $content-padding-y-sm - $card-margin-bottom;
   }
 
 
-  @include media-down(md) {
-    padding-left: 0;
-    // background-color: #ccc;
-    // left: -$sidebar-width;
-    // width: calc(100% + #{$sidebar-width});
+  &:last-of-type {
+    margin-bottom: 0;
   }
+}
 
-  &.sidebar-open {
-    // Disable content scrolling when sidebar is open
-    @include media-down(md) {
-      left: 0;
-      // position: absolute;
-      // height: 100%;
-      // overflow: hidden;
-    }
-  }
-
-  &.blank {
-    background-color: #667380;
-  }
-
+.box-placeholder {
+  margin-bottom: 15px;
+  padding: 20px;
+  border: 1px dashed #ddd;
+  background: #fafafa;
+  color: #444;
+  cursor: pointer;
 }

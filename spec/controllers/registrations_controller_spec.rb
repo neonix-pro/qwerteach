@@ -44,6 +44,7 @@ RSpec.describe RegistrationsController, type: :controller do
     before :each do
       request.env['devise.mapping'] = Devise.mappings[:user]
     end
+    let!(:user) { create(:student) }
     it "shouldn't have a current_user" do
       # note the fact that you should remove the "validate_session" parameter if this was a scaffold-generated controller
       expect(subject.current_user).to eq(nil)
@@ -60,8 +61,7 @@ RSpec.describe RegistrationsController, type: :controller do
     end
     it "shouldn't post create : not valid email" do
       @attr = {:email => "k@k", :password => "password", :password_confirmation => "password"}
-      post 'create', :user => @attr
-      expect(User.last.email).to_not eq(@attr[:email])
+      expect { post 'create', :user => @attr }.to_not change{ User.count }
     end
     it "should post create" do
       @attr = {:email => "k@k.k", :password => "password", :password_confirmation => "password"}

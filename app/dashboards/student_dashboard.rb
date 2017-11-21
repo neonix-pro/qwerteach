@@ -9,7 +9,7 @@ class StudentDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
       gallery: Field::HasOne,
-      offers: Field::HasMany,
+      offers: Field::HasMany.with_options(tab: 'offers'),
       admin_comments: AdminCommentField.with_options(class_name: "Comment"),
       level: Field::BelongsTo,
       id: Field::Number,
@@ -51,7 +51,7 @@ class StudentDashboard < Administrate::BaseDashboard
       avatar_file_size: Field::Number,
       avatar_updated_at: Field::DateTime,
       mango_id: Field::Number,
-      lessons_received: Field::HasMany
+      lessons_received: Field::HasMany.with_options(tab: 'received_lessons')
   }
 
   # COLLECTION_ATTRIBUTES

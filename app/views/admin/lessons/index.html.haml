@@ -24,5 +24,7 @@
     Nouveaux profs ce mois: #{@new_teachers.count} / Total des profs: #{@new_teachers.count + @old_teachers.count}
     <br />
     Cours ce mois: #{@amount_this_month}€ / Total des cours: #{@amount_total}€
+- content_for :head_actions do
+  = link_to t("administrate.actions.export"), export_admin_lessons_path(format: :csv), class: 'btn btn-primary-outline'
 
 = render template: 'admin/application/index', locals: local_assigns
