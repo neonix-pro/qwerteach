@@ -67,7 +67,19 @@ class DashboardReport < ApplicationReport
   end
 
   def period_sql(column)
-    "DATE(#{column}) + INTERVAL 0 SECOND"
+    if sqlite?
+      "datetime(#{column}, 'start of day', '#{timezone_offset_str} hours')"
+    else
+      "DATE(#{column}) + INTERVAL 0 SECOND"
+    end
+  end
+
+  def timezone_offset
+    @timezone_offset ||= (Time.now.utc_offset - Time.current.utc_offset) / 1.hour
+  end
+
+  def timezone_offset_str
+    timezone_offset.negative? ? timezone_offset.to_s : "+#{timezone_offset}"
   end
 
 end

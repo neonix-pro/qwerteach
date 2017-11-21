@@ -21,7 +21,7 @@ RSpec.describe ClientsReport, type: :report do
         first_name: student.firstname,
         last_name: student.lastname
       )
-      expect(result.first.last_seen).to be_within(1.second).of 1.day.ago
+      expect(result.first.last_seen).to be_within(5.seconds).of 1.day.ago
     end
   end
 
