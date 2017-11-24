@@ -186,6 +186,9 @@ GEM
       railties (>= 3.2, < 5.2)
     drafting (0.3.1)
       activerecord (>= 4.1)
+    drip-ruby (0.0.11)
+      faraday (~> 0.9)
+      faraday_middleware (~> 0.9)
     em-http-request (1.1.5)
       addressable (>= 2.3.4)
       cookiejar (!= 0.3.1)
@@ -205,6 +208,8 @@ GEM
       railties (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.12.2)
+      faraday (>= 0.7.4, < 1.0)
     faye (1.2.4)
       cookiejar (>= 0.3.0)
       em-http-request (>= 0.3.0)
@@ -614,6 +619,7 @@ DEPENDENCIES
   devise_lastseenable
   dotenv-rails
   drafting
+  drip-ruby
   factory_girl_rails (~> 4.0)
   ffaker
   figaro

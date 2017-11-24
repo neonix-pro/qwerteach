@@ -138,4 +138,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def drip
+    @drip = Drip::Client.new do |c|
+      c.access_token = ENV["DRIP_ACCESS_TOKEN"]
+      c.account_id = ENV["DRIP_ACCOUNT_ID"]
+    end
+  end
+
 end

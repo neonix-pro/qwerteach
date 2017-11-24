@@ -31,6 +31,8 @@ gem "jquery-ui-rails"
 gem 'js_cookie_rails'
 gem 'intl-tel-input-rails'
 
+gem 'drip-ruby', require: 'drip'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
