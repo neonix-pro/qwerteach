@@ -48,11 +48,11 @@ module Mango
         :author_id => user.mango_id,
         :debited_funds => {
           :currency => "EUR",
-          :amount => payout_amount * 100
+          :amount => payout_amount * 100 * 0.85
         },
         :fees => {
           :currency => "EUR",
-          :amount => fees * 100
+          :amount => payout_amount * 100 * 0.15
         },
         :debited_wallet_id => user.transaction_wallet.id,
         :bank_account_id => bank_account_id
