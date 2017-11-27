@@ -78,6 +78,13 @@ class ApplicationController < ActionController::Base
     Time.zone = current_user.time_zone || "Europe/Berlin"
   end
 
+  def drip
+    @drip ||= Drip::Client.new do |c|
+      c.api_key = ENV["DRIP_API_KEY"]
+      c.account_id = ENV["DRIP_ACCOUNT_ID"]
+    end
+  end
+
   # Use require to define permitted params
   protected
     before_filter do
@@ -135,13 +142,6 @@ class ApplicationController < ActionController::Base
       else
         flash[:lesson] = nil
       end
-    end
-  end
-
-  def drip
-    @drip = Drip::Client.new do |c|
-      c.access_token = ENV["DRIP_ACCESS_TOKEN"]
-      c.account_id = ENV["DRIP_ACCOUNT_ID"]
     end
   end
 

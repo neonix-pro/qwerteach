@@ -105,6 +105,10 @@ class User < ActiveRecord::Base
     mangopay.nationality if self.mango_id.present?
   end
 
+  def drip_custom_fields
+    {firstname: firstname, lastname: lastname, birthdate: birthdate}
+  end
+
   # Methode permettant de faire passer un User à Student
   def upgrade
     self.type = User::ACCOUNT_TYPES[0]
