@@ -22,6 +22,7 @@ class PagesController < ApplicationController
   def abtest
 		index
 		render template: "pages/#{params[:page]}/#{params[:version]}", layout: 'no-navbar'
+		#render template: "pages/#{params[:page]}/winner", layout: 'no-navbar'
 	end
 
 end

@@ -1,154 +1,57 @@
-= content_for :analytics do
-  :javascript
-    function utmx_section(){}function utmx(){}(function(){var
-    k='142045512-12',d=document,l=d.location,c=d.cookie;
-    if(l.search.indexOf('utm_expid='+k)>0)return;
-    function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
-    indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
-    length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
-    '<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
-    '://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
-    '&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
-    valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
-    '" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
-    </script><script>utmx('url','A/B');
-
-.test-lp-expat
-  %header.q4.bgimage
+.test-become-teacher
+  %nav.empty-nav
+    .container
+      .pull-left
+        =link_to root_path do
+          .logo= image_tag('logo.ico')
+      .pull-right
+        %br
+        = link_to 'DONNER DES COURS >', root_path
+  %header
+    .container
+      .titles
+        %h1.text-black.text-left Le bon prof au bon moment
+        %h1.text-black.text-left.text-light Les meilleurs professeurs particuliers<br />sont sur Qwerteach
+      .form.absolute.material-form
+        %h3.text-black.text-left S'inscrire maintenant
+        =render partial: 'devise/registrations/new_form'
+  %header.f1
     .header-content
       .header-content-inner
-        .row
-          .col-sm-7
-            %h1#homeHeading Le bon prof<br />au bon moment
-            %hr/
-            %p Les meilleurs professeurs particuliers sont sur Qwerteach
-          .col-sm-5
-            .form-transparent.material-form
-              =render partial: 'devise/registrations/new_form'
-  %section#about.bg-primary
+  %section#white
     .container
-      .row
-        .col-lg-8.col-lg-offset-2.text-center
-          %h2.section-heading Partout dans le monde ?
-          %hr.light/
-          %p.text-center
-            Grâce à la vidéo-conférence, votre enfant pourra bénéficier d'un soutien scolaire de qualité, où que vous soyez.
-            Notre communauté rassemble des professeurs dynamiques et motivés, qui pourront vous accompagner du
-            collège jusqu'au bac, et même au delà.
-          %p.text-center
-            Que ce soit pour un suivi régulier tout au long de l'année,
-            ou pour une préparation spécifique, comme le brevet des collèges our les épreuves du bac, nos professeurs sont là pour vous aider!
-            Tous ont été sélectionnés avec soin, après un entretien individuel avec notre équipe.
-          %p.text-center
-            De plus, vous pouvez à tout moment faire appel à notre équipe pédagogique pour vous aiguiller vers le
-            professeur particulier qu'il vous faut.
-            <br />
-            En cas de problème, votre cours est intégralement remboursé.
-        .col-lg-12.text-center
-          = link_to "S'inscrire", new_user_registration_path, class: 'btn btn-default btn-qw'
-  %aside.bg-dark
-    .container.text-center
-      .call-to-action
-        %h2 Concrètement, coment ça marche?
-    .container
-      .row
-        .col-md-4.text-center
-          .service-box
-            %i.fa.fa-4x.fa-search.text-primary.sr-icons
-            %h3 1.<br />Choisissez votre prof
-            %p.text-muted Faites votre sélection parmis nos professeurs particuliers.
-        .col-md-4.text-center
-          .service-box
-            %i.fa.fa-4x.fa-credit-card.text-primary.sr-icons
-            %h3 2.<br />Réservez
-            %p.text-muted Vous réservez en toute simplicité, via notre interface sécurisée.
-        .col-md-4.text-center
-          .service-box
-            %i.fa.fa-4x.fa-graduation-cap.text-primary.sr-icons
-            %h3 3.<br />Votre cours particulier
-            %p.text-muted Grâce à notre classe virtuelle, vous retrouvez votre professeur en un clic via visio-conférence.
-    .container.text-center
-      .call-to-action
-        %hr.primary
-        = link_to "S'inscrire", new_user_registration_path, class: 'btn btn-default btn-qw'
-  = render 'pages/accueil/partie_commentaire'
-  %section#services
-    .container
-      .row
-        .col-lg-12.text-center
-          %h2.section-heading Un nouveau genre de soutien scolaire
-          %hr.primary/
-    .container
-      .row
-        .col-lg-3.col-md-6.text-center
-          .service-box
-            %i.fa.fa-4x.fa-diamond.text-primary.sr-icons
-            %h3 Les meilleurs profs
-            %p.text-muted Nous vérifions les capacités de chaque professeur
-        .col-lg-3.col-md-6.text-center
-          .service-box
-            %i.fa.fa-4x.fa-paper-plane.text-primary.sr-icons
-            %h3 Où vous voulez
-            %p.text-muted Suivez vos cours n'importe où dans le monde
-        .col-lg-3.col-md-6.text-center
-          .service-box
-            %i.fa.fa-4x.fa-newspaper-o.text-primary.sr-icons
-            %h3 Pédagogie revisitée
-            %p.text-muted Variez les durées de cours, apprenez différemment
-        .col-lg-3.col-md-6.text-center
-          .service-box
-            %i.fa.fa-4x.fa-heart.text-primary.sr-icons
-            %h3 L'essentiel
-            %p.text-muted Nos professeurs vous accompagnent vers la réussite!
-
-  %section#about.bg-primary
-    .container
-      .row
-        .col-lg-8.col-lg-offset-2.text-center
-          %h2.section-heading Le cours particulier, un passage parfois nécessaire
-          %hr.light/
-        .col-lg-6
-          %p.text-faded
-            Trouver un <b>bon prof particulier</b> ce n'est pas toujours facile! <br />Et lorsque l'on habite à l'étranger,
-            ça devient presque impossible...<br />
-            Si c'est votre cas, Qwerteach est fait pour vous!
-          %p.text-faded
-            Grâce à la visio-conférence, vous pouvez bénéficier d'un <b>soutien scolaire de qualité</b>, avec des enseignants
-            formés au <b>programme officiel</b>, et habitués aux exigences du bac, du brevet des collèges, et autres épreuves standardisées (CE1D, CEB, Jury Central...).
-            Nos professeurs ont tous été interviewés individuellement, afin de nous assurer de leur compétences
-            et aptitudes pédagogiques. Ainsi, que ce soit pour un problème de maths en 3ème année, ou pour préparer
-            l'oral de philo, vous trouverez ici le professeur particulier qu'il vous faut!
-        .col-lg-6
-          %p.text-faded
-            Aujourd'hui, <b>plus de 60% des jeunes redoublent</b> au moins une année lors de leur parcours scolaire. Entre un
-            enseignement qui n' pas évolué depuis le siècle dernier et des profs de moins en moins motivés, difficile de s'en étonner!
-            Nombreux sont les parents qui ont recours aux <b>cours particuliers</b>.
-          %p.text-faded
-            Le jeune en difficulté scolaire a besoin de <b>reprendre confiance</b> en lui et en ses capacités. Prendre des
-            cours de soutien lui permettra de se confronter à ses difficultés, et de les surmonter petit à petit.
-            La relation de confiance qui se développe entre le professeur particulier et son élève est très importante dans ce processus,
-            c'est pourquoi le <b>choix du professeur</b> est primordial.
-        .col-lg-12.text-center
-          %hr.light/
-          = link_to "S'inscrire", new_user_registration_path, class: 'btn btn-default btn-qw'
-  %section#contact
-    .container
-      .row
-        .col-lg-8.col-lg-offset-2.text-center
-          %h2.section-heading Contactez-nous!
-          %hr.primary/
-          %p
-            Vous êtes prêts à découvrir le futur des cours particuliers, mais il vous reste quelques questions?
-            Notre équipe est à votre disposition.
-        .col-lg-4.col-lg-offset-2.text-center
-          = link_to '#', class: 'open-tawk' do
-            %i.fa.fa-comments-o.fa-3x.sr-chat.text-black
-            %p "chat"
-        .col-lg-4.text-center
-          %i.fa.fa-envelope-o.fa-3x.sr-contact
-          %p
-            = link_to "hello@qwerteach.com", "mailto:hello@qwerteach.com"
+      .overflow
+        %h2.section-heading
+          Les cours particuliers,
+        %h2.section-heading.text-light
+          nouvelle génération
+        .row#arguments
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/teacher.svg')
+              %h3.text-left Vos cours particuliers, où vous voulez
+              %p.text-left Où que vous soyez dans le monde, retrouvez votre professeur particulier dans la classe virtuelle Qwerteach. Le cours en ligne, c'est un vrai cours particulier, sans devoir se déplacer.
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/timing.svg')
+              %h3.text-left A vos horaires
+              %p.text-left Discutez avec votre profeseur et fixez enemble les horaires qui vous arrangent. Sur Qwerteach nous vous encourageons à étaler vos cours sur la semaine. Des scéances plus courtes, plus souvent: l'idéal pour bien apprendre.
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/landing_payement.svg')
+              %h3.text-left Payez en toute sécurité
+              %p.text-left Grâce à notre système de paiement sécurisé, vous réservez vos cours en un clic. En cas de problème lors d'un cours, vous serez intégralement remboursé. Sans discussion.
+        #ready
+          %h2.section-heading
+            Prêt à démarrer ?
+          %h2.section-heading.text-light
+            Passez aux cours en ligne et boostez vos notes!
+          = link_to "C'est parti", 'body', class: 'btn btn-cta btn-green'
 
 :javascript
-  $('.bgimage').height($(window).height()*0.7)
-
+  $('.btn-cta').click(function(e){
+    e.preventDefault();
+    $('html, body').animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top
+    }, 500);
+  });
