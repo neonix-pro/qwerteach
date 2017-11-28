@@ -1,86 +1,58 @@
-- content_for :analytics do
-  :javascript
-    function utmx_section(){}function utmx(){}(function(){var
-    k='142045512-7',d=document,l=d.location,c=d.cookie;
-    if(l.search.indexOf('utm_expid='+k)>0)return;
-    function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
-    indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
-    length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
-    '<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
-    '://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
-    '&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
-    valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
-    '" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
-    </script><script>utmx('url','A/B');
 .test-become-teacher
-  %header.q2.section_bigimage
+  %nav.empty-nav
+    .container
+      .pull-left
+        =link_to root_path do
+          .logo= image_tag('logo.ico')
+      .pull-right
+        %br
+        = link_to 'PRENDRE DES COURS >', root_path
+  %header
+    .container
+      .titles
+        %h1.text-black.text-left
+          Donnez des cours particuliers au monde entier
+        %h1.text-black.text-left.text-light Devenez prof particulier et soyez payé,<br />depuis votre canapé!
+      .form.absolute.material-form
+        %h3.text-black.text-left S'inscrire maintenant
+        =render partial: 'devise/registrations/new_form'
+  %header.f1
     .header-content
       .header-content-inner
-        %h1#homeHeading Passez à<br />l'aide scolaire 2.0
-        %hr/
-        %p Fini les déplacements,<br />démarrez vos cours en un clic!
-        = link_to 'Devenez prof', new_user_registration_path, class: 'btn btn-primary btn-qw become-teacher'
-  %section#about.bg-primary
+  %section#white
     .container
-      .row
-        .col-lg-8.col-lg-offset-2.text-center
-          %h2.section-heading Enseignez en toute liberté
-          %hr.light/
-          %p.text-faded
-            Vous en avez assez de perdre votre temps dans les transports, et de travailler pour des agences? <br />Qwerteach est fait pour vous!
-          %p.text-faded
-            Donnez vos cours particuliers où et quand vous voulez, à votre rythme et à votre propre tarif.
-            Grâce à Qwerteach, vous pouvez vous concentrer sur l'essentiel: accompagner vos élèves vers la réussite!
-          = link_to 'Poser ma candidature', new_user_registration_path, class: 'btn btn-default btn-qw become-teacher'
-  %section#services
-    .container
-      .row
-        .col-lg-12.text-center
-          %h2.section-heading A votre service
-          %hr.primary/
-    .container
-      .row
-        .col-lg-3.col-md-6.text-center
-          .service-box
-            %i.fa.fa-4x.fa-diamond.text-primary.sr-icons
-            %h3 Votre travail est reconnu
-            %p.text-muted Bénéficiez du feedback de vos élèves et créez votre réputation
-        .col-lg-3.col-md-6.text-center
-          .service-box
-            %i.fa.fa-4x.fa-paper-plane.text-primary.sr-icons
-            %h3 En toute liberté
-            %p.text-muted Vous choisissez vos élèves, votre tarif, vos plages horaires
-        .col-lg-3.col-md-6.text-center
-          .service-box
-            %i.fa.fa-4x.fa-newspaper-o.text-primary.sr-icons
-            %h3 Une nouvelle façon d'enseigner
-            %p.text-muted Variez vos durées de cours, innovez dans vos méthodes
-        .col-lg-3.col-md-6.text-center
-          .service-box
-            %i.fa.fa-4x.fa-heart.text-primary.sr-icons
-            %h3 L'essentiel
-            %p.text-muted Accompagnez vos élèves vers la réussite!
-  %aside.bg-dark
-    .container.text-center
-      .call-to-action
-        %h2 Rejoignez la communauté!
-        = link_to 'Devenir prof', new_user_registration_path, class: 'btn btn-default btn-qw become-teacher'
-  %section#contact
-    .container
-      .row
-        .col-lg-8.col-lg-offset-2.text-center
-          %h2.section-heading Contactez-nous!
-          %hr.primary/
-          %p Vous êtes prêts à découvrir une nouvelle façon d'enseigner, mais il vous reste quelques questions? Notre équipe est à votre disposition.
-        .col-lg-4.col-lg-offset-2.text-center
-          = link_to '#', class: 'open-tawk' do
-            %i.fa.fa-comments-o.fa-3x.sr-chat.text-black
-            %p "chat"
-        .col-lg-4.text-center
-          %i.fa.fa-envelope-o.fa-3x.sr-contact
-          %p
-            = link_to "mailto:hello@qwerteach.com", "mailto:hello@qwerteach.com"
+      .overflow
+        %h2.section-heading
+          Une nouvelle façon
+        %h2.section-heading.text-light
+          d'enseigner
+        .row#arguments
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/teacher.svg')
+              %h3.text-left Enseignez où vous voulez
+              %p.text-left Depuis votre canapé, en vacances à l'étranger... Avec Qwerteach vous êtes libres d'enseigner où vous voulez!
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/timing.svg')
+              %h3.text-left A vos horaires
+              %p.text-left Donnez cours le week-end, en soirée, ou à temps plein, à vous de choisir. Vous êtes le patron, vous fixez vos horaires de travail.
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/landing_payement.svg')
+              %h3.text-left Gagnez de l'argent
+              %p.text-left Vous choisissez vous-même votre tarif, et Qwerteach sécurise vos payements. Ainsi, vous pouvez vous concentrer sur l'essentiel: la réussite de vos élèves.
+        #ready
+          %h2.section-heading
+            Prêt à démarrer ?
+          %h2.section-heading.text-light
+            Rejoignez la communauté et commencez à gagner de l'argent
+          = link_to "C'est parti", 'body', class: 'btn btn-cta btn-green'
+
 :javascript
-  $('.become-teacher').click(function(){
-    ga('send', 'event', 'click-teacher-application', $(this).text() );
+  $('.btn-cta').click(function(e){
+    e.preventDefault();
+    $('html, body').animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top
+    }, 500);
   });
