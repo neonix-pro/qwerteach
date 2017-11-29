@@ -21,9 +21,15 @@ class PayTeacher < ActiveInteraction::Base
           raise ActiveRecord::Rollback
         end
         payment.status = 'paid'
+        if !payment.save
+          self.errors.merge! payment.errors
+          Rails.logger.debug("Impossible de sauver le payement. #{payment.errors.full_messages.to_sentence}")
+          raise ActiveRecord::Rollback
+        end
         payment.transfer_prof_id = transfer.id
         if !payment.save
           self.errors.merge! payment.errors
+          Rails.logger.debug("Impossible de sauver le payement. #{payment.errors.full_messages.to_sentence}")
           raise ActiveRecord::Rollback
         end
         return transfer.result
