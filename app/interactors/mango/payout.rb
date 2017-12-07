@@ -48,7 +48,7 @@ module Mango
         :author_id => user.mango_id,
         :debited_funds => {
           :currency => "EUR",
-          :amount => payout_amount * 100 * 0.85
+          :amount => payout_amount * 100
         },
         :fees => {
           :currency => "EUR",
