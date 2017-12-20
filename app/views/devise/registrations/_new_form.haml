@@ -2,6 +2,7 @@
   - @minimum_password_length = User.password_length.min
   = devise_error_messages!
   = f.hidden_field :time_zone
+  = f.hidden_field :source, value: session[:source] unless session[:source].nil?
   .row
     .input-field.col-sm-6
       = f.label :firstname, 'Prénom'

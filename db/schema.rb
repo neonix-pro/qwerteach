@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113031305) do
+ActiveRecord::Schema.define(version: 20171220163144) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -466,6 +466,7 @@ ActiveRecord::Schema.define(version: 20171113031305) do
     t.text     "tokens"
     t.string   "authentication_token",   limit: 30
     t.string   "video_url"
+    t.string   "source"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true

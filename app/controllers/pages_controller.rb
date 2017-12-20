@@ -25,4 +25,9 @@ class PagesController < ApplicationController
 		#render template: "pages/#{params[:page]}/winner", layout: 'no-navbar'
 	end
 
+  def marketing
+		session[:source] = params[:source]
+		render template: "pages/#{params[:target]}/#{params[:source]}", layout: 'no-navbar'
+	end
+
 end
