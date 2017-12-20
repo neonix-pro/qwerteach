@@ -39,6 +39,7 @@ class window.RequestLesson extends window.LessonForm
       $('.minutes-select').prop("disabled", false)
 
   onChangeBookingStep: (e)->
+    @calculatePrice()
     $('#lesson-details').children('.alert').remove();
     if($(e.currentTarget).attr('data-toggle') == '#step2')
       @displayRecap()
