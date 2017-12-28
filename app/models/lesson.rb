@@ -56,14 +56,20 @@ class Lesson < ActiveRecord::Base
   validates :teacher, presence: true
   validates :level, presence: true
   validates :status, presence: true
-  validates :time_start, presence: true
+  #validates :time_start, presence: true
   #validates_datetime :time_start, :on_or_after => lambda { DateTime.current }
   validates :time_end, presence: true
   validates_datetime :time_end, :after => :time_start
   validates :topic_group_id, presence: true
   validates :price, presence: true
   validates :price, :numericality => { :greater_than_or_equal_to => 0 }
+  validate :time_start_cannot_be_in_the_past
 
+  def time_start_cannot_be_in_the_past
+    if time_start.present? && time_start < Date.today
+      errors.add(:time_start, "La date du cours doit être dans le futur")
+    end
+  end
 
   def self.async_send_notifications
     Resque.enqueue(LessonsNotifierWorker)
