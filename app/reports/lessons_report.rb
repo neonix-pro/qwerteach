@@ -21,7 +21,7 @@ class LessonsReport < ApplicationReport
   integer :page, default: 1
   integer :per_page, default: 20
   string :order, default: 'period'
-  string :direction, default: 'asc'
+  string :direction, default: 'desc'
 
   validates :gradation, inclusion: { in: GRADATIONS }
 
@@ -69,7 +69,7 @@ class LessonsReport < ApplicationReport
   end
 
   def lessons
-    Lesson.arel_table
+    Lesson.where('price > 0').arel_table
   end
 
   def created_lessons

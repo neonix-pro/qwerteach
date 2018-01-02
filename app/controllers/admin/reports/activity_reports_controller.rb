@@ -74,6 +74,7 @@ module Admin
             status: Lesson.statuses[:created],
             time_start: @report.start_date.beginning_of_day..@report.end_date.end_of_day
           })
+          .where('price >0')
       end
 
       def students
@@ -95,6 +96,7 @@ module Admin
             status: Lesson.statuses[:created],
             time_start: @report.start_date..@report.end_date
           })
+          .where('price >0')
       end
 
       def disputes
