@@ -37,8 +37,9 @@ class LessonRequestsController < ApplicationController
       if @lesson.free_lesson
         if @user.can_book_free_lesson_with?(@teacher)
           @lesson.save
-          NotificationsMailer.notify_teacher_about_booking(@lesson).deliver_later
-          notify_teacher("#{student.name} vous adresse une demande de cours. " + link_to('Détails', lessons_path))
+          #NotificationsMailer.notify_teacher_about_booking(@lesson).deliver_later
+          #notify_teacher("#{@lesson.student.name} vous adresse une demande de cours. " + link_to('Détails', lessons_path))
+          LessonNotificationsJob.perform_async(:notify_teacher_about_booking, @lesson.id)
           respond_to do |format|
             format.js {render 'finish'}
             format.json {render :json => {:message => "finish"}}
