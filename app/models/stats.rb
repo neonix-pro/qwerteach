@@ -8,7 +8,7 @@ class Stats
   def new_student_count
     @new_student_count ||= Lesson.created
       .group(:student_id)
-      .having(Lesson.arel_table[:time_start].minimum.between(days.days.ago.beginning_of_day..Time.current))
+      .having(Lesson.arel_table[:time_start].minimum.between(days.days.ago.beginning_of_day..Time.current), Lesson.arel_table[:price].gt(0))
       .minimum(:time_start).size
   end
 
