@@ -2,6 +2,7 @@ class RegistrationsController < Devise::RegistrationsController
   after_action :save_user_timezone, only: [:create]
   before_filter :configure_permitted_parameters, only: [:update]
   after_action :send_google_analytics, only: :create
+  after_action :update_drip_subscription, only: [:update]
   respond_to :html, :js
 
   def sign_up(resource_name, resource)
@@ -41,6 +42,14 @@ class RegistrationsController < Devise::RegistrationsController
         t.google_analytics :send, { type: 'event', category: 'Users', action: 'registration', label: 'new' }
       end
     rescue
+    end
+  end
+
+  def update_drip_subscription
+    unless current_user.is_a?(Teacher) || current_user.description == ''
+      drip
+      @drip.unsubscribe(current_user.email, '536758291')
+      @drip.subscribe(current_user.email, '120243932', double_optin: false)
     end
   end
 

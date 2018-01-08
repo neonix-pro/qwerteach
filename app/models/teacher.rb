@@ -15,6 +15,7 @@ class Teacher  < Student
 
   scope :reader_scope, -> { where(is_admin: true) }
   scope :with_lessons, -> { joins(:lessons_given) }
+  scope :postuling, -> { where(:postulance_accepted=>false, active: true).where.not(description: '')}
 
   def mark_as_inactive
     self.update active: false
