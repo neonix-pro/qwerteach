@@ -63,7 +63,7 @@ class Lesson < ActiveRecord::Base
   validates :topic_group_id, presence: true
   validates :price, presence: true
   validates :price, :numericality => { :greater_than_or_equal_to => 0 }
-  validate :time_start_cannot_be_in_the_past
+  validate :time_start_cannot_be_in_the_past, on: :create
 
   def time_start_cannot_be_in_the_past
     if time_start.present? && time_start < Date.today
