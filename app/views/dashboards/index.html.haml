@@ -20,10 +20,23 @@
         - @to_review_lessons.each do |l|
           .col-xs-12
             = render partial: 'dashboards/cards/to_review', locals: {lesson: l}
+
 -if !@user.is_a?(Teacher) && @user.lessons_received.empty?
   .container-fluid
     .row
+      = render 'find_teacher'
+  .container
+    .row
+      %hr
+      %h3.text-center
+        Nos professeurs par matière:
+      - @featured_topics.each do |topic|
+        = render partial: 'dashboards/cards/card_topic', locals: {topic: topic}
+    %hr
+  .container-fluid
+    .row
       = render 'help_request_lesson'
+    %hr
 - if @user.is_a?(Teacher) && @user.lessons_given.empty?
   .container-fluid
     .row
@@ -47,6 +60,7 @@
       = render 'dashboards/teacher/incubator_tools'
   - else
     = render partial: 'featured_teachers', locals: {teachers: @featured_teachers}
+
   %hr
 
 = render partial: 'contact_admin', locals:{me: current_user, user: @admin, new: @conversation.empty?}

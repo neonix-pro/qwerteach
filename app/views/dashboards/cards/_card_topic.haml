@@ -1,0 +1,8 @@
+.col-md-3.col-sm-4.col-xs-6
+  .card
+    .card-content.text-center
+      =link_to profs_path(topic.title) do
+        .card-title
+          %h3= topic.title
+        .matiere
+          = image_tag(topic.pictotype(:grey_small), :class => "")

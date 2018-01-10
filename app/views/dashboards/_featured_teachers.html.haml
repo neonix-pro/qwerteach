@@ -5,3 +5,5 @@
     #search-results
       -teachers.each do |teacher|
         = render partial: 'users/search/search_result', :locals => {:u => teacher, :custom=>nil}
+    %hr
+    %h4.text-center #{link_to 'Tous les profs', profs_path}

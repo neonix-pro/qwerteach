@@ -185,8 +185,14 @@
   }
 }
 #help_request_lesson{
-  padding: 100px 0px 50px 0px;
   background-image: image-url("dashboard/help_request_lesson.jpg");
+}
+#help_find_teacher{
+  background-image: image-url("dashboard/help_find_teacher.jpg");
+}
+
+#help_request_lesson, #help_find_teacher{
+  padding: 100px 0px 50px 0px;
   background-size: cover;
   .help{
     font-size: 24px;
