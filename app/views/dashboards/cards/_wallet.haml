@@ -5,7 +5,7 @@
         .icon-coloured.icon-purple.icon-title
           %i.fa.fa-euro.fa-2x
       .col-xs-10
-        .card-title{ @user.is_a?(Teacher)? '' : {data: {toggle: 'tooltip' , title:"Si vous pré-chargez de l'argent sur votre compte Qwerteach, vous pourrez l'utiliser pour réserver des cours."}}}
+        .card-title{ @user.is_a?(Teacher)? {} : {data: {toggle: 'tooltip' , title:"Si vous pré-chargez de l'argent sur votre compte Qwerteach, vous pourrez l'utiliser pour réserver des cours."}}}
           Portefeuille <br />
           - unless @user.mango_id.nil?
             %span.text-green #{@user.total_wallets_in_cents/100} €
