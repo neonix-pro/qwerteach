@@ -3,6 +3,10 @@ class OnboardingController < ApplicationController
 
   steps :welcome, :choose_role, :phone #,:topics
 
+  def finish_wizard_path
+    profs_path
+  end
+
   def show
     @user = current_user
     case step
