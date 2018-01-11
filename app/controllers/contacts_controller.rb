@@ -56,7 +56,7 @@ class ContactsController < ApplicationController
   end
 
   def merged_message
-     "#{params[:message]}  \n\r Téléphone: +#{params[:phone_country_code]}#{params[:phone_number]}"
+     "#{params[:message]}  \n\r Téléphone: +#{params[:phone_country_code]}#{params[:phone_number]} \n\r Email: #{current_user.email} \n\r IP: #{current_user.current_sign_in_ip}"
   end
 
 end
