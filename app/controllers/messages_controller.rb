@@ -6,15 +6,17 @@ class MessagesController < ApplicationController
   end
 
   def create
-    sending = SendMessage.run(send_params.merge(user: current_user))
-    notice = sending.valid? ? I18n.t('send_message.validate.success') : sending.errors.full_messages.to_sentence
+    @sending = SendMessage.run(send_params.merge(user: current_user))
+    notice = @sending.valid? ? I18n.t('send_message.validate.success') : @sending.errors.full_messages.to_sentence
+    @user_type = @sending.recipients.first.is_a?(Teacher)? 'prof' : 'élève'
+    @user_type = 'admin' if @sending.recipients.first.admin?
     respond_to do |format|
       format.html do
-        flash[sending.valid? ? :success : :danger] = notice
+        flash[@sending.valid? ? :success : :danger] = notice
         redirect_to params[:redirect_to].presence || messagerie_path
       end
       format.js { render action: 'too_short' unless status }
-      format.json { render :json => {success: sending.valid?, message: notice} }
+      format.json { render :json => {success: @sending.valid?, message: notice} }
     end
   end
 

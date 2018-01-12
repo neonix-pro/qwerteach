@@ -3,3 +3,11 @@ $('#contact-modal .close').click();
 <% flash.each do |key, value| %>
   $('#flash-messages').append("<%= j render partial: 'shared/flash_dismiss', locals:{type: key, content: value} unless value.nil? %>");
 <% end %>
+<% if @sending.valid? %>
+  if($('#new-conversation').length >0){
+    ga('send', 'event', 'messagerie', "Initier une conversation avec un <%= @user_type %>", "user id: <%= current_user.id%>");
+  }
+  else{
+    ga('send', 'event', 'messagerie', "Répondre à un <%= @user_type %>", "user id: <%= current_user.id%>");
+  }
+<% end %>
