@@ -101,7 +101,9 @@ class Teacher  < Student
       t += l.time_end.strftime('%s').to_i
       t -= l.time_start.strftime('%s').to_i
     end
-    (t/3600) * (name.length+name.to_i(base=16).to_s.chars.map(&:to_i).reduce(:+))
+    t/=3600
+
+    t * (name.length+name.to_i(base=16).to_s.chars.map(&:to_i).reduce(:+)) if t < 100
   end
 
   def avg_reviews
