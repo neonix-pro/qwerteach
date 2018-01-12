@@ -27,6 +27,12 @@ class ContactsController < ApplicationController
     @contact.request = request
     if @contact.deliver
       flash[:notice] = 'Merci! Un membe de notre équipe vous contactera sous peu.'
+      begin
+        tracker do |t|
+          t.google_analytics :send, { type: 'event', category: 'Entretien pedagogique', action: 'Demander un entretien pedagogique', label: "User id: #{current_user.id}" }
+        end
+      rescue
+      end
     else
       flash[:danger] = "Désolé, il y a eu un problème avec votre requête. Celle-ci n'a pas été envoyée."
     end

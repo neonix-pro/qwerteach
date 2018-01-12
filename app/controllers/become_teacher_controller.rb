@@ -50,6 +50,7 @@ class BecomeTeacherController < ApplicationController
         end
       when :finish_postulation
         drip_subscription
+        send_event_user_status
     end
     render_wizard
   end
@@ -110,6 +111,15 @@ class BecomeTeacherController < ApplicationController
     else
       @drip.create_or_update_subscriber(current_user.email, {custom_fields: current_user.drip_custom_fields, user_id: current_user.id})
       @drip.subscribe(current_user.email, '536758291', double_optin: false)
+    end
+  end
+
+  def send_event_user_status
+    begin
+      tracker do |t|
+        t.google_analytics :send, { type: 'event', category: 'Inscription - prof', action: 'Confirmer sa postulation', label: "user id: #{current_user.id}" }
+      end
+    rescue
     end
   end
 end

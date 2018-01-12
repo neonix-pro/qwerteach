@@ -3,6 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters, only: [:update]
   after_action :send_google_analytics, only: :create
   after_action :update_drip_subscription, only: [:update]
+  after_action :send_event_user_status, only: [:update]
   respond_to :html, :js
 
   def sign_up(resource_name, resource)
@@ -37,9 +38,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def send_google_analytics
+    category = "Inscription - #{session[:supposed_user_type].nil? ? '?': session[:supposed_user_type]}"
+    action = "Inscription #{current_user.provider.nil? ? 'e-mail' : current_user.provider}"
     begin
       tracker do |t|
-        t.google_analytics :send, { type: 'event', category: 'Users', action: 'registration', label: 'new' }
+        t.google_analytics :send, { type: 'event', category: category, action: action, label: "user id: #{current_user.id}" }
       end
     rescue
     end
@@ -50,6 +53,17 @@ class RegistrationsController < Devise::RegistrationsController
       drip
       @drip.unsubscribe(current_user.email, '536758291')
       @drip.subscribe(current_user.email, '120243932', double_optin: false)
+    end
+  end
+
+  def send_event_user_status
+    unless current_user.is_a?(Teacher) || current_user.description == ''
+      begin
+        tracker do |t|
+          t.google_analytics :send, { type: 'event', category: 'Inscription - prof', action: 'Confirmer sa postulation', label: "user id: #{current_user.id}" }
+        end
+      rescue
+      end
     end
   end
 
