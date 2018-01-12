@@ -11,7 +11,7 @@
                   %i.fa.fa-circle.text-green
                   en ligne
                 .result-online
-            - if u.video_url != nil
+            - if u.video_url != nil && u.video_url != ''
               .result-video.text-center
                 = link_to user_path(u.id) do
                   %i.fa.fa-youtube-play.fa-2x
