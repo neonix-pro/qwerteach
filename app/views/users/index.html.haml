@@ -31,9 +31,12 @@
         - unless @filter.nil? || @filter == ''
           , #{t("search.filters.#{@filter}")}
     - unless @search.empty?
-      .row
-        - @search.each do |u|
-          = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
+      .row.results
+        - @search.in_groups_of(4, false) do |group|
+          - group.each do |u|
+            = render partial: 'users/search/search_result', :locals => {:u => u, :custom=>nil}
+          .col-sm-12.hidden-xs
+            = render partial: 'dashboards/help_request_lesson'
     - else
       =render partial: 'users/search/noresults', locals:{popular_topics: popular_topics}
 - unless @search.empty?

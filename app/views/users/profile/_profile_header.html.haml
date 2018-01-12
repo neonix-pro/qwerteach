@@ -10,8 +10,8 @@
           %span.number-of-reviews
             #{@user.reviews_received.count}
             %i.fa.fa-user
-          %span.number-of-hours.badge.badge-topic-6
-            - unless @user.duration_taught < 5
+          - unless @user.duration_taught < 5
+            %span.number-of-hours.badge.badge-topic-6
               #{@user.duration_taught} heures de cours
       %h2.user-name
         #{@user.firstname} #{@user.lastname}

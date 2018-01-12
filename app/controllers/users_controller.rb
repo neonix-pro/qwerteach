@@ -28,7 +28,8 @@ class UsersController < ApplicationController
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
-    per_page = params[:per_page] || 12
+    @contact = Contact.new()
+    per_page = params[:per_page] || 16
     search_sorting_options
     params[:topic] = 'maths' if params[:topic] == 'math' # TODO: find better way to do this ! (sunspot dictionary?)
     @sunspot_search = Sunspot.search(Offer) do

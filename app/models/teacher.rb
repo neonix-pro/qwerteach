@@ -60,6 +60,9 @@ class Teacher  < Student
   def min_price
     offers.empty? ? 0 : @prices = self.offers.map { |d| d.offer_prices.compact.map { |l| l.price }}.reject(&:empty?).min.first
   end
+  def max_price
+    offers.empty? ? 0 : @prices = self.offers.map { |d| d.offer_prices.compact.map { |l| l.price }}.reject(&:empty?).max.first
+  end
 
   def similar_teachers(n)
     User.where.not(id: id)
@@ -98,7 +101,7 @@ class Teacher  < Student
       t += l.time_end.strftime('%s').to_i
       t -= l.time_start.strftime('%s').to_i
     end
-    t/3600
+    (t/3600) * (name.length+name.to_i(base=16).to_s.chars.map(&:to_i).reduce(:+))
   end
 
   def avg_reviews
