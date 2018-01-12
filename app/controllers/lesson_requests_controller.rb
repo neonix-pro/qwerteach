@@ -40,6 +40,9 @@ class LessonRequestsController < ApplicationController
           #NotificationsMailer.notify_teacher_about_booking(@lesson).deliver_later
           #notify_teacher("#{@lesson.student.name} vous adresse une demande de cours. " + link_to('Détails', lessons_path))
           LessonNotificationsJob.perform_async(:notify_teacher_about_booking, @lesson.id)
+          tracker do |t|
+            t.google_analytics :send, { type: 'event', category: analytics_category, action: 'Confirmer reservation gratuite', label: "Prof id: #{@teacher.id}"}
+          end
           respond_to do |format|
             format.js {render 'finish'}
             format.json {render :json => {:message => "finish"}}
@@ -80,8 +83,7 @@ class LessonRequestsController < ApplicationController
     if processing.valid?
       send_notification
       tracker do |t|
-        t.google_analytics :send, { type: 'event', category: 'Booking', action: 'created_by_student', label: "Prof id: #{@teacher.id}" }
-        t.google_analytics :send, { type: 'event', category: 'Payment', action: 'Booking payment', label: "Credit Card", value: @lesson.price }
+        t.google_analytics :send, { type: 'event', category: analytics_category, action: 'Payer reservation par Carte', label: "Prof id: #{@teacher.id}", value: "#{@lesson.price.to_s}" }
       end
       respond_to do |format|
         format.html {render 'finish'}
@@ -100,8 +102,7 @@ class LessonRequestsController < ApplicationController
     if processing.valid?
       send_notification
       tracker do |t|
-        t.google_analytics :send, { type: 'event', category: 'Booking', action: 'created_by_student', label: "Prof id: #{@teacher.id}" }
-        t.google_analytics :send, { type: 'event', category: 'Payment', action: 'Booking payment', label: "Bancontact", value: @lesson.price }
+        t.google_analytics :send, { type: 'event', category: analytics_category, action: 'Payer reservation par Bancontact', label: "Prof id: #{@teacher.id}", value: "#{@lesson.price.to_s}" }
       end
       respond_to do |format|
         #format.html {redirect_to lessons_path, notice: t('notice.booking_success')}
@@ -213,6 +214,10 @@ class LessonRequestsController < ApplicationController
 
   def check_users_different
     raise BookWithSelf unless !current_user || User.find(params[:user_id]) != current_user
+  end
+
+  def analytics_category
+    "Réservation - #{current_user.is_a?(Teacher)? 'prof':'élève'}"
   end
 
 end

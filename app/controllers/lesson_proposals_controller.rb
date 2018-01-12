@@ -12,7 +12,9 @@ class LessonProposalsController < ApplicationController
   def create
     @proposal = SuggestLesson.run(proposal_params.merge(user: current_user))
     if @proposal.valid?
-      #ga_track_event("Booking", "created_by_teacher",  "Credit Card", @proposal.price)
+      tracker do |t|
+        t.google_analytics :send, { type: 'event', category: "Réservation - prof", action: "Proposer un cours", label: "Prof id: #{current_user.id}"}
+      end
       redirect_to dashboard_path, notice: 'Lesson was created successfully'
     else
       respond_to do |format|

@@ -21,7 +21,7 @@ class PayLesson < ActiveInteraction::Base
     paying = PayLessonByTransfert.run(user: user, lesson: lesson, wallet: beneficiary_wallet)
     if paying.valid?
       controller.tracker do |t|
-        t.google_analytics :send, { type: 'event', category: 'Booking', action: 'created_by_student', label: "Prof id: #{lesson.teacher.id}" }
+        t.google_analytics :send, { type: 'event', category: 'Réservation - élève', action: 'Payer reservation par Portefeuille virtuel', label: "Prof id: #{lesson.teacher.id}", value: "#{lesson.price.to_s}" }
       end
       send_notification
       respond_to do |format|

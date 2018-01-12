@@ -33,5 +33,6 @@
 #empty-fields-alert.hidden= render partial: 'shared/flash_dismiss', locals: {type: 'danger', content: 'Veuillez remplir tous les champs'}
 
 :javascript
+  ga('send', 'event', "réservation - #{current_user.is_a?(Teacher)? 'prof' : 'élève' }", 'Ouvrir reservation', "prof id: #{@teacher.id}");
   var r = new RequestLesson( $('#lesson-details'), {teacher_id: #{@teacher.id}} );
   $('#lesson-details').trigger('update');
