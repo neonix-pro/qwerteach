@@ -114,7 +114,7 @@ class ApplicationController < ActionController::Base
   end
 
   def international_prefix_list
-    @list ||= ISO3166::Country.all.sort.map{|c| ["+#{c.country_code} (#{c.translations['fr']})", c.country_code] }.sort
+    @list ||= (ISO3166::Country.all - ISO3166::Country.find_all_countries_by_region('Africa')).sort.map{|c| ["+#{c.country_code} (#{c.translations['fr']})", c.country_code] }.sort
   end
   
   def flash_message
