@@ -61,6 +61,7 @@ module Admin
     end
 
     def postuling_teachers
+      params[:order]= 'updated_at'
       index
     end
 
