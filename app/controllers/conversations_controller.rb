@@ -14,13 +14,6 @@ class ConversationsController < ApplicationController
     @unread_count = @mailbox.inbox({:read => false}).count
     @conversations = @mailbox.conversations.page(params[:page]).per(MESSAGES_PER_PAGE)
     @recipient_options = []
-    # @mailbox.conversations.each do |conv|
-    #   conv.receipts.map{|r| @recipient_options.push(r.receiver) unless r.receiver.nil? || r.receiver.id == @user.id}
-    # end
-    # @online_buddies = User
-    #                     .where(id: @recipient_options.map(&:id), last_seen: 1.hour.ago..Time.now)
-    #                     .order(last_seen: :desc)
-    #                     .limit(10)
     @page = 1
     @messages = @conversations
                         .first

@@ -1,0 +1,10 @@
+.sameheight {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.sameheight-item {
+  height: 100%;
+  margin-bottom: 0;
+}

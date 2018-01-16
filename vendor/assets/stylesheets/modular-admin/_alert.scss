@@ -1,27 +1,27 @@
 .alert {
-	background-image: none;
-	
-	&.alert-primary {
-		@include alert-variant($color-primary, $color-primary, #ffffff);
-	}
+  background-image: none;
 
-	&.alert-success {
-		@include alert-variant($color-success, $color-success, #ffffff);
-	}
+  &.alert-primary {
+	@include alert-variant($color-primary, $color-primary, #ffffff);
+  }
 
-	&.alert-info {
-		@include alert-variant($color-info, $color-info, #ffffff);
-	}
+  &.alert-success {
+	@include alert-variant($color-success, $color-success, #ffffff);
+  }
 
-	&.alert-warning {
-		@include alert-variant($color-warning, $color-warning, #ffffff);
-	}
+  &.alert-info {
+	@include alert-variant($color-info, $color-info, #ffffff);
+  }
 
-	&.alert-danger {
-		@include alert-variant($color-danger, $color-danger, #ffffff);
-	}
+  &.alert-warning {
+	@include alert-variant($color-warning, $color-warning, #ffffff);
+  }
 
-	&.alert-inverse {
-		@include alert-variant($color-inverse, $color-inverse, #ffffff);
-	}
+  &.alert-danger {
+	@include alert-variant($color-danger, $color-danger, #ffffff);
+  }
+
+  &.alert-inverse {
+	@include alert-variant($color-inverse, $color-inverse, #ffffff);
+  }
 }

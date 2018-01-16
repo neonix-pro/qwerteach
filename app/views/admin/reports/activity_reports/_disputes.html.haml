@@ -1,0 +1,21 @@
+%section.section
+  .card.sameheight-item
+    .card-header.bordered
+      .header-block
+        %h4.title Disputes
+    .card-block
+      .table-responsive
+        %table.table.table-striped.table-hover.table-min
+          %thead
+            %tr
+              %th{width: 20} ID
+              %th{width: 50} Status
+              %th User
+              %th{width: 50}
+          %tbody
+            - @disputes.each do |dispute|
+              %tr
+                %td= dispute.id
+                %td= dispute.status
+                %td= dispute.user.name
+                %td= link_to 'Show', admin_dispute_path(dispute), class: 'btn btn-sm btn-primary-outline'

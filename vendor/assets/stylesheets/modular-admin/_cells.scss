@@ -5,6 +5,7 @@
     color: inherit;
     display: inline-block;
     position: relative;
+    width: 100%;
   }
 }
 
@@ -17,7 +18,7 @@
   display: inline-block;
   overflow: hidden;
   position: absolute;
-  left: 100%;
+  padding-left: 5px;
 
   svg {
     fill: $color-text;
@@ -28,4 +29,12 @@
 
 .cell-label__sort-indicator--desc {
   transform: rotate(180deg);
+}
+
+.cell-avatar {
+  height: 30px;
+  border-radius: 3px;
+  &__big {
+    height: 60px;
+  }
 }

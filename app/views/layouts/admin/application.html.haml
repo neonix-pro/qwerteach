@@ -8,8 +8,8 @@
     %title
       = content_for(:title)
       \- #{Rails.application.class.parent_name.titlecase}
-    = stylesheet_link_tag 'administrate', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'administrate', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag 'administrate/index', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'administrate/index', 'data-turbolinks-track': 'reload'
     = csrf_meta_tags
   %body{class: content_for(:body_class)}
     .main-wrapper
@@ -28,11 +28,12 @@
                 = Rails.application.class.parent_name.titlecase
             = render 'navigation'
         .sidebar-overlay#sidebar-overlay
-        %article.content.dashboard-page
+        %article.content
           .flash= render 'flashes'
-          %section.section
-            .row
-              .col.col-xs-12
-                .card
-                  = yield
+          - if content_for?(:no_wrap)
+            = yield
+          - else
+            %section.section
+              .card
+                = yield
     = content_for :javascript

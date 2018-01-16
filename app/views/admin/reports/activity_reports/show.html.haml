@@ -1,0 +1,18 @@
+- provide :no_wrap, true
+- default_range = [Time.current.beginning_of_year, Time.current.end_of_year].map { |date| date.strftime('%Y-%m-%d') }.join(' - ')
+- period_range = (@report.start_date..@report.end_date)
+%section.section
+  .filters
+    = form_tag '', method: :get, class: 'form-inline form-filters' do
+      .form-group.form-group__daterangepicker.mr-sm-2
+        = text_field_tag :date_range, params[:date_range].presence || default_range, class: 'form-control autosubmit', 'data-behavior'=>'daterangepicker'
+= render 'activity_graph'
+- new_teachers = @teachers.select { |teacher| period_range.include?(teacher.first_lesson_date.to_date) }
+= render 'teachers', teachers: new_teachers, title: 'New teachers'
+= render 'teachers', teachers: @teachers - new_teachers, title: 'Active teachers'
+
+- new_students = @students.select { |student| period_range.include?(student.first_lesson_date.to_date) }
+= render 'students', students: new_students, title: 'New students'
+= render 'students', students: @students - new_students, title: 'Active students'
+- if @disputes.present?
+  = render 'disputes'

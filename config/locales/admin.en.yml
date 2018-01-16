@@ -23,3 +23,6 @@ en:
           description: "Relis ta description. C'est sur base de ce texte que les élèves décideront de prendre ou non cours avec toi."
           avatar: "Change ta photo de profil. Nous recommandons une photo de toi avec le visage bien visible."
           interview: "Avant d'approuver ta candidature, nous souhaitons réaliser un petit entretien vidéo avec toi. Pourrais-tu me communiquer 3 créneaux horaire qui te conviendraient, pour que nous puissions fixer rendez-vous?"
+  administrate:
+    actions:
+      export: 'Export'

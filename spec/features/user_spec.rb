@@ -38,13 +38,14 @@ feature "UserSignsUps" do
 end
 
 feature "UserUnlockInstructions" do
+  let!(:user) { create(:student) }
   scenario "right unlock information" do
-    User.first.lock_access!
-    ask_unlock_information(User.first.email)
+    user.lock_access!
+    ask_unlock_information(user.email)
     expect(page).to have_content("")
   end
   scenario "unlocked account" do
-    ask_unlock_information(User.first.email)
+    ask_unlock_information(user.email)
     #expect(page).to have_content("Email n'était pas verrouillé(e)")
   end
   scenario "wrong email" do
@@ -64,6 +65,7 @@ feature "UserUnlockInstructions" do
   end
 end
 feature "UserResetPassword" do
+  let!(:user) { create(:student) }
   scenario "right reset information" do
     ask_reset_password(User.first.email)
     #expect(page).to have_content("Vous allez recevoir les instructions de réinitialisation du mot de passe dans quelques instants")
@@ -85,6 +87,7 @@ feature "UserResetPassword" do
   end
 end
 feature "UserResendInstructions" do
+  let!(:user) { create(:student) }
   scenario "right resend instructions" do
     user = User.first
     user.update_attributes(:confirmed_at=>nil)

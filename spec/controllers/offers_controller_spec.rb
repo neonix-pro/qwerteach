@@ -4,37 +4,31 @@ RSpec.describe OffersController, type: :controller do
     login_admin
   
     describe OffersController do
-        before :each do
-       request.env['devise.mapping'] = Devise.mappings[:user]
-     end
-     
-        it "nombreAdvert" do
-            assert_equal 4, Offer.count
-        end
-        
-        it "user" do
-          expect(subject.current_user).to_not eq(nil)
-        end
-        
-        it "show" do
-            get 'show', :id => Offer.last.id
-            expect(response).to be_success
-        end
-        
-        it "edit" do
-            @offer = FactoryGirl.create(:offer)
-            get 'edit', :id => Offer.last.id
-            expect(response).to be_success
-        end
+      let!(:offers) { create_list(:offer, 4) }
 
-        it "delete" do
-            get "destroy", :id => Offer.first.id
-            expect(response).to redirect_to edit_user_registration_path(Offer.first.user_id)
-        end
-        
-        it "nombreAdvert-1" do
-            assert_equal 4, Offer.count
-        end
+      it "nombreAdvert" do
+          assert_equal 4, Offer.count
+      end
+
+      it "user" do
+        expect(subject.current_user).to_not eq(nil)
+      end
+
+      it "show" do
+          get 'show', :id => offers.last.id
+          expect(response).to be_success
+      end
+
+      it "edit" do
+          @offer = FactoryGirl.create(:offer)
+          get 'edit', :id => offers.last.id
+          expect(response).to be_success
+      end
+
+      it "delete" do
+          get "destroy", :id => offers.first.id
+          expect(response).to redirect_to edit_user_registration_path(offers.first.user_id)
+      end
     
    end
 end 
@@ -42,13 +36,15 @@ end
 
 RSpec.describe OffersController, type: :controller do
     describe OffersController do
+        let(:offer) { create(:offer) }
+
         it "show" do
-            get 'show', :id => Offer.first.id
+            get 'show', :id => offer.id
             expect(response).to_not be_success
         end
         
         it "edit" do
-            get 'edit', :id => Offer.first.id
+            get 'edit', :id => offer.id
             expect(response).to_not be_success
         end
     end

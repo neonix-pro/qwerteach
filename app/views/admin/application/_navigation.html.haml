@@ -1,5 +1,9 @@
 %nav.menu
-  %ul#sidebar-menu.nav.metismenu(role='navigation')
+  %ul#sidebar-menu.sidebar-menu.metismenu(role='navigation')
+    %li{class: nav_link_state(:home)}
+      = link_to admin_root_path do
+        = icon 'home'
+        Dashboard
     %li{class: nav_link_state(:users)}
       = link_to [namespace, User] do
         = icon 'users'
@@ -9,7 +13,7 @@
         = icon 'graduation-cap'
         Teachers
         %i.fa.arrow
-      %ul.collapse
+      %ul.sidebar-nav.collapse
         %li{class: nav_link_state(:postuling_teachers)}
           = link_to("Postuling (#{@number_of_postuling_teachers})", [:postuling, namespace, Teacher])
         %li{class: nav_link_state(:approved_teachers)}
@@ -51,7 +55,25 @@
     %li{class: nav_link_state(:comments)}
       = link_to([namespace, Comment]) do
         = icon 'comment-o'
+        Comments
+    %li{class: nav_link_state(:reviews)}
+      = link_to([namespace, Review]) do
+        = icon 'star-half-full'
         Reviews
+    %li{class: ('active open' if nav_link_state(:reports) == :active)}
+      = link_to '' do
+        = icon 'th-list'
+        Reports
+        %i.fa.arrow
+      %ul.sidebar-nav.collapse
+        %li{class: nav_link_state(:lessons_reports)}
+          = link_to 'Lessons reports', [namespace, :reports, :lessons]
+        %li{class: nav_link_state(:clients_reports)}
+          = link_to 'Clients reports', [namespace, :reports, :clients]
+        %li{class: nav_link_state(:teachers_reports)}
+          = link_to 'Teachers reports', [namespace, :reports, :teachers]
+        %li{class: nav_link_state(:activity_report)}
+          = link_to 'Activity reports', [namespace, :reports, :activity]
     %li{class: nav_link_state(:banned_users)}
       = link_to([namespace, :banned_users]) do
         = icon 'user-times'

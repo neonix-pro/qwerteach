@@ -35,13 +35,13 @@
           %td= page.resource.status
         %tr
           %td.attribute-label Topic group:
-          %td= page.resource.topic_group.title
+          %td= page.resource.topic_group.try(:title)
         %tr
           %td.attribute-label Topic:
-          %td= page.resource.topic.title
+          %td= page.resource.topic.try(:title)
         %tr
           %td.attribute-label Level:
-          %td= page.resource.level.fr
+          %td= page.resource.level.try(:fr)
         %tr
           %td.attribute-label Time start:
           %td= page.resource.time_start

@@ -17,7 +17,9 @@ class LessonsController < ApplicationController
       @teachers = Teacher.all.order(score: :desc).limit(4)
     end
     @number_of_pending_lessons = @user.pending_me_lessons.count
-
+    unless @user.is_a?(Teacher)
+      @contact = Contact.new()
+    end
   end
 
   def index_pagination

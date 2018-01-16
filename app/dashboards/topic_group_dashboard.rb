@@ -61,6 +61,6 @@ class TopicGroupDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(topic_group)
-    "#{topic_group.title}"
+    topic_group.try(:title)
   end
 end

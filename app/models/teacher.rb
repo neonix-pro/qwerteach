@@ -90,6 +90,16 @@ class Teacher  < Student
     s
   end
 
+  def duration_taught
+    #lessons_given.sum("strftime('%s', time_end) - strftime('%s', time_start)") / 3600).round
+    t = 0
+    lessons_given.each do |l|
+      t += l.time_end.strftime('%s').to_i
+      t -= l.time_start.strftime('%s').to_i
+    end
+    t/3600
+  end
+
   def avg_reviews
     @notes = self.reviews_received.map { |r| r.note }
     @avg = @notes.inject { |sum, el| sum + el }.to_f / @notes.size

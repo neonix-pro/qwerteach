@@ -61,6 +61,9 @@ class User < ActiveRecord::Base
   scope :reader_scope, -> { where(admin: true) }
   scope :active, ->{ where(active: true) }
   scope :for_select, ->{ select(:id, :firstname, :lastname, :email).reorder(:firstname).distinct }
+  scope :review_senders, ->{ joins(:reviews_sent) }
+  scope :review_receivers, ->{ joins(:reviews_received) }
+  scope :online, ->{ where('last_seen > ?', 10.minutes.ago) }
 
   # MANGOPAY
   def mangopay

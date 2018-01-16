@@ -6,6 +6,7 @@ FactoryGirl.define do
     birthdate { 25.years.ago }
     confirmed_at Date.today
     description ""
+    last_seen { 1.day.ago }
     factory :rand_user do
       email { FFaker::Internet.email }
       firstname { FFaker::Name.first_name }
