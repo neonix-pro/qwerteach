@@ -38,7 +38,7 @@
             = label_tag :phone_number, 'Numéro de téléphone'
             .row
               .col-xs-3
-                = select_tag :phone_country_code, options_for_select(international_prefix_list, :selected => current_user.phone_country_code || '33'), :required => true, class:'form-control'
+                = select_tag :phone_country_code, options_for_select(international_prefix_list, :selected => current_user.nil? ? '33' : (current_user.phone_country_code|| 33) ), :required => true, class:'form-control'
               .col-xs-9
                 = telephone_field_tag :phone_number, current_user.phone_number, class: 'form-control', required: true
           .actions
