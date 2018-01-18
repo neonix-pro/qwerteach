@@ -1,65 +1,54 @@
 .container-fluid
   .row
     %h2.page-title-green Derrière Qwerteach, il y a...
-    .col-sm-3
-    .col-sm-3.col-xs-6.team-member
-      .team-member-picture
-        = image_tag(asset_url 'team/rouli.jpg')
-      .team-member-infos
-        .name Aurélie Merckx
-        .role Founder & CTO
-        .contact aurelie@qwerteach.com
-        .social
-          = link_to 'https://facebook.com/aurelie.merckx.5' do
-            %i.fa.fa-facebook
-          = link_to 'https://twitter.com/RouliLaTerreur' do
-            %i.fa.fa-twitter
-          = link_to 'https://be.linkedin.com/pub/aur%C3%A9lie-merckx/78/545/a5' do
-            %i.fa.fa-linkedin
-          = link_to 'https://github.com/roulili/' do
-            %i.fa.fa-github
-    .col-sm-3.col-xs-6.team-member
-      .team-member-picture
-        = image_tag(asset_url 'team/stephane.jpg')
-      .team-member-infos
-        .name Stéphane Panier
-        .role Founder & business developpper
-        .contact stephane@qwerteach.com
-        .social
-          = link_to 'https://www.facebook.com/stephane.pannier.58' do
-            %i.fa.fa-facebook
-          = link_to 'https://www.linkedin.com/pub/stephane-panier/80/ba9/338' do
-            %i.fa.fa-linkedin
+.container
   .row
-    .col-sm-3.col-xs-6.team-member
-      .team-member-picture
-        = image_tag('')
-      .team-member-infos
-        .name Christophe Cnockaert
-        .role Community manager
-        .contact christophe@qwerteach.com
-        .social
-          = link_to '' do
-            %i.fa.fa-facebook
-          = link_to '' do
-            %i.fa.fa-twitter
-          = link_to '' do
-            %i.fa.fa-linkedin
-    .col-sm-3.col-xs-6.team-member
-      .team-member-picture
-        = image_tag('')
-      .team-member-infos
-        .name Mpela Biembongo
-        .role Community manager
-        .contact mpela@qwerteach.com
-        .social
-          = link_to '' do
-            %i.fa.fa-facebook
-          = link_to '' do
-            %i.fa.fa-twitter
-          = link_to '' do
-            %i.fa.fa-linkedin
-    .col-sm-3.col-xs-6.team-member
+    .col-md-2
+    .col-md-8
+      .row
+        .col-sm-4.col-xs-6.team-member
+          .team-member-picture
+            = image_tag(asset_url 'team/rouli.jpg')
+          .team-member-infos
+            .name Aurélie Merckx
+            .role Founder & CTO
+            .contact aurelie.merckx@qwerteach.com
+            .social
+              = link_to 'https://facebook.com/aurelie.merckx.5' do
+                %i.fa.fa-facebook
+              = link_to 'https://twitter.com/RouliLaTerreur' do
+                %i.fa.fa-twitter
+              = link_to 'https://be.linkedin.com/pub/aur%C3%A9lie-merckx/78/545/a5' do
+                %i.fa.fa-linkedin
+              = link_to 'https://github.com/roulili/' do
+                %i.fa.fa-github
+        .col-sm-4.col-xs-6.team-member
+          .team-member-picture
+            = image_tag(asset_url 'team/stephane.jpg')
+          .team-member-infos
+            .name Stéphane Panier
+            .role Founder & business developpper
+            .contact stephane.panier@qwerteach.com
+            .social
+              = link_to 'https://www.facebook.com/stephane.pannier.58' do
+                %i.fa.fa-facebook
+              = link_to 'https://www.linkedin.com/pub/stephane-panier/80/ba9/338' do
+                %i.fa.fa-linkedin
+        .col-sm-4.col-xs-6.team-member
+          .team-member-picture
+            = image_tag(asset_url 'team/nicolas.jpg')
+          .team-member-infos
+            .name Nicolas M. di Florio
+            .role associé (CM et coaching des enseignants)
+            .contact nicolas.florio@qwerteach.com
+            .social
+              = link_to 'https://www.facebook.com/nicolasmadelenat.diflorio' do
+                %i.fa.fa-facebook
+              = link_to 'https://www.linkedin.com/in/nicolasmdf/' do
+                %i.fa.fa-linkedin
+  .row
+    .col-sm-2
+    .col-sm-2.col-xs-6.team-member
       .team-member-picture
         = image_tag('')
       .team-member-infos
@@ -73,13 +62,13 @@
             %i.fa.fa-twitter
           = link_to '' do
             %i.fa.fa-linkedin
-    .col-sm-3.col-xs-6.team-member
+    .col-sm-2.col-xs-6.team-member
       .team-member-picture
         = image_tag('')
       .team-member-infos
         .name Basile Bong
         .role Front-end integration / multimedia
-        .contact basile@qwerteach.com
+        .contact info@basilebong.com
         .social
           = link_to '' do
             %i.fa.fa-facebook
@@ -87,3 +76,32 @@
             %i.fa.fa-twitter
           = link_to '' do
             %i.fa.fa-linkedin
+    .col-sm-2.col-xs-6.team-member
+      .team-member-picture
+        = image_tag('')
+      .team-member-infos
+        .name Simon Hoggart
+        .role FSystem administration
+        .contact simon@hoggart.eu
+        .social
+          = link_to '' do
+            %i.fa.fa-facebook
+          = link_to '' do
+            %i.fa.fa-twitter
+          = link_to '' do
+            %i.fa.fa-linkedin
+    .col-sm-2.col-xs-6.team-member
+      .team-member-picture
+        = image_tag('')
+      .team-member-infos
+        .name Eloïse Stilmant
+        .role UX design
+        .contact estilmant@gmail.com
+        .social
+          = link_to '' do
+            %i.fa.fa-facebook
+          = link_to '' do
+            %i.fa.fa-twitter
+          = link_to '' do
+            %i.fa.fa-linkedin
+
