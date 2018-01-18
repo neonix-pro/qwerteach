@@ -1,10 +1,10 @@
 = fields_for :other_account, bank_account do |bank_account_fields|
   .form-group
     = bank_account_fields.label :country, 'Pays'
-    = bank_account_fields.text_field :country, :require => true, class: 'form-control'
+    = bank_account_fields.select :country, options_for_select(countries_list), {}, :require => true, class: 'form-control'
   .form-group
     = bank_account_fields.label :BIC
     = bank_account_fields.text_field :bic, :require => true, class: 'form-control'
   .form-group
     = bank_account_fields.label :account_number, 'Numéro de compte'
-    = bank_account_fields.number_field :account_number, :require => true, class: 'form-control'
+    = bank_account_fields.text_field :account_number, :require => true, class: 'form-control'
