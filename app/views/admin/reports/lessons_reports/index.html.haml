@@ -1,5 +1,4 @@
 - content_for(:title, 'Reports')
-- gradations = LessonsReport::GRADATIONS
 - gradation = (params[:gradation].presence || :monthly).to_sym
 - default_range = [Time.current.beginning_of_year, Time.current.end_of_year].map { |date| date.strftime('%Y-%m-%d') }.join(' - ')
 .card-header.bordered
@@ -10,7 +9,7 @@
     .form-group.form-group__daterangepicker.mr-sm-2
       = text_field_tag :date_range, params[:date_range].presence || default_range, class: 'form-control autosubmit', 'data-behavior'=>'daterangepicker'
     .form-group.mr-sm-2
-      = select_tag :gradation, options_for_select(gradations, gradation), class: 'form-control autosubmit'
+      = select_tag :gradation, options_for_select(available_gradations, gradation), class: 'form-control autosubmit'
 
 .card-block
   .table-responsive

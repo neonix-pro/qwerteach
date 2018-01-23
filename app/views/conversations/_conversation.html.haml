@@ -18,7 +18,6 @@
 
 :javascript
   $('form#conversation_form_'+#{conversation.id}+'input[type="submit"]' ).on('click', function(){
-    alert('t');
     $(this).children('textarea').val()
   });
   PrivatePub.subscribe("#{reply_conversation_path(conversation)}", function(data, channel) {
@@ -26,7 +25,7 @@
     var chatbox = $("#chatbox_" + id + " .conversation-content");
     var sender_id = data.sender_id;
     var current_user_id = #{current_user.id};
-
+    var user_type = 'student';
     $('#chatbox_' + id).find('.seen').hide();
     if (sender_id != current_user_id) {
       chatbox.append(data.message_received);
@@ -34,6 +33,13 @@
     } else {
       chatbox.append(data.message_sent);
       $("#chatbox_"+ id +" .chatboxtextarea").val("");
+      if ($('.participant-offers-title').length > 0){
+        user_type = 'prof';
+      }
+      if($('#admin_qwerteach').length >0){
+      user_type = 'admin';
+      }
+      ga('send', 'event', 'messagerie', "Répondre à un "+user_type, "user id: #{current_user.id}");
     }
     chatbox.scrollTop(chatbox[0].scrollHeight);
   });

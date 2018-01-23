@@ -1,49 +1,107 @@
-.col-sm-4.col-md-3
+.col-md-12
   .card.result{:class => (custom unless custom.nil?)}
-    .result-wrapper
-      = link_to user_path(u) do
-        .result-picture
-          = image_tag(u.avatar.url(:medium))
-          - if u.online?
-            %span.online
-              %i.fa.fa-circle.text-green
-              en ligne
-            .result-online
-      - if u.is_a?(Teacher)
-        .user-price
-          #{"%g" % (u.min_price)}€/h
-      .result-infos
-        .user-name
-          = link_to "#{u.name.split.map(&:capitalize).join(' ')}", user_path(u)
-        .user-rating
-          = render partial: "shared/star_rating", locals: {note: u.avg_reviews}
-          %span.number-of-reviews
-            #{u.reviews_received.count}
-            %i.fa.fa-user
-        .user-topics
-          #{u.offers.map{|ad| "#{link_to ad.title.humanize, profs_by_topic_path(ad.title.downcase)}"}.first(5).join(", ").html_safe}
-          - if u.offers.count > 5
-            = link_to '...', user_path(u)
-        -unless u.online? || u.last_seen.nil?
-          .user-last-seen.text-green
-            %i.fa.fa-circle-o
-            = "Der. connexion: #{time_ago_in_words(u.last_seen)}"
-        %p.user-description-excerpt
-          = sanitize(u.description, tags: %w(a p)).truncate_words(25).html_safe
-      .result-footer
-        - unless u.featured_review.nil?
-          = link_to user_path(u) do
-            .footer-review
-              .review-picture
-                = image_tag(u.featured_review.sender.avatar.url(:small))
-              .review-text
-                - unless u.featured_review.sender.firstname.empty?
-                  #{u.featured_review.sender.firstname}:
-                #{simple_format(u.featured_review.review_text.truncate(50))}
-                = render partial: "shared/star_rating", locals: {note: u.featured_review.note} if strip_tags(u.featured_review.review_text).empty?
-        - else
-          - if u.first_lesson_free
+    .result-wrapper.card-content
+      .row
+        .col-sm-2
+          .result-picture
             = link_to user_path(u) do
-              .footer-free-lesson
+              = image_tag(u.avatar.url(:medium))
+              - if u.online?
+                %span.online
+                  %i.fa.fa-circle.text-green
+                  en ligne
+                .result-online
+            - if u.video_url != nil && u.video_url != ''
+              .result-video.text-center
+                = link_to user_path(u.id) do
+                  %i.fa.fa-youtube-play.fa-2x
+        .col-sm-8
+          = link_to user_path(u) do
+            %h3.card-title
+              #{u.name.split.map(&:capitalize).join(' ')}
+          .user-topics
+            <b>Matières proposées:</b>
+            #{u.offers.map{|ad| "#{link_to ad.title.humanize, profs_by_topic_path(ad.title.downcase)}"}.first(5).join(", ").html_safe}
+            - if u.offers.count > 5
+              = link_to '...', user_path(u)
+          = link_to user_path(u) do
+            %p.user-description-excerpt
+              = sanitize(u.description, tags: %w(a p)).truncate_words(45).html_safe
+            - if u.reviews_received.count > 0
+              .user-rating
+                = render partial: "shared/star_rating", locals: {note: u.avg_reviews}
+                %span.number-of-reviews
+                  #{u.reviews_received.count}
+                  %i.fa.fa-user
+              %br
+              - if u.duration_taught > 0
+                %span.number-of-hours.badge.badge-topic-6
+                  #{u.duration_taught} heures de cours données
+              - if !u.last_seen.nil? && u.last_seen >= Time.now - 48.hours
+                %span.number-of-hours.badge.badge-topic-3
+                  %i.fa.fa-thumbs-o-up
+                  Réponse rapide
+            %br
+            .text-green
+              -unless u.online? || u.last_seen.nil?
+                .user-last-seen.text-green
+                  %i.fa.fa-circle-o
+                  = "Der. connexion: #{time_ago_in_words(u.last_seen)}"
+        .col-sm-2
+          = link_to user_path(u) do
+            .user-price
+              #{"%g" % (u.min_price)} - #{"%g" % (u.max_price)} €/h
+            - if u.first_lesson_free
+              .first-lesson-free
                 %i.fa.fa-gift.fa-2x
-                Cours d'essai offert!
+                %br
+                %small
+                  Cours d'essai offert!
+
+
+    -#= link_to user_path(u) do
+    -#  .result-picture
+    -#    = image_tag(u.avatar.url(:medium))
+    -#    - if u.online?
+    -#      %span.online
+    -#        %i.fa.fa-circle.text-green
+    -#        en ligne
+    -#      .result-online
+    -#- if u.is_a?(Teacher)
+    -#  .user-price
+    -#    #{"%g" % (u.min_price)}€/h
+    -#.result-infos
+    -#  .user-name
+    -#    = link_to "#{u.name.split.map(&:capitalize).join(' ')}", user_path(u)
+    -#  .user-rating
+    -#    = render partial: "shared/star_rating", locals: {note: u.avg_reviews}
+    -#    %span.number-of-reviews
+    -#      #{u.reviews_received.count}
+    -#      %i.fa.fa-user
+    -#  .user-topics
+    -#    #{u.offers.map{|ad| "#{link_to ad.title.humanize, profs_by_topic_path(ad.title.downcase)}"}.first(5).join(", ").html_safe}
+    -#    - if u.offers.count > 5
+    -#      = link_to '...', user_path(u)
+    -#  -unless u.online? || u.last_seen.nil?
+    -#    .user-last-seen.text-green
+    -#      %i.fa.fa-circle-o
+    -#      = "Der. connexion: #{time_ago_in_words(u.last_seen)}"
+    -#  %p.user-description-excerpt
+    -#    = sanitize(u.description, tags: %w(a p)).truncate_words(25).html_safe
+    -#.result-footer
+    -#  - unless u.featured_review.nil?
+    -#    = link_to user_path(u) do
+    -#      .footer-review
+    -#        .review-picture
+    -#          = image_tag(u.featured_review.sender.avatar.url(:small))
+    -#        .review-text
+    -#          - unless u.featured_review.sender.firstname.empty?
+    -#            #{u.featured_review.sender.firstname}:
+    -#          #{simple_format(u.featured_review.review_text.truncate(50))}
+    -#          = render partial: "shared/star_rating", locals: {note: u.featured_review.note} if strip_tags(u.featured_review.review_text).empty?
+    -#  - else
+    -#    - if u.first_lesson_free
+    -#      = link_to user_path(u) do
+    -#        .footer-free-lesson
+    -#          %i.fa.fa-gift.fa-2x
+    -#          Cours d'essai offert!

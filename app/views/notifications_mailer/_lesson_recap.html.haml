@@ -1,14 +1,14 @@
-%dl
-  %dt ID:
-  %dd #{lesson.id}
-  %dt date:
-  %dd le #{lesson.time_start.strftime("%d/%m/%Y à %H:%M")}
-  %dt Matière:
-  %dd #{lesson.topic.title}
-  %dt Durée:
-  %dd #{lesson.duration.hours}h#{lesson.duration.minutes}
-  %dt Statut:
-  %dd
+%blockquote
+  %p
+    ID: #{lesson.id}
+    %br
+    Date: le #{lesson.time_start.strftime("%d/%m/%Y à %H:%M")}
+    %br
+    Matière: #{lesson.topic.title}
+    %br
+    Durée: #{lesson.duration.hours}h#{lesson.duration.minutes}
+    %br
+    Statut:
     = 'en attente' if lesson.pending_any?
     = 'confirmée' if lesson.created?
     = 'Annulée' unless lesson.active?

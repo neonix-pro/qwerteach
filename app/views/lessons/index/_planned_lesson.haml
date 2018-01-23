@@ -6,7 +6,9 @@
           = link_to user_path(lesson.other(current_user)) do
             =image_tag(lesson.other(current_user).avatar(:small))
       .col-xs-9
-        .lesson-date.text-grey #{lesson.time_start.strftime("%d %B %Y à %H:%M")}
+        .lesson-date.text-grey
+          = "##{lesson.id} - "
+          #{lesson.time_start.strftime("%d %B %Y à %H:%M")}
         .card-title
           #{lesson_duration(lesson.time_start, lesson.time_end)}
           de #{lesson.topic.title} avec

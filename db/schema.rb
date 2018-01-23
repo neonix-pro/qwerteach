@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113031305) do
+ActiveRecord::Schema.define(version: 20171220163144) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -209,11 +209,14 @@ ActiveRecord::Schema.define(version: 20171113031305) do
   end
 
   create_table "interests", force: :cascade do |t|
-    t.integer  "student_id", null: false
-    t.integer  "topic_id",   null: false
+    t.integer  "student_id"
+    t.integer  "topic_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "interests", ["student_id"], name: "index_interests_on_student_id"
+  add_index "interests", ["topic_id"], name: "index_interests_on_topic_id"
 
   create_table "lessons", force: :cascade do |t|
     t.integer  "student_id",                                             null: false
@@ -463,6 +466,7 @@ ActiveRecord::Schema.define(version: 20171113031305) do
     t.text     "tokens"
     t.string   "authentication_token",   limit: 30
     t.string   "video_url"
+    t.string   "source"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true

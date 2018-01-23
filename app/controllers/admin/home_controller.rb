@@ -40,9 +40,10 @@ module Admin
 
     def postulling_teachers
       Teacher
-        .includes(:postulation)
+        .joins(:postulation)
         .references(:postulation)
         .where(postulations: { admin_id: nil })
+        .order(id: :desc)
     end
 
   end

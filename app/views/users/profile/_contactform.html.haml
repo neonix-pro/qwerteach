@@ -14,7 +14,7 @@
             = text_area_tag 'message[body]', nil, rows: 5,
               placeholder: "Posez une question à #{user.firstname}", class: "form-control #{ "character-count" if new_conversation }", data:{length:50}, required: true
             - if new_conversation
-              %span.text-pink Minimum 50 caractères.
+              %span.text-pink#new-conversation Minimum 50 caractères.
           = submit_tag 'Envoyer', class: 'btn btn-qw btn-green'
 :javascript
   $('#contact-modal form').submit(function(){

@@ -80,6 +80,9 @@ class LessonsController < ApplicationController
       @lesson.time_end = @lesson.time_start + duration.total
       @lesson.status = @lesson.alternate_pending
       if @lesson.save
+        tracker do |t|
+          t.google_analytics :send, { type: 'event', category: "Réservation - prof", action: "Modifier une reservation", label: "Prof id: #{@lesson.teacher.id}"}
+        end
         flash[:success] = "La modification s'est correctement déroulée."
         if @lesson.is_teacher?(current_user)
           LessonNotificationsJob.perform_async(:notify_student_about_reschedule_lesson, @lesson.id)
@@ -111,9 +114,9 @@ class LessonsController < ApplicationController
 
     accepting = AcceptLesson.run(lesson: @lesson, user: current_user)
     if accepting.valid?
-      category = @lesson.free_lesson? ? 'Free Booking' : 'Booking'
-      action = @lesson.is_student?(current_user) ? 'accepted_by_student' : 'accepted_by_teacher'
-      #ga_track_event(category, action, "Teacher id: #{@lesson.teacher.id}")
+      tracker do |t|
+        t.google_analytics :send, { type: 'event', category: "Réservation - prof", action: "Accepter une reservation", label: "Prof id: #{@lesson.teacher.id}"}
+      end
       respond_to do |format|
         format.html {redirect_to dashboard_path, notice: "Le cours a été accepté."}
         format.json {render :json => {:success => "true", :message => "Le cours a été accepté."}}
@@ -131,6 +134,9 @@ class LessonsController < ApplicationController
     @lesson.status = 'refused'
     refuse = RefundLesson.run(user: @user, lesson: @lesson)
     if refuse.valid?
+      tracker do |t|
+        t.google_analytics :send, { type: 'event', category: "Réservation - prof", action: "Refuser une reservation", label: "Prof id: #{@lesson.teacher.id}"}
+      end
       body = "#"
       flash[:success] = 'Vous avez décliné la demande de cours.'
       category = @lesson.free_lesson? ? 'Free Booking' : 'Booking'
@@ -157,6 +163,9 @@ class LessonsController < ApplicationController
       @lesson.status = 'canceled'
       refuse = RefundLesson.run(user: @user, lesson: @lesson)
       if refuse.valid?
+        tracker do |t|
+          t.google_analytics :send, { type: 'event', category: "Réservation - prof", action: "Annuler une reservation", label: "Prof id: #{@lesson.teacher.id}"}
+        end
         category = @lesson.free_lesson? ? 'Free Booking' : 'Booking'
         action = @lesson.is_student?(current_user) ? 'canceled_by_student' : 'canceled_by_teacher'
         #ga_track_event(category, action, "Teacher id: #{@lesson.teacher.id}")

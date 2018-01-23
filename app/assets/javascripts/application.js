@@ -36,3 +36,5 @@
 //= require turbolinks
 //= require_directory .
 //= require typed.min
+//= require intlTelInput
+//= require libphonenumber/utils

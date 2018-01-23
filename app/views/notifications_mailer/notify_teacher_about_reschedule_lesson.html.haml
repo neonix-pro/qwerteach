@@ -1,3 +1,5 @@
 %h1 #{@lesson.student.name} a déplacé le votre demande de cours.
 %p veuillez confirmer le nouvel horaire.
 = render 'lesson_recap', lesson: @lesson
+
+%h3= link_to 'Voir mes cours', lessons_url

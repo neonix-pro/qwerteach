@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_action :set_suspected_user_type
 
 	def show
 		@contact = Contact.new
@@ -22,6 +23,21 @@ class PagesController < ApplicationController
   def abtest
 		index
 		render template: "pages/#{params[:page]}/#{params[:version]}", layout: 'no-navbar'
+		#render template: "pages/#{params[:page]}/winner", layout: 'no-navbar'
+	end
+
+  def marketing
+		session[:source] = params[:source]
+		render template: "pages/#{params[:target]}/#{params[:source]}", layout: 'no-navbar'
+	end
+
+  private
+  def set_suspected_user_type
+		if request.path_info.include?('parent') || request.path_info.include?('expats')
+			session[:suspected_user_type] = 'Élève'
+		elsif request.path_info.include?('Prof')
+			session[:suspected_user_type] = 'Prof'
+		end
 	end
 
 end

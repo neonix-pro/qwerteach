@@ -65,6 +65,7 @@ module Admin
                 Lesson.arel_table[:time_start].minimum.as('first_lesson_date'),
                 Lesson.arel_table[:price].sum.as('lessons_amount')
               )
+              .where('price > 0')
               .joins(:lessons_given)
               .group('users.id'),
             :users
@@ -74,6 +75,7 @@ module Admin
             status: Lesson.statuses[:created],
             time_start: @report.start_date.beginning_of_day..@report.end_date.end_of_day
           })
+          .where('price >0')
       end
 
       def students
@@ -86,6 +88,7 @@ module Admin
                 Lesson.arel_table[:time_start].minimum.as('first_lesson_date'),
                 Lesson.arel_table[:price].sum.as('lessons_amount')
               )
+              .where('price >0')
               .joins(:lessons_received)
               .group('users.id'),
             :users
@@ -95,6 +98,7 @@ module Admin
             status: Lesson.statuses[:created],
             time_start: @report.start_date..@report.end_date
           })
+          .where('price >0')
       end
 
       def disputes

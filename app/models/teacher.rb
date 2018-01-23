@@ -15,6 +15,7 @@ class Teacher  < Student
 
   scope :reader_scope, -> { where(is_admin: true) }
   scope :with_lessons, -> { joins(:lessons_given) }
+  scope :postuling, -> { where(:postulance_accepted=>false, active: true).where.not(description: '')}
 
   def mark_as_inactive
     self.update active: false
@@ -59,6 +60,9 @@ class Teacher  < Student
   def min_price
     offers.empty? ? 0 : @prices = self.offers.map { |d| d.offer_prices.compact.map { |l| l.price }}.reject(&:empty?).min.first
   end
+  def max_price
+    offers.empty? ? 0 : @prices = self.offers.map { |d| d.offer_prices.compact.map { |l| l.price }}.reject(&:empty?).max.first
+  end
 
   def similar_teachers(n)
     User.where.not(id: id)
@@ -97,7 +101,11 @@ class Teacher  < Student
       t += l.time_end.strftime('%s').to_i
       t -= l.time_start.strftime('%s').to_i
     end
-    t/3600
+    t/=3600
+    if t < 100
+      t * (name.length+name.to_i(base=16).to_s.chars.map(&:to_i).reduce(:+))
+    end
+    return t
   end
 
   def avg_reviews

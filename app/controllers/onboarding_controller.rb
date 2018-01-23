@@ -1,14 +1,21 @@
 class OnboardingController < ApplicationController
   include Wicked::Wizard
 
-  steps :welcome, :choose_role, :topics
+  steps :welcome, :choose_role, :phone #,:topics
+
+  def finish_wizard_path
+    profs_path
+  end
 
   def show
     @user = current_user
     case step
       when :welcome
         skip_step
-      when :picture
+      when :phone
+        drip
+        @drip.create_or_update_subscriber(current_user.email, {custom_fields: current_user.drip_custom_fields, user_id: current_user.id})
+        @drip.subscribe(current_user.email, '55297918', double_optin: false)
       when :topics
         @topic_groups = TopicGroup.first(6)
         @teachers = Teacher.order(score: :desc).first(8)
@@ -20,6 +27,8 @@ class OnboardingController < ApplicationController
     @user = current_user
     case step
       when :picture
+        @user.update_attributes(user_params)
+      when :phone
         @user.update_attributes(user_params)
     end
     render_wizard @user

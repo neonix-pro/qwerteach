@@ -21,7 +21,7 @@ class LessonsReport < ApplicationReport
   integer :page, default: 1
   integer :per_page, default: 20
   string :order, default: 'period'
-  string :direction, default: 'asc'
+  string :direction, default: 'desc'
 
   validates :gradation, inclusion: { in: GRADATIONS }
 
@@ -69,7 +69,7 @@ class LessonsReport < ApplicationReport
   end
 
   def lessons
-    Lesson.arel_table
+    Lesson.where('price > 0').arel_table
   end
 
   def created_lessons
@@ -144,6 +144,14 @@ class LessonsReport < ApplicationReport
     end
   end
 
+  def beginning_of_period(date, period_key)
+    if sqlite?
+      sqlite_beginning_of_period(date, period_key)
+    else
+      mysql_beginning_of_period(date, period_key)
+    end
+  end
+
   def mysql_period(column, period_key)
     case period_key
     when :monthly then "LAST_DAY(#{column} - INTERVAL 1 MONTH) + INTERVAL 1 DAY"
@@ -153,7 +161,7 @@ class LessonsReport < ApplicationReport
     end
   end
 
-  def beginning_of_period(date, period_key)
+  def mysql_beginning_of_period(date, period_key)
     case period_key
     when :monthly then date.beginning_of_month.beginning_of_day
     when :daily then date.beginning_of_day
@@ -163,7 +171,18 @@ class LessonsReport < ApplicationReport
   end
 
   def sqlite_period(column, period_key)
-    #TODO: write for sqlite
+    case period_key
+    when :monthly then "date(#{column}, 'start of month')"
+    when :daily then "date(#{column}, 'start of day')"
+    end
+  end
+
+  def sqlite_beginning_of_period(date, period_key)
+    case period_key
+    when :monthly then date.beginning_of_month
+    when :daily then date.beginning_of_day.to_date
+    when :weekly then date.beginning_of_week
+    end
   end
 
 end

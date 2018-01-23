@@ -30,6 +30,7 @@ class BecomeTeacherController < ApplicationController
       when :pictures
         @gallery = Gallery.find_by user_id: @user.id
       when :avatar
+        drip_subscription
         if @user.avatar_file_name?
           #jump_to(:offers)
         end
@@ -47,6 +48,9 @@ class BecomeTeacherController < ApplicationController
           flash[:warning]="Vous n'avez pas enregistré vos annonces de cours. Tant que ceci ne sera pas fait, votre candidature ne sera pas prise en compte. <br />"
           flash[:warning]+= view_context.link_to 'Ajouter une annonce', become_teacher_path(:offers), class: 'text-grey'
         end
+      when :finish_postulation
+        drip_subscription
+        send_event_user_status
     end
     render_wizard
   end
@@ -96,6 +100,26 @@ class BecomeTeacherController < ApplicationController
       params.fetch("#{params[:bank_account][:type]}_account").permit!.merge( params[:bank_account] )
     else
       {}
+    end
+  end
+
+  def drip_subscription
+    drip
+    if @user.description != '' && @user.avatar != ''
+      @drip.create_or_update_subscriber(current_user.email, {custom_fields: current_user.drip_custom_fields, user_id: current_user.id})
+      @drip.subscribe(current_user.email, '120243932', double_optin: false)
+    else
+      @drip.create_or_update_subscriber(current_user.email, {custom_fields: current_user.drip_custom_fields, user_id: current_user.id})
+      @drip.subscribe(current_user.email, '536758291', double_optin: false)
+    end
+  end
+
+  def send_event_user_status
+    begin
+      tracker do |t|
+        t.google_analytics :send, { type: 'event', category: 'Inscription - prof', action: 'Confirmer sa postulation', label: "user id: #{current_user.id}" }
+      end
+    rescue
     end
   end
 end

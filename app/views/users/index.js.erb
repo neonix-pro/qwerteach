@@ -2,7 +2,7 @@ var t=500;
 <% @pagin.each_with_index do |u, index| %>
   var t = <%= index %> * 200;
   setTimeout(function(item){
-    $('#search-results .row').append($('<%= j render partial: 'users/search/search_result', :locals => {u: u, custom: nil} %>').fadeIn('slow'));
+    $('#search-results .results').append($('<%= j render partial: 'users/search/search_result', :locals => {u: u, custom: nil} %>').fadeIn('slow'));
   }, t);
 
 <% end %>

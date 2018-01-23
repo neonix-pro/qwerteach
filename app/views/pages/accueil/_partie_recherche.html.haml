@@ -19,3 +19,13 @@
   $('#topic').on('blur', function(){
     typed.start();
   });
+
+  $('#search-form').on('submit', function(){
+    if($('#topic').val() != '')
+    {
+      ga('send', 'event', 'Recherche', 'Recherche - Landing page', 'Profs de '+$('#topic').val());
+    }
+    else{
+      ga('send', 'event', 'Recherche', 'Recherche - Landing page', 'Tous les profs');
+    }
+  });

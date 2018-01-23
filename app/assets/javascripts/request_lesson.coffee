@@ -34,15 +34,22 @@ class window.RequestLesson extends window.LessonForm
     if @isFreeLession()
       $('.hours-select').prop("disabled", true).val('00')
       $('.minutes-select').prop("disabled", true).val('30')
+      $('#request_comment').prop('required', true)
+      $('#request_comment').parent().prepend("<div class='alert alert-warning'>Précisez votre demande! Dans quel but demandez-vous un cours d'essai avec ce professeur?</div>")
     else
       $('.hours-select').prop("disabled", false)
       $('.minutes-select').prop("disabled", false)
+      $('#request_comment').prop('required', false)
+      $('#request_comment').parent().find('.alert').remove()
+
 
   onChangeBookingStep: (e)->
+    @calculatePrice()
     $('#lesson-details').children('.alert').remove();
     if($(e.currentTarget).attr('data-toggle') == '#step2')
       @displayRecap()
       @initDatePicker()
+      return unless @checkDescriptionFreeLesson()
       if (!@checkSelected())
         $('#lesson-details').prepend( $('#empty-fields-alert').html() );
         return
@@ -81,5 +88,12 @@ class window.RequestLesson extends window.LessonForm
       $.post @getCalculateUrl(), @paramsForCalculating(), (data)=>
         $('#price_shown').text data.price
     $('#precalculated-price').addClass('updated');
+
+  checkDescriptionFreeLesson: ->
+    if @isFreeLession() && $('#request_comment').val() is ''
+      return false
+    return true
+
+
 
 

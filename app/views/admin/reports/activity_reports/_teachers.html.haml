@@ -2,7 +2,9 @@
   .card.sameheight-item
     .card-header.bordered
       .header-block
-        %h4.title= title
+        %h4.title
+          = title
+          (#{teachers.count})
     .card-block
       .table-responsive
         %table.table.table-striped.table-hover.table-min

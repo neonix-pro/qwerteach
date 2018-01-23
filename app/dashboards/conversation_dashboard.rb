@@ -13,7 +13,7 @@ class ConversationDashboard < Administrate::BaseDashboard
     #messages: Field::MailboxerMessageField.with_options(class_name: "Message"),
     messages: Field::HasMany.with_options(limit: 10),
     id: Field::Number,
-    originator: Field::HasOne.with_options(class_name: "User"),
+    originator: HasOneField.with_options(class_name: "User"),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }

@@ -6,10 +6,10 @@ class SendNotifications
   def self.perform(id)
     user = User.find(id)
 
-    if !user.confirmed?
-      Rails.logger.info "Not sending notifications to unconfirmed email #{user.email}"
-      return
-    end
+    # if !user.confirmed?
+    #   Rails.logger.info "Not sending notifications to unconfirmed email #{user.email}"
+    #   return
+    # end
 
     ActiveRecord::Base.transaction do
       receipts = user.receipts.where(is_read: false).lock(true)

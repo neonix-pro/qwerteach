@@ -27,6 +27,12 @@ class ContactsController < ApplicationController
     @contact.request = request
     if @contact.deliver
       flash[:notice] = 'Merci! Un membe de notre équipe vous contactera sous peu.'
+      begin
+        tracker do |t|
+          t.google_analytics :send, { type: 'event', category: 'Entretien pedagogique', action: 'Demander un entretien pedagogique', label: "User id: #{current_user.id}" }
+        end
+      rescue
+      end
     else
       flash[:danger] = "Désolé, il y a eu un problème avec votre requête. Celle-ci n'a pas été envoyée."
     end
@@ -56,7 +62,7 @@ class ContactsController < ApplicationController
   end
 
   def merged_message
-     "#{params[:message]}  \n\r Téléphone: +#{params[:phone_country_code]}#{params[:phone_number]}"
+     "#{params[:message]}  \n\r Téléphone: +#{params[:phone_country_code]}#{params[:phone_number]} \n\r Email: #{current_user.email} \n\r IP: #{current_user.current_sign_in_ip}"
   end
 
 end

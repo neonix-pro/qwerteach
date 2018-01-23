@@ -41,3 +41,14 @@
         %li= link_to 'Mon portefeuille', index_wallet_path
         %li= link_to 'Mon profil', edit_user_registration_path
         %li= link_to 'Déconnexion', destroy_user_session_path, method: :delete
+
+:javascript
+  $('.navbar-form').submit(function(){
+    if($('#topic').val() != '')
+    {
+      ga('send', 'event', 'Recherche', 'Recherche - Barre de navigation', 'Profs de '+$('#topic').val());
+    }
+    else{
+      ga('send', 'event', 'Recherche', 'Recherche - Barre de navigation', 'Tous les profs');
+    }
+  });

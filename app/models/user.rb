@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   acts_as_token_authenticatable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :lockable, :validatable,
-         :lastseenable, :confirmable
+         :lastseenable, :confirmable, password_length: 8..128
           #, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
 
   phony_normalize :phone_number, as: :full_number, default_country_code: :phone_country_code
@@ -103,6 +103,10 @@ class User < ActiveRecord::Base
 
   def nationality
     mangopay.nationality if self.mango_id.present?
+  end
+
+  def drip_custom_fields
+    {firstname: firstname, lastname: lastname, birthdate: birthdate}
   end
 
   # Methode permettant de faire passer un User à Student

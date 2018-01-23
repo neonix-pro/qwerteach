@@ -78,6 +78,13 @@ class ApplicationController < ActionController::Base
     Time.zone = current_user.time_zone || "Europe/Berlin"
   end
 
+  def drip
+    @drip ||= Drip::Client.new do |c|
+      c.api_key = ENV["DRIP_API_KEY"]
+      c.account_id = ENV["DRIP_ACCOUNT_ID"]
+    end
+  end
+
   # Use require to define permitted params
   protected
     before_filter do
@@ -107,7 +114,7 @@ class ApplicationController < ActionController::Base
   end
 
   def international_prefix_list
-    @list ||= ISO3166::Country.all.sort.map{|c| ["+#{c.country_code} (#{c.translations['fr']})", c.country_code] }.sort
+    @list ||= (ISO3166::Country.all - ISO3166::Country.find_all_countries_by_region('Africa')).sort.map{|c| ["+#{c.country_code} (#{c.translations['fr']})", c.country_code] }.sort
   end
   
   def flash_message

@@ -61,6 +61,7 @@ module Admin
     end
 
     def postuling_teachers
+      params[:order]= 'updated_at'
       index
     end
 
@@ -79,7 +80,7 @@ module Admin
       when 'index'
         Teacher.active.where(postulance_accepted: true)
       when 'postuling_teachers'
-        Teacher.active.where(postulance_accepted: false)
+        Teacher.active.postuling
       when 'inactive_teachers'
         Teacher.unscoped.where(active: false)
       else

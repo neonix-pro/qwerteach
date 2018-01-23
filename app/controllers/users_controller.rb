@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   before_filter :authenticate_user!, only: [:update]
   before_action :filter_param, only: :index
+  after_action :send_event_analytics, only: :show
 
   def show
     @user = User.find(params[:id])
@@ -28,7 +29,8 @@ class UsersController < ApplicationController
 
   # utilisation de sunspot pour les recherches, Kaminari pour la pagination
   def index
-    per_page = params[:per_page] || 12
+    @contact = Contact.new()
+    per_page = params[:per_page] || 16
     search_sorting_options
     params[:topic] = 'maths' if params[:topic] == 'math' # TODO: find better way to do this ! (sunspot dictionary?)
     @sunspot_search = Sunspot.search(Offer) do
@@ -186,5 +188,14 @@ class UsersController < ApplicationController
   
     def filter_param
       @filter = params[:filter]
+    end
+
+    def send_event_analytics
+      begin
+        tracker do |t|
+          t.google_analytics :send, { type: 'event', category: 'Recherche - Profil', action: 'Cliquer sur un profil', label: "Profil de id: #{@user.id}" }
+        end
+      rescue
+      end
     end
 end
