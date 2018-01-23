@@ -209,14 +209,11 @@ ActiveRecord::Schema.define(version: 20171220163144) do
   end
 
   create_table "interests", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "topic_id"
+    t.integer  "student_id", null: false
+    t.integer  "topic_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "interests", ["student_id"], name: "index_interests_on_student_id"
-  add_index "interests", ["topic_id"], name: "index_interests_on_topic_id"
 
   create_table "lessons", force: :cascade do |t|
     t.integer  "student_id",                                             null: false
