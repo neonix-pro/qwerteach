@@ -90,7 +90,7 @@ class window.RequestLesson extends window.LessonForm
     $('#precalculated-price').addClass('updated');
 
   checkDescriptionFreeLesson: ->
-    if @isFreeLession() && $('#request_comment').val() is ''
+    if @isFreeLession() && $('#request_comment').val().length < 10
       return false
     return true
 
