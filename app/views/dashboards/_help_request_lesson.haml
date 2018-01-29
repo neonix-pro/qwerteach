@@ -30,14 +30,14 @@
         %h4 Comment pouvons-nous vous aider?
       .modal-body
         = form_for @contact,:url=>entretien_pedagogique_path, :html => {:class => 'form' } do |f|
-          %p Laissez-nous votre numéro de téléphone, et un de nos conseillers vous rappellera. Ce cervice n'est disponible qu'en France, Belgique et Suisse pour le moment.
+          %p Laissez-nous votre numéro de téléphone, et un de nos conseillers vous rappellera. Ce service n'est disponible qu'en France, Belgique et Suisse pour le moment.
           .form-group
             = f.label :message, 'Votre message (optionnel)'
             = f.text_area :message ,:label=>false, :placeholder=>"Décrivez ici les raisons qui vous ont amené sur Qwerteach, et ce que vous attendriez du site",:rows=>6,:as => 'text',:required => false, :class=> 'form-control'
           .form-group
             = label_tag :phone_number, 'Numéro de téléphone'
-            .text-
-              Vérifiez votre préfixe téléphonique!
+            %span.text-orange
+              (Attention au préfixe pays!)
             .row
               .col-xs-3
                 = select_tag :phone_country_code, options_for_select([33, 32, 41], :selected => current_user.nil? ? '33' : (current_user.phone_country_code|| 33) ), :required => true, class:'form-control'
