@@ -1,6 +1,7 @@
 class Api::SessionsController < Devise::SessionsController
   
   skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_signed_out_user
   respond_to :json
   
   def create
