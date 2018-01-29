@@ -34,13 +34,13 @@
                   #{u.reviews_received.count}
                   %i.fa.fa-user
               %br
-              - if u.duration_taught > 0
-                %span.number-of-hours.badge.badge-topic-6
-                  #{u.duration_taught} heures de cours données
-              - if !u.last_seen.nil? && u.last_seen >= Time.now - 48.hours
-                %span.number-of-hours.badge.badge-topic-3
-                  %i.fa.fa-thumbs-o-up
-                  Réponse rapide
+            - if u.duration_taught > 0
+              %span.number-of-hours.badge.badge-topic-6
+                #{u.duration_taught} heures de cours données
+            - if !u.last_seen.nil? && u.last_seen >= Time.now - 48.hours
+              %span.number-of-hours.badge.badge-topic-3
+                %i.fa.fa-thumbs-o-up
+                Réponse rapide
             %br
             .text-green
               -unless u.online? || u.last_seen.nil?
