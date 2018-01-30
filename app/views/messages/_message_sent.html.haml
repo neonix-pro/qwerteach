@@ -2,7 +2,7 @@
   .message-datetime
     %time{:datetime => "#{message.created_at}", :title => "#{message.created_at.strftime("%d %b  %Y at %I:%M%p")}"}
       = message_date message.created_at
-      - if message.is_read?(@reciever.first)
+      - if !@receiver.nil? && message.is_read?(@reciever.first)
         %i.fa.fa-check
   .message.message-sent
     #{simple_format(message.body)}
