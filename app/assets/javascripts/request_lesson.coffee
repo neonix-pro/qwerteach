@@ -75,6 +75,8 @@ class window.RequestLesson extends window.LessonForm
     r
 
   showLoader: (e)->
+    #change date format for processing by rails backend
+    $('#request_time_start').val(moment($('#request_time_start').val(), "[le] DD MMMM [à] HH:mm").format('DD/MM/YYYY HH:mm'))
     $('.lesson-payment-wrapper').addClass('hidden')
     $('.lesson-payment-loader').removeClass('hidden')
 
