@@ -38,19 +38,19 @@ class WalletsController < ApplicationController
 
       @bank_accounts = @user.mangopay.bank_accounts.select{|ba| ba if ba.active}
       @pagin = Kaminari.paginate_array(@transactions, total_count: filters['total_items']).page(params[:page]).per(10)
-      
+
       respond_to do |format|
         format.html {}
         format.js {}
-        format.json {render :json => {:success => "loaded", 
-          :transaction => (Mango.normalize_response MangoPay::PayIn.fetch(params[:transactionId]) if params[:transactionId].present?), 
-          :account => @account, 
-          :bank_accounts => @bank_accounts, 
-          :user_cards => @cards, 
-          :transactions => @pagin, 
+        format.json {render :json => {:success => "loaded",
+          :transaction => (Mango.normalize_response MangoPay::PayIn.fetch(params[:transactionId]) if params[:transactionId].present?),
+          :account => @account,
+          :bank_accounts => @bank_accounts,
+          :user_cards => @cards,
+          :transactions => @pagin,
           :transaction_infos => get_transaction_infos(@pagin)}}
       end
-      
+
     end
   end
 
@@ -59,7 +59,7 @@ class WalletsController < ApplicationController
     filters = {page: params[:page], per_page: 10, sort: 'CreationDate:desc'}
     @transactions = @user.mangopay.transactions(filters)
     @pagin = Kaminari.paginate_array(@transactions, total_count: filters['total_items']).page(params[:page]).per(10)
-    
+
     respond_to do |format|
       format.html {}
       format.js {}
@@ -237,7 +237,7 @@ class WalletsController < ApplicationController
     else
       respond_to do |format|
         format.html {redirect_to index_wallet_path, danger: 'Il y a eu un problème: '+desactivation.errors.full_messages.to_sentence}
-        format.json {render :json => {:succes => "false", 
+        format.json {render :json => {:succes => "false",
           :message => 'Il y a eu un problème: '+desactivation.errors.full_messages.to_sentence}}
         format.js {}
       end
@@ -273,7 +273,7 @@ class WalletsController < ApplicationController
     if @user.bank_accounts.blank?
       respond_to do |format|
         format.html {redirect_to bank_accounts_path, alert: "Vous devez enregistrer un compte en banque pour pouvoir décharger votre portefueille virtuel!"}
-        format.json {render :json => {:success => "false", 
+        format.json {render :json => {:success => "false",
           :message => "Vous devez enregistrer un numéro de compte en banque afin de transférer votre solde."}}
         format.js {}
       end
@@ -324,7 +324,7 @@ class WalletsController < ApplicationController
       flash[:danger] += error.details['errors'].map{|name, val| " #{name}: #{val} \n\n"}.join
     end
   end
-  
+
   #More transaction informations for Qwerteach App
   def get_transaction_infos(transactions)
     transaction_infos = Array.new
