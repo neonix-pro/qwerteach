@@ -1,0 +1,19 @@
+#lessons
+  .container-fluid
+    .row.header.valign-wrapper
+      .col-sm-2.col-xs-4
+        .icon-header.icon-coloured.icon-white
+          %i.fa.fa-graduation-cap.text-green.fa-5x
+      .col-sm-8.col-xs-4
+        .header-infos
+          %h1
+            Faire une nouvelle demande de cours
+            %br
+            %small Énoncez votre besoin et recevez les réponses des professeurs
+  .container
+    .row
+      .col-sm-8.col-sm-offset-2
+        .card
+          .card-content
+            = render 'form'
+            = link_to 'Annuler', global_requests_path

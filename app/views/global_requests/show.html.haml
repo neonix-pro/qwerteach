@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @global_request.user
+%p
+  %b Topic:
+  = @global_request.topic
+%p
+  %b Level:
+  = @global_request.level
+%p
+  %b Description:
+  = @global_request.description
+%p
+  %b Status:
+  = @global_request.status
+
+= link_to 'Edit', edit_global_request_path(@global_request)
+\|
+= link_to 'Back', global_requests_path

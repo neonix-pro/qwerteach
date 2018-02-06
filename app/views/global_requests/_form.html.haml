@@ -1,0 +1,26 @@
+#global-request
+  = form_for @global_request do |f|
+    - if @global_request.errors.any?
+      .alert.alert-warning
+        %i.fa.fa-warning.fa-2x
+        = "Il y a eu #{pluralize(@global_request.errors.count, "erreur")}:"
+        %ul
+          - @global_request.errors.full_messages.each do |msg|
+            %li= msg
+            %br
+    .form-group
+      = f.label :topic, 'Dans quelle matière avez-vous besoin d\'aide ?'
+      = f.select :topic, @topics.collect {|t| [ t.title, t.id ] }, {prompt: 'matière'}, {class: 'form-control topic-select', required: true}
+    .form-group
+      = f.label :level, 'Pour quel niveau ?'
+      = f.select :level, [], {prompt: 'niveau'}, {class: 'form-control level-select', required: true}
+    .form-group
+      = f.label :description
+      = f.text_area :description, required: true, class: "form-control character-count", data:{length:50}
+      %span.text-pink#new-conversation Minimum 50 caractères.
+    .actions
+      = submit_tag 'Envoyer', class: 'btn btn-qw btn-green'
+
+:javascript
+  var r = new GlobalRequest( $('#global-request'));
+  $('#global_request_description').characterCounter();

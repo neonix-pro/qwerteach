@@ -1,0 +1,30 @@
+#lessons
+  .container-fluid
+    .row.header.valign-wrapper
+      .col-sm-2.col-xs-4
+        .icon-header.icon-coloured.icon-white
+          %i.fa.fa-graduation-cap.text-green.fa-5x
+      .col-sm-8.col-xs-4
+        .header-infos
+          %h1
+            Demandes de cours
+            %br
+            %small Répondez ici aux demandes de cours publiques
+  .col-sm-2.col-xs-4
+    .header-right.text-right
+  #lessons-navigation
+    .container
+      .row
+        %ul.tabs
+          %li.tab
+            %a{href: "#open"} Demandes ouvertes
+
+  .container
+    #planned
+      .row
+        .cards-wrapper
+          - @global_requests.each do |request|
+            .col-sm-4.col-xs-6
+              = render partial: 'request', locals:{request: request}
+
+          = link_to 'Nouvelle demande', new_global_request_path

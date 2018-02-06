@@ -30,7 +30,9 @@ var NotificationsManager = function() {
         {
           document.title = Notifications.originalTitle;
         }
-        $('#unread-notifications').html(answer);
+        if (answer > 0){
+          $('#unread-notifications').html('('+answer+')');
+        }
       });
     },
 
