@@ -7,19 +7,15 @@ class Api::ConversationsController < ConversationsController
     super
 
     participant_avatars = Array.new
-    recipient_options = Array.new
+    recipients = Array.new
     @mailbox.conversations.each do |conv|
-      conv.recipients.select{|participant| @user.id != participant.id}.each do |p|
-        participant_avatar = {user: p.id, avatar: p.avatar.url(:small)}
-        participant_avatars.push(participant_avatar)
+      conv.receipts.group(:receiver_id).select{|r| !r.receiver.nil? && current_user.id != r.receiver.id}.each do |p|
+        participant_avatars.push(p.receiver.avatar.url(:small))
+        recipients.push(p.receiver)
       end
     end
 
-    @mailbox.conversations.each do |conv|
-      conv.receipts.map{|r| recipient_options.push(r.receiver) unless r.receiver.nil? || r.receiver.id == @user.id}
-    end
-
-    render :json => {:participant_avatars => participant_avatars, :recipients => recipient_options,
+    render :json => {:participant_avatars => participant_avatars, :recipients => recipients,
       :conversations => @conversations, :messages => get_last_messages}
 
   end
