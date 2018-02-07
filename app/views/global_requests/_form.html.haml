@@ -9,15 +9,21 @@
             %li= msg
             %br
     .form-group
-      = f.label :topic_id, 'Dans quelle matière avez-vous besoin d\'aide ?'
-      = f.select :topic_id, @topics.collect {|t| [ t.title, t.id ] }, {prompt: 'matière'}, {class: 'form-control topic-select', required: true}
+      = f.label :description, 'Aidez-nous à comprendre votre besoin'
+      = f.text_area :description, required: true, class: "form-control character-count", data:{length:50}, rows: 5, placeholder: "Au plus vous serez détaillé dans votre demande, au mieux nous pourrons vous aider. Ex: Je cherche un professeur pour m'ccompagner de façon régulière 2x semaine jusqu'au bac en juin."
+      %span.text-grey#new-conversation Minimum 50 caractères.
+    .row
+      .col-sm-6
+        .form-group
+          = f.label :topic_id, 'Dans quelle matière ?'
+          = f.select :topic_id, @topics.collect {|t| [ t.title, t.id ] }, {prompt: 'matière'}, {class: 'form-control topic-select', required: true}
+      .col-sm-6
+        .form-group
+          = f.label :level_id, 'Pour quel niveau ?'
+          = f.select :level_id, options_for_select(@levels.map{|l| [l.fr, l.id]}, @global_request.level.nil? ? nil: @global_request.level.id ), {prompt: 'niveau'}, {class: 'form-control level-select', required: true}
     .form-group
-      = f.label :level_id, 'Pour quel niveau ?'
-      = f.select :level_id, options_for_select(@levels.map{|l| [l.fr, l.id]}, @global_request.level.nil? ? nil: @global_request.level.id ), {prompt: 'niveau'}, {class: 'form-control level-select', required: true}
-    .form-group
-      = f.label :description
-      = f.text_area :description, required: true, class: "form-control character-count", data:{length:50}
-      %span.text-pink#new-conversation Minimum 50 caractères.
+      = f.label :price_max, 'Tarif horaire'
+      = f.select :price_max, options_for_select([['Tous les prix', nil], ['Maximum 15€/h', 15], ['Maximum 20€/h', 20], ['Maximum 25€/h', 25]], selected: nil), {}, {required: true, class: 'form-control'}
     .actions
       = submit_tag 'Envoyer', class: 'btn btn-qw btn-green'
 

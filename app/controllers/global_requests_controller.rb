@@ -92,7 +92,7 @@ class GlobalRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def global_request_params
-      params.require(:global_request).permit(:topic_id, :level_id, :description, :status).merge(user_id: current_user.id, expiry_date: Time.now + 3.days)
+      params.require(:global_request).permit(:topic_id, :level_id, :description, :status, :price_max).merge(user_id: current_user.id, expiry_date: Time.now + 3.days)
     end
 
   def find_topics

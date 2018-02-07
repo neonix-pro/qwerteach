@@ -133,6 +133,7 @@ Rails.application.routes.draw do
       get '/activity' => 'activity_reports#index', as: :activity
       get '/activity/details' => 'activity_reports#show', as: :activity_details
     end
+    resources :global_requests, only: [:index, :show, :edit]
   end
   resources "contact", only: [:new, :create]
   post 'entretien_pedagogique' => 'contacts#entretien_pedagogique'

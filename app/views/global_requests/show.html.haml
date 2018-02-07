@@ -10,15 +10,19 @@
             %small
               Faite le #{l(@global_request.created_at, format: "%d %B %Y à %H:%M")}
               par #{@global_request.student.name}
-          %p
-            <b>Message de l'élève:</b><br />
-            = @global_request.description
+          %blockquote
+            %small "#{@global_request.description}"
           %p
             <b>Statut:</b>
             = @global_request.status == 0 ? 'Ouverte' : 'Fermée'
           %p
             <b>Expire le:</b>
             =l(@global_request.expiry_date, format: "%d %B %Y à %H:%M")
+          %p
+            <b>Tarif maximum:</b>
+            #{@global_request.price_max.nil? ? 'Non renseigné' : "#{@global_request.price_max}€/h"}
+          <br /><br />
+
           - if @global_request.student == current_user
             .card-action
               - if @global_request.expired?
@@ -34,11 +38,12 @@
                     Supprimer
           - else
             .text-center
-              = link_to user_path(@global_request.student), class: 'btn btn-sm btn-qw btn-green' do
+              = link_to '#contact-modal', class: 'btn btn-sm btn-qw btn-green', data:{toggle: 'modal'} do
                 %i.fa.fa-comments-o
                 Contacter l'élève
-
-          .pull-right
+          %hr
+          .pull-left
             = link_to 'Retour', global_requests_path
 
 
+= render partial: 'users/profile/contactform', locals: {user: @global_request.student, me: current_user}
