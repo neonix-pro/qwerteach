@@ -30,7 +30,7 @@ class Api::ConversationsController < ConversationsController
 
   def show
     super
-    render :json => {:messages => @messages.reverse, :avatars => get_sender_avatars, :recipients => @reciever}
+    render :json => {:messages => @messages.reverse, :avatars => get_sender_avatars, :recipients => @recievers}
   end
 
   def mark_as_read
@@ -54,7 +54,11 @@ class Api::ConversationsController < ConversationsController
   def get_sender_avatars
     sender_avatars = Array.new
     @messages.reverse.each do |receipt|
-      sender_avatars.push(receipt.sender.avatar.url(:small))
+      if receipt.sender.present?
+        sender_avatars.push(receipt.sender.avatar.url(:small))
+      else
+        sender_avatars.push(nil)
+      end
     end
     return sender_avatars
   end
