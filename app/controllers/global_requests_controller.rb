@@ -1,10 +1,18 @@
 class GlobalRequestsController < ApplicationController
   before_action :set_global_request, only: [:show, :edit, :update, :destroy]
-  before_action :find_topics, only: [:new, :create, :update]
+  before_action :find_topics, only: [:new, :create, :update, :edit]
   # GET /global_requests
   # GET /global_requests.json
   def index
-    @global_requests = GlobalRequest.all
+    if current_user.is_a?(Teacher)
+      @offers = current_user.offers
+      @topics = @offers.map{|o| o.topic}
+      @global_requests = []
+      @offers.each do |o|
+        @global_requests += GlobalRequest.where(status: 0, topic: o.topic, level: o.levels.map{|l| l.id})
+      end
+    end
+    @my_global_requests = GlobalRequest.where(user_id: current_user.id)
   end
 
   # GET /global_requests/1
@@ -15,10 +23,12 @@ class GlobalRequestsController < ApplicationController
   # GET /global_requests/new
   def new
     @global_request = GlobalRequest.new
+    @levels = []
   end
 
   # GET /global_requests/1/edit
   def edit
+    @levels = Level.where(code: @global_request.topic.topic_group.level_code).group(:fr)
   end
 
   # POST /global_requests
@@ -28,7 +38,7 @@ class GlobalRequestsController < ApplicationController
 
     respond_to do |format|
       if @global_request.save
-        format.html { redirect_to @global_request, notice: 'Global request was successfully created.' }
+        format.html { redirect_to @global_request, notice: 'Votre demande a bien été enregistrée. Consultez votre messagerie pour voir si un professeur vous a répondu!' }
         format.json { render :show, status: :created, location: @global_request }
       else
         format.html { render :new }
@@ -42,7 +52,7 @@ class GlobalRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @global_request.update(global_request_params)
-        format.html { redirect_to @global_request, notice: 'Global request was successfully updated.' }
+        format.html { redirect_to @global_request, notice: 'Votre demande a bien été modifiée' }
         format.json { render :show, status: :ok, location: @global_request }
       else
         format.html { render :edit }
@@ -54,10 +64,14 @@ class GlobalRequestsController < ApplicationController
   # DELETE /global_requests/1
   # DELETE /global_requests/1.json
   def destroy
-    @global_request.destroy
     respond_to do |format|
-      format.html { redirect_to global_requests_url, notice: 'Global request was successfully destroyed.' }
-      format.json { head :no_content }
+      if @global_request.update(status: 1)
+        format.html { redirect_to @global_request, notice: 'Votre demande a bien été supprimée' }
+        format.json { render :show, status: :ok, location: @global_request }
+      else
+        format.html { render :edit }
+        format.json { render json: @global_request.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -77,7 +91,7 @@ class GlobalRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def global_request_params
-      params.require(:global_request).permit(:topic_id, :level_id, :description, :status).merge(:user_id => current_user.id)
+      params.require(:global_request).permit(:topic_id, :level_id, :description, :status).merge(user_id: current_user.id, expiry_date: Time.now + 3.days)
     end
 
   def find_topics

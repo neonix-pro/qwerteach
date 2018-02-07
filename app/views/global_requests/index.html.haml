@@ -16,15 +16,26 @@
     .container
       .row
         %ul.tabs
+          - if current_user.is_a?(Teacher)
+            %li.tab
+              %a{href: "#open"} Demandes ouvertes
           %li.tab
-            %a{href: "#open"} Demandes ouvertes
+            %a{href: "#my_requests"} Faites par moi
 
   .container
-    #planned
+    - if current_user.is_a?(Teacher)
+      #open
+        .row
+          .cards-wrapper
+            - @global_requests.each do |request|
+              .col-sm-4.col-xs-6
+                = render partial: 'request', locals:{request: request}
+    #my_requests
       .row
         .cards-wrapper
-          - @global_requests.each do |request|
+          - @my_global_requests.each do |request|
             .col-sm-4.col-xs-6
-              = render partial: 'request', locals:{request: request}
-
-          = link_to 'Nouvelle demande', new_global_request_path
+              = render partial: 'my_request', locals:{request: request}
+.container
+  .row
+    = link_to 'Nouvelle demande', new_global_request_path

@@ -57,3 +57,10 @@ update_ranking:
   class: UpdateRanking
   queue: ranking
   description: "Updates users ranking based on expired / given lessons"
+
+expire_global_requests:
+  every:
+    - "1m"
+  class: ExpireGlobalRequests
+  queue: bookings
+  description: "Change status of global requests to expired"

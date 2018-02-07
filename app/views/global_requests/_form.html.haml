@@ -9,11 +9,11 @@
             %li= msg
             %br
     .form-group
-      = f.label :topic, 'Dans quelle matière avez-vous besoin d\'aide ?'
-      = f.select :topic, @topics.collect {|t| [ t.title, t.id ] }, {prompt: 'matière'}, {class: 'form-control topic-select', required: true}
+      = f.label :topic_id, 'Dans quelle matière avez-vous besoin d\'aide ?'
+      = f.select :topic_id, @topics.collect {|t| [ t.title, t.id ] }, {prompt: 'matière'}, {class: 'form-control topic-select', required: true}
     .form-group
-      = f.label :level, 'Pour quel niveau ?'
-      = f.select :level, [], {prompt: 'niveau'}, {class: 'form-control level-select', required: true}
+      = f.label :level_id, 'Pour quel niveau ?'
+      = f.select :level_id, options_for_select(@levels.map{|l| [l.fr, l.id]}, @global_request.level.nil? ? nil: @global_request.level.id ), {prompt: 'niveau'}, {class: 'form-control level-select', required: true}
     .form-group
       = f.label :description
       = f.text_area :description, required: true, class: "form-control character-count", data:{length:50}

@@ -1,21 +1,44 @@
-%p#notice= notice
+.container
+  .row
+    .col-sm-8.col-sm-offset-2
+      .card
+        .card-content
+          .alert.alert-notice= notice unless notice.nil?
+          %h3.card-title
+            Demande pour un cours de #{@global_request.topic.title}, de niveau #{@global_request.level.fr}
+            %br
+            %small
+              Faite le #{l(@global_request.created_at, format: "%d %B %Y à %H:%M")}
+              par #{@global_request.student.name}
+          %p
+            <b>Message de l'élève:</b><br />
+            = @global_request.description
+          %p
+            <b>Statut:</b>
+            = @global_request.status == 0 ? 'Ouverte' : 'Fermée'
+          %p
+            <b>Expire le:</b>
+            =l(@global_request.expiry_date, format: "%d %B %Y à %H:%M")
+          - if @global_request.student == current_user
+            .card-action
+              - if @global_request.expired?
+                Demande expirée
+              - else
+                .pull-left
+                  = link_to edit_global_request_path(@global_request) do
+                    %i.fa.fa-edit
+                    Modifier
+                .pull-right
+                  = link_to global_request_path(@global_request), method: :delete, class: 'text-red' do
+                    %i.fa.fa-trash-o
+                    Supprimer
+          - else
+            .text-center
+              = link_to user_path(@global_request.student), class: 'btn btn-sm btn-qw btn-green' do
+                %i.fa.fa-comments-o
+                Contacter l'élève
 
-%p
-  %b User:
-  = @global_request.user
-%p
-  %b Topic:
-  = @global_request.topic
-%p
-  %b Level:
-  = @global_request.level
-%p
-  %b Description:
-  = @global_request.description
-%p
-  %b Status:
-  = @global_request.status
+          .pull-right
+            = link_to 'Retour', global_requests_path
 
-= link_to 'Edit', edit_global_request_path(@global_request)
-\|
-= link_to 'Back', global_requests_path
+

@@ -17,11 +17,11 @@ class window.GlobalRequest
     topicId = $(e.currentTarget).val()
     @clearSelect @$('.level-select')
     if topicId.length > 0
-      $.get @getTopicsUrl(topicId), (data)=>
+      $.get @getLevelsUrl(topicId), (data)=>
         $levelSelect = @$('.level-select')
         $levelSelect.append  $('<option>').attr(value: group.id).text(group.fr) for group in data
 
-  getTopicsUrl: (topicId)->
+  getLevelsUrl: (topicId)->
     @topicsUrl.replace('__TOPIC_ID__', topicId)
 
   clearSelect: ($select)->

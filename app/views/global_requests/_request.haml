@@ -2,14 +2,16 @@
   .card-content
     .row
       .col-xs-3
-        .icon-user-avatar
-          = link_to profs_by_topic_path(request.topic.title) do
-            =image_tag(request.topic.pictotype(:small))
+        .icon-user-avatar{class: "topic_#{request.topic.topic_group.id} text-center"}
+          =image_tag(request.topic.pictotype(:small))
       .col-xs-9
         .lesson-date.text-grey
           = "##{request.id} - "
-          #{request.created_at.strftime("%d %B %Y à %H:%M")}
-        .card-title
-          Matière: #{request.topic.title}
-          Niveau: #{request.level.title}
-        %p #{request.description}
+          #{l(request.created_at, format: "%d %B %Y à %H:%M")}
+        %h3.card-title
+          #{request.topic.title} - #{request.level.fr}
+        %p #{request.description} <br />
+        .card-action.text-center
+          = link_to user_path(request.student.id), class: 'btn btn-sm btn-qw btn-green' do
+            %i.fa.fa-comments-o
+            Contacter l'élève
