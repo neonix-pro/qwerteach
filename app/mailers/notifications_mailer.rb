@@ -113,5 +113,9 @@ class NotificationsMailer < ApplicationMailer
     mail(to: @lesson_request.teacher.email, subject: 'Votre proposition de cours sur Qwerteach a expiré')
   end
 
+  def notify_teacher_about_global_request(teacher, global_request)
+    @student = global_request.student
+    mail(to: teacher.email, subject: 'Un élève Qwerteach cherche un prof comme vous!')
+  end
 
 end
