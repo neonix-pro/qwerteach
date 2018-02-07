@@ -9,9 +9,13 @@ class Api::ConversationsController < ConversationsController
     participant_avatars = Array.new
     recipients = Array.new
     @mailbox.conversations.each do |conv|
-      conv.receipts.group(:receiver_id).select{|r| !r.receiver.nil? && current_user.id != r.receiver.id}.each do |p|
-        participant_avatars.push(p.receiver.avatar.url(:small))
-        recipients.push(p.receiver)
+      reciever = conv.participants - [current_user]
+      if reciever.last.present?
+        participant_avatars.push(reciever.last.avatar.url(:small))
+        recipients.push(reciever.last)
+      else
+        participant_avatars.push(nil)
+        recipients.push(nil)
       end
     end
 
