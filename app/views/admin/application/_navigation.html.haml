@@ -52,10 +52,10 @@
       = link_to([namespace, Conversation]) do
         = icon 'weixin'
         Conversations
-    %li{class: nav_link_state(:comments)}
-      = link_to([namespace, Comment]) do
-        = icon 'comment-o'
-        Comments
+    %li{class: nav_link_state(:global_requests)}
+      = link_to([namespace, GlobalRequest]) do
+        = icon 'buoy'
+        Demandes de cours
     %li{class: nav_link_state(:reviews)}
       = link_to([namespace, Review]) do
         = icon 'star-half-full'

@@ -56,7 +56,7 @@ class ConversationsController < ApplicationController
 
   def show
     @conversation.mark_as_read(current_user)
-    @reciever = @conversation.participants - [current_user]
+    @recievers = User.where(id: @conversation.receipts.group(:receiver_id).select(:receiver_id)).where.not(id: current_user.id)
     @page = params[:page] || 1
     @messages = @conversation.messages.page(@page).per(MESSAGES_PER_PAGE).order(id: :desc)
     @last_message = @messages.last

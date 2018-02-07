@@ -1,0 +1,12 @@
+%h2 #{@global_request.student.name} cherche un professeur de #{@global_request.topic.title}!
+%p
+  Bonjour #{@teacher.name},<br />
+  Un nouvel élève a fait une demande pour des cours de #{@global_request.topic.title}, niveau #{@global_request.level.fr}
+  et, à ce titre, votre profil nous a semblé pertinent.
+%p
+  Voici le détail de sa demande:<br />
+  %blockquote= @global_request.description
+%p
+  Si vous pensez pouvoir aider cet élève, n'hésitez pas à le contacter sur Qwerteach!
+
+%h3= link_to 'Voir la demande', global_request_url(@global_request)

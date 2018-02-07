@@ -2,6 +2,7 @@ class Student < User
   MAX_FREE_LESSONS = 3
   has_many :lessons_received, :class_name => 'Lesson', :foreign_key => 'student_id'
   has_many :interests, dependent: :destroy
+  has_many :global_requests, dependent: :destroy
 
 
   acts_as_reader

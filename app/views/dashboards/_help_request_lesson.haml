@@ -16,9 +16,9 @@
   .help.text-center.text-white
     Vous ne savez pas par où commencer?
   %h3.text-center.text-white
-    Demandez un entretien pédagogique
+    Demandez une recommandation!
     %br
-    = link_to '#help-request-lesson-modal', class: 'text-center', data:{toggle:'modal'} do
+    = link_to new_global_request_path, class: 'text-center', data:{toggle:'modal'} do
       %i.fa.fa-long-arrow-right
 
 #help-request-lesson-modal.modal.fade{:role => "dialog"}
