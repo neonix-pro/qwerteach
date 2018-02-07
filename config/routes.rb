@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :global_requests
   namespace :api, :defaults => { :format => 'json' } do
     get 'dashboard' => 'dashboards#index'
 
@@ -132,6 +133,7 @@ Rails.application.routes.draw do
       get '/activity' => 'activity_reports#index', as: :activity
       get '/activity/details' => 'activity_reports#show', as: :activity_details
     end
+    resources :global_requests, only: [:index, :show, :edit]
   end
   resources "contact", only: [:new, :create]
   post 'entretien_pedagogique' => 'contacts#entretien_pedagogique'
@@ -296,6 +298,8 @@ Rails.application.routes.draw do
   bigbluebutton_routes :default, :only => 'recordings', :controllers => {:rooms => 'bbb_recordings'}
   get 'demo_room', to: "bbb_rooms#demo_room", as: 'demo_room'
   get 'join_demo/:id', to: "bbb_rooms#join_demo", as: 'join_demo'
+
+  get 'levels_by_topic/:id', to: "global_requests#levels_by_topic", as: 'levels_by_topic'
 
   resources :toolbox, only: [:index, :show], path_names: {new: 'show/:id'}
 

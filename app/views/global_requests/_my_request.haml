@@ -1,0 +1,27 @@
+.card.card-lesson
+  .card-content
+    .row
+      .col-xs-3
+        .icon-user-avatar{class: "topic_#{request.topic.topic_group.id} text-center"}
+          =image_tag(request.topic.pictotype(:small))
+      .col-xs-9
+        .lesson-date.text-grey
+          = "##{request.id} - "
+          #{l(request.created_at, format: "%d %B %Y à %H:%M")}
+        %h3.card-title
+          #{request.topic.title} - #{request.level.fr}
+        %p #{request.description} <br />
+      .row
+        .col-xs-12
+          .card-action
+            - if request.expired?
+              Demande expirée
+            - else
+              .pull-left
+                = link_to edit_global_request_path(request) do
+                  %i.fa.fa-edit
+                  Modifier
+              .pull-right
+                = link_to global_request_path(request), method: :delete, class: 'text-red' do
+                  %i.fa.fa-trash-o
+                  Supprimer

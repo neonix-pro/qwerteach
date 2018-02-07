@@ -1,7 +1,7 @@
 %ul.nav.navbar-nav.pull-left
   %li= link_to 'Rechercher', all_teachers_path
   %li= link_to 'Devenir professeur', become_teacher_path(:general_infos), data: {turbolinks: false}
-  %li= link_to 'Comment ça marche ?', pages_path('comment-ca-marche'), class: 'text-green'
+  %li= link_to 'Comment ça marche ?', pages_path('comment-ca-marche')
 %ul.nav.navbar-nav.pull-right
   %li
     = link_to "S'inscrire", new_user_registration_path

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171220163144) do
+ActiveRecord::Schema.define(version: 20180207134148) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -207,6 +207,22 @@ ActiveRecord::Schema.define(version: 20171220163144) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "global_requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "topic_id"
+    t.integer  "level_id"
+    t.text     "description"
+    t.integer  "status",      default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.datetime "expiry_date"
+    t.integer  "price_max"
+  end
+
+  add_index "global_requests", ["level_id"], name: "index_global_requests_on_level_id"
+  add_index "global_requests", ["topic_id"], name: "index_global_requests_on_topic_id"
+  add_index "global_requests", ["user_id"], name: "index_global_requests_on_user_id"
 
   create_table "interests", force: :cascade do |t|
     t.integer  "student_id", null: false

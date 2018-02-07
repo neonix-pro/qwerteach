@@ -1,4 +1,7 @@
 fr:
+  error:
+    one: 'erreur'
+    other: 'erreurs'
   lesson:
     payment:
       status:

@@ -16,12 +16,12 @@ update_server_configs:
   class: BigbluebuttonUpdateServerConfigs
   description: "Updates the server configs that are stored locally. Same as 'rake bigbluebutton_rails:server_configs:update'."
 
-stat_message:
-  every:
-    - "1h"
-  class: MessageStatWorker
-  queue: message_stat
-  description: "MaJ Stat UserMessage"
+#stat_message:
+#  every:
+#    - "1h"
+#  class: MessageStatWorker
+#  queue: message_stat
+#  description: "MaJ Stat UserMessage"
 
 lesson_notifier:
   every:
@@ -57,3 +57,10 @@ update_ranking:
   class: UpdateRanking
   queue: ranking
   description: "Updates users ranking based on expired / given lessons"
+
+expire_global_requests:
+  every:
+    - "1m"
+  class: ExpireGlobalRequests
+  queue: bookings
+  description: "Change status of global requests to expired"

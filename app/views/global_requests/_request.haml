@@ -1,0 +1,19 @@
+.card.card-lesson
+  .card-content
+    .row
+      .col-xs-3
+        .icon-user-avatar{class: "topic_#{request.topic.topic_group.id} text-center"}
+          =image_tag(request.topic.pictotype(:small))
+      .col-xs-9
+        .lesson-date.text-grey
+          = "##{request.id} - "
+          #{l(request.created_at, format: "%d %B %Y à %H:%M")}
+        %h3.card-title
+          #{request.topic.title} - #{request.level.fr}
+        %p #{request.description} <br />
+        .card-action.text-center
+          = link_to user_path(request.student.id), class: 'btn btn-sm btn-qw btn-green' do
+            %i.fa.fa-comments-o
+            Contacter l'élève
+          %br
+          = link_to '+ détails', global_request_path(request)

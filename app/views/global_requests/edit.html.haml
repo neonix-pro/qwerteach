@@ -1,0 +1,13 @@
+.container
+  .row
+    .col-sm-8.col-sm-offset-2
+      .card
+        .card-content
+          .alert.alert-notice= notice unless notice.nil?
+          %h3.card-title Modifier ma demande de cours
+
+          = render 'form'
+
+          = link_to 'Show', @global_request
+          \|
+          = link_to 'Back', global_requests_path
