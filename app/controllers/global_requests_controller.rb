@@ -38,7 +38,7 @@ class GlobalRequestsController < ApplicationController
 
     respond_to do |format|
       if @global_request.save
-        GlobalRequestNotificationsJob.perform_async(:notify_teachers_about_global_request, @global_request)
+        GlobalRequestNotificationsJob.perform_async(:notify_teachers_about_global_request, @global_request.id)
         format.html { redirect_to @global_request, notice: 'Votre demande a bien été enregistrée. Consultez votre messagerie pour voir si un professeur vous a répondu!' }
         format.json { render :show, status: :created, location: @global_request }
       else

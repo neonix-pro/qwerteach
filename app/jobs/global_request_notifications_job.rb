@@ -3,9 +3,9 @@ class GlobalRequestNotificationsJob
 
   @queue = :notifications
 
-  def perform(key, lesson_id, params = {})
-    global_request = GlobalRequest.find(lesson_id)
-    GlobalRequestNotificator.new(lesson, params).send(key)
+  def perform(key, global_request_id, params = {})
+    global_request = GlobalRequest.find(global_request_id)
+    GlobalRequestNotificator.new(global_request, params).send(key)
   end
 
   def self.perform(*attrs)
