@@ -1,4 +1,5 @@
 class GlobalRequestsController < ApplicationController
+  before_filter
   before_action :set_global_request, only: [:show, :edit, :update, :destroy]
   before_action :find_topics, only: [:new, :create, :update, :edit]
   # GET /global_requests
