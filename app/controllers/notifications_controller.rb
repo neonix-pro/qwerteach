@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
     @notifications = current_user.mailbox.notifications.order('created_at DESC').limit(params[:limit]).offset(params[:offset])
     respond_to do |format|
       format.html {render :layout => false}
-      format.json {render :json => {:notifications => @notifications}}
+      format.json {render :json => {:notifications => @notifications.select {|n| n.sender.present?}}}
     end
   end
 

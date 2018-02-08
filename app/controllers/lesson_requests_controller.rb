@@ -17,7 +17,7 @@ class LessonRequestsController < ApplicationController
     flash[:notice]= "Vous ne pouvez pas réserver de cours avec vous-même!"
     flash_to_headers
     respond_to do |format|
-      format.js {redirect_to dashboard_path}
+      format.html {redirect_to dashboard_path}
       format.json {render :json => {:message => "Vous ne pouvez pas réserver de cours avec vous-mêmes."}}
     end
   end
@@ -191,7 +191,7 @@ class LessonRequestsController < ApplicationController
       format.json {render :json => {:message => "no account"}}
     end and return false
   end
-  
+
   def send_notification
     Pusher.notify(["#{@lesson.teacher.id}"], {fcm: {notification: {body: "#{@lesson.student.name} vous adresse une demande de cours.",
         icon: 'androidlogo', click_action: "MY_LESSONS"}}})
