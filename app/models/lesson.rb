@@ -64,10 +64,16 @@ class Lesson < ActiveRecord::Base
   validates :price, presence: true
   validates :price, :numericality => { :greater_than_or_equal_to => 0 }
   validate :time_start_cannot_be_in_the_past, on: :create
+  validate :description_mandatory_for_free_lesson, on: :create
 
   def time_start_cannot_be_in_the_past
     if time_start.present? && time_start < Date.today
       errors.add(:time_start, "La date du cours doit être dans le futur")
+    end
+  end
+  def description_mandatory_for_free_lesson
+    if free_lesson? && (comment.nil? || comment.length < 50)
+      errors.add(:description, "Vous devez introduire une description de votre demande!")
     end
   end
 
