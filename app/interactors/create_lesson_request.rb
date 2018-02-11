@@ -6,6 +6,14 @@ class CreateLessonRequest < ActiveInteraction::Base
       end
     end
   end
+
+  class DescriptionValidator < ActiveModel::Validator
+    def validate(record)
+      if record.free_lesson? && (record.comment.nil? || record.comment.length < 50)
+        record.errors[:base] << "Vous devez introduire une description de votre demande! (50 caractères)"
+      end
+    end
+  end
   integer :teacher_id
   integer :student_id
   time :time_start
@@ -19,6 +27,7 @@ class CreateLessonRequest < ActiveInteraction::Base
 
   validates :teacher_id, :student_id, :topic_id, :level_id, :time_start, presence: true
   validates_with DurationValidator
+  validates_with DescriptionValidator
 
   set_callback :validate, :after, :calculate_price
 
