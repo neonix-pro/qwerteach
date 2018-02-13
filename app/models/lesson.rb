@@ -225,6 +225,10 @@ class Lesson < ActiveRecord::Base
     })
   end
 
+  def topic_title
+    self.teacher.offers.where(topic: self.topic).title
+  end
+
   private
 
   def validate_teacher_on_postulation_approval
