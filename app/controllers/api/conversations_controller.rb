@@ -9,10 +9,10 @@ class Api::ConversationsController < ConversationsController
     participant_avatars = Array.new
     recipients = Array.new
     @mailbox.conversations.each do |conv|
-      reciever = conv.participants - [current_user]
-      if reciever.last.present?
-        participant_avatars.push(reciever.last.avatar.url(:small))
-        recipients.push(reciever.last)
+      recievers = User.where(id: conv.receipts.group(:receiver_id).select(:receiver_id)).where.not(id: current_user.id)
+      if recievers.last.present?
+        participant_avatars.push(recievers.last.avatar.url(:small))
+        recipients.push(recievers.last)
       else
         participant_avatars.push(nil)
         recipients.push(nil)
@@ -20,7 +20,7 @@ class Api::ConversationsController < ConversationsController
     end
 
     render :json => {:participant_avatars => participant_avatars, :recipients => recipients,
-      :conversations => @conversations, :messages => get_last_messages}
+      :conversations => @mailbox.conversations, :messages => get_last_messages}
 
   end
 
