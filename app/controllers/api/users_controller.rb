@@ -10,13 +10,9 @@ class Api::UsersController < UsersController
 
   def get_infos_for_detailed_prices_modal
     offer = Offer.find_by_id(params[:id])
-    topic_group_title = offer.topic.topic_group.title
-    prices = offer.offer_prices
-    levels = []
-    prices.each do |p|
-      levels.push(p.level)
-    end
-    render :json => {:topic_group => topic_group_title, :levels => levels}
+    topic_group = offer.topic.topic_group
+    levels = Level.where(code: topic_group.level_code).group_by{|l| l.fr}.collect{|k,v| v.last}
+    render :json => {:topic_group => topic_group, :levels => levels}
 
   end
 
@@ -25,7 +21,6 @@ class Api::UsersController < UsersController
     if @user.is_a?(Teacher)
       topics = Array.new
       offer_prices = Array.new
-      levels = Array.new
       review_sender_names = Array.new
       review_sender_avatars = Array.new
 
@@ -36,7 +31,13 @@ class Api::UsersController < UsersController
           topic_title = ad.topic.title
         end
         topics.push(topic_title)
-        offer_prices.push(ad.offer_prices)
+        levels = Level.where(code: ad.topic_group.level_code).group_by{|l| l.fr}.collect{|k,v| v.last}
+        ad_offer_prices = []
+        levels.each do |level|
+          offer_price = ad.price_for_level(level)
+          ad_offer_prices.push(offer_price)
+        end
+        offer_prices.push(ad_offer_prices)
       end
 
       @reviews.select {|r| r.sender.present?}.each do |review|

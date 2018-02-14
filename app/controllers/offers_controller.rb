@@ -7,7 +7,7 @@ class OffersController < ApplicationController
 
   def index
     @offers = Offer.where(:user => current_user)
-    
+
     #Other informations for Qwerteach application
     topics = Array.new
     offer_prices = Array.new
@@ -23,7 +23,7 @@ class OffersController < ApplicationController
 
     respond_to do |format|
       format.html # _index.html.erb
-      format.json {render :json => {:offers => @offers, :topic_titles => topics, 
+      format.json {render :json => {:offers => @offers, :topic_titles => topics,
         :offer_prices => offer_prices}}
     end
   end
@@ -32,9 +32,9 @@ class OffersController < ApplicationController
     @offer = Offer.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      format.json {render :json => {:offer => @offer, 
-        :topic => @offer.topic.title, 
-        :topic_group => @offer.topic.topic_group.title,
+      format.json {render :json => {:offer => @offer,
+        :topic => @offer.topic.title,
+        :topic_group => @offer.topic.topic_group,
         :levels => find_levels(@offer.topic.topic_group.level_code)}}
     end
   end
@@ -152,10 +152,10 @@ class OffersController < ApplicationController
   def find_user
     @user = current_user
   end
-  
+
   def find_levels(level_code)
     return Level.select('distinct(' + I18n.locale[0..3] + '), id,' + I18n.locale[0..3] + '')
       .where(:code => level_code).group(I18n.locale[0..3]).order(:id)
   end
-  
+
 end
