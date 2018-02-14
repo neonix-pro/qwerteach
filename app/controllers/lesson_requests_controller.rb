@@ -173,7 +173,7 @@ class LessonRequestsController < ApplicationController
   end
 
   def request_params
-    params.require(:request).permit(:student_id, :level_id, :topic_id, :time_start, :hours, :minutes, :free_lesson, 'start_at(4i)', :comment).merge({
+    params.require(:request).permit(:student_id, :level_id, :topic_id, :time_start, :hours, :minutes, :free_lesson, :comment, 'start_at(4i)').merge({
       :student_id => current_user.id,
       :teacher_id => @teacher.id
     })
