@@ -9,7 +9,7 @@ class CreateLessonRequest < ActiveInteraction::Base
 
   class DescriptionValidator < ActiveModel::Validator
     def validate(record)
-      if record.free_lesson? && (record.comment.nil? || record.comment.length < 50)
+      if record.free_lesson && (record.comment.nil? || record.comment.length < 50)
         record.errors[:base] << "Vous devez introduire une description de votre demande! (50 caractères)"
       end
     end

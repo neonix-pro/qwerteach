@@ -169,11 +169,11 @@ class LessonRequestsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:student_id, :date, :teacher_id, :price, :level_id, :topic_id, :topic_group_id, :time_start, :time_end, :free_lesson).merge(:student_id => current_user.id)
+    params.require(:lesson).permit(:student_id, :date, :teacher_id, :price, :level_id, :topic_id, :topic_group_id, :time_start, :time_end, :free_lesson, :comment).merge(:student_id => current_user.id)
   end
 
   def request_params
-    params.require(:request).permit(:student_id, :level_id, :topic_id, :time_start, :hours, :minutes, :free_lesson, 'start_at(4i)', :comment).merge({
+    params.require(:request).permit(:student_id, :level_id, :topic_id, :time_start, :hours, :minutes, :free_lesson, :comment, 'start_at(4i)').merge({
       :student_id => current_user.id,
       :teacher_id => @teacher.id
     })
