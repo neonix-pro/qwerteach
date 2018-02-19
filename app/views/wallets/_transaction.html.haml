@@ -11,4 +11,4 @@
   %td #{t.debited_funds.amount/100} #{t.debited_funds.currency}
   %td #{t.fees.amount/100} #{t.fees.currency}
   %td #{t.status}
-  %td #{t.result_message.html_safe}
+  %td #{t.result_message.html_safe unless t.result_message.nil?}

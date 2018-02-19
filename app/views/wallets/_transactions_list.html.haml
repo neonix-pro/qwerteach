@@ -25,7 +25,7 @@
         - if t.status == 'FAILED'
           %i.fa.fa-warning.text-red
           %span.text-red
-            #{t t.status}: #{t t.result_message.html_safe}
+            #{t t.status}: #{t t.result_message.html_safe unless t.result_message.nil?}
         - else
           = t t.status
     .col-xs-1
