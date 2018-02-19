@@ -18,6 +18,6 @@
             = link_to 'Voir', index_wallet_path
             #{"-"}
             - if @user.is_a?(Teacher)
-              = link_to 'Décharger', load_wallet_path
+              = link_to 'Décharger', payout_path
             - else
-              = link_to 'Charger', payout_path
+              = link_to 'Charger', load_wallet_path
