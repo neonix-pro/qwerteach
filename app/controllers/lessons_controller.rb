@@ -9,6 +9,7 @@ class LessonsController < ApplicationController
   #after_action :email_user, only: [:update, :accept, :refuse, :cancel, :dispute, :pay_teacher]
 
   def index
+    @contact = Contact.new()
     @user = current_user
     @planned_lessons = @user.planned_lessons.page(1).per(6)
     @pending_lessons = @user.pending_lessons.page(1).per(6)
