@@ -40,7 +40,13 @@ class GlobalRequestsController < ApplicationController
     respond_to do |format|
       if @global_request.save
         GlobalRequestNotificationsJob.perform_async(:notify_teachers_about_global_request, @global_request.id)
-        format.html { redirect_to @global_request, notice: 'Votre demande a bien été enregistrée. Consultez votre messagerie pour voir si un professeur vous a répondu!' }
+        format.html {
+          if params[:redirect]
+            redirect_to params[:redirect], notice: "Merci beaucoup pour ces informations! Nous vous mettons en relation avec les professeurs de #{@global_request.topic.title}. Gardez bien votre messagerie Qwerteach à l'oeil dans les prochaines heures."
+          else
+            redirect_to @global_request, notice: 'Votre demande a bien été enregistrée. Consultez votre messagerie pour voir si un professeur vous a répondu!'
+          end
+        }
         format.json { render :show, status: :created, location: @global_request }
       else
         format.html { render :new }

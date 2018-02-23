@@ -1,79 +1,35 @@
-#choose-topics
-  .container
-    .row.text-center.text-white
-      %h1 Vos matières
-      %p Trouvez votre prof idéal, pour bénéficier de vos cours particuliers en ligne :)
-    .row
-      .col-md-8.col-md-offset-2
-        #user-interests
-          - @user.interests.each do |i|
-            = render partial: 'interests/tag', locals: {interest: i}
-      .section_recherche
-        = form_tag interests_path, method: :post, id: 'search-form', remote: true do |f|
-          = autocomplete_field_tag 'interest[topic_id]', '', autocomplete_topic_title_topics_path, :size => 75, :class => "recherche-bar", placeholder: 'ex: mathématiques'
-          %button{type: "submit"}
-            %i.fa.fa-search
-          = hidden_field_tag 'interest[student_id]', current_user.id
-        .row
-          .col-xs-12.text-center
-            =link_to 'Suivant', next_wizard_path, class: 'btn btn-green btn-qw'
-
-
--#.container-fluid.progress-bar-wrapper
--#  .row
--#    = onboarding_progress_bar
 -##choose-topics
 -#  .container
 -#    .row.text-center.text-white
 -#      %h1 Vos matières
 -#      %p Trouvez votre prof idéal, pour bénéficier de vos cours particuliers en ligne :)
--#
--#    .row.topics-list
--#      - @topic_groups.each do |tg|
--#        .col-xs-4.col-sm-2
--#          .card
--#            = link_to profs_by_topic_path(tg.title), class: 'text-center' do
--#              .badge.badge-green.offers-number= Offer.where(topic_group_id: tg.id).count
--#              .text-center= image_tag(tg.pictotype('grey_small'))
--#              %div= "#{tg.title}"
--#      .row
--#        %p.text-right.text-white
--#          Non merci, je préfère
--#          = link_to 'explorer Qwerteach', dashboard_path
--#          par moi-même
--#    %hr
 -#    .row
--#      %h3.text-center.text-white Nos profs les plus populaires
--#      #search-results
+-#      .col-md-8.col-md-offset-2
+-#        #user-interests
+-#          - @user.interests.each do |i|
+-#            = render partial: 'interests/tag', locals: {interest: i}
+-#      .section_recherche
+-#        = form_tag interests_path, method: :post, id: 'search-form', remote: true do |f|
+-#          = autocomplete_field_tag 'interest[topic_id]', '', autocomplete_topic_title_topics_path, :size => 75, :class => "recherche-bar", placeholder: 'ex: mathématiques'
+-#          %button{type: "submit"}
+-#            %i.fa.fa-search
+-#          = hidden_field_tag 'interest[student_id]', current_user.id
 -#        .row
--#        - @teachers.each do |t|
--#          = render partial: 'users/search/search_result', :locals => {:u => t, :custom=>nil}
+-#          .col-xs-12.text-center
+-#            =link_to 'Suivant', next_wizard_path, class: 'btn btn-green btn-qw'
 -#
--#    %hr
--#    .row
--#      %h3.text-center.text-white Pour aller plus loin
--#      .col-sm-3
--#        .card
--#          .card-content
--#            %h4.card-title Rendez-vous pédagogique
--#            %p
--#              = link_to 'Rencontrez un membre de notre équipe', pages_path('contact')
--#              pour vous aider à choisir le meilleur professeur
--#      .col-sm-3
--#        .card
--#          .card-content
--#            %h4.card-title Il vous reste des questions?
--#            %p
--#              Rendez-vous dans notre
--#              = link_to 'FAQ', faq_path
--#              ou contactez-directement un admin via le
--#              = link_to 'chat', '#'
--#              !
--#      .col-sm-6
--#        .card
--#          .card-content
--#            %h4.card-title
--#              Non merci, je préfère
--#              = link_to 'explorer le site', dashboard_path
--#              par moi-même
-
+-#
+#choose-topics
+  .container
+    .row
+      .row.text-center.text-white
+        %h1 Dans quelle matière avez-vous besoin d'aide?
+        %p Trouvez votre prof idéal, pour bénéficier de vos cours particuliers en ligne :)
+      .col-sm-6.col-sm-offset-3
+        .card
+          .card-content
+            .alert.alert-info
+              Remplissez ce formulaire, pour être mis en relation avec les professeurs de notre communauté les plus pertinents par rapport à votre situation.
+            = render partial: 'global_requests/form', locals: {redirect: root_path}
+            .text-right
+              =link_to 'Pas maintenant', profs_path
