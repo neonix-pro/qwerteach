@@ -6,9 +6,13 @@ class Api::ConversationsController < ConversationsController
   def index
     super
 
+    conversations = @mailbox.conversations.page(params[:page]).per(10)
     participant_avatars = Array.new
     recipients = Array.new
-    @mailbox.conversations.each do |conv|
+
+    Rails.logger.debug("CONVERSATIONS: #{conversations.inspect}")
+
+    conversations.each do |conv|
       recievers = User.where(id: conv.receipts.group(:receiver_id).select(:receiver_id)).where.not(id: current_user.id)
       if recievers.last.present?
         participant_avatars.push(recievers.last.avatar.url(:small))
@@ -20,7 +24,7 @@ class Api::ConversationsController < ConversationsController
     end
 
     render :json => {:participant_avatars => participant_avatars, :recipients => recipients,
-      :conversations => @mailbox.conversations, :messages => get_last_messages}
+      :conversations => conversations, :messages => get_last_messages}
 
   end
 
