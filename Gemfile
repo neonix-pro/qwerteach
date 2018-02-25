@@ -176,6 +176,7 @@ group :development do
   gem 'mysql2'
   gem 'figaro'
   gem 'letter_opener'
+  gem 'active_record_query_trace'
   #gem 'rails-dev-tweaks', '~> 1.1'
 end
 
