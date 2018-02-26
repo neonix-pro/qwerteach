@@ -1,7 +1,8 @@
 class GlobalRequestsController < ApplicationController
-  before_filter
+  before_filter :authenticate_user!
   before_action :set_global_request, only: [:show, :edit, :update, :destroy]
   before_action :find_topics, only: [:new, :create, :update, :edit]
+
   # GET /global_requests
   # GET /global_requests.json
   def index

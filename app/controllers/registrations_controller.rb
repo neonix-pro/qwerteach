@@ -38,13 +38,15 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def send_google_analytics
-    category = "Inscription - #{session[:supposed_user_type].nil? ? '?': session[:supposed_user_type]}"
-    action = "Inscription #{current_user.provider.nil? ? 'e-mail' : current_user.provider}"
-    begin
-      tracker do |t|
-        t.google_analytics :send, { type: 'event', category: category, action: action, label: "user id: #{current_user.id}" }
+    if current_user
+      category = "Inscription - #{session[:supposed_user_type].nil? ? '?': session[:supposed_user_type]}"
+      action = "Inscription #{current_user.provider.nil? ? 'e-mail' : current_user.provider}"
+      begin
+        tracker do |t|
+          t.google_analytics :send, { type: 'event', category: category, action: action, label: "user id: #{current_user.id}" }
+        end
+      rescue
       end
-    rescue
     end
   end
 

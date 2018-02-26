@@ -79,6 +79,7 @@ class UsersController < ApplicationController
   end
 
   def unapproved_teachers
+    @contact = Contact.new()
     search_sorting_options
     @sunspot_search = Sunspot.search(Offer) do
       fulltext search_text unless params[:topic].nil? || params[:topic].empty?
