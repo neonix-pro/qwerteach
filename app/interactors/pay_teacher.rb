@@ -14,20 +14,23 @@ class PayTeacher < ActiveInteraction::Base
 
         if payment.locked?
           transfer = Mango::TransferBetweenWallets.run(transfer_params(payment))
-        end
 
-        if !transfer.valid?
-          self.errors.merge! transfer.errors
+          if !transfer.valid?
+            self.errors.merge! transfer.errors
+            raise ActiveRecord::Rollback
+          end
+          payment.status = 'paid'
+          #payment.transfer_prof_id = transfer.result.id
+          if !payment.save
+            self.errors.merge! payment.errors
+            Rails.logger.debug("Impossible de sauver le payement. #{payment.errors.full_messages.to_sentence}")
+            raise ActiveRecord::Rollback
+          end
+          return transfer.result
+        else
+          Rails.logger.debug("Payment non bloqué")
           raise ActiveRecord::Rollback
         end
-        payment.status = 'paid'
-        #payment.transfer_prof_id = transfer.result.id
-        if !payment.save
-          self.errors.merge! payment.errors
-          Rails.logger.debug("Impossible de sauver le payement. #{payment.errors.full_messages.to_sentence}")
-          raise ActiveRecord::Rollback
-        end
-        return transfer.result
       end
     end
   end
