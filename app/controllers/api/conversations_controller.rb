@@ -22,7 +22,7 @@ class Api::ConversationsController < ConversationsController
     end
 
     render :json => {:participant_avatars => participant_avatars, :recipients => recipients,
-      :conversations => @conversations, :messages => get_last_messages}
+      :conversations => @conversations, :messages => get_last_messages(@conversations)}
 
   end
 
@@ -44,9 +44,9 @@ class Api::ConversationsController < ConversationsController
     render :json => {:messages => @messages, :avatars => get_sender_avatars.reverse}
   end
 
-  def get_last_messages
+  def get_last_messages(conversations)
     last_messages = Array.new
-    @mailbox.conversations.each do |conv|
+    conversations.each do |conv|
       messages = conv.messages.page(@page).per(MESSAGES_PER_PAGE).order(id: :desc)
       last_messages.push(messages.reverse.last)
     end
