@@ -9,6 +9,7 @@
             %li= msg
             %br
     .form-group
+      = hidden_field_tag :redirect, local_assigns[:redirect] if local_assigns[:redirect]
       = f.label :description, 'Aidez-nous à comprendre votre besoin'
       = f.text_area :description, required: true, class: "form-control character-count", data:{length:50}, rows: 5, placeholder: "Au plus vous serez détaillé dans votre demande, au mieux nous pourrons vous aider. Ex: Je cherche un professeur pour m'accompagner de façon régulière 2x semaine jusqu'au bac en juin."
       %span.text-grey#new-conversation Minimum 50 caractères.

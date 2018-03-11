@@ -18,7 +18,7 @@
         - if devise_mapping.rememberable?
           .form-group
             .col-md-12
-              = f.check_box :remember_me
+              = f.check_box :remember_me, checked: true
               = f.label :remember_me
         .actions.text-center
           = f.submit t('.sign_in')

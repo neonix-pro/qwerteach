@@ -10,6 +10,7 @@
         = render partial: 'shared/flash_dismiss', locals:{type: key, content: value} unless value.blank?
     .main-content{:class => ('logged-in clearfix' if current_user)}
       = yield
+    = render 'cookies_eu/consent_banner'
     = render "layouts/footer"
     = render "shared/tawk_btn"
     - if (current_user)

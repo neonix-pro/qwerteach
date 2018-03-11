@@ -38,3 +38,4 @@
 //= require typed.min
 //= require intlTelInput
 //= require libphonenumber/utils
+//= require cookies_eu

@@ -71,7 +71,7 @@ class CreateLessonRequest < ActiveInteraction::Base
   end
 
   def lesson_params
-    inputs.slice(:teacher_id, :student_id, :topic_id, :level_id, :free_lesson, :time_start).merge({
+    inputs.slice(:teacher_id, :student_id, :topic_id, :level_id, :free_lesson, :time_start, :comment).merge({
       time_end: time_end,
       price: price,
       topic_group_id: Topic.find_by(id: topic_id).try(:topic_group_id)
@@ -88,7 +88,8 @@ class CreateLessonRequest < ActiveInteraction::Base
       topic_id: lesson.topic_id,
       level_id: lesson.level_id,
       teacher_id: lesson.teacher_id,
-      student_id: lesson.student_id
+      student_id: lesson.student_id,
+      comment: lesson.comment
     }.merge(params))
   end
 

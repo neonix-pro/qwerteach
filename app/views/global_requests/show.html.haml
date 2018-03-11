@@ -37,13 +37,21 @@
                     %i.fa.fa-trash-o
                     Supprimer
           - else
-            .text-center
-              = link_to '#contact-modal', class: 'btn btn-sm btn-qw btn-green', data:{toggle: 'modal'} do
-                %i.fa.fa-comments-o
-                Contacter l'élève
+            - if current_user.postulance_accepted?
+              .text-center
+                = link_to '#contact-modal', class: 'btn btn-sm btn-qw btn-green', data:{toggle: 'modal'} do
+                  %i.fa.fa-comments-o
+                  Contacter l'élève
+
+              = render partial: 'users/profile/contactform', locals: {user: @global_request.student, me: current_user}
+            - else
+              .text-center
+                Vous devez être un professeur approuvé pour pouvoir répondre aux demandes des élèves!
+                <br />
+                Contactez un administrateur pour faire valider votre profil.
+                <br />
+                = link_to conversations_path, class: 'btn btn-sm btn-qw btn-green' do
+                  Contacter un admin
           %hr
           .pull-left
             = link_to 'Retour', global_requests_path
-
-
-= render partial: 'users/profile/contactform', locals: {user: @global_request.student, me: current_user}
