@@ -379,6 +379,8 @@ fr:
         success: "L'utilisateur a bien été marqué comme étant inactif"
       reactivated:
         success: "L'utilisateur a bien été marqué comme étant actif"
+    actions:
+      show: 'Voir'
   PAYIN: 'Chargement'
   TRANSFER: 'Transfer'
   PAYOUT: 'Déchargement'

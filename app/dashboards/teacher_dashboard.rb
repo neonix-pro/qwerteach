@@ -104,6 +104,7 @@ class TeacherDashboard < Administrate::BaseDashboard
       :unconfirmed_email,
       :created_at,
       :updated_at,
+      :last_sign_in_ip,
       :score,
       :avatar_score,
   ]

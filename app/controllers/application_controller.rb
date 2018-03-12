@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   before_filter :flash_to_headers
 
   def after_sign_in_path_for(resource_or_scope)
-    if resource.sign_in_count == 1
+    if resource.nil? || resource.sign_in_count == 1
       onboarding_path(:choose_role)
     else
       root_path
