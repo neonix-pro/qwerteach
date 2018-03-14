@@ -465,6 +465,11 @@ GEM
       redis (~> 3.0)
       resque (~> 1.25)
       rufus-scheduler (~> 2.0)
+    resque_spec (0.17.0)
+      resque (>= 1.19.0)
+      rspec-core (>= 3.0.0)
+      rspec-expectations (>= 3.0.0)
+      rspec-mocks (>= 3.0.0)
     rsolr (2.1.0)
       builder (>= 2.1.2)
       faraday (>= 0.9.0)
@@ -672,6 +677,7 @@ DEPENDENCIES
   ransack!
   raphael-rails
   resque
+  resque_spec
   rspec-rails (~> 3.0)
   ruby-duration
   sass-rails (~> 5.0)

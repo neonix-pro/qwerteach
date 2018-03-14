@@ -1,0 +1,15 @@
+.container-fluid
+  %h1 Confirm lesson_pack
+  .row
+    .col-lg-6.col-md-8= render 'recap', lesson_pack: @lesson_pack
+  .row.form-group
+    - if @lesson_pack.new_record?
+      .col-lg-2.col-md-3.col-sm-4.col-xs-6
+        = button_to 'Change', change_lesson_packs_path, class: 'btn btn-success', params: to_form_params(lesson_pack_params, 'lesson_pack')
+      .col-lg-2.col-md-3.col-sm-4.col-xs-6
+        = button_to 'Confirm', { action: 'create' }, class: 'btn btn-primary', params: to_form_params(lesson_pack_params, 'lesson_pack')
+    - else
+      .col-lg-2.col-md-3.col-sm-4.col-xs-6
+        = link_to 'Change', edit_lesson_pack_path(@lesson_pack), class: 'btn btn-success'
+      .col-lg-2.col-md-3.col-sm-4.col-xs-6
+        = link_to 'Confirm', propose_lesson_pack_path(@lesson_pack), class: 'btn btn-primary', method: :put

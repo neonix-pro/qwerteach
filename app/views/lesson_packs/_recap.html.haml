@@ -1,0 +1,61 @@
+%h3 Recap of lesson pack
+- for_approve = lesson_pack.student_id == current_user.id && lesson_pack.pending_student?
+%table.table.table-striped
+  %tbody
+    - if lesson_pack.teacher_id == current_user.id
+      %tr
+        %td Student
+        %td= lesson_pack.student.try(:full_name)
+    %tr
+      %td # lessons
+      %td= lesson_pack.items.size
+    %tr
+      %td Topic
+      %td= lesson_pack.topic.try(:title)
+    %tr
+      %td Level
+      %td= lesson_pack.level.try(:title)
+    %tr
+      %td Total hours
+      %td= Duration.new(minutes: lesson_pack.duration).format('%th:%M')
+    - if lesson_pack.discount > 0
+      %tr
+        %td Discount
+        %td #{lesson_pack.discount}%
+    %tr
+      %td Amount
+      %td #{lesson_pack.cost} - #{lesson_pack.cost * lesson_pack.discount / 100} = #{lesson_pack.amount}
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Time start
+      %th Duration
+      %th # rescheduled
+      - if can? :pay, lesson_pack
+        %th Agreement
+  %tbody
+    - (lesson_pack.items).each do |item|
+      %tr
+        %td= I18n.l item.time_start, format: :short
+        %td= Duration.new(minutes: item.duration).format('%H:%M')
+        %td 0
+        - if can? :pay, lesson_pack
+          %td= check_box_tag :agree, nil, false, class: 'lesson-pack-agree-with-lesson'
+
+#lesson-pack-calendar.form-group.events-calendar.lesson-pack-calendar
+
+- content_for :javascript do
+  :javascript
+    $('#lesson-pack-calendar').fullCalendar({
+        timezone: 'local',
+        defaultView: 'month',
+        events: JSON.parse('#{ lesson_pack_events(lesson_pack).to_json }'),
+        lang: 'fr',
+        height: 450,
+        header: {
+            left: 'agendaWeek, month',
+            center: 'title',
+            right: 'prev, next'
+        }
+    });

@@ -27,8 +27,9 @@
           = link_to edit_lesson_path(@lesson), remote: true do
             Déplacer
         - elsif @lesson.upcoming?
-          = link_to lesson_cancel_path(@lesson) do
-            Annuler
+          = link_to 'Reschedule', '#reschedule-lesson', 'data-toggle' => 'modal'
+          = link_to 'Annuler', lesson_cancel_path(@lesson), 'data-confirm' => 'Are you sure?', 'data-disable-with' => 'Processing...'
+
   .container
     .row
       .col-md-1
@@ -92,3 +93,5 @@
                       .text-red
                         Si vous acceptez de donner cours avant que l'élève n'ait
                         réglé le paiement, <b>Qwerteach ne peut pas garantir que vous serez payé</b>.
+
+= render 'reschedule', lesson: @lesson

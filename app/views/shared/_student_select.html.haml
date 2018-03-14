@@ -1,0 +1,8 @@
+.student-select.dropdown
+  = f.hidden_field :student_id, id: 'student-id-field'
+  %a.form-control.select.students-select-btn{href: '#', 'data-toggle' => 'dropdown'}= f.object.student.try(:full_name) || 'Select a student'
+  %ul#students-list.students-select.dropdown-menu
+    - students.each do |student|
+      %li.students-select-item{'data-student-id' => student.id, class: ('disabled' if student.mango_id.blank?), 'data-payment' => ('true' if student.payments_count > 0)}
+        = image_tag( user_avatar(student, :small), class: 'students-select-avatar' )
+        %span.students-select-name= student.name

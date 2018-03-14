@@ -11,7 +11,10 @@ class Level < ActiveRecord::Base
   validates :be, presence: true
   validates :fr, presence: true
   validates :ch, presence: true
-  
+
+  def title
+    self[I18n.locale] || fr
+  end
   
 
 end

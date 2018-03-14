@@ -12,6 +12,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :topic_group
   belongs_to :topic
   belongs_to :level
+  belongs_to :pack, class_name: 'LessonPack', foreign_key: :lesson_pack_id, required: false
 
   has_many :payments, inverse_of: :lesson
 
