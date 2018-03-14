@@ -25,7 +25,7 @@ class LessonPack < ActiveRecord::Base
   accepts_nested_attributes_for :items, allow_destroy: true
 
   validate :items_count_should_be_between_5_and_20
-  validate :no_another_packs_for_student
+  validate :no_another_packs_for_student, on: :create
   validates :discount, numericality: { only_integer: true, less_than_or_equal_to: 50 }
 
   def duration

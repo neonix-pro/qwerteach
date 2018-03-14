@@ -10,7 +10,7 @@ RSpec.describe ApproveLessonPack do
   context 'One transaction' do
     let(:normal_transaction) { mango_transaction(credit: lesson_pack.amount) }
     let(:transactions) { [ normal_transaction ] }
-    let(:payment_method) { :wallet }
+    let(:payment_method) { :transfert }
 
     subject { ApproveLessonPack.run(lesson_pack: lesson_pack, transactions: transactions, payment_method: payment_method) }
 
@@ -57,7 +57,7 @@ RSpec.describe ApproveLessonPack do
     let(:normal_transaction) { mango_transaction(id: '1', credit: lesson_pack.amount * 0.8) }
     let(:bonus_transaction) { mango_transaction(id: '2', credit: lesson_pack.amount * 0.2) }
     let(:transactions) { [ normal_transaction, bonus_transaction ] }
-    let(:payment_method) { :wallet }
+    let(:payment_method) { :transfert }
 
     subject { ApproveLessonPack.run(lesson_pack: lesson_pack, transactions: transactions, payment_method: payment_method) }
 
