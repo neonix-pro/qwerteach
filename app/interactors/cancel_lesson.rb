@@ -6,8 +6,8 @@ class CancelLesson < ActiveInteraction::Base
     if lesson.canceled? or lesson.refused?
       return errors.add(:lesson, 'already canceled')
     end
-    if lesson.pack
-      cancel_pack_lesson
+    if discount?
+      cancel_discounted_lesson
     else
       cancel_normal_lesson
     end
@@ -15,11 +15,11 @@ class CancelLesson < ActiveInteraction::Base
 
   private
 
-  def pack?
-    lesson.pack.present?
+  def discount?
+    lesson.pack.try(:discount).present?
   end
 
-  def cancel_pack_lesson
+  def cancel_discounted_lesson
     if lesson.is_student?(user) && lesson.time_start < 24.hours.since
       return errors.add(:base, 'Can\'t be canceled because before the start less than 24 hours')
     end

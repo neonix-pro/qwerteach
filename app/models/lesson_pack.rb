@@ -58,7 +58,7 @@ class LessonPack < ActiveRecord::Base
 
   def no_another_packs_for_student
     if LessonPack.pending_student.where(student_id: student_id, teacher_id: teacher_id).exists?
-      errors.add('can\'t submit more packs for this student')
+      errors.add(:base, 'can\'t submit more packs for this student')
     end
   end
 

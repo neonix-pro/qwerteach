@@ -7,7 +7,11 @@ class ApproveLessonPack < ActiveInteraction::Base
     LessonPack.transaction do
       lesson_pack.paid!
       lesson_pack.lessons = build_lessons
-      errors.merge!(lesson_pack.errors) unless lesson_pack.save
+      if lesson_pack.save
+        notify
+      else
+        errors.merge!(lesson_pack.errors)
+      end
     end
     return lesson_pack
   end
@@ -75,6 +79,10 @@ class ApproveLessonPack < ActiveInteraction::Base
       transfer_bonus_amount: bonus_transaction ? bonus_amount / lesson_pack.items.size : nil,
       transactions: transactions
     })
+  end
+
+  def notify
+    LessonPackNotificationsJob.perform_async(:notify_teacher_about_paid_lesson_pack, lesson_pack.id)
   end
 
 end

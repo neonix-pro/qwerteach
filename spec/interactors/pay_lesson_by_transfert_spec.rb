@@ -45,7 +45,9 @@ RSpec.describe PayLessonByTransfert do
   end
 
   it 'save draft lesson and create postpayment', vcr: true do
-    lesson.update(time_start: 7.hours.ago, time_end: 5.hours.ago)
+    Timecop.freeze(10.days.ago) do
+      lesson.update(time_start: 1.hours.since, time_end: 3.hours.since)
+    end
     payin = Mango::PayinTestCard.run(user: user, amount: 49)
     expect(payin).to be_valid
     user.reload

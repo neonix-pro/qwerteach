@@ -80,7 +80,7 @@ module PaymentActions
 
   #TODO: Pretty error message
   def payment_error(payment_method, errors)
-    redirect_to payment_fallback_url, notice: payment_error_message(errors)
+    redirect_to payment_fallback_url, flash: { warning: payment_error_message(errors) }
   end
 
   def payment_error_message(errors)

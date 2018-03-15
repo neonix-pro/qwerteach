@@ -132,4 +132,10 @@ class NotificationsMailer < ApplicationMailer
     mail(to: @lesson_pack.teacher.email, subject: subject)
   end
 
+  def notify_teacher_about_paid_lesson_pack(lesson_pack_id)
+    @lesson_pack = LessonPack.find(lesson_pack_id)
+    subject = "#{@lesson_pack.student.full_name} has paid your pack"
+    mail(to: @lesson_pack.teacher.email, subject: subject)
+  end
+
 end

@@ -1,3 +1,5 @@
-%h1 "#{@lesson_pack.student.full_name} has rejected your pack"
+%h1 #{@lesson_pack.student.full_name} has rejected your pack
+
+= render 'lesson_pack_recap', lesson_pack: @lesson_pack
 
 %h3= link_to 'Détails', lesson_pack_url(@lesson_pack)

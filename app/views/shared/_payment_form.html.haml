@@ -21,7 +21,7 @@
     .payment_method.payment_by_bcmc
       En cliquant sur 'ok', vous serez redirigé vers votre insitution bancaire pour procéder au payement.
       .actions
-        = button_to button_caption, url.call('bancontact'), remote: true, method: 'post'
+        = button_to button_caption, url.call('bancontact'), remote: true, method: 'post', 'data-disable-with' => 'Processing...'
     .payment_method.payment_by_creditcard
       #credit_card.field.credit_card_choice
         = form_tag  url.call('cd'), :method => :post, remote: true do |f|
@@ -31,7 +31,7 @@
         #new_card{class: ('hidden' unless current_user.mangopay.cards.empty?)}
           = render 'mangopay/card_form', remote: true, no_actions: true
         .actions
-          = submit_tag button_caption, class: 'btn-pay-by-card'
+          = submit_tag button_caption, class: 'btn-pay-by-card', 'data-disable-with' => 'Processing...'
     .payment_method.payment_by_wallet
       .actions
-        = button_to button_caption, url.call('transfert'), method: 'post'
+        = button_to button_caption, url.call('transfert'), method: 'post', 'data-disable-with' => 'Processing...'

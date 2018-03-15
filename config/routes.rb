@@ -269,7 +269,7 @@ Rails.application.routes.draw do
 
   end
 
-  resources :lesson_packs do
+  resources :lesson_packs, path_names: { new: 'new/(:student_id)' } do
     post :change, action: :new, on: :collection
     post :confirm, on: :collection
     get :confirm, on: :member

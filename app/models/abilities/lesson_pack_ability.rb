@@ -3,7 +3,6 @@ class LessonPackAbility
 
   def initialize(user)
     if user.is_a?(Teacher)
-      can :index, LessonPack
       can :create, LessonPack
       can :confirm, LessonPack
     end

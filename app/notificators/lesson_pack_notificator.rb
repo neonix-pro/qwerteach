@@ -20,6 +20,11 @@ class LessonPackNotificator
     notify_teacher("#{student.full_name} rejected your pack " + link_to('Détails', lesson_pack_path(lesson_pack)))
   end
 
+  def notify_teacher_about_paid_lesson_pack
+    NotificationsMailer.notify_teacher_about_paid_lesson_pack(lesson_pack.id).deliver_later
+    notify_teacher("#{student.full_name} paid your pack " + link_to('Détails', lesson_pack_path(lesson_pack)))
+  end
+
   private
 
   def teacher

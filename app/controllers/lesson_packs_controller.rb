@@ -4,10 +4,6 @@ class LessonPacksController < ApplicationController
   before_action :set_lesson_pack, only: [:show, :edit, :update, :destroy, :approve, :reject, :propose, :payment, :pay, :finish]
   helper_method :lesson_pack_params
 
-  def index
-    @lesson_packs = LessonPack.where(teacher_id: current_user.id)
-  end
-
   def show
   end
 
@@ -15,7 +11,7 @@ class LessonPacksController < ApplicationController
     @lesson_pack = if params[:lesson_pack].present?
       LessonPack.new(lesson_pack_params)
     else
-      LessonPack.new(items: Array.new(10){ LessonPackItem.new } )
+      LessonPack.new(student_id: params[:student_id], items: Array.new(10){ LessonPackItem.new } )
     end
   end
 
@@ -24,7 +20,7 @@ class LessonPacksController < ApplicationController
     if @lesson_pack.valid?
       render :confirm
     else
-      render @lesson_pack.persisted ? :edit : :new
+      render @lesson_pack.persisted? ? :edit : :new
     end
   end
 
@@ -36,7 +32,7 @@ class LessonPacksController < ApplicationController
 
     if @lesson_pack.save
       ProposeLessonPack.run!(lesson_pack: @lesson_pack)
-      redirect_to [:lesson_packs], notice: 'Lesson pack was successfully created.'
+      redirect_to lessons_path, notice: 'Lesson pack was successfully created.'
     else
       render :new
     end
@@ -44,7 +40,7 @@ class LessonPacksController < ApplicationController
 
   def propose
     ProposeLessonPack.run!(lesson_pack: @lesson_pack)
-    redirect_to lesson_packs_url, notice: 'Lessons pack was successfully proposed.'
+    redirect_to lessons_path, notice: 'Lessons pack was successfully proposed.'
   end
 
   def payment
