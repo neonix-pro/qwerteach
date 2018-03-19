@@ -17,8 +17,8 @@
               %span.text-pink#new-conversation Minimum 50 caractères.
           = submit_tag 'Envoyer', class: 'btn btn-qw btn-green'
 :javascript
-  $('#contact-modal form').submit(function(){
-    $('#contact-modal').modal('hide');
+  $(contacts).submit(function(){
+    $(contacts).modal('hide');
   });
 - if new_conversation
   :javascript

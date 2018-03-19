@@ -135,7 +135,7 @@ Rails.application.routes.draw do
     end
     resources :global_requests, only: [:index, :show, :edit]
   end
-  resources "contact", only: [:new, :create]
+  resources :contacts, only: [:new, :create]
   post 'entretien_pedagogique' => 'contacts#entretien_pedagogique'
 
 

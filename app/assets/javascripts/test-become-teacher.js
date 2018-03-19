@@ -24,7 +24,7 @@
         duration: 1000,
         delay: 200
     });
-    sr.reveal('.sr-contact', {
+    sr.reveal('.sr-contacts', {
         duration: 600,
         scale: 0.3,
         distance: '0px'
