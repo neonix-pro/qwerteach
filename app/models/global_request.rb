@@ -6,7 +6,7 @@ class GlobalRequest < ActiveRecord::Base
   validates :description, length: { minimum: 50 }
   #0 => open ; 1 => closed
 
-  scope :open, -> { where('global_requests.status IN (?) ', [1]) }
+  scope :open, -> { where('global_requests.status IN (?) ', [0]) }
 
   def expired?
     status == 1
