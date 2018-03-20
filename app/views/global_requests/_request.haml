@@ -15,6 +15,6 @@
           - if current_user.postulance_accepted?
             = link_to user_path(request.student.id), class: 'btn btn-sm btn-qw btn-green' do
               %i.fa.fa-comments-o
-              Contacter l'élève
+              Envoyer un message
           %br
           = link_to '+ détails', global_request_path(request)

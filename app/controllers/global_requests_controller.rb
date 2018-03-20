@@ -107,3 +107,5 @@ class GlobalRequestsController < ApplicationController
     @topics = Topic.where.not(title: 'Autre')
   end
 end
+
+BigbluebuttonRoom

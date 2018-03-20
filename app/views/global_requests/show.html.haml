@@ -42,6 +42,10 @@
                 = link_to '#contacts-modal', class: 'btn btn-sm btn-qw btn-green', data:{toggle: 'modal'} do
                   %i.fa.fa-comments-o
                   Contacter l'élève
+              - if !@global_request.student.full_number.nil? && @global_request.status == 0
+                %p.text-center
+                  %i.fa.fa-2x.fa-phone.text-green
+                  #{@global_request.student.full_number}
 
               = render partial: 'users/profile/contactform', locals: {user: @global_request.student, me: current_user}
             - else
