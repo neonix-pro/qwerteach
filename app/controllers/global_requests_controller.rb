@@ -2,6 +2,7 @@ class GlobalRequestsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_global_request, only: [:show, :edit, :update, :destroy]
   before_action :find_topics, only: [:new, :create, :update, :edit]
+  before_action :update_phone, only: :create
 
   # GET /global_requests
   # GET /global_requests.json
@@ -37,7 +38,6 @@ class GlobalRequestsController < ApplicationController
   # POST /global_requests.json
   def create
     @global_request = GlobalRequest.new(global_request_params)
-
     respond_to do |format|
       if @global_request.save
         GlobalRequestNotificationsJob.perform_async(:notify_teachers_about_global_request, @global_request.id)
@@ -106,6 +106,8 @@ class GlobalRequestsController < ApplicationController
   def find_topics
     @topics = Topic.where.not(title: 'Autre')
   end
-end
 
-BigbluebuttonRoom
+  def update_phone
+    current_user.update(phone_country_code: params[:user_phone_country_code], phone_number: params[:user_phone_number])
+  end
+end

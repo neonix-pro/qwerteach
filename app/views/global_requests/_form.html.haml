@@ -25,9 +25,67 @@
     .form-group
       = f.label :price_max, 'Tarif horaire'
       = f.select :price_max, options_for_select([['Tous les prix', nil], ['Maximum 15€/h', 15], ['Maximum 20€/h', 20], ['Maximum 25€/h', 25]], selected: nil), {}, {required: true, class: 'form-control'}
+    .form-group
+      = label_tag 'Numéro de téléphone'
+      %br
+      = phone_field_tag :user_number, nil, class:'form-control', required: true
+      = hidden_field_tag :user_phone_country_code
+      = hidden_field_tag :user_phone_number
+      .text-white.text-center
+        %small#phone_error_message Numéro invalide
+
     .actions
       = submit_tag 'Envoyer', class: 'btn btn-qw btn-green'
 
 :javascript
   var r = new GlobalRequest( $('#global-request'));
   $('#global_request_description').characterCounter();
+
+:javascript
+  $("#phone_error_message").hide();
+  $("#user_number").intlTelInput({
+    formatOnInit: true,
+    separateDialCode: true,
+    nationalMode: false,
+    initialCountry: 'auto',
+    utilsScript: "assets/libphonenumber/utils.js",
+    geoIpLookup: function(callback) {
+        $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+          var countryCode = (resp && resp.country) ? resp.country : "";
+          callback(countryCode);
+        });
+      },
+    preferredCountries: ['fr', 'be', 'ch', 'ca']
+  });
+
+  var telInput = $("#user_number");
+
+  telInput.blur(function() {
+    if ($.trim(telInput.val())) {
+      if (telInput.intlTelInput("isValidNumber")) {
+        $("#user_number").parent().removeClass("has-error");
+        $("#phone_error_message").hide();
+      } else {
+        $("#user_number").parent().addClass("has-error");
+        $("#phone_error_message").show();
+      }
+    }
+  });
+
+  telInput.focus(function(){
+    telInput.parent().removeClass('has-error');
+    $("#phone_error_message").hide();
+  });
+
+  $('#new_global_request').submit(function(e){
+    var c = $('#user_number').intlTelInput("getSelectedCountryData").dialCode;
+    var n =  $("#user_number").intlTelInput("getNumber").replace('+'+c, '');
+    $('#user_phone_number').val(n);
+    $('#user_phone_country_code').val(c);
+    if(telInput.intlTelInput("isValidNumber")){
+
+    }
+    else{
+      e.preventDefault();
+    }
+  });
