@@ -39,7 +39,7 @@
           - else
             - if current_user.postulance_accepted?
               .text-center
-                = link_to '#contacts-modal', class: 'btn btn-sm btn-qw btn-green', data:{toggle: 'modal'} do
+                = link_to '#contact-modal', class: 'btn btn-sm btn-qw btn-green', data:{toggle: 'modal'} do
                   %i.fa.fa-comments-o
                   Contacter l'élève
               - if !@global_request.student.full_number.nil? && @global_request.status == 0

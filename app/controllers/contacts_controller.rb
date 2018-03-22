@@ -6,7 +6,7 @@ class ContactsController < ApplicationController
 
   def create
     
-    @contact = Contact.new(params[:contacts])
+    @contact = Contact.new(params[:contact])
     @contact.request = request
     if @contact.deliver
         
@@ -51,7 +51,7 @@ class ContactsController < ApplicationController
 
   private
   def entretien_pedagogique_params
-    params.require(:contacts).merge({
+    params.require(:contact).merge({
       subject: "Demande d'entretien pédagogique",
       message: merged_message,
       name: current_user.name,

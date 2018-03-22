@@ -64,7 +64,7 @@
       .col-sm-6#general-faq
         %h4.text-pink
           Contactez-nous!
-        = form_for @contact,:url=>new_contact_path, :html => {:class => 'form', :id =>'job-contacts-form' } do |f|
+        = form_for @contact,:url=>new_contact_path, :html => {:class => 'form', :id =>'job-contact-form' } do |f|
           .form-group
             = f.text_field :name, placeholder: "Votre nom", required: true, class: 'form-control'
           .form-group

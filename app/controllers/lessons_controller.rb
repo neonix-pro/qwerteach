@@ -224,9 +224,9 @@ class LessonsController < ApplicationController
   def dispute
     dispute = DisputeLesson.run(user: @user, lesson: @lesson)
     if dispute.valid?
-      @notification_text = "#{@user.name} a déclaré un litige sur le cours ##{@lesson.id}. Le payement est suspendu, un administrateur prendra contacts avec vous sous peu."
+      @notification_text = "#{@user.name} a déclaré un litige sur le cours ##{@lesson.id}. Le payement est suspendu, un administrateur prendra contact avec vous sous peu."
       @other.send_notification(@notification_text, '#', @user, @lesson)
-      flash[:danger] = "Merci pour votre feedback! Un administrateur examine prendra contacts avec vous dans les plus brefs délais."
+      flash[:danger] = "Merci pour votre feedback! Un administrateur examine prendra contact avec vous dans les plus brefs délais."
       if @lesson.is_teacher?(current_user)
         Pusher.notify(["#{@lesson.student.id}"], {fcm: {notification: {body: @notification_text, icon: 'androidlogo', click_action: "MY_NOTIFICATIONS"}}})
       else
@@ -236,14 +236,14 @@ class LessonsController < ApplicationController
       respond_to do |format|
         format.html {redirect_to root_path}
         format.json {render :json => {:success => "true", 
-          :message => "Merci pour votre feedback! Un administrateur prendra contacts avec vous dans les plus brefs délais."}}
+          :message => "Merci pour votre feedback! Un administrateur prendra contact avec vous dans les plus brefs délais."}}
       end
     else
-      flash[:danger] = "Il y a eu un problème: #{dispute.errors.full_messages.to_sentence} <br />Prenez contacts avec l'équipe du site".html_safe
+      flash[:danger] = "Il y a eu un problème: #{dispute.errors.full_messages.to_sentence} <br />Prenez contact avec l'équipe du site".html_safe
       respond_to do |format|
         format.html {redirect_to lessons_path}
         format.json {render :json => {:success => "false", 
-          :message => "Il y a eu un problème. Prenez contacts avec l'équipe du site."}}
+          :message => "Il y a eu un problème. Prenez contact avec l'équipe du site."}}
       end
     end
   end
