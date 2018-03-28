@@ -12,9 +12,13 @@
           #{request.topic.title} - #{request.level.fr}
         %p #{request.description} <br />
         .card-action.text-center
-          - if current_user.postulance_accepted?
-            = link_to user_path(request.student.id), class: 'btn btn-sm btn-qw btn-green' do
-              %i.fa.fa-comments-o
-              Envoyer un message
+          -#- if current_user.postulance_accepted?
+          -#  = link_to user_path(request.student.id), class: 'btn btn-sm btn-qw btn-green' do
+          -#    %i.fa.fa-comments-o
+          -#    Envoyer un message
+            -#- if !request.student.full_number.nil? && request.status == 0
+            -#  %p.text-center
+            -#    %i.fa.fa-2x.fa-phone.text-green
+            -#    #{request.student.full_number}
           %br
           = link_to '+ détails', global_request_path(request)
