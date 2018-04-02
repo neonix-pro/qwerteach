@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
     Time.now.to_i
   end
 
-  helper_method :twelve_teacher, :countries_list, :international_prefix_list
+  helper_method :twelve_teacher, :countries_list, :international_prefix_list, :international_country_codes
 
   def flash_to_headers
     return unless request.xhr?
@@ -115,6 +115,10 @@ class ApplicationController < ActionController::Base
 
   def international_prefix_list
     @list ||= (ISO3166::Country.all - ISO3166::Country.find_all_countries_by_region('Africa')).sort.map{|c| ["+#{c.country_code} (#{c.translations['fr']})", c.country_code] }.sort
+  end
+
+  def international_country_codes
+    @list_codes ||= (ISO3166::Country.all - ISO3166::Country.find_all_countries_by_region('Africa')).sort.map{|c| c.alpha2 }.sort
   end
   
   def flash_message

@@ -10,6 +10,7 @@ class window.LessonProposal extends window.LessonForm
     super
     @$el.on 'click', '[data-student-id]', (ev)=> @selectStudent(ev)
     @$el.on 'change', '#pay_afterwards', (e) => @onPayAfterwardsChange(e)
+    @$el.on 'submit', 'form', (e)=> @changeDate(e)
 
   isFreeLession: -> false
 
@@ -50,3 +51,5 @@ class window.LessonProposal extends window.LessonForm
     else
       @$('.pay-afterwards-field').addClass('hidden').find("input[type='checkbox']").prop('checked', false)
 
+  changeDate: ->
+    $('#proposal_time_start').val(moment($('#proposal_time_start').val(), "[le] DD MMMM [à] HH:mm").format('DD/MM/YYYY HH:mm'))

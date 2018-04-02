@@ -1,0 +1,13 @@
+.col-xs-12
+  .card.card-search
+    .card-content
+      .row
+        .col-xs-2.text-center
+          .icon-coloured.icon-green.icon-title
+            %i.fa.fa-envelope.fa-2x
+        .col-xs-10
+          .card-title
+            - c = current_user.mailbox.inbox({read: false}).count
+            Vous avez #{c} #{c == 1 ? "nouveau message": "nouveaux messages"} !
+          .row
+            = link_to 'Voir mes messages', conversations_path
