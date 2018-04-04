@@ -1,4 +1,22 @@
 @import 'global_variables';
+@import 'tools/media-queries';
+@import 'tools/mixins';
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
 #onboarding{
   height:100vh;
   #choose-role{
@@ -76,18 +94,122 @@
     }
   }
   #choose-topics{
-    background-color: $color_qwerteach_mauve;
+    background-color: $color_qwerteach_purple_dark;
     padding: 70px 0px;
-    //height:100vh;
-    h2{
-      text-transform:uppercase;
+    color: white;
+    position: relative;
+    @include size(f,auto);
+    min-height: 100%;
+
+    form { position: relative; 
+      lengend {
+        @include fZ(20);
+        text-align: center;
+        display: block;
+        width: 100%;
+      }
     }
-    #user-interests{
-      min-height:70px;
-      margin-top:50px;
+
+    button[type="button"].jump_to_scond_step,
+    button[type="button"].back_first_step {
+      color: #313131;
+      background-color: #22de80;
+      border: none;
+      font-size: 14px;
+      padding: 6px 30px;
+      border-radius: 17px;
+      margin-left: 10px;
+      font-family: 'Open Sans', sans-serif;
+      margin-bottom: 10px;
+      line-height: 25px;
+      cursor: pointer;
     }
-    #search-form{
-      margin-bottom: 70px;
+    button[type="button"].jump_to_scond_step.checkError {
+      animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    button[type="button"].back_first_step {
+      background-color: #3DCAFF;
+    }
+    .actions.finish_first_step {
+      position: relative;
+      p.danger {
+        color: #FF4444;
+        @include opacity(0);
+        transform: translateX(20px);
+        transition: all ease-in-out 200ms;
+        @include pos(a,0,240px,0,auto);
+        margin: auto;
+        width: 280px;
+        text-align: right;
+        line-height: 35px;
+        &.show {
+          @include opacity(1);
+          transform: translateX(0);
+        }
+      }
+    }
+
+
+    .first_step {
+      @include opacity(0);
+    }
+    .last_step {
+      @include opacity(0);
+      @include pos(a,0);
+      @include size(f);
+      display: none;
+      transition: ease-in-out 200ms opacity;
+    }
+    .first_step, .last_step {
+      &.active {
+        @include opacity(1);
+        display: block;
+      }
+    }
+     
+
+    h1.text-center {
+      padding: 10px 0 20px;
+    }
+
+    label, span.caret {
+      color: #eee;
+    }
+    .row.push_up {
+      margin-top: 20px;
+    }
+    span.text-grey {
+      color: #eee;
+      @include opacity(.6);
+    }
+    i.fa.fa-graduation-cap.fa-5x {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    // h2{
+    //   text-transform:uppercase;
+    // }
+    // #user-interests{
+    //   min-height:70px;
+    //   margin-top:50px;
+    // }
+    // #search-form{
+    //   margin-bottom: 70px;
+    // }
+    .content_form {
+      @include size(f,auto);
+      max-width: 750px;
+    }
+
+    @include max-screen(990px) {
+      padding-left: 8pt;
+      padding-right: 8pt;
+    }
+    @include max-screen(767px) {
+      .input-field.col-sm-6.right_field {
+        margin-top: 20px;
+      }
     }
   }
   .topics-list{
@@ -178,6 +300,15 @@
     li.onboarding-step.unfinished::before{
       border-color: $text_grey;
     }
+  }
+}
+
+ul.nav.navbar-nav.pull-right {
+  @include max-screen(1050px) {
+    @include pos(a,50px,0,auto,0);
+    margin: auto;
+    width: 100%;
+    max-width: 608px;
   }
 }
 

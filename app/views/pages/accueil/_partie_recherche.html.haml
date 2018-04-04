@@ -11,7 +11,7 @@
     loop: true,
     bindInputFocusEvents: true
   };
-  var typed = new Typed("#topic", options);
+  var typed = new Typed('#topic', options);
   $('#topic').on('focus', function(){
     typed.stop();
     $(this).val('');
