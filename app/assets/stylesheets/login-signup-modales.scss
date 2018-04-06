@@ -107,6 +107,14 @@
         text-align: center;
         display: block;
         width: 100%;
+        @include clearfix;
+      }
+      .input-field.sel_field {
+        padding-top: 20px;
+        label {
+          margin-top: 20px;
+          font-size: 102%;
+        }
       }
     }
 
