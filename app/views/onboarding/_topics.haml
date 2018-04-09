@@ -58,7 +58,7 @@
                   = f.label :topic_id, 'Dans quelle matière ?'
 
                 .input-field.col-sm-6.right_field
-                  = f.select :level_id, options_for_select(@levels.map{|l| [l.fr, l.id]}, @global_request.level.nil? ? nil: @global_request.level.id ), {prompt: 'niveau'}, {class: 'level-select', required: true}
+                  = f.select :level_id, options_for_select(@levels.map{|l| [l.fr, l.id]}, @global_request.level.nil? ? nil: @global_request.level.id ), {prompt: 'niveau'}, {class: 'level-select matterialize', required: true}
                   = f.label :level_id, 'Pour quel niveau ?'
 
               -# .row
@@ -99,10 +99,7 @@
                     %br confirmez en entrant un numéro valide
                 .row.push_up
                   -# , {prompt: 'préfix'}
-                  .input-field.col-sm-3.sel_field
-                    = f.select :prefix_number, options_for_select([['+33', '33'], ['+32', '32']], params[:param_name]), {required: true}
-                    = f.label :prefix_number, 'Prefix'
-                  .input-field.col-sm-9
+                  .input-field.col-sm-12
                     = label_tag 'Numéro de téléphone'
                     %br
                     = phone_field_tag :user_number, nil, required: true, placeholder: '000 00 00 00'
@@ -122,8 +119,8 @@
   });
   $('button.jump_to_scond_step').click(function() {
     let ctnErr = 0
-    $('.first_step input').each(function() { //|| $(this).val() == 'niveau'
-      if( $(this).val() == 'matière'  ) {
+    $('.first_step input').each(function() { 
+      if( $(this).val() == 'matière' || $(this).val() == 'niveau' ) {
         ctnErr++
       }
     })

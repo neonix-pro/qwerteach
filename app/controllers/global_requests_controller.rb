@@ -50,7 +50,10 @@ class GlobalRequestsController < ApplicationController
         }
         format.json { render :show, status: :created, location: @global_request }
       else
-        format.html { render :new }
+        format.html { 
+          @levels = []
+          render :new 
+        }
         format.json { render json: @global_request.errors, status: :unprocessable_entity }
       end
     end
