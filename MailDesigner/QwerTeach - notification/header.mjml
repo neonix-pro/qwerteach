@@ -1,0 +1,22 @@
+<mj-section background-url="https://marketing-image-production.s3.amazonaws.com/uploads/72dda63c860f7b77f4038d9717fafd3bc1bc3020ed47802e4e7756081b7f6bfde902407c7da41c82b2dd477cfa415f1ac4c7c241634ed0a3136670c85ce72004.png" background-repeat="no-repeat"
+    background-size="cover" full-width="full-width">
+
+    <mj-navbar padding-left="10">
+      <mj-image align="left" alt="QwerTeach" width="133" height="29" src="https://qwerteach.com/assets/logotext-6441427fdda2eaa7a811db01d11ff2fab7dfebcb2db6af3eba083aaef4e1a777.png" background-repeat="no-repeat"></mj-image>
+      <mj-text align="right"><a href="http://www.qwerteach.com" style="text-decoration:none;color:#fff;line-height:40px;margin-right:10px">Voir la version en ligne</a></mj-text>
+    </mj-navbar>
+
+    <mj-column width="100%" vertical-align="middle">
+      <mj-text align="center" font-size="30" color="#fff">
+        Il y a du nouveau<br/>sur QwerTeach
+      </mj-text>
+      
+      <mj-text align="center" color="#fff" font-size="16">
+      	Des professeurs s'intéressent<br/>a ton profil !
+      </mj-text>
+      
+      <mj-button align="center" background-color="#22de80" color="#fff" border-radius="24px" href="http://www.qwerteach.com" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" padding-bottom="45" padding-top="30">
+       Voir maintenant
+      </mj-button>
+    </mj-column>
+  </mj-section>
