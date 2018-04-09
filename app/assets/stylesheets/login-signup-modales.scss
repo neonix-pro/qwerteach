@@ -118,6 +118,17 @@
       }
     }
 
+    .flag-box span.country-name {
+      color: #212121;
+    }
+    .intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-3 {
+      width: 100%;
+    }
+
+    .material-form textarea.materialize-textarea {
+      min-height: 80px;
+    }
+
     button[type="button"].jump_to_scond_step,
     button[type="button"].back_first_step {
       color: #313131;

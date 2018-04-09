@@ -4,7 +4,7 @@ class GlobalRequest < ActiveRecord::Base
   belongs_to :level
   belongs_to :prefix_number
 
-  validates :description, length: { minimum: 50 }
+  validates :description, length: { minimum: 10 }
   #0 => open ; 1 => closed
 
   scope :open, -> { where('global_requests.status IN (?) ', [0]) }
