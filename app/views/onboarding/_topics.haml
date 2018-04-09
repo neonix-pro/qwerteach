@@ -99,10 +99,7 @@
                     %br confirmez en entrant un numéro valide
                 .row.push_up
                   -# , {prompt: 'préfix'}
-                  .input-field.col-sm-3.sel_field
-                    = f.select :prefix_number, options_for_select([['+33', '33'], ['+32', '32']], params[:param_name]), {required: true}
-                    = f.label :prefix_number, 'Prefix'
-                  .input-field.col-sm-9
+                  .input-field.col-sm-12
                     = label_tag 'Numéro de téléphone'
                     %br
                     = phone_field_tag :user_number, nil, required: true, placeholder: '000 00 00 00'
