@@ -119,8 +119,8 @@
   });
   $('button.jump_to_scond_step').click(function() {
     let ctnErr = 0
-    $('.first_step input').each(function() { //|| $(this).val() == 'niveau'
-      if( $(this).val() == 'matière'  ) {
+    $('.first_step input').each(function() { 
+      if( $(this).val() == 'matière' || $(this).val() == 'niveau' ) {
         ctnErr++
       }
     })
