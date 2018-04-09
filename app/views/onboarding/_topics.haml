@@ -20,16 +20,182 @@
 -#
 -#
 #choose-topics
-  .container
+  -# .container
+  -#   .row
+  -#     .row.text-center.text-white
+  -#       %h1 Dans quelle matière avez-vous besoin d'aide?
+  -#       %p Trouvez votre prof idéal, pour bénéficier de vos cours particuliers en ligne :)
+  -#     .col-sm-6.col-sm-offset-3
+  -#       .card
+  -#         .card-content
+  -#           .alert.alert-info
+  -#             Remplissez ce formulaire, pour être mis en relation avec les professeurs de notre communauté les plus pertinents par rapport à votre situation.
+  -#           = render partial: 'global_requests/form', locals: {redirect: root_path}
+  -#           .text-right
+  -#             =link_to 'Pas maintenant', profs_path
+  #global-request.container-fluid
     .row
-      .row.text-center.text-white
-        %h1 Dans quelle matière avez-vous besoin d'aide?
-        %p Trouvez votre prof idéal, pour bénéficier de vos cours particuliers en ligne :)
-      .col-sm-6.col-sm-offset-3
-        .card
-          .card-content
-            .alert.alert-info
-              Remplissez ce formulaire, pour être mis en relation avec les professeurs de notre communauté les plus pertinents par rapport à votre situation.
-            = render partial: 'global_requests/form', locals: {redirect: root_path}
-            .text-right
-              =link_to 'Pas maintenant', profs_path
+      -# %h1.text-center Dans quelle matière avez-vous besoin d'aide ?
+      %i.fa.fa-graduation-cap.fa-5x
+      %h1.text-center 
+        Dites nous ce que vous cherchez 
+        %br on s'occupe du reste...
+      .col-md-6.col-md-offset-3
+        .material-form
+          = form_for @global_request do |f|
+            - if @global_request.errors.any?
+              .alert.alert-warning
+                %i.fa.fa-warning.fa-2x
+                = "Il y a eu #{pluralize(@global_request.errors.count, "erreur")}:"
+                %ul
+                  - @global_request.errors.full_messages.each do |msg|
+                    %li= msg
+                    %br
+            .first_step.active
+              .row
+                .input-field.col-sm-6
+                  = f.select :topic_id, @topics.collect {|t| [ t.title, t.id ] }, {prompt: 'matière'}, {class: 'topic-select', required: true}
+                  = f.label :topic_id, 'Dans quelle matière ?'
+
+                .input-field.col-sm-6.right_field
+                  = f.select :level_id, options_for_select(@levels.map{|l| [l.fr, l.id]}, @global_request.level.nil? ? nil: @global_request.level.id ), {prompt: 'niveau'}, {class: 'level-select', required: true}
+                  = f.label :level_id, 'Pour quel niveau ?'
+
+              -# .row
+              -#   .input-field.col-sm-12
+              -#     = f.select :price_max, options_for_select([['Tous les prix', nil], ['Maximum 15€/h', 15], ['Maximum 20€/h', 20], ['Maximum 25€/h', 25]], selected: nil), {}, {required: true}
+              -#     = f.label :price_max, 'Tarif horaire'
+
+              .row
+                .input-field.col-sm-12
+                  = hidden_field_tag :redirect, local_assigns[:redirect] if local_assigns[:redirect] #- data:{length:50}
+                  = f.text_area :description, required: true, class: "character-count materialize-textarea", height: '6rem', rows: 5, placeholder: "\nAu plus vous serez détaillé dans votre demande, au mieux nous pourrons vous aider. Ex: Je cherche un professeur pour m'accompagner de façon régulière 2x semaine jusqu'au bac en juin."
+                  = f.label :description, 'Aidez-nous à comprendre votre besoin'
+                  %span.text-grey#new-conversation Minimum 50 caractères.
+              
+              - if @global_request.errors.any?
+                .row.push_up
+                  .input-field.col-sm-12
+                    = label_tag 'Numéro de téléphone'
+                    %br
+                    = phone_field_tag :user_number, nil, required: true
+                    = hidden_field_tag :user_phone_country_code
+                    = hidden_field_tag :user_phone_number
+                    .text-white.text-center
+                      %small#phone_error_message Numéro invalide
+
+                .actions
+                  = submit_tag 'Envoyer une demande'
+
+              .actions.finish_first_step
+                %p.danger Vous devez remplir tout les champs
+                %button.jump_to_scond_step{:type => "button"} Envoyer une demande
+            
+            - if !@global_request.errors.any?
+              .last_step
+                - if !@global_request.errors.any?
+                  %lengend.text-center 
+                    Votre numéro est important pour nous
+                    %br confirmez en entrant un numéro valide
+                .row.push_up
+                  -# , {prompt: 'préfix'}
+                  .input-field.col-sm-3.sel_field
+                    = f.select :prefix_number, options_for_select([['+33', '33'], ['+32', '32']], params[:param_name]), {required: true}
+                    = f.label :prefix_number, 'Prefix'
+                  .input-field.col-sm-9
+                    = label_tag 'Numéro de téléphone'
+                    %br
+                    = phone_field_tag :user_number, nil, required: true, placeholder: '000 00 00 00'
+                    = hidden_field_tag :user_phone_country_code
+                    = hidden_field_tag :user_phone_number
+                    .text-white.text-center
+                      %small#phone_error_message Numéro invalide
+
+                .actions
+                  %button.back_first_step{:type => "button"} Précédent
+                  = submit_tag 'Confirmer'
+
+:javascript
+  $('.level-select').material_select();
+  $('.level-select').on('contentChanged', function() {
+    $(this).material_select();
+  });
+  $('button.jump_to_scond_step').click(function() {
+    let ctnErr = 0
+    $('.first_step input').each(function() { //|| $(this).val() == 'niveau'
+      if( $(this).val() == 'matière'  ) {
+        ctnErr++
+      }
+    })
+    if ($('.first_step textarea').val().length === 0) {
+      ctnErr++
+    }
+    if (ctnErr == 0) {
+      $('#choose-topics .first_step').removeClass('active')
+      $('#choose-topics .last_step').addClass('active')
+    } else {
+      $('button.jump_to_scond_step').addClass('checkError')
+      $('.actions.finish_first_step p.danger').addClass('show')
+      setTimeout( () => {$('button.jump_to_scond_step').removeClass('checkError')},500)
+    }
+  })
+  $('button.back_first_step').click(function() {
+    $('#choose-topics .first_step').addClass('active')
+    $('#choose-topics .last_step').removeClass('active')
+  })
+  
+
+:javascript
+  var r = new GlobalRequest( $('#global-request'));
+  $('#global_request_description').characterCounter();
+
+:javascript
+  $("#phone_error_message").hide();
+  $("#user_number").intlTelInput({
+    formatOnInit: true,
+    separateDialCode: true,
+    nationalMode: false,
+    initialCountry: 'auto',
+    utilsScript: "assets/libphonenumber/utils.js",
+    geoIpLookup: function(callback) {
+        $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+          var countryCode = (resp && resp.country) ? resp.country : "";
+          callback(countryCode);
+        });
+      },
+    preferredCountries: ['fr', 'be', 'ch', 'ca'],
+    onlyCountries: #{international_country_codes}
+  });
+
+  var telInput = $("#user_number");
+
+  telInput.blur(function() {
+    if ($.trim(telInput.val())) {
+      if (telInput.intlTelInput("isValidNumber")) {
+        $("#user_number").parent().removeClass("has-error");
+        $("#phone_error_message").hide();
+      } else {
+        $("#user_number").parent().addClass("has-error");
+        $("#phone_error_message").show();
+      }
+    }
+  });
+
+  telInput.focus(function(){
+    telInput.parent().removeClass('has-error');
+    $("#phone_error_message").hide();
+  });
+
+  $('#new_global_request').submit(function(e){
+    var c = $('#user_number').intlTelInput("getSelectedCountryData").dialCode;
+    var n =  $("#user_number").intlTelInput("getNumber").replace('+'+c, '');
+    $('#user_phone_number').val(n);
+    $('#user_phone_country_code').val(c);
+    if(telInput.intlTelInput("isValidNumber")){
+
+    }
+    else{
+      e.preventDefault();
+    }
+  });
+        
