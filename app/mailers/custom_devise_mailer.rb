@@ -4,7 +4,8 @@ class CustomDeviseMailer < Devise::Mailer
   default template_path: 'devise/mailer'
 
   def confirmation_instructions(record, token, opts={})
-    template = '6fa5dbfc-ccf8-4236-ae4b-d9d96e84a2f6'
+    # template = '6fa5dbfc-ccf8-4236-ae4b-d9d96e84a2f6'
+    template = '362d7562-f0a1-4f4f-9235-768f2bed3155'
     # insert here customizations
     opts= {"X-SMTPAPI" => {"filters" => {
               "templates" => {
