@@ -33,7 +33,7 @@
   -#           = render partial: 'global_requests/form', locals: {redirect: root_path}
   -#           .text-right
   -#             =link_to 'Pas maintenant', profs_path
-  .container-fluid
+  #global-request.container-fluid
     .row
       -# %h1.text-center Dans quelle matière avez-vous besoin d'aide ?
       %i.fa.fa-graduation-cap.fa-5x
@@ -54,11 +54,11 @@
             .first_step.active
               .row
                 .input-field.col-sm-6
-                  = f.select :topic_id, @topics.collect {|t| [ t.title, t.id ] }, {prompt: 'matière'}, {required: true}
+                  = f.select :topic_id, @topics.collect {|t| [ t.title, t.id ] }, {prompt: 'matière'}, {class: 'topic-select', required: true}
                   = f.label :topic_id, 'Dans quelle matière ?'
 
                 .input-field.col-sm-6.right_field
-                  = f.select :level_id, options_for_select(@levels.map{|l| [l.fr, l.id]}, @global_request.level.nil? ? nil: @global_request.level.id ), {prompt: 'niveau'}, {required: true}
+                  = f.select :level_id, options_for_select(@levels.map{|l| [l.fr, l.id]}, @global_request.level.nil? ? nil: @global_request.level.id ), {prompt: 'niveau'}, {class: 'level-select', required: true}
                   = f.label :level_id, 'Pour quel niveau ?'
 
               -# .row
@@ -116,7 +116,10 @@
                   = submit_tag 'Confirmer'
 
 :javascript
-  $('select').material_select();
+  $('.level-select').material_select();
+  $('.level-select').on('contentChanged', function() {
+    $(this).material_select();
+  });
   $('button.jump_to_scond_step').click(function() {
     let ctnErr = 0
     $('.first_step input').each(function() { //|| $(this).val() == 'niveau'
@@ -194,6 +197,5 @@
     else{
       e.preventDefault();
     }
-
-              
+  });
         
