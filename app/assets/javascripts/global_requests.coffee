@@ -18,7 +18,10 @@ class window.GlobalRequest
     @clearSelect @$('.level-select')
     if topicId.length > 0
       $.get @getLevelsUrl(topicId), (data)=>
-        $levelSelect = @$('.level-select select')
+        if @$('.level-select').hasClass('matterialize')
+          $levelSelect = @$('.level-select select')
+        else 
+          $levelSelect = @$('.level-select')
         $levelSelect.append  $('<option>').attr(value: group.id).text(group.fr) for group in data
         
         # realtime edit level select || refresh

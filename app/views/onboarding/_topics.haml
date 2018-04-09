@@ -58,7 +58,7 @@
                   = f.label :topic_id, 'Dans quelle matière ?'
 
                 .input-field.col-sm-6.right_field
-                  = f.select :level_id, options_for_select(@levels.map{|l| [l.fr, l.id]}, @global_request.level.nil? ? nil: @global_request.level.id ), {prompt: 'niveau'}, {class: 'level-select', required: true}
+                  = f.select :level_id, options_for_select(@levels.map{|l| [l.fr, l.id]}, @global_request.level.nil? ? nil: @global_request.level.id ), {prompt: 'niveau'}, {class: 'level-select matterialize', required: true}
                   = f.label :level_id, 'Pour quel niveau ?'
 
               -# .row
