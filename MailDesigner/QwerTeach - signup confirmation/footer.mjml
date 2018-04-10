@@ -1,0 +1,29 @@
+<mj-section background-color="#212121" vertical-align="middle" full-width="full-width">
+  <mj-column width="50%" vertical-align="top">
+    <mj-text color="#fff"  align="lef">
+    	<span style="font-size:16px">Contactez-nous</span><br/>
+      <br />
+      <a href="tel:+33767840498 " style="color:#fff">+33 (0)767 84 04 98 </a><br/>
+      lu. - ve. 10h - 19h<br/>
+     	<a href="http://www.qwerteach.com" style="color:#fff">Ouvrir le "chat" !</a>
+    </mj-text>
+  </mj-column>
+  
+  <mj-column width="50%" vertical-align="top">
+    <mj-text color="#fff" align="lef">
+    	<span style="font-size:16px">Infos pratiques</span><br/>
+      <br/>
+      <a href="https://qwerteach.com/pages/comment-ca-marche" style="color:#fff">Comment ça marche</a><br/>
+      <a href="https://qwerteach.com/faq" style="color:#fff">Aide / FAQ</a><br/>
+      <a href="https://qwerteach.com/faq/parents/paiements" style="color:#fff">Paiement sécurisé</a>
+    </mj-text>
+  </mj-column>
+  
+  <mj-column width="100%">
+  	<mj-divider border-color="#fff" border-style="solid" border-width="1px" padding-top="40" padding-bottom="20">
+  </mj-column>
+    
+  <mj-column width="100%" vertical-align="top">
+    <mj-image align="left" alt="QwerTeach" width="133" height="29" src="https://qwerteach.com/assets/logotext-6441427fdda2eaa7a811db01d11ff2fab7dfebcb2db6af3eba083aaef4e1a777.png" background-repeat="no-repeat"></mj-image>
+  </mj-column>
+</mj-section>

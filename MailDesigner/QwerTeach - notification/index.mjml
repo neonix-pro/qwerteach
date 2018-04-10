@@ -1,0 +1,50 @@
+<mjml>
+
+  <mj-head>
+
+    <mj-attributes>
+      <mj-text align="center" color="#212121" font-family="Open Sans" href="https://fonts.googleapis.com/css?family=Open+Sans" />
+      <mj-style>.after_triangle:after { content: ''; display: block; position: absolute; height: 0;width: 0; border-top: 20px solid #6100DA; border-left: 20px solid transparent;border-right: 20px solid transparent; position: absolute; top: 100%; right: 0;bottom: auto; left: 0; margin: auto; }</mj-style>
+    </mj-attributes>
+
+  </mj-head>
+
+  <mj-body background-color="#eee">
+
+    <mj-include path="./header.mjml" />
+
+    <mj-section background-color="#fff">
+
+      <mj-column width="100%">
+      	<mj-text align="left">
+        	<span style="font-size:18px">De nouvaux messages...</span><br/>
+          <br/>
+          Vous avez reçu de nouveau messages<br/>
+          venez vite les découvire
+      
+        </mj-text>
+        <mj-button align="center" background-color="#22de80" color="#fff" border-radius="24px" href="http://www.qwerteach.com" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" padding-bottom="45" padding-top="30">
+       En savoir plus
+      </mj-button>
+      </mj-column>
+      
+      <mj-column width="100%">
+      	<mj-text align="right">
+        	<span style="font-size:18px">QwerTeach a votre service...</span><br/>
+          <br/>
+          QwerTeach vous à trouvé d'autre proffesseurs qui pourraient<br/>
+          vous plaire, celon vos besoin !
+      
+        </mj-text>
+        <mj-button align="center" background-color="#22de80" color="#fff" border-radius="24px" href="http://www.qwerteach.com" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" padding-bottom="45" padding-top="30">
+       Les découvrir maintenant
+      </mj-button>
+      </mj-column>
+
+    </mj-section>
+
+    <mj-include path="./footer.mjml" />
+
+  </mj-body>
+
+</mjml>
