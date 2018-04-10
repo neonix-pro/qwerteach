@@ -3,7 +3,7 @@
     <mj-text color="#fff"  align="lef">
     	<span style="font-size:16px">Contactez-nous</span><br/>
       <br />
-      <a href="tel:023454837" style="color:#fff">02 345 48 37</a><br/>
+      <a href="tel:+33767840498 " style="color:#fff">+33 (0)767 84 04 98 </a><br/>
       lu. - ve. 10h - 19h<br/>
      	<a href="http://www.qwerteach.com" style="color:#fff">Ouvrir le "chat" !</a>
     </mj-text>
@@ -23,10 +23,7 @@
   	<mj-divider border-color="#fff" border-style="solid" border-width="1px" padding-top="40" padding-bottom="20">
   </mj-column>
     
-  <mj-column width="30%" vertical-align="top">
+  <mj-column width="100%" vertical-align="top">
     <mj-image align="left" alt="QwerTeach" width="133" height="29" src="https://qwerteach.com/assets/logotext-6441427fdda2eaa7a811db01d11ff2fab7dfebcb2db6af3eba083aaef4e1a777.png" background-repeat="no-repeat"></mj-image>
-  </mj-column>
-  <mj-column width="70%" vertical-align="top">
-    <mj-text align="right"><a href="http://www.qwerteach.com" style="text-decoration:none;color:#22de80;margin-right:10px">Se désinscrire</a>/&#xA0;&#xA0;&#xA0;<a href="http://www.qwerteach.com" style="text-decoration:none;color:#22de80;margin-right:10px">Send to a friend</a></mj-text>
   </mj-column>
 </mj-section>
