@@ -74,6 +74,7 @@ gem 'rails-jquery-autocomplete'
 #gems for async actions
 gem 'private_pub'
 gem 'thin'
+gem 'puma'
 
 gem 'sunspot_solr'
 gem 'sunspot_rails'
@@ -161,7 +162,6 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'timecop'
-  gem 'puma'
 
 end
 
