@@ -1,0 +1,29 @@
+<mjml>
+
+  <mj-head>
+
+    <mj-attributes>
+      <mj-text align="center" color="#212121" font-family="Open Sans" href="https://fonts.googleapis.com/css?family=Open+Sans" />
+      <mj-style>.after_triangle:after { content: ''; display: block; position: absolute; height: 0;width: 0; border-top: 20px solid #6100DA; border-left: 20px solid transparent;border-right: 20px solid transparent; position: absolute; top: 100%; right: 0;bottom: auto; left: 0; margin: auto; }</mj-style>
+    </mj-attributes>
+
+  </mj-head>
+
+  <mj-body background-color="#eee">
+
+    <mj-container>
+  		<mj-include path="./header.mjml" />
+  		
+      <mj-include path="./banner.mjml" />
+      
+      <mj-include path="./meet-teacher.mjml" />
+      
+      <mj-include path="./about.mjml" />
+      
+      <mj-include path="./footer.mjml" />
+      
+    </mj-container>
+   
+  </mj-body>
+
+</mjml>

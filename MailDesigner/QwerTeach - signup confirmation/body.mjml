@@ -1,0 +1,24 @@
+<mj-section full-width="full-width" background-color="#fff">
+
+      <mj-column width="100%">
+        
+        <mj-text padding-top="40">Votre adresse email a été utilisé pour rejoindre nos services</mj-text>
+        
+        <mj-button align="center" background-color="#22de80" color="#fff" border-radius="24px" font-size="12px" href="http://www.qwerteach.com" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" padding-bottom="30" padding-top="10">
+            C'est quoi Qwerteach ?
+          </mj-button>
+      	
+      </mj-column>
+
+    </mj-section>
+    
+    <mj-section full-width="full-width" background-color="#fff">
+    	<mj-column width="80%">
+    	<mj-text align="center" padding-bottom="40" padding-top="40">
+        <span style="color:#212121;font-size:16px">Pourquoi valider votre e-mail?</span><br/><br/>
+      	Votre adresse e-mail est le moyen principal par lequel Qwerteach peut communiquer avec vous. Ainsi, nous pourrons vous prévenir lorsqu'un professeur répond à votre demande de cours. Ne pas être en mesure de recevoir ces e-mails serait donc très handicapant dans votre relation avec les autres membres de Qwerteach!
+Ainsi, par le système de validation, nous nous assurons que votre adresse existe bel et bien, mais aussi que nos e-mails ariveront à bon port, sans être filtrés comme spam ou promotions indésirables.
+En cas de problème <a href="https://qwerteach.com/contacts/new" style="color:#22de80">contactez-nous</a> !
+      </mj-text>
+    </mj-column>
+    </mj-section>
