@@ -61,10 +61,10 @@
                   = f.select :level_id, options_for_select(@levels.map{|l| [l.fr, l.id]}, @global_request.level.nil? ? nil: @global_request.level.id ), {prompt: 'niveau'}, {class: 'level-select matterialize', required: true}
                   = f.label :level_id, 'Pour quel niveau ?'
 
-              -# .row
-              -#   .input-field.col-sm-12
-              -#     = f.select :price_max, options_for_select([['Tous les prix', nil], ['Maximum 15€/h', 15], ['Maximum 20€/h', 20], ['Maximum 25€/h', 25]], selected: nil), {}, {required: true}
-              -#     = f.label :price_max, 'Tarif horaire'
+              .row
+                .input-field.col-sm-12
+                  = f.select :price_max, options_for_select([['Tous les prix', nil], ['Maximum 15€/h', 15], ['Maximum 20€/h', 20], ['Maximum 25€/h', 25]], selected: nil), {}, {required: true}
+                  = f.label :price_max, 'Tarif horaire'
 
               .row
                 .input-field.col-sm-12
@@ -120,7 +120,7 @@
   $('button.jump_to_scond_step').click(function() {
     let ctnErr = 0
     $('.first_step input').each(function() { 
-      if( $(this).val() == 'matière' || $(this).val() == 'niveau' ) {
+      if( $(this).val() == 'matière' || $(this).val() == 'niveau' || $(this).val() == 'Tous les prix' ) {
         ctnErr++
       }
     })
