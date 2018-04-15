@@ -1,0 +1,19 @@
+%blockquote
+  %p
+    Teacher: #{lesson_pack.teacher.try(:full_name)}
+    %br
+    Student: #{lesson_pack.student.try(:full_name)}
+    %br
+    Lessons: #{lesson_pack.items.size}
+    %br
+    Topic: #{lesson_pack.topic.try(:title)}
+    %br
+    Level: #{lesson_pack.level.try(:title)}
+    %br
+    Total hours: #{Duration.new(minutes: lesson_pack.duration).format('%th:%M')}
+    - if lesson_pack.discount > 0
+      %br
+      Discount: #{lesson_pack.discount}%
+    %br
+    Amount: #{lesson_pack.cost} - #{lesson_pack.cost * lesson_pack.discount / 100} = #{lesson_pack.amount}
+

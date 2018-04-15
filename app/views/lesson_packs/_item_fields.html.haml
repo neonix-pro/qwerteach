@@ -1,0 +1,18 @@
+.form-group.lesson-pack-item{'data-persisted' => f.object.persisted? ? 'true' : false}
+  .row
+    .col-xs-6
+      - if f.object.persisted?
+        = f.hidden_field :id
+        = f.hidden_field :_destroy, value: nil, class: 'delete-input'
+      .time_start_picker.input-group.date{ 'data-value' => f.object.time_start.try(:iso8601) }
+        = text_field_tag :_time_start, nil, class: 'form-control', required: true
+        = f.hidden_field :time_start, class: 'time-start-input'
+        %span.input-group-addon
+          %span.glyphicon.glyphicon-calendar
+    .col-xs-2
+      - f.object.duration ||= 60
+      = f.select :hours, options_for_hours_select, {}, { class: 'form-control hours-select', include_blank: false }
+    .col-xs-2
+      = f.select :minutes, options_for_minutes_select, {}, { class: 'form-control hours-select', include_blank: false }
+    .col-xs-2
+      = link_to 'Remove', '#', class: 'btn btn-sm btn-warning btn-remove-item btn-block'

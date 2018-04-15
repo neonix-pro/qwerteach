@@ -170,6 +170,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'sunspot-rails-tester'
   gem 'database_cleaner'
+  gem 'resque_spec'
 end
 
 group :development do

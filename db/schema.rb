@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180207134148) do
+ActiveRecord::Schema.define(version: 20180314121315) do
 
   create_table "bigbluebutton_meetings", force: :cascade do |t|
     t.integer  "server_id"
@@ -225,11 +225,38 @@ ActiveRecord::Schema.define(version: 20180207134148) do
   add_index "global_requests", ["user_id"], name: "index_global_requests_on_user_id"
 
   create_table "interests", force: :cascade do |t|
-    t.integer  "student_id", null: false
-    t.integer  "topic_id",   null: false
+    t.integer  "student_id"
+    t.integer  "topic_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "interests", ["student_id"], name: "index_interests_on_student_id"
+  add_index "interests", ["topic_id"], name: "index_interests_on_topic_id"
+
+  create_table "lesson_pack_items", force: :cascade do |t|
+    t.datetime "time_start"
+    t.integer  "duration"
+    t.integer  "lesson_pack_id"
+  end
+
+  add_index "lesson_pack_items", ["lesson_pack_id"], name: "index_lesson_pack_items_on_lesson_pack_id"
+
+  create_table "lesson_packs", force: :cascade do |t|
+    t.integer  "status",     default: 0
+    t.integer  "topic_id"
+    t.integer  "level_id"
+    t.integer  "teacher_id"
+    t.integer  "student_id"
+    t.integer  "discount"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "lesson_packs", ["level_id"], name: "index_lesson_packs_on_level_id"
+  add_index "lesson_packs", ["student_id"], name: "index_lesson_packs_on_student_id"
+  add_index "lesson_packs", ["teacher_id"], name: "index_lesson_packs_on_teacher_id"
+  add_index "lesson_packs", ["topic_id"], name: "index_lesson_packs_on_topic_id"
 
   create_table "lessons", force: :cascade do |t|
     t.integer  "student_id",                                             null: false
@@ -246,6 +273,8 @@ ActiveRecord::Schema.define(version: 20180207134148) do
     t.boolean  "free_lesson",                            default: false
     t.text     "comment"
     t.boolean  "pay_afterwards",                         default: false, null: false
+    t.integer  "lesson_pack_id"
+    t.integer  "rescheduled",                            default: 0
   end
 
   add_index "lessons", ["created_at"], name: "index_lessons_on_created_at"
@@ -339,7 +368,7 @@ ActiveRecord::Schema.define(version: 20180207134148) do
     t.string   "other_name"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.text     "description",    default: ""
+    t.text     "description"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -428,7 +457,7 @@ ActiveRecord::Schema.define(version: 20180207134148) do
     t.string   "firstname",                         default: "",            null: false
     t.string   "lastname",                          default: "",            null: false
     t.date     "birthdate",                         default: '2016-01-01',  null: false
-    t.text     "description",                       default: "",            null: false
+    t.text     "description",                                               null: false
     t.string   "gender",                            default: "Not telling", null: false
     t.string   "phone_number",                      default: "",            null: false
     t.string   "type",                              default: "Student",     null: false

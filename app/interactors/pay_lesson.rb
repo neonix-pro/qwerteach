@@ -125,5 +125,4 @@ class PayLesson < ActiveInteraction::Base
       icon: 'androidlogo', click_action: "MY_LESSONS"}}})
   end
 
-
 end

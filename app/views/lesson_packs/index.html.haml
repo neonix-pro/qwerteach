@@ -1,0 +1,27 @@
+%h1 Listing lesson_packs
+
+%table.table
+  %thead
+    %tr
+      %th Status
+      %th Teacher
+      %th Student
+      %th Discount
+      %th
+      %th
+      %th
+
+  %tbody
+    - @lesson_packs.each do |lesson_pack|
+      %tr
+        %td= lesson_pack.status
+        %td= lesson_pack.teacher
+        %td= lesson_pack.student
+        %td= lesson_pack.discount
+        %td= link_to 'Show', lesson_pack
+        %td= link_to 'Edit', edit_lesson_pack_path(lesson_pack)
+        %td= link_to 'Destroy', lesson_pack, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Lesson pack', new_lesson_pack_path

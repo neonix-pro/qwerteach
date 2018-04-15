@@ -17,8 +17,20 @@ FactoryGirl.define do
       payments { FactoryGirl.build_list :payment, 1 }
     end
 
+    trait :pending_student do
+      status { Lesson.statuses[:pending_student] }
+    end
+
+    trait :pending_teacher do
+      status { Lesson.statuses[:pending_teacher] }
+    end
+
     trait :created do
       status { Lesson.statuses[:created] }
+    end
+
+    trait :pack do
+      pack
     end
 
     trait :today do

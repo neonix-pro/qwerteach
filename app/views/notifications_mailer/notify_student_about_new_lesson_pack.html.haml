@@ -1,0 +1,5 @@
+%h1 #{@lesson_pack.teacher.full_name} vous propose un pack de cours
+
+= render 'lesson_pack_recap', lesson_pack: @lesson_pack
+
+%h3= link_to 'Détails', lesson_pack_url(@lesson_pack)

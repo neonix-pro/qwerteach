@@ -25,3 +25,5 @@
 - if current_user.is_a?(Teacher)
   .participant-cta
     = link_to 'Proposer un cours', new_lesson_proposal_path(user)
+  .participant-cta
+    = link_to 'Proposer un pack', new_lesson_pack_path(user)

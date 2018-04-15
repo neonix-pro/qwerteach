@@ -81,4 +81,12 @@ module LessonsHelper
     end
   end
 
+  def options_for_hours_select
+    Array.new(5) { |i| [ "0#{i}", i ] }
+  end
+
+  def options_for_minutes_select
+    [['00', 0], ['15', 15], ['30', 30], ['45', 45]]
+  end
+
 end

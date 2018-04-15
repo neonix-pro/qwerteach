@@ -1,6 +1,7 @@
 class Student < User
   MAX_FREE_LESSONS = 3
   has_many :lessons_received, :class_name => 'Lesson', :foreign_key => 'student_id'
+  has_many :payments, through: :lessons_received
   has_many :interests, dependent: :destroy
   has_many :global_requests, dependent: :destroy
 
@@ -54,5 +55,9 @@ class Student < User
     teacher.first_lesson_free == true && free_lessons_with(teacher).empty? && free_lessons.count <= MAX_FREE_LESSONS
   end
 
+  def payments_count
+    return self[:payments_count] unless self[:payments_count].nil?
+    payments.paid.count
+  end
 
 end

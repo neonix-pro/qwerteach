@@ -18,11 +18,11 @@ module Mango
     private
 
     def card_id
-      @card_id ||= user.mangopay.cards.find{|c| c.alias == '356999XXXXXX0132'}.try(:id) || create_card
+      @card_id ||= user.mangopay.cards.find{|c| c.alias == '470675XXXXXX0017'}.try(:id) || create_card
     end
 
     def card_number
-      '3569990000000132'
+      '4706750000000017'
     end
 
     def create_card
@@ -36,7 +36,8 @@ module Mango
       }
 
       @registration_data = Net::HTTP.post_form(URI.parse(creation.card_registration_url), params)
-      updating = Mango::UpdateCardRegistration.run(id: creation.id, data: @registration_data.body)
+      data = @registration_data.body.sub(/^data=/, '')
+      updating = Mango::UpdateCardRegistration.run(id: creation.id, data: data)
       updating.result.card_id
     end
 

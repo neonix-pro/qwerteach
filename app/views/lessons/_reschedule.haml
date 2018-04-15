@@ -1,6 +1,25 @@
 .modal.fade#reschedule-lesson
   .modal-dialog
-    .modal-content
+    = form_tag reschedule_lesson_path(lesson), method: :put, class: 'modal-content' do
       .modal-header
         %h4 Déplacer le cours
       .modal-body
+        Reschedule
+        .reschedule-datetime-picker.input-group{ 'data-value' => lesson.time_start }
+          = text_field_tag :_time_start, lesson.time_start, class: 'form-control', required: true
+          = hidden_field_tag :time_start, class: 'time-start-input'
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+      .modal-footer
+        = link_to 'Close', '#', 'data-dismiss'=>'modal', class: 'btn btn-default'
+        = button_tag 'Reschedule', class: 'btn btn-default'
+
+= content_for :javascript do
+  :javascript
+    $('.reschedule-datetime-picker').datetimepicker({
+      locale: moment.locale(),
+      format: "[le] DD MMMM [à] HH:mm",
+      minDate: moment().add( 24, 'hours' ),
+      allowInputToggle: true,
+      sideBySide: true,
+    })

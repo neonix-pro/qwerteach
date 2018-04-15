@@ -64,6 +64,18 @@ class User < ActiveRecord::Base
   scope :review_senders, ->{ joins(:reviews_sent) }
   scope :review_receivers, ->{ joins(:reviews_received) }
   scope :online, ->{ where('last_seen > ?', 10.minutes.ago) }
+  scope :with_payments_count, -> {
+    lessons = Lesson.arel_table
+    payments = Payment.arel_table
+
+    composed_cte = Arel::Nodes::As.new(
+        lessons.project(:student_id, payments[:id].count.as('payments_count'))
+            .join(payments, Arel::Nodes::OuterJoin).on( payments[:lesson_id].eq(lessons[:id]).and(payments[:status].eq(2)) )
+            .group(lessons[:student_id]), Arel::Table.new(:payments_cte))
+
+    select('users.*, COALESCE(payments_cte.payments_count, 0) AS payments_count')
+        .joins("LEFT JOIN #{composed_cte.to_sql} ON payments_cte.student_id = users.id")
+  }
 
   # MANGOPAY
   def mangopay

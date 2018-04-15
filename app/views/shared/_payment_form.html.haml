@@ -1,0 +1,37 @@
+#lesson-payment-form
+  - button_caption = local_assigns[:button_caption] || 'Submit'
+  #pay-by-wallet
+    - if amount > (current_user.total_wallets_in_cents / 100)
+      Mon portefeuille: #{current_user.total_wallets_in_cents/100}€
+      Montant insuffisant
+    - else
+      .checkbox
+        %label
+          = check_box_tag('pay_by_wallet', '')
+          Payer avec mon portefeuille virtuel
+          %br
+          Mon portefeuille: #{current_user.total_wallets_in_cents/100}€
+  #payment-methods
+    %hr
+    .choose_payment_method
+      .or.text-center
+        ou
+      - options = { 'Carte de crédit' => :creditcard, 'Carte de débit / direct banking' => :bcmc }
+      = select_tag('payment_method', options_for_select(options), prompt: 'Choisissez votre mode de payement', class:'form-control')
+    .payment_method.payment_by_bcmc
+      En cliquant sur 'ok', vous serez redirigé vers votre insitution bancaire pour procéder au payement.
+      .actions
+        = button_to button_caption, url.call('bancontact'), remote: true, method: 'post', 'data-disable-with' => 'Processing...'
+    .payment_method.payment_by_creditcard
+      #credit_card.field.credit_card_choice
+        = form_tag  url.call('cd'), :method => :post, remote: true do |f|
+          = label_tag "Choisir carte"
+          - options = options_for_select(current_user.mangopay.cards.map { |f| [f.alias, f.id] }, (current_user.mangopay.cards.first.id unless current_user.mangopay.cards.empty?))
+          = select_tag :card_id, options, { include_blank: 'Nouvelle carte', class:'form-control' }
+        #new_card{class: ('hidden' unless current_user.mangopay.cards.empty?)}
+          = render 'mangopay/card_form', remote: true, no_actions: true
+        .actions
+          = submit_tag button_caption, class: 'btn-pay-by-card', 'data-disable-with' => 'Processing...'
+    .payment_method.payment_by_wallet
+      .actions
+        = button_to button_caption, url.call('transfert'), method: 'post', 'data-disable-with' => 'Processing...'
