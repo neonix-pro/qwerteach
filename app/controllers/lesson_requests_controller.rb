@@ -59,9 +59,11 @@ class LessonRequestsController < ApplicationController
           end
         else
           @card_registration = creation.result
+          client_id = ENV['MANGOPAY_CLIENT_ID'] || 'qwerteachrails'
           respond_to do |format|
             format.js {render 'payment_method'}
-            format.json {render :json => {:message => "true", :card_registration => @card_registration, :user_cards => @user.mangopay.cards}}
+            format.json {render :json => {:message => "true", :card_registration => @card_registration,
+              :user_cards => @user.mangopay.cards, client_id: client_id}}
           end
         end
       end
