@@ -16,7 +16,7 @@ class PayLessonByTransfert < ActiveInteraction::Base
         self.errors.merge! transfering.errors
         raise ActiveRecord::Rollback
       end
-      @payment = Payment.new payment_params(transfering)
+      @payment = Payment.new payment_params(transfering.result)
       if !payment.save
         self.errors.merge! payment.errors
         raise ActiveRecord::Rollback
@@ -31,9 +31,9 @@ class PayLessonByTransfert < ActiveInteraction::Base
     lesson.price
   end
 
-  def payment_params(transfering)
-    bonus_transaction = transfering.result.first
-    normal_transaction = transfering.result.last
+  def payment_params(transactions)
+    bonus_transaction = transactions.find{ |tr| tr.debited_wallet_id == user.bonus_wallet.id }
+    normal_transaction = transactions.find{ |tr| tr.debited_wallet_id == user.normal_wallet.id }
     {
       payment_type: lesson.past? ? :postpayment : :prepayment,
       payment_method: :wallet,

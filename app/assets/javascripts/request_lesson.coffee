@@ -48,7 +48,7 @@ class window.RequestLesson extends window.LessonForm
     $('#lesson-details').children('.alert').remove();
     if($(e.currentTarget).attr('data-toggle') == '#step2')
       @displayRecap()
-      @initDatePicker()
+      @initDatePicker($('.time_start_picker'))
       return unless @checkDescriptionFreeLesson()
       if (!@checkSelected())
         $('#lesson-details').prepend( $('#empty-fields-alert').html() );

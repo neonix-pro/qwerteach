@@ -120,4 +120,22 @@ class NotificationsMailer < ApplicationMailer
     mail(to: teacher.email, subject: 'Un élève Qwerteach cherche un prof comme vous!')
   end
 
+  def notify_student_about_new_lesson_pack(lesson_pack_id)
+    @lesson_pack = LessonPack.find(lesson_pack_id)
+    subject = "#{@lesson_pack.teacher.full_name} vous propose un pack de cours"
+    mail(to: @lesson_pack.student.email, subject: subject)
+  end
+
+  def notify_teacher_about_rejected_lesson_pack(lesson_pack_id)
+    @lesson_pack = LessonPack.find(lesson_pack_id)
+    subject = "#{@lesson_pack.student.full_name} has rejected your pack"
+    mail(to: @lesson_pack.teacher.email, subject: subject)
+  end
+
+  def notify_teacher_about_paid_lesson_pack(lesson_pack_id)
+    @lesson_pack = LessonPack.find(lesson_pack_id)
+    subject = "#{@lesson_pack.student.full_name} has paid your pack"
+    mail(to: @lesson_pack.teacher.email, subject: subject)
+  end
+
 end

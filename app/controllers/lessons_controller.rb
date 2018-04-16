@@ -5,6 +5,7 @@ class LessonsController < ApplicationController
   before_filter :user_time_zone, :if => :current_user
   before_filter :check_has_payments, only: :dispute
   before_action :filter_options, only: [:index, :index_pagination]
+  before_action :set_lesson, only: %i[reschedule]
   #needs to check that everything went OK before sending mail!
   #after_action :email_user, only: [:update, :accept, :refuse, :cancel, :dispute, :pay_teacher]
 
@@ -159,37 +160,27 @@ class LessonsController < ApplicationController
   end
 
   def cancel
-    if @lesson.can_cancel?(@user)
-      status = @lesson.status
-      @lesson.status = 'canceled'
-      refuse = RefundLesson.run(user: @user, lesson: @lesson)
-      if refuse.valid?
-        tracker do |t|
-          t.google_analytics :send, { type: 'event', category: "Réservation - prof", action: "Annuler une reservation", label: "Prof id: #{@lesson.teacher.id}"}
-        end
-        category = @lesson.free_lesson? ? 'Free Booking' : 'Booking'
-        action = @lesson.is_student?(current_user) ? 'canceled_by_student' : 'canceled_by_teacher'
-        #ga_track_event(category, action, "Teacher id: #{@lesson.teacher.id}")
-        flash[:success] = 'Vous avez annulé la demande de cours.'
-        respond_to do |format|
-          format.html {redirect_to lessons_path}
-          format.json {render :json => {:success => "true", 
-            :message => "Vous avez annulé la demande de cours.", :lesson => @lesson}}
-        end
-      else
-        flash[:danger] = "Il y a eu un problème: #{refuse.errors.full_messages.to_sentence}.<br /> Le cours n'a pas été annulé.".html_safe
-        respond_to do |format|
-          format.html {redirect_to lessons_path}
-          format.json {render :json => {:success => "false", 
-            :message => "Il y a eu un problème. Le cours n'a pas été annulé."}}
-        end
+    status = @lesson.status
+    cancelation = CancelLesson.run(user: @user, lesson: @lesson)
+    if cancelation.valid?
+      tracker do |t|
+        t.google_analytics :send, { type: 'event', category: "Réservation - prof", action: "Annuler une reservation", label: "Prof id: #{@lesson.teacher.id}"}
       end
-    else
-      flash[:danger]="Seul le professeur peut annuler un cours moins de 48h à l'avance."
+      category = @lesson.free_lesson? ? 'Free Booking' : 'Booking'
+      action = @lesson.is_student?(current_user) ? 'canceled_by_student' : 'canceled_by_teacher'
+      #ga_track_event(category, action, "Teacher id: #{@lesson.teacher.id}")
+      flash[:success] = 'Vous avez annulé la demande de cours.'
       respond_to do |format|
         format.html {redirect_to lessons_path}
-        format.json {render :json => {:success => "false", 
-          :message => "Seul le professeur peut annuler un cours moins de 48h à l'avance."}}
+        format.json {render :json => {:success => "true",
+          :message => "Vous avez annulé la demande de cours.", :lesson => @lesson}}
+      end
+    else
+      flash[:danger] = "Il y a eu un problème: #{cancelation.errors.full_messages.to_sentence}.<br /> Le cours n'a pas été annulé.".html_safe
+      respond_to do |format|
+        format.html {redirect_to lessons_path}
+        format.json {render :json => {:success => "false",
+          :message => "Il y a eu un problème. Le cours n'a pas été annulé."}}
       end
     end
   end
@@ -248,7 +239,20 @@ class LessonsController < ApplicationController
     end
   end
 
+  def reschedule
+    rescheduling = RescheduleLesson.run(user: current_user, lesson: @lesson, new_date: params[:time_start])
+    if rescheduling.valid?
+      redirect_to lesson_path(@lesson), notice: 'Lesson was successfully rescheduled.'
+    else
+      redirect_to lesson_path(@lesson), flash: { danger: rescheduling.errors.full_messages.first }
+    end
+  end
+
   private
+
+  def set_lesson
+    @lesson = Lesson.find(params[:id])
+  end
   
   def lesson_params
     params.require(:lesson).permit(:student_id, :teacher_id, :price, :level_id, :topic_id, :topic_group_id, :time_start, :time_end).merge(:student_id => current_user.id)

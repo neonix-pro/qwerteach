@@ -23,7 +23,7 @@ module Mango
         normal_transfering = transfer_from_normal_wallet(normal_amount)
         return self.errors.merge(normal_transfering.errors) if !normal_transfering.valid?
       end
-      [bonus_transfering.try(:result), normal_transfering.try(:result)]
+      [normal_transfering.try(:result), bonus_transfering.try(:result)].compact
     end
 
     private

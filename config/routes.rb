@@ -252,6 +252,7 @@ Rails.application.routes.draw do
     get 'cancel' => :cancel
     post 'pay_teacher'=>:pay_teacher
     get 'dispute'=>:dispute
+    put :reschedule, on: :member
 
     resources :payments do
       collection do
@@ -266,6 +267,18 @@ Rails.application.routes.draw do
 
     post "payerfacture/:payment_id" => "payments#payerfacture", as: 'payerfacture'
 
+  end
+
+  resources :lesson_packs, path_names: { new: 'new/(:student_id)' } do
+    post :change, action: :new, on: :collection
+    post :confirm, on: :collection
+    get :confirm, on: :member
+    put :reject, on: :member
+    put :approve, on: :member
+    put :propose, on: :member
+    get :payment, on: :member
+    post 'pay/:payment_method', action: :pay, on: :member, as: :pay
+    get 'finish/:payment_method', action: :finish_payment, on: :member, as: :finish_payment
   end
 
   get 'calendar_index/(:id)'=>"lessons#calendar_index"

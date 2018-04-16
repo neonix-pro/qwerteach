@@ -1,0 +1,28 @@
+// Place all the styles related to the LessonPacks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.lesson-pack {
+  &-values {
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    dt {
+      float: left;
+      width: 70%;
+      margin-bottom: 10px;
+    }
+    dd {
+      float: left;
+      width: 30%;
+      margin-bottom: 10px;
+      text-align: right;
+    }
+  }
+  &-calendar {
+    .fc-view-container {
+      background-color: #fff;
+    }
+  }
+}

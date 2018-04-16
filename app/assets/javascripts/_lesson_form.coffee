@@ -14,7 +14,7 @@ class window.LessonForm
 
 
   initialize: ->
-    @initDatePicker()
+    @initDatePicker($('.time_start_picker'))
     @initEvents()
 
 
@@ -28,13 +28,17 @@ class window.LessonForm
     @$el.on 'dp.change', '#time_start_picker', ()=> @calculatePrice()
     @$el.on 'dp.show', '#time_start_picker', (e) => @onDateTimepickerShow(e)
 
-  initDatePicker: ->
-    $('#time_start_picker').datetimepicker
-      locale: moment.locale(),
-      format: "[le] DD MMMM [à] HH:mm",
-      minDate: @getMinDate()
-      allowInputToggle: true
-      sideBySide: true
+  initDatePicker: ($el)->
+    $el.each (_, e)=>
+      $e = $(e)
+      $e.datetimepicker
+        locale: moment.locale()
+        format: "[le] DD MMMM [à] HH:mm"
+        minDate: @getMinDate()
+        allowInputToggle: true
+        sideBySide: true
+      $e.on('dp.change', (ev) -> $e.find('.time-start-input').val(ev.date.toISOString()))
+      $e.data('DateTimePicker').date(moment($e.data('value'))) if $e.data('value')
 
   getMinDate: ->
     moment().startOf('hour').add( Math.ceil(moment().minutes() / 15) * 15, 'minutes' )
@@ -70,8 +74,11 @@ class window.LessonForm
   onLevelChange: (e)->
     @calculatePrice()
     levelId = $(e.currentTarget).val()
-    $('.level_col').removeClass('active');
-    $('.level_col_'+levelId).addClass('active');
+    $('.level_col').removeClass('active')
+    $('.level_col_'+levelId).addClass('active')
+
+  calculatePrice: () ->
+    throw 'Not Implemented'
 
   getCalculateUrl: ->
     @calculateUrl.replace('__TEACHER_ID__', @options.teacher_id)

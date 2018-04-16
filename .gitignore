@@ -43,6 +43,7 @@ public/assets/*.webm
 public/assets/*.mov
 
 .env
+.env.local
 
 .DS_Store
 .idea/*

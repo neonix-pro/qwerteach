@@ -36,6 +36,9 @@ module Admin
     # def records_per_page
     #   params[:per_page] || 20
     # end
+    def current_ability
+      @current_ability ||= AdminAbility.new(current_user)
+    end
 
   end
 end

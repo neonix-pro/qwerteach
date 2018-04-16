@@ -3,14 +3,7 @@
   #proposal-form-errors= render 'shared/errors', object: f.object
   .form-group
     = f.label :student_id, 'Élève'
-    = f.hidden_field :student_id
-    .dropdown
-      %a.form-control.select.students-select-btn{href: '#', 'data-toggle' => 'dropdown'}= f.object.student.try(:full_name) || 'Select a student'
-      %ul#students-list.students-select.dropdown-menu
-        - @students.each do |student|
-          %li.students-select-item{'data-student-id' => student.id, class: ('disabled' if student.mango_id.blank?), 'data-payment' => ('true' if @payments[student.id].present?)}
-            = image_tag( user_avatar(student, :small), class: 'students-select-avatar' )
-            %span.students-select-name= student.name
+    = render 'shared/student_select', f: f, students: @students
   .form-group.pay-afterwards-field.hidden
     = f.check_box :pay_afterwards, id: :pay_afterwards, autocomplete: "off"
     = f.label :pay_afterwards, 'Payer après le cours'
@@ -32,7 +25,7 @@
     = f.select :level_id, options, {prompt: 'niveau'}, {class: 'form-control level-select', required: true}
   .form-group
     = f.label :time_start, 'Choisissez le jour et l\'heure de votre cours'
-    #time_start_picker.input-group.date
+    #time_start_picker.time_start_picker.input-group.date
       = f.text_field :time_start, class: 'form-control', :required => true
       %span.input-group-addon
         %span.glyphicon.glyphicon-calendar

@@ -14,6 +14,11 @@
                 .badge.badge-pink= @number_of_pending_lessons
           %li.tab
             %a{href: "#history"} Historique
+          - if current_user.is_a?(Teacher)
+            %li.tab
+              %a{href: "#pending_packs"} Pending packs
+          %li.tab
+            %a{href: "#proposed_packs"} Proposed packs
   .container
     #planned
       = render partial: 'lessons/index/planned'
@@ -21,7 +26,12 @@
       = render partial: 'lessons/index/pending'
     #history
       = render partial: 'lessons/index/history'
-= render partial: 'reschedule'
+    - if current_user.is_a?(Teacher)
+      #pending_packs
+        = render 'lessons/index/packs', packs: LessonPack.declined.where(teacher_id: current_user.id)
+    #proposed_packs
+      = render 'lessons/index/packs', packs: LessonPack.pending_student.where(student_id: current_user.id)
+
 :javascript
   $(document).ready(function(){
     $('ul.tabs').tabs();

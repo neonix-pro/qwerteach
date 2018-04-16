@@ -30,85 +30,84 @@ class Ability
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
 
     user ||= User.new # guest user (not logged in)
-    if user.admin? # Admin user
-      can :manage, :all
-    else # Non-admin user
-      can :create, Gallery
-      can :read, Gallery
-      can :update, Gallery, :user_id => user.id
-      can :edit, Gallery, :user_id => user.id
-      cannot :destroy, Gallery
-      can :create, Picture
-      can :read, Picture, :gallery => {:user_id => user.id}
-      cannot :update, Picture
-      can :destroy, Picture, :gallery => {:user_id => user.id}
 
-      can :manage, Degree, :user_id => user.id
-      cannot :create, Degree if user.type != "Teacher"
+    can :create, Gallery
+    can :read, Gallery
+    can :update, Gallery, :user_id => user.id
+    can :edit, Gallery, :user_id => user.id
+    cannot :destroy, Gallery
+    can :create, Picture
+    can :read, Picture, :gallery => {:user_id => user.id}
+    cannot :update, Picture
+    can :destroy, Picture, :gallery => {:user_id => user.id}
 
-      can :create, Offer
-      can :create, OfferPrice
-      can :read, Offer
-      can :choice, Offer
-      can :choice_group, Offer
-      can :get_all_offers, Offer
+    can :manage, Degree, :user_id => user.id
+    cannot :create, Degree if user.type != "Teacher"
 
-      can :read, OfferPrice
-      can :destroy, Offer, :user_id => user.id
-      can :destroy, OfferPrice, :offer => {:user_id => user.id}
-      can :update, Offer, :user_id => user.id
-      can :update, OfferPrice, :offer => {:user_id => user.id}
-      can :create, Degree if user.is_a? Teacher
-      can :read, Degree, :user_id => user.id
-      can :update, Degree, :user_id => user.id
-      can :destroy, Degree, :user_id => user.id
-      can :index, Payment, :user_id => user.id
+    can :create, Offer
+    can :create, OfferPrice
+    can :read, Offer
+    can :choice, Offer
+    can :choice_group, Offer
+    can :get_all_offers, Offer
 
-      can :manage, Interest, student_id: user.id
-      can :manage, Lesson
-      cannot :update, Lesson do |l|
-        l.teacher_id != user.id && l.student_id != user.id
-      end
-      cannot :show, Lesson do |l|
-        l.teacher_id != user.id && l.student_id != user.id
-      end
+    can :read, OfferPrice
+    can :destroy, Offer, :user_id => user.id
+    can :destroy, OfferPrice, :offer => {:user_id => user.id}
+    can :update, Offer, :user_id => user.id
+    can :update, OfferPrice, :offer => {:user_id => user.id}
+    can :create, Degree if user.is_a? Teacher
+    can :read, Degree, :user_id => user.id
+    can :update, Degree, :user_id => user.id
+    can :destroy, Degree, :user_id => user.id
+    can :index, Payment, :user_id => user.id
 
-      can :create_postpayment, Payment do |payment|
-        payment.lesson.teacher_id == user.id
-      end
-
-      # seul le prof peut modifier les factures
-      can :edit_postpayment, Payment do |payment|
-        payment.postpayment? && payment.lesson.teacher_id == user.id
-      end
-
-      can :send_edit_postpayment, Payment do |payment|
-        payment.postpayment? && payment.lesson.teacher_id == user.id
-      end
-      # seuls les participants peuvent voir un payement
-      can :show, Payment do |payment|
-        payment.lesson.teacher_id == user.id || payment.lesson.student_id == user.id
-      end
-
-      # TO DO: seul l'élève peut payer
-      can :pay_postpayment, Payment do |payment|
-        payment.lesson.student_id == user.id
-      end
-      
-      can :payerfacture, Payment do |payement|
-        payement.lesson.student_id == user.id
-      end
-
-      can [:show_min, :show, :reply, :find, :mark_as_read], Conversation do |conversation|
-        conversation.is_participant?(user)
-      end
-      
-      #Seul le Student peut bloquer le paimentdu cours
-      can :bloquerpayment, Payment do |payment|
-        payment.lesson.student_id == user_id
-      end
-
-      can :manage, Masterclass if user.admin?
+    can :manage, Interest, student_id: user.id
+    can :manage, Lesson
+    cannot :update, Lesson do |l|
+      l.teacher_id != user.id && l.student_id != user.id
     end
+    cannot :show, Lesson do |l|
+      l.teacher_id != user.id && l.student_id != user.id
+    end
+
+    can :create_postpayment, Payment do |payment|
+      payment.lesson.teacher_id == user.id
+    end
+
+    # seul le prof peut modifier les factures
+    can :edit_postpayment, Payment do |payment|
+      payment.postpayment? && payment.lesson.teacher_id == user.id
+    end
+
+    can :send_edit_postpayment, Payment do |payment|
+      payment.postpayment? && payment.lesson.teacher_id == user.id
+    end
+    # seuls les participants peuvent voir un payement
+    can :show, Payment do |payment|
+      payment.lesson.teacher_id == user.id || payment.lesson.student_id == user.id
+    end
+
+    # TO DO: seul l'élève peut payer
+    can :pay_postpayment, Payment do |payment|
+      payment.lesson.student_id == user.id
+    end
+
+    can :payerfacture, Payment do |payement|
+      payement.lesson.student_id == user.id
+    end
+
+    can [:show_min, :show, :reply, :find, :mark_as_read], Conversation do |conversation|
+      conversation.is_participant?(user)
+    end
+
+    #Seul le Student peut bloquer le paimentdu cours
+    can :bloquerpayment, Payment do |payment|
+      payment.lesson.student_id == user_id
+    end
+
+    can :manage, Masterclass if user.admin?
+    merge LessonPackAbility.new(user)
+
   end
 end

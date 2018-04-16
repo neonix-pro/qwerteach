@@ -1,0 +1,54 @@
+- url =  @lesson_pack.new_record? ? confirm_lesson_packs_path : lesson_pack_path(@lesson_pack)
+#lesson-pack-form.container-fluid
+  .row
+    .col-md-7
+      = form_for @lesson_pack, url: url do |f|
+        #lesson-pack-form-errors= render 'shared/errors', object: @lesson_pack
+        - if @lesson_pack.persisted?
+          = f.hidden_field :id
+        .form-group
+          = f.label :student_id, 'Élève'
+          = render 'shared/student_select', f: f, students: current_user.students
+        .form-group
+          = f.label :topic_id, 'Choisissez une matière'
+          - options = current_user.offers.map{|o| [o.title, o.topic.id]}
+          = f.select :topic_id, options, { prompt: 'matière' }, { class: 'form-control topic-select', required: true }
+        .form-group
+          = f.label :level_id, 'Choisissez le niveau'
+          - if f.object.topic_id.present?
+            - options = current_user.offers.includes(offer_prices: :level).where(topic_id: f.object.topic_id).uniq.pluck('levels.fr', 'levels.id')
+          - else
+            - options = []
+          = f.select :level_id, options, { prompt: 'niveau' }, { class: 'form-control level-select', required: true }
+        .form-group
+          = f.label :discount
+          = f.select :discount, [0,5,10,15,20].map { |i| ["#{i}%", i] }, {}, { class: 'form-control discount' }
+        .lessons-part.hidden
+          %h3 Lessons
+          .form-group.lesson-pack-header
+            .row
+              .col-xs-6 Start date
+              .col-xs-4 Duration
+          .lesson-pack-items
+            = f.fields_for :items do |fi|
+              = render 'item_fields', f: fi
+          .fields-for-new-item.hidden
+            = f.fields_for :items, LessonPackItem.new, child_index: '__ITEM_INDEX__' do |fi|
+              = render 'item_fields', f: fi
+          .form-group.text-center
+            = link_to 'Add', '#', class: 'btn btn-primary btn-add-item'
+
+        .form-group.text-right
+          = f.submit 'Next', class: 'btn btn-qw btn-green'
+    .col-md-5
+      %dl.lesson-pack-values.hidden
+        %dt Rate
+        %dd#rate-value -
+        %dt Hours
+        %dd#hours-value -
+        %dt Cost
+        %dd#cost-value -
+        %dt Total amount
+        %dd#total-amount-value -
+:javascript
+  var form = new LessonPackForm( $('#lesson-pack-form'), { teacher_id: #{current_user.id} } )
