@@ -85,11 +85,11 @@
                       %small#phone_error_message Numéro invalide
 
                 .actions
-                  = submit_tag 'Envoyer une demande'
+                  = submit_tag 'Suivant'
 
               .actions.finish_first_step
                 %p.danger Vous devez remplir tout les champs
-                %button.jump_to_scond_step{:type => "button"} Envoyer une demande
+                %button.jump_to_scond_step{:type => "button"} Suivant
             
             - if !@global_request.errors.any?
               .last_step

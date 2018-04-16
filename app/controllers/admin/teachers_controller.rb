@@ -61,7 +61,7 @@ module Admin
     end
 
     def postuling_teachers
-      params[:order]= 'updated_at'
+      params[:order]= 'updated_at' if params[:order].nil?
       index
     end
 

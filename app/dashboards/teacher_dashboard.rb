@@ -60,7 +60,8 @@ class TeacherDashboard < Administrate::BaseDashboard
       name: Field::Text,
       lessons_received: Field::HasMany.with_options(tab: 'received_lessons'),
       lessons_given: Field::HasMany.with_options(tab: 'given_lessons'),
-      responsible_admin: Field::String
+      responsible_admin: Field::String,
+      last_seen: Field::DateTime
   }
 
   # COLLECTION_ATTRIBUTES
@@ -74,7 +75,7 @@ class TeacherDashboard < Administrate::BaseDashboard
       :name,
       :email,
       :created_at,
-      :confirmed_at,
+      :last_seen,
       :responsible_admin,
       :score,
   ]
