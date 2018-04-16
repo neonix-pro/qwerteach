@@ -35,9 +35,9 @@
                     .col-xs-12
                       = f.label :phone_number
                     .col-xs-3
-                      = f.select :phone_country_code, options_for_select(international_prefix_list, :selected => @user.phone_country_code), {}, class:'form-control'
+                      = f.select :phone_country_code, options_for_select(international_prefix_list, :selected => @user.phone_country_code), {}, :required => true, class:'form-control'
                     .col-xs-9
-                      = f.telephone_field :phone_number, class: 'form-control'
+                      = f.telephone_field :phone_number, :required => true, class: 'form-control'
               .form-group
                 .col-xs-6
                   = f.label :occupation, "Profession / branche d'études"
