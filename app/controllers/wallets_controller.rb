@@ -196,9 +196,10 @@ class WalletsController < ApplicationController
       end and return
     else
       @card_registration = creation.result
+      client_id = ENV['MANGOPAY_CLIENT_ID'] || 'qwerteachrails'
       respond_to do |format|
         format.html {}
-        format.json {render :json => {:card_registration => @card_registration, :user_cards => @user.mangopay.cards}}
+        format.json {render :json => {:card_registration => @card_registration, :user_cards => @user.mangopay.cards, client_id: client_id}}
         format.js {}
       end
     end

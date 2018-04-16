@@ -225,14 +225,11 @@ ActiveRecord::Schema.define(version: 20180314121315) do
   add_index "global_requests", ["user_id"], name: "index_global_requests_on_user_id"
 
   create_table "interests", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "topic_id"
+    t.integer  "student_id", null: false
+    t.integer  "topic_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "interests", ["student_id"], name: "index_interests_on_student_id"
-  add_index "interests", ["topic_id"], name: "index_interests_on_topic_id"
 
   create_table "lesson_pack_items", force: :cascade do |t|
     t.datetime "time_start"
@@ -368,7 +365,7 @@ ActiveRecord::Schema.define(version: 20180314121315) do
     t.string   "other_name"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.text     "description"
+    t.text     "description",    default: ""
   end
 
   create_table "payments", force: :cascade do |t|
@@ -457,7 +454,7 @@ ActiveRecord::Schema.define(version: 20180314121315) do
     t.string   "firstname",                         default: "",            null: false
     t.string   "lastname",                          default: "",            null: false
     t.date     "birthdate",                         default: '2016-01-01',  null: false
-    t.text     "description",                                               null: false
+    t.text     "description",                       default: "",            null: false
     t.string   "gender",                            default: "Not telling", null: false
     t.string   "phone_number",                      default: "",            null: false
     t.string   "type",                              default: "Student",     null: false
