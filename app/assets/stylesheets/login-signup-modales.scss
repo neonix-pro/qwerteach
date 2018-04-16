@@ -18,7 +18,8 @@
 }
 
 #onboarding{
-  height:auto;
+  min-height:100%;
+  &._role { height: 100vh; }
   #choose-role{
     display: block;
     width: 100%;
