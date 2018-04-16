@@ -85,11 +85,11 @@
                       %small#phone_error_message Numéro invalide
 
                 .actions
-                  = submit_tag 'Suivant'
+                  = submit_tag 'Envoyer une demande'
 
               .actions.finish_first_step
                 %p.danger Vous devez remplir tout les champs
-                %button.jump_to_scond_step{:type => "button"} Suivant
+                %button.jump_to_scond_step{:type => "button"} Envoyer une demande
             
             - if !@global_request.errors.any?
               .last_step
@@ -120,7 +120,7 @@
   $('button.jump_to_scond_step').click(function() {
     let ctnErr = 0
     $('.first_step input').each(function() { 
-      if( $(this).val() == 'matière' || $(this).val() == 'niveau' ) {
+      if( $(this).val() == 'matière' || $(this).val() == 'niveau' || $(this).val() == '' ) {
         ctnErr++
       }
     })
