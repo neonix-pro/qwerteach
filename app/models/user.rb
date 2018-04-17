@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  after_initialize :anonymize_deleted
   GENDER_TYPES = ["Not telling", "Male", "Female"]
   ACCOUNT_TYPES = ["Student", "Teacher"]
 
@@ -43,7 +44,7 @@ class User < ActiveRecord::Base
 
   acts_as_messageable
   acts_as_commentable :admin
-  default_scope { where(blocked: false) }
+  #default_scope { where(blocked: false) }
   
   def mailboxer_email(messageable)
     email
@@ -290,5 +291,11 @@ class User < ActiveRecord::Base
   
   def skip_confirmation!
     self.confirmed_at = Time.now
+  end
+
+  def anonymize_deleted
+    if blocked
+      self.attributes = User.new({id: id, firstname: 'Profil', lastname: 'Supprimé'}).attributes
+    end
   end
 end
