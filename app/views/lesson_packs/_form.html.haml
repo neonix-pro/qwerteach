@@ -21,14 +21,14 @@
             - options = []
           = f.select :level_id, options, { prompt: 'niveau' }, { class: 'form-control level-select', required: true }
         .form-group
-          = f.label :discount
+          = f.label :discount, 'Remise'
           = f.select :discount, [0,5,10,15,20].map { |i| ["#{i}%", i] }, {}, { class: 'form-control discount' }
         .lessons-part.hidden
           %h3 Lessons
           .form-group.lesson-pack-header
             .row
-              .col-xs-6 Start date
-              .col-xs-4 Duration
+              .col-xs-6 Date
+              .col-xs-4 Durée
           .lesson-pack-items
             = f.fields_for :items do |fi|
               = render 'item_fields', f: fi
@@ -36,19 +36,19 @@
             = f.fields_for :items, LessonPackItem.new, child_index: '__ITEM_INDEX__' do |fi|
               = render 'item_fields', f: fi
           .form-group.text-center
-            = link_to 'Add', '#', class: 'btn btn-primary btn-add-item'
+            = link_to 'Ajouter', '#', class: 'btn btn-primary btn-add-item'
 
         .form-group.text-right
-          = f.submit 'Next', class: 'btn btn-qw btn-green'
+          = f.submit 'Suivant', class: 'btn btn-qw btn-green'
     .col-md-5
       %dl.lesson-pack-values.hidden
-        %dt Rate
+        %dt Tarif horaire
         %dd#rate-value -
-        %dt Hours
+        %dt Nombre d'heures
         %dd#hours-value -
-        %dt Cost
+        %dt Prix
         %dd#cost-value -
-        %dt Total amount
+        %dt Prix total
         %dd#total-amount-value -
 :javascript
   var form = new LessonPackForm( $('#lesson-pack-form'), { teacher_id: #{current_user.id} } )
