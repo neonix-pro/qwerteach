@@ -4,16 +4,20 @@
   %table.table.table-striped
     %thead
       %tr
-        %th Topic
-        %th Level
-        %th # lessons
-        %th amount
+        %th Élève
+        %th Professeur
+        %th Matière
+        %th Niveau
+        %th # cours
+        %th Prix du pack
         %th
     %tbody
       - packs.each do |pack|
         %tr
+          %td= link_to pack.student.full_name, user_path(pack.student)
+          %td= link_to pack.teacher.full_name, user_path(pack.teacher)
           %td= pack.topic.try(:title)
           %td= pack.level.try(:title)
           %td= pack.items.size
-          %td= pack.amount
-          %td= link_to 'Show', lesson_pack_path(pack)
+          %td= "#{pack.amount}€"
+          %td= link_to 'Voir', lesson_pack_path(pack)
