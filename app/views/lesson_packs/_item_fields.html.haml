@@ -13,6 +13,6 @@
       - f.object.duration ||= 60
       = f.select :hours, options_for_hours_select, {}, { class: 'form-control hours-select', include_blank: false }
     .col-xs-2
-      = f.select :minutes, options_for_minutes_select, {}, { class: 'form-control hours-select', include_blank: false }
+      = f.select :minutes, options_for_minutes_select, {}, { class: 'form-control minutes-select', include_blank: false }
     .col-xs-2
       = link_to 'Remove', '#', class: 'btn btn-sm btn-warning btn-remove-item btn-block'

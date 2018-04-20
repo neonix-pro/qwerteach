@@ -1,39 +1,39 @@
-%h3 Recap of lesson pack
+%h3 Recapitulatif du pack de cours
 - for_approve = lesson_pack.student_id == current_user.id && lesson_pack.pending_student?
 %table.table.table-striped
   %tbody
     - if lesson_pack.teacher_id == current_user.id
       %tr
-        %td Student
+        %td Élève
         %td= lesson_pack.student.try(:full_name)
     %tr
-      %td # lessons
+      %td # de cours
       %td= lesson_pack.items.size
     %tr
-      %td Topic
+      %td Matière
       %td= lesson_pack.topic.try(:title)
     %tr
-      %td Level
+      %td Niveau
       %td= lesson_pack.level.try(:title)
     %tr
-      %td Total hours
+      %td Total des heures
       %td= Duration.new(minutes: lesson_pack.duration).format('%th:%M')
     - if lesson_pack.discount > 0
       %tr
-        %td Discount
+        %td Remise
         %td #{lesson_pack.discount}%
     %tr
-      %td Amount
+      %td Montant total
       %td #{lesson_pack.cost} - #{lesson_pack.cost * lesson_pack.discount / 100} = #{lesson_pack.amount}
 
 %table.table.table-striped
   %thead
     %tr
-      %th Time start
-      %th Duration
-      %th # rescheduled
+      %th Date du cours
+      %th Durée
+      %th # reports
       - if can? :pay, lesson_pack
-        %th Agreement
+        %th Accord
   %tbody
     - (lesson_pack.items).each do |item|
       %tr

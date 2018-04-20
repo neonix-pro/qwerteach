@@ -83,6 +83,7 @@ class window.LessonPackForm extends window.LessonForm
       .reduce(((st, el) => st + parseInt($(el).val(), 10)), 0)
 
   totalMinutes: () ->
+    console.log(@$('.lesson-pack-item:not(.hidden) .minutes-select'))
     @$('.lesson-pack-item:not(.hidden) .minutes-select')
     .toArray()
     .reduce(((st, el) => st + parseInt($(el).val(), 10)), 0)

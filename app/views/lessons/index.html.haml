@@ -16,9 +16,9 @@
             %a{href: "#history"} Historique
           - if current_user.is_a?(Teacher)
             %li.tab
-              %a{href: "#pending_packs"} Pending packs
+              %a{href: "#pending_packs"} Packs en attente
           %li.tab
-            %a{href: "#proposed_packs"} Proposed packs
+            %a{href: "#proposed_packs"} Packs acceptés
   .container
     #planned
       = render partial: 'lessons/index/planned'
@@ -28,9 +28,9 @@
       = render partial: 'lessons/index/history'
     - if current_user.is_a?(Teacher)
       #pending_packs
-        = render 'lessons/index/packs', packs: LessonPack.declined.where(teacher_id: current_user.id)
+        = render 'lessons/index/packs', packs: LessonPack.pending_student.where(teacher_id: current_user.id)
     #proposed_packs
-      = render 'lessons/index/packs', packs: LessonPack.pending_student.where(student_id: current_user.id)
+      = render 'lessons/index/packs', packs: LessonPack.paid.where(student_id: current_user.id)
 
 :javascript
   $(document).ready(function(){

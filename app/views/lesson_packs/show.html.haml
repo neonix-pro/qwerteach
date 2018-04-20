@@ -1,21 +1,32 @@
-.container-fluid
-  %h1 Lesson pack
-  .row
-    .col-lg-6.col-md-8= render 'recap', lesson_pack: @lesson_pack
+#lesson
+  .row.header.valign-wrapper
+    .col-sm-2.col-xs-4
+      .icon-header.icon-coloured.valign-wrapper{class: "icon-topic-#{@lesson_pack.topic.topic_group.id}"}
+        = image_tag(@lesson_pack.topic.pictotype(:medium))
+    .col-sm-8.col-xs-4
+      .header-infos
+        %h1
+          Pack de #{@lesson_pack.items.count} cours de #{@lesson_pack.topic.title} (#{@lesson_pack.topic.topic_group.title})
 
-  .row.form-group
-    - if can? :reject, @lesson_pack
-      .col-lg-2.col-md-3.col-sm-4.col-xs-6
-        = link_to 'Reject', reject_lesson_pack_path(@lesson_pack), class: 'btn btn-warning', method: :put
-    - if can? :pay, @lesson_pack
-      .col-lg-2.col-md-3.col-sm-4.col-xs-6
-        = link_to 'Approve', payment_lesson_pack_path(@lesson_pack), class: 'btn btn-primary btn-approve disabled'
-        - content_for :javascript do
-          :javascript
-            new LessonPackApprove()
-    - if can? :edit, @lesson_pack
-      .col-lg-2.col-md-3.col-sm-4.col-xs-6
-        = link_to 'Edit', edit_lesson_pack_path(@lesson_pack), class: 'btn btn-primary'
-    - if can? :delete, @lesson_pack
-      .col-lg-2.col-md-3.col-sm-4.col-xs-6
-        = link_to 'Delete', lesson_pack_path(@lesson_pack), class: 'btn btn-warning', method: :delete, 'data-confirm' => 'Delete the pack?'
+.container-fluid
+  .row
+    .col-lg-6.col-md-8.col-lg-offset-3.col-md-offset-2
+      .row
+        = render 'recap', lesson_pack: @lesson_pack
+      .row.form-group
+        - if can? :reject, @lesson_pack
+          .col-lg-2.col-md-3.col-sm-4.col-xs-6
+            = link_to 'Rejeter', reject_lesson_pack_path(@lesson_pack), class: 'btn btn-warning', method: :put
+        - if can? :pay, @lesson_pack
+          .col-lg-2.col-md-3.col-sm-4.col-xs-6
+            = link_to 'Accepter', payment_lesson_pack_path(@lesson_pack), class: 'btn btn-primary btn-approve disabled'
+            - content_for :javascript do
+              :javascript
+                new LessonPackApprove()
+        - if can? :edit, @lesson_pack
+          .col-lg-2.col-md-3.col-sm-4.col-xs-6
+            = link_to 'Modifier', edit_lesson_pack_path(@lesson_pack), class: 'btn btn-primary'
+        - if can? :delete, @lesson_pack
+          .col-lg-2.col-md-3.col-sm-4.col-xs-6
+            = link_to 'Supprimer', lesson_pack_path(@lesson_pack), class: 'btn btn-warning', method: :delete, 'data-confirm' => 'Delete the pack?'
+        = link_to 'Retour', lessons_path

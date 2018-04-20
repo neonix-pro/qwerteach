@@ -1,8 +1,9 @@
 .container-fluid
-  %h1 Pay lesson pack
+  .row
+    %h2.page-title-green Payer le pack de #{@lesson_pack.items.count} cours de #{@lesson_pack.topic.title} (#{@lesson_pack.topic.topic_group.title})
   .row
     .col-md-6.col-sm-8.col-lg-4
-      = render 'shared/payment_form', url: ->(method) { pay_lesson_pack_path(@lesson_pack, method) }, button_caption: 'Pay', amount: @lesson_pack.amount
+      = render 'shared/payment_form', url: ->(method) { pay_lesson_pack_path(@lesson_pack, method) }, button_caption: 'Payer', amount: @lesson_pack.amount
   - content_for :javascript do
     :javascript
       mangoPay.cardRegistration.baseURL = "#{MangoPay.configuration.root_url}";
