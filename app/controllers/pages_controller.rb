@@ -22,6 +22,7 @@ class PagesController < ApplicationController
 
   def abtest
 		index
+		@featured_teachers_landing =  User.where(postulance_accepted: true).where.not(avatar_score: nil).limit(7).order(avatar_score: :desc)
 		render template: "pages/#{params[:page]}/#{params[:version]}", layout: 'no-navbar'
 		#render template: "pages/#{params[:page]}/winner", layout: 'no-navbar'
 	end

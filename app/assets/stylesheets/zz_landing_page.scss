@@ -581,14 +581,14 @@ $bezier: cubic-bezier(0.81, 0.4, 0.57, 1.63);
 
     section.teachers {
         ul.teachers_list {
-            @include size(f,auto);
+            @include size(f,400px);
             padding: 20px 0;
             @include clearfix;
 
             li {
                 position: relative;
                 float: left;
-                @include size(20%,auto);
+                @include size(20%,100%);
                 padding-top: 0;
 
                 a {
@@ -638,10 +638,13 @@ $bezier: cubic-bezier(0.81, 0.4, 0.57, 1.63);
                         figure img { transform: scale(1.1); }
                     }
                 }
-                &:nth-child(2n+1) {
-                    padding-top: 110px;
+                &._mid {
+                    height: 50%;
                     a {
                         margin-bottom: 0;
+                    }
+                    &:nth-child(2n+2) {
+                        @include clearfix;
                     }
                 }
             }

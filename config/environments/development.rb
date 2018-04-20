@@ -67,4 +67,6 @@ Rails.application.configure do
   config.middleware.use(Rack::Tracker) do
     handler :google_analytics, { tracker: 'UA-60202325-2'}
   end
+    # config asset_url 
+  config.action_mailer.asset_host = "http://localhost:3000"
 end

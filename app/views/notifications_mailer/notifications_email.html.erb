@@ -138,43 +138,43 @@
                style="vertical-align:top;width:180px;"
             >
           <![endif]-->
-      <% @cnt = false %>
+      <% @bool = false %>
       <% @notifications.each do |notification| %>
-        <div
-          class="mj-column-per-30 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
-        >
-          
-        <table
-          border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%"
-        >
-          
+        <% if @bool %>
+          <div
+            class="mj-column-per-30 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
+          >
+            
+          <table
+            border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%"
+          >
+            
+                <tr>
+                  <td
+                    align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;"
+                  >
+                    
+          <table
+            align="left" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;"
+          >
+            <tbody>
               <tr>
-                <td
-                  align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;"
-                >
+                <td  style="width:50px;">
                   
-        <table
-          align="left" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;"
-        >
-          <tbody>
-            <tr>
-              <td  style="width:50px;">
-                
-        <img
-          alt="QwerTeach" height="50" src="https://qwerteach.com/assets/logotext-6441427fdda2eaa7a811db01d11ff2fab7dfebcb2db6af3eba083aaef4e1a777.png" style="border:0;border-radius:50%;display:block;outline:none;text-decoration:none;width:100%;" width="50"
-        />
-      
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      
+          <img style="height:50px;width:50px" src="<%= asset_url(notification.sender.avatar.url(:small)) %>" alt="<%= notification.sender.firstname %>" />
+        
                 </td>
               </tr>
-            
-        </table>
-      
-        </div>
+            </tbody>
+          </table>
+        
+                  </td>
+                </tr>
+              
+          </table>
+        
+          </div>
+        <% end %>
       
             <!--[if mso | IE]>
               </td>
@@ -212,7 +212,42 @@
         
       
         </div>
-        <% @cnt++ %>
+        <% if !@bool %>
+          <div
+            class="mj-column-per-30 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
+          >
+            
+          <table
+            border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%"
+          >
+            
+                <tr>
+                  <td
+                    align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;"
+                  >
+                    
+          <table
+            align="left" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;"
+          >
+            <tbody>
+              <tr>
+                <td  style="width:50px;">
+                  
+          <img style="height:50px;width:50px" src="<%= asset_url(notification.sender.avatar.url(:small)) %>" alt="<%= notification.sender.firstname %>" />
+        
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        
+                  </td>
+                </tr>
+              
+          </table>
+        
+          </div>
+        <% end %>
+        <% @bool = !@bool %>
       <%end %>
     
           <!--[if mso | IE]>

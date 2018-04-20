@@ -51,79 +51,26 @@
       %section.teachers
         .block_title
           %h2 Découvrez le meilleur prof pour vous
-        -# %ul.teachers_list
-        -#   - profs.each_with_index do |prof, index|
-        -#     %li.prof{id: "prof#{index}"}
-        -#       = link_to user_path(prof) do
-        -#         .prof-background{style: "background-image: url(#{image_path prof.avatar.url(:large)})"}
-        -#       %p
-        -#         %span.name
-        -#           = link_to "#{prof.firstname} #{prof.lastname}", user_path(prof)
-        -#         %br
-        -#         %span.topics
-        -#           = prof.offers.map{|ad| link_to ad.title, profs_by_topic_path(ad.title)}.join(', ').html_safe
         %ul.teachers_list
-          %li.teacher
-            %a{:href => "#"}
-              %figure
-                %img{:alt => "Prof...", :src => "https://i.pinimg.com/originals/e4/46/3b/e4463b1fc313d5b2a736cb352d498d76.jpg"}
-                %figcaption
-                  %span
-                    Quentin
-                    %br
-                    senuti
-          %li.teacher
-            %a{:href => "#"}
-              %figure
-                %img{:alt => "Prof...", :src => "https://i.pinimg.com/originals/e4/46/3b/e4463b1fc313d5b2a736cb352d498d76.jpg"}
-                %figcaption
-                  %span
-                    Quentin
-                    %br
-                    senuti
-            %a{:href => "#"}
-              %figure
-                %img{:alt => "Prof...", :src => "https://i.pinimg.com/originals/e4/46/3b/e4463b1fc313d5b2a736cb352d498d76.jpg"}
-                %figcaption
-                  %span
-                    Quentin
-                    %br
-                    senuti
-          %li.teacher
-            %a{:href => "#"}
-              %figure
-                %img{:alt => "Prof...", :src => "https://i.pinimg.com/originals/e4/46/3b/e4463b1fc313d5b2a736cb352d498d76.jpg"}
-                %figcaption
-                  %span
-                    Quentin
-                    %br
-                    senuti
-          %li.teacher
-            %a{:href => "#"}
-              %figure
-                %img{:alt => "Prof...", :src => "https://i.pinimg.com/originals/e4/46/3b/e4463b1fc313d5b2a736cb352d498d76.jpg"}
-                %figcaption
-                  %span
-                    Quentin
-                    %br
-                    senuti
-            %a{:href => "#"}
-              %figure
-                %img{:alt => "Prof...", :src => "https://i.pinimg.com/originals/e4/46/3b/e4463b1fc313d5b2a736cb352d498d76.jpg"}
-                %figcaption
-                  %span
-                    Quentin
-                    %br
-                    senuti
-          %li.teacher
-            %a{:href => "#"}
-              %figure
-                %img{:alt => "Prof...", :src => "https://i.pinimg.com/originals/e4/46/3b/e4463b1fc313d5b2a736cb352d498d76.jpg"}
-                %figcaption
-                  %span
-                    Quentin
-                    %br
-                    senuti
+          - @bool = false
+          - @featured_teachers_landing.each_with_index do |prof, index|
+            %li.teacher
+              %a{:href => user_path(prof)}
+                %figure
+                  = image_tag(prof.avatar.url(:medium), {class: 'teacher_img'})
+                  %figcaption
+                    %span
+                      = "#{prof.firstname} #{prof.lastname}"
+                
+            -# %li.prof{id: "prof#{index}"}
+            -#   = link_to user_path(prof) do
+            -#     .prof-background{style: "background-image: url(#{image_path prof.avatar.url(:large)})"}
+            -#   %p
+            -#     %span.name
+            -#       = link_to "#{prof.firstname} #{prof.lastname}", user_path(prof)
+            -#     %br
+            -#     %span.topics
+            -#       = prof.offers.map{|ad| link_to ad.title, profs_by_topic_path(ad.title)}.join(', ').html_safe
       %section.press
         .before
         .block_title

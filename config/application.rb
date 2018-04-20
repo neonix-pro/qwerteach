@@ -48,6 +48,8 @@ module Qwerteach
      enable_starttls_auto: true
     }
 
+
+
 config.action_mailer.default_url_options = {
     host: ENV['DEFAULT_URL']
 }
@@ -55,5 +57,6 @@ config.action_mailer.default_url_options = {
       Administrate::ApplicationController.helper Qwerteach::Application.helpers
     end
   end
+
 end
 
