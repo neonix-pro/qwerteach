@@ -4,9 +4,10 @@
       .label_logo
         %img{:alt => "QwerTeach", :src => "https://qwerteach.com/assets/logotext-6441427fdda2eaa7a811db01d11ff2fab7dfebcb2db6af3eba083aaef4e1a777.png", :style => "border:0;display:block;outline:none;text-decoration:none;width:100%;"}
       .right
-        %a.btn.blue{:href => "#"} Devenir prof
-        %a.btn.txt{:href => "#"} Se connecter
-        %a.btn.primary{:href => "#"} S'incrire
+        %a.btn.blue._become_teacher{:href => "#"} Devenir prof
+        %a.btn.txt._on_desktop{:href => "#"} Se connecter
+        %a.btn.primary._on_desktop{:href => "#"} S'incrire
+        %a.btn.txt._on_mobil{:href => "#"} Se connecter / S'inscrire
   %header
     .wrap
       .main_title_block
@@ -51,10 +52,10 @@
       %section.teachers
         .block_title
           %h2 Découvrez le meilleur prof pour vous
-        %ul.teachers_list
+        .teachers_list
           - @bool = false
           - @featured_teachers_landing.each_with_index do |prof, index|
-            %li.teacher
+            .teacher
               %a{:href => user_path(prof)}
                 %figure
                   = image_tag(prof.avatar.url(:medium), {class: 'teacher_img'})
@@ -132,7 +133,7 @@
           %ul
             %li
               %a{:href => "#"}
-                %span.v
+                %span.v{:style => "background-image:url('#{ asset_path('images/accueil/svg/v.svg') }')"}
                 Passez au cours en ligne et boostez vos notes !
             %li
               %a{:href => "#"}
@@ -148,3 +149,56 @@
         .centered_btn
           %a.btn.primary
             Passez à l'action !
+
+:javascript
+  $(document).on('click', 'a[href^="#"]', function (event) {
+    event.preventDefault();
+
+    $('html, body').animate({
+        scrollTop: $($.attr(this, 'href')).offset().top
+    }, 500);
+  }); 
+
+  let st = 0, lastScrollTop = 0
+    , vpH = 0
+    , vpW = 0
+    , BlockBody = $('.block_body')
+    , toScrollDown = $('.toScrollDown')
+    , isNavHide = false
+    , topNav = $('nav.main_nav')
+    , signUpBlock = $('.block_sign_up')
+    , ContentBlockBody = $('.content_block_body')
+    , ContentBlockBodySize = ContentBlockBody.height()
+
+
+  
+  $(window).scroll(function() {
+      st = $(window).scrollTop()
+  
+      if (st > 20) {
+          toScrollDown.addClass('hide')
+      } else {
+          if (st < 20) {
+              toScrollDown.removeClass('hide')
+          }
+          toScrollDown.removeClass('hide')
+      }
+
+      if (st > lastScrollTop) {
+          topNav.addClass('hide')
+      } else {
+          topNav.removeClass('hide')
+          $('nav.main_nav').addClass('onScreen')
+          if (st == 0) {
+              $('nav.main_nav').removeClass('onScreen')
+          }
+      }
+      lastScrollTop = st  
+  
+  })
+
+  $(window).resize(function() {
+      st = $(window).scrollTop()
+      vpH = $(window).height()
+      vpW = $(window).width()
+  })

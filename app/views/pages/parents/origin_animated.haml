@@ -1,0 +1,268 @@
+.test-become-teacher.landing_page._animated
+  %nav.main_nav
+    .wrap
+      .label_logo
+        %img{:alt => "QwerTeach", :src => "https://qwerteach.com/assets/logotext-6441427fdda2eaa7a811db01d11ff2fab7dfebcb2db6af3eba083aaef4e1a777.png", :style => "border:0;display:block;outline:none;text-decoration:none;width:100%;"}/
+      .right
+        %a.btn.blue{:href => "#"} Devenir prof
+        %a.btn.txt{:href => "#"} Se connecter
+        %a.btn.primary{:href => "#"} S'incrire
+  %header
+    .main_title_block
+      %h1 Le bon prof au bon moment
+      %h2 Les meilleurs professeurs particulers sont sur Qwearteach
+    %a.toScrollDown{:href => "#top"}
+  .content_block_body
+    .block_body
+      %section#top.head
+        .block_title
+          %h2
+            Les cours particulers,
+            %br/
+            %span.grey nouvelle génération
+        .block_sign_up
+          %span.title_sign Inscrivez vous maintent
+        %ul.assets_cours
+          %li
+            %figure
+              %img{:alt => "Les cours particulier depuis votre canapé", :src => "./assets/landing_eleve.svg"}/
+            %article
+              %h4.title Les cours particuliers depuis votre canapé
+              %p
+                Grâce à notre classe virtuelle intuitive et simple d’utilisation, combinant tableau interactif et vidéoconférence,
+                trouvez un prof et prenez vos cours particuliers en direct
+          %li
+            %figure
+              %img{:alt => "Les meilleurs proffs", :src => "./assets/landing_prof.svg"}/
+            %article
+              %h4.title Les meilleurs profs
+              %p
+                Même dans les matières les plus pointues, les professeurs sont certifiés grâce à un entretien individuel, ils
+                sont ensuite évalués à la fin de chaque séance
+          %li
+            %figure
+              %img{:alt => "Le soutien scilaire en toute confiance", :src => "./assets/landing_payement.svg"}/
+            %article
+              %h4.title Le soutien scolaire en toute confiance
+              %p
+                Nous sommes là pour vous aider à trouver le professeur qu’il vous faut. Payez à la réservation, l’argent lui
+                sera versé à la fin du cours.
+      %section.teachers
+        .block_title
+          %h2 Découvrez le meilleur prof pour vous
+        .teachers_list
+          - @bool = false
+          - @featured_teachers_landing.each_with_index do |prof, index|
+            .teacher
+              %a{:href => user_path(prof)}
+                %figure
+                  = image_tag(prof.avatar.url(:medium), {class: 'teacher_img'})
+                  %figcaption
+                    %span
+                      = "#{prof.firstname} #{prof.lastname}"
+      %section.press
+        .before
+        .block_title
+          %h2 La presse parle de nous
+        %ul.press_list
+          %li
+            %a{:href => "#"}
+              =image_tag('acceuil/press/le_soir.jpeg')
+          %li
+            %a{:href => "#"}
+              =image_tag('acceuil/press/belrtl.jpg')
+          %li
+            %a{:href => "#"}
+              =image_tag('acceuil/press/logo_educadis.jpg')
+          %li
+            %a{:href => "#"}
+              =image_tag('acceuil/press/logo-datanews.png')
+          %li
+            %a{:href => "#"}
+              =image_tag('acceuil/press/tendances_trends.png')
+      %section.subscribe
+        .block_title._center
+          %h2 Profitez maintenant de tous les avantages
+        .centered_btn
+          %a.btn.primary
+            S'inscrire maintenant
+      %section.testimny
+        .side.l.st-slider
+          %input#slide1.cs_anchor.radio{:name => "slider", :type => "radio"}/
+          %input#slide2.cs_anchor.radio{:name => "slider", :type => "radio"}/
+          %input#slide3.cs_anchor.radio{:name => "slider", :type => "radio"}/
+          %input#play1.cs_anchor.radio{:checked => "checked", :name => "slider", :type => "radio"}/
+          .slider
+            .article_inner
+              .article_slider
+                .article._1
+                  %p Super prof très éfficace et très a l'écoute. Bon contact humain, ce qui est très appréciable !
+                  %span.data Henri, 16ans - Lyon
+              .article_slider
+                .article._1
+                  %p Super prof très éfficace et très a l'écoute. Bon contact humain, ce qui est très appréciable !
+                  %span.data Henri, 16ans - Lyon
+              .article_slider
+                .article._1
+                  %p Super prof très éfficace et très a l'écoute. Bon contact humain, ce qui est très appréciable !
+                  %span.data Henri, 16ans - Lyon
+          .labels
+            .fake-radio
+              %label.radio-btn{:for => "slide1"}
+              %label.radio-btn{:for => "slide2"}
+              %label.radio-btn{:for => "slide3"}
+        .side.r
+          %ul
+            %li
+              %a{:href => "#"}
+                %span.v>
+                Passez au cours en ligne et boostez vos notes !
+            %li
+              %a{:href => "#"}
+                %span.v>
+                Passez au cours en ligne et boostez vos notes !
+            %li
+              %a{:href => "#"}
+                %span.v>
+                Passez au cours en ligne et boostez vos notes !
+      %section.become_teacher
+        .block_title._center
+          %h2 Envie de devenir prof ?
+        .centered_btn
+          %a.btn.default
+            Passez à l'action !
+    / .block_body
+  / .content_block_body
+
+:javascript
+  $(document).on('click', 'a[href^="#"]', function (event) {
+    event.preventDefault();
+
+    $('html, body').animate({
+        scrollTop: $($.attr(this, 'href')).offset().top
+    }, 500);
+  }); 
+
+  let st = 0, lastScrollTop = 0
+    , vpH = 0
+    , vpW = 0
+    , BlockBody = $('.block_body')
+    , toScrollDown = $('.toScrollDown')
+    , isNavHide = false
+    , topNav = $('nav.main_nav')
+    , signUpBlock = $('.block_sign_up')
+    , ContentBlockBody = $('.content_block_body')
+    , ContentBlockBodySize = ContentBlockBody.height()
+  
+  $(document).ready(function () {
+    let cntTeach = 0, reverse = false;
+    $('ul.teachers_list a').each(function () {
+        $(this).addClass(`teach_${ cntTeach }`)
+        if (reverse) { $(this).addClass('_reverse') }
+        cntTeach++
+        reverse = !reverse
+    })
+
+    // scroll
+    st = $(window).scrollTop()
+    vpH = $(window).height()
+    vpW = $(window).width()
+ 
+    window.requestAnimFrame = (function () {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60);
+            }; 
+    })()
+
+    function Scroller() {
+        this.latestKnownScrollY = 0;
+        this.ticking = false;
+    }
+
+    Scroller.prototype = {
+        init: function () {
+            window.addEventListener('scroll', this.onScroll.bind(this), false);
+        },
+
+        onScroll: function () {
+            this.latestKnownScrollY = window.scrollY;
+            this.requestTick();
+        },
+ 
+        requestTick: function () {
+            if (!this.ticking) {
+                window.requestAnimFrame(this.update.bind(this));
+            }
+            this.ticking = true; 
+        },
+
+        update: function () {
+            var currentScrollY = this.latestKnownScrollY;
+            this.ticking = false;
+
+            var slowScroll = currentScrollY / 4
+            var fastScroll = currentScrollY / 1.5
+            var opacitySignUp = currentScrollY / 350
+
+            BlockBody.css({
+                '-webkit-transform': `translateY(${- slowScroll }px)`,
+                '-moz-transform': `translateY(${- slowScroll }px)`, 
+                'transform': `translateY(${- slowScroll }px)`,
+            }); 
+
+            // ContentBlockBody.css('height', `${ ContentBlockBodySize - slowScroll }px`)
+
+            // signUpBlock.css({
+            //     '-webkit-transform': `translateY(${- fastScroll }px)`,
+            //     '-moz-transform': `translateY(${- fastScroll }px)`,
+            //     'transform': `translateY(${- fastScroll }px)`,
+            //     'opacity': opacitySignUp
+            // })
+        }
+    };
+
+    var scroller = new Scroller();
+    scroller.init();
+      
+  })
+  
+  $(window).scroll(function() {
+      st = $(window).scrollTop()
+  
+      if (st > 20) {
+          toScrollDown.addClass('hide')
+      } else {
+          if (st < 20) {
+              toScrollDown.removeClass('hide')
+          }
+          toScrollDown.removeClass('hide')
+      }
+
+      if (st > lastScrollTop) {
+          topNav.addClass('hide')
+      } else {
+          topNav.removeClass('hide')
+          $('nav.main_nav').addClass('onScreen')
+          if (st == 0) {
+              $('nav.main_nav').removeClass('onScreen')
+          }
+      }
+      lastScrollTop = st  
+  
+      if (st > 100) {
+          $('.main_title_block').addClass('hide')
+          signUpBlock.addClass('show')
+      } else {
+          $('.main_title_block').removeClass('hide')
+          signUpBlock.removeClass('show')
+      }
+  })
+
+  $(window).resize(function() {
+      st = $(window).scrollTop()
+      vpH = $(window).height()
+      vpW = $(window).width()
+  })

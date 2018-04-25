@@ -1,4 +1,6 @@
 @import "global_variables";
+@import "tools/media-queries";
+@import "tools/mixins";
 
 body, html{
   margin: 0;
@@ -352,6 +354,24 @@ input.cmn-toggle-round-flat:checked + label:after
     bottom: 25px;
     color: $text_grey;
     margin-top: 280px;
+  }
+
+  @include max-screen(780px) {
+    .inner { width: 100%; padding-left: 8pt; padding-right: 8pt; }
+  }
+  @include max-screen(780px) {
+    height: auto; 
+    padding-bottom: 50px;
+    .copyright { bottom:0; margin-top: 0; padding: 20px 0; }
+    .inner { height: auto; @include clearfix; }
+    .cadre .col { width: 50%; 
+      &:nth-child(2), &:first-child { padding-bottom: 20px; }
+    }
+  }
+  @include max-screen(500px) {
+    .cadre .col { width: 100%; padding-bottom: 20px;
+      &:last-child { padding-bottom: 0; }
+    }
   }
 }
 

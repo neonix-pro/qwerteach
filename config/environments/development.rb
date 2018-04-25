@@ -54,6 +54,9 @@ Rails.application.configure do
   config.action_mailer.default_options = {from: 'hello@qwerteach.com'}
   config.web_console.whitelisted_ips = '0.0.0.0/0.0.0.0'
 
+  # background image in css file
+  config.serve_static_assets = true
+
   config.action_mailer.smtp_settings = {
       :user_name => ENV['SENDGRID_USERNAME'],
       :password => ENV['SENDGRID_PASSWORD'],
