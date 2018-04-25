@@ -421,7 +421,7 @@ a.btn._on_mobil {
                             &:after {
                                 @include pos(a,0,auto,auto,0);
                                 display: block;
-                                background-image: image_url('accueil/svg/quote.svg');
+                                background-image: image_url('quote.svg');
                                 background-repeat: no-repeat;
                                 @include size(35px);
                             }
@@ -455,7 +455,7 @@ a.btn._on_mobil {
                                     @include size(40px);
                                     float: left;
                                     // background: url('../svg/v.svg') ;
-                                    background-image: image_url('accueil/svg/v.svg');
+                                    background-image: image_url('v.svg');
                                     background-repeat: no-repeat;
                                 }
                             }
