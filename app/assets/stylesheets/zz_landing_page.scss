@@ -172,6 +172,10 @@ a.btn._on_mobil {
         .right {
             padding-top: 10px;
             float: right;
+
+            &.hide {
+                display: none;
+            }
         }
 
         &.hide {

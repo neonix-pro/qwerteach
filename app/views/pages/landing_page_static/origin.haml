@@ -3,7 +3,7 @@
     .wrap
       .label_logo
         %img{:alt => "QwerTeach", :src => "https://qwerteach.com/assets/logotext-6441427fdda2eaa7a811db01d11ff2fab7dfebcb2db6af3eba083aaef4e1a777.png", :style => "border:0;display:block;outline:none;text-decoration:none;width:100%;"}
-      .right
+      .right.hide
         %a.btn.blue._become_teacher{:href => "#"} Devenir prof
         %a.btn.txt._on_desktop{:href => "#"} Se connecter
         %a.btn.primary._on_desktop{:href => "#"} S'incrire
@@ -170,7 +170,17 @@
     , ContentBlockBody = $('.content_block_body')
     , ContentBlockBodySize = ContentBlockBody.height()
 
+  $(document).ready(function() {
+    st = $(window).scrollTop()
+    vpH = $(window).height()
+    vpW = $(window).width()
 
+    if (st >= vpH) {
+      $('nav.main_nav').addClass('onScreen') 
+    } else {
+      $('nav.main_nav').removeClass('onScreen')
+    }
+  })
   
   $(window).scroll(function() {
       st = $(window).scrollTop()
@@ -184,6 +194,18 @@
           toScrollDown.removeClass('hide')
       }
 
+      if (st >= vpH) {
+        $('nav.main_nav').addClass('onScreen')
+      } else {
+        $('nav.main_nav').removeClass('onScreen')
+      }
+      if (st >= (vpH - 200)) {
+        $('nav.main_nav .right').removeClass('hide')
+      } else {
+        $('nav.main_nav .right').addClass('hide')
+      }
+
+      /*
       if (st > lastScrollTop) {
           topNav.addClass('hide')
       } else {
@@ -194,7 +216,7 @@
           }
       }
       lastScrollTop = st  
-  
+      */
   })
 
   $(window).resize(function() {
