@@ -1,7 +1,7 @@
 class NotificationsMailer < ApplicationMailer
   default from: 'Qwerteach <notifications@qwerteach.com>'
 
-  def notifications_email(user, notifications,template, opts={})
+  def notifications_email(user, notifications)
     @user = user
     @notifications = notifications
     n = notifications.count > 1 ? 'notifications' : 'notifications'
@@ -10,7 +10,7 @@ class NotificationsMailer < ApplicationMailer
     
     # super test de poulycroc hum hum :D
     template = 'fc7eced9-20a8-4831-b739-a1b7df8b6793'
-    opts= {"X-SMTPAPI" => {"filters" => {
+    opts = {"X-SMTPAPI" => {"filters" => {
         "templates" => {
           "settings" => {
             "enable" => 1, "template_id" =>template}
@@ -18,6 +18,7 @@ class NotificationsMailer < ApplicationMailer
         }
       }.to_json
     }
+
     mail(to: @user.email, subject: @subject)
   end
 
