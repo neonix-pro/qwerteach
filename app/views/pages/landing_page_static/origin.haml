@@ -1,0 +1,204 @@
+.test-become-teacher
+  %nav.main_nav
+    .wrap
+      .label_logo
+        %img{:alt => "QwerTeach", :src => "https://qwerteach.com/assets/logotext-6441427fdda2eaa7a811db01d11ff2fab7dfebcb2db6af3eba083aaef4e1a777.png", :style => "border:0;display:block;outline:none;text-decoration:none;width:100%;"}
+      .right
+        %a.btn.blue._become_teacher{:href => "#"} Devenir prof
+        %a.btn.txt._on_desktop{:href => "#"} Se connecter
+        %a.btn.primary._on_desktop{:href => "#"} S'incrire
+        %a.btn.txt._on_mobil{:href => "#"} Se connecter / S'inscrire
+  %header
+    .wrap
+      .main_title_block
+        %h1 Le bon prof au bon moment
+        %h2 Les meilleurs professeurs particulers sont sur Qwearteach
+      %a.toScrollDown{:href => "#top"}
+
+  .content_block_body
+    .block_body
+      %section#top.head
+        .block_title
+          %h2
+            Les cours particulers,
+            %br
+            %span.grey nouvelle génération
+        .block_sign_up.show
+          .form.absolute.material-form
+            %span.title_sign Inscrivez vous maintent
+            =render partial: 'devise/registrations/new_form'
+        %ul.assets_cours
+          %li
+            %figure
+              =image_tag('acceuil/teacher.svg')
+            %article
+              %h4.title Vos cours particuliers, où vous voulez
+              %p
+                En un clic, retrouvez votre professeur particulier dans la classe virtuelle Qwerteach. Le cours en ligne, c'est un vrai cours particulier, sans devoir se déplacer.
+          %li
+            %figure
+              =image_tag('acceuil/timing.svg')
+            %article
+              %h4.title A vos horaires
+              %p
+                Discutez avec votre profeseur et fixez enemble les horaires qui vous arrangent. Sur Qwerteach nous vous encourageons à étaler vos cours sur la semaine. Des scéances plus courtes, plus souvent: l'idéal pour bien apprendre.
+          %li
+            %figure
+              =image_tag('acceuil/landing_payement.svg')
+            %article
+              %h4.title Payez en toute sécurité
+              %p
+                Grâce à notre système de paiement sécurisé, vous réservez vos cours en un clic. En cas de problème lors d'un cours, vous serez intégralement remboursé. Sans discussion.
+      %section.teachers
+        .block_title
+          %h2 Découvrez le meilleur prof pour vous
+        .teachers_list
+          - @bool = false
+          - @featured_teachers_landing.each_with_index do |prof, index|
+            .teacher
+              %a{:href => user_path(prof)}
+                %figure
+                  = image_tag(prof.avatar.url(:medium), {class: 'teacher_img'})
+                  %figcaption
+                    %span
+                      = "#{prof.firstname} #{prof.lastname}"
+                
+            -# %li.prof{id: "prof#{index}"}
+            -#   = link_to user_path(prof) do
+            -#     .prof-background{style: "background-image: url(#{image_path prof.avatar.url(:large)})"}
+            -#   %p
+            -#     %span.name
+            -#       = link_to "#{prof.firstname} #{prof.lastname}", user_path(prof)
+            -#     %br
+            -#     %span.topics
+            -#       = prof.offers.map{|ad| link_to ad.title, profs_by_topic_path(ad.title)}.join(', ').html_safe
+      %section.press
+        .before
+        .block_title
+          %h2 La presse parle de nous
+        %ul.press_list
+          %li
+            %a{:href => "#"}
+              =image_tag('acceuil/press/le_soir.jpeg')
+          %li
+            %a{:href => "#"}
+              =image_tag('acceuil/press/belrtl.jpg')
+          %li
+            %a{:href => "#"}
+              =image_tag('acceuil/press/logo_educadis.jpg')
+          %li
+            %a{:href => "#"}
+              =image_tag('acceuil/press/logo-datanews.png')
+          %li
+            %a{:href => "#"}
+              =image_tag('acceuil/press/tendances_trends.png')
+      %section.subscribe
+        .block_title._center
+          %h2 Profitez maintenant de tous les avantages
+        .centered_btn
+          %a.btn.primary
+            S'inscrire maintenant
+      %section.testimny
+        .side.l.st-slider
+          %input#slide1.cs_anchor.radio{:name => "slider", :type => "radio"}
+          %input#slide2.cs_anchor.radio{:name => "slider", :type => "radio"}
+          %input#slide3.cs_anchor.radio{:name => "slider", :type => "radio"}
+          %input#play1.cs_anchor.radio{:checked => "checked", :name => "slider", :type => "radio"}
+          .slider
+            .article_inner
+              .article_slider
+                .article._1
+                  %p Super prof très éfficace et très a l'écoute. Bon contact humain, ce qui est très appréciable !
+                  %span.data Henri, 16ans - Lyon
+              / .article_slider
+              .article_slider
+                .article._1
+                  %p Super prof très éfficace et très a l'écoute. Bon contact humain, ce qui est très appréciable !
+                  %span.data Henri, 16ans - Lyon
+              / .article_slider
+              .article_slider
+                .article._1
+                  %p Super prof très éfficace et très a l'écoute. Bon contact humain, ce qui est très appréciable !
+                  %span.data Henri, 16ans - Lyon
+              / .article_slider
+            / .article_inner
+          / .slider
+          .labels
+            .fake-radio
+              %label.radio-btn{:for => "slide1"}
+              %label.radio-btn{:for => "slide2"}
+              %label.radio-btn{:for => "slide3"}
+        / .slide
+        .side.r
+          %ul
+            %li
+              %a{:href => "#"}
+                %span.v
+                Passez au cours en ligne et boostez vos notes !
+            %li
+              %a{:href => "#"}
+                %span.v
+                Passez au cours en ligne et boostez vos notes !
+            %li
+              %a{:href => "#"}
+                %span.v
+                Passez au cours en ligne et boostez vos notes !
+      %section.become_teacher
+        .block_title._center
+          %h2 Envie de devenir prof ?
+        .centered_btn
+          %a.btn.primary
+            Passez à l'action !
+
+:javascript
+  $(document).on('click', 'a[href^="#"]', function (event) {
+    event.preventDefault();
+
+    $('html, body').animate({
+        scrollTop: $($.attr(this, 'href')).offset().top
+    }, 500);
+  }); 
+
+  let st = 0, lastScrollTop = 0
+    , vpH = 0
+    , vpW = 0
+    , BlockBody = $('.block_body')
+    , toScrollDown = $('.toScrollDown')
+    , isNavHide = false
+    , topNav = $('nav.main_nav')
+    , signUpBlock = $('.block_sign_up')
+    , ContentBlockBody = $('.content_block_body')
+    , ContentBlockBodySize = ContentBlockBody.height()
+
+
+  
+  $(window).scroll(function() {
+      st = $(window).scrollTop()
+  
+      if (st > 20) {
+          toScrollDown.addClass('hide')
+      } else {
+          if (st < 20) {
+              toScrollDown.removeClass('hide')
+          }
+          toScrollDown.removeClass('hide')
+      }
+
+      if (st > lastScrollTop) {
+          topNav.addClass('hide')
+      } else {
+          topNav.removeClass('hide')
+          $('nav.main_nav').addClass('onScreen')
+          if (st == 0) {
+              $('nav.main_nav').removeClass('onScreen')
+          }
+      }
+      lastScrollTop = st  
+  
+  })
+
+  $(window).resize(function() {
+      st = $(window).scrollTop()
+      vpH = $(window).height()
+      vpW = $(window).width()
+  })

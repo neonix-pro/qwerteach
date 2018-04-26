@@ -21,32 +21,31 @@
             %br/
             %span.grey nouvelle génération
         .block_sign_up
-          %span.title_sign Inscrivez vous maintent
+          .form.absolute.material-form
+            %span.title_sign Inscrivez vous maintent
+            =render partial: 'devise/registrations/new_form'
         %ul.assets_cours
           %li
             %figure
-              %img{:alt => "Les cours particulier depuis votre canapé", :src => "./assets/landing_eleve.svg"}/
+              =image_tag('acceuil/teacher.svg')
             %article
-              %h4.title Les cours particuliers depuis votre canapé
+              %h4.title Vos cours particuliers, où vous voulez
               %p
-                Grâce à notre classe virtuelle intuitive et simple d’utilisation, combinant tableau interactif et vidéoconférence,
-                trouvez un prof et prenez vos cours particuliers en direct
+                En un clic, retrouvez votre professeur particulier dans la classe virtuelle Qwerteach. Le cours en ligne, c'est un vrai cours particulier, sans devoir se déplacer.
           %li
             %figure
-              %img{:alt => "Les meilleurs proffs", :src => "./assets/landing_prof.svg"}/
+              =image_tag('acceuil/timing.svg')
             %article
-              %h4.title Les meilleurs profs
+              %h4.title A vos horaires
               %p
-                Même dans les matières les plus pointues, les professeurs sont certifiés grâce à un entretien individuel, ils
-                sont ensuite évalués à la fin de chaque séance
+                Discutez avec votre profeseur et fixez enemble les horaires qui vous arrangent. Sur Qwerteach nous vous encourageons à étaler vos cours sur la semaine. Des scéances plus courtes, plus souvent: l'idéal pour bien apprendre.
           %li
             %figure
-              %img{:alt => "Le soutien scilaire en toute confiance", :src => "./assets/landing_payement.svg"}/
+              =image_tag('acceuil/landing_payement.svg')
             %article
-              %h4.title Le soutien scolaire en toute confiance
+              %h4.title Payez en toute sécurité
               %p
-                Nous sommes là pour vous aider à trouver le professeur qu’il vous faut. Payez à la réservation, l’argent lui
-                sera versé à la fin du cours.
+                Grâce à notre système de paiement sécurisé, vous réservez vos cours en un clic. En cas de problème lors d'un cours, vous serez intégralement remboursé. Sans discussion.
       %section.teachers
         .block_title
           %h2 Découvrez le meilleur prof pour vous
