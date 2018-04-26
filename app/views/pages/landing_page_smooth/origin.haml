@@ -9,8 +9,9 @@
         %a.btn.primary{:href => "#"} S'incrire
   %header
     .main_title_block
-      %h1 Le bon prof au bon moment
-      %h2 Les meilleurs professeurs particulers sont sur Qwearteach
+      .wrap
+        %h1 Le bon prof au bon moment
+        %h2 Les meilleurs professeurs particulers sont sur Qwearteach
     %a.toScrollDown{:href => "#top"}
   .content_block_body
     .block_body
@@ -128,7 +129,7 @@
         .block_title._center
           %h2 Envie de devenir prof ?
         .centered_btn
-          %a.btn.default
+          %a.btn.primary
             Passez à l'action !
     / .block_body
   / .content_block_body
@@ -206,11 +207,13 @@
             var fastScroll = currentScrollY / 1.5
             var opacitySignUp = currentScrollY / 350
 
-            BlockBody.css({
+            if (vpW > 700) {
+              BlockBody.css({
                 '-webkit-transform': `translateY(${- slowScroll }px)`,
                 '-moz-transform': `translateY(${- slowScroll }px)`, 
                 'transform': `translateY(${- slowScroll }px)`,
-            }); 
+              }); 
+            }
 
             // ContentBlockBody.css('height', `${ ContentBlockBodySize - slowScroll }px`)
 
@@ -251,12 +254,14 @@
       }
       lastScrollTop = st  
   
-      if (st > 100) {
+      if (vpW > 700) { 
+        if (st > 100) {
           $('.main_title_block').addClass('hide')
           signUpBlock.addClass('show')
-      } else {
+        } else {
           $('.main_title_block').removeClass('hide')
           signUpBlock.removeClass('show')
+        }
       }
   })
 

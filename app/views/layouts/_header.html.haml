@@ -1,7 +1,7 @@
 %meta{:content => user_signed_in? ? current_user.id : "", :name => "user-id"}/
 %meta{:content => user_signed_in? ? current_user.email : "", :name => "user-email"}/
 %meta{:content => user_signed_in? ? current_user.name : "", :name => "user-name"}/
-%meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+-# %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
 %title Qwerteach
 = javascript_include_tag 'application', 'data-turbolinks-track' => true
 = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true

@@ -170,7 +170,7 @@ a.btn._on_mobil {
         }
 
         .right {
-            padding-top: 5px;
+            padding-top: 10px;
             float: right;
         }
 
@@ -200,7 +200,7 @@ a.btn._on_mobil {
     }
     input.radio { display: none; }
 
-    .block_body {
+.block_body {
     @extend .wrap, ._d_shad;
     background-color: color(light);
     transform: translateY(-100px);
@@ -469,6 +469,13 @@ a.btn._on_mobil {
                         justify-content: center;
                     }
                 }
+                @include max-screen(600px) {
+                    &.r { padding: 10px 0 0; background-color: #eaeaea; 
+                        ul li a {
+                            span.v { margin: 10px auto 0; float: unset; }
+                        }
+                    }
+                }
             }
         }
 
@@ -477,7 +484,9 @@ a.btn._on_mobil {
             padding-right: 0;
         }
     }
-
+    @include max-screen(700px) {
+        box-shadow: none;
+    }
 }
 
 
