@@ -159,7 +159,7 @@
               <tr>
                 <td  style="width:50px;">
                   
-          <img style="height:50px;width:50px" src="<%= asset_url(notification.sender.avatar.url(:small)) %>" alt="<%= notification.sender.firstname %>" />
+          <img style="height:50px;width:50px" src="<%= asset_url(notification.sender.avatar.url(:small)).html_safe %>" alt="<%= notification.sender.firstname %>" />
         
                 </td>
               </tr>
@@ -195,8 +195,8 @@
         <div
           style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"
         >
-          <span style="color:#22de80"><%= notification.subject %></span><br/><br/>
-          <%= notification.body %>
+          <span style="color:#22de80"><%= notification.subject.html_safe %></span><br/><br/>
+          <%= notification.body.html_safe %>
         </div>
       
                 </td>
@@ -227,7 +227,7 @@
               <tr>
                 <td  style="width:50px;">
                   
-          <img style="height:50px;width:50px" src="<%= asset_url(notification.sender.avatar.url(:small)) %>" alt="<%= notification.sender.firstname %>" />
+          <img style="height:50px;width:50px" src="<%= asset_url(notification.sender.avatar.url(:small)).html_safe %>" alt="<%= notification.sender.firstname %>" />
         
                 </td>
               </tr>
