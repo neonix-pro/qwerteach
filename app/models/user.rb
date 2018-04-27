@@ -272,7 +272,7 @@ class User < ActiveRecord::Base
       avatar.assign(avatar)
       avatar.save
     end
-  c
+
     def reset_avatar_score
       self.avatar_score = 0
     end
