@@ -35,6 +35,10 @@ module Admin
     def search_params
       params[:q]
     end
+
+    def records_per_page
+      20
+    end
   end
 end
 

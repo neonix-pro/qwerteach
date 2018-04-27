@@ -282,7 +282,7 @@ class User < ActiveRecord::Base
   end
 
   def anonymize_deleted
-    if blocked
+    if blocked?
       self.attributes = User.new({id: id, firstname: 'Profil', lastname: 'Supprimé'}).attributes
     end
   end
