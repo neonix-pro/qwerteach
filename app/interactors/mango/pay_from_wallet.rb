@@ -1,7 +1,7 @@
 module Mango
   class PayFromWallet < BaseInteraction
     object :user, class: User
-    integer :amount
+    float :amount
     string :wallet, default: 'transaction'
     validates :wallet, presence: true
 
