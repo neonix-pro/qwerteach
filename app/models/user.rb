@@ -272,7 +272,7 @@ class User < ActiveRecord::Base
       avatar.assign(avatar)
       avatar.save
     end
-  
+  c
     def reset_avatar_score
       self.avatar_score = 0
     end
@@ -282,7 +282,7 @@ class User < ActiveRecord::Base
   end
 
   def anonymize_deleted
-    if blocked
+    if blocked?
       self.attributes = User.new({id: id, firstname: 'Profil', lastname: 'Supprimé'}).attributes
     end
   end
