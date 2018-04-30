@@ -14,11 +14,10 @@
                 .badge.badge-pink= @number_of_pending_lessons
           %li.tab
             %a{href: "#history"} Historique
-          - if current_user.is_a?(Teacher)
-            %li.tab
-              %a{href: "#pending_packs"} Packs en attente
           %li.tab
-            %a{href: "#proposed_packs"} Packs acceptés
+            %a{href: "#pending_packs"} Forfaits en attente
+          %li.tab
+            %a{href: "#proposed_packs"} Forfaits acceptés
   .container
     #planned
       = render partial: 'lessons/index/planned'

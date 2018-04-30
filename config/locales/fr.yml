@@ -329,25 +329,21 @@ fr:
           six: "Pour l'instant cette fonction n'est pas disponible."
           seven: "Contactez l'équipe du site afin que nous procédions à la fermeture de votre compte, ainsi qu'au remboursement du solde encore présent sur votre portefeuille virtuel."
   activerecord:
+    models:
+      postuling_teacher: "Profs postulants"
+      lesson_pack_item: "Cours du forfait"
+      items: "Cours du forfait"
     errors:
       models:
-        lesson:
-          attributes:
-            teacher:
-              is_not_approved: "N'est pas approuvé"
         lesson_pack_item:
           attributes:
             duration:
               greater_than_or_equal_to: "doit être supérieur ou égal à %{count} minutes"
-        items: "Cours du forfait:"
       messages:
         taken: "est déjà pris"
     attributes:
-      lesson_pack:
       items:
         duration: "Durée"
-    models:
-      postuling_teacher: Profs postulants
 
   send_message:
     minimum_chars: Minimum 50 caractères.

@@ -68,7 +68,7 @@ class LessonPacksController < ApplicationController
   def reject
     rejecting = RejectLessonPack.run(lesson_pack: @lesson_pack)
     if rejecting.valid?
-      redirect_to '/'
+      redirect_to '/', notice: "Vous avez décliné la proposition de forfait faite par #{@lesson_pack.teacher.full_name}."
     else
       redirect_to @lesson_pack, notice: 'There are some problems with pack. Please, contact administrator'
     end

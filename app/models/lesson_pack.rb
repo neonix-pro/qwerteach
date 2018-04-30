@@ -27,6 +27,7 @@ class LessonPack < ActiveRecord::Base
   validate :items_count_should_be_between_5_and_20
   validate :no_another_packs_for_student, on: :create
   validates :discount, numericality: { only_integer: true, less_than_or_equal_to: 50 }
+  validate :items_should_be_in_future
 
   def duration
     @duration ||= items.inject(0) { |s, item| s + item.duration }
@@ -72,6 +73,16 @@ class LessonPack < ActiveRecord::Base
   def no_another_packs_for_student
     if LessonPack.pending_student.where(student_id: student_id, teacher_id: teacher_id).exists?
       errors.add(:base, 'can\'t submit more packs for this student')
+    end
+  end
+
+  def first_lesson_start
+    items.map{|i| i.time_start}.min
+  end
+
+  def items_should_be_in_future
+    if first_lesson_start < Time.now
+      errors.add(:base, 'Les cours du forfait doivent être dans le futur')
     end
   end
 
