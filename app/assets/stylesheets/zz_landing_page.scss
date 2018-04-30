@@ -95,7 +95,11 @@ a.btn._on_mobil {
         min-height: 100vh;
         position: relative;
         overflow: hidden;
-        background: url('../../assets/bigimage-8f6d65ed6dad8bab456750b136e5be23e313fd009dae47af7b098214d5c90f10.jpg') no-repeat;
+        background: 
+            rgba(0, 0, 0, 0.2),
+            url('../../assets/bigimage-8f6d65ed6dad8bab456750b136e5be23e313fd009dae47af7b098214d5c90f10.jpg');
+        // background: url('https://marketing-image-production.s3.amazonaws.com/uploads/72dda63c860f7b77f4038d9717fafd3bc1bc3020ed47802e4e7756081b7f6bfde902407c7da41c82b2dd477cfa415f1ac4c7c241634ed0a3136670c85ce72004.png') no-repeat;
+        background-repeat: no-repeat;
         background-size: cover;
 
         .background {
@@ -107,28 +111,29 @@ a.btn._on_mobil {
             } 
         }
 
-        .wrap {
-            height: 100vh;
-            position: relative;
-        }
-        .main_title_block {
-            @include size(40%, auto);
-            @include pos(a,50%,auto,auto, 10px);
-            margin: -100px 0 0;
-            text-align: left;
-            @extend ._trs;
+        .content_main_title_header {
+            @include size(f);
+            max-width: 1200px;
+            @include pos(a,50%,0,0, 10px);
+            margin: -100px auto 0;
 
-            &.hide {
-                @include opacity(0);
-                transform: translateY(-100px);
-            }
+            .main_title_block {
+                @include size(40%, auto);
+                text-align: left;
+                @extend ._trs;
 
-            h1, H2 { color: color(light); }
-            h1 { @include fZ(40); font-weight: 900; }
-            h2 { @include fZ(24);  }
+                &.hide {
+                    @include opacity(0);
+                    transform: translateY(-100px);
+                }
 
-            @include max-screen(700px) {
-                width: 100%;
+                h1, H2 { color: color(light); }
+                h1 { @include fZ(40); font-weight: 900; }
+                h2 { @include fZ(24);  }
+
+                @include max-screen(700px) {
+                    width: 100%;
+                }
             }
         }
 
@@ -140,10 +145,18 @@ a.btn._on_mobil {
             display: block;
             margin: auto;
             @extend ._trs;
+            z-index: 10;
 
             &.hide {
                 @include opacity(0);
             }
+        }
+
+        .grey_filter {
+            @include size(f);
+            // background-color: rgba(0,0,0,.2);
+            @include pos(a,0);
+            z-index: 2;
         }
     }
 
@@ -172,9 +185,15 @@ a.btn._on_mobil {
         .right {
             padding-top: 10px;
             float: right;
+            display: none;
+            justify-content: flex-end;
 
-            &.hide {
-                display: none;
+            &.ainmated_nav {
+                display: flex;
+            }
+
+            &.block {
+                display: flex;
             }
         }
 
@@ -193,6 +212,9 @@ a.btn._on_mobil {
                 display: none !important;
             } 
         }
+        @include max-screen(700px) {
+            .right { display: flex; }
+        }
         @include max-screen(420px) {
             a.btn.txt._on_mobil { padding-left: 0 !important; padding-right: 0 !important; }
         }
@@ -205,12 +227,15 @@ a.btn._on_mobil {
     input.radio { display: none; }
 
 .block_body {
-    @extend .wrap, ._d_shad;
+    @extend .wrap, ._d_shad, ._trs;
     background-color: color(light);
-    transform: translateY(-100px);
+    transform: translateY(0);
     padding-bottom: 40px;
 
-   
+    &.to_up {
+        transform: translateY(-100px);
+    }
+
     section{
         padding: 40px; 
         @include size(f,auto);
@@ -237,7 +262,7 @@ a.btn._on_mobil {
                 @include pos(a,0,0,auto,auto);
                 z-index: 20;
                 @extend ._d_shad, ._trs;
-                transform: translateY(0);
+                transform: translateY(-300px);
                 @include opacity(0);
                 opacity: 0;
                 padding: 20px;
