@@ -334,12 +334,18 @@ fr:
         lesson:
           attributes:
             teacher:
-              is_not_approved: N'est pas approuvé
+              is_not_approved: "N'est pas approuvé"
+        lesson_pack_item:
+          attributes:
+            duration:
+              greater_than_or_equal_to: "doit être supérieur ou égal à %{count} minutes"
+        items: "Cours du forfait:"
       messages:
         taken: "est déjà pris"
     attributes:
-      teacher:
-        Male: Homme
+      lesson_pack:
+      items:
+        duration: "Durée"
     models:
       postuling_teacher: Profs postulants
 
@@ -527,3 +533,7 @@ fr:
       students_count: '#active students (#new students)'
       teachers_count: '#active teachers (#new teachers)'
       disputes_count: '# of disputes'
+
+
+
+
