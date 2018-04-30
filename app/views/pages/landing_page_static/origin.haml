@@ -17,7 +17,7 @@
         %a.toScrollDown{:href => "#top"}
 
   .content_block_body
-    .block_body
+    .block_body.to_up
       %section#top.head
         .block_title
           %h2
@@ -63,6 +63,7 @@
                   %figcaption
                     %span
                       = "#{prof.firstname} #{prof.lastname}"
+                      = "#{prof.offers}"
 
       %section.press
         .before

@@ -95,10 +95,7 @@ a.btn._on_mobil {
         min-height: 100vh;
         position: relative;
         overflow: hidden;
-        background: 
-            rgba(0, 0, 0, 0.2),
-            url('../../assets/bigimage-8f6d65ed6dad8bab456750b136e5be23e313fd009dae47af7b098214d5c90f10.jpg');
-        // background: url('https://marketing-image-production.s3.amazonaws.com/uploads/72dda63c860f7b77f4038d9717fafd3bc1bc3020ed47802e4e7756081b7f6bfde902407c7da41c82b2dd477cfa415f1ac4c7c241634ed0a3136670c85ce72004.png') no-repeat;
+        background-image: image_url('acceuil/bigimage_dark.jpg');
         background-repeat: no-repeat;
         background-size: cover;
 
@@ -157,6 +154,13 @@ a.btn._on_mobil {
             // background-color: rgba(0,0,0,.2);
             @include pos(a,0);
             z-index: 2;
+        }
+
+        @include max-screen(1000px) {
+            background-image: image_url('acceuil/bigimage_dark_medium.jpg');
+        }
+        @include max-screen(600px) {
+            background-image: image_url('acceuil/bigimage_dark_small.jpg');
         }
     }
 
