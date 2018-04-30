@@ -41,12 +41,25 @@ class LessonPack < ActiveRecord::Base
       .pluck(:price).first.to_f
   end
 
+  def topic_title
+    Offer.joins(:offer_prices)
+        .where(
+            user_id: teacher_id,
+            topic_id: topic_id
+            )
+        .first.title
+  end
+
   def cost
     duration * rate / 60
   end
 
   def amount
     duration * rate / 60 * (1 - (discount || 0) / 100.0)
+  end
+
+  def hours
+    duration/60.0
   end
 
   private
