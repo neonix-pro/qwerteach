@@ -6,6 +6,7 @@ class ScheduleNotifications
     user_ids = User.
         joins(:receipts).
         where('confirmed_at IS NOT NULL').
+        where(blocked: false).
         where(mailboxer_receipts: {is_read: false}).
         where(mailboxer_receipts:{delivery_method: nil}).
         select('DISTINCT users.id').
