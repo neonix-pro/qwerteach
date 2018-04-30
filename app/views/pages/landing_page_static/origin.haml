@@ -3,20 +3,21 @@
     .wrap
       .label_logo
         %img{:alt => "QwerTeach", :src => "https://qwerteach.com/assets/logotext-6441427fdda2eaa7a811db01d11ff2fab7dfebcb2db6af3eba083aaef4e1a777.png", :style => "border:0;display:block;outline:none;text-decoration:none;width:100%;"}
-      .right.hide
-        %a.btn.blue._become_teacher{:href => "#"} Devenir prof
-        %a.btn.txt._on_desktop{:href => "#"} Se connecter
-        %a.btn.primary._on_desktop{:href => "#"} S'incrire
-        %a.btn.txt._on_mobil{:href => "#"} Se connecter / S'inscrire
+      .right
+        = link_to 'Devenir professeur', become_teacher_path(:general_infos), :class => 'btn blue _on_desktop'
+        = link_to 'Connexion', new_user_session_path, :class => 'btn txt _on_desktop'
+        = link_to "S'inscrire", new_user_registration_path, :class => 'btn primary _on_desktop'
+        = link_to "Se connecter / S'inscrire", new_user_registration_path, :class => 'btn txt _on_desktop'
   %header
-    .wrap
-      .main_title_block
-        %h1 Le bon prof au bon moment
-        %h2 Les meilleurs professeurs particulers sont sur Qwearteach
-      %a.toScrollDown{:href => "#top"}
+    .grey_filter
+      .content_main_title_header
+        .main_title_block
+          %h1 Le bon prof au bon moment
+          %h2 Les meilleurs professeurs particulers sont sur Qwearteach
+        %a.toScrollDown{:href => "#top"}
 
   .content_block_body
-    .block_body
+    .block_body.to_up
       %section#top.head
         .block_title
           %h2
@@ -62,16 +63,8 @@
                   %figcaption
                     %span
                       = "#{prof.firstname} #{prof.lastname}"
-                
-            -# %li.prof{id: "prof#{index}"}
-            -#   = link_to user_path(prof) do
-            -#     .prof-background{style: "background-image: url(#{image_path prof.avatar.url(:large)})"}
-            -#   %p
-            -#     %span.name
-            -#       = link_to "#{prof.firstname} #{prof.lastname}", user_path(prof)
-            -#     %br
-            -#     %span.topics
-            -#       = prof.offers.map{|ad| link_to ad.title, profs_by_topic_path(ad.title)}.join(', ').html_safe
+                      = "#{prof.offers}"
+
       %section.press
         .before
         .block_title
@@ -96,8 +89,7 @@
         .block_title._center
           %h2 Profitez maintenant de tous les avantages
         .centered_btn
-          %a.btn.primary
-            S'inscrire maintenant
+          = link_to "S'inscrire maintenant", new_user_registration_path, :class => 'btn primary'
       %section.testimny
         .side.l.st-slider
           %input#slide1.cs_anchor.radio{:name => "slider", :type => "radio"}
@@ -109,20 +101,15 @@
               .article_slider
                 .article._1
                   %p Super prof très éfficace et très a l'écoute. Bon contact humain, ce qui est très appréciable !
-                  %span.data Henri, 16ans - Lyon
-              / .article_slider
+                  %span.data Henri
               .article_slider
                 .article._1
-                  %p Super prof très éfficace et très a l'écoute. Bon contact humain, ce qui est très appréciable !
-                  %span.data Henri, 16ans - Lyon
-              / .article_slider
+                  %p Connaît son sujet, polyvalent, clair et concis. Parfait pour corriger les imperfections avant une session d'examens!
+                  %span.data François
               .article_slider
                 .article._1
-                  %p Super prof très éfficace et très a l'écoute. Bon contact humain, ce qui est très appréciable !
-                  %span.data Henri, 16ans - Lyon
-              / .article_slider
-            / .article_inner
-          / .slider
+                  %p Excellent professeur, fait preuve de patience remarquable, c'est un très bon pédagogue. On voit que Nicolas a de l'expérience dans l'enseignement, il a la vocation.
+                  %span.data Louis
           .labels
             .fake-radio
               %label.radio-btn{:for => "slide1"}
@@ -147,8 +134,7 @@
         .block_title._center
           %h2 Envie de devenir prof ?
         .centered_btn
-          %a.btn.primary
-            Passez à l'action !
+          = link_to 'Passez à l\'action !', become_teacher_path(:general_infos), :class => 'btn blue _on_desktop'
 
 :javascript
   $(document).on('click', 'a[href^="#"]', function (event) {
@@ -200,9 +186,9 @@
         $('nav.main_nav').removeClass('onScreen')
       }
       if (st >= (vpH - 200)) {
-        $('nav.main_nav .right').removeClass('hide')
+        $('nav.main_nav .right').addClass('block')
       } else {
-        $('nav.main_nav .right').addClass('hide')
+        $('nav.main_nav .right').removeClass('block')
       }
 
       /*

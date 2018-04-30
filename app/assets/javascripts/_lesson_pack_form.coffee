@@ -26,14 +26,18 @@ class window.LessonPackForm extends window.LessonForm
 
   onAddItemClick: (e)->
     e.preventDefault()
-    return if @$('.lesson-pack-item').size() >= 20
+    if @$('.lesson-pack-item').size() >= 20
+      alert = $('.alert-max-lessons').clone();
+      $('.lesson-pack-items').append(alert.show()) unless $('.alert-max-lessons').length > 1
+      return
     @addItem()
 
   onRemoveItemClick: (e)->
     e.preventDefault()
     $item = $(e.currentTarget).closest('.lesson-pack-item')
     if @$('.lesson-pack-item').size() <= 5
-      
+      alert = $('.alert-min-lessons').clone();
+      $('.lesson-pack-items').prepend(alert.show()) unless $('.alert-min-lessons').length > 1
       return
     if $item.data('persisted')
       $item

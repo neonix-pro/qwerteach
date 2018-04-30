@@ -3,7 +3,8 @@
   .row
     .col-md-7
       = form_for @lesson_pack, url: url do |f|
-        #lesson-pack-form-errors= render 'shared/errors', object: @lesson_pack
+        #lesson-pack-form-errors
+          = render 'shared/errors', object: @lesson_pack
         - if @lesson_pack.persisted?
           = f.hidden_field :id
         .form-group
@@ -30,11 +31,23 @@
               .col-xs-6 Date
               .col-xs-4 Durée
           .lesson-pack-items
+            .alert-min-lessons.alert.alert-warning.alert-dismissible{style: "display:none"}
+              %button.close{"data-dismiss":"alert", "aria-label":"Close", type:"button"}
+                %span{"aria-hidden":"true"}
+                  %i.fa.fa-times
+              Vous devez proposer minimum 5 cours!
             = f.fields_for :items do |fi|
               = render 'item_fields', f: fi
+
           .fields-for-new-item.hidden
             = f.fields_for :items, LessonPackItem.new, child_index: '__ITEM_INDEX__' do |fi|
               = render 'item_fields', f: fi
+
+          .alert-max-lessons.alert.alert-warning.alert-dismissible{style: "display:none"}
+            %button.close{"data-dismiss":"alert", "aria-label":"Close", type:"button"}
+              %span{"aria-hidden":"true"}
+                %i.fa.fa-times
+            Vous pouvez proposer maximum 20 cours!
           .form-group.text-center
             = link_to 'Ajouter', '#', class: 'btn btn-primary btn-add-item'
 

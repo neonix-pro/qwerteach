@@ -2,16 +2,18 @@
   %nav.main_nav
     .wrap
       .label_logo
-        %img{:alt => "QwerTeach", :src => "https://qwerteach.com/assets/logotext-6441427fdda2eaa7a811db01d11ff2fab7dfebcb2db6af3eba083aaef4e1a777.png", :style => "border:0;display:block;outline:none;text-decoration:none;width:100%;"}/
-      .right
-        %a.btn.blue{:href => "#"} Devenir prof
-        %a.btn.txt{:href => "#"} Se connecter
-        %a.btn.primary{:href => "#"} S'incrire
+        %img{:alt => "QwerTeach", :src => "https://qwerteach.com/assets/logotext-6441427fdda2eaa7a811db01d11ff2fab7dfebcb2db6af3eba083aaef4e1a777.png", :style => "border:0;display:block;outline:none;text-decoration:none;width:100%;"}
+      .right.ainmated_nav
+        = link_to 'Devenir professeur', become_teacher_path(:general_infos), :class => 'btn blue _on_desktop'
+        = link_to 'Connexion', new_user_session_path, :class => 'btn txt _on_desktop'
+        = link_to "S'inscrire", new_user_registration_path, :class => 'btn primary _on_desktop'
+        = link_to "Se connecter / S'inscrire", new_user_registration_path, :class => 'btn txt _on_desktop'
   %header
-    .main_title_block
-      .wrap
-        %h1 Le bon prof au bon moment
-        %h2 Les meilleurs professeurs particulers sont sur Qwearteach
+    .grey_filter
+      .content_main_title_header
+        .main_title_block
+          %h1 Le bon prof au bon moment
+          %h2 Les meilleurs professeurs particulers sont sur Qwearteach
     %a.toScrollDown{:href => "#top"}
   .content_block_body
     .block_body
@@ -84,8 +86,7 @@
         .block_title._center
           %h2 Profitez maintenant de tous les avantages
         .centered_btn
-          %a.btn.primary
-            S'inscrire maintenant
+          = link_to "S'inscrire maintenant", new_user_registration_path, :class => 'btn primary'
       %section.testimny
         .side.l.st-slider
           %input#slide1.cs_anchor.radio{:name => "slider", :type => "radio"}/
@@ -97,15 +98,15 @@
               .article_slider
                 .article._1
                   %p Super prof très éfficace et très a l'écoute. Bon contact humain, ce qui est très appréciable !
-                  %span.data Henri, 16ans - Lyon
+                  %span.data Henri
               .article_slider
                 .article._1
-                  %p Super prof très éfficace et très a l'écoute. Bon contact humain, ce qui est très appréciable !
-                  %span.data Henri, 16ans - Lyon
+                  %p Connaît son sujet, polyvalent, clair et concis. Parfait pour corriger les imperfections avant une session d'examens!
+                  %span.data François
               .article_slider
                 .article._1
-                  %p Super prof très éfficace et très a l'écoute. Bon contact humain, ce qui est très appréciable !
-                  %span.data Henri, 16ans - Lyon
+                  %p Excellent professeur, fait preuve de patience remarquable, c'est un très bon pédagogue. On voit que Nicolas a de l'expérience dans l'enseignement, il a la vocation.
+                  %span.data Louis
           .labels
             .fake-radio
               %label.radio-btn{:for => "slide1"}
@@ -129,10 +130,7 @@
         .block_title._center
           %h2 Envie de devenir prof ?
         .centered_btn
-          %a.btn.primary
-            Passez à l'action !
-    / .block_body
-  / .content_block_body
+          = link_to 'Passez à l\'action !', become_teacher_path(:general_infos), :class => 'btn blue _on_desktop'
 
 :javascript
   $(document).on('click', 'a[href^="#"]', function (event) {
@@ -151,8 +149,8 @@
     , isNavHide = false
     , topNav = $('nav.main_nav')
     , signUpBlock = $('.block_sign_up')
-    , ContentBlockBody = $('.content_block_body')
-    , ContentBlockBodySize = ContentBlockBody.height()
+    , bodyContent = $('.block_body')
+
   
   $(document).ready(function () {
     let cntTeach = 0, reverse = false;
@@ -161,74 +159,7 @@
         if (reverse) { $(this).addClass('_reverse') }
         cntTeach++
         reverse = !reverse
-    })
-
-    // scroll
-    st = $(window).scrollTop()
-    vpH = $(window).height()
-    vpW = $(window).width()
- 
-    window.requestAnimFrame = (function () {
-        return window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            function (callback) {
-                window.setTimeout(callback, 1000 / 60);
-            }; 
-    })()
-
-    function Scroller() {
-        this.latestKnownScrollY = 0;
-        this.ticking = false;
-    }
-
-    Scroller.prototype = {
-        init: function () {
-            window.addEventListener('scroll', this.onScroll.bind(this), false);
-        },
-
-        onScroll: function () {
-            this.latestKnownScrollY = window.scrollY;
-            this.requestTick();
-        },
- 
-        requestTick: function () {
-            if (!this.ticking) {
-                window.requestAnimFrame(this.update.bind(this));
-            }
-            this.ticking = true; 
-        },
-
-        update: function () {
-            var currentScrollY = this.latestKnownScrollY;
-            this.ticking = false;
-
-            var slowScroll = currentScrollY / 4
-            var fastScroll = currentScrollY / 1.5
-            var opacitySignUp = currentScrollY / 350
-
-            if (vpW > 700) {
-              BlockBody.css({
-                '-webkit-transform': `translateY(${- slowScroll }px)`,
-                '-moz-transform': `translateY(${- slowScroll }px)`, 
-                'transform': `translateY(${- slowScroll }px)`,
-              }); 
-            }
-
-            // ContentBlockBody.css('height', `${ ContentBlockBodySize - slowScroll }px`)
-
-            // signUpBlock.css({
-            //     '-webkit-transform': `translateY(${- fastScroll }px)`,
-            //     '-moz-transform': `translateY(${- fastScroll }px)`,
-            //     'transform': `translateY(${- fastScroll }px)`,
-            //     'opacity': opacitySignUp
-            // })
-        }
-    };
-
-    var scroller = new Scroller();
-    scroller.init();
-      
+    })  
   })
   
   $(window).scroll(function() {
@@ -236,11 +167,17 @@
   
       if (st > 20) {
           toScrollDown.addClass('hide')
+          signUpBlock.addClass('show')
+          bodyContent.addClass('to_up')
       } else {
           if (st < 20) {
               toScrollDown.removeClass('hide')
+              signUpBlock.removeClass('show')
+              bodyContent.removeClass('to_up')
           }
           toScrollDown.removeClass('hide')
+          signUpBlock.removeClass('show')
+          bodyContent.removeClass('to_up')
       }
 
       if (st > lastScrollTop) {
@@ -253,20 +190,24 @@
           }
       }
       lastScrollTop = st  
+
+      if (st >= (vpH - 200)) {
+        $('nav.main_nav .right').addClass('block')
+      } else {
+        $('nav.main_nav .right').removeClass('block')
+      }
   
-      if (vpW > 700) { 
+      if (vpW > 700) {
         if (st > 100) {
           $('.main_title_block').addClass('hide')
-          signUpBlock.addClass('show')
         } else {
           $('.main_title_block').removeClass('hide')
-          signUpBlock.removeClass('show')
         }
       }
   })
 
   $(window).resize(function() {
-      st = $(window).scrollTop()
-      vpH = $(window).height()
-      vpW = $(window).width()
+    st = $(window).scrollTop()
+    vpH = $(window).height()
+    vpW = $(window).width()
   })
