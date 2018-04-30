@@ -32,7 +32,9 @@ class window.LessonPackForm extends window.LessonForm
   onRemoveItemClick: (e)->
     e.preventDefault()
     $item = $(e.currentTarget).closest('.lesson-pack-item')
-    return if @$('.lesson-pack-item').size() <= 5
+    if @$('.lesson-pack-item').size() <= 5
+      
+      return
     if $item.data('persisted')
       $item
         .addClass('hidden')
