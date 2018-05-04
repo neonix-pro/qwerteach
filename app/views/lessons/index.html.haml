@@ -15,9 +15,10 @@
           %li.tab
             %a{href: "#history"} Historique
           %li.tab
-            %a{href: "#pending_packs"} Forfaits en attente
-          %li.tab
-            %a{href: "#proposed_packs"} Forfaits acceptés
+            %a{href: "#packs"}
+              Forfaits de cours
+              - if @lesson_packs_pending.count > 0
+                .badge.badge-pink= @lesson_packs_pending.count
   .container
     #planned
       = render partial: 'lessons/index/planned'
@@ -25,11 +26,8 @@
       = render partial: 'lessons/index/pending'
     #history
       = render partial: 'lessons/index/history'
-    - if current_user.is_a?(Teacher)
-      #pending_packs
-        = render 'lessons/index/packs', packs: LessonPack.pending_student.where(teacher_id: current_user.id)
-    #proposed_packs
-      = render 'lessons/index/packs', packs: LessonPack.paid.where(student_id: current_user.id)
+    #packs
+      = render 'lessons/index/packs', packs: @lesson_packs
 
 :javascript
   $(document).ready(function(){

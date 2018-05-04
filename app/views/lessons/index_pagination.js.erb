@@ -7,3 +7,6 @@
 <% unless @planned_lessons.nil? %>
   $('#planned').html("<%= j render partial: 'lessons/index/planned' %>");
 <% end %>
+<% unless @lesson_packs.nil? %>
+  $('#packs').html("<%= j render partial: 'lessons/index/packs', locals: {packs: @lesson_packs} %>");
+<% end %>

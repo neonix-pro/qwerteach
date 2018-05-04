@@ -11,6 +11,14 @@ fr:
         canceled: 'Annulé'
         disputed: 'En litige'
         refunded: 'Remboursé'
+  lesson_pack:
+    status:
+      paid: "Accepté"
+      draft: "Brouillon"
+      pending_student: "En attente - élève"
+      pending_teacher: "En attente - prof"
+      accepted: "Accepté"
+      declined: "Refusé"
   Male: 'Homme'
   Female: 'Femme'
   Not telling: 'Non-communiqué'
@@ -344,6 +352,9 @@ fr:
     attributes:
       items:
         duration: "Durée"
+      lesson_packs:
+        status:
+          paid: "Payé"
 
   send_message:
     minimum_chars: Minimum 50 caractères.

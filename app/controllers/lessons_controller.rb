@@ -15,6 +15,8 @@ class LessonsController < ApplicationController
     @planned_lessons = @user.planned_lessons.page(1).per(6)
     @pending_lessons = @user.pending_lessons.page(1).per(6)
     @history_lessons = @user.history_lessons.page(1).per(12)
+    @lesson_packs_pending = LessonPack.pending_student.where("teacher_id = ? or student_id = ?", current_user.id, current_user.id)
+    @lesson_packs = current_user.lesson_packs.page(1).per(12)
     if @planned_lessons.empty? && @pending_lessons.empty?
       @teachers = Teacher.all.order(score: :desc).limit(4)
     end
@@ -44,6 +46,12 @@ class LessonsController < ApplicationController
         search_history
         respond_to do |format|
           format.json{ render :json => {:past_lessons => @history_lessons}}
+          format.js
+        end
+      when 'packs'
+        @lesson_packs = current_user.lesson_packs.page(params[:page]).per(12)
+        respond_to do |format|
+          format.json{ render :json => {:lesson_packs => @lesson_packs} }
           format.js
         end
     end

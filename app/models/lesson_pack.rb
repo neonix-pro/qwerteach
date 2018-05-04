@@ -17,7 +17,7 @@ class LessonPack < ActiveRecord::Base
   }
   belongs_to :topic, required: true
   belongs_to :level, required: true
-  belongs_to :teacher, required: true
+  belongs_to :teacher, required: true, :class_name => 'User', :foreign_key  => "teacher_id"
   belongs_to :student, required: true
   has_many :items, class_name: 'LessonPackItem', foreign_key: :lesson_pack_id, dependent: :destroy, inverse_of: :lesson_pack
   has_many :lessons
@@ -51,10 +51,12 @@ class LessonPack < ActiveRecord::Base
         .first.title
   end
 
+  #prix hors discount
   def cost
     duration * rate / 60
   end
 
+  #effectivement payé (prends en compte le discount)
   def amount
     duration * rate / 60 * (1 - (discount || 0) / 100.0)
   end

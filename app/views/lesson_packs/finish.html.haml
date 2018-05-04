@@ -1,2 +1,16 @@
-.container-fluid
-  %h1 Finish
+#lesson
+  .row.header.valign-wrapper
+    .col-sm-2.col-xs-4
+      .icon-header.icon-coloured.valign-wrapper{class: "icon-topic-#{@lesson_pack.topic.topic_group.id}"}
+        = image_tag(@lesson_pack.topic.pictotype(:medium))
+    .col-sm-8.col-xs-4
+      .header-infos
+        %h1
+          Forfait de #{@lesson_pack.items.count} cours de #{@lesson_pack.topic_title} (#{@lesson_pack.topic.topic_group.title})
+  .row
+    .text-center
+      %h2
+        Félicitations! <br />
+        %small Votre forfait a bien été réservé!
+      = image_tag('rocket.png')
+
