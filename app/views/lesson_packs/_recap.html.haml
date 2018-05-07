@@ -1,4 +1,4 @@
-%h3 Recapitulatif du pack de cours
+%h3 Recapitulatif du forfait de cours
 - for_approve = lesson_pack.student_id == current_user.id && lesson_pack.pending_student?
 %table.table.table-striped
   %tbody
@@ -27,6 +27,12 @@
       %td
         #{lesson_pack.hours}h * #{lesson_pack.rate}€/h = #{lesson_pack.cost}€ <br />
         #{lesson_pack.cost} - #{lesson_pack.discount}% = <b class="text-green">#{lesson_pack.amount}€</b>
+
+- if can? :pay, lesson_pack
+  .alert.alert-info
+    %p
+      Pour accepter la proposition du professeur, vous devez valider chaque cours du forfait, en <b>cochant la case située juste à droite.</b><br />
+      Lorsque vous aurez vérifié et valisé tous les cours du forfait, vous pourrez passer à la suite.
 
 %table.table.table-striped
   %thead

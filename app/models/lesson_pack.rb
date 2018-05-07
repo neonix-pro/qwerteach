@@ -65,6 +65,10 @@ class LessonPack < ActiveRecord::Base
     duration/60.0
   end
 
+  def pending?
+    status == 'pending_student' || status == 'pending_teacher'
+  end
+
   private
 
   def items_count_should_be_between_5_and_20

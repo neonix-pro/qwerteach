@@ -6,12 +6,13 @@
     .col-sm-8.col-xs-4
       .header-infos
         %h1
-          Pack de #{@lesson_pack.items.count} cours de #{@lesson_pack.topic_title} (#{@lesson_pack.topic.topic_group.title})
+          Forfait de #{@lesson_pack.items.count} cours de #{@lesson_pack.topic_title} (#{@lesson_pack.topic.topic_group.title})
 
 .container-fluid
   .row
     .col-lg-6.col-md-8.col-lg-offset-3.col-md-offset-2
       .row
+        = render 'disclaimer' if @lesson_pack.pending? if @lesson_pack.student == current_user
         = render 'recap', lesson_pack: @lesson_pack
       .row.form-group
         - if can? :reject, @lesson_pack
