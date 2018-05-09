@@ -17,7 +17,7 @@ class LessonPack < ActiveRecord::Base
   }
   belongs_to :topic, required: true
   belongs_to :level, required: true
-  belongs_to :teacher, required: true
+  belongs_to :teacher, required: true, :class_name => 'User', :foreign_key  => "teacher_id"
   belongs_to :student, required: true
   has_many :items, class_name: 'LessonPackItem', foreign_key: :lesson_pack_id, dependent: :destroy, inverse_of: :lesson_pack
   has_many :lessons
@@ -27,6 +27,7 @@ class LessonPack < ActiveRecord::Base
   validate :items_count_should_be_between_5_and_20
   validate :no_another_packs_for_student, on: :create
   validates :discount, numericality: { only_integer: true, less_than_or_equal_to: 50 }
+  validate :items_should_be_in_future
 
   def duration
     @duration ||= items.inject(0) { |s, item| s + item.duration }
@@ -41,12 +42,27 @@ class LessonPack < ActiveRecord::Base
       .pluck(:price).first.to_f
   end
 
+  def topic_title
+    Offer.joins(:offer_prices)
+        .where(
+            user_id: teacher_id,
+            topic_id: topic_id
+            )
+        .first.title
+  end
+
+  #prix hors discount
   def cost
     duration * rate / 60
   end
 
+  #effectivement payé (prends en compte le discount)
   def amount
     duration * rate / 60 * (1 - (discount || 0) / 100.0)
+  end
+
+  def hours
+    duration/60.0
   end
 
   private
@@ -59,6 +75,16 @@ class LessonPack < ActiveRecord::Base
   def no_another_packs_for_student
     if LessonPack.pending_student.where(student_id: student_id, teacher_id: teacher_id).exists?
       errors.add(:base, 'can\'t submit more packs for this student')
+    end
+  end
+
+  def first_lesson_start
+    items.map{|i| i.time_start}.min
+  end
+
+  def items_should_be_in_future
+    if first_lesson_start < Time.now
+      errors.add(:base, 'Les cours du forfait doivent être dans le futur')
     end
   end
 

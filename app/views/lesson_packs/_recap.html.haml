@@ -11,7 +11,7 @@
       %td= lesson_pack.items.size
     %tr
       %td Matière
-      %td= lesson_pack.topic.try(:title)
+      %td= lesson_pack.topic_title
     %tr
       %td Niveau
       %td= lesson_pack.level.try(:title)
@@ -23,15 +23,19 @@
         %td Remise
         %td #{lesson_pack.discount}%
     %tr
-      %td Montant total
-      %td #{lesson_pack.cost} - #{lesson_pack.cost * lesson_pack.discount / 100} = #{lesson_pack.amount}
+      %td Récapitulatif forfait:
+      %td
+        #{lesson_pack.hours}h * #{lesson_pack.rate}€/h = #{lesson_pack.cost}€ <br />
+        #{lesson_pack.cost} - #{lesson_pack.discount}% = <b class="text-green">#{lesson_pack.amount}€</b>
 
 %table.table.table-striped
   %thead
     %tr
       %th Date du cours
       %th Durée
-      %th # reports
+      %th
+        ="# reports"
+        %i#help-reports.text-green.fa.fa-question{data: {toggle: "popover", "placement":"top", "content":"Vous pourrez reporter les cours d'un forfait au maximum une fois."}}
       - if can? :pay, lesson_pack
         %th Accord
   %tbody
@@ -59,3 +63,4 @@
             right: 'prev, next'
         }
     });
+    $('#help-reports').popover();

@@ -11,6 +11,10 @@ class Student < User
   scope :with_lessons, -> { joins(:lessons_received) }
   # Methode override de User permettant de faire passer un Student à Teacher
 
+  def lesson_packs
+    LessonPack.where('student_id = ? OR teacher_id = ?', self.id, self.id)
+  end
+
   def upgrade
     self.type = User::ACCOUNT_TYPES[1]
     self.save!

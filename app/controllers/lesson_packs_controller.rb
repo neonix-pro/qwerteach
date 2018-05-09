@@ -32,7 +32,7 @@ class LessonPacksController < ApplicationController
 
     if @lesson_pack.save
       ProposeLessonPack.run!(lesson_pack: @lesson_pack)
-      redirect_to lessons_path, notice: 'Lesson pack was successfully created.'
+      redirect_to lessons_path, notice: "Le forfait de #{@lesson_pack.hours}h de cours (#{@lesson_pack.amount}€) a bien été enregistré. Nous attendons validation de l'élève."
     else
       render :new
     end
@@ -40,7 +40,7 @@ class LessonPacksController < ApplicationController
 
   def propose
     ProposeLessonPack.run!(lesson_pack: @lesson_pack)
-    redirect_to lessons_path, notice: 'Lessons pack was successfully proposed.'
+    redirect_to lessons_path, notice: "Le forfait de #{@lesson_pack.hours}h de cours (#{@lesson_pack.amount}€) a bien été enregistré."
   end
 
   def payment
@@ -68,7 +68,7 @@ class LessonPacksController < ApplicationController
   def reject
     rejecting = RejectLessonPack.run(lesson_pack: @lesson_pack)
     if rejecting.valid?
-      redirect_to '/'
+      redirect_to '/', notice: "Vous avez décliné la proposition de forfait faite par #{@lesson_pack.teacher.full_name}."
     else
       redirect_to @lesson_pack, notice: 'There are some problems with pack. Please, contact administrator'
     end
@@ -84,7 +84,7 @@ class LessonPacksController < ApplicationController
 
   def destroy
     @lesson_pack.destroy
-    redirect_to lesson_packs_url, notice: 'Lesson pack was successfully destroyed.'
+    redirect_to lesson_packs_url, notice: 'Le forfait a été supprimé.'
   end
 
   def payment_success(payment_method, transactions)
@@ -97,7 +97,7 @@ class LessonPacksController < ApplicationController
 
     respond_to do |format|
       format.html { render 'finish' }
-      format.js { render 'finish' }
+      #format.js { render 'finish' }
     end
   rescue => e
     #TODO: Exceptionally situation. Add some notifications, sentry for example

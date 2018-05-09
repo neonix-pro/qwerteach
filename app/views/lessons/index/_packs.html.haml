@@ -8,6 +8,7 @@
         %th Professeur
         %th Matière
         %th Niveau
+        %th Statut
         %th # cours
         %th Prix du pack
         %th
@@ -18,6 +19,10 @@
           %td= link_to pack.teacher.full_name, user_path(pack.teacher)
           %td= pack.topic.try(:title)
           %td= pack.level.try(:title)
+          %td= t 'lesson_pack.status.'+pack.status
           %td= pack.items.size
           %td= "#{pack.amount}€"
           %td= link_to 'Voir', lesson_pack_path(pack)
+    .row
+      .text-center
+        = paginate packs, params:{controller: :lessons, action: :index_pagination, lesson_type: :packs}, remote: true

@@ -35,9 +35,10 @@ class window.LessonPackForm extends window.LessonForm
   onRemoveItemClick: (e) ->
     e.preventDefault()
     $item = $(e.currentTarget).closest('.lesson-pack-item')
-    if !@$('.lessons_alert_box').hasClass('hidden')
-      @$('.lessons_alert_box').addClass('hidden')
-    return if @$('.lesson-pack-item').size() <= 5
+    if @$('.lesson-pack-item').size() <= 5
+      alert = $('.alert-min-lessons').clone();
+      $('.lesson-pack-items').prepend(alert.show()) unless $('.alert-min-lessons').length > 1
+      return
     if $item.data('persisted')
       $item
         .addClass('hidden')

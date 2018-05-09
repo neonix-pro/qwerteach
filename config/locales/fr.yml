@@ -11,6 +11,14 @@ fr:
         canceled: 'Annulé'
         disputed: 'En litige'
         refunded: 'Remboursé'
+  lesson_pack:
+    status:
+      paid: "Accepté"
+      draft: "Brouillon"
+      pending_student: "En attente - élève"
+      pending_teacher: "En attente - prof"
+      accepted: "Accepté"
+      declined: "Refusé"
   Male: 'Homme'
   Female: 'Femme'
   Not telling: 'Non-communiqué'
@@ -329,19 +337,24 @@ fr:
           six: "Pour l'instant cette fonction n'est pas disponible."
           seven: "Contactez l'équipe du site afin que nous procédions à la fermeture de votre compte, ainsi qu'au remboursement du solde encore présent sur votre portefeuille virtuel."
   activerecord:
+    models:
+      postuling_teacher: "Profs postulants"
+      lesson_pack_item: "Cours du forfait"
+      items: "Cours du forfait"
     errors:
       models:
-        lesson:
+        lesson_pack_item:
           attributes:
-            teacher:
-              is_not_approved: N'est pas approuvé
+            duration:
+              greater_than_or_equal_to: "doit être supérieur ou égal à %{count} minutes"
       messages:
         taken: "est déjà pris"
     attributes:
-      teacher:
-        Male: Homme
-    models:
-      postuling_teacher: Profs postulants
+      items:
+        duration: "Durée"
+      lesson_packs:
+        status:
+          paid: "Payé"
 
   send_message:
     minimum_chars: Minimum 50 caractères.
@@ -527,3 +540,7 @@ fr:
       students_count: '#active students (#new students)'
       teachers_count: '#active teachers (#new teachers)'
       disputes_count: '# of disputes'
+
+
+
+
