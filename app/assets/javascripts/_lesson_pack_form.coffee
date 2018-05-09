@@ -14,6 +14,7 @@ class window.LessonPackForm extends window.LessonForm
     @$el.on 'change', '.discount', (e) => @showRecap()
     @$el.on 'change', '.hours-select', (e) => @showRecap()
     @$el.on 'change', '.minutes-select', (e) => @showRecap()
+    
 
   onTopicChange: (e) =>
     super
@@ -27,11 +28,15 @@ class window.LessonPackForm extends window.LessonForm
   onAddItemClick: (e)->
     e.preventDefault()
     return if @$('.lesson-pack-item').size() >= 20
+      $(e.currentTarget).addClass('shaking')
+      @$('.lessons_alert_box.adding_lessons').removeClass('hidden').html('Vous ne pouvez pas dépasser 20 leçons')
     @addItem()
 
-  onRemoveItemClick: (e)->
+  onRemoveItemClick: (e) ->
     e.preventDefault()
     $item = $(e.currentTarget).closest('.lesson-pack-item')
+    if !@$('.lessons_alert_box').hasClass('hidden')
+      @$('.lessons_alert_box').addClass('hidden')
     return if @$('.lesson-pack-item').size() <= 5
     if $item.data('persisted')
       $item
@@ -47,7 +52,7 @@ class window.LessonPackForm extends window.LessonForm
     @$('.lesson-pack-items').append($item)
 
 
-  toggleSecondPart: ()->
+  toggleSecondPart: () ->
     if @rate
       @$('.lessons-part').removeClass('hidden')
       @$('.lesson-pack-values').removeClass('hidden')
@@ -56,18 +61,18 @@ class window.LessonPackForm extends window.LessonForm
       @$('.lessons-part').addClass('hidden')
       @$('.lesson-pack-values').addClass('hidden')
 
-  requestRate: ()->
+  requestRate: () ->
     $.post @getCalculateUrl(), @paramsForRate(), (data)=>
       @rate = data.price
       @toggleSecondPart()
 
-  paramsForRate: ()->
+  paramsForRate: () ->
     hours: 1
     minutes: 0
     topic_id: @$('.topic-select').val()
     level_id: @$('.level-select').val()
 
-  paramsForRecap: ()->
+  paramsForRecap: () ->
     duration = @duration()
     cost = (@rate || 0) * duration.asHours()
     {
@@ -99,4 +104,5 @@ class window.LessonPackForm extends window.LessonForm
     @$('#hours-value').text(params.hours)
     @$('#cost-value').text(params.cost)
     @$('#total-amount-value').text(params.amount)
+
 

@@ -16,6 +16,16 @@ class window.LessonForm
   initialize: ->
     @initDatePicker($('.time_start_picker'))
     @initEvents()
+    @$el.on 'dp.hide', '.time_start_picker', (e) => 
+      focusTime = e.timeStamp
+      console.log(e.date._i)
+      $('.time_start_picker').each () ->
+        console.log($(this).children('.time-start-input').val())
+        if focusTime == $(this).children('.time-start-input').val()
+          # $('.time-start-input').removeClass('has_same_date')
+          $(this).addClass('has_same_date')
+        return
+
 
 
   initEvents: ->

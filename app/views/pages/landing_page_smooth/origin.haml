@@ -7,7 +7,7 @@
         = link_to 'Devenir professeur', become_teacher_path(:general_infos), :class => 'btn blue _on_desktop'
         = link_to 'Connexion', new_user_session_path, :class => 'btn txt _on_desktop'
         = link_to "S'inscrire", new_user_registration_path, :class => 'btn primary _on_desktop'
-        = link_to "Se connecter / S'inscrire", new_user_registration_path, :class => 'btn txt _on_desktop'
+        = link_to "Se connecter / S'inscrire", new_user_registration_path, :class => 'btn txt _on_mobil'
   %header
     .grey_filter
       .content_main_title_header
@@ -68,20 +68,14 @@
           %h2 La presse parle de nous
         %ul.press_list
           %li
-            %a{:href => "#"}
+            %a{:href => "http://www.lalibre.be/economie/digital/one-hour-challenge-qwerteach-5ad9fa3bcd702f0c1aefa2db"}
+              =image_tag('acceuil/press/la_libre_belgique.png')
+          %li
+            %a{:href => "http://www.lesoir.be/archive/recup/483418/article/actualite/regions/2014-03-03/un-nouveau-genre-d-e-learning"}
               =image_tag('acceuil/press/le_soir.jpeg')
           %li
-            %a{:href => "#"}
-              =image_tag('acceuil/press/belrtl.jpg')
-          %li
-            %a{:href => "#"}
+            %a{:href => "http://www.educadis.fr/soutien-scolaire/news-soutien-scolaire-elearning/une-nouvelle-plateforme-de-soutien-scolaire-gratuit"}
               =image_tag('acceuil/press/logo_educadis.jpg')
-          %li
-            %a{:href => "#"}
-              =image_tag('acceuil/press/logo-datanews.png')
-          %li
-            %a{:href => "#"}
-              =image_tag('acceuil/press/tendances_trends.png')
       %section.subscribe
         .block_title._center
           %h2 Profitez maintenant de tous les avantages
