@@ -4,8 +4,8 @@ class NotificationsMailer < ApplicationMailer
   def notifications_email(user, notifications)
     @user = user
     @notifications = notifications
-    n = notifications.count > 1 ? 'notifications' : 'notifications'
-    @text = "Vous avez #{notifications.count} #{n} non lues sur Qwerteach!"
+    n = notifications.count > 1 ? 'nouveau message' : 'nouveaux messages'
+    @text = "Vous avez #{notifications.count} #{n} non lus sur Qwerteach!"
     @subject = "#{notifications.count} #{n} sur Qwerteach"
     
     # super test de poulycroc hum hum :D

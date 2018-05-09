@@ -27,7 +27,7 @@
           = link_to edit_lesson_path(@lesson), remote: true do
             Déplacer
         - elsif @lesson.upcoming?
-          = link_to 'Reschedule', '#reschedule-lesson', 'data-toggle' => 'modal'
+          = link_to 'Déplacer', '#reschedule-lesson', 'data-toggle' => 'modal'
           = link_to 'Annuler', lesson_cancel_path(@lesson), 'data-confirm' => 'Are you sure?', 'data-disable-with' => 'Processing...'
 
   .container
