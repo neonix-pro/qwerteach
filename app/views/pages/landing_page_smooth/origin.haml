@@ -56,12 +56,14 @@
           - @bool = false
           - @featured_teachers_landing.each_with_index do |prof, index|
             .teacher
-              %a{:href => user_path(prof)}
+              %a.link_to_tacher{:href => user_path(prof)}
                 %figure
                   = image_tag(prof.avatar.url(:medium), {class: 'teacher_img'})
                   %figcaption
                     %span
                       = "#{prof.firstname} #{prof.lastname}"
+                    %p
+                      = prof.offers.map{|ad| ad.title}.join(', ')
       %section.press
         .before
         .block_title
