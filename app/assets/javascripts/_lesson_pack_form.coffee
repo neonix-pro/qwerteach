@@ -27,17 +27,23 @@ class window.LessonPackForm extends window.LessonForm
 
   onAddItemClick: (e)->
     e.preventDefault()
+    if !@$('.lessons_alert_box.removing_lessons').hasClass('hidden')
+      @$('.lessons_alert_box.removing_lessons').addClass('hidden')
     return if @$('.lesson-pack-item').size() >= 20
       $(e.currentTarget).addClass('shaking')
-      @$('.lessons_alert_box.adding_lessons').removeClass('hidden').html('Vous ne pouvez pas dépasser 20 leçons')
+      @$('.lessons_alert_box.adding_lessons').removeClass('hidden')
     @addItem()
 
   onRemoveItemClick: (e) ->
     e.preventDefault()
     $item = $(e.currentTarget).closest('.lesson-pack-item')
+    if !@$('.lessons_alert_box.adding_lessons').hasClass('hidden')
+      @$('.lessons_alert_box.adding_lessons').addClass('hidden')
     if @$('.lesson-pack-item').size() <= 5
-      alert = $('.alert-min-lessons').clone();
-      $('.lesson-pack-items').prepend(alert.show()) unless $('.alert-min-lessons').length > 1
+      # alert = $('.alert-min-lessons').clone();
+      # $('.lesson-pack-items').prepend(alert.show()) unless $('.alert-min-lessons').length > 1
+      $(e.currentTarget).addClass('shaking')
+      @$('.lessons_alert_box.removing_lessons').removeClass('hidden')
       return
     if $item.data('persisted')
       $item

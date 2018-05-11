@@ -794,4 +794,13 @@ button.btn.shaking {
             display: block;
         }
     }
+
+    .time_start_picker{ 
+        &.actived input[name="_time_start"] {
+            color: #555555;
+        }
+        input[name="_time_start"] {
+            color: #9f9f9f;
+        }
+    }
 }
