@@ -12,17 +12,17 @@ class LessonPackNotificator
 
   def notify_student_about_new_lesson_pack
     NotificationsMailer.notify_student_about_new_lesson_pack(lesson_pack.id).deliver_later
-    notify_student("#{teacher.full_name} vous propose un pack de cours " + link_to('Détails', lesson_pack_path(lesson_pack)))
+    notify_student("#{teacher.full_name} vous propose un forfait de cours " + link_to('Détails', lesson_pack_path(lesson_pack)))
   end
 
   def notify_teacher_about_rejected_lesson_pack
     NotificationsMailer.notify_teacher_about_rejected_lesson_pack(lesson_pack.id).deliver_later
-    notify_teacher("#{student.full_name} rejected your pack " + link_to('Détails', lesson_pack_path(lesson_pack)))
+    notify_teacher("#{student.full_name} a refusé votre forfait de cours " + link_to('Détails', lesson_pack_path(lesson_pack)))
   end
 
   def notify_teacher_about_paid_lesson_pack
     NotificationsMailer.notify_teacher_about_paid_lesson_pack(lesson_pack.id).deliver_later
-    notify_teacher("#{student.full_name} paid your pack " + link_to('Détails', lesson_pack_path(lesson_pack)))
+    notify_teacher("#{student.full_name} a accepté votre forfait de cours " + link_to('Détails', lesson_pack_path(lesson_pack)))
   end
 
   private

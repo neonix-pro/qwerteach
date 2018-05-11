@@ -95,11 +95,11 @@ class LessonsController < ApplicationController
         end
         flash[:success] = "La modification s'est correctement déroulée."
         if @lesson.is_teacher?(current_user)
-          LessonNotificationsJob.perform_async(:notify_student_about_reschedule_lesson, @lesson.id)
+          LessonNotificationsJob.perform_async(:notify_student_about_reschedule_lesson_proposal, @lesson.id)
           Pusher.notify(["#{@lesson.student.id}"], {fcm: {notification: {body: "#{@lesson.teacher.name} a déplacé le votre demande de cours. Veuillez confirmer le nouvel horaire.", 
             icon: 'androidlogo', click_action: "MY_LESSONS"}}})
         else
-          LessonNotificationsJob.perform_async(:notify_teacher_about_reschedule_lesson, @lesson.id)
+          LessonNotificationsJob.perform_async(:notify_teacher_about_reschedule_lesson_proposal, @lesson.id)
           Pusher.notify(["#{@lesson.teacher.id}"], {fcm: {notification: {body: "#{@lesson.student.name} a déplacé le votre demande de cours. Veuillez confirmer le nouvel horaire.", 
             icon: 'androidlogo', click_action: "MY_LESSONS"}}})
         end
@@ -250,7 +250,12 @@ class LessonsController < ApplicationController
   def reschedule
     rescheduling = RescheduleLesson.run(user: current_user, lesson: @lesson, new_date: params[:time_start])
     if rescheduling.valid?
-      redirect_to lesson_path(@lesson), notice: 'Lesson was successfully rescheduled.'
+      if @lesson.is_teacher?(current_user)
+        LessonNotificationsJob.perform_async(:notify_student_about_reschedule_lesson, @lesson.id)
+      else
+        LessonNotificationsJob.perform_async(:notify_teacher_about_reschedule_lesson, @lesson.id)
+      end
+      redirect_to lesson_path(@lesson), notice: 'Le cours a bien été déplacé.'
     else
       redirect_to lesson_path(@lesson), flash: { danger: rescheduling.errors.full_messages.first }
     end
