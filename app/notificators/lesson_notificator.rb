@@ -50,12 +50,12 @@ class LessonNotificator
     notify_teacher("#{student.name} a refusé votre demande de cours. " + link_to('Détails', lessons_path))
   end
 
-  def notify_student_about_reschedule_lesson
+  def notify_student_about_reschedule_lesson_proposal
     NotificationsMailer.notify_student_about_reschedule_lesson(lesson).deliver_later
     notify_student("#{teacher.name} a déplacé votre demande de cours. Veuillez confirmer le nouvel horaire. " + link_to('Détails', lessons_path))
   end
 
-  def notify_teacher_about_reschedule_lesson
+  def notify_teacher_about_reschedule_lesson_proposal
     NotificationsMailer.notify_teacher_about_reschedule_lesson(lesson).deliver_later
     notify_teacher("#{student.name} a déplacé votre demande de cours. Veuillez confirmer le nouvel horaire. " + link_to('Détails', lessons_path))
   end
@@ -72,6 +72,16 @@ class LessonNotificator
   def notify_teacher_about_lesson_payment_unlocked
     NotificationsMailer.notify_teacher_about_lesson_payment_unlocked(lesson).deliver_later
     notify_teacher("Le payement de votre cours avec #{student.name} a été débloqué. Vous trouverez le solde sur votre #{link_to 'portefeuille virtuel', index_wallet_path}.")
+  end
+
+  def notify_student_about_reschedule_lesson
+    NotificationsMailer.notify_student_about_reschedule_lesson(lesson).deliver_later
+    notify_student("#{teacher.name} a déplacé un cours." + link_to('Détails', lessons_path))
+  end
+
+  def notify_teacher_about_reschedule_lesson
+    NotificationsMailer.notify_teacher_about_reschedule_lesson(lesson).deliver_later
+    notify_teacher("#{student.name} a déplacé un cours." + link_to('Détails', lessons_path))
   end
 
   private

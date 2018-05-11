@@ -4,7 +4,7 @@ class NotificationsMailer < ApplicationMailer
   def notifications_email(user, notifications)
     @user = user
     @notifications = notifications
-    n = notifications.count > 1 ? 'nouveau message' : 'nouveaux messages'
+    n = notifications.count > 1 ? 'nouveaux messages' : 'nouveau message'
     @text = "Vous avez #{notifications.count} #{n} non lus sur Qwerteach!"
     @subject = "#{notifications.count} #{n} sur Qwerteach"
     
@@ -148,19 +148,19 @@ class NotificationsMailer < ApplicationMailer
 
   def notify_student_about_new_lesson_pack(lesson_pack_id)
     @lesson_pack = LessonPack.find(lesson_pack_id)
-    subject = "#{@lesson_pack.teacher.full_name} vous propose un pack de cours"
+    subject = "#{@lesson_pack.teacher.full_name} vous propose un forfait de cours"
     mail(to: @lesson_pack.student.email, subject: subject)
   end
 
   def notify_teacher_about_rejected_lesson_pack(lesson_pack_id)
     @lesson_pack = LessonPack.find(lesson_pack_id)
-    subject = "#{@lesson_pack.student.full_name} has rejected your pack"
+    subject = "#{@lesson_pack.student.full_name} a refusé votre forfait de cours"
     mail(to: @lesson_pack.teacher.email, subject: subject)
   end
 
   def notify_teacher_about_paid_lesson_pack(lesson_pack_id)
     @lesson_pack = LessonPack.find(lesson_pack_id)
-    subject = "#{@lesson_pack.student.full_name} has paid your pack"
+    subject = "#{@lesson_pack.student.full_name} a accepté votre forfait de cours"
     mail(to: @lesson_pack.teacher.email, subject: subject)
   end
 
