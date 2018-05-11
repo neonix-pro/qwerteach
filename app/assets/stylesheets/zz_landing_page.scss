@@ -804,3 +804,35 @@ button.btn.shaking {
         }
     }
 }
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+@keyframes animRocket {
+    0% { transform: translate(0,0) }
+    33.3333% { transform: translate(-2px,-2px) }
+    66.6666% { transform: translate(2px,2px) }
+    100% { transform: translate(0,0) }
+}
+
+.img_rocket_finish_lesson_pack {
+    @include size(280px);
+    border-radius: 50%;
+    background-color: #f9f9f9;
+    margin: 40px auto;
+    position: relative;
+    img {
+        @include pos(a,0);
+        margin: auto;
+        @include size(200px);
+        display: block;
+        animation: animRocket 2000ms ease-in-out infinite;
+    }
+}
+.centered_btn_finish_lesson_pack {
+    @include size(f,auto);
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+}

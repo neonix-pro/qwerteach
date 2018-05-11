@@ -2,7 +2,7 @@
   .row
     %h2.page-title-green Confirmer un pack de cours
   .row
-    .col-lg-6.col-md-8= render 'recap', lesson_pack: @lesson_pack
+    .col-lg-6.col-md-8.col-centered= render 'recap', lesson_pack: @lesson_pack
   .row.form-group
     - if @lesson_pack.new_record?
       .col-lg-2.col-md-3.col-sm-4.col-xs-6

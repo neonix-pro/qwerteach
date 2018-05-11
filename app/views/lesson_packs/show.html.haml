@@ -11,6 +11,8 @@
 .container-fluid
   .row
     .col-lg-6.col-md-8.col-lg-offset-3.col-md-offset-2
+      = link_to '< Retour', lessons_path, class: 'btn btn-link'
+    .col-lg-6.col-md-8.col-lg-offset-3.col-md-offset-2
       .row
         = render 'disclaimer' if @lesson_pack.pending? if @lesson_pack.student == current_user
         = render 'recap', lesson_pack: @lesson_pack
@@ -30,4 +32,4 @@
         - if can? :delete, @lesson_pack
           .col-lg-2.col-md-3.col-sm-4.col-xs-6
             = link_to 'Supprimer', lesson_pack_path(@lesson_pack), class: 'btn btn-warning', method: :delete, 'data-confirm' => 'Delete the pack?'
-        = link_to 'Retour', lessons_path
+        
