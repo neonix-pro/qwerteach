@@ -180,9 +180,10 @@ a.btn._on_mobil {
         .label_logo {
             padding-top: 10px;
             float: left;
+            @include size(133px,39px);
             img {
                 display: block;
-                @include size(133px,29px);
+                @include size(f);
             }
         }
 
@@ -209,6 +210,12 @@ a.btn._on_mobil {
         &.onScreen {
             background-color: #fff;
             @extend ._trs, ._d_shad;
+
+            .label_logo {
+                background: image_url('qwerteach_logo_svg_dark.svg') no-repeat;
+                background-position: center bottom;
+                img { display: none !important; }
+            }
         }
 
         @include max-screen(610px) { 
@@ -366,14 +373,17 @@ a.btn._on_mobil {
             ul.press_list {
                 display: flex;
                 justify-content: space-between;
-                vertical-align: middle;
                 @include clearfix;
+                height: 100px;
 
-                a {
-                    display: inline-block;
-                    @include size(f);
-                    padding: 0 10px;
-                    img { display: block; width: 100%; }
+                li {
+                    height: 100%;
+                    a {
+                        display: block;
+                        @include size(f);
+                        padding: 0 10px;
+                        img { display: block; @include max-size(100%); }
+                    }
                 }
             }
             .before {
@@ -670,7 +680,7 @@ a.btn._on_mobil {
                 @include pos(a,0);
                 margin: auto;
 
-                a {
+                a.link_to_tacher {
                     @extend ._trs;
                     @include size(130px);
                     border-radius: 50%;
@@ -686,6 +696,7 @@ a.btn._on_mobil {
                     figure {
                         display: block;
                         @include size(f);
+                        @include pos(a,0);
                         margin: 0;
                         img {
                             display: block; 
@@ -705,8 +716,14 @@ a.btn._on_mobil {
                                 text-align: center;
                                 width: 100%;
                                 color: color(light);
-                                font-weight: 600;
                                 white-space: normal;
+                            }
+                            p {
+                                text-align: center;
+                                font-size: 80%;
+                                color: color(primary);
+                                text-overflow: ellipsis;
+                                word-wrap: break-word;
                             }
                         }
                     }
@@ -733,6 +750,57 @@ a.btn._on_mobil {
             @include max-screen(620px) {
                 height: 400px;
             }
+        }
+    }
+}
+
+@keyframes shakingBtnError {
+    0% { transform: translateX(-10px); }
+    20% { transform: translateX(10px); }
+    40% { transform: translateX(-5px); }
+    60% { transform: translateX(5px); }
+    80% { transform: translateX(-2px); }
+    100% { transform: translateX(0px); }
+}
+a.btn.shaking,
+button.btn.shaking {
+    transform: translateX(0);
+    animation: shakingBtnError 400ms ease-in-out forwards;
+}
+
+.lesson-pack-item {
+    .col-xs-2 { 
+        white-space: nowrap;
+        select, span {
+            display: inline-block;
+        }
+        select {
+            width: calc(100% - 24px);
+        }
+        span {
+            padding-left: 10px;
+        }
+    }
+
+    .btn, .btn-large { &.btn-danger {background-color: #d9534f !important;} }
+    span.error_message { color: #d9534f; }
+
+    .col-xs-12.error_message {
+        display: none;
+    }
+
+    &.has_same_date {
+        .col-xs-12.error_message {
+            display: block;
+        }
+    }
+
+    .time_start_picker{ 
+        &.actived input[name="_time_start"] {
+            color: #555555;
+        }
+        input[name="_time_start"] {
+            color: #9f9f9f;
         }
     }
 }

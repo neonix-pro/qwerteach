@@ -16,6 +16,29 @@ class window.LessonForm
   initialize: ->
     @initDatePicker($('.time_start_picker'))
     @initEvents()
+    @$el.on 'click', '.time_start_picker', (e) => 
+      $(this).addClass('actived')
+    @$el.on 'dp.hide', '.time_start_picker', (e) => 
+      $(e.currentTarget).addClass('actived')
+      focusTime = e.date._i
+
+      if $('.lesson-pack-item').hasClass('has_same_date')
+        $('.lesson-pack-item').removeClass('has_same_date')
+
+      cnt_field = 1
+      cnt_error = 0
+      $('.time_start_picker.actived').each (f) ->
+        if (cnt_field > 1)
+          if focusTime == $(this).children('.time-start-input').val()
+            cnt_error++
+            $(this).parent('.col-xs-6').parent('.row').parent('.lesson-pack-item').addClass('has_same_date')
+        cnt_field++
+        if (cnt_error > 0)
+          $('input.next_btn').attr('disabled', 'disabled')
+        else 
+          $('input.next_btn').removeAttr('disabled')
+        return 
+
 
 
   initEvents: ->
