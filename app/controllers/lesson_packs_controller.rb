@@ -1,10 +1,11 @@
 class LessonPacksController < ApplicationController
   include PaymentActions
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:show]
   before_action :set_lesson_pack, only: [:show, :edit, :update, :destroy, :approve, :reject, :propose, :payment, :pay, :finish]
   helper_method :lesson_pack_params
 
   def show
+    authorize! :show, @lesson_pack
   end
 
   def new
@@ -107,7 +108,11 @@ class LessonPacksController < ApplicationController
   private
 
     def set_lesson_pack
-      @lesson_pack = LessonPack.find(params[:id])
+      if params[:id].to_i > 0 
+        @lesson_pack = LessonPack.find(params[:id])
+      else
+        redirect_to new_lesson_pack_path
+      end
     end
 
     def lesson_pack_params

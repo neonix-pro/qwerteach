@@ -24,23 +24,20 @@
             = f.select :level_id, options, { prompt: 'niveau' }, { class: 'form-control level-select', required: true }
         .row
           .col-md-12
-            -# %dl.lesson-pack-values.hidden
-            %dl.lesson-pack-values
+            %dl.lesson-pack-values.hidden
               %dt Tarif horaire
               %dd#rate-value -
         .form-group
           = f.label :discount, 'Remise'
           = f.select :discount, [0,5,10,15,20].map { |i| ["#{i}%", i] }, {}, { class: 'form-control discount' }
-        -# .lessons-part.hidden
         .row
           .col-md-12
-            -# %dl.lesson-pack-values.hidden
-            %dl.lesson-pack-values
+            %dl.lesson-pack-values.hidden
               %dt Nombre d'heures
               %dd#hours-value -
               %dt Prix
               %dd#cost-value -
-        .lessons-part
+        .lessons-part.hidden
           %h3 Leçons
           .alert.alert-danger.remove_lessons.hidden.lessons_alert_box{:role => 'alert'}
           .form-group.lesson-pack-header
@@ -57,8 +54,7 @@
             -#   Vous devez proposer minimum 5 cours!
             = f.fields_for :items do |fi|
               = render 'item_fields', f: fi
-          -# .fields-for-new-item.hidden
-          .fields-for-new-item
+          .fields-for-new-item.hidden
             = f.fields_for :items, LessonPackItem.new, child_index: '__ITEM_INDEX__' do |fi|
               = render 'item_fields', f: fi
           .alert.alert-danger.hidden.adding_lessons.lessons_alert_box{:role => 'alert'}
