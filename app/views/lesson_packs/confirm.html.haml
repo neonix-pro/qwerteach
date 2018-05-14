@@ -4,13 +4,10 @@
   .row
     .col-lg-6.col-md-8.col-centered= render 'recap', lesson_pack: @lesson_pack
   .row.form-group
-    - if @lesson_pack.new_record?
-      .col-lg-2.col-md-3.col-sm-4.col-xs-6
+    .col-lg-6.col-md-8.col-centered{ :style => 'display:flex;justify-content:space-between;padding:20px 0' }
+      - if @lesson_pack.new_record?
         = button_to 'Modifier', change_lesson_packs_path, class: 'btn btn-success', params: to_form_params(lesson_pack_params, 'lesson_pack')
-      .col-lg-2.col-md-3.col-sm-4.col-xs-6
         = button_to 'Confirmer', { action: 'create' }, class: 'btn btn-primary', params: to_form_params(lesson_pack_params, 'lesson_pack')
-    - else
-      .col-lg-2.col-md-3.col-sm-4.col-xs-6
+      - else
         = link_to 'Modifier', edit_lesson_pack_path(@lesson_pack), class: 'btn btn-success'
-      .col-lg-2.col-md-3.col-sm-4.col-xs-6
         = link_to 'Confirmer', propose_lesson_pack_path(@lesson_pack), class: 'btn btn-primary', method: :put
