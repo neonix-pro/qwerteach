@@ -40,15 +40,29 @@ class LessonNotificator
     NotificationsMailer.notify_teacher_about_teacher_accepts_lesson(lesson).deliver_later
   end
 
+  ### reject
+
   def notify_student_about_teacher_reject_lesson
     NotificationsMailer.notify_student_about_teacher_reject_lesson(lesson).deliver_later
-    notify_student("#{teacher.name} a refusé votre demande de cours. Celle-ci a été annulée. " + link_to('Détails', lessons_path))
+    notify_student("#{teacher.name} a refusé votre cours. Celui-ci a été annulée. " + link_to('Détails', lessons_path))
   end
 
   def notify_teacher_about_student_reject_lesson
     NotificationsMailer.notify_teacher_about_student_reject_lesson(lesson).deliver_later
+    notify_teacher("#{student.name} a refusé votre cours." + link_to('Détails', lessons_path))
+  end
+
+  def notify_student_about_teacher_reject_lesson_proposal
+    NotificationsMailer.notify_student_about_teacher_reject_lesson_proposal(lesson).deliver_later
+    notify_student("#{teacher.name} a refusé votre demande de cours. Celle-ci a été annulée. " + link_to('Détails', lessons_path))
+  end
+
+  def notify_teacher_about_student_reject_lesson_proposal
+    NotificationsMailer.notify_teacher_about_student_reject_lesson_proposal(lesson).deliver_later
     notify_teacher("#{student.name} a refusé votre demande de cours. " + link_to('Détails', lessons_path))
   end
+
+  ### reschedule
 
   def notify_student_about_reschedule_lesson_proposal
     NotificationsMailer.notify_student_about_reschedule_lesson(lesson).deliver_later
@@ -83,6 +97,30 @@ class LessonNotificator
     NotificationsMailer.notify_teacher_about_reschedule_lesson(lesson).deliver_later
     notify_teacher("#{student.name} a déplacé un cours." + link_to('Détails', lessons_path))
   end
+
+  ####
+
+  def notify_teacher_about_student_cancel_lesson
+    NotificationsMailer.notify_teacher_about_student_cancel_lesson(lesson).deliver_later
+    notify_teacher("#{student.name} a annulé le cours de #{lesson.topic.title} du #{lesson.time_start.strftime('%d/%m/%Y')}" + link_to('Détails', lessons_path))
+  end
+
+  def notify_student_about_teacher_cancel_lesson
+    NotificationsMailer.notify_student_about_teacher_cancel_lesson(lesson).deliver_later
+    notify_teacher("#{teacher.name} a annulé le cours de #{lesson.topic.title} du #{lesson.time_start.strftime('%d/%m/%Y')}" + link_to('Détails', lessons_path))
+  end
+
+  def notify_teacher_about_student_cancel_lesson_proposal
+    NotificationsMailer.notify_teacher_about_student_cancel_lesson_proposal(lesson).deliver_later
+    notify_teacher("#{teacher.name} a annulé la demande de cours de #{lesson.topic.title} du #{lesson.time_start.strftime('%d/%m/%Y')}" + link_to('Détails', lessons_path))
+  end
+
+  def notify_student_about_teacher_cancel_lesson_proposal
+    NotificationsMailer.notify_student_about_teacher_cancel_lesson_proposal(lesson).deliver_later
+    notify_teacher("#{teacher.name} a annulé la demande de cours de #{lesson.topic.title} du #{lesson.time_start.strftime('%d/%m/%Y')}" + link_to('Détails', lessons_path))
+  end
+
+
 
   private
 

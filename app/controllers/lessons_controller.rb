@@ -142,7 +142,7 @@ class LessonsController < ApplicationController
 
   def refuse
     @lesson.status = 'refused'
-    refuse = RefundLesson.run(user: @user, lesson: @lesson)
+    refuse = RejectLesson.run(user: @user, lesson: @lesson)
     if refuse.valid?
       tracker do |t|
         t.google_analytics :send, { type: 'event', category: "Réservation - prof", action: "Refuser une reservation", label: "Prof id: #{@lesson.teacher.id}"}

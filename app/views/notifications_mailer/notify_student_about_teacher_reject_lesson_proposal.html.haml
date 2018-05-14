@@ -1,0 +1,4 @@
+%h1 #{@lesson.teacher.name} a refusé votre demande de cours de #{@lesson.topic.title} du #{@lesson.time_start.strftime('%d/%m/%Y')}.
+%p Celle-ci a été annulé ; le crédit de la leçon a été reversé sur votre portefeuille virtuel.
+
+%h3= link_to 'Voir mes cours', lessons_url

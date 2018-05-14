@@ -2,7 +2,7 @@ class RefundLesson < ActiveInteraction::Base
   object :user, :class => User
   object :lesson, :class => Lesson
 
-  set_callback :execute, :after, :send_notifications
+  #set_callback :execute, :after, :send_notifications
 
   def execute
     # find all payments of the lesson (most cases only one)
@@ -60,18 +60,18 @@ class RefundLesson < ActiveInteraction::Base
     }
   end
 
-  def send_notifications
-    return if errors.any?
-    return if lesson.expired?
-    if lesson.is_student?(user)
-      LessonNotificationsJob.perform_async(:notify_teacher_about_student_reject_lesson, lesson.id)
-      Pusher.notify(["#{lesson.teacher.id}"], {fcm: {notification: {body: "#{lesson.student.name} a refusé votre demande de cours.",
-            icon: 'androidlogo', click_action: "MY_LESSONS"}}})
-    else
-      LessonNotificationsJob.perform_async(:notify_student_about_teacher_reject_lesson, lesson.id)
-      Pusher.notify(["#{lesson.student.id}"], {fcm: {notification: {body: "#{lesson.teacher.name} a refusé votre demande de cours.",
-            icon: 'androidlogo', click_action: "MY_LESSONS"}}})
-    end
-  end
+  # def send_notifications
+  #   return if errors.any?
+  #   return if lesson.expired?
+  #   if lesson.is_student?(user)
+  #     LessonNotificationsJob.perform_async(:notify_teacher_about_student_reject_lesson, lesson.id)
+  #     Pusher.notify(["#{lesson.teacher.id}"], {fcm: {notification: {body: "#{lesson.student.name} a refusé votre demande de cours.",
+  #           icon: 'androidlogo', click_action: "MY_LESSONS"}}})
+  #   else
+  #     LessonNotificationsJob.perform_async(:notify_student_about_teacher_reject_lesson, lesson.id)
+  #     Pusher.notify(["#{lesson.student.id}"], {fcm: {notification: {body: "#{lesson.teacher.name} a refusé votre demande de cours.",
+  #           icon: 'androidlogo', click_action: "MY_LESSONS"}}})
+  #   end
+  # end
 
 end

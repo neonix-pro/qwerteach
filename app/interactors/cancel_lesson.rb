@@ -1,8 +1,10 @@
 class CancelLesson < ActiveInteraction::Base
   object :user, class: User
   object :lesson, class: Lesson
+  boolean :proposal, default: true
 
   def execute
+    proposal = false if lesson.status > 1
     if lesson.canceled? or lesson.refused?
       return errors.add(:lesson, 'already canceled')
     end
@@ -44,6 +46,7 @@ class CancelLesson < ActiveInteraction::Base
 
   def refund
     compose RefundLesson, user: user, lesson: lesson
+    send_notifications
   end
 
   def transfer_half
@@ -77,10 +80,18 @@ class CancelLesson < ActiveInteraction::Base
   end
 
   def send_notifications
-    if lesson.is_student?(user)
-      LessonNotificationsJob.perform_async(:notify_teacher_about_student_reject_lesson, lesson.id)
+    if proposal
+      if lesson.is_student?(user)
+        LessonNotificationsJob.perform_async(:notify_teacher_about_student_cancel_lesson_proposal, lesson.id)
+      else
+        LessonNotificationsJob.perform_async(:notify_student_about_teacher_cancel_lesson_proposal, lesson.id)
+      end
     else
-      LessonNotificationsJob.perform_async(:notify_student_about_teacher_reject_lesson, lesson.id)
+      if lesson.is_student?(user)
+        LessonNotificationsJob.perform_async(:notify_teacher_about_student_cancel_lesson, lesson.id)
+      else
+        LessonNotificationsJob.perform_async(:notify_student_about_teacher_cancel_lesson, lesson.id)
+      end
     end
   end
 
