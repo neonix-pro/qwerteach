@@ -30,4 +30,4 @@
             = link_to 'Modifier', edit_lesson_pack_path(@lesson_pack), class: 'btn btn-primary'
           - if can? :delete, @lesson_pack
             = link_to 'Supprimer', lesson_pack_path(@lesson_pack), class: 'btn btn-warning', method: :delete, 'data-confirm' => 'Delete the pack?'
-        
+       
