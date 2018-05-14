@@ -10,6 +10,12 @@
           = render partial: 'cards_postuling_teacher'
       - else
         = render partial: 'cards_student'
+  - unless @to_accept_packs.empty?
+    .row
+      #cta-lessons
+        - @to_accept_packs.each do |p|
+          .col-xs-12
+            = render partial: 'dashboards/cards/pack_to_accept', locals: {pack: p}
   - unless @to_unlock_lessons.empty?
     .row
       #cta-lessons

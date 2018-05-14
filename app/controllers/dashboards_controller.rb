@@ -19,6 +19,8 @@ class DashboardsController < ApplicationController
     @to_review_lessons = @user.lessons_received.to_review(@user).where.not(id: @to_unlock_lessons.ids + @to_pay_lessons.ids).group(:teacher_id)
     @to_unlock_lessons = @to_unlock_lessons + @to_pay_lessons
 
+    @to_accept_packs = LessonPack.where(student: current_user, status: 1)
+
     @past_lessons = @user.lessons_received.past.created
     if @user.is_a?(Teacher)
       @past_lessons_given = @user.lessons_given.past.created
