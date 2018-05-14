@@ -28,6 +28,8 @@
         #{lesson_pack.hours}h * #{lesson_pack.rate}€/h = #{lesson_pack.cost}€ <br />
         #{lesson_pack.cost} - #{lesson_pack.discount}% = <b class="text-green">#{lesson_pack.amount}€</b>
 
+#lesson-pack-calendar.form-group.events-calendar.lesson-pack-calendar
+
 - if can? :pay, lesson_pack
   .alert.alert-info
     %p
@@ -41,7 +43,7 @@
       %th Durée
       %th
         ="# reports"
-        %i#help-reports.text-green.fa.fa-question{data: {toggle: "popover", "placement":"top", "content":"Vous pourrez reporter les cours d'un forfait au maximum une fois."}}
+        %i#help-reports.text-green.fa.fa-question{data: {toggle: "popover", "placement":"top", "content":"L'élève peut les cours d'un forfait au maximum une fois."}}
       - if can? :pay, lesson_pack
         %th Accord
   %tbody
@@ -53,7 +55,6 @@
         - if can? :pay, lesson_pack
           %td= check_box_tag :agree, nil, false, class: 'lesson-pack-agree-with-lesson'
 
-#lesson-pack-calendar.form-group.events-calendar.lesson-pack-calendar
 
 - content_for :javascript do
   :javascript
