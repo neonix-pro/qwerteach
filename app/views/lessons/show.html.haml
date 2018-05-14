@@ -94,6 +94,12 @@
                       .text-red
                         Si vous acceptez de donner cours avant que l'élève n'ait
                         réglé le paiement, <b>Qwerteach ne peut pas garantir que vous serez payé</b>.
+            .card.card-payment
+              .card-content
+                %h6
+                  %i.fa.fa-calendar
+                  La date de ce cours a été déplacée #{@lesson.rescheduled} fois.
+
 
 = render 'reschedule', lesson: @lesson
 = render 'cancel', lesson: @lesson
