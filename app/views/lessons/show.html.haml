@@ -28,7 +28,8 @@
             Déplacer
         - elsif @lesson.upcoming?
           = link_to 'Déplacer', '#reschedule-lesson', 'data-toggle' => 'modal'
-          = link_to 'Annuler', lesson_cancel_path(@lesson), 'data-confirm' => 'Are you sure?', 'data-disable-with' => 'Processing...'
+          = link_to 'Annuler', '#cancel-lesson', 'data-toggle' => 'modal'
+          -#lesson_cancel_path(@lesson), 'data-confirm' => 'Are you sure?', 'data-disable-with' => 'Processing...'
 
   .container
     .row
@@ -95,3 +96,4 @@
                         réglé le paiement, <b>Qwerteach ne peut pas garantir que vous serez payé</b>.
 
 = render 'reschedule', lesson: @lesson
+= render 'cancel', lesson: @lesson

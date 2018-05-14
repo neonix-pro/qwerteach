@@ -3,7 +3,7 @@ class RejectLesson < ActiveInteraction::Base
   object :lesson, :class => Lesson
 
   def execute
-    proposal = lesson.status > 1 ? false : true
+    proposal = lesson.pending_any? ? true : false
     RefundLesson.run(user: user, lesson: lesson)
     if proposal
       send_notifications_proposal

@@ -84,6 +84,30 @@ class NotificationsMailer < ApplicationMailer
     mail(to: @teacher.email, subject: 'Qwerteach')
   end
 
+  def notify_student_about_teacher_reject_lesson_proposal(lesson)
+    @student = lesson.student
+    @lesson = lesson
+    mail(to: @student.email, subject: 'Qwerteach')
+  end
+
+  def notify_teacher_about_student_reject_lesson_proposal(lesson)
+    @teacher = lesson.teacher
+    @lesson = lesson
+    mail(to: @teacher.email, subject: 'Qwerteach')
+  end
+
+  def notify_student_about_reschedule_lesson_proposal(lesson)
+    @student = lesson.student
+    @lesson = lesson
+    mail(to: @student.email, subject: 'Qwerteach')
+  end
+
+  def notify_teacher_about_reschedule_lesson_proposal(lesson)
+    @teacher = lesson.teacher
+    @lesson = lesson
+    mail(to: @teacher.email, subject: 'Qwerteach')
+  end
+
   def notify_student_about_reschedule_lesson(lesson)
     @student = lesson.student
     @lesson = lesson
@@ -94,6 +118,30 @@ class NotificationsMailer < ApplicationMailer
     @teacher = lesson.teacher
     @lesson = lesson
     mail(to: @teacher.email, subject: 'Qwerteach')
+  end
+
+  def notify_teacher_about_student_cancel_lesson(lesson)
+    @teacher = lesson.teacher
+    @lesson = lesson
+    mail(to: @teacher.email, subject: 'Qwerteach')
+  end
+
+  def notify_student_about_teacher_cancel_lesson(lesson)
+    @student = lesson.student
+    @lesson = lesson
+    mail(to: @student.email, subject: 'Qwerteach')
+  end
+
+  def notify_teacher_about_student_cancel_lesson_proposal(lesson)
+    @teacher = lesson.teacher
+    @lesson = lesson
+    mail(to: @teacher.email, subject: 'Qwerteach')
+  end
+
+  def notify_student_about_teacher_cancel_lesson_proposal(lesson)
+    @student = lesson.student
+    @lesson = lesson
+    mail(to: @student.email, subject: 'Qwerteach')
   end
 
   def notify_teacher_about_student_pay_lesson_after(lesson)

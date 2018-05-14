@@ -4,7 +4,7 @@ class CancelLesson < ActiveInteraction::Base
   boolean :proposal, default: true
 
   def execute
-    proposal = false if lesson.status > 1
+    @proposal = lesson.pending_any? ? true : false
     if lesson.canceled? or lesson.refused?
       return errors.add(:lesson, 'already canceled')
     end
@@ -80,7 +80,7 @@ class CancelLesson < ActiveInteraction::Base
   end
 
   def send_notifications
-    if proposal
+    if @proposal
       if lesson.is_student?(user)
         LessonNotificationsJob.perform_async(:notify_teacher_about_student_cancel_lesson_proposal, lesson.id)
       else

@@ -1,0 +1,25 @@
+.modal.fade#cancel-lesson
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h4 Êtes-vous sûr de vouloir annuler?
+      .modal-body
+        - if current_user.id == lesson.teacher.id
+          .text-center
+            = link_to 'Oui', lesson_cancel_path(@lesson), 'data-disable-with' => 'Processing...', class: 'btn btn-qw btn-green'
+            = link_to 'Non', '#', 'data-dismiss'=>'modal', class: 'text-grey'
+        - else
+          - if lesson.time_start < Time.now + 24.hour
+            %p Vous ne pouvez pas annuler un cours moins de 24h avant la date prévue. Contactez le professeur siv ous devez absolument annuler ou déplacer le cours.
+          - elsif lesson.lesson_pack_id
+            %p
+              %i.fa.fa-warning
+              Ce cours fait partie d'un forfait. Si vous l'annulez, vous serez remboursé de 50% du prix du cours.
+            .text-center
+              = link_to 'Oui', lesson_cancel_path(@lesson), 'data-disable-with' => 'Processing...', class: 'btn btn-qw btn-green'
+              = link_to 'Non', '#', 'data-dismiss'=>'modal', class: 'text-grey'
+          - else
+            %p Si vous annulez ce cours vous serez automatiquement remboursé.
+            .text-center
+              = link_to 'Oui', lesson_cancel_path(@lesson), 'data-disable-with' => 'Processing...', class: 'btn btn-qw btn-green'
+              = link_to 'Non', '#', 'data-dismiss'=>'modal', class: 'text-grey'

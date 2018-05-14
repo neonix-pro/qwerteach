@@ -181,7 +181,7 @@ class LessonsController < ApplicationController
       respond_to do |format|
         format.html {redirect_to lessons_path}
         format.json {render :json => {:success => "true",
-          :message => "Vous avez annulé la demande de cours.", :lesson => @lesson}}
+          :message => "Vous avez annulé le cours.", :lesson => @lesson}}
       end
     else
       flash[:danger] = "Il y a eu un problème: #{cancelation.errors.full_messages.to_sentence}.<br /> Le cours n'a pas été annulé.".html_safe

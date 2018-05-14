@@ -1,3 +1,4 @@
-%h1 #{@lesson.student.name} a refusé votre demande de cours de #{@lesson.topic.title} du #{@lesson.time_start.strftime('%d/%m/%Y')}. Celle-ci a été annulée.
+%h1 #{@lesson.student.name} a refusé votre demande de cours.
+%p Cours de #{@lesson.topic.title} du #{@lesson.time_start.strftime('%d/%m/%Y')}. Celle-ci a été annulée.
 
 %h3= link_to 'Voir mes cours', lessons_url

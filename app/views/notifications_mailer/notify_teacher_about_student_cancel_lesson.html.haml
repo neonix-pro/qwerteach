@@ -1,3 +1,4 @@
-%h1 #{@lesson.student.name} a annulé le cours de #{@lesson.topic.title} du #{@lesson.time_start.strftime('%d/%m/%Y')}. Celui-ci a été remboursé selon les conditions d'annulation en vigueur (100% pour les cours normaux, 50% pour les cours d'un forfait).
+%h1 #{@lesson.student.name} a annulé un cours.
+%p Cours de #{@lesson.topic.title} du #{@lesson.time_start.strftime('%d/%m/%Y')}. Celui-ci a été remboursé selon les conditions d'annulation en vigueur (100% pour les cours normaux, 50% pour les cours d'un forfait).
 
 %h3= link_to 'Voir mes cours', lessons_url
