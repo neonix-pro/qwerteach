@@ -10,4 +10,4 @@
         %p
           #{pack.hours}h de #{pack.topic.title} (#{pack.topic.topic_group.title}), à #{pack.amount}€
       .col-xs-4.col-sm-3.col-md-2
-        = link_to 'Voir', lesson_pack_path(pack), method: :post, class: 'btn btn-green btn-qw'
+        = link_to 'Voir', lesson_pack_path(pack), method: :get, class: 'btn btn-green btn-qw'
