@@ -44,7 +44,7 @@
     $('.reschedule-datetime-picker').datetimepicker({
       locale: moment.locale(),
       format: "[le] DD MMMM [à] HH:mm",
-      minDate: moment(#{lesson.time_start}).add( 24, 'hours' ),
+      minDate: moment("#{lesson.time_start.strftime('%F %R')}" ).add( 24, 'hours' ),
       allowInputToggle: true,
       sideBySide: true,
     })
