@@ -23,7 +23,7 @@ class CancelLesson < ActiveInteraction::Base
 
   def cancel_discounted_lesson
     if lesson.is_student?(user) && lesson.time_start < 24.hours.since
-      return errors.add(:base, 'Can\'t be canceled because before the start less than 24 hours')
+      return errors.add(:base, 'Un cours ne peut pas être annulé moins de 24h avant son début')
     end
     if lesson.is_student?(user)
       return transfer_half
@@ -39,7 +39,7 @@ class CancelLesson < ActiveInteraction::Base
       return refund
     end
     if lesson.time_start < 2.days.since
-      return errors.add(:base, 'Can\'t be canceled because before the start less than 48 hours')
+      return errors.add(:base, 'Un cours ne peut pas être annulé moins de 48h avant son début')
     end
     refund
   end

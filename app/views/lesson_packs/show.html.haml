@@ -17,19 +17,17 @@
         = render 'disclaimer' if @lesson_pack.pending? if @lesson_pack.student == current_user
         = render 'recap', lesson_pack: @lesson_pack
       .row.form-group
-        - if can? :reject, @lesson_pack
-          .col-lg-2.col-md-3.col-sm-4.col-xs-6
-            = link_to 'Rejeter', reject_lesson_pack_path(@lesson_pack), class: 'btn btn-warning', method: :put
-        - if can? :pay, @lesson_pack
-          .col-lg-2.col-md-3.col-sm-4.col-xs-6
+
+        .col-lg-12.col-md-12.col-centered{ :style => 'display:flex;justify-content:space-between;padding:20px 0' }
+          - if can? :reject, @lesson_pack
+            = link_to 'Rejeter', reject_lesson_pack_path(@lesson_pack), class: 'btn btn-warning', method: :put, style: 'background-color:#f0ad4e;border-color:#f0ad4e'
+          - if can? :pay, @lesson_pack
             = link_to 'Accepter', payment_lesson_pack_path(@lesson_pack), class: 'btn btn-primary btn-approve disabled'
             - content_for :javascript do
               :javascript
                 new LessonPackApprove()
-        - if can? :edit, @lesson_pack
-          .col-lg-2.col-md-3.col-sm-4.col-xs-6
+          - if can? :edit, @lesson_pack
             = link_to 'Modifier', edit_lesson_pack_path(@lesson_pack), class: 'btn btn-primary'
-        - if can? :delete, @lesson_pack
-          .col-lg-2.col-md-3.col-sm-4.col-xs-6
+          - if can? :delete, @lesson_pack
             = link_to 'Supprimer', lesson_pack_path(@lesson_pack), class: 'btn btn-warning', method: :delete, 'data-confirm' => 'Delete the pack?'
-        
+       
