@@ -8,7 +8,7 @@ class RejectLessonPack < ActiveInteraction::Base
       notify if send_notification
       return lesson_pack
     else
-      errors.merge(lesson_pack.errors)
+      errors.merge!(lesson_pack.errors)
     end
   end
 

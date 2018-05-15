@@ -49,7 +49,7 @@ class LessonPacksController < ApplicationController
     if creation.valid?
       @card_registration = creation.result
     else
-      redirect_to @lesson_pack, 'There are some problems with payment system. Please, contact administrator'
+      redirect_to lessons_path, danger: "Il y a eu un problème avec le système de payement; Vous n'avez pas été débité. Veuillez ré-essayer. Si le problème persiste, contactez un administrateur."
     end
   end
 
@@ -62,7 +62,7 @@ class LessonPacksController < ApplicationController
     if @lesson_pack.save
       redirect_to action: :pay, id: lesson_pack.id
     else
-      redirect_to @lesson_pack, notice: 'There are some problems with pack. Please, contact administrator'
+      redirect_to lessons_path, notice: 'Il y a un problème avec ce forfait. Veuillez contacter un administrateur.'
     end
   end
 
@@ -71,7 +71,7 @@ class LessonPacksController < ApplicationController
     if rejecting.valid?
       redirect_to '/', notice: "Vous avez décliné la proposition de forfait faite par #{@lesson_pack.teacher.full_name}."
     else
-      redirect_to @lesson_pack, notice: 'There are some problems with pack. Please, contact administrator'
+      redirect_to lessons_path, notice: 'Il y a un problème avec ce forfait. Veuillez contacter un administrateur.'
     end
   end
 
