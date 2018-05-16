@@ -17,6 +17,7 @@ class OnboardingController < ApplicationController
       when :topics
        # @topic_groups = TopicGroup.first(6)
        # @teachers = Teacher.order(score: :desc).first(8)
+        drip
         @drip.create_or_update_subscriber(current_user.email, {custom_fields: current_user.drip_custom_fields, user_id: current_user.id})
         @drip.subscribe(current_user.email, '55297918', double_optin: false)
         @global_request = GlobalRequest.new()
