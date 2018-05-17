@@ -38,4 +38,6 @@
       = f.select :nationality, options_for_select(countries_list, :selected => @user.nationality), {}, :required => true, class:'form-control'
   .form-group.actions.row
     = f.button :enregistrer, class: 'btn btn-green btn-qw', data: {disable_with: "<i class='fa fa-spinner fa-spin'></i>"}
+  - if params[:redirect_to]
+    = hidden_field_tag :redirect_to, params[:redirect_to]
 
