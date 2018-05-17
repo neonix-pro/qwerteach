@@ -54,7 +54,7 @@
         - if can? :pay, lesson_pack
           %td= check_box_tag :agree, nil, false, class: 'lesson-pack-agree-with-lesson'
 
--if can? :pay
+-if can? :pay, lesson_pack
   .row.message_not_approuved{ :style => 'padding:0 13px' }
     .alert.alert-warning.col-lg-12.col-md-12
       Vous devez accepter tous les cours pour confirmer
