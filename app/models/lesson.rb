@@ -82,10 +82,14 @@ class Lesson < ActiveRecord::Base
 
   # fin de l'histoire, c'est payé au prof
   def paid?
-    return true if free_lesson
+    return true if is_free_lesson?
     return false if payments.empty?
     return false if payments.any?{|payment| !payment.paid?}
     true
+  end
+
+  def is_free_lesson?
+    price == 0
   end
 
   # l'élève a payé mais le prof n'a pas encore touché l'argent
