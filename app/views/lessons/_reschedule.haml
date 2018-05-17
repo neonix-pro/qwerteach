@@ -6,18 +6,21 @@
       - if current_user.id == lesson.student.id
         - if lesson.rescheduled > 0
           .modal-body
-            Vous avez déjà déplacé ce cours une fois. Si vous devez absolument le déplacer à nouveau, adressez-vous au professeur.
+            .alert.alert-info
+              Vous avez déjà déplacé ce cours une fois. Si vous devez absolument le déplacer à nouveau, adressez-vous au professeur.
           .modal-footer
             = link_to 'Fermer', '#', 'data-dismiss'=>'modal'
         - elsif lesson.time_start < Time.now + 24.hours
           .modal-body
-            La date prévue pour ce cours est dans moins de 24h. Vous ne pouvez pas le déplacer.<br />Si vous devez absolument déplacer ce cours, adressez-vous au professeur.
+            .alert.alert-info
+              La date prévue pour ce cours est dans moins de 24h. Vous ne pouvez pas le déplacer.<br />Si vous devez absolument déplacer ce cours, adressez-vous au professeur.
           .modal-footer
             = link_to 'Fermer', '#', 'data-dismiss'=>'modal'
         - else
           .modal-body
             .alert.alert-info
               Vous pouvez déplacer le cours de manière unilatérale <b>au maximum 1 fois</b>.<br />
+              <b>Assurez-vous que la nouvelle date convienne au professeur!</b><br />
               Si vous devez déplacer le même cours une deuxième fois, adressez-vous au professeur.
             .reschedule-datetime-picker.input-group{ 'data-value' => lesson.time_start }
               = text_field_tag :_time_start, lesson.time_start, class: 'form-control', required: true
@@ -44,7 +47,7 @@
     $('.reschedule-datetime-picker').datetimepicker({
       locale: moment.locale(),
       format: "[le] DD/MM/YYYY [à] HH:mm",
-      minDate: moment("#{lesson.time_start.strftime('%F %R')}" ).add( 24, 'hours' ),
+      minDate: moment("#{Time.now.strftime('%F %R')}" ).add( 24, 'hours' ),
       allowInputToggle: true,
       sideBySide: true,
     })

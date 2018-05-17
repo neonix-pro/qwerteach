@@ -74,10 +74,12 @@ class window.PaymentForm
     alert "Error occured while registering the card: ResultCode: #{res.ResultCode} , ResultMessage: #{res.ResultMessage}"
 
   showLoader: ->
+    $('.btn-pay-by-card').prop('disabled', true).val('En cours...')
     $('.lesson-payment-wrapper').addClass('hidden')
     $('.lesson-payment-loader').removeClass('hidden')
 
   hideLoader: ->
+    $('.btn-pay-by-card').prop('disabled', false).val('Payer')
     $('.lesson-payment-wrapper').removeClass('hidden')
     $('.lesson-payment-loader').addClass('hidden')
 

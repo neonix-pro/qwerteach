@@ -31,7 +31,7 @@
         #new_card{class: ('hidden' unless current_user.mangopay.cards.empty?)}
           = render 'mangopay/card_form', remote: true, no_actions: true
         .actions
-          = submit_tag button_caption, class: 'btn-pay-by-card', 'data-disable-with' => 'En cours...'
+          = submit_tag button_caption, 'data-disable-with' => 'En cours...', 'data-confirm' => 'ah oui?', class: 'btn-pay-by-card'
     .payment_method.payment_by_wallet
       .actions
         = button_to button_caption, url.call('transfert'), method: 'post', 'data-disable-with' => 'En cours...'
