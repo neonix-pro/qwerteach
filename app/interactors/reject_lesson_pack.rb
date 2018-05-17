@@ -4,7 +4,7 @@ class RejectLessonPack < ActiveInteraction::Base
 
   def execute
     lesson_pack.status = LessonPack::Status::DECLINED
-    if lesson_pack.save
+    if lesson_pack.save(:validate => false) # to skip validation about pack items being in future
       notify if send_notification
       return lesson_pack
     else
