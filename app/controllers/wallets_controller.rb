@@ -80,7 +80,7 @@ class WalletsController < ApplicationController
     saving = Mango::SaveAccount.run( mango_account_params.merge(user: current_user) )
     if saving.valid?
       respond_to do |format|
-        format.html {redirect_to params[:redirect_to] || index_wallet_path, notice: t('notice.mango_account.update_success')}
+        format.html {redirect_to params[:redirect_to].present? ? params[:redirect_to] : index_wallet_path, notice: t('notice.mango_account.update_success')}
         format.json {render :json => {:message => "true"}}
         format.js
       end
