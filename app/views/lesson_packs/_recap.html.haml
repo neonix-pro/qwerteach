@@ -33,8 +33,7 @@
 - if can? :pay, lesson_pack
   .alert.alert-info
     %p
-      Pour accepter la proposition du professeur, vous devez valider chaque cours du forfait, en <b>cochant la case située juste à droite.</b><br />
-      Lorsque vous aurez vérifié et valisé tous les cours du forfait, vous pourrez passer à la suite.
+      Avant d'accepter la proposition, vérifiez bien <b>toutes les dates et horaires proposés</b> afin de vous assurer qu'ils vous conviennent.
 %table.table.table-striped
   %thead
     %tr
@@ -42,22 +41,22 @@
       %th Durée
       %th
         ="# reports"
-        %i#help-reports.text-green.fa.fa-question{data: {toggle: "popover", "placement":"top", "content":"L'élève peut les cours d'un forfait au maximum une fois."}}
-      - if can? :pay, lesson_pack
-        %th Accord
+        %i#help-reports.text-green.fa.fa-question{data: {toggle: "popover", "placement":"top", "content":"L'élève peut reporter les cours d'un forfait au maximum une fois."}}
+      -#- if can? :pay, lesson_pack
+      -#  %th Accord
   %tbody
     - (lesson_pack.items).each do |item|
       %tr
         %td= I18n.l item.time_start, format: :short
         %td= Duration.new(minutes: item.duration).format('%H:%M')
         %td 0
-        - if can? :pay, lesson_pack
-          %td= check_box_tag :agree, nil, false, class: 'lesson-pack-agree-with-lesson'
+        -#- if can? :pay, lesson_pack
+        -#  %td= check_box_tag :agree, nil, false, class: 'lesson-pack-agree-with-lesson'
 
--if can? :pay, lesson_pack
-  .row.message_not_approuved{ :style => 'padding:0 13px' }
-    .alert.alert-warning.col-lg-12.col-md-12
-      Vous devez accepter tous les cours pour confirmer
+-#-if can? :pay, lesson_pack
+-#  .row.message_not_approuved{ :style => 'padding:0 13px' }
+-#    .alert.alert-warning.col-lg-12.col-md-12
+-#      Vous devez accepter tous les cours pour confirmer
 
 - content_for :javascript do
   :javascript

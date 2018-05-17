@@ -24,19 +24,13 @@
             = f.select :level_id, options, { prompt: 'niveau' }, { class: 'form-control level-select', required: true }
         .row
           .col-md-12
-            %dl.lesson-pack-values.hidden
-              %dt Tarif horaire
-              %dd#rate-value -
+            .lesson-pack-values.hidden
+              Tarif horaire
+              %b#rate-value -
+              €/h
         .form-group
           = f.label :discount, 'Remise'
           = f.select :discount, [0,5,10,15,20].map { |i| ["#{i}%", i] }, {}, { class: 'form-control discount' }
-        .row
-          .col-md-12
-            %dl.lesson-pack-values.hidden
-              %dt Nombre d'heures
-              %dd#hours-value -
-              %dt Prix
-              %dd#cost-value -
         .lessons-part.hidden
           %h3 Leçons
           .alert.alert-danger.remove_lessons.hidden.lessons_alert_box{:role => 'alert'}
@@ -64,10 +58,19 @@
 
         .row
           .col-md-12
-            -# %dl.lesson-pack-values.hidden
-            %dl.lesson-pack-values
-              %dt Prix total
-              %dd#total-amount-value -
+            .lesson-pack-values
+              .hours
+                Nombre d'heures:
+                %b#hours-value -
+                h
+              .price
+                Prix:
+                %b#cost-value -
+                €
+              .total-price
+                Prix total:
+                %b#total-amount-value -
+                €
           .col-md-12.text-center{:style => "padding-bottom:40px"}
             %br
             = f.submit 'Suivant', class: 'btn btn-qw btn-green next_btn'

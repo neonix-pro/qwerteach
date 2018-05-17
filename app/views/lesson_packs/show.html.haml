@@ -22,7 +22,7 @@
           - if can? :reject, @lesson_pack
             = link_to 'Rejeter', reject_lesson_pack_path(@lesson_pack), class: 'btn btn-warning', method: :put, style: 'background-color:#f0ad4e;border-color:#f0ad4e'
           - if can? :pay, @lesson_pack
-            = link_to 'Accepter', payment_lesson_pack_path(@lesson_pack), class: 'btn btn-primary btn-approve disabled'
+            = link_to 'Accepter', payment_lesson_pack_path(@lesson_pack), class: 'btn btn-primary btn-approve'
             - content_for :javascript do
               :javascript
                 new LessonPackApprove()

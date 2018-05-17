@@ -4,8 +4,8 @@ class window.LessonPackApprove
     @initialize()
 
   initialize: () ->
-    @initEvents()
-    @changeApproveBtnState() 
+    #@initEvents()
+    #@changeApproveBtnState()
 
   initEvents: () ->
     $(document).on('change', '.lesson-pack-agree-with-lesson', (ev) => @changeApproveBtnState(ev))

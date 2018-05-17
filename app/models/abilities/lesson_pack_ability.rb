@@ -6,8 +6,9 @@ class LessonPackAbility
       can :create, LessonPack
       can :confirm, LessonPack
     end
-    can %i[show edit delete update propose], LessonPack, teacher_id: user.id #, status: %w[draft declined]
+    can %i[edit delete update propose], LessonPack, teacher_id: user.id, status: %w[draft declined pending_student]
     can :show, LessonPack, student_id: user.id #, status: 'pending_student'
+    can :show, LessonPack, teacher_id: user.id
     can [:pay, :payment, :finish_payment], LessonPack, student_id: user.id, status: 'pending_student'
     can :reject, LessonPack, student_id: user.id, status: 'pending_student'
   end
