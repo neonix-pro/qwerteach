@@ -16,7 +16,7 @@ class LessonsController < ApplicationController
     @pending_lessons = @user.pending_lessons.page(1).per(6)
     @history_lessons = @user.history_lessons.page(1).per(12)
     @lesson_packs_pending = LessonPack.pending_student.where("teacher_id = ? or student_id = ?", current_user.id, current_user.id)
-    @lesson_packs = current_user.lesson_packs.page(1).per(12)
+    @lesson_packs = current_user.lesson_packs.order(id: :desc).page(1).per(12)
     if @planned_lessons.empty? && @pending_lessons.empty?
       @teachers = Teacher.all.order(score: :desc).limit(4)
     end
