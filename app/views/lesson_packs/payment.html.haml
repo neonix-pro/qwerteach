@@ -1,16 +1,17 @@
-.container-fluid
-  .row
-    %h2.page-title-green Payer le pack de #{@lesson_pack.items.count} cours de #{@lesson_pack.topic.title} (#{@lesson_pack.topic.topic_group.title})
-  .row
-    .col-md-6.col-sm-8.col-lg-4
-      = render 'shared/payment_form', url: ->(method) { pay_lesson_pack_path(@lesson_pack, method) }, button_caption: 'Payer', amount: @lesson_pack.amount
-  - content_for :javascript do
-    :javascript
-      mangoPay.cardRegistration.baseURL = "#{MangoPay.configuration.root_url}";
-      mangoPay.cardRegistration.clientId = "#{MangoPay.configuration.client_id}";
+#lesson-pack-content
+  .container-fluid
+    .row
+      %h2.page-title-green Payer le pack de #{@lesson_pack.items.count} cours de #{@lesson_pack.topic.title} (#{@lesson_pack.topic.topic_group.title})
+    .row
+      .col-md-6.col-sm-8.col-lg-4
+        = render 'shared/payment_form', url: ->(method) { pay_lesson_pack_path(@lesson_pack, method) }, button_caption: 'Payer', amount: @lesson_pack.amount
+    - content_for :javascript do
+      :javascript
+        mangoPay.cardRegistration.baseURL = "#{MangoPay.configuration.root_url}";
+        mangoPay.cardRegistration.clientId = "#{MangoPay.configuration.client_id}";
 
-      new PaymentForm( $('#lesson-payment-form'), {
-        card_registration_url: "#{ @card_registration.card_registration_url }",
-        card_registration_id: "#{ @card_registration.id }",
-        payment_url: "#{ pay_lesson_pack_path(@lesson_pack, 'cd', card_id: '__CARD_ID__').html_safe }"
-      });
+        new PaymentForm( $('#lesson-payment-form'), {
+          card_registration_url: "#{ @card_registration.card_registration_url }",
+          card_registration_id: "#{ @card_registration.id }",
+          payment_url: "#{ pay_lesson_pack_path(@lesson_pack, 'cd', card_id: '__CARD_ID__').html_safe }"
+        });

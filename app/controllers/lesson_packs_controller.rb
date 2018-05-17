@@ -98,7 +98,7 @@ class LessonPacksController < ApplicationController
 
     respond_to do |format|
       format.html { render 'finish' }
-      #format.js { render 'finish' }
+      format.js { render 'finish' }
     end
   rescue => e
     #TODO: Exceptionally situation. Add some notifications, sentry for example

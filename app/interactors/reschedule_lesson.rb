@@ -33,7 +33,7 @@ class RescheduleLesson < ActiveInteraction::Base
   end
 
   def new_date_should_be_after_24_hours_from_now
-    if new_date > 24.hours.since
+    if new_date < 24.hours.since
       errors.add(:new_date, "La nouvelle date doit être au moins 24h dans le futur.")
     end
   end
