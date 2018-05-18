@@ -20,7 +20,7 @@ class RegistrationsController < Devise::RegistrationsController
         if session[:user_redirect_to]
           session[:user_redirect_to]
         else
-          onboarding_path(:choose_role)
+          onboarding_path(:topics)
         end
       end
     else
@@ -29,7 +29,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def sign_up_params
-    params.require(:user).permit(:firstname, :lastname, :email, :password, :source)
+    params.require(:user).permit(:firstname, :lastname, :email, :password, :source, :type)
   end
 
   def configure_permitted_parameters

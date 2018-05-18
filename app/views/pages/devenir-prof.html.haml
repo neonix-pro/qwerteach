@@ -1,69 +1,58 @@
-- content_for :analytics do
-  :javascript
-    function utmx_section(){}function utmx(){}(function(){var
-    k='142045512-4',d=document,l=d.location,c=d.cookie;
-    if(l.search.indexOf('utm_expid='+k)>0)return;
-    function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
-    indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
-    length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
-    '<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
-    '://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
-    '&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
-    valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
-    '" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
-  :javascript
-    utmx('url','A/B');
-
-%div.become-teacher-page
-  .section_video
-    .left
-      %h2 Devenir prof sur Qwerteach
-      %hr
-      %p
-        Rejoignez la communauté et partagez vos connaissances!
+.test-become-teacher
+  %nav.empty-nav
+    .container
+      .pull-left
+        =link_to root_path do
+          .logo= image_tag('logo.ico')
+      .pull-right
         %br
-        %br
-        - if current_user
-          = link_to become_teacher_path(:general_infos), class: 'btn btn-qw btn-pink signup-teacher' do
-            %i.fa.fa-long-arrow-right
-            C'est parti!
-        - else
-          = link_to new_user_registration_path, class: 'btn btn-qw btn-pink signup-teacher become-teacher' do
-            %i.fa.fa-long-arrow-right
-            C'est parti!
-    .right
-      %iframe{:src => "https://www.youtube.com/embed/kAPEzIuIg94"}
-  .section_test_classe
-    .left
-      = image_tag('become_teacher/accueil.jpg')
-    .right
-      %h2 Une nouvelle façon d'enseigner
-      %hr
-      %p
-        Dans un environnement flexible, apportez votre soutien à des élèves issus du monde entier !
-        %br
-        %br
-        -if current_user
-          = link_to become_teacher_path(:general_infos), class: 'btn btn-qw btn-pink' do
-            Poser ma candidature
-        -else
-          = link_to new_user_registration_path, class: 'btn btn-qw btn-pink become-teacher' do
-            Poser ma candidature
-  .section_etapes
-    .col
-      =image_tag("comment_ca_marche/ico_com.png", :alt => "Communiquez en direct avec votre professeur.")
-      %p La qualité de votre travail est reconnue
-    .col
-      =image_tag("comment_ca_marche/ico_formes.png", :alt => "Tracez et créez des formes géométriques grâce aux outils graphiques")
-      %p Variez vos durées de cours, innovez dans vos méthodes
-    .col
-      =image_tag("comment_ca_marche/ico_partager.png", :alt => "Partagez tout type de document avec votre professeur")
-      %p Gagnez du temps: Vous enseignez où et quand vous voulez
-    .col
-      =image_tag("comment_ca_marche/ico_record.png", :alt => "Les cours sont enregistrés pour que vous puissiez les revoir.")
-      %p Vous fixez votre prix en toute liberté
+        = link_to 'PRENDRE DES COURS >', root_path
+  %header
+    .container
+      .titles
+        %h1.text-black.text-left
+          Donnez des cours particuliers au monde entier
+        %h1.text-black.text-left.text-light Devenez prof particulier et soyez payé,<br />depuis votre canapé!
+      .form.absolute.material-form
+        %h3.text-black.text-left S'inscrire maintenant
+        =render partial: 'devise/registrations/teacher_form'
+  %header.f1
+    .header-content
+      .header-content-inner
+  %section#white
+    .container
+      .overflow
+        %h2.section-heading
+          Une nouvelle façon
+        %h2.section-heading.text-light
+          d'enseigner
+        .row#arguments
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/teacher.svg')
+              %h3.text-left Enseignez où vous voulez
+              %p.text-left Depuis votre canapé, en vacances à l'étranger... Avec Qwerteach vous êtes libres d'enseigner où vous voulez!
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/timing.svg')
+              %h3.text-left A vos horaires
+              %p.text-left Donnez cours le week-end, en soirée, ou à temps plein, à vous de choisir. Vous êtes le patron, vous fixez vos horaires de travail.
+          .col-md-4
+            .service-box
+              =image_tag('acceuil/landing_payement.svg')
+              %h3.text-left Gagnez de l'argent
+              %p.text-left Vous choisissez vous-même votre tarif, et Qwerteach sécurise vos payements. Ainsi, vous pouvez vous concentrer sur l'essentiel: la réussite de vos élèves.
+        #ready
+          %h2.section-heading
+            Prêt à démarrer ?
+          %h2.section-heading.text-light
+            Rejoignez la communauté et commencez à gagner de l'argent
+          = link_to "C'est parti", 'body', class: 'btn btn-cta btn-green'
 
 :javascript
-  $('.become-teacher').click(function(){
-    ga('send', 'event', 'click-teacher-application', $(this).text() );
+  $('.btn-cta').click(function(e){
+    e.preventDefault();
+    $('html, body').animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top
+    }, 500);
   });
