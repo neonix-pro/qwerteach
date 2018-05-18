@@ -1,7 +1,7 @@
 - url =  @lesson_pack.new_record? ? confirm_lesson_packs_path : lesson_pack_path(@lesson_pack)
 #lesson-pack-form.container-fluid
   .row
-    .col-md-12
+    .col-md-10.col-md-offset-1
       = form_for @lesson_pack, url: url do |f|
         #lesson-pack-form-errors
           = render 'shared/errors', object: @lesson_pack
@@ -25,14 +25,14 @@
         .row
           .col-md-12
             .lesson-pack-values.hidden
-              Tarif horaire
+              Tarif horaire avant remise:
               %b#rate-value -
               €/h
         .form-group
           = f.label :discount, 'Remise'
           = f.select :discount, [0,5,10,15,20].map { |i| ["#{i}%", i] }, {}, { class: 'form-control discount' }
         .lessons-part.hidden
-          %h3 Leçons
+          %h3 Cours
           .alert.alert-danger.remove_lessons.hidden.lessons_alert_box{:role => 'alert'}
           .form-group.lesson-pack-header
             .row
@@ -41,28 +41,22 @@
           .lesson-pack-items
             .alert.alert-danger.hidden.removing_lessons.lessons_alert_box{:role => 'alert'}
               Vous devez proposer minimum 5 cours!
-            -# .alert-min-lessons.alert.alert-warning.alert-dismissible{style: "display:none"}
-            -#   %button.close{"data-dismiss":"alert", "aria-label":"Close", type:"button"}
-            -#     %span{"aria-hidden":"true"}
-            -#       %i.fa.fa-times
-            -#   Vous devez proposer minimum 5 cours!
             = f.fields_for :items do |fi|
               = render 'item_fields', f: fi
           .fields-for-new-item.hidden
             = f.fields_for :items, LessonPackItem.new, child_index: '__ITEM_INDEX__' do |fi|
               = render 'item_fields', f: fi
           .alert.alert-danger.hidden.adding_lessons.lessons_alert_box{:role => 'alert'}
-            Vous ne pouvez pas dépasser 20 leçons
+            Vous ne pouvez pas dépasser 20 cours
           .form-group.text-center
-            = link_to 'Ajouter une leçon', '#', class: 'btn btn-primary btn-add-item'
+            = link_to 'Ajouter un cours', '#', class: 'btn btn-primary btn-add-item'
 
         .row
           .col-md-12
-            .lesson-pack-values
+            .lesson-pack-values.hidden
               .hours
                 Nombre d'heures:
                 %b#hours-value -
-                h
               .price
                 Prix:
                 %b#cost-value -

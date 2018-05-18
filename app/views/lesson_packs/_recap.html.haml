@@ -7,7 +7,7 @@
         %td Élève
         %td= lesson_pack.student.try(:full_name)
     %tr
-      %td # de cours
+      %td Nombre de cours
       %td= lesson_pack.items.size
     %tr
       %td Matière
@@ -17,7 +17,7 @@
       %td= lesson_pack.level.try(:title)
     %tr
       %td Total des heures
-      %td= Duration.new(minutes: lesson_pack.duration).format('%th:%M')
+      %td= Duration.new(minutes: lesson_pack.duration).format('%th%M')
     - if lesson_pack.discount > 0
       %tr
         %td Remise
@@ -40,7 +40,7 @@
       %th Date du cours
       %th Durée
       %th
-        ="# reports"
+        ="nombre de reports"
         %i#help-reports.text-green.fa.fa-question{data: {toggle: "popover", "placement":"top", "content":"L'élève peut reporter les cours d'un forfait au maximum une fois."}}
       -#- if can? :pay, lesson_pack
       -#  %th Accord

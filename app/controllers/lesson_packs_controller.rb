@@ -85,7 +85,7 @@ class LessonPacksController < ApplicationController
 
   def destroy
     @lesson_pack.destroy
-    redirect_to lesson_packs_url, notice: 'Le forfait a été supprimé.'
+    redirect_to lessons_path, notice: 'Le forfait a été supprimé.'
   end
 
   def payment_success(payment_method, transactions)

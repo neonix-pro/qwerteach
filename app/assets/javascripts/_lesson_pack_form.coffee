@@ -84,7 +84,7 @@ class window.LessonPackForm extends window.LessonForm
     cost = (@rate || 0) * duration.asHours()
     {
       rate: @rate || '-',
-      hours: "#{Math.floor(duration.asHours())}:#{duration.minutes()}",
+      hours: "#{Math.floor(duration.asHours())}h #{moment(duration._data).format('mm')}m",
       cost: Math.round(cost, 2) || '-',
       amount: Math.round(cost * (1 - @discount() / 100), 2) || '-'
     }
@@ -95,7 +95,6 @@ class window.LessonPackForm extends window.LessonForm
       .reduce(((st, el) => st + parseInt($(el).val(), 10)), 0)
 
   totalMinutes: () ->
-    console.log(@$('.lesson-pack-item:not(.hidden) .minutes-select'))
     @$('.lesson-pack-item:not(.hidden) .minutes-select')
     .toArray()
     .reduce(((st, el) => st + parseInt($(el).val(), 10)), 0)
