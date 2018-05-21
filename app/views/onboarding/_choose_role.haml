@@ -6,10 +6,12 @@
   #choose-role
     .role-teacher.role.valign-wrapper
       .role-content
-        = link_to become_teacher_path(:offers) do
-          %i.fa.fa-briefcase.fa-5x
-          %h3 Je suis prof
-          %p Je voudrais donner cours et partager mes connaissances
+        = form_for @user, as: :user, url: wizard_path, method: :put do |f|
+          = f.hidden_field :type, value: 'Parent'
+          = link_to '#', onclick: "$(this).closest('form').submit()" do
+            %i.fa.fa-briefcase.fa-5x
+            %h3 Je suis parent (ou sponsor)
+            %p Je cherche des cours pour mon enfant
     .role-student.role.valign-wrapper
       .role-content
         = link_to next_wizard_path do

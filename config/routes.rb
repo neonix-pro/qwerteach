@@ -91,6 +91,7 @@ Rails.application.routes.draw do
       get 'inactive' => :inactive_teachers, on: :collection, as: :inactive
       get 'postuling' => :postuling_teachers, on: :collection, as: :postuling
     end
+    resources :parents
     resources :pictures
     resources :galleries
     resources :postulations do

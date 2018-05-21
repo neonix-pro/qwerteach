@@ -21,6 +21,11 @@ class Student < User
     Teacher.find(id).create_postulation
   end
 
+  def upgrade_to_parent
+    self.type = User::ACCOUNT_TYPES[2]
+    self.save!
+  end
+
   def free_lessons_with(teacher)
     Lesson.where(:student => self, :teacher_id => teacher.id, :free_lesson => true).active
   end

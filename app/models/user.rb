@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   after_initialize :anonymize_deleted
   GENDER_TYPES = ["Not telling", "Male", "Female"]
-  ACCOUNT_TYPES = ["Student", "Teacher"]
+  ACCOUNT_TYPES = ["Student", "Teacher", "Parent"]
 
   devise
   paginates_per 1
@@ -41,6 +41,9 @@ class User < ActiveRecord::Base
   after_update :reprocess_avatar, :if => :cropping?
   after_create :create_gallery
   before_create { self.description ||= '' }
+
+  validates :type, inclusion: { in: ACCOUNT_TYPES,
+                                message: "type d'utilisateur non valide" }
 
   acts_as_messageable
   acts_as_commentable :admin
@@ -279,6 +282,10 @@ class User < ActiveRecord::Base
   #   false
   # end
 
+  def validate_user_type
+
+  end
+
   private
     def reprocess_avatar
       avatar.assign(avatar)
@@ -289,13 +296,13 @@ class User < ActiveRecord::Base
       self.avatar_score = 0
     end
   
-  def skip_confirmation!
-    self.confirmed_at = Time.now
-  end
-
-  def anonymize_deleted
-    if blocked?
-      self.attributes = User.new({id: id, firstname: 'Profil', lastname: 'Supprimé'}).attributes
+    def skip_confirmation!
+      self.confirmed_at = Time.now
     end
-  end
+
+    def anonymize_deleted
+      if blocked?
+        self.attributes = User.new({id: id, firstname: 'Profil', lastname: 'Supprimé'}).attributes
+      end
+    end
 end

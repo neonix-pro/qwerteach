@@ -1,7 +1,7 @@
 class OnboardingController < ApplicationController
   include Wicked::Wizard
 
-  steps :welcome, :choose_role, :topics, :phone
+  steps :welcome, :choose_role, :topics
 
   def finish_wizard_path
     profs_path
@@ -15,8 +15,6 @@ class OnboardingController < ApplicationController
       when :phone
         drip
       when :topics
-       # @topic_groups = TopicGroup.first(6)
-       # @teachers = Teacher.order(score: :desc).first(8)
         drip
         @drip.create_or_update_subscriber(current_user.email, {custom_fields: current_user.drip_custom_fields, user_id: current_user.id})
         @drip.subscribe(current_user.email, '55297918', double_optin: false)
@@ -30,8 +28,10 @@ class OnboardingController < ApplicationController
   def update
     @user = current_user
     case step
-      when :picture
+      when :choose_role
         @user.update_attributes(user_params)
+        flash[:danger] = @user.errors.full_messages unless @user.valid?
+      when :topics
       when :phone
         @user.update_attributes(user_params)
     end
@@ -41,6 +41,6 @@ class OnboardingController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:crop_x, :crop_y, :crop_w, :crop_h, :firstname, :lastname,
-                                 :description, :avatar, :phone_number, :phone_country_code)
+                                 :description, :avatar, :phone_number, :phone_country_code, :type)
   end
 end
