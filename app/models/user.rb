@@ -103,8 +103,9 @@ class User < ActiveRecord::Base
     last_seen > 10.minutes.ago unless last_seen.nil?
   end
   
-  def send_notification (subject, body, sender, obj=nil)
-    notification = self.notify(subject, body, obj, true, 100, false, sender)
+  def send_notification (subject, body, sender, obj=nil, code=100)
+    n = self.notify(subject, body, obj, true, code, false, sender)
+    notification = Notification.new(subject: subject, body: body, notification_code: code)
     PrivatePub.publish_to '/notifications/'+self.id.to_s, :notification => notification
   end
 
