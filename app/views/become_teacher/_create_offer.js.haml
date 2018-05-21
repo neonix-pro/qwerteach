@@ -4,7 +4,7 @@ $('.become-teacher-offers .offers-list').append("#{j render partial: 'become_tea
 // insert new offer form with correct id
 $('.become-teacher-offers .offer-form-wrapper').prepend("#{j render partial: 'become_teacher/offer', locals:{offer: Offer.new(), id: (@user.offers.count +1)}}");
 $('.offer-form .card-title').text('Ajouter une annonce');
-$('.offer-form .card-title').append('<br /><small>Votre annonce a bien été enregistrée. Vous pouvez en ajouter une nouvelle, ou passer à #{link_to "l'étape suivante", become_teacher_path(:general_infos)}.</small>');
+$('.offer-form .card-title').append('<br /><small>Votre annonce a bien été enregistrée. Vous pouvez en ajouter une nouvelle, ou passer à #{link_to "l'étape suivante", become_teacher_path(:avatar)}.</small>');
 $('.become-teacher-offers').animate({scrollTop: $( '.offer-form' ).offset().top}, 500);
 Materialize.updateTextFields();
 new OffersManager("#{@user.offers.count +1}", #{(Hash[*@topics.flatten]).to_json.html_safe});
