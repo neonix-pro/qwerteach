@@ -51,6 +51,8 @@ class ClientsReport < ApplicationReport
   def clients_in_period
     clients.where(
       lessons
+        .created
+        .not_free
         .project(1)
         .where(
           lessons[:time_start].between(start_date.beginning_of_day..end_date.end_of_day)
@@ -68,7 +70,7 @@ class ClientsReport < ApplicationReport
   end
 
   def lessons_in_period
-    lessons.where(lessons[:time_start].between(start_date.beginning_of_day..end_date.end_of_day))
+    lessons.created.where(lessons[:time_start].between(start_date.beginning_of_day..end_date.end_of_day))
   end
 
   def primary_key
