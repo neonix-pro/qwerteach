@@ -93,6 +93,12 @@
       text-align: center;
       transform: skew(10deg,0deg);
     }
+    #i-am-teacher{
+      position: absolute;
+      width: 100%;
+      bottom: 10%;
+      z-index: 100;
+    }
   }
   #choose-topics{
     background-color: $color_qwerteach_purple_dark;

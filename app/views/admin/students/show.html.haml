@@ -4,7 +4,7 @@
     =image_tag page.resource.avatar.url(:small), class: "header-avatar rounded"
     %h3.title
       = content_for(:title)
-      %small (Student)
+      %small (#{page.resource.type})
   .header-block.pull-right
     = link_to("Edit",[:edit, namespace, page.resource], class: "btn btn-primary")
     = link_to("Suspendre", admin_user_path(page.resource), method: :delete, class: "btn btn-warning")

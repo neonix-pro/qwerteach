@@ -10,12 +10,14 @@
           = f.hidden_field :type, value: 'Parent'
           = link_to '#', onclick: "$(this).closest('form').submit()" do
             %i.fa.fa-briefcase.fa-5x
-            %h3 Je suis parent (ou sponsor)
+            %h3 Je suis parent
             %p Je cherche des cours pour mon enfant
     .role-student.role.valign-wrapper
       .role-content
         = link_to next_wizard_path do
           %i.fa.fa-graduation-cap.fa-5x
           %h3 Je suis élève
-          %p Je cherche un prof particulier
+          %p Je cherche un prof particulier pour moi-même
+    #i-am-teacher.text-center
+      = link_to 'Je suis prof, je veux donner des cours', become_teacher_path
 
