@@ -6,7 +6,10 @@ class BecomeTeacherController < ApplicationController
   before_filter :confirm_email, only: :show
 
   def confirm_email
-    jump_to(:valid_email) unless step == :valid_email || current_user.confirmed?
+    unless (step == :valid_email || current_user.confirmed?)
+      flash[:notice] = "Rendez-vous dans votre boîte mail et cliquez sur le lien de validation pour passer à la suite!"
+      jump_to(:valid_email)
+    end
   end
 
   steps :valid_email, :offers, :avatar, :general_infos, :banking_informations, :finish_postulation
