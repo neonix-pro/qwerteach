@@ -90,8 +90,6 @@
               .actions.finish_first_step
                 %p.danger Vous devez remplir tout les champs
                 %button.jump_to_scond_step{:type => "button"} Suivant
-              .pull-right
-                =link_to 'Pas maintenant', profs_path
             
             - if !@global_request.errors.any?
               .last_step
