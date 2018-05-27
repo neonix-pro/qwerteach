@@ -57,4 +57,17 @@ class Postulation < ActiveRecord::Base
   def completed?
     corrections_needed.blank?
   end
+
+  def generated_text(admin)
+    greetings = "(Vous venez d'être pris en charge par un administrateur) <br />"
+    greetings += I18n.translate('admin.teacher.greetings', name: teacher.firstname)
+    reason = I18n.translate('admin.teacher.postulation.contact')
+    # if corrections_needed
+    #   reason +=  I18n.translate('admin.teacher.postulation.change')
+    # end
+    #changes = correction_text
+    changes = I18n.translate('admin.teacher.postulation.change')
+    changes += "\r\n"+admin.firstname
+    [greetings, reason, changes].join("\r\n")
+  end
 end
