@@ -172,6 +172,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:update]
+  get 'users/privacy' => "users#privacy_list", as: 'user_privacy'
 
   get 'dashboard' => 'dashboards#index', :as => 'dashboard'
   get 'featured_reviews' => 'reviews#featured_reviews'

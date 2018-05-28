@@ -278,6 +278,12 @@ class User < ActiveRecord::Base
     ActiveSupport::TimeZone.new(time_zone).utc_offset / 3600
   end
 
+  def gdpr_attributes
+    self.attributes.except!("encrypted_password", "reset_password_token", "confirmation_token", "unlock_token", "admin", "mango_id",
+    "score", "response_rate", "response_time", "average_response_time", "avatar_score", "sms_allowed", "tokens", "authentication_token", "source"
+    )
+  end
+
   protected
   # def confirmation_required?
   #   false

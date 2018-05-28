@@ -8,11 +8,11 @@
         .card-title
           Mon activité
         %p
-          %span.text-green #{past_lessons_given.count}
+          %span.text-green #{past_lessons_taken.count}
           cours donnés à
           %br
-          %span.text-green #{past_lessons_given.distinct.count(:student_id)}
+          %span.text-green #{past_lessons_taken.distinct.count(:student_id)}
           élèves,
           %br
           pour un total de
-          %span.text-green #{past_lessons_given.sum(:price)}€
+          %span.text-green #{past_lessons_taken.sum(:price)}€

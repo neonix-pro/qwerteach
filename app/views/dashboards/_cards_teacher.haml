@@ -1,5 +1,5 @@
 .col-md-3.col-sm-6
-  = render partial: 'dashboards/cards/teacher_stats'
+  = render partial: 'dashboards/cards/teacher_stats', locals: {past_lessons_given: @past_lessons_given}
 .col-md-3.col-sm-6
   = render partial: 'dashboards/cards/past_lessons_given'
 .col-md-3.col-sm-6

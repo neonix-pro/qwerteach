@@ -1,0 +1,49 @@
+#edit-profile
+  .container-fluid
+    = render partial: 'users/privacy/header'
+  .container
+    #general-infos
+      .row
+        .col-md-6
+          - for attribute in @user.gdpr_attributes.keys
+            %p
+              = "#{t attribute.humanize}: "
+              - if @user.attributes[attribute].in? [true, false]
+                = @user.attributes[attribute] ? "Oui": "Non"
+              - else
+                = "#{@user.attributes[attribute].to_s == "" ? "/" : @user.attributes[attribute].to_s }"
+        .col-md-6
+          %h3 Votre activité sur Qwerteach:
+          %p
+            - if @user.is_a?(Teacher)
+              Vous êtes inscrit sur Qwerteach comme <b>prof</b>.
+              %br
+              - if @user.postulance_accepted
+                Votre candidature a été validée par un admin vous pouvez donc donner des cours.
+                %h6 Vos cours
+                = render partial: 'dashboards/cards/teacher_stats', locals: {past_lessons_given: @user.lessons_given.past.created}
+              - else
+                Votre candidature n'a pas encore été validée par un admin. Votre profil n'est pas encore visible dans les résultats de recherche.
+            - elsif @user.is_a?(Parent)
+              Vous êtes inscrit sur Qwerteach comme <b>parent</b>.
+              %br
+              Vous cherchez un professeur particulier pour votre enfant.
+            - elsif @user.is_a?(Student)
+              Vous êtes inscrit sur Qwerteach comme <b>élève</b>.
+              %h6 Vos cours
+              = render partial: 'dashboards/cards/student_stats', locals: {past_lessons_taken: @user.lessons_received.past.created}
+      .row
+        %h3 Pourquoi collectons-nous vos données?
+        .col-md-12
+          %p
+            Afin de vous rendre un service de qualité, Qwerteach garde en mémoire certaine sinformations vous concernant.
+            Il s'agit de la liste ci-dessus, ainsi que de votre activité sur le site en termes de cours (cours reçus et donnés).
+            <br />
+            Vous trouverez plus d'information sur l'utilisationd e vos données personnelles dans nos #{link_to "conditions générales d'utilisation", pages_path("conditions-generales")}
+      .row
+        %h3 Supprimer mon profil
+        .col-md-12
+          %p Vous ne souhaitez plus utiliser Qwerteach ? En cliquant sur le bouton ci-dessous, vous supprimerez votre compte, et toutes les données le concernant.
+          =button_to "Supprimer mon profil", user_registration_path, method: :delete, class: "btn btn-danger red"
+          %hr
+
