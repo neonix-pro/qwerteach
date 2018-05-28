@@ -179,10 +179,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def privacy_list
-    @user = current_user
-  end
-
   private
     def user_params
       params.require(:user).permit(:firstname, :lastname, :birthdate, :phone_country_code, :phone_number,
