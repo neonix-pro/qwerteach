@@ -64,3 +64,15 @@ expire_global_requests:
   class: ExpireGlobalRequests
   queue: bookings
   description: "Change status of global requests to expired"
+
+contact_postuling_teachers:
+  cron: "30 20 * * *"
+  class: ContactPostulingTeachers
+  queue: notifications
+  description: "Contacts postuling teachers who haven't been contacted yet"
+
+contact_postuling_teachers:
+  cron: "30 8 * * *"
+  class: ContactPostulingTeachers
+  queue: notifications
+  description: "Contacts postuling teachers who haven't been contacted yet"
