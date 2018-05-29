@@ -73,11 +73,11 @@ class LessonsReport < ApplicationReport
   end
 
   def created_lessons
-    lessons.where(lessons[:status].eq Lesson.statuses[:created])
+    lessons.where(lessons[:price].gt 0).where(lessons[:status].eq Lesson.statuses[:created])
   end
 
   def expired_lessons
-    lessons.where(lessons[:status].eq Lesson.statuses[:expired])
+    lessons.where(lessons[:price].gt 0).where(lessons[:status].eq Lesson.statuses[:expired])
   end
 
   def unpaid_lessons
