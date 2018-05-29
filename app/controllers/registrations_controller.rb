@@ -13,7 +13,9 @@ class RegistrationsController < Devise::RegistrationsController
   def destroy
     @user = current_user
     # unsubscribe from drip, sendgrid... Send email?
-    #@user.update(blocked: true)
+    drip
+    @drip.delete_subscriber(@user.email)
+    @user.update(blocked: true)
     Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
     set_flash_message :notice, :destroyed
     yield resource if block_given?
