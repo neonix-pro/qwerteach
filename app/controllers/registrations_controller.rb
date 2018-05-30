@@ -10,6 +10,18 @@ class RegistrationsController < Devise::RegistrationsController
     sign_in(:user, resource)
   end
 
+  def destroy
+    @user = current_user
+    # unsubscribe from drip, sendgrid... Send email?
+    drip
+    @drip.delete_subscriber(@user.email)
+    @user.update(blocked: true)
+    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+    set_flash_message :notice, :destroyed
+    yield resource if block_given?
+    respond_with_navigational(resource){ redirect_to after_sign_out_path_for(resource_name) }
+  end
+
   private
 
   def after_sign_up_path_for(resource)

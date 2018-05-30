@@ -540,7 +540,47 @@ fr:
       students_count: '#active students (#new students)'
       teachers_count: '#active teachers (#new teachers)'
       disputes_count: '# of disputes'
-
-
+  Id: Id
+  Firstname: Prénom
+  Lastname: Nom de famille
+  Birthdate: Date de naissance
+  Login: Pseudo
+  Description: Description
+  Gender: Genre
+  Phone number: Numéro de téléphone
+  Type: Type
+  Level: Niveau d'études atteint
+  First lesson free: Accepte de donner un premiers cours gratuit
+  Accepts post payments: Accepte les réservations non pré-payées
+  Occupation: Profession
+  Postulance accepted: Candidature pour être professeur acceptée
+  Teacher status: Statut d'activité
+  Email: E-mail
+  Reset password sent at: Ré-initialisation du mot de passe envoyée à
+  Remember created at: A demandé à retenir la session le
+  Sign in count: Nombre de connexions à Qwerteach
+  Current sign in at: Début de la session actuelle
+  Last sign in at: Date de la dernière session
+  Current sign in ip: IP de la session actuelle
+  Last sign in ip: IP de la dernière session
+  Confirmed at: Date de confirmation de l'E-mail
+  Confirmation sent at: Date d'envoie de l'e-mail de confirmation
+  Unconfirmed email: E-mail non confirmé
+  Failed attempts: Echecs de connexion
+  Locked at: Compte bloqué le
+  Created at: Date de création du compte
+  Updated at: Date de dernière modification
+  Avatar file name: Nom du fichier de l'avatar
+  Avatar content type: Type de fichier de l'avatar
+  Avatar file size: Taille du fichier de l'avatar
+  Avatar updated at: Date de dernière modification de l'avatar
+  Last seen: Date de dernière action
+  Time zone: Fuseau horaire
+  Provider: Inscription via un site tiers
+  Uid: Identifiant sur site externe
+  Phone country code: Préfixe téléphonique
+  Active: Compte actif
+  Blocked: Compte bloqué
+  Video url: Adresse de la vidéo du profil
 
 

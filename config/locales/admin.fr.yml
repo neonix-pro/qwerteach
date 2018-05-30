@@ -12,8 +12,8 @@ fr:
     teacher:
       greetings: "Bonjour %{name},  et bienvenue sur Qwerteach!"
       postulation:
-        contact: "Je vous contacte car vous postulez comme professeur. "
-        change: "Avant de vous faire apparaître sur le site, nous avons besoin de vérifier certaines informations. Pour ce faire, nous avons besoin que vous complétiez entièrement votre profil:"
+        contact: "Je vous contacte car vous postulez comme professeur. Votre profil nous paraît intéressant, cependant vous n'êtes pas encore visible sur le site. En effet, seuls les professeurs approuvés sont exposés dans les résultats de recherche. Pour être approuvée, il vous faut encore passer par une interview avec un des membres de notre équipe, et donner votre premier cours!"
+        change: "En ce qui concerne l'interview, avez-vous des disponibilités entre 11h et 17h lundi, mercredi vendredi ? Cette étape est nécessaire pour faire avancer votre candidature.\r\r\r\nJ'attend votre retour!"
         corrections:
           mangopay: "Prenez le temps de configurer votre portefeuille virtuel: nous avons besoin de vos coordonnées bancaires pour pouvoir vous payer."
           email: "Validez votre e-mail: nous vous avons envoyé un lien de confirmation par e-mail, cliquez dessus pour le valider."

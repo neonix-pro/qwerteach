@@ -53,6 +53,13 @@
     :javascript
         PrivatePub.subscribe("/notifications/#{current_user.id}", function(data, channel) {
             Notifications.numberOfUnreadNotifications();
+            flash = '#{j render partial: 'shared/flash_dismiss', locals: {type: 'notice', content: '%content%'} }';
+
+            if (data.notification.notification_code == "200")
+            {
+              flash = flash.replace('%content%', data.notification.subject);
+              $('#flash-messages').prepend(flash);
+            }
         });
         PrivatePub.subscribe("/chat/#{current_user.id}", function(data, channel) {
             Messages.numberOfUnreadMessages();

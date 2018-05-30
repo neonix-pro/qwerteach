@@ -65,10 +65,10 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     respond_with @room do |format|
       if @room.save
         message = t('bigbluebutton_rails.rooms.notice.create.success')
-        subject = current_user.firstname + " vous invite dans une classe. "
+        subject = current_user.firstname + " vous invite dans une classe virtuelle. "
         subject += link_to('Cliquez ici', join_bigbluebutton_room_path(@room), target: '_blank') + " pour la rejoindre."
         body = "" + join_bigbluebutton_room_path(@room).to_s
-        @interviewee.send_notification(subject, body, current_user) unless @interviewee.nil?
+        @interviewee.send_notification(subject, body, current_user, nil, 200) unless @interviewee.nil?
         format.html {
           redirect_to_using_params join_bigbluebutton_room_path(@room)
         }

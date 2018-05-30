@@ -69,7 +69,7 @@ class LessonsReport < ApplicationReport
   end
 
   def lessons
-    Lesson.where('price > 0').arel_table
+    Lesson.arel_table
   end
 
   def created_lessons

@@ -103,8 +103,9 @@ class User < ActiveRecord::Base
     last_seen > 10.minutes.ago unless last_seen.nil?
   end
   
-  def send_notification (subject, body, sender, obj=nil)
-    notification = self.notify(subject, body, obj, true, 100, false, sender)
+  def send_notification (subject, body, sender, obj=nil, code=100)
+    n = self.notify(subject, body, obj, true, code, false, sender)
+    notification = Notification.new(subject: subject, body: body, notification_code: code)
     PrivatePub.publish_to '/notifications/'+self.id.to_s, :notification => notification
   end
 
@@ -275,6 +276,12 @@ class User < ActiveRecord::Base
 
   def time_zone_hours_offset
     ActiveSupport::TimeZone.new(time_zone).utc_offset / 3600
+  end
+
+  def gdpr_attributes
+    self.attributes.except!("encrypted_password", "reset_password_token", "confirmation_token", "unlock_token", "admin", "mango_id",
+    "score", "response_rate", "response_time", "average_response_time", "avatar_score", "sms_allowed", "tokens", "authentication_token", "source"
+    )
   end
 
   protected
