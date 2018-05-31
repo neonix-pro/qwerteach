@@ -12,7 +12,7 @@ class ConversationsController < ApplicationController
     @user = current_user
     @mailbox_type = params[:mailbox].nil? ? 'inbox': params[:mailbox]
     @unread_count = @mailbox.inbox({:read => false}).count
-    @conversations = @mailbox.conversations.where('count()').page(params[:page]).per(MESSAGES_PER_PAGE)
+    @conversations = @mailbox.conversations.page(params[:page]).per(MESSAGES_PER_PAGE)
     if current_user.is_admin?
 
     end

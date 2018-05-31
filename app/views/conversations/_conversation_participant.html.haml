@@ -24,6 +24,24 @@
     = link_to 'Réserver un cours', new_user_lesson_request_path(user)
 - if current_user.is_a?(Teacher)
   .participant-cta
-    = link_to 'Proposer un cours', new_lesson_proposal_path(user)
-  .participant-cta
-    = link_to 'Proposer un forfait', new_lesson_pack_path(user)
+    %a{href: '#new-lesson-modal', data:{toggle: 'modal'}}
+      Proposer un cours
+
+  #new-lesson-modal.modal.fade
+    .modal-dialog{role:'document'}
+      .modal-content
+        .modal-header
+          %h3.text-black Inviter l'élève à prendre cours avec vous
+        .modal-body
+          .row
+            .col-sm-6.text-center.text-black
+              %i.fa.fa-user.fa-2x
+              %br
+              Planifier un cours unique
+              = link_to 'Proposer un cours', new_lesson_proposal_path(user), class: 'btn qwerteach-blue'
+            .col-sm-6.text-center.text-black
+              %i.fa.fa-calendar.fa-2x
+              %br
+              Planifier des cours réguliers
+              = link_to 'Proposer un forfait', new_lesson_pack_path(user), class: 'btn qwerteach-green'
+
