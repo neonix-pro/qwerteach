@@ -255,7 +255,7 @@ class LessonsController < ApplicationController
       else
         LessonNotificationsJob.perform_async(:notify_teacher_about_reschedule_lesson, @lesson.id)
       end
-      redirect_to lesson_path(@lesson), notice: 'Le cours a bien été déplacé.'
+      redirect_to lesson_path(@lesson), flash: {notice: 'Le cours a bien été déplacé.'}
     else
       redirect_to lesson_path(@lesson), flash: { danger: rescheduling.errors.full_messages.first }
     end

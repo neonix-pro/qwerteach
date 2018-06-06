@@ -16,6 +16,12 @@
               La date prévue pour ce cours est dans moins de 24h. Vous ne pouvez pas le déplacer.<br />Si vous devez absolument déplacer ce cours, adressez-vous au professeur.
           .modal-footer
             = link_to 'Fermer', '#', 'data-dismiss'=>'modal'
+        - elsif lesson.lesson_pack_id.nil?
+          .modal-body
+            .alert.alert-info
+              Vous ne pouvez pas déplacer ce cours unilatéralement. Adressez vous au professeur pour trouver ensemble une nouvelle date. Le professeur procèdera alors à la modification.
+          .modal-footer
+            = link_to 'Fermer', '#', 'data-dismiss'=>'modal'
         - else
           .modal-body
             .alert.alert-info
