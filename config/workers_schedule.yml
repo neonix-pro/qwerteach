@@ -16,13 +16,6 @@ update_server_configs:
   class: BigbluebuttonUpdateServerConfigs
   description: "Updates the server configs that are stored locally. Same as 'rake bigbluebutton_rails:server_configs:update'."
 
-#stat_message:
-#  every:
-#    - "1h"
-#  class: MessageStatWorker
-#  queue: message_stat
-#  description: "MaJ Stat UserMessage"
-
 lesson_notifier:
   every:
     - "1m"
@@ -66,7 +59,7 @@ expire_global_requests:
   description: "Change status of global requests to expired"
 
 contact_postuling_teachers:
-  cron: "30 20 * * *"
+  cron: "30 17 * * *"
   class: ContactPostulingTeachers
   queue: notifications
   description: "Contacts postuling teachers who haven't been contacted yet"
