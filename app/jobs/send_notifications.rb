@@ -12,7 +12,8 @@ class SendNotifications
     # end
 
     ActiveRecord::Base.transaction do
-      receipts = user.receipts.joins(:notification).where(is_read: false, mailboxer_notifications:{type: 'messages'}).lock(true)
+      receipts = user.receipts.joins(:notification).where(is_read: false, mailboxer_notifications:{type: 'Mailboxer::Message'}).lock(true)
+
       # receipts = user.receipts.joins(:notification).joins(:sender)
         # .where(is_read: false).where(mailboxer_notifications:{type: 'messages'})
 
