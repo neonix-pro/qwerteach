@@ -1,7 +1,7 @@
 class SendNotifications
   @queue = :messages
 
-  COOLDOWN_PERIOD = 1.hour
+  COOLDOWN_PERIOD = 1.minute
 
   def self.perform(id)
     user = User.find(id) 
@@ -12,20 +12,20 @@ class SendNotifications
     # end
 
     ActiveRecord::Base.transaction do
-      receipts = user.receipts.joins(:notification).where(is_read: false, mailboxer_notifications:{type: 'Mailboxer::Message'})
+      receipts = user.receipts.joins(:notification).where(is_read: false, delivery_method: nil)
 
       # receipts = user.receipts.joins(:notification).joins(:sender)
         # .where(is_read: false).where(mailboxer_notifications:{type: 'messages'})
-
-      most_recent = receipts.map(&:created_at).max
-
+      messages = receipts.where(mailboxer_notifications:{type: 'Mailboxer::Message'})
+      most_recent = messages.map(&:created_at).max
       if most_recent && (most_recent < (Time.now - COOLDOWN_PERIOD))
 
-        notifications = Mailboxer::Notification.find(receipts.map(&:notification_id))
+        notifications = Mailboxer::Notification.find(messages.map(&:notification_id))
         # notifications = Mailboxer::Notification.find(receipts)
         Rails.logger.info "Sending #{notifications.size} notification(s) to #{user.email}"
         NotificationsMailer.notifications_email(user, notifications).deliver
-        user.receipts.where(id: receipts.map(&:id)).update_all(delivery_method: 'email')
+        ids = receipts.map(&:id).to_ary
+        user.receipts.where(id: ids).update_all(delivery_method: 'email')
       else
         Rails.logger.info "Waiting before sending notifications to #{user.email}"
       end
