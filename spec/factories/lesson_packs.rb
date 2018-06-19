@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :lesson_pack do
     status LessonPack::Status::DRAFT
     teacher { build(:teacher) }
@@ -8,7 +8,7 @@ FactoryGirl.define do
     discount 1
     trait :with_items do
       #association :items, factory: :lesson_pack_item, strategy: :build
-      items { FactoryGirl.build_list(:lesson_pack_item, 5) }
+      items { FactoryBot.build_list(:lesson_pack_item, 5) }
     end
   end
 

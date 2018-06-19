@@ -39,7 +39,7 @@ RSpec.describe PayLessonByBancontact do
     })
     @lesson.save_draft(user)
 
-    #Mango::SaveAccount.run FactoryGirl.attributes_for(:mango_user).merge(user: @user)
+    #Mango::SaveAccount.run FactoryBot.attributes_for(:mango_user).merge(user: @user)
   end
 
   it 'save draft lesson and create locked payment' do

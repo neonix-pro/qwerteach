@@ -31,10 +31,10 @@ feature "payment" do
   end
   def create_user_with_mango
     create_user
-    Mango::SaveAccount.run FactoryGirl.attributes_for(:mango_user).merge(user: @user)
+    Mango::SaveAccount.run FactoryBot.attributes_for(:mango_user).merge(user: @user)
   end
 
   def create_user
-    @user = FactoryGirl.create(:user, email: FFaker::Internet.email)
+    @user = FactoryBot.create(:user, email: FFaker::Internet.email)
   end
 end

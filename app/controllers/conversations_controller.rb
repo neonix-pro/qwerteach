@@ -64,7 +64,7 @@ class ConversationsController < ApplicationController
     @messages = @conversation.messages.page(@page).per(MESSAGES_PER_PAGE).order(id: :desc)
     @last_message = @messages.last
     @message = Mailboxer::Message.new
-    Resque.enqueue(MessageStatWorker, current_user.id)
+    #Resque.enqueue(MessageStatWorker, current_user.id)
     @unread_count = @mailbox.inbox({:read => false}).count
     @path = reply_conversation_path(@conversation)
   end

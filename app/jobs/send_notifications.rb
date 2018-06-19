@@ -1,7 +1,7 @@
 class SendNotifications
   @queue = :messages
 
-  COOLDOWN_PERIOD = 1.minute
+  COOLDOWN_PERIOD = 10.minutes
 
   def self.perform(id)
     user = User.find(id) 

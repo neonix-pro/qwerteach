@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe CalculateLessonPrice do
 
   before :each do
-    @teacher = FactoryGirl.create(:teacher, email: FFaker::Internet.email)
-    @offer = FactoryGirl.create(:offer, user: @teacher)
+    @teacher = FactoryBot.create(:teacher, email: FFaker::Internet.email)
+    @offer = FactoryBot.create(:offer, user: @teacher)
   end
 
   it 'calculate lesson price for level 5' do

@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :dispute do
-    user { FactoryGirl.create(:student) }
-    lesson { FactoryGirl.create(:lesson, :paid) }
+    user { FactoryBot.create(:student) }
+    lesson { FactoryBot.create(:lesson, :paid) }
   end
 end

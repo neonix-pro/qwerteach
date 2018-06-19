@@ -11,7 +11,7 @@ feature "Wallets" do
     expect(page).to have_content('Se connecter')
   end
   xscenario "GET /wallets logged in", vcr: true do
-     user = FactoryGirl.create(:student, email: FFaker::Internet.email)
+     user = FactoryBot.create(:student, email: FFaker::Internet.email)
      login_user(user.email, user.password)
      visit index_wallet_path
      expect(page).to have_content("vous devez configurer votre portefeuille")

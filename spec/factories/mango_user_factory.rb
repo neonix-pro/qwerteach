@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :mango_user, class: Mango::SaveAccount do
     # string :first_name, :last_name, :country_of_residence, :nationality
     # string :street, :number, :address_line1, :address_line2, :postal_code, :city, :region, :country

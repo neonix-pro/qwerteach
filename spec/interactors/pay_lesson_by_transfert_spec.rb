@@ -11,7 +11,7 @@ RSpec.describe PayLessonByTransfert do
 
   before :each do
     @user = user
-    Mango::SaveAccount.run FactoryGirl.attributes_for(:mango_user).merge(user: user)
+    Mango::SaveAccount.run FactoryBot.attributes_for(:mango_user).merge(user: user)
 
 
     @lesson = Lesson.new(attributes_for(:lesson, {

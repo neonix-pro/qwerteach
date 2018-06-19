@@ -20,7 +20,7 @@ RSpec.describe OffersController, type: :controller do
       end
 
       it "edit" do
-          @offer = FactoryGirl.create(:offer)
+          @offer = FactoryBot.create(:offer)
           get 'edit', :id => offers.last.id
           expect(response).to be_success
       end

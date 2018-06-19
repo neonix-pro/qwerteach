@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe CreateLessonRequest do
 
   before :each do
-    @user = FactoryGirl.create(:student, email: FFaker::Internet.email)
-    @teacher = FactoryGirl.create(:teacher, email: FFaker::Internet.email)
-    @offer = FactoryGirl.create(:offer, user: @teacher)
+    @user = FactoryBot.create(:student, email: FFaker::Internet.email)
+    @teacher = FactoryBot.create(:teacher, email: FFaker::Internet.email)
+    @offer = FactoryBot.create(:offer, user: @teacher)
   end
 
   it 'create draft version of lesson' do

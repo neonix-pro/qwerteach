@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :global_request do
     user nil
     topic nil

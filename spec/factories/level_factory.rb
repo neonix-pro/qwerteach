@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :level do
     level { rand(1..20) }
     code { ["scolaire", "divers", "langue"].sample }

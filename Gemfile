@@ -117,7 +117,7 @@ gem 'resque', :require => "resque/server"
 
 gem 'devise_lastseenable'
 
-gem "factory_girl_rails", "~> 4.0"
+gem "factory_bot_rails"
 
 gem 'capybara'
 
