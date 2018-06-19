@@ -322,5 +322,7 @@ Rails.application.routes.draw do
   resources :interests
   resources :masterclass, only: [:index, :create], path_names: {create: 'create_masterclass'}
 
-  #root to: 'pages#index'
+  get "/404", to: "errors#not_found"
+  get "/422", to: "errors#unacceptable"
+  get "/500", to: "errors#internal_server_error"
 end

@@ -1,0 +1,11 @@
+.container-fluid
+  .row
+    %h2.page-title-green Oops! Il y a eu un problème... Erreur 500!
+.container
+  .row
+    %h2.text-center
+      %small Il y a eu un problème de notre côté, nous travaillons à le résoudre au plus vite. Toutes nos excuses!
+    .text-center
+      = link_to 'Retour', request.referer.present? ? request.referer : root_path
+    .col-sm-8.col-sm-offset-2
+      = image_tag 'errors/thumbeast_500.png', class: 'image-100'
