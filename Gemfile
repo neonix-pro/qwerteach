@@ -119,7 +119,9 @@ gem 'devise_lastseenable'
 
 gem "factory_bot_rails"
 
-gem 'capybara'
+#gem 'capybara'
+
+gem 'mysql2'
 
 gem "rails-erd"
 
@@ -167,7 +169,7 @@ end
 
 group :test do
   gem 'sqlite3', '1.3.11'
-  gem 'capybara-screenshot'
+  #gem 'capybara-screenshot'
   gem 'sunspot-rails-tester'
   gem 'database_cleaner'
   gem 'resque_spec'
@@ -176,14 +178,13 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-  gem 'mysql2'
   gem 'figaro'
   gem 'letter_opener'
   #gem 'rails-dev-tweaks', '~> 1.1'
 end
 
 group :production do
-  gem 'mysql2'
+  #gem 'mysql2'
   #gem 'thin'
 end
 
