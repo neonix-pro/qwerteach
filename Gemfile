@@ -36,7 +36,7 @@ gem 'drip-ruby', require: 'drip'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', github: 'rails/jbuilder'
+gem 'jbuilder', git: 'https://github.com/rails/jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
@@ -45,7 +45,7 @@ gem 'devise', '3.4.1'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'materialize-sass', '~> 0.98.2'
-gem 'bootstrap4', github: 'shredder-rull/bootstrap-rubygem'
+gem 'bootstrap4', git: 'https://github.com/shredder-rull/bootstrap-rubygem'
 
 gem 'jquery-turbolinks'
 # droits d'accès
@@ -65,8 +65,8 @@ gem 'jcrop-rails-v2'
 # datepicker calendar
 gem 'bootstrap-datepicker-rails'
 #interface admin
-gem 'administrate', github: 'thoughtbot/administrate' #'~> 0.7'
-gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'administrate', git: 'https://github.com/thoughtbot/administrate' #'~> 0.7'
+gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack'
 
 # autocomplete search
 gem 'rails-jquery-autocomplete'
