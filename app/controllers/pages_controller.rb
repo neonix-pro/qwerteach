@@ -8,9 +8,11 @@ class PagesController < ApplicationController
 
 	#page d'accueil
 	def index
-		@featured_teachers =  User.where(postulance_accepted: true).where.not(avatar_score: nil).limit(13).order(avatar_score: :desc)
+		# @featured_teachers =  User.where(postulance_accepted: true).where.not(avatar_score: nil).limit(13).order(avatar_score: :desc)
+		@featured_teachers_landing =  User.where(postulance_accepted: true).where.not(avatar_score: nil).limit(13).order(avatar_score: :desc)
 		@featured_reviews =  Review.where.not(:review_text => "").order("created_at DESC").uniq.limit(3)
-    @featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)
+		@featured_topics = TopicGroup.where(featured: true) + Topic.where(featured: true)
+		render layout: 'no-navbar'
 	end
 
   def faq
