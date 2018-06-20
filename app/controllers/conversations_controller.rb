@@ -12,7 +12,7 @@ class ConversationsController < ApplicationController
     @user = current_user
     @mailbox_type = params[:mailbox].nil? ? 'inbox': params[:mailbox]
     @unread_count = @mailbox.inbox({:read => false}).count
-    @conversations = @mailbox.conversations.where('count()').page(params[:page]).per(MESSAGES_PER_PAGE)
+    @conversations = @mailbox.conversations.page(params[:page]).per(MESSAGES_PER_PAGE)
     if current_user.is_admin?
 
     end
@@ -64,7 +64,7 @@ class ConversationsController < ApplicationController
     @messages = @conversation.messages.page(@page).per(MESSAGES_PER_PAGE).order(id: :desc)
     @last_message = @messages.last
     @message = Mailboxer::Message.new
-    Resque.enqueue(MessageStatWorker, current_user.id)
+    #Resque.enqueue(MessageStatWorker, current_user.id)
     @unread_count = @mailbox.inbox({:read => false}).count
     @path = reply_conversation_path(@conversation)
   end

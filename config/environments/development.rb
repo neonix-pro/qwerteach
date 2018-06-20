@@ -57,7 +57,7 @@ Rails.application.configure do
   config.web_console.whitelisted_ips = '0.0.0.0/0.0.0.0'
 
   # background image in css file
-  config.serve_static_assets = true
+  config.serve_static_files = true
 
   config.action_mailer.smtp_settings = {
       :user_name => ENV['SENDGRID_USERNAME'],

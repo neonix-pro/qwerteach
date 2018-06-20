@@ -1,5 +1,5 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :gallery do
-    user_id { FactoryGirl.create(:student).id }
+    user_id { FactoryBot.create(:student).id }
   end
 end

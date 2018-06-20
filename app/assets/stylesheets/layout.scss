@@ -628,3 +628,16 @@ table{
 #tawk-btn:hover{
   cursor:pointer;
 }
+
+.btn.qwerteach-green {
+  background-color: $color_qwerteach_green;
+}
+.btn.qwerteach-green:hover{
+  background-color: #8bedbc;
+}
+.btn.qwerteach-blue{
+  background-color: $color-qwerteach-blue;
+}
+.btn.qwerteach-blue:hover{
+  background-color: #60d3ff;
+}

@@ -46,6 +46,32 @@
     %h3 Supprimer mon profil
     .col-md-12
       %p Vous ne souhaitez plus utiliser Qwerteach ? En cliquant sur le bouton ci-dessous, vous supprimerez votre compte, et toutes les données le concernant.
-      =button_to "Supprimer mon profil", user_registration_path, method: :delete, class: "btn btn-danger red"
+      =link_to "Supprimer mon profil", '#confirm-deletion', {data: {toggle: 'modal'}, class: "btn btn-danger red"}
       %hr
 
+
+.modal.fade#confirm-deletion
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", "aria-hidden" => "true"} &times;
+        %h4 Êtes-vous sûr de vouloir supprimer votre profil Qwerteach?
+      .modal-body
+        %p
+          En cliquant sur "supprimer", vous effacerez définitivement votre compte Qwerteach,
+          et supprimerez toutes vos données de notre base de données.
+          %hr.text-green
+        %p
+          %small
+            Cependant, vos données bancaires, lesquelles sont gérées par notre partenaire de payements électroniques,
+            MANGOPAY, ne seront pas effacées de leurs serveurs.
+            %br
+            En effet, dans le cadre de la lutte contre la fraude et le blanchiment d'argent,
+            la société MANGOPAY est tenue de les conserver pendant 5 ans après la dernière utilisation du compte.
+            %br
+            Ces données ne seront pas utilisées à des fins publicitaires ni communiquées à des tiers.
+            = link_to 'En savoir plus.', pages_path('conditions-generales')
+        %p.text-center.text-red
+          %i.fa.fa-warning
+          Attention, cette action est irréversible!
+          =button_to "Supprimer mon profil", user_registration_path, method: :delete, class: "btn btn-danger red"

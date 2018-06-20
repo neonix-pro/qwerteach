@@ -29,7 +29,7 @@ RSpec.describe PayLessonWithCard do
   let(:transaction_id){ 8494514 }
 
   before :each do
-    @lesson = FactoryGirl.build(:lesson, {
+    @lesson = FactoryBot.build(:lesson, {
       student: user,
       teacher: teacher,
       topic: offer.topic,
@@ -42,7 +42,7 @@ RSpec.describe PayLessonWithCard do
     @lesson.save_draft(@user)
     expect(MangoPay::PayIn).to receive(:fetch).with(transaction_id).and_return(transaction)
     expect_any_instance_of(Student).to receive(:mangopay).and_return( Struct.new(:cards).new([]) )
-    #Mango::SaveAccount.run FactoryGirl.attributes_for(:mango_user).merge(user: @user)
+    #Mango::SaveAccount.run FactoryBot.attributes_for(:mango_user).merge(user: @user)
   end
 
   it 'save draft lesson and create prepayment' do

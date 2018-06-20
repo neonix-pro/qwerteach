@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Mango::Payout do
 
   before :each do
-    @user = FactoryGirl.create(:rand_user)
-    Mango::SaveAccount.run FactoryGirl.attributes_for(:mango_user).merge(user: @user)
+    @user = FactoryBot.create(:rand_user)
+    Mango::SaveAccount.run FactoryBot.attributes_for(:mango_user).merge(user: @user)
   end
 
   it 'makes payout', vcr: true do

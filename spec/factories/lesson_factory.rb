@@ -1,20 +1,20 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :lesson do
 
-    student{ FactoryGirl.create(:student) }
-    teacher{ FactoryGirl.create(:teacher) }
+    student{ FactoryBot.create(:student) }
+    teacher{ FactoryBot.create(:teacher) }
     status 0
     time_start { 1.day.since }
     time_end { 1.day.since + 2.hours }
-    topic { FactoryGirl.create(:topic) }
-    topic_group { FactoryGirl.create(:topic_group) }
-    level { FactoryGirl.create(:level_5) }
+    topic { FactoryBot.create(:topic) }
+    topic_group { FactoryBot.create(:topic_group) }
+    level { FactoryBot.create(:level_5) }
     price 30.0
     free_lesson false
 
     trait :paid do
       status { Lesson.statuses[:created] }
-      payments { FactoryGirl.build_list :payment, 1 }
+      payments { FactoryBot.build_list :payment, 1 }
     end
 
     trait :pending_student do

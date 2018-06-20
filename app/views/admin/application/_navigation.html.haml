@@ -2,15 +2,15 @@
   %ul#sidebar-menu.sidebar-menu.metismenu(role='navigation')
     %li{class: nav_link_state(:home)}
       = link_to admin_root_path do
-        = icon 'home'
+        = icon 'fal', 'home'
         Dashboard
     %li{class: nav_link_state(:users)}
       = link_to [namespace, User] do
-        = icon 'users'
+        = icon 'fal', 'users'
         All Users
     %li{class: ('active open' if nav_link_state(:teachers) == :active)}
       = link_to '' do
-        = icon 'graduation-cap'
+        = icon 'fal', 'graduation-cap'
         Teachers
         %i.fa.arrow
       %ul.sidebar-nav.collapse
@@ -22,7 +22,7 @@
           = link_to('Inactive ', [:inactive, namespace, Teacher])
     %li{class: nav_link_state(:masterclasses)}
       = link_to([namespace, :masterclasses]) do
-        = icon 'bullseye'
+        = icon 'fal', 'bullseye'
         Masterclasses
     -#%li{class: nav_link_state(:pictures)}
     -#  = link_to([namespace, Picture]) do
@@ -38,11 +38,11 @@
     -#    All Recordings
     %li{class: nav_link_state(:lessons)}
       = link_to([namespace, Lesson]) do
-        = icon('book')
+        = icon('fal', 'book')
         Lessons
     %li{class: nav_link_state(:disputes)}
       = link_to([namespace, :disputes]) do
-        = icon 'thumbs-o-down'
+        = icon 'fal', 'thumbs-o-down'
         Disputes (#{@number_of_disputes_started})
     -#%li{class: nav_link_state(:payments)}
     -#  = link_to([namespace, Payment]) do
@@ -50,19 +50,19 @@
     -#    Payments (#{@number_of_disputes})
     %li{class: nav_link_state(:conversations)}
       = link_to([namespace, Conversation]) do
-        = icon 'weixin'
+        = icon 'fal', 'weixin'
         Conversations
     %li{class: nav_link_state(:global_requests)}
       = link_to([namespace, GlobalRequest]) do
-        = icon 'buoy'
+        = icon 'fal', 'buoy'
         Demandes de cours
     %li{class: nav_link_state(:reviews)}
       = link_to([namespace, Review]) do
-        = icon 'star-half-full'
+        = icon 'fal', 'star-half-full'
         Reviews
     %li{class: ('active open' if nav_link_state(:reports) == :active)}
       = link_to '' do
-        = icon 'th-list'
+        = icon 'fal', 'th-list'
         Reports
         %i.fa.arrow
       %ul.sidebar-nav.collapse
@@ -76,5 +76,5 @@
           = link_to 'Activity reports', [namespace, :reports, :activity]
     %li{class: nav_link_state(:banned_users)}
       = link_to([namespace, :banned_users]) do
-        = icon 'user-times'
+        = icon 'fal', 'user-times'
         Banned users

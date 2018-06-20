@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Mango::PayFromWallet do
 
   before :each do
-    @user = FactoryGirl.create(:user, email: FFaker::Internet.email)
-    Mango::SaveAccount.run FactoryGirl.attributes_for(:mango_user).merge(user: @user)
+    @user = FactoryBot.create(:user, email: FFaker::Internet.email)
+    Mango::SaveAccount.run FactoryBot.attributes_for(:mango_user).merge(user: @user)
   end
 
   it 'transfer money from normal wallet to transaction wallet', vcr: true do

@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Mango::SaveAccount do
 
   before :each do
-    @user = FactoryGirl.create(:user, email: FFaker::Internet.email)
+    @user = FactoryBot.create(:user, email: FFaker::Internet.email)
   end
 
   it 'creates account and wallets in MangoPay', :vcr do
-    res = Mango::SaveAccount.run FactoryGirl.attributes_for(:mango_user).merge(user: @user)
+    res = Mango::SaveAccount.run FactoryBot.attributes_for(:mango_user).merge(user: @user)
     expect(res).to be_valid
     expect(res.result).to a_kind_of(Fixnum)
     @user.reload
@@ -18,10 +18,10 @@ RSpec.describe Mango::SaveAccount do
   end
 
   it 'updates account in MangoPay', :vcr do
-    res = Mango::SaveAccount.run FactoryGirl.attributes_for(:mango_user).merge(user: @user)
+    res = Mango::SaveAccount.run FactoryBot.attributes_for(:mango_user).merge(user: @user)
     expect(res).to be_valid
     mango_id = @user.reload.mango_id
-    res = Mango::SaveAccount.run FactoryGirl.attributes_for(:mango_user, city: 'Barnaul').merge(user: @user)
+    res = Mango::SaveAccount.run FactoryBot.attributes_for(:mango_user, city: 'Barnaul').merge(user: @user)
     expect(res).to be_valid
     @user.reload
     expect(@user.address.city).to eq('Barnaul')

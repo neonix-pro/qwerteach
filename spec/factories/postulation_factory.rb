@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :postulation do
     interview_ok false
     avatar_ok false
