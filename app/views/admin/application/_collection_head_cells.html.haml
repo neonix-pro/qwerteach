@@ -4,4 +4,4 @@
       = t( "helpers.label.#{resource_name}.#{attr_name}", default: attr_name.to_s).titleize
       - if collection_presenter.ordered_by?(attr_name)
         %span{:class => "cell-label__sort-indicator"}
-          = icon("sort-amount-#{collection_presenter.ordered_html_class(attr_name)}")
+          = icon('fa', "sort-amount-#{collection_presenter.ordered_html_class(attr_name)}")
