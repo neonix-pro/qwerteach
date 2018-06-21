@@ -14,9 +14,9 @@ class ExpireBookings
         Rails.logger.debug("Impossible de rembourser la demande expirée. ID: #{l.id}. #{refund.errors.full_messages.to_sentence}")
       else
         if previous_status == 'pending_teacher'
-          LessonNotificationsJob.perform_async(:notify_student_about_request_expired, lesson.id)
+          LessonNotificationsJob.perform_async(:notify_student_about_request_expired, l.id)
         else
-          LessonNotificationsJob.perform_async(:notify_teacher_about_request_expired, lesson.id)
+          LessonNotificationsJob.perform_async(:notify_teacher_about_request_expired, l.id)
         end
       end
     end

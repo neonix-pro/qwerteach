@@ -143,7 +143,7 @@ class LessonNotificator
   def send_sm_to(user, text)
     if user.can_send_sms?
       client = Nexmo::Client.new()
-      client.send_message(from: 'Qwerteach', to: user.full_number, text: text)
+      client.sms.send(from: 'Qwerteach', to: user.full_number, text: text)
     end
   end
 
