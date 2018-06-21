@@ -74,4 +74,5 @@ Rails.application.configure do
   end
     # config asset_url 
   config.action_mailer.asset_host = "http://localhost:3000"
+
 end

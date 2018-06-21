@@ -388,7 +388,6 @@
     options = options || {}
 
     var locales = this.locales.get(options.locale).slice()
-      , requestedLocale = locales[0]
       , locale
       , scopes
       , fullScope
@@ -447,7 +446,6 @@
   I18n.pluralizationLookup = function(count, scope, options) {
     options = options || {}
     var locales = this.locales.get(options.locale).slice()
-      , requestedLocale = locales[0]
       , locale
       , scopes
       , translations
@@ -611,6 +609,10 @@
 
   // This function interpolates the all variables in the given message.
   I18n.interpolate = function(message, options) {
+    if (message === null) {
+      return message;
+    }
+
     options = options || {}
     var matches = message.match(this.placeholder)
       , placeholder

@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  
+
   acts_as_token_authentication_handler_for User, fallback: :none
 
   # redirects if catches cancan access denied
@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :has_lesson?, if: :user_signed_in?
   before_filter :flash_to_headers
+  before_filter :prepare_exception_notifier
 
   def after_sign_in_path_for(resource_or_scope)
     if resource.nil? || resource.sign_in_count == 1
@@ -146,6 +147,11 @@ class ApplicationController < ActionController::Base
       else
         flash[:lesson] = nil
       end
+    end
+    def prepare_exception_notifier
+      request.env["exception_notifier.exception_data"] = {
+          :current_user => current_user
+      }
     end
   end
 

@@ -186,6 +186,7 @@ end
 group :production do
   #gem 'mysql2'
   #gem 'thin'
+  gem 'exception_notification'
 end
 
 # Forms, mail 
