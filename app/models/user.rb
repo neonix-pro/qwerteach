@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   end
   validates_date :birthdate, :on_or_before => lambda { Date.current }
   has_attached_file :avatar, :styles => {:small => "100x100#", medium: "300x300>", :large => "500x500>"},
-                    :processors => [:cropper], default_url: "/system/defaults/:style/missing.jpg",
+                    :processors => [:cropper], default_url: :adorable_avatar,
                     url: "/system/avatars/:hash.:extension", hash_secret: "laVieEstBelllllee", :hash_data => "/:attachment/:id/:style"
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :message => 'file type is not allowed (only jpeg/png/gif images)'
   before_avatar_post_process :reset_avatar_score
@@ -80,6 +80,10 @@ class User < ActiveRecord::Base
     select('users.*, COALESCE(payments_cte.payments_count, 0) AS payments_count')
         .joins("LEFT JOIN #{composed_cte.to_sql} ON payments_cte.student_id = users.id")
   }
+
+  def adorable_avatar
+    "https://api.adorable.io/avatars/#{ email }"
+  end
 
   # MANGOPAY
   def mangopay
