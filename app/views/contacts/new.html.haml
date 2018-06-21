@@ -15,19 +15,19 @@
       .col-sm-6.col-xs-8
         -#%p.lead
         -#  Alternativement, utilisez le formulaire ci-dessous:
-        .contact-form
-          = form_for @contact,:url=>new_contact_path, :html => {:class => 'form-horizontal' } do |f|
-            .form-group
-              = f.label :name, 'Votre nom'
-              =f.text_field :name ,:label=>false,:required => false, :class=> 'form-control'
-            .form-group
-              = f.label :mail, 'Votre e-mail (obligatoire)'
-              =f.email_field :email ,:label=>false, :required => true, :class=> 'form-control'
-            .form-group
-              = f.label :subject, 'A quel sujet nous contactez-vous?'
-              =f.text_field :subject ,:label=>false, :required => false, :class=> 'form-control'
-            .form-group
-              = f.label :message, 'Votre message'
-              =f.text_area :message ,:label=>false, :placeholder=>"",:rows=>6,:as => 'text',:required => false, :class=> 'form-control'
-            .actions
-              = f.submit 'Envoyer!' , :class=> "btn btn-green btn-qw"
+        -#.contact-form
+        -#  = form_for @contact,:url=>new_contact_path, :html => {:class => 'form-horizontal' } do |f|
+        -#    .form-group
+        -#      = f.label :name, 'Votre nom'
+        -#      =f.text_field :name ,:label=>false,:required => false, :class=> 'form-control'
+        -#    .form-group
+        -#      = f.label :mail, 'Votre e-mail (obligatoire)'
+        -#      =f.email_field :email ,:label=>false, :required => true, :class=> 'form-control'
+        -#    .form-group
+        -#      = f.label :subject, 'A quel sujet nous contactez-vous?'
+        -#      =f.text_field :subject ,:label=>false, :required => false, :class=> 'form-control'
+        -#    .form-group
+        -#      = f.label :message, 'Votre message'
+        -#      =f.text_area :message ,:label=>false, :placeholder=>"",:rows=>6,:as => 'text',:required => false, :class=> 'form-control'
+        -#    .actions
+        -#      = f.submit 'Envoyer!' , :class=> "btn btn-green btn-qw"

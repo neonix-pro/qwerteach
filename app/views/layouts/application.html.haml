@@ -12,7 +12,7 @@
       = yield
     = render 'cookies_eu/consent_banner'
     = render "layouts/footer"
-    = render "shared/tawk_btn"
+    -#= render "shared/tawk_btn"
     - if (current_user)
       = render partial: 'layouts/signed_in_modals'
       = subscribe_to "/chat/"+current_user.id.to_s
