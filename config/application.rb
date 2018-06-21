@@ -48,6 +48,8 @@ module Qwerteach
      enable_starttls_auto: true
     }
 
+    config.exceptions_app = self.routes
+
 
 
 config.action_mailer.default_url_options = {

@@ -2,7 +2,7 @@
   %table.table.table-striped.table-hover
     %thead
       %tr
-        = render 'collection_head_cells', local_assigns
+        = render 'collection_head_cells', local_assigns.merge(page: @page)
         %td
     %tbody
       - resources.each do |resource|

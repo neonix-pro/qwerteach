@@ -1,0 +1,11 @@
+.container-fluid
+  .row
+    %h2.page-title-green Oops! Erreur 422...
+.container
+  .row
+    %h2.text-center
+      %small L'action que vous avez essayé d'effectuer a été rejetée.
+    .text-center
+      = link_to 'Retour', request.referer.present? ? request.referer : root_path
+    .col-sm-8.col-sm-offset-2
+      = image_tag 'errors/thumbeast_422.png', class: 'image-100'
