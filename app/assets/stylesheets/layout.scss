@@ -271,7 +271,7 @@ input.cmn-toggle-round-flat:checked + label:after
 .main-nav{
   border: 0 !important;
   background: $qwerteach_black !important;
-  height: 30px !important;
+  //height: 30px !important;
   outline: none !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -287,6 +287,9 @@ input.cmn-toggle-round-flat:checked + label:after
   }
   .navbar-header .navbar-brand{
     padding: 10px;
+  }
+  .icon-bar{
+    background-color: white;
   }
 }
 

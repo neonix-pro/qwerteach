@@ -1,13 +1,14 @@
 -if current_user.admin?
-  %ul.nav.navbar-nav
+  %ul.nav.navbar-nav.navbar-left
     %li= link_to 'Administration', admin_root_path, data: {turbolinks: false}
-= form_tag profs_path, method: :post, class: 'navbar-form navbar-left' do
-  .input-group
-    = text_field_tag('topic', '', class: 'form-control', placeholder: 'Chercher un prof')
-    %span.input-group-btn-floating
-      %button
-        %i.fa.fa-search.text-green
-%ul.nav.navbar-nav.pull-right
+  .hidden-sm.hidden-xs
+    = form_tag profs_path, method: :post, class: 'navbar-form navbar-left' do
+      .input-group
+        = text_field_tag('topic', '', class: 'form-control', placeholder: 'Chercher un prof')
+        %span.input-group-btn-floating
+          %button
+            %i.fa.fa-search.text-green
+%ul.nav.navbar-nav.navbar-right
   - if current_user.is_a?(Teacher)
     -#%li= link_to 'Trouver des élèves', toolbox_path(:promouvoir)
   - else

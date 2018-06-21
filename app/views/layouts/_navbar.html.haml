@@ -2,7 +2,12 @@
   .color
     .container-fluid
       .navbar-header
-        %button.navbar-toggle{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+        %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+          %span.sr-only Toggle navigation
+          %span.icon-bar.text-white
+          %span.icon-bar.text-white
+          %span.icon-bar.text-white
+        -#%button.navbar-toggle{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
         = link_to (Rails.env.development? ? "QWERTEACH DEV" : image_tag("logotext.png")), root_path, class: 'navbar-brand'
       #bs-example-navbar-collapse-1.collapse.navbar-collapse
         - if user_signed_in?
