@@ -15,7 +15,7 @@ module Admin
       search = Lesson.ransack(search_params)
       resources = search.result.page(params[:page]).per(records_per_page)
       unless params[:lesson]
-        params[:lesson] = {order: 'time_start', direction: 'desc'}
+        params[:lesson] = {order: 'created_at', direction: 'desc'}
       end
       resources = order.apply(resources)
       page = Administrate::Page::Collection.new(dashboard, order: order)

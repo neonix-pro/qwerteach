@@ -29,11 +29,14 @@
             .col
                 %h3 Infos Pratiques
                 %br
-                = link_to t('contacts'), new_contact_path
+                -#= link_to 'Nous écrire', new_contact_path
+                %i.fa.fa-envelope
+                hello@qwerteach.com
                 %p
+                    %i.fa.fa-phone
                     +32 (0) 473 26 10 76
                     %br
-                    lu-ve : 10h-19h
+                    %small (lu-ve : 10h-19h)
                 -#%a.text-green.open-tawk{:href => "#"}
                 -#    Ouvrir le chat
             .col.social_block
