@@ -1,0 +1,23 @@
+#toolbox_navigation
+  %ul
+    %li= link_to 'Généralités', '#introduction'
+    %li= link_to 'Données collectées', '#data'
+    %li= link_to 'Payements', '#payements-anchor'
+    %li= link_to 'Cookies', '#cookies-anchor'
+
+:javascript
+  $('#toolbox_navigation a').click(function(e){
+    e.preventDefault();
+    $('html, body').animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top
+    }, 500);
+    $('#toolbox_navigation a').removeClass('active');
+    $(this).addClass('active');
+  });
+  $('#toolbox_navigation').each(function() {
+    var $this = $(this);
+    var $target = $(this);
+    $this.pushpin({
+      top: $target.offset().top
+    });
+  });
