@@ -11,8 +11,9 @@ module Admin
     before_action :statistics
 
     def default_params
-      params[:order] ||= "id"
-      params[:direction] ||= "desc"
+      order ||= "id"
+      direction ||= "desc"
+      params[resource_name] = {order: order, direction: direction}
     end
 
     def authenticate_admin
