@@ -645,8 +645,7 @@
         souhaitant effectuer des transactions, ou souhaitant devenir professeur.
         Les payements ainsi effectués sont soumis aux conditions générales d'utilisation du sevice Mangopay,
         lesquelles sont consultables dans leur intégralité via
-        %a{:href => "./Documents/CGUMangoPay.pdf"}
-          ce lien.
+        = link_to 'ce lien.', asset_path('documents/CGUMangoPay.pdf'), target: '_blank'
 
       %h2#cookies-anchor Informations relatives à l'utilisation des cookies:
       #accordion-cookies.panel-group
