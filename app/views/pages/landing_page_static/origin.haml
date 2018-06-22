@@ -26,7 +26,8 @@
         .block_sign_up.show
           .form.absolute.material-form
             %span.title_sign Inscrivez vous maintent
-            =render partial: 'devise/registrations/student_form'
+            = render partial: 'devise/registrations/student_form'
+            = link_to 'Je suis déjà inscrit', new_user_session_path, :class => 'btn txt _on_desktop', :style => "transform:translateY(-20px)"
         %ul.assets_cours
           %li
             %figure
@@ -155,7 +156,7 @@
     vpH = $(window).height()
     vpW = $(window).width()
 
-    if (st >= vpH) {
+    if (st >= (vpH - 540)) {
       $('nav.main_nav').addClass('onScreen') 
     } else {
       $('nav.main_nav').removeClass('onScreen')
@@ -174,7 +175,7 @@
           toScrollDown.removeClass('hide')
       }
 
-      if (st >= vpH) {
+      if (st >= (vpH - 540)) {
         $('nav.main_nav').addClass('onScreen')
       } else {
         $('nav.main_nav').removeClass('onScreen')

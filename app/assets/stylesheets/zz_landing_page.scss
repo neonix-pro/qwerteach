@@ -190,7 +190,6 @@ a.btn._on_mobil {
         .right {
             padding-top: 10px;
             float: right;
-            display: none;
             justify-content: flex-end;
 
             &.ainmated_nav {
@@ -267,7 +266,7 @@ a.btn._on_mobil {
 
         &.head {
             .block_sign_up {
-                @include size(360px, 420px);
+                @include size(360px, 440px);
                 border-top: 8px solid #F1F1F1;
                 background-color: color(lightGrey);
                 @include pos(a,0,0,auto,auto);
