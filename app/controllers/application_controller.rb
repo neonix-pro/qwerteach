@@ -104,6 +104,12 @@ class ApplicationController < ActionController::Base
         ) }
     end
 
+  def prepare_exception_notifier
+    request.env["exception_notifier.exception_data"] = {
+        :current_user => current_user
+    }
+  end
+
   private
 
   def check_mangopay_account
@@ -147,11 +153,6 @@ class ApplicationController < ActionController::Base
       else
         flash[:lesson] = nil
       end
-    end
-    def prepare_exception_notifier
-      request.env["exception_notifier.exception_data"] = {
-          :current_user => current_user
-      }
     end
   end
 
