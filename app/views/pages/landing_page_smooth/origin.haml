@@ -126,7 +126,7 @@
         .block_title._center
           %h2 Envie de devenir prof ?
         .centered_btn
-          = link_to 'Passez à l\'action !', become_teacher_path(:general_infos), :class => 'btn blue _on_desktop'
+          = link_to 'Passez à l\'action !', pages_path('devenir-prof'), :class => 'btn blue _on_desktop'
 
 :javascript
   $(document).on('click', 'a[href^="#"]', function (event) {
