@@ -156,7 +156,7 @@
     vpH = $(window).height()
     vpW = $(window).width()
 
-    if (st >= vpH) {
+    if (st >= (vpH - 540)) {
       $('nav.main_nav').addClass('onScreen') 
     } else {
       $('nav.main_nav').removeClass('onScreen')
@@ -175,7 +175,7 @@
           toScrollDown.removeClass('hide')
       }
 
-      if (st >= vpH) {
+      if (st >= (vpH - 540)) {
         $('nav.main_nav').addClass('onScreen')
       } else {
         $('nav.main_nav').removeClass('onScreen')
