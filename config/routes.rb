@@ -105,7 +105,7 @@ Rails.application.routes.draw do
     resources :topic_groups
     resources :level
     resources :offer_prices
-    resources :offers
+    resources :offers, only: [:index, :show]
     resources :payments, except: [:new, :create]
     resources :reviews, only: [:index, :show, :destroy]
     resources :conversations, only: [:index, :show]
