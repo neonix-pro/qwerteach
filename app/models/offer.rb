@@ -108,6 +108,9 @@ class Offer < ActiveRecord::Base
     boolean :active do
       self.user.active
     end
+    boolean :blocked do
+      self.user.blocked
+    end
     boolean :first_lesson_free do
       self.user.first_lesson_free
     end

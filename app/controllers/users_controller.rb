@@ -34,6 +34,7 @@ class UsersController < ApplicationController
     search_sorting_options
     params[:topic] = 'maths' if params[:topic] == 'math' # TODO: find better way to do this ! (sunspot dictionary?)
     @sunspot_search = Sunspot.search(Offer) do
+      with(:blocked, false)
       with(:postulance_accepted, true)
       with(:active, true)
       fulltext search_text unless params[:topic].nil? || params[:topic].empty?
@@ -82,6 +83,7 @@ class UsersController < ApplicationController
     @contact = Contact.new()
     search_sorting_options
     @sunspot_search = Sunspot.search(Offer) do
+      with(:blocked, false)
       fulltext search_text unless params[:topic].nil? || params[:topic].empty?
       order_by :online, :desc
       order_by(sorting, sorting_direction(params[:search_sorting]))
