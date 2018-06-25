@@ -7,7 +7,7 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     before_filter :authenticate_admin
-    before_filter :default_params
+    before_filter :default_params, except: :update
     before_action :statistics
 
     def default_params

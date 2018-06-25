@@ -7,6 +7,6 @@
     %tr
       -postulation.admin_fields.each do |key, attr|
         - if attr
-          %td.text-primary= icon('check-square-o', class: 'text-strong')
+          %td.text-primary= icon('fa', 'check', class: 'text-strong')
         - else
-          %td.text-danger= icon('square-o', class: 'text-strong')
+          %td.text-danger= icon('fa', 'times', class: 'text-strong')

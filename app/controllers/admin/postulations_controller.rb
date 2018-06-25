@@ -28,5 +28,6 @@ module Admin
     def resource_params
       params.require(resource_name).permit(dashboard.permitted_attributes.push(:admin_id))
     end
+
   end
 end
