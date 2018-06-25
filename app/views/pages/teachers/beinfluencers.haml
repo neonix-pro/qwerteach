@@ -47,12 +47,12 @@
             Prêt à démarrer ?
           %h2.section-heading.text-light
             Rejoignez la communauté et commencez à gagner de l'argent
-          = link_to "C'est parti", 'body', class: 'btn btn-cta btn-green'
+          = link_to "C'est parti", '#', class: 'btn btn-cta btn-green'
 
 :javascript
   $('.btn-cta').click(function(e){
     e.preventDefault();
     $('html, body').animate({
-        scrollTop: $( $.attr(this, 'href') ).offset().top
+        scrollTop: 'body').offset().top
     }, 500);
   });
