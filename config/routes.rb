@@ -103,8 +103,8 @@ Rails.application.routes.draw do
     end
     resources :topics
     resources :topic_groups
-    resources :level
-    resources :offer_prices
+    resources :levels
+    resources :offer_prices, only: [:index, :show]
     resources :offers, only: [:index, :show]
     resources :payments, except: [:new, :create]
     resources :reviews, only: [:index, :show, :destroy]

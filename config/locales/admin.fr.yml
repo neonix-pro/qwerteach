@@ -25,3 +25,4 @@ fr:
   administrate:
     actions:
       export: 'Export'
+      new: 'Ajouter'

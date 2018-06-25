@@ -152,4 +152,8 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     end
   end
 
+  def bigbluebutton_user
+    current_user.nil? ? User.new(firstname: 'Invité') : current_user
+  end
+
 end
