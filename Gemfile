@@ -57,7 +57,7 @@ gem 'globalize', '~> 5.0.0'
 gem 'rails-i18n'
 gem "i18n-js"
 # for avatars
-gem "paperclip", "~> 4.3"
+gem "paperclip", "~> 5.0"
 # for datum validations
 gem 'validates_timeliness', '~> 4.0'
 # crop image
