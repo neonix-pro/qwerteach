@@ -9,4 +9,7 @@
       #{teacher.reviews_received.count}
       %i.fa.fa-user
     .occupation #{teacher.occupation.humanize}
-    .degree Diplôme de #{teacher.level.fr}
+    - unless teacher.level.nil?
+      .degree Diplôme de #{teacher.level.fr}
+    - else
+      .degree.text-danger Diplôme non renseigné
