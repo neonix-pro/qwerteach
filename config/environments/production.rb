@@ -103,7 +103,7 @@ Rails.application.configure do
                                               :email_prefix => "[ERROR] ",
                                               :sender_address => %{"Qwerteach" <monitoring@qwerteach.com>},
                                               :exception_recipients => %w{roulili.la.terreur@gmail.com}
-                                          },
-                                          ignore_exceptions: ExceptionNotifier.default_ignore_exceptions + [InvalidCrossOriginRequest]
+                                          }
+                                          #ignore_exceptions: ExceptionNotifier.default_ignore_exceptions + [InvalidCrossOriginRequest]
 
 end

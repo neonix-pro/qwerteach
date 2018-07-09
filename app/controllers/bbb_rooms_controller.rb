@@ -2,6 +2,7 @@ class BbbRoomsController < Bigbluebutton::RoomsController
   include ActionView::Helpers::UrlHelper
   before_filter :authenticate_user!, except: [:demo_room, :join_demo]
   after_action :register_meeting_participation, only:[:join_demo, :join]
+  before_filter :join_check_redirect_to_mobile, :only => [:join, :join_demo]
 
   def join
     super
@@ -76,6 +77,22 @@ class BbbRoomsController < Bigbluebutton::RoomsController
       flash[:error] = e.to_s[0..200]
       redirect_to_on_join_error
     end
+  end
+
+  def join_check_redirect_to_mobile
+    return if !BigbluebuttonRails.use_mobile_client?(browser) ||
+        ActiveRecord::Type::Boolean.new.type_cast_from_database(params[:auto_join]) ||
+        ActiveRecord::Type::Boolean.new.type_cast_from_database(params[:desktop])
+
+    # since we're redirecting to an intermediary page, we set in the params the params
+    # we received, including the referer, so we can go back to the previous page if needed
+    filtered_params = select_params_for_join_mobile(params.clone)
+    begin
+      filtered_params[:redir_url] = Addressable::URI.parse(request.env["HTTP_REFERER"]).path
+    rescue
+    end
+
+    redirect_to join_mobile_bigbluebutton_room_path(@room, filtered_params)
   end
 
   def room_invite
