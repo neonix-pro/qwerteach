@@ -32,6 +32,52 @@ class BbbRoomsController < Bigbluebutton::RoomsController
     join_internal(@user_name, @user_role, @user_id)
   end
 
+  def join_internal(username, role, id)
+    begin
+      # first check if we have to create the room and if the user can do it
+      unless @room.fetch_is_running?
+        if bigbluebutton_can_create?(@room, role)
+          user_opts = bigbluebutton_create_options(@room)
+          if @room.create_meeting(bigbluebutton_user, request, user_opts)
+            logger.info "Meeting created: id: #{@room.meetingid}, name: #{@room.name}, created_by: #{bigbluebutton_user.username}, time: #{Time.now.iso8601}"
+          end
+        else
+          flash[:error] = t('bigbluebutton_rails.rooms.errors.join.cannot_create')
+          redirect_to_on_join_error
+          return
+        end
+      end
+
+      # gets the token with the configurations for this user/room
+      token = @room.fetch_new_token
+      options = if token.nil? then {} else { :configToken => token } end
+
+      # set the create time and the user id, if they exist
+      options.merge!({ createTime: @room.create_time }) unless @room.create_time.blank?
+      options.merge!({ userID: id }) unless id.blank?
+
+      # room created and running, try to join it
+      url = @room.join_url(username, role, nil, options)
+      unless url.nil?
+        # change the protocol to join with a mobile device
+        if BigbluebuttonRails.use_mobile_client?(browser) &&
+            #!BigbluebuttonRails.value_to_boolean(params[:desktop])
+            !ActiveRecord::Type::Boolean.new.type_cast_from_database(params[:desktop])
+          url.gsub!(/^[^:]*:\/\//i, "bigbluebutton://")
+        end
+
+        redirect_to url
+      else
+        flash[:error] = t('bigbluebutton_rails.rooms.errors.join.not_running')
+        redirect_to_on_join_error
+      end
+
+    rescue BigBlueButton::BigBlueButtonException => e
+      flash[:error] = e.to_s[0..200]
+      redirect_to_on_join_error
+    end
+  end
+
   def room_invite
     @interviewee = User.find(params[:user_id])
     bigbluebutton_room = {
