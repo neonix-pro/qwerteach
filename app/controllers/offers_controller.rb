@@ -56,6 +56,8 @@ class OffersController < ApplicationController
 
   def create
     @user = current_user
+    @topics = Topic.where.not(title: 'Autre').where.not(title: current_user.offers.map{|o| o.title})
+    @topics = @topics.map{|t| ["#{t.title}", {id: t.id, topic_group_id: t.topic_group_id}]}.to_h
     unless @user.is_a?(Teacher)
       @user.upgrade
     end
@@ -70,8 +72,6 @@ class OffersController < ApplicationController
     end
 
     @offer = Offer.new(offer_params)
-    @topics = Topic.where.not(title: 'Autre').where.not(title: current_user.offers.map{|o| o.title})
-    @topics = @topics.map{|t| ["#{t.title}", {id: t.id, topic_group_id: t.topic_group_id}]}.to_h
     respond_to do |format|
       if @offer.save
         format.html {redirect_to edit_user_registration_path(@user) + '#offers', notice: 'Votre annonce a bien été enregistrée.'}

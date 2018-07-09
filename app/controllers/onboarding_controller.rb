@@ -1,5 +1,6 @@
 class OnboardingController < ApplicationController
   include Wicked::Wizard
+  before_action :authenticate_user!
 
   steps :welcome, :choose_role, :topics
 
