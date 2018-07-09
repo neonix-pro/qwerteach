@@ -3,21 +3,21 @@
     window.location.href = "#{@join_mobile}";
   });
 %h1
-  Mobile access to #{@room.name}
+  Rejoindre la classe virtuelle "#{@room.name}" via mobile:
 %div{:style => "text-align:center; width:250px;"}
-  %span You are being redirected to the conference in your mobile device.
+  %span Nous vous redirigeons vers la classe virtuelle sur votre aparil mobile.
   %br/
   %div
-    %span If you are not redirected, please make sure you have the mobile client installed:
+    %span Si vous n'êtes pas automatiquement redirigé, assurez-vous d'avoir bien installé le vlient correspondant à votre appareil:
     %div
       = link_to(mobile_google_play_link, :class => "mobile-download-image") do
-        = image_tag mobile_google_play_image, :alt => "Download the Android client", :title => "Download the Android client"
+        = image_tag mobile_google_play_image, :alt => "Download the Android client", :title => "Pour Android"
     %div
       = link_to(mobile_apple_store_link, :class => "mobile-download-image") do
-        = image_tag mobile_apple_store_image, :alt => "Download the iOS client", :title => "Download the iOS client"
+        = image_tag mobile_apple_store_image, :alt => "Download the iOS client", :title => "Pour iOS"
   %br/
   %div
-    = link_to "You have the application but still hasn't been redirected? Click here to try again.", @join_mobile
+    = link_to "Vous avez le client mais n'êtes pas redirigé? Cliquez ici pour ré-essayer.", @join_mobile
   %br/
   %div
-    = link_to "If you are not on a mobile client, click here to log in using the default desktop client.", @join_desktop
+    = link_to "Si vous n'êtes pas sur mobile, cliquez ici pour rejoindre la version pour ordinateur.", @join_desktop
