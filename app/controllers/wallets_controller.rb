@@ -183,6 +183,8 @@ class WalletsController < ApplicationController
         #TODO: render direct_debit_mangopay_wallet with filled fields
         redirect_to load_wallet_path, alert: payin.errors.full_messages.join(' ') and return
       end
+    else
+      redirect_to load_wallet_path, alert: 'Veuillez sélectionner un mode de payement'
     end
   end
 
