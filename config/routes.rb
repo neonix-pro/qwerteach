@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :global_requests
+  resources :global_requests do
+    post 'answer' => :answer
+  end
   namespace :api, :defaults => { :format => 'json' } do
     get 'dashboard' => 'dashboards#index'
 

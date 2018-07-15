@@ -1,0 +1,22 @@
+#contact-modal.modal.fade
+  .modal-dialog{role:'document'}
+    .modal-content
+      = form_tag global_request_answer_path(@global_request), method: :post, remote: true do
+        .modal-header
+          %button.close{type:'button', data:{dismiss: 'modal'}}
+            %span &times
+          %h4 Répondre à la demande de #{user.name}
+        .modal-body
+          = hidden_field_tag 'message[subject]', "#{me.name} vous pose une question!"
+          = hidden_field_tag 'message[recipient]', user.id
+          .form-group
+            = text_area_tag 'message[body]', nil, rows: 5,
+              placeholder: "Comment pouvez-vous aider #{user.firstname}?", class: "form-control character-count", data:{length:50}, required: true
+            %span.text-pink#new-conversation Minimum 50 caractères.
+          = submit_tag 'Envoyer', class: 'btn btn-qw btn-green'
+:javascript
+  $('#contact-modal form').submit(function(){
+    $('#contact-modal').modal('hide');
+  });
+
+  $('#message_body').characterCounter();

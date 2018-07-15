@@ -96,6 +96,20 @@ class GlobalRequestsController < ApplicationController
     end
   end
 
+  def answer
+    @global_request = GlobalRequest.find(params[:global_request_id])
+    sending = SendMessage.run(reply_params)
+    if sending.valid? && @global_request.student.can_send_sms?
+      client = Nexmo::Client.new()
+      client.sms.send(from: 'Qwerteach', to: @global_request.student.full_number, text: 'Un professeur a répondu à votre demande de cours sur Qwerteach! Connectez-vous sur Qwerteach.com pour lui répondre.')
+    end
+    respond_to do |format|
+      format.js do
+        flash[:notice] = sending.valid? ? I18n.t('message_pusher.validate.success') : sending.errors.full_messages.to_sentence
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_global_request
@@ -113,5 +127,14 @@ class GlobalRequestsController < ApplicationController
 
   def update_phone
     current_user.update(phone_country_code: params[:user_phone_country_code], phone_number: params[:user_phone_number])
+  end
+  def reply_params
+    {
+        user: current_user,
+        conversation_id: nil,
+        body: params[:message][:body],
+        recipient_ids: [@global_request.user_id],
+        subject: params[:message][:subject]
+    }
   end
 end

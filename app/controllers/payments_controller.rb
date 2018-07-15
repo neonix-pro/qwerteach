@@ -41,16 +41,16 @@ class PaymentsController < ApplicationController
   end
 
   def index
-    @lessons_given = current_user.lessons_given
-    @lessons_received = current_user.lessons_received
-
-    @factures_given = []
-    @factures_received = []
-
-    @lessons_given.each do |lg|
-      lg.payments.each { |l| @factures_given.push(l) }
+    if current_user.is_a?(Teacher)
+      @lessons_given = current_user.lessons_given
+      @factures_given = []
+      @lessons_given.each do |lg|
+        lg.payments.each { |l| @factures_given.push(l) }
+      end
     end
 
+    @lessons_received = current_user.lessons_received
+    @factures_received = []
     @lessons_received.each do |lg|
       lg.payments.each { |l| @factures_received.push(l) }
     end
