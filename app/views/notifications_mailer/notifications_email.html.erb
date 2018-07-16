@@ -139,7 +139,11 @@
             >
           <![endif]-->
       <% @bool = false %>
+      <% @sender_id = 0 %>
       <% @notifications.each do |notification| %>
+        <% if @sender_id != notification.sender_id %>
+          <% @bool = !@bool %>
+        <% end %>
         <% if @bool %>
           <div
             class="mj-column-per-30 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
@@ -158,9 +162,9 @@
             <tbody>
               <tr>
                 <td  style="width:50px;overflow:hidden;border-radius:50%">
-                  
-          <img style="height:50px;width:50px" src="<%= asset_url(notification.sender.avatar.url(:small)).html_safe %>" alt="<%= notification.sender.firstname %>" />
-        
+          <% if @sender_id != notification.sender_id %>
+            <img style="height:50px;width:50px" src="<%= asset_url(notification.sender.avatar.url(:small)).html_safe %>" alt="<%= notification.sender.firstname %>" />
+          <% end %>
                 </td>
               </tr>
             </tbody>
@@ -195,7 +199,7 @@
         <div
           style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"
         >
-          <span style="color:#22de80"><%= notification.subject.html_safe %></span><br/><br/>
+          <span style="color:#22de80"><%= notification.subject.html_safe if @sender_id != notification.sender_id %></span><br/><br/>
           <%= notification.body.html_safe %>
         </div>
       
@@ -226,9 +230,9 @@
             <tbody>
               <tr>
                 <td  style="width:50px;overflow:hidden;border-radius:50%">
-                  
-          <img style="height:50px;width:50px" src="<%= asset_url(notification.sender.avatar.url(:small)).html_safe %>" alt="<%= notification.sender.firstname %>" />
-        
+          <% if @sender_id != notification.sender_id %>
+            <img style="height:50px;width:50px" src="<%= asset_url(notification.sender.avatar.url(:small)).html_safe %>" alt="<%= notification.sender.firstname %>" />
+          <% end %>
                 </td>
               </tr>
             </tbody>
@@ -241,7 +245,7 @@
         
           </div>
         <% end %>
-        <% @bool = !@bool %>
+        <% @sender_id = notification.sender_id %>
       <%end %>
     
           <!--[if mso | IE]>
@@ -287,6 +291,7 @@
       </table>
     
       </div>
+
     
           <!--[if mso | IE]>
             </td>
