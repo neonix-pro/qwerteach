@@ -25,7 +25,7 @@ class SendNotifications
         Rails.logger.info "Sending #{notifications.size} notification(s) to #{user.email}"
         NotificationsMailer.notifications_email(user, notifications).deliver
         ids = receipts.map(&:id).to_ary
-        user.receipts.where(id: ids).update_all(delivery_method: 'email')
+        #user.receipts.where(id: ids).update_all(delivery_method: 'email')
       else
         Rails.logger.info "Waiting before sending notifications to #{user.email}"
       end
