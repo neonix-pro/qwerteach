@@ -388,6 +388,7 @@
     options = options || {}
 
     var locales = this.locales.get(options.locale).slice()
+      , requestedLocale = locales[0]
       , locale
       , scopes
       , fullScope
@@ -446,6 +447,7 @@
   I18n.pluralizationLookup = function(count, scope, options) {
     options = options || {}
     var locales = this.locales.get(options.locale).slice()
+      , requestedLocale = locales[0]
       , locale
       , scopes
       , translations
@@ -596,10 +598,6 @@
 
     if (typeof(translation) === "string") {
       translation = this.interpolate(translation, options);
-    } else if (isArray(translation)) {
-      translation = translation.map(function(t) {
-        return this.interpolate(t, options);
-      }, this);
     } else if (isObject(translation) && isSet(options.count)) {
       translation = this.pluralize(options.count, scope, options);
     }
@@ -609,10 +607,6 @@
 
   // This function interpolates the all variables in the given message.
   I18n.interpolate = function(message, options) {
-    if (message === null) {
-      return message;
-    }
-
     options = options || {}
     var matches = message.match(this.placeholder)
       , placeholder

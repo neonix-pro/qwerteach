@@ -20,7 +20,7 @@ class SendNotifications
       most_recent = messages.map(&:created_at).max
       if most_recent && (most_recent < (Time.now - COOLDOWN_PERIOD))
 
-        notifications = Mailboxer::Notification.find(messages.map(&:notification_id))
+        notifications = Mailboxer::Notification.where(id: messages.map(&:notification_id)).order(created_at: :desc)
         # notifications = Mailboxer::Notification.find(receipts)
         Rails.logger.info "Sending #{notifications.size} notification(s) to #{user.email}"
         NotificationsMailer.notifications_email(user, notifications).deliver
