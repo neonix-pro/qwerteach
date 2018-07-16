@@ -193,6 +193,7 @@ class Lesson < ActiveRecord::Base
   def alternate_pending
     return 1 if pending_teacher? #pending_student
     return 0 if pending_student? #pending_teacher
+    #return 2 if created?
   end
 
   #notifies other that he's got a new request

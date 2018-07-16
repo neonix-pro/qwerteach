@@ -88,7 +88,6 @@ class LessonsController < ApplicationController
       duration = @lesson.duration
       @lesson.time_start =  params[:lesson][:time_start]
       @lesson.time_end = @lesson.time_start + duration.total
-      @lesson.status = @lesson.alternate_pending
       if @lesson.save
         tracker do |t|
           t.google_analytics :send, { type: 'event', category: "Réservation - prof", action: "Modifier une reservation", label: "Prof id: #{@lesson.teacher.id}"}
