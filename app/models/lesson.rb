@@ -222,8 +222,8 @@ class Lesson < ActiveRecord::Base
     super.merge({
         :id => self.id,
         :title => "#{self.topic.title}",
-        :start => time_start.rfc822,
-        :end => time_end.rfc822,
+        :start => time_start,
+        :end => time_end,
         :allDay => false,
         :user_name => self.teacher.name,
         :color => "#22de80",
