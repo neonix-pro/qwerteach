@@ -16,8 +16,7 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'factory_bot_rails'              
-require 'support/factory_bot'
+require 'factory_bot_rails'
 require 'sunspot/rails/spec_helper'
 
 RSpec.configure do |config|

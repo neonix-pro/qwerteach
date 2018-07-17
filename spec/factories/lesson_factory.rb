@@ -25,6 +25,10 @@ FactoryBot.define do
       status { Lesson.statuses[:pending_teacher] }
     end
 
+    trait :refused do
+      status { Lesson.statuses[:refused] }
+    end
+
     trait :created do
       status { Lesson.statuses[:created] }
     end

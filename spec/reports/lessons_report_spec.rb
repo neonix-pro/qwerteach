@@ -16,12 +16,12 @@ RSpec.describe LessonsReport, type: :report do
 
     it 'returns 2 report entities' do
       expect(subject).to be_valid
-      expect(result[0].total_count).to eq(2)
-      expect(result[0].period.strftime('%Y-%m-%d')).to eq('2017-01-01')
+      expect(result[2].total_count).to eq(2)
+      expect(result[2].period.strftime('%Y-%m-%d')).to eq('2017-01-01')
       expect(result[1].total_count).to eq(2)
       expect(result[1].period.strftime('%Y-%m-%d')).to eq('2017-02-01')
-      expect(result[2].total_count).to eq(0)
-      expect(result[2].period.strftime('%Y-%m-%d')).to eq('2017-03-01')
+      expect(result[0].total_count).to eq(0)
+      expect(result[0].period.strftime('%Y-%m-%d')).to eq('2017-03-01')
     end
   end
 
@@ -36,12 +36,12 @@ RSpec.describe LessonsReport, type: :report do
 
     it 'returns report entities for 3 days' do
       expect(subject).to be_valid
-      expect(result[0].total_count).to eq(2)
-      expect(result[0].period.strftime('%Y-%m-%d')).to eq('2017-01-01')
+      expect(result[2].total_count).to eq(2)
+      expect(result[2].period.strftime('%Y-%m-%d')).to eq('2017-01-01')
       expect(result[1].total_count).to eq(2)
       expect(result[1].period.strftime('%Y-%m-%d')).to eq('2017-01-02')
-      expect(result[2].total_count).to eq(0)
-      expect(result[2].period.strftime('%Y-%m-%d')).to eq('2017-01-03')
+      expect(result[0].total_count).to eq(0)
+      expect(result[0].period.strftime('%Y-%m-%d')).to eq('2017-01-03')
     end
   end
 
@@ -57,12 +57,12 @@ RSpec.describe LessonsReport, type: :report do
 
     xit 'returns report entities for 3 weeks' do
       expect(subject).to be_valid
-      expect(result[0].total_count).to eq(2)
-      expect(result[0].period).to be_within(1.second).of Time.zone.parse('2017-11-06')
+      expect(result[2].total_count).to eq(2)
+      expect(result[2].period).to be_within(1.second).of Time.zone.parse('2017-11-06')
       expect(result[1].total_count).to eq(2)
       expect(result[1].period).to be_within(1.second).of Time.zone.parse('2017-11-13')
-      expect(result[2].total_count).to eq(0)
-      expect(result[2].period).to be_within(1.second).of Time.zone.parse('2017-11-20')
+      expect(result[0].total_count).to eq(0)
+      expect(result[0].period).to be_within(1.second).of Time.zone.parse('2017-11-20')
     end
   end
 
@@ -78,12 +78,12 @@ RSpec.describe LessonsReport, type: :report do
 
     xit 'returns report entities for 3 quarters' do
       expect(subject).to be_valid
-      expect(result[0].total_count).to eq(2)
-      expect(result[0].period).to be_within(1.second).of Time.zone.parse('2017-01-01')
+      expect(result[2].total_count).to eq(2)
+      expect(result[2].period).to be_within(1.second).of Time.zone.parse('2017-01-01')
       expect(result[1].total_count).to eq(2)
       expect(result[1].period).to be_within(1.second).of Time.zone.parse('2017-04-01')
-      expect(result[2].total_count).to eq(0)
-      expect(result[2].period).to be_within(1.second).of Time.zone.parse('2017-07-01')
+      expect(result[0].total_count).to eq(0)
+      expect(result[0].period).to be_within(1.second).of Time.zone.parse('2017-07-01')
     end
   end
 
@@ -102,7 +102,7 @@ RSpec.describe LessonsReport, type: :report do
       it 'returns first 5 entities' do
         expect(subject).to be_valid
         expect(result.map { |entity| entity.period.strftime('%Y-%m-%d') })
-          .to eq(%w[2017-01-01 2017-01-02 2017-01-03 2017-01-04 2017-01-05])
+          .to eq(%w[2017-01-05 2017-01-04 2017-01-03 2017-01-02 2017-01-01])
         expect(result.map(&:total_count)).to eq(Array.new(5) { 2 })
       end
     end
@@ -112,7 +112,7 @@ RSpec.describe LessonsReport, type: :report do
       it 'returns second 5 entities' do
         expect(subject).to be_valid
         expect(result.map { |entity| entity.period.strftime('%Y-%m-%d') })
-          .to eq(%w[2017-01-06 2017-01-07 2017-01-08 2017-01-09 2017-01-10])
+          .to eq(%w[2017-01-10 2017-01-09 2017-01-08 2017-01-07 2017-01-06])
         expect(result.map(&:total_count)).to eq(Array.new(5) { 2 })
       end
     end
@@ -203,25 +203,36 @@ RSpec.describe LessonsReport, type: :report do
     end
 
     describe 'Teachers' do
-      let(:teacher) { create(:teacher) }
-      let!(:lessons) do
-        Timecop.freeze(Time.parse('2017-01-02')) { create_list(:lesson, 2, :paid) }
+      let(:teacher) do
+        Timecop.freeze(Time.parse('2016-01-02')) { create(:teacher) }
       end
-      let!(:teacher_lessons) do
-        Timecop.freeze(Time.parse('2017-01-02')) { create_list(:lesson, 2, :paid, teacher: teacher) }
+
+      let(:new_teacher) do
+        Timecop.freeze(Time.parse('2017-01-01')) { create(:teacher) }
       end
-      let!(:old_lessons) do
-        Timecop.freeze(Time.parse('2016-12-02')) { create(:lesson, :paid, teacher: teacher)}
+
+      before :each do
+        Timecop.freeze(Time.parse('2016-12-02')) do
+          create(:lesson, :paid, teacher: teacher)
+        end
+        Timecop.freeze(Time.parse('2017-01-02').midday) do
+          create(:lesson, :refused, teacher: new_teacher)
+        end
+        Timecop.freeze(Time.parse('2017-01-05')) do
+          create_list(:lesson, 2, :paid)
+          create_list(:lesson, 2, :paid, teacher: teacher)
+          create(:lesson, :paid, teacher: new_teacher)
+        end
       end
 
       it 'returns report entity with teachers count' do
         expect(subject).to be_valid
-        expect(subject.result.first.total_count).to eq(4)
-        expect(subject.result.first.teachers_count).to eq(3)
+        expect(subject.result.first.total_count).to eq(6)
+        expect(subject.result.first.teachers_count).to eq(4)
       end
 
       it 'returns report entity with new teachers count' do
-        expect(subject.result.first.new_teachers_count).to eq(2)
+        expect(subject.result.first.new_teachers_count).to eq(3)
       end
     end
   end

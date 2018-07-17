@@ -121,7 +121,7 @@ gem "factory_bot_rails"
 
 #gem 'capybara'
 
-gem 'mysql2'
+gem 'mysql2', '>= 0.3.18', '< 0.5'
 
 gem "rails-erd"
 

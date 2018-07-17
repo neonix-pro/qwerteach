@@ -9,7 +9,7 @@ require 'spec_helper'
 # note: require 'devise' after require 'rspec/rails'
 require 'devise'
 require "cancan/matchers"
-require 'capybara-screenshot/rspec'
+#require 'capybara-screenshot/rspec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

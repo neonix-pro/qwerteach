@@ -18,12 +18,12 @@ RSpec.describe ActivityReport, type: :report do
     it 'returns 2 report entities' do
       expect(subject).to be_valid
       expect(result.size).to eq(3)
-      expect(result[0].lessons_count).to eq(2)
-      expect(result[0].period.strftime('%Y-%m-%d')).to eq('2017-01-01')
+      expect(result[2].lessons_count).to eq(2)
+      expect(result[2].period.strftime('%Y-%m-%d')).to eq('2017-01-01')
       expect(result[1].lessons_count).to eq(2)
       expect(result[1].period.strftime('%Y-%m-%d')).to eq('2017-02-01')
-      expect(result[2].lessons_count).to eq(0)
-      expect(result[2].period.strftime('%Y-%m-%d')).to eq('2017-03-01')
+      expect(result[0].lessons_count).to eq(0)
+      expect(result[0].period.strftime('%Y-%m-%d')).to eq('2017-03-01')
     end
   end
 
@@ -41,7 +41,8 @@ RSpec.describe ActivityReport, type: :report do
 
       it 'returns first 5 entities' do
         expect(subject).to be_valid
-        expect(result.map { |entity| entity.period.strftime('%Y-%m-%d') }).to eq(%w[2017-01-01 2017-02-01 2017-03-01 2017-04-01 2017-05-01])
+        expect(result.map { |entity| entity.period.strftime('%Y-%m-%d') })
+          .to eq(%w[2017-05-01 2017-04-01 2017-03-01 2017-02-01 2017-01-01])
         expect(result.map(&:lessons_count)).to eq(Array.new(5) { 2 })
       end
     end
@@ -50,7 +51,8 @@ RSpec.describe ActivityReport, type: :report do
       let(:page) { 2 }
       it 'returns second 5 entities' do
         expect(subject).to be_valid
-        expect(result.map { |entity| entity.period.strftime('%Y-%m-%d') }).to eq(%w[2017-06-01 2017-07-01 2017-08-01 2017-09-01 2017-10-01])
+        expect(result.map { |entity| entity.period.strftime('%Y-%m-%d') })
+          .to eq(%w[2017-10-01 2017-09-01 2017-08-01 2017-07-01 2017-06-01])
         expect(result.map(&:lessons_count)).to eq(Array.new(5) { 2 })
       end
     end

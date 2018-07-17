@@ -73,7 +73,7 @@ class LessonsReport < ApplicationReport
   end
 
   def created_lessons
-    lessons.where(lessons[:price].gt 0).where(lessons[:status].eq Lesson.statuses[:created])
+    lessons.where(sql('price').gt 0).where(sql('status').eq Lesson.statuses[:created])
   end
 
   def expired_lessons
@@ -96,20 +96,20 @@ class LessonsReport < ApplicationReport
     created_lessons
       .where(
         lessons[:time_start].eq( created_lessons
-          .project(Arel.sql('time_start').minimum)
-          .where(Arel.sql('student_id').eq(lessons[:student_id]))
-          .from(Arel::Nodes::As.new(lessons, Arel.sql('ls')))
+          .project(sql('time_start').minimum)
+          .where(sql('student_id').eq(lessons[:student_id]))
+          .from(Arel::Nodes::As.new(lessons, sql('ls')))
         )
       )
   end
 
-  def first_teacher_lessons
+  def first_teacher_lessons 
     created_lessons
       .where(
         lessons[:time_start].eq( created_lessons
-          .project(Arel.sql('time_start').minimum)
-          .where(Arel.sql('teacher_id').eq(lessons[:teacher_id]))
-          .from(Arel::Nodes::As.new(lessons, Arel.sql('ls')))
+          .project(sql('time_start').minimum)
+          .where(sql('teacher_id').eq(lessons[:teacher_id]))
+          .from(Arel::Nodes::As.new(lessons, sql('ls')))
         )
       )
   end
@@ -185,4 +185,7 @@ class LessonsReport < ApplicationReport
     end
   end
 
+  def sql(expression)
+    Arel.sql(expression)
+  end
 end
